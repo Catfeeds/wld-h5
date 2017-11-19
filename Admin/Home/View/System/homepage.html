@@ -1,0 +1,482 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>系统设置</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统设置 <span class="c-gray en">&gt;</span> 基本设置 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<div id="tab-system" class="HuiTab">
+		<div class="tabBar cl"><span>基本设置</span><span>大转盘活动设置</span></div>
+		<div class="tabCon">
+			<form action="homepage_setting" method="post" class="form form-horizontal" id="form-setting-add">
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>活动是否开启：</label>
+				<div class="formControls col-5">
+					<span class="select-box">
+						<select class="select" size="1" name="state">
+		          		<option value="0" <if condition="$data['state'] eq 0">selected="selected"</if>>不开启</option>
+						<option value="1" <if condition="$data['state'] eq 1">selected="selected"</if>>开启</option>
+		        		</select>
+    				</span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>活动是否随机：</label>
+				<div class="formControls col-5">
+					<span class="select-box">
+						<select class="select" size="1" name="random">
+		          		<option value="0" <if condition="$data['random'] eq 0">selected="selected"</if>>不开启</option>
+						<option value="1" <if condition="$data['random'] eq 1">selected="selected"</if>>开启</option>
+		        		</select>
+    				</span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>活动出现个数：</label>
+				<div class="formControls col-5">
+					<input type="text" name="randnum" placeholder="" value="{$data['randnum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>图片显示数量：</label>
+				<div class="formControls col-5">
+					<input type="text" name="shownum" placeholder="" value="{$data['shownum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>最小点击次数中奖：</label>
+				<div class="formControls col-5">
+					<input type="text" name="minclick" placeholder="" value="{$data['minclick']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>最大点击次数中奖：</label>
+				<div class="formControls col-5">
+					<input type="text" name="maxclick" placeholder="" value="{$data['maxclick']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>砍价次数：</label>
+				<div class="formControls col-5">
+					<input type="text" name="bargainnum" placeholder="" value="{$data['bargainnum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>商家显示数量：</label>
+				<div class="formControls col-5">
+					<input type="text" name="shopnum" placeholder="" value="{$data['shopnum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>商品显示数量：</label>
+				<div class="formControls col-5">
+					<input type="text" name="producenum" placeholder="" value="{$data['producenum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2">中奖时间段设置：</label>
+				<div class="formControls col-5">
+					<input type="text" name="limittime" placeholder="例如：7:30:00-8:30:00|12:30:00-14:30:00|17:30:00-19:30:00" value="{$data['limittime']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>答题活动问题数量：</label>
+				<div class="formControls col-5">
+					<input type="text" name="questionnum" placeholder="" value="{$data['questionnum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>碎片点击数：</label>
+				<div class="formControls col-5">
+					<input type="text" name="chipclick" placeholder="" value="{$data['chipclick']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*（单位km）</span>碎片出现距离：</label>
+				<div class="formControls col-5">
+					<input type="text" name="chipjuli" placeholder="" value="{$data['chipjuli']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>碎片中奖时间：</label>
+				<div class="formControls col-5">
+					<input type="text" name="chiptime" placeholder="例如：08|09|10|11|12|13|14|15|16|17|18|19|20" value="{$data['chiptime']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>商家返利红包点击数：</label>
+				<div class="formControls col-5">
+					<input type="text" name="redclick" placeholder="" value="{$data['redclick']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>活动随机个数：</label>
+				<div class="formControls col-5">
+					<input type="text" name="randchange" placeholder="" value="{$data['randchange']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>集福活动时间</label>
+				<div class="formControls col-5">
+					<input type="text" name="collecttime" placeholder="例如：7:30:00-8:30:00|12:30:00-14:30:00|17:30:00-19:30:00" value="{$data['collecttime']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>红包雨红包数量：</label>
+				<div class="formControls col-5">
+					<input type="text" name="collectnum" placeholder="" value="{$data['collectnum']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>集福活动中红包范围：</label>
+				<div class="formControls col-5">
+					<input type="text" name="redrand" placeholder="例如概率20%：51|70" value="{$data['redrand']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>集福活动中福字范围：</label>
+				<div class="formControls col-5">
+					<input type="text" name="resrand" placeholder="例如概率20%：71|90" value="{$data['resrand']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>过年风格是否开启：</label>
+				<div class="formControls col-5">
+					<span class="select-box">
+						<select class="select" size="1" name="styleswitch">
+		          		<option value="0" <if condition="$data['styleswitch'] eq 0">selected="selected"</if>>不开启</option>
+						<option value="1" <if condition="$data['styleswitch'] eq 1">selected="selected"</if>>开启</option>
+		        		</select>
+    				</span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>聚宝限制份数：</label>
+				<div class="formControls col-5">
+					<input type="text" name="portionlimit" placeholder="" value="{$data['portionlimit']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>是否开启返利红包：</label>
+				<div class="formControls col-5">
+					<span class="select-box">
+						<select class="select" size="1" name="redstatus">
+		          		<option value="0" <if condition="$data['redstatus'] eq 0">selected="selected"</if>>不开启</option>
+						<option value="1" <if condition="$data['redstatus'] eq 1">selected="selected"</if>>开启</option>
+		        		</select>
+    				</span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>返利红包时间：</label>
+				<div class="formControls col-5">
+					<input type="text" name="redtimes" placeholder="例如：7:30:00-8:30:00|12:30:00-14:30:00|17:30:00-19:30:00" value="{$data['redtimes']}" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="col-10 col-offset-2">
+					<div onClick="setting_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>提交保存</div>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+
+	<div class="tabCon">
+		<form action="roulette_setting" method="post" class="form form-horizontal" id="form-setting-add1">
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>活动状态：</label>
+			<div class="formControls col-5">
+				<span class="select-box">
+					<select class="select" size="1" name="statu">
+	          		<option value="0" <if condition="$vo['statu'] eq 0">selected="selected"</if>>不开启</option>
+					<option value="1" <if condition="$vo['statu'] eq 1">selected="selected"</if>>开启</option>
+	        		</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>抽奖次数：</label>
+			<div class="formControls col-5">
+				<input type="text" name="num" placeholder="" value="{$vo['num']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>位置一：</label>
+			<div class="formControls col-5">
+				<input type="text" name="prize1" placeholder="" value="{$vo['prize1']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>位置二：</label>
+			<div class="formControls col-5">
+				<input type="text" name="prize2" placeholder="" value="{$vo['prize2']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>位置三：</label>
+			<div class="formControls col-5">
+				<input type="text" name="prize3" placeholder="" value="{$vo['prize3']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>位置四：</label>
+			<div class="formControls col-5">
+				<input type="text" name="prize4" placeholder="" value="{$vo['prize4']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>位置五：</label>
+			<div class="formControls col-5">
+				<input type="text" name="prize5" placeholder="" value="{$vo['prize5']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>位置六：</label>
+			<div class="formControls col-5">
+				<input type="text" name="prize6" placeholder="" value="{$vo['prize6']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>是否允许重复中奖：</label>
+			<div class="formControls col-5">
+				<span class="select-box">
+					<select class="select" size="1" name="repeat">
+	          		<option value="1" <if condition="$vo['repeat'] eq 1">selected="selected"</if>>允许</option>
+					<option value="2" <if condition="$vo['repeat'] eq 2">selected="selected"</if>>不允许</option>
+	        		</select>
+				</span>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>指定用户中奖：</label>
+			<div class="formControls col-5">
+				<input type="text" name="luckuser" placeholder="格式例：wld002|wld003" value="{$vo['luckuser']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>一等奖中奖概率：</label>
+			<div class="formControls col-5">
+				<input type="text" name="maxclick" placeholder="格式:'11|8'" value="{$vo['maxclick']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>二等奖中奖概率：</label>
+			<div class="formControls col-5">
+				<input type="text" name="minclick" placeholder="格式:'11|8'" value="{$vo['minclick']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>三等奖中奖概率:</label>
+			<div class="formControls col-5">
+				<input type="text" name="redmaxclick" placeholder="格式:'11|8'" value="{$vo['redmaxclick']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>四等奖中奖概率：</label>
+			<div class="formControls col-5">
+				<input type="text" name="redminclick" placeholder="格式:'11|8'" value="{$vo['redminclick']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>五等奖中奖概率：</label>
+			<div class="formControls col-5">
+				<input type="text" name="midclick" placeholder="格式:'11|8'" value="{$vo['midclick']}" class="input-text">
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<label class="form-label col-2">中奖时间段设置：</label>
+			<div class="formControls col-5">
+				<input type="text" name="limittime" placeholder="例如：7:30:00-8:30:00|12:30:00-14:30:00|17:30:00-19:30:00" value="{$vo['limittime']}" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<div onClick="rsetting_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>提交保存</div>
+			</div>
+		</div>
+	</form>
+	</div>
+
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/webuploader/0.1.5/webuploader.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+});
+
+//首页设置 保存并提交
+function setting_save_submit() {
+	var state = $('select[name=state]').val();
+	var random = $('select[name=random]').val();
+	var randnum = $('input[name=randnum]').val();
+	var shownum = $('input[name=shownum]').val();
+	var minclick = $('input[name=minclick]').val();
+	var maxclick = $('input[name=maxclick]').val();
+	var bargainnum = $('input[name=bargainnum]').val();
+	var producenum = $('input[name=producenum]').val();
+	var shopnum = $('input[name=shopnum]').val();
+	var chipjuli = $('input[name=chipjuli]').val();
+	
+	if(state == ''){
+		layer.msg('活动是否开启未选择',{icon:10,time:2000});
+		return;
+	}
+	if(random == ''){
+		layer.msg('活动是否随机未选择',{icon:10,time:2000});
+		return;
+	}
+	if (randnum == '') {
+		layer.msg('活动随机个数未填写',{icon:10,time:2000});
+		return;
+	}
+	if (shownum == '') {
+		layer.msg('图片显示数量未填写',{icon:10,time:2000});
+		return;
+	}
+	if (minclick == '') {
+		layer.msg('最小点击次数中奖未填写',{icon:10,time:2000});
+		return;
+	}
+	if (maxclick == '') {
+		layer.msg('最大点击次数中奖未填写',{icon:10,time:2000});
+		return;
+	}
+	if (bargainnum == '') {
+		layer.msg('砍价次数未填写',{icon:10,time:2000});
+		return;
+	}
+	if (producenum == '') {
+		layer.msg('商品显示数量未填写',{icon:10,time:2000});
+		return;
+	}
+	if (shopnum == '') {
+		layer.msg('商家显示数量未填写',{icon:10,time:2000});
+		return;
+	}
+	if (chipjuli == '') {
+		layer.msg('碎片出现距离未填写',{icon:10,time:2000});
+		return;
+	}
+	if(Number(minclick) > Number(maxclick)){
+		layer.msg('最小点击次数不能大于最大点击次数',{icon:10,time:2000});
+		return;
+	}
+	$('#form-setting-add').submit();
+}
+
+//大转盘设置 保存并提交
+function rsetting_save_submit() {
+	var num = $('input[name=num]').val();
+	var prize1 = $('input[name=prize1]').val();
+	var prize2 = $('input[name=prize2]').val();
+	var prize3 = $('input[name=prize3]').val();
+	var prize4 = $('input[name=prize4]').val();
+	var prize5 = $('input[name=prize5]').val();
+	var prize6 = $('input[name=prize6]').val();
+	var repeat = $('select[name=repeat]').val();
+	var luckuser = $('input[name=luckuser]').val();
+	var minclick = $('input[name=minclick]').val();
+	var maxclick = $('input[name=maxclick]').val();
+	var redminclick = $('input[name=redminclick]').val();
+	var redmaxclick = $('input[name=redmaxclick]').val();
+	
+	if (num == '') {
+		layer.msg('抽奖次数未填写',{icon:10,time:2000});
+		return;
+	}
+	if (prize1 == '') {
+		layer.msg('位置一未填写',{icon:10,time:2000});
+		return;
+	}
+
+	if (prize2 == '') {
+		layer.msg('位置二未填写',{icon:10,time:2000});
+		return;
+	}
+	if (prize3 == '') {
+		layer.msg('位置三未填写',{icon:10,time:2000});
+		return;
+	}
+	if (prize4 == '') {
+		layer.msg('位置四未填写',{icon:10,time:2000});
+		return;
+	}
+	if (prize5 == '') {
+		layer.msg('位置五未填写',{icon:10,time:2000});
+		return;
+	}
+	if (prize6 == '') {
+		layer.msg('位置六未填写',{icon:10,time:2000});
+		return;
+	}
+
+	if(repeat == ''){
+		layer.msg('是否可以重复中奖未选择',{icon:10,time:2000});
+		return;
+	}
+	
+	if (minclick == '') {
+		layer.msg('最小点击次数中奖未填写',{icon:10,time:2000});
+		return;
+	}
+	if (maxclick == '') {
+		layer.msg('最大点击次数中奖未填写',{icon:10,time:2000});
+		return;
+	}
+	if(Number(minclick) > Number(maxclick)){
+		layer.msg('最小点击次数不能大于最大点击次数',{icon:10,time:2000});
+		return;
+	}
+
+	if (redminclick == '') {
+		layer.msg('最小点击次数中奖未填写',{icon:10,time:2000});
+		return;
+	}
+	if (redmaxclick == '') {
+		layer.msg('最大点击次数中奖未填写',{icon:10,time:2000});
+		return;
+	}
+	if(Number(redminclick) > Number(redmaxclick)){
+		layer.msg('最小点击次数不能大于最大点击次数',{icon:10,time:2000});
+		return;
+	}
+	$('#form-setting-add1').submit();
+}
+</script>
+</body>
+</html>

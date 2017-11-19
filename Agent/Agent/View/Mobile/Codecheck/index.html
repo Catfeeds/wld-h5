@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>激活码申请</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<style type="text/css">
+			img{ width: 100%; height: 100%;}
+		</style>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="wrap-page">
+			<div class="str-active fs14">已激活<font id="code_checked"></font></div>
+
+			<div class="code-check">
+				<div class="apply-btn fr fs14" id="applyfor">生成</div>
+				<div class="code-txt fl c5 fs14">激活码生成</div>
+				<div class="code-input fl"><input type="tel" placeholder="请输入数量" class="fs14" id="code_num" maxlength="10"></div>
+			</div>
+
+			<div class="comm-nav-tab bgcolor divtab fs14">
+				<ul>
+					<li class="c-nav-tli hover" id="c-nav-t2" onclick="selectstatu(2)">待激活</li>
+					<li class="c-nav-tli" id="c-nav-t1" onclick="selectstatu(1)">已激活</li>
+				</ul>
+			</div>
+			<div class="apply-state bgcolor divtab activate-one">
+				<ul id="data_list">
+					<!--<li>
+						<div class="u-headimg fl">
+							<img src="__IMG__/mobile/agentimg.jpg" alt="" />
+						</div>
+						<div class="u-nameinfo fl">
+							<p class="c3 fs14">微领地小蜜</p>
+							<p class="c3 fs12">SADA 05620 1050</p>
+							<p class="c9 fs11">2017-05-19 12:12:12</p>
+						</div>
+					</li>
+					
+					<li>
+						<div class="code-info fl">
+							<p class="fs14 c3">SADA 3245 5467</p>
+							<p class="c9 fs11">2017-05-19 12:12:12</p>
+						</div>
+						<div class="code-share fr fs14">分享</div>
+					</li>
+					
+					
+					<li>
+						<div class="u-headimg fl">
+							<img src="__IMG__/mobile/agentimg.jpg" alt="" />
+						</div>
+						<div class="u-nameinfo fl">
+							<p class="c3 fs14">微领地小蜜</p>
+							<p class="c3 fs12">SADA 05620 1050</p>
+							<p class="c9 fs11">2017-05-19 12:12:12</p>
+						</div>
+						<div class="u-state fs12 cred fr">区域经理审核中</div>
+					</li>-->
+
+				</ul>
+				<div id="console"></div>
+			</div>
+
+			<!--待激活-->
+			<div class="apply-state bgcolor divtab activate-two">
+				<ul id="data_list_2">
+
+				</ul>
+			</div>
+
+			<!--待审核-->
+			<div class="apply-state bgcolor divtab activate-three">
+				<ul id="data_list_3">
+
+				</ul>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="__JS__/clipboard.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				yangshi();
+			}
+
+			function yangshi() {
+				$('#return-top').hide();
+				var hzw = $('.u-headimg').width();
+				$('.u-headimg').width(hzw);
+				$('.u-headimg').height(hzw);
+				$('.u-nameinfo').css('line-height', hzw * 0.33 + 'px');
+				$('.u-state').css('line-height', hzw + 'px');
+			}
+
+			$('.code-input input').bind('input propertychange', function() {
+				if($(this).val().length > 0) {
+					$('.apply-btn').css('background', '#46A9FA');
+					$('#applyfor').bind('click', function() {
+						codecheck();
+					});
+				} else {
+					$('.apply-btn').css('background', '#ccc');
+					$('#applyfor').unbind('click');
+				}
+			});
+
+			var tjsign = true;
+
+			function codecheck() {
+				if(tjsign) {
+					tjsign = false;
+					var re = /^[0-9]*[1-9][0-9]*$/;
+					var codenum = $('#code_num').val();
+					if(!codenum) {
+						alert('请输入申请串码个数');
+						tjsign = true;
+						return;
+					} else if(!re.test(codenum)) {　　　　
+						alert("请输入数字");　
+						$('#code_num').val("");　
+						tjsign = true;　　　　　
+						return;　　
+					} else if(parseInt(codenum) <= 0 || parseInt(codenum) > 99) {
+						alert("请输入0~99内的数字！");
+						tjsign = true;
+						return;
+					}　　
+
+					$.post("__URL__/ApplyCode", {
+						num: codenum
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							alert(data['msg']);
+							//							selectstatu(1);
+							window.location.href = "__URL__/index?statu=2";
+						} else {
+							alert(data['msg']);
+							tjsign = true;
+						}
+					});
+
+				}
+			}
+			/*列表*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var statu = '<?php echo $statu; ?>';
+			if(!statu) {
+				statu = 2;
+			}
+			selectstatu(statu);
+
+			function selectstatu(i) {
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				$('.c-nav-tli').removeClass('hover');
+				$('#c-nav-t' + i).addClass('hover');
+				//				if(statu == 0) {
+				//					$('.activate-one').css('display', 'block');
+				//					$('.activate-two').css('display', 'none');
+				//					$('.activate-three').css('display', 'none');
+				//				} else if(statu == 1) {
+				//					$('.activate-two').css('display', 'block');
+				//					$('.activate-one').css('display', 'none');
+				//					$('.activate-three').css('display', 'none');
+				//				} else {
+				//					$('.activate-three').css('display', 'block');
+				//					$('.activate-one').css('display', 'none');
+				//					$('.activate-two').css('display', 'none');
+				//				}
+				getdatalist(statu);
+			}
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist(statu);
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist(statu) {
+				var url = "__URL__/GetNumList?type=" + statu + "&pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">抱歉，没有找到相关信息</div>';
+								}
+								emptyval = false;
+							} else {
+								
+								if(pageindex <= data.pageCount) {
+									$('#code_checked').text(data.jihuo_total);
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										if(statu == 1) {
+											_html += '<li>';
+											_html += '<div class="u-headimg fl">';
+											_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+											_html += '</div>';
+											_html += '<div class="u-nameinfo fl">';
+											_html += '<p class="c3 fs14">' + datalist[i]['c_nickname'] + '</p>';
+											_html += '<p class="c3 fs12">' + datalist[i]['c_code'] + '</p>';
+											_html += '<p class="c9 fs11">' + datalist[i]['c_activitime'] + '</p>';
+											_html += '</div>';
+											_html += '</li>';
+										} else if(statu == 2) {
+											_html += '<li>';
+											_html += '<div class="code-info fl">';
+											_html += '<div class="fs14 c3" id="bar' + datalist[i]['c_id'] + '">' + datalist[i]['c_code'] + '</div>';
+											_html += '<p class="c9 fs11">' + datalist[i]['c_addtime'] + '</p>';
+											_html += '</div>';
+											_html += '<button class="code-share btn fr fs14" data-clipboard-action="copy" data-clipboard-target="#bar' + datalist[i]['c_id'] + '" onclick="">复制</button>';
+											_html += '</li>';
+										 } 
+										 // else if(statu == 2) {
+										// 	_html += '<li>';
+										// 	_html += '<div class="u-headimg fl">';
+										// 	_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+										// 	_html += '</div>';
+										// 	_html += '<div class="u-nameinfo fl">';
+										// 	_html += '<p class="c3 fs14">' + datalist[i]['c_nickname'] + '</p>';
+										// 	_html += '<p class="c3 fs12">' + datalist[i]['c_code'] + '</p>';
+										// 	_html += '<p class="c9 fs11">' + datalist[i]['c_addtime'] + '</p>';
+										// 	_html += '</div>';
+
+										// 	if(datalist[i]['c_checked'] == 2) {
+										// 		_html += '<div class="u-state fs12 cred fr">区域经理审核中</div>';
+										// 	} else if(datalist[i]['c_checked'] == 0) {
+										// 		_html += '<div class="u-state fs12 cyellow fr">代理审核中</div>';
+										// 	}
+
+										// 	_html += '</li>';
+										// }
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						yangshi();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+
+			//复制
+			var clipboard = new Clipboard('.btn');
+			clipboard.on('success', function(e) {
+			    console.info('Action:', e.action);
+			    console.info('Text:', e.text);
+			    console.info('Trigger:', e.trigger);
+				alert("复制成功");
+			    e.clearSelection();
+			});
+
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			    alert('浏览器版本过低，请“拷贝”进行复制!');
+			});
+
+		</script>
+
+	</body>
+
+</html>

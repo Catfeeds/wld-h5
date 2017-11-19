@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>支付结果</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/order.css?v=3.0.0">
+		<link rel="stylesheet" href="__CSS__/success/index.css"" />
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+
+	</head>
+
+	<body>
+		<form id="CONSIGNEE_ADDRESS">
+			<div class="wrap-page" style="margin-bottom:13%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<div id="suborder-list-main">
+						<div class="suborder-header fs13">
+							<div class="success"><span></span>购买成功</div>
+						</div>
+						<div class="suborder-header fs13 fsXiao">
+							<div class="model1">
+								<div class="information fs18"><span></span>商家信息</div>
+								<div class="supermarket fs18">小蜜的超市</div>
+								<div>18670068888</div>
+								<div>湖南省长沙市岳麓区金星北路123号48-10</div>
+							</div>
+							<div class="model1"><span>提货码</span><span> 9874 9178 1918</span></div>
+							<div class="model1">
+								<div>提货码为提货唯一凭证,请妥善管理</div>
+								<div>提货码可通过手机截屏保存,或进入小蜜APP和微领地小蜜"服务中心"-"我的活动"中进行查看</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<include file="Base@Public/pubjs" />
+		<!--<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>-->
+		<script type="text/javascript" src="__COMMON__/js/region.js?v=3.0.0"></script>
+	</body>
+</html>

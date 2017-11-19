@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>兑换成功</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/exchange/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="exsuccess-main">
+				<div class="exsu-pro bgcolor">
+					<div class="exsu-pro-status divtre">
+						<div class="exsu-img divab">
+							<img src="__IMG__/exchange/exchange_icon_success@2x.png">
+						</div>
+						<div class="fs14">恭喜你</div>
+						<span class="fs11">免费领取成功</span>
+					</div>
+					<div class="exsu-pro-img">
+						<img src="__IMG__/cpackage/tu14.jpg">
+					</div>
+					<div class="ex-pro-info divtab">
+						<div class="ex-pro-price exsu-price divre">
+							<div class="fs16 cy">￥120</div>
+							<div class="diagonal exbg01 divab"></div>
+						</div>
+						<div class="exsu-pro-name fov c3 fs14">玫瑰花酒，自酿低度数</div>
+						<div class="fl exget-time divtab c9 fs11">
+							兑换时间：2017.05.10-2017.07.10
+						</div>
+					</div>
+				</div>
+
+				<div class="exsu-com-box bgcolor">
+					<div class="exsu-com-tit bborder fs12">立即评论</div>
+					<div class="exsu-com-con bborder">
+						<div class="exsu-com-info fs12 c9">
+							<textarea name="" rows="4" placeholder="此宝贝满意吗？分享给想买的他们吧。"></textarea>
+						</div>
+						<div class="exsu-photo">
+							<div class="exsu-photo-img">
+								<img src="__IMG__/exchange/exchange_icon_photograph@2x.png">
+							</div>
+							<span class="fs11 c9">添加图片</span>
+						</div>
+					</div>
+					<div class="exsu-com-show divre">
+						<div class="com-show-checkbox fl">
+						 	<input name="checkbox1" value="Item" type="checkbox" >
+						</div>
+						<span class="fs12">匿名</span>
+						<span class="fs12 c9 fr">你写的评论会以匿名的形式展现</span>
+					</div>
+				</div>
+
+				<div class="exsu-score-box bgcolor">
+					<div class="exsu-score-tit divtab">
+						<div class="exsu-score-img fl">
+							<img src="__IMG__/exchange/exchange_icon_evaluate@2x.png">
+						</div>
+						<span class="fs12">店铺评分</span>
+						<span class="fs12 fr">一般/好/非常好</span>
+					</div>
+					<div class="exsu-score-term divtab">
+						<div class="exsu-term-name fl fs12">服务态度</div>
+						<div class="exsu-term-star fl divtab">
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+						</div>
+						<div class="exsu-term-sum fs12 fr">非常好</div>
+					</div>
+					<div class="exsu-score-term divtab">
+						<div class="exsu-term-name fl fs12">商品满意度</div>
+						<div class="exsu-term-star fl divtab">
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_score@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_default@2x.png"></p>
+							<p class="fl"><img src="__IMG__/exchange/exchange_icon_default@2x.png"></p>
+						</div>
+						<div class="exsu-term-sum fs12 fr">好</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.xm-bar-nav-right').text("分享");
+
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		$('.exsu-img').height($('.exsu-img').width());
+		$('.exsu-pro-img').height($('.exsu-pro-img').width()*0.6+'px');
+		$('.exsu-photo-img').height($('.exsu-photo-img').width()*0.83+'px');
+		$('.exsu-score-img').height($('.exsu-score-img').width()*0.85+'px');
+		$('.exsu-term-star p').height($('.exsu-term-star p').width());
+		
+
+
+	}
+
+	/*var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	 var statu = '<?php echo $statu ?>';
+	 if(!statu) {
+	 	statu = 1;
+	 }
+	 selectstatu(statu);
+	 mui('.mui-content').on('tap', '#c-nav-t1', function() {
+	 	selectstatu(1);
+	 });
+	 mui('.mui-content').on('tap', '#c-nav-t2', function() {
+	 	selectstatu(2);
+	 });
+
+	 function selectstatu(i) {
+	 	statu = i;
+	 	pageindex = 1;
+	 	ctrls = true;
+	 	emptyval = true;
+	 	$('.c-nav-tli').removeClass('hover');
+	 	$('#c-nav-t' + i).addClass('hover');
+	 	getdatalist();
+	 }*/
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+
+		/* if($(window).scrollTop() >= $('.coupon-nav-tab').height()) {
+		 	$('.coupon-nav-tab').addClass('menu-fixed');
+		 }
+		 if($(window).scrollTop() < $('.coupon-nav-tab').height()) {
+		 	$('.coupon-nav-tab').removeClass('menu-fixed');
+		 }*/
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/?pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					/*选择卡券*/
+					$('.coupon-detail_'+pageindex).each(function(index) {
+						var cid = $(this).attr('title');
+						mui('.mui-content').on('tap', '#cancel_' + cid, function() {
+							var ctype = $('#ctype_' + cid).val();
+							tijiao(cid, ctype);			
+						});
+					});	
+				}		
+			}
+		});
+	}
+
+	//确认对话框事件
+	mui('.mui-content').on('tap', '.c-cqd-delete', function() {
+		mui.confirm('删除后将无法继续领取，确认删除？', '提示', ['取消', '确认'], function(e) {
+			e.index == 0 ? "" : delcoupon();
+		}, 'div');
+	});
+
+	//点击事件
+	mui('.mui-content').on('tap', '#cancel_' + cid, function() {
+		var ctype = $('#ctype_' + cid).val();
+		tijiao(cid, ctype);			
+	});
+
+	var tjsign = true;
+	function tijiao() {
+		if (tjsign) {
+			tjsign = false;
+			$.post("",{cid:cid,num:num},function(obj){
+				var data = eval(obj);
+				tjsign = true;
+				if(data['code']==0){							
+					mui.toast(data['msg']);
+					mui.alert(data['msg']);
+					setTimeout(function () {
+						mui.openWindow({
+							url: '__URL__/couponlist',
+							id: 'couponlist'
+						});
+					}, 2000);
+				}else{
+					mui.toast(data['msg']);
+				}
+			});
+		}	
+	}
+
+	//提交表单
+	$('.xm-bar-nav-right').click(function() {
+		putform();
+	});
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/saveBagsInfo',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"level"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);					
+						}
+					}
+			});
+		}	
+	}
+</script>
+
+</html>

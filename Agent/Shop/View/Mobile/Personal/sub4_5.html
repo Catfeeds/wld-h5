@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>我的资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__JS__/ajaxfileupload.js"></script>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="wrap-page bgcolor" style="margin-bottom: 15%;">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="p_info_tit"><span class="fs14 c3">商家资料<?php if($oldinfo==1 && $userdata['c_shop']==1){ ?>4/4<?php }else{ ?>5/5<?php } ?>(*请勿手持拍摄)</span></div>
+				<div class="resource-main">
+
+					<div class="page-title">
+						<div class="page-tit-name"><?php if($ctype == 1){ ?>负责人身份证 <?php } else if($ctype == 2){ ?>法人身份证<?php } else if($ctype == 3){ ?>经营者身份证 <?php } ?></div>
+					</div>
+					<div class="fs12 c9" style="margin: 3% 4%;">
+						<p class="fs12"><?php if($ctype == 1){ ?>1.身份证需为负责人本人身份证 <?php } else if($ctype == 2){ ?>1.身份证需为法人身份证<?php } else if($ctype == 3){ ?>1.身份证需为经营者本人身份证 <?php } ?></p>
+						<p class="fs12">2.照片需上传正反两面，需看清完整的身份证信息</p>
+						<p class="fs12">3.照片需为原件或扫描件照片（复印件无效）</p>
+					</div>
+					<ul class="ul-certificate" style="border-bottom: 1px solid #c8c8c8;">
+						<li>
+							<div class="zjz-list">
+								<img src="__IMG__/add.jpg" alt="">
+								<?php if($vo['c_idcard_img'] !=null){ ?>
+								<div class="pic-front"><img id="imgr1" src="<?php echo GetHost(); ?>/{$vo.c_idcard_img}" alt=""></div>
+								<input type="hidden" name="idcardimg" value="{$vo.c_idcard_img}" id="saveimg_1">
+								<?php }else{ ?>
+								<div class="pic-front"><img id="imgr1" src="__IMG__/add.jpg" alt=""></div>
+								<input type="hidden" name="idcardimg" value="" id="saveimg_1">
+								<?php } ?>
+
+								<input type="file" name="idcardimg" value="" id="file1" placeholder="" onclick="clickimg(1);">
+							</div>
+							<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+								<?php } ?> onclick="deleteimg(1)" id="delimg_1"><img src="__IMG__/fc-16.png" alt=""></div>
+						</li>
+						<li>
+							<div class="zjz-list">
+								<img src="__IMG__/add.jpg" alt="">
+								<?php if($vo['c_idcard_img1'] !=null){ ?>
+								<div class="pic-front"><img id="imgr2" src="<?php echo GetHost(); ?>/{$vo.c_idcard_img1}" alt=""></div>
+								<input type="hidden" name="idcardimg1" value="{$vo.c_idcard_img1}" id="saveimg_2">
+								<?php }else{ ?>
+								<div class="pic-front"><img id="imgr2" src="__IMG__/add.jpg" alt=""></div>
+								<input type="hidden" name="idcardimg1" value="" id="saveimg_2">
+								<?php } ?>
+
+								<input type="file" name="idcardimg1" value="" id="file2" placeholder="" onclick="clickimg(2);" >
+							</div>
+							<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+								<?php } ?> onclick="deleteimg(2)" id="delimg_2"><img src="__IMG__/fc-16.png" alt=""></div>
+						</li>
+						<div class="example divtab">
+							<p class="c9 fs12">示例：</p>
+							<ul class="divtab">
+								<li><div class="idimg"><img src="__IMG__/idcard1.png" alt=""></div></li>
+								<li><div class="idimg"><img src="__IMG__/idcard2.png" alt=""></div></li>
+							</ul>
+						</div>
+					</ul>
+					<?php if($ctype==1 || $ctype==3){ ?>
+					<div class="page-title">
+						<div class="page-tit-name">银行卡</div>
+					</div>
+					<div class="fs12 c9" style="margin: 3% 4%;">
+						<p class="fs12"><?php if($ctype == 1){ ?>1.银行卡需为负责人本人储蓄卡 <?php } else if($ctype == 3){ ?>1.银行卡需为经营者本人储蓄卡<?php } ?></p>
+						<p class="fs12">2.银行卡照片需上传正反两面，需看清完整的银行卡信息</p>
+						<p class="fs12">3.照片需为原件或扫描件照片（复印件无效）</p>
+					</div>
+					<ul class="ul-certificate">
+						<li>
+							<div class="zjz-list">
+								<img src="__IMG__/add.jpg" alt="">
+								<?php if($vo['c_bankcardimg'] !=null){ ?>
+								<div class="pic-front"><img id="imgr5" src="<?php echo GetHost(); ?>/{$vo.c_bankcardimg}" alt=""></div>
+								<input type="hidden" name="bankcardimg" value="{$vo.c_bankcardimg}" id="saveimg_5">
+								<?php }else{ ?>
+								<div class="pic-front"><img id="imgr5" src="__IMG__/add.jpg" alt=""></div>
+								<input type="hidden" name="bankcardimg" value="" id="saveimg_5">
+								<?php } ?>
+
+								<input type="file" name="bankcardimg" value="" id="file5" placeholder="" onclick="clickimg(5);" >
+							</div>
+							<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+							<?php } ?> onclick="deleteimg(5)" id="delimg_5"><img src="__IMG__/fc-16.png" alt=""></div>
+						</li>
+						<li>
+							<div class="zjz-list">
+								<img src="__IMG__/add.jpg" alt="">
+								<?php if($vo['c_bankcardimg1'] !=null){ ?>
+								<div class="pic-front"><img id="imgr6" src="<?php echo GetHost(); ?>/{$vo.c_bankcardimg1}" alt=""></div>
+								<input type="hidden" name="bankcardimg1" value="{$vo.c_bankcardimg1}" id="saveimg_6">
+								<?php }else{ ?>
+								<div class="pic-front"><img id="imgr6" src="__IMG__/add.jpg" alt=""></div>
+								<input type="hidden" name="bankcardimg1" value="" id="saveimg_6">
+								<?php } ?>
+
+								<input type="file" name="bankcardimg1" value="" id="file6" placeholder="" onclick="clickimg(6);" >
+							</div>
+							<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+							<?php } ?> onclick="deleteimg(6)" id="delimg_6"><img src="__IMG__/fc-16.png" alt=""></div>
+						</li>
+					</ul>
+				<?php } ?>
+				<?php if($ctype==2 || $ctype==3){ ?>
+					<div class="page-title">
+						<div class="page-tit-name" style="width: 22%;">营业执照</div>
+					</div>
+					<div class="fs12 c9" style="margin: 3% 4%;">
+						<p class="fs12"><?php if($ctype == 2){ ?>1.营业执照需为企业营业执照<?php } else if($ctype == 3){ ?>1.营业执照需为个体工商户营业执照<?php } ?></p>
+						<p class="fs12">2.照片需看清完整的营业执照信息</p>
+						<p class="fs12">3.照片需为原件或扫描件照片（复印件无效）</p>
+					</div>
+					<ul class="ul-certificate">
+						<li>
+							<div class="zjz-list">
+								<img src="__IMG__/add.jpg" alt="">
+								<?php if($vo['c_charter_img'] !=null){ ?>
+								<div class="pic-front"><img id="imgr3" src="<?php echo GetHost(); ?>/{$vo.c_charter_img}" alt=""></div>
+								<input type="hidden" name="charter_img" value="{$vo.c_charter_img}" id="saveimg_3">
+								<?php }else{ ?>
+								<div class="pic-front"><img id="imgr3" src="__IMG__/add.jpg" alt=""></div>
+								<input type="hidden" name="charter_img" value="" id="saveimg_3">
+								<?php } ?>
+
+								<input type="file" name="charter_img" value="" id="file3" placeholder="" onclick="clickimg(3);" >
+							</div>
+							<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+								<?php } ?> onclick="deleteimg(3)" id="delimg_3"><img src="__IMG__/fc-16.png" alt=""></div>
+						</li>
+					</ul>
+				<?php } ?>
+				<?php if($ctype==2){ ?>
+					<div class="page-title">
+						<div class="page-tit-name" style="width: 45%;">银行公户开户许可证</div>
+					</div>
+					<div class="fs12 c9" style="margin: 3% 4%;">
+						<p class="fs12">1.照片需看清完整的开户许可证信息   </p>
+						<p class="fs12">2.照片需为原件或扫描件照片（复印件无效）</p>
+					</div>
+					<ul class="ul-certificate">
+						<li>
+							<div class="zjz-list" onclick="clickimg(4);">
+								<img src="__IMG__/add.jpg" alt="">
+								<?php if($vo['c_charterpub_img'] !=null){ ?>
+								<div class="pic-front"><img id="imgr4" src="<?php echo GetHost(); ?>/{$vo.c_charterpub_img}" alt=""></div>
+								<?php }else{ ?>
+								<div class="pic-front"><img id="imgr4" src="__IMG__/add.jpg" alt=""></div>
+								<?php } ?>
+								<input type="hidden" name="charterpub_img" value="{$vo.c_charterpub_img}" id="saveimg_4">
+								<input type="file" name="charterpub_img" value="" id="file4" placeholder="" onclick="clickimg(3);" >
+							</div>
+							<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+							<?php } ?> onclick="deleteimg(4)" id="delimg_4"><img src="__IMG__/fc-16.png" alt=""></div>
+						</li>
+					</ul>
+				<?php } ?>
+				</div>
+
+				<div class="con-descbtn" style="z-index: 9999;">
+					<a href="javascript:;" type="button" class="con-descbtn-l fl fs16" onclick="PreviousCK()">上一步</a>
+					<?php if($ctype==2 || $ctype==1){ ?>
+					<a href="javascript:;" type="button" class="con-descbtn-r fl fs16" onclick="checkimg(4)">完成</a>
+					<?php }else if($ctype==3){ ?>
+					<a href="javascript:;" type="button" class="con-descbtn-r fl fs16" onclick="checkimg(5)">完成</a>
+					<?php } ?>
+				</div>
+			</form>
+		</div>
+
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+            var ctype = '<?php echo $ctype ?>';/*企业资质，1个人2个体户3企业*/
+            var oldinfo = '<?php echo $oldinfo; ?>';
+            var dcode = '<?php echo $vo["c_dcode"] ?>';
+            var vostate = '<?php echo $vo["c_checked"]; ?>';
+            var cshop = '<?php echo $userdata["c_shop"]; ?>';
+			window.onload = function() {
+                $('.zjz-list').height($('.zjz-list').width());
+                $('.zjz-list').height($('.zjz-list').width());
+                $('.zjz-list input[type="file"]').width($('.zjz-list').width());
+                $('.zjz-list input[type="file"]').height($('.zjz-list').width());
+			}
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/sub4_4?isfixed="+isfixed+"&ctype="+ctype;
+			}
+			//点击上传图片
+			function clickimg(id) {
+				document.getElementById('file' + id).onchange = function() {
+					tempUploadimg('file' + id, 'imgr' + id, 'saveimg_' + id);
+				}
+				$('#delimg_' + id).css("display", "block");
+			}
+			/*清空图片*/
+			function deleteimg(id) {
+				delUploadimg($('#saveimg_' + id).val());
+				$('#saveimg_' + id).val("");
+				$('#file' + id).val("");
+				$('#imgr' + id).attr("src", "__IMG__/add.jpg");
+				$('#delimg_' + id).css("display", "none");
+			}
+			// 验证上传图片个数
+			function checkimg(total) {
+				var imgr = "__IMG__/add.jpg";
+				for(var i = 1; i <= total; i++) {
+					var saveimg = $('#saveimg_' + i).val();
+					beforei = $('#imgr' + i).attr("src");
+					if(beforei == imgr || saveimg == "") {
+						JqueryDialog.Show('请完善相关证件的图片！');
+						return false;
+						break;
+					}
+				};
+
+				dialogif('确认提交资料？', '提交后将不能进行修改');
+
+			}
+            /*提示弹窗*/
+            function dialogif(tit, desc) {
+                //获取客户端页面宽高
+                var _client_width = document.body.clientWidth;
+                var _client_height = document.documentElement.scrollHeight;
+
+                //create shadow
+                if(typeof($("#jd_shadow")[0]) == "undefined") {
+                    //前置
+                    $("body").prepend("<div id='jd_shadow'>&nbsp;</div>");
+                }
+
+                //create dialog
+                if(typeof($("#jd_dialog")[0]) != "undefined") {
+                    $("#jd_dialog").remove();
+                }
+                var show = '';
+                show += '<div id="jd_dialog" style="position: fixed;">';
+                show += '<div id="jd_dialog_h">' + tit + '</div>';
+                show += '<table align="center" id="jd_dialog_c">';
+                show += '<tr>';
+                show += '<td align="center">' + desc + '</td>';
+                show += '</tr>';
+                show += '</table>';
+                show += '<div id="jd_dialog_b">';
+                show += '<div id="jd_dialog_l" onclick="Close_dialog()">取消</div>';
+                show += '<div id="jd_dialog_r" onclick="Ok_dialog()" style="background: #45AAFA;color: #fff;">确认</div>';
+                show += '</div>';
+                show += '</div>';
+                $("body").prepend(show);
+            }
+
+            function Close_dialog() {
+                $("#jd_shadow").remove();
+                $("#jd_dialog").remove();
+            }
+
+            function Ok_dialog() {
+                savestep();
+            }
+
+			/*保存*/
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var attrbul = getFormAttrs('form1');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetInfo7',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								JqueryDialog.Show("提交成功！");
+								$("#jd_shadow").remove();
+								$("#jd_dialog").remove();
+                                if(oldinfo==1 && cshop==1){
+                                    setTimeout(function() {
+                                        window.location.href = "__URL__/info_9";
+                                    }, 1000);
+                                }else{
+                                    setTimeout(function() {
+                                        window.location.href = "__URL__/checkinfo";
+                                    }, 1000);
+                                }
+
+							} else {
+								JqueryDialog.Show(msg.msg);
+								$("#jd_shadow").remove();
+								$("#jd_dialog").remove();
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+		</script>
+
+	</body>
+
+</html>

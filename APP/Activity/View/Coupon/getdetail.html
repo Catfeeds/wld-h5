@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>领取详情</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/coupon/index.css" />
+		<style type="text/css">
+			.coupon-nav-tab ul li {
+				width: 50%;
+			}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="coupon-nav-tab bgcolor divtab fs13">
+					<ul>
+						<li class="hover c-nav-tli" id="c-nav-t1">领取详情</li>
+						<li class="c-nav-tli" id="c-nav-t2">使用详情</li>
+					</ul>
+				</div>
+
+				<div class="getdetail-list bgcolor" id="coupon_list">
+					
+				</div>
+				<div id="console"></div>
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-bar-nav-right').hide();
+				$('.xm-nav-title').text('领取详情');
+				styles();
+			}
+			/*样式*/
+			function styles() {
+				var headimgw = $('.get-d-headimg').width(),
+					hlih = headimgw * 48 / 100;
+				$('.get-d-headimg').height(headimgw);
+				$('.get-d-headimg').css('border-radius', headimgw + 'px');
+				$('.get-d-uinfo').css('line-height', hlih + 'px');
+				$('.get-d-acttype').css('line-height', headimgw + 'px');
+			}
+			$(document).ready(function() {
+
+			});
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var statu = '<?php echo $statu ?>';
+			if(!statu) {
+				statu = 1;
+			}
+			selectstatu(statu);
+			function selectstatu(i) {
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				$('.c-nav-tli').removeClass('hover');
+				$('#c-nav-t' + i).addClass('hover');
+				getdatalist();
+			}
+			mui('.mui-content').on('tap', '#c-nav-t1', function() {
+				selectstatu(1);
+			});
+			mui('.mui-content').on('tap', '#c-nav-t2', function() {
+				selectstatu(2);
+			});
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+				if($(window).scrollTop() >= $('.coupon-nav-tab').height()) {
+					$('.coupon-nav-tab').addClass('menu-fixed');
+				}
+				if($(window).scrollTop() < $('.coupon-nav-tab').height()) {
+					$('.coupon-nav-tab').removeClass('menu-fixed');
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/CouponReceiveInfo?cid=<?php echo $cid; ?>&type="+statu+"&pageindex="+pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab bgeb">';
+									_html += '<div class="c-empty-img"><img src="__IMG__/coupon/kqgl_icon_defect.png" alt="" /></div>';
+									if(statu == 1) {
+										_html += '<div class="c-empty-font c3 fs13">还没有人领取优惠券</div>';
+									} else if(statu == 2) {
+										_html += '<div class="c-empty-font c3 fs13">还没有人使用优惠券</div>';
+									}
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									_html += '<div class="getdetail-numlist bborder">';
+									if(statu == 1) {
+										_html += '<div class="get-d-getnum fl fs12 c3">已领取'+data['info']['leftnum']+'张</div>';
+										_html += '<div class="get-d-getnum fl fs12">未领取'+data['info']['rightnum']+'张</div>';
+									} else if(statu == 2) {
+										_html += '<div class="get-d-getnum fl fs12 c3">已使用'+data['info']['leftnum']+'张</div>';
+										_html += '<div class="get-d-getnum fl fs12">未使用'+data['info']['rightnum']+'张</div>';
+									}
+									_html += '</div>';
+
+									for(var i = 0; i < datalist.length; i++) {
+
+										_html += '<div class="getdetail-box bborder">';
+										_html += '<div class="get-d-headimg fl">';
+										_html += '<img src="'+datalist[i]['c_headimg']+'" alt="" />';
+										_html += '</div>';
+										_html += '<div class="get-d-uinfo fl">';
+										_html += '<p class="fs14 c3">'+datalist[i]['c_nickname']+'</p>';
+										if (statu == 2 && datalist[i]['c_used_time']) {
+											_html += '<p class="c9 fs12">'+datalist[i]['c_used_time']+'</p>';
+											_html += '</div>';
+											_html += '<div class="get-d-acttype fr cb fs12">'+datalist[i]['c_desc']+'</div>';
+										} else {
+											_html += '<p class="c9 fs12">'+datalist[i]['c_addtime']+'</p>';
+											_html += '</div>';
+											_html += '<div class="get-d-acttype fr cb fs12">'+datalist[i]['c_remark']+'</div>';
+										}
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#coupon_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>购物抽奖</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/lottery/ballot.css?v=1.3">
+  <link rel="stylesheet" type="text/css" href="__CSS__/lottery/promote.css?v=1.2">
+	<style type="text/css">
+		.wrap-page{background: #f9ddd2;}
+	</style>
+</head>
+<body>
+<input type="hidden" id="loginurl" value="{$loginurl}">
+<input type="hidden" id="ucode" value="{$ucode}">
+<div class="wrap-page" id="page1">	
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="fortune-banner"><img src="__IMG__/lottery/g00.png" alt=""></div>
+	<div class="lottery-g"><img src="__IMG__/lottery/g01.png" alt=""></div>  
+  <div class="lottery-num fs14">
+    剩余抽奖次数<span id="lottery-num">{$theme['num']}</span>次    
+  </div>
+	<div class="fortune-machine" style="padding:4% 4% 0 4%">
+		<div class="tiger-light " id="light-1" style="top:8%;"><img src="__IMG__/lottery/light-1.png" alt=""></div>
+		<div class="tiger-light none" id="light-2" style="top:8%;"><img src="__IMG__/lottery/light-2.png" alt=""></div>
+		<!-- <div class="tiger-goods">
+			<img src="__IMG__/lottery/pro-bg.png" alt="">
+		</div> -->
+		<div class="tiger-goods-list" style="top:11.5%;">
+			<ul id="lottery">
+				<li id="lottery_1">
+          <div class="imagepath">
+            <img src="{$prize[0]['c_img']}" alt=""></div>
+            <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_2">
+          <div class="imagepath">
+            <img src="{$prize[1]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_3">
+          <div class="imagepath">
+            <img src="{$prize[2]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_8">
+          <div class="imagepath">
+            <img src="{$prize[7]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_9" onclick="start_lottery();">
+          <div class="imagepath">
+            <img src="__IMG__/lottery/draw-btn.png" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_4">
+          <div class="imagepath">
+            <img src="{$prize[3]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_7">
+          <div class="imagepath">
+            <img src="{$prize[6]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_6">
+          <div class="imagepath">
+            <img src="{$prize[5]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+				<li id="lottery_5">
+          <div class="imagepath">
+            <img src="{$prize[4]['c_img']}" alt="">
+          </div>
+          <img src="__IMG__/lottery/libg.png" alt="">
+        </li>
+			</ul>	
+		</div>
+		<div class="tiger-pole"><img src="__IMG__/lottery/pole.png" alt=""></div>
+		<img src="__IMG__/lottery/bottom-bg.png" alt="">
+	</div>
+	
+	<div class="lottery-ptit">
+		<div class="lottery-ptit-i fl">
+			<img src="__IMG__/lottery/g02.png" alt="">
+		</div>
+		<div class="lottery-ptit-f fl fs18">抽奖规则</div>
+	</div>
+	<div class="lottery-rule-c c5 fs14">
+		<p>1、用户每次在小蜜内完成一笔大于10元的跨界消费即可获得1次抽奖机会。</p>
+		<p>2、每个用户一天最多享有 5 次抽奖机会。</p>
+		<p>3、现金奖品将直接存入小蜜账户余额中。</p>
+		<p>4、如果是实物奖品用户则需要填写地址进行领取， 如果关闭领取页面则视为放弃领奖。</p>
+		<!--<p>5、微领地小蜜平台享有该活动最终解释权。</p>-->
+	</div>
+	<div class="lottery-ptit">
+		<div class="lottery-ptit-i fl">
+			<img src="__IMG__/lottery/g03.png" alt="">
+		</div>
+		<div class="lottery-ptit-f fl fs18">中奖名单</div>
+	</div>
+	<div class="winning-list" id="winning-list">
+		<ul id="winlist">
+			<volist name="slotlog" id="vo">
+				<li>
+					<div class="winname c5 fs12">{$vo['name']}</div>
+					<div class="winproname c5 fs12 fov">						
+						{$vo['praisecontent']}
+					</div>
+					<div class="wintime c9 fs12">{$vo['time']}</div>
+				</li>				
+			</volist>			
+		</ul>
+	</div>
+	<input type="hidden" value="" id="lid">
+
+
+<!--抽奖次数用完提醒-->
+<div class="geted-sign-bg"></div>
+<div class="geted-sign">
+  <div class="geted-sign-con">
+    <div class="geted-sign-img"><img src="__IMG__/lottery/lhjed_03.png" alt=""></div>
+    <div class="geted-sign-font fs18">您今天已经领过小蜜老虎机的奖励了<Br>明天不见不散哦~</div>
+    <div class="geted-sign-close"><img src="__IMG__/lottery/close_04.png" alt=""></div>
+  </div>
+</div>
+
+
+
+</div>
+
+<!--现金红包弹框-->
+<div class="red-popup-bg" id="red-popup-bg"></div>
+<div class="red-popup" id="red-popup">
+	<div class="red-popup-con">
+		<div class="red-title fs16">您运气真不错，获得了现金红包<span id="money-red">1.5</span>元</div>
+		<div class="red-image">
+			<img src="__IMG__/lottery/prize-red.png" alt="">
+		</div>
+		
+    <div class="red-desc fs12">您获得的是现金红包，已识别您的小蜜帐号。<br>
+    点击领取系统会自动将您的中奖金额转入您的小蜜APP余额中。</div>
+		<div class="btn-login-in" onclick="RecieveWinPrize('red-popup-bg','red-popup')"><img src="__IMG__/lottery/btn-5.png" alt=""></div>
+
+		<div class="btn-close" id="red-popup-close"><img src="__IMG__/lottery/close_04.png" alt=""></div>
+	</div>
+</div>
+
+<!--实物弹框-->
+<div class="red-popup-bg" id="prize-popup-bg"></div>
+<div class="red-popup" id="prize-popup">
+	<div class="red-popup-con">
+		<div class="red-title fs16">您运气实在太好了<br>获得了价值<span id="money-prize">480</span>元的<span id="name-prize">红酒开瓶器</span>！</div>
+		<div class="prize-image">
+			<img src="__IMG__/lottery/pro-1.png" alt="" id="img-prize">
+		</div>
+
+    <div class="red-desc fs12">您抽中的是实物奖品，已识别您的小蜜帐号。<br>点击领取系统会自动将您的中奖物品转入订单。</div>
+		<div class="btn-login-in" onclick="RecieveWinPrize('prize-popup-bg','prize-popup')"><img src="__IMG__/lottery/btn-5.png" alt=""></div>
+
+		<div class="btn-close" id="prize-popup-close"><img src="__IMG__/lottery/close_04.png" alt=""></div>
+	</div>
+</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js"></script>
+<script type="text/javascript" src="__COMMON__/js/region.js"></script>
+<script type="text/javascript" src="__COMMON__/js/jquery.vticker.js"></script>
+<!-- 引入分享 -->
+<include file="Base@Public/appshare" />
+<include file="Base@Public/wxshare" />
+<script type="text/javascript">
+    $(function () {
+        $('#winning-list').vTicker();        
+    }); 
+</script>
+<script type="text/javascript">
+window.onload = function() {
+    ChRightText("推广");
+    var defaultaddr = "<?php echo $defaultaddr ?>";
+    if (defaultaddr==0) {
+        clickaddress();
+    }
+    $('.geted-sign-close').click(function() {
+        $(".geted-sign-bg").fadeOut(300);
+        $(".geted-sign").fadeOut(300);
+    });
+
+    $('#red-popup-close').click(function() {
+        $("#red-popup-bg").fadeOut(300);
+        $("#red-popup").fadeOut(300);
+    });
+
+    $('#prize-popup-close').click(function() {
+        $("#prize-popup-bg").fadeOut(300);
+        $("#prize-popup").fadeOut(300);
+    });
+    yangshi();
+    $('#iwrite').click(function() {
+        $("#if-address-bg").fadeOut(300);
+        $("#if-address-popup").fadeOut(300);
+        $('#page1').css('display', 'none');
+        $('#page2').css('display', 'block');
+    });
+}
+
+/*填写地址*/
+function clickaddress() {
+    $("#if-address-bg").fadeIn(300);
+    $("#if-address-popup").fadeIn(300);
+    $("#if-address-bg").height($(document).height());
+}
+function yangshi(){
+    $('.prize-img').height($('.prize-img').width());
+}
+//产生随机数
+function rand(Min, Max) {
+    var Range = Max - Min;
+    var Rand = Math.random();
+    return (Min + Math.round(Rand * Range));
+}
+// 抽奖次数
+var lotterynum = "<?php echo $theme['num']; ?>";
+
+//定义参数
+var index = 1, //当前选中对象的位置
+    fast, //在哪个位置开始加速
+    num = 8, //共有多少个抽奖对象
+    cycle, //转动多少圈
+    speed = 300, //开始时速度
+    flag = false, //正在抽奖标志
+    lucky, //中奖号码，实际应用由后台产生
+    strr = 0,
+    lottery; //抽奖对象
+
+//开始抽奖
+function start_lottery() {
+    if (flag) {
+        return;
+    }
+    flag = true;
+    index = 1; //当前选中对象的位置
+    fast = rand(3, 6); //在哪个位置开始加速
+    cycle = rand(5, 8); //转动多少圈
+    speed = 300; //开始时速度
+
+    $.ajax({
+        url: '__URL__/SlotRun?aid=<?php echo $aid ?>',
+        type: "get",
+        dataType: "json",
+        timeout: 20000,
+        cache: false,
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            flag = false;
+        },
+        success: function(res) {
+            var json = eval(res);
+            if (json['code'] == 0) {
+                lotterynum--;
+                $('#lottery-num').html(lotterynum);
+                var data = json.data;
+                lucky = data.c_marks; //中奖号码                  
+                $('#lid').val(data['lid']);
+                show_lottery(data['c_type'], data['c_value'], data['c_name'], data['c_img']);
+            } else {
+                mui.toast(json['msg']);
+            }
+        }
+    });
+}
+//抽奖效果展示
+function show_lottery(types, val, name, img) {
+    if (index > num) {
+        index = 1;
+        cycle--;
+    }
+    $('#lottery li').css('opacity', 0.3);
+    $('#lottery_' + index).css('opacity', 1);
+    if (index > fast) {
+        speed = 100; //开始加速
+    }
+    if (cycle == 0 && lucky - index < rand(2, 5)) {
+        speed = speed + 200; //开始减速
+    }
+    if (cycle <= 0 && index == lucky) {
+        clearTimeout(lottery);
+        setTimeout(function() {
+            $('#lottery li').css('opacity', 1);
+            if (types == 1) {
+                redpopup(val);
+            } else if (types == 2) {
+                prizepopup(img, val, name);
+            }
+
+        }, 1200);
+        flag = false;
+    } else {
+        lottery = setTimeout(function() {
+            show_lottery(types, val, name, img);
+            set_light();
+        }, speed);
+    }
+    index++;
+}
+/*灯的效果*/
+function set_light() {
+    if (strr == 1) {
+        $('#light-1').hide();
+        $('#light-2').show();
+        strr = 0;
+    } else {
+        $('#light-2').hide();
+        $('#light-1').show();
+        strr = 1;
+    }
+}
+function redpopup(red) {
+    $('#money-red').html(red);
+    $("#red-popup-bg").fadeIn(300);
+    $("#red-popup").fadeIn(300);
+    $("#red-popup-bg").height($(document).height());
+}
+function prizepopup(img, price, name) {
+    $('#img-prize').attr('src', img);
+    $('#money-prize').html(price);
+    $('#name-prize').html(name);
+    $("#prize-popup-bg").fadeIn(300);
+    $("#prize-popup").fadeIn(300);
+    $("#prize-popup-bg").height($(document).height());
+    $('.prize-image').height($('.prize-image').width());
+}
+/*点击领取获奖*/
+function RecieveWinPrize(obj, obj2) {
+    var strr = obj;
+    var stt = obj2;
+    $.post('__URL__/RecieveWinPrize', {
+        lid: $('#lid').val()
+    }, function(obj) {
+        var data = eval(obj);
+        if (data['code'] == 0) {
+            mui.toast(data['msg']);
+            $("#" + strr + "").fadeOut(300);
+            $("#" + stt + "").fadeOut(300);
+
+        } else {
+            mui.toast(data['msg']);
+        }
+    });
+}
+</script>
+
+<!-- 填写地址弹出 -->
+<div class="popup-bg" id="if-address-bg"></div>
+<div class="if-login-popup if-address-popup fs14" id="if-address-popup">
+    <div class="if-login-font fs14">您还没有<br>设置默认地址</div>
+    <div class="if-login-btn">
+        <a href="javascript:;" class="fr atlogin fs14" id="iwrite">马上填写</a>
+    </div>
+</div>
+
+<!-- 地址分页 -->
+<div class="wrap-page" style="background:#fff;display:none;" id="page2">
+<link rel="stylesheet" type="text/css" href="__CSS__/roulette/order.css?v=1.2">
+<form action="#" method="post" name="CONSIGNEE_ADDRESS" id="CONSIGNEE_ADDRESS">
+<input type="hidden" id="isdefault" name="isdefault" value="">  
+<!-- 填写收货地址 -->
+<div class="insert_bg"></div>
+<div class="insert_address">
+  <li>
+      <div class="fl insert_left">新地址</div>
+      <div class="fl insert_right">
+          <img src="__IMG__/shop/delivery-hover.png" alt="" class="fr" id="imgshow_2">
+      </div>
+  </li>
+  <li>
+      <div class="fl insert_left">收货人</div>
+      <div class="fl insert_right">
+          <input type="text" id="consignee" name="consignee" value="" class="login_inpt"  placeholder="请输入收货人姓名">      
+      </div>
+  </li>
+  <li>
+      <div class="fl insert_left">联系电话</div>
+      <div class="fl insert_right">
+          <input type="text" id="mobile" name="mobile" value="" class="login_inpt"  placeholder="请输入收货人电话号码">
+      </div>
+  </li>
+  <li>
+      <div class="fl insert_left">地区</div>
+      <div class="fl insert_right">
+          <select name="province" class="fl selectct" id="province" onchange="loadRegion('province',2,'city','{:U('Home/Address/getRegion')}');">                    
+              <option value="" id="provincename">选择省</option>
+              <foreach name="province" item="province">
+                  <option value="{$province.region_id}">{$province.region_name}</option>
+              </foreach>
+          </select>
+          <select name="city" class="fl selectct" id="city" onchange="loadRegion('city',3,'district','{:U('Home/Address/getRegion')}');">                     
+              <option value="" id="cityname">选择市</option>                       
+          </select>
+          <select name="district" class="fl selectct" id="district">                 
+              <option value="" id="districtname">选择区</option>
+          </select>
+      </div>
+  </li>
+  <li>
+      <div class="fl insert_left">详细地址</div>
+      <div class="fl insert_right">
+          <input type="text" id="address" name="address" value="" class="login_inpt"  placeholder="请输入详细地址">
+      </div>
+  </li>
+  <li>
+      <input type="hidden" name="id" id="id" value="">
+      <div class="insert_sub" id="insert_sub_address" onclick="insertAddress('CONSIGNEE_ADDRESS')">添加</div>      
+  </li>
+</div>
+
+<!--收货地址列表-->
+<div class="address-list-main" style="display:block;" id="myaddress-list">
+    <div id="address-list-li">
+        <volist name="addresslist" id="voa">
+        <div id="address_{$voa.c_id}">          
+        <div class="address-list" id="address_{$voa.c_id}">
+            <div class="address-list-box" onclick="checkaddress('{$voa.c_id}','{$voa['c_consignee']}','{$voa['c_mobile']}','{$voa['c_provincename']}{$voa['c_cityname']}{$voa['c_districtname']}{$voa['c_address']}');">
+                <div class="address-name" id="consignee-{$voa['c_id']}">{$voa['c_consignee']}&nbsp;&nbsp;&nbsp;&nbsp;{$voa['c_mobile']}</div>
+                <div class="address-info" id="addressxq-{$voa['c_id']}">{$voa['c_provincename']}{$voa['c_cityname']}{$voa['c_districtname']}{$voa['c_address']}</div>
+            </div>
+            <div class="address-opration">
+                <div class="address-opr-input">
+                    <input name="default-addr" <?php if ($voa['c_is_default'] == 1): ?>checked="checked"<?php endif ?> id="default-addr-{$voa['c_id']}" value="{$voa['c_id']}" type="radio" onclick="SetAddress({$voa['c_id']});" style="margin-top:2%;"><div class="default-addr-txt">默认地址</div>
+                </div>
+                <div class="address-opr-btn">
+                    <a id="address-del" onclick="deleteAddress({$voa['c_id']})">删除</a>
+                    <a id="address-editor" onclick="xinzengdz({$voa['c_id']})">编辑</a>                   
+                </div>
+            </div>
+        </div>
+        </div>
+        </volist>
+    </div>  
+    <div class="address-add-btn">
+        <div id="address-btn-add">+ 新增地址</div>
+    </div>
+</div> 
+</form>
+    <script type="text/javascript">
+        $(function(){
+            var dafualt = "<?php echo $defaultaddr ?>";
+            // if (dafualt==0) {
+            //     mui.toast('请设置默认地址再参与活动');
+            // }
+            
+            /*添加地址*/
+            $('#address-btn-add').click(function(){
+                $('#isdefault').val('');    
+                $('#id').val('');
+                $('#consignee').val('');    
+                $('#mobile').val('');
+                $('#province option:selected').text('选择省'); 
+                $('#city option:selected').text('请选择'); 
+                $('#district option:selected').text('请选择');             
+                $('#provincename').val('');
+                $('#cityname').val('');
+                $('#districtname').val(''); 
+                    
+                $('#address').val('');
+                $('.insert_bg').fadeIn(200);
+                $('.insert_address').fadeIn(200);
+                $('#insert_sub_address').text('添加');        
+
+            });
+            $('.insert_bg').click(function(){
+                $('#isdefault').val('');
+                $('#id').val('');
+                $('.insert_bg').fadeOut(200);
+                $('.insert_address').fadeOut(200);
+            });
+        
+        });
+        /*添加，编辑地址加载*/
+        function loadaddress (data,id) {        
+        var htmls='';
+            htmls+='<div id="address_'+data['c_id']+'">';
+            htmls+='<div class="address-list">';
+            htmls+='<div class="address-list-box" onclick="checkaddress(\''+data['c_id']+'\',\''+data['c_consignee']+'\',\''+data['c_mobile']+'\',\''+data['c_provincename']+data['c_cityname']+data['c_districtname']+data['c_address']+'\');">';
+            htmls+='<div class="address-name" id="consignee-'+data['c_id']+'">'+data['c_consignee']+'&nbsp;&nbsp;&nbsp;&nbsp;'+data['c_mobile']+'</div>';
+            htmls+='<div class="address-info" id="addressxq-'+data['c_id']+'">'+data['c_provincename']+''+data['c_cityname']+''+data['c_districtname']+''+data['c_address']+'</div>';
+            htmls+='</div>';
+            htmls+='<div class="address-opration">';
+            htmls+='<div class="address-opr-input">';
+            var isdefault = data['c_is_default'];
+            if (isdefault==1) {
+                htmls+='<input name="default-addr" checked="checked" id="default-addr-'+data['c_id']+'" value="'+data['c_id']+'" type="radio" onclick="SetAddress('+data['c_id']+');" style="margin-top:2%;">';
+            }else{
+                htmls+='<input name="default-addr" id="default-addr-'+data['c_id']+'" value="'+data['c_id']+'" type="radio" onclick="SetAddress('+data['c_id']+');" style="margin-top:2%;">';
+            }
+            htmls+='<div class="default-addr-txt">默认地址</div>';
+            htmls+='</div>';
+            htmls+='<div class="address-opr-btn">';
+            htmls+='<a id="address-del" onclick="deleteAddress('+data['c_id']+')">删除</a>';  
+            htmls+='<a id="address-editor" onclick="xinzengdz('+data['c_id']+')">编辑</a>';
+            htmls+='</div>';
+            htmls+='</div>';
+            htmls+='</div>';    
+            htmls+='<div class="address-add-btn">';
+            htmls+='<input type="button" name="address-btn-add" id="address-btn-add" value="+ 新增地址">';
+            htmls+='</div>';
+            htmls+='</div>';
+          $('.insert_bg').fadeOut(200);
+          $('.insert_address').hide(); 
+          $('#id').val('');
+          if (id){
+            $('#address_'+id).html(htmls);  
+          } else {
+            $('#address-list-li').append(htmls);
+          } 
+        }
+        //选择地址
+        function checkaddress(id,name,tel,ad) {
+            SetAddress(id);              
+        }
+    </script>
+</div>
+
+
+
+
+<include file="Common/foot"/>
+</body>
+</html>

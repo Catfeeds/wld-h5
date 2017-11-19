@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>会员登录</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<div class="login-header divtab">
+				<div class="header-img">
+					<img src="__COMMON__/img/logo.png" id="headimg" />
+				</div>
+			</div>
+			<div class="login-main divtab">
+				<div class="login-info divtab">
+					<div class="login-ico fl"><img src="__IMG__/signin_icon_user_default.png" alt="" /></div>
+					<div class="login-input fl userphone">
+						<input type="text" id="phone" placeholder="输入手机号码" class="fs14" />
+					</div>
+				</div>
+
+				<div class="divtab"><img src="__IMG__/signin_line.png" alt="" /></div>
+
+				<div class="login-info divtab">
+					<div class="login-ico fl"><img src="__IMG__/signin_icon_password_default.png" alt="" /></div>
+					<div class="mui-input-row mui-password userpwd">
+						<input type="password" placeholder="输入密码" class="mui-input-password fs14" id="pwd">
+					</div>
+				</div>
+
+				<div class="divtab"><img src="__IMG__/signin_line.png" alt="" /></div>
+
+				<div class="login-forgetpwd fs14 c9 divtab">忘记密码？</div>
+				<div class="login-button fs16 fb600">
+					登录
+				</div>
+				<div class="login-register c9 fs14 divtab">没有账号？立即注册</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				if(emptyval($.cookie('headimg'))) {
+					$('#headimg').attr('src', "__COMMON__/img/logo.png");
+				} else {
+					$('#headimg').attr('src', $.cookie('headimg'));
+				}
+				styles();
+				$('#topcontrol').hide();
+			}
+			$(document).ready(function() {});
+			/*样式*/
+			function styles() {
+				var headw = $('.header-img').width();
+				$('.header-img').height(headw);
+				$('.header-img').css("border-radius", headw + "px");
+
+				var icoh = $('.login-ico').height();
+				$('.login-input').css('line-height', icoh + "px");
+				$('.login-input input').css('line-height', icoh + "px");
+				$('.userpwd').css('line-height', icoh + "px");
+				$('.mui-icon-eye').width(icoh - 1);
+				$('.mui-icon-eye').height(icoh - 1);
+				$('.mui-icon-eye').css("top", "0");
+
+				var btnh = $('.login-button').height();
+				$('.login-button').css('line-height', btnh + 'px');
+
+			}
+
+			mui('.login-main').on('tap', '.login-forgetpwd', function() {
+				//打开忘记密码页面
+				mui.openWindow({
+					url: '__URL__/register?action=pwd',
+					id: 'forgetpwd'
+				});
+			});
+			mui('.login-main').on('tap', '.login-register', function() {
+				//打开注册页面
+				mui.openWindow({
+					url: '__URL__/register?action=reg',
+					id: 'register'
+				});
+			});
+			var clicksign = true;
+			/*提交登录信息*/
+			var tzurl = '<?php echo $url ?>';
+			mui('.login-main').on('tap', '.login-button', function() {
+				if(clicksign) {
+					clicksign = false;
+					var telp = document.getElementById('phone').value;
+					var pwd = document.getElementById('pwd').value;
+					if(emptyval(telp) || emptyval(pwd)) {
+						mui.toast('请输入登录账号密码');
+					} else {
+						mui.ajax('__URL__/login', {
+							data: {
+								phone: telp,
+								pwd: pwd
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(obj) {
+								var msg = eval(obj);
+								if(msg['code'] == 0) {
+									$.cookie('headimg', msg['data']['c_headimg']);
+									$('#headimg').attr('src', msg['data']['c_headimg']);
+									$('#phone').blur();
+									$('#pwd').blur();
+									mui.openWindow({
+										url: tzurl,
+										id: 'login'
+									});
+								} else {
+									mui.toast(msg['msg']);
+									clicksign = true;
+								}
+							}
+						});
+					}
+				}
+			});
+			mui.plusReady(function() {});
+		</script>
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

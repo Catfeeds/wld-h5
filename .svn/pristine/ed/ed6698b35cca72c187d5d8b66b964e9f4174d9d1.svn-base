@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$pagetit}</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page" style="padding-bottom:15%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div id="send-code-main" style="display:block;">
+					<div class="upadte-banner">
+						<div class="old-telephone fs14">手机号码：{$mobile}</div>
+						<input type="hidden" id="phonenum" name="phonenum" value="{$mobile}">
+						<img src="__IMG__/usercenter/bind-tel-banner.png" alt="">
+					</div>
+					<div class="send-checkcode">
+						<div class="send-font fl fs13">校验码</div>
+						<div class="input-code fl fs13">
+							<input type="text" id="verify" name="verify" placeholder="短信校验码" class="fs13">
+						</div>
+						<button id="secondbtn" class="get-code fl fs13">获取校验码</button>
+					</div>
+					<div class="send-code-desc">
+						<img src="__IMG__/usercenter/bindtel-ico.png" alt="">
+						<p class="fs12">如果原手机号码已停用或遗失不能收到校验码，请拨打人工客服400-9603-400，由客服协助您修改。</p>
+					</div>
+					<div class="send-code-next fs16" id="next_sub">下一步</div>
+				</div>
+
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+ 		<script type="text/javascript" src="__COMMON__/js/sendcode.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$.cookie("secondcode",null);
+				var codeh = $('.send-checkcode').height();
+				$('.send-checkcode').css('line-height', codeh + "px");				
+			}
+			$(document).ready(function(){
+				v = $.cookie("secondcode");//获取cookie值
+				if(v>0){
+				    settimep($("#secondbtn"),'secondcode');//开始倒计时
+				}
+
+				$('#phonenum').blur(function(){
+					if($(this).val() && $('#verify').val()) {
+						$('#next_sub').addClass('next-hover');
+						mui('.mui-content').on('tap', '#next_sub', function() {
+							nextcode();
+						});
+					} else {
+						$('#next_sub').removeClass('next-hover');
+						mui('.mui-content').off('tap', '#next_sub');
+					}
+					
+				});
+				$('#verify').bind('input propertychange',function(){
+					if($(this).val().length>=6) {
+						$('#next_sub').addClass('next-hover');
+						mui('.mui-content').on('tap', '#next_sub', function() {
+							nextcode();
+						});
+					} else {
+						$('#next_sub').removeClass('next-hover');
+						mui('.mui-content').off('tap', '#next_sub');
+					}
+					
+				});				
+				
+			});				
+			/*获取短信验证码*/
+			mui('.mui-content').on('tap','#secondbtn',function(){
+				sendCode($("#secondbtn"),2,'secondcode',$('#phonenum'));
+			});
+			var action = '<?php echo $action ?>';
+			var url = '<?php echo $url ?>';
+			/*验证原手机号码*/
+			var subsign = true;
+			function nextcode() {
+				if(subsign){
+					subsign = false;
+					if($('#verify').val() != "") {
+						$.ajax({
+							//提交数据的类型 POST GET
+							type: "GET",
+							//提交的网址
+							url: "__URL__/checkverify",
+							//提交的数据
+							data: {
+								verify: $('#verify').val(),
+								phone: $('input[name="phonenum"]').val()
+							},
+							//返回数据的格式
+							datatype: "json",
+							//成功返回之后调用的函数
+							success: function(data) {
+								var obj = eval(data);
+								if(obj['code'] == 0) {
+									mui.openWindow({
+										url: "__URL__/setsafepwd?action=" + action + "&url=" + url,
+										id: "setsafepwd"
+									});
+								} else {
+									mui.toast(obj['msg']);
+									subsign = true;
+									return false;
+								}
+							}
+						});
+					} else {
+						mui.toast('请输入手机短信上的校验码！');
+						subsign = true;
+						return false;
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

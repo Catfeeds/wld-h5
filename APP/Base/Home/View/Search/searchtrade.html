@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>搜索</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/search/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}" />
+				<input type="hidden" name="citycode" id="citycode" value="{$citycode}" />
+				<input type="hidden" name="localtitle" id="localtitle" value="{$circlename}" />
+				<div class="mui-content">
+					<!-- 搜索区域 -->
+					<div class="seach-head">
+						<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs22"></a>
+						<div class="search-default divre">
+							<div class="search-default-con fl bgcolor">
+								<div class="select-box divre fs13">
+									<div class="select-value">
+										<span>商品</span>
+										<div class="select-pullImg fr"><img src="__IMG__/search/searchbox_icon_cbb.png" alt="" / ></div>
+									</div>
+									<!-- 下拉选择区 -->
+									<div class="select-option">
+										<ul>
+											<div class="select-opImg divab"><img src="__IMG__/search/searchbox_icon_cbbarrow.png" alt="" / ></div>
+											<li>
+												<div class="select-typeImg"><img src="__IMG__/search/screening_icon_good_default.png" alt="" / ></div>
+												<font>商品</font>
+											</li>
+											<li>
+												<div class="select-typeImg"><img src="__IMG__/search/screening_icon_dynamic_default.png" alt="" / ></div>
+												<font>动态</font>
+											</li>
+											<li>
+												<div class="select-typeImg"><img src="__IMG__/search/screening_icon_shangjia_default.png.png" alt="" / ></div>
+												<font>商家</font>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<input type="search" id="search" name="search" class="c9 fs14 aglinc bgcolor" required="" placeholder="搜索" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="zh-CN">
+								<div class="search-img divab"><img src="__IMG__/search/searchbox_icon.png" alt="" /></div>
+							</div>
+							<div class="search-botton cf fs14 fr">搜索</div>
+						</div>
+					</div>
+					<!-- 搜索区域 -->
+
+					<!-- 数据列表部分 -->
+					<div class="divtab search-list">
+						<div class="t-s-dynamic-tit c9 fs13">动态</div>
+						<div class="t-s-dynamic-main divtab" id="data_list">
+							<!-- 动态 -->
+							<div class="t-s-dynamic divtab bgcolor">
+								<div class="t-s-dt-top divtabq">
+									<div class="t-s-dt-left fl">
+										<img src="__IMG__/myspace/founder1.jpg" alt="" />
+									</div>
+
+									<div class="t-s-dt-text fl">
+										<div class="t-s-dt-name c3 fs12 fov">毛泽东有句话</div>
+										<div class="t-s-dt-name c9 fs11">1小时前</div>
+									</div>
+
+									<div class="t-s-dt-attention fr fs12">
+										<div class="t-s-dt-atbg01 c9 none">+ 关注</div>
+										<div class="t-s-dt-atbg02 c9 ">已关注</div>
+									</div>
+								</div>
+
+								<div class="t-s-dt-right fr">
+									<div class="t-s-dt-description clamp2 fs13 c3">毛泽东有句话，“一万年太久，只争朝夕”。我们这代人非常幸运，很有可能会见证近代史上的一个奇迹，就是中国的崛起。</div>
+									<div class="t-s-dt-imglist divtab" id="imglist-1-1">
+										<ul>
+											<li><img src="__IMG__/myspace/founder1.jpg" alt="" /></li>
+											<li><img src="__IMG__/myspace/founder1.jpg" alt="" /></li>
+											<li><img src="__IMG__/myspace/founder1.jpg" alt="" /></li>
+											<li><img src="__IMG__/myspace/founder1.jpg" alt="" /></li>
+											<li><img src="__IMG__/myspace/founder1.jpg" alt="" /></li>
+											<li><img src="__IMG__/myspace/founder1.jpg" alt="" /></li>
+										</ul>
+									</div>
+
+									<!-- 用户商圈信息 -->
+									<div class="t-s-de-utrade divtab">
+										<div class="t-s-de-tradeImg fl"><img src="__IMG__/Search/o2store_icon_szsq_fb.png"></div>
+										<div class="t-s-de-tradetext c9 fs11 fl">湖南长沙圈</div>
+									</div>
+
+
+									<div class="t-s-button-ico divtab">
+										<div class="t-s-btn-ico-1 fl">
+											<img src="__IMG__/search/district_icon_share2x.png" alt="" />
+										</div>
+										<div class="t-s-btn-ico-2 fl">
+											<img src="__IMG__/search/district_icon_comment2x.png" alt="" />
+										</div>
+										<div class="t-s-btn-ico-3 fr">
+											<div class="t-s-btn-praisen fr c9 fs13">12</div>
+											<div class="t-s-btn-praisec fr">
+												<img src="__IMG__/search/praise_default2x.png" alt="" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 动态 -->
+						</div>
+
+						<div id="console"></div>
+
+					</div>
+
+					<!-- 搜索详情 -->
+				</div>
+			</form>
+		
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xiaomi-bar').css('display', 'none');
+			$('.mui-content').css('margin-top', '0');
+
+			var sdh = $('.search-default').height();
+			$('.search-default p').css('line-height', sdh + 'px');
+
+			yangshi();
+			$('.search-list').css('margin-top',$('.search-head').height()+'px');
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+
+			/*动态*/
+			var imghd = $('.t-s-dt-left').width()
+			$('.t-s-dt-left').height(imghd);
+			var imglisw = $('.t-s-dt-imglist li').width();
+			$('.t-s-dt-imglist li').height(imglisw);
+			$('.t-s-dynamic-img').height($('.t-s-dynamic-img').width());
+			$('.t-s-dynamic-info').css('line-height', $('.t-s-dynamic-img').width() * 0.5 + 'px');
+			$('.t-s-dt-text').css('line-height', imghd*0.5 + 'px');
+			$('.t-s-dt-attention').css('line-height', imghd*0.5 + 'px');
+
+			
+			
+
+
+		}
+		/*资源列表样式*/
+		function source_style() {
+			var headw = $('.t-s-headimg').width(),
+				hlih = headw * 50 / 100;
+			$('.t-s-headimg').height(headw);
+			$('.t-s-headname').css('line-height', hlih + 'px');
+
+			var tsimgw = $('.t-s-imglist ul li').width();
+			$('.t-s-imglist ul li').height(tsimgw);
+
+			var tsich = $('.t-s-btn-ico-3').height();
+			$('.t-s-btn-praisen').css('line-height', tsich + 'px');
+
+			var pimgh = $('.f-product-img').width(),
+				pnameh = pimgh * 50 / 100,
+				arrowm = pimgh * 25 / 100;
+			$('.f-product-img').height(pimgh);
+			$('.f-pro-names-price').css('line-height', pnameh + 'px');
+			$('.f-pro-arrow').css('margin-top', arrowm + 'px');
+			
+//				var videow = $('.t-s-video-li').width();
+//				$('.t-s-video-li').height(videow*0.56);
+//				$('.t-s-video-li video').play(); // 播放
+//				$('.t-s-video-li video').pause(); // 暂停
+
+		}
+
+		/*搜索框*/
+		$('#search').blur(function() {
+			$('.search-img').show();
+		});
+		$('#search').focus(function() {
+			$('.search-img').hide();
+		});
+
+
+
+
+		/*资源数据加载*/
+		
+			/*点赞，分享，评论--按钮*/
+			function opratebtn(pageindex) {
+				/*分享*/
+//				mui('.t-s-list-' + pageindex).on('tap', '.t-s-btn-ico-1', function() {
+//					fchat();
+//				});
+				/*评论*/
+//				mui('.t-s-list-' + pageindex).on('tap', '.t-s-btn-ico-2', function() {					
+//					var rcid = $(this).attr('title');
+//					sendcommt(rcid, '评论');
+//				});
+
+				/*查看个人空间*/
+//				mui('.t-s-list-' + pageindex).on('tap', '.t-s-head', function() {
+//					var ucoded = $(this).attr('title');
+//					var jumptype = $(this).attr('data-type');
+//					if(jumptype == 0) {
+//						mui.openWindow({
+//							url: WEB_HOST + '/index.php/Home/Myspace/index?fromucode=' + ucoded,
+//							id: 'myspace'
+//						});
+//					} else {
+//						mui.openWindow({
+//							url: WEB_HOST + '/index.php/Stroe/Index/index?fromucode=' + ucoded,
+//							id: 'stroe'
+//						});
+//					}
+//				});
+				/*查看动态详情*/
+//				mui('.t-s-list-' + pageindex).on('tap', '.t-s-desription', function() {
+//					var rcid = $(this).attr('title');
+//					mui.openWindow({
+//						url: '__URL__/redetail?rid=' + rcid + '&circlename=' + $('#localtitle').val(),
+//						id: 'myinfo'
+//					});
+//				});
+				/*查看商品详情*/
+//				mui('.t-s-list-'+pageindex).on('tap','.f-product-info',function(){
+//					var urls = $(this).attr('data-href');
+//					mui.openWindow({
+//						url: urls,
+//						id: 'myinfo'
+//					});
+//				});
+
+				mui('.dynamic-box-'+pageindex).on('tap', '.t-s-dynamic', function() {
+					var rcid = $(this).attr('title');
+					mui.openWindow({
+						url: '__URL__/redetail?rid=' + rcid + '&circlename=' + $('#localtitle').val(),
+						id: 'myinfo'
+					});
+				});
+			}		
+	</script>
+
+</html>

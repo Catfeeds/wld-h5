@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>系统消息</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/message/index.css?v=1.2">
+</head>
+<body>
+
+<div class="wrap-page" style="margin-bottom:13%;background:#fff;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+<div id="console"></div>	
+<div class="ordermsg-list-main">
+<!-- 	<div class="ordermsg-list">
+		<div class="ordermsg-left fl">
+			<img src="__IMG__/message/sys.png" alt="">
+		</div>		
+		<div class="ordermsg-right sysmsg-r-info fl">
+			<div class="ordermsg-r-details">
+				您的订单信息状态已经新您的订单信息状态已经新您的订单信息状态已经新您的订单信息状态已经新
+			</div>
+			<a class="ordermsg-r-href" href="">
+				点击查看
+			</a>			
+		</div>
+		
+	</div>
+	<div class="ordermsg-list">
+		<div class="ordermsg-left fl">
+			<img src="__IMG__/message/sys.png" alt="">
+		</div>	
+		<div class="ordermsg-right  sysmsg-r-info fl">
+			您的订单信息状态已经新您的订单信息状态已经新您的订单信息状态已经新您的订单信息状态已经新
+		</div>
+	</div>		 -->
+</div>	
+
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+	
+
+
+}
+var ctrls = true;
+var emptyval = true;
+var pageindex = 1;
+systemlist(pageindex);
+$(window).bind('scroll', function() {
+	if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+		if (ctrls && emptyval) {
+			systemlist(pageindex);	
+		}		
+	}		
+});	
+
+function systemlist(page){
+	if (page==1) {
+		pageindex = 1;
+	}			
+	var _html = "";
+    $.ajax({  
+	   type:'get', dataType:'json', url:"__URL__/systemmsg?pageindex="+pageindex, cache:false, beforeSend:function() {
+			$('#console').css('display', 'block');
+			$('#console').html('加载中...');
+			ctrls = false;
+		}, error:function() {
+			$('#console').css('display', 'block');
+			$('#console').html('加载失败');
+			ctrls = true;
+		},success:function(obj) {					
+		if(pageindex==1) {
+				$('.ordermsg-list-main').empty();
+			}
+			var mgs = eval(obj);
+			if(mgs['code']==0) {
+				var data = mgs.data;
+				var datalist = data.list;
+				if(data==null || datalist ==null){
+    			if (pageindex==1) {
+			      	$('#console').css('display', 'block');
+					$('#console').html('没有找到相关信息');
+    			}
+				emptyval = false;
+				return;
+    		}else{
+				if (pageindex <= data.pageCount) {
+					pageindex++;
+					for (var i = 0; i < datalist.length; i++) {
+						_html+='<div class="ordermsg-list">';
+						_html+='<div class="ordermsg-left fl">';
+						_html+='<img src="__IMG__/message/wl-img-30.png" alt="">';
+						_html+='</div>';		
+						_html+='<div class="ordermsg-right sysmsg-r-info fl">';
+						_html+='<div class="ordermsg-r-details">';
+						_html+=''+datalist[i]['c_content']+'';
+						_html+='</div>';
+						_html+='<a class="ordermsg-r-href" href="'+datalist[i]['c_weburl']+'">戳这里</a>';
+						_html+='</div>';
+						_html+='</div>';
+
+																					
+					}
+				}
+				else{
+					emptyval=false;
+				}
+			}
+		}
+		else{
+			emptyval=false;
+		}
+		$('.ordermsg-list-main').append(_html);	
+		$('#console').css('display', 'none');
+		}, complete:function() {
+			$('#console').css('display', 'none');	
+			ctrls = true;
+		} 
+	}); 
+
+  }		
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>扫码订单详情</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地扫码订单详情" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=1.3">
+
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="detail-top fs13" style="padding:5% 0px;">
+					<li class="fl detail-left"><span class="c9">交易单号：</span>{$data['c_ncode']}</li>
+					<li class="fr detail-right">
+						<?php if ($data['c_evaluate'] == 0) { ?> 待评价
+						<?php } else {  ?> 已完成
+						<?php }  ?>
+					</li>
+				</ul>
+
+				<ul class="orderlist-box fs13" id="list_order">
+					<li class="detail-freight" style="border:0px;">
+						<div class="freight">
+							<div class="fl freight-left c9">收款人</div>
+							<div class="fl freight-right c5">
+								{$data['c_nickname']}
+							</div>
+						</div>
+						<div class="freight">
+							<div class="fl freight-left c9">交易类型</div>
+							<div class="fl freight-right c5">
+								<?php if ($data['c_isfixed'] == 1) { ?> 实体店扫码支付
+								<?php } else { ?> 线上微商扫码支付
+								<?php } ?>
+							</div>
+						</div>
+						<div class="freight">
+							<div class="fl freight-left c9">交易时间</div>
+							<div class="fl freight-right c5">
+								{$data['c_addtime']}
+							</div>
+						</div>
+						<div class="freight">
+							<div class="fl freight-left c9">交易金额</div>
+							<div class="fl freight-right c5">
+								{$data['c_actual_price']}
+							</div>
+						</div>
+						<div class="freight">
+							<div class="fl freight-left c9">支付方式</div>
+							<div class="fl freight-right c5">
+								余额支付：{$data['banlace']}<br/>
+								<?php if ($data['paymoney'] > 0) {if ($data['c_pay_rule'] == 1) { ?> 支付宝支付：{$data['paymoney']}
+								<?php } else if ($data['c_pay_rule'] == 2) { ?> 微信支付支付：{$data['paymoney']}
+								<?php } else { ?> 网页支付：{$data['paymoney']}
+								<?php }} ?>
+							</div>
+						</div>
+					</li>
+
+					<?php if ($data['c_evaluate'] == 0) { ?>
+					<div class="orderlist-bot fiexd-box">
+						<div class="fr order-sub subcolor fs14" onclick="location.href='__URL__/scaneval?ncode={$data['c_ncode']}'">
+							立即评价
+						</div>
+					</div>
+					<?php }  ?>
+
+				</ul>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.listbody-left').height($('.listbody-left').width());
+			}
+		</script>
+	</body>
+
+</html>

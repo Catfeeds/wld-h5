@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="email=no" />
+		<title>选择排版</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/store/editmodule.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom:13%;padding-left: 3%;padding-right: 3%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<volist name="datalist" id="vo" empty="$emptyval">
+					<div class="page divre" id="template_{$vo['c_id']}" data-tplid="{$vo['c_id']}" title="{$vo['c_tplid']}">
+						
+						<?php if ($tplid == $vo['c_id']){ ?>
+						<div class="divab elect fs13 cf">当前主题</div>
+						<?php } ?>
+						<div class="divab elect fs13 cf"></div>
+										
+						<div class="page_top divre">
+							<div class="divab"></div>
+							<img src="{$vo['c_cover_img']}" alt="" />
+						</div>
+						<div class="page_bot">
+							<div class="explain">
+								<span class="c3 fs14 alignc">
+								{$vo['c_name']}
+							</span>
+							</div>
+							<div class="fs14 cc preview cb">
+								预览
+							</div>
+						</div>
+					</div> 
+				</volist>
+				<!--第几套模板-->
+				<input type="hidden" id="cid" value="" />
+				<input type="hidden" id="compareid" value="{$compareid}" />
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script>
+		
+		window.onload = function () {
+			yangshi();
+			$('.page_top').each(function(i){
+				if(i==0){
+					$(this).css('background-color','#46AAFA')
+				}
+				if(i==1){
+					$(this).css('background-color','#B896FF')
+				}
+				if(i==2){
+					$(this).css('background-color','#FFEE92')
+				}
+				if(i==3){
+					$(this).css('background-color','#FFD4D4')
+				}
+			})
+			
+		}
+		
+		function yangshi() {
+			$('.page_top').css('height', $('.page_top').width() * 1.1)
+//			ChRightText('保存');		
+		}
+
+		mui('.page').on('tap', '.page_top', function() { 
+			var cid = $(this).parent().attr('data-tplid');  
+			var title = $(this).parent().attr('title');
+			$(this).parent().siblings().find('.elect').html(' ');
+			$('.page').removeClass('active');
+			$(this).parent().siblings().find('.alignc').css('border-bottom','4px solid #EEF0F5');
+			if(title == 1){
+				$(this).siblings('.elect').html('当前模版');
+				$(this).parent().addClass('active');
+				$(this).siblings().find('.alignc').css('border-bottom','4px solid #46AAFA');
+			}
+			if(title == 2){
+				$(this).siblings('.elect').html('当前模版');
+				$(this).parent().addClass('active');
+				$(this).siblings().find('.alignc').css('border-bottom','4px solid #B896FF');
+			}
+			if(title == 3){
+				$(this).siblings('.elect').html('当前模版');
+				$(this).parent().addClass('active');
+				$(this).siblings().find('.alignc').css('border-bottom','4px solid #FFEE92');
+			}
+			if(title == 4){
+				$(this).siblings('.elect').html('当前模版');
+				$(this).parent().addClass('active');
+				$(this).siblings().find('.alignc').css('border-bottom','4px solid #FFD4D4');
+			}
+            selectTmp(cid);
+            
+            
+		});
+		mui('.page').on('tap', '.page_bot', function() {
+			var cid = $('#cid').val();
+			if (!cid) {
+				mui.toast('预览先选择对应模板');return;
+			};
+			mui.openWindow({
+				url: '__APP__/Store/Store/viewtemp',
+				id: 'shopmg1'
+			});
+			 $('#cid').val("");
+		});
+		
+        function selectTmp(id) {
+            $('#cid').val("");
+            //选择模板
+            $.post('__URL__/CheckShopTpl', {
+                tplid: id
+            }, function(obj) {
+                var result = eval(obj);
+                if (result['code'] == 0) {
+                	$('#cid').val(result['data']);
+                }
+                rightcaozuo();
+            });
+        }
+		
+		//保存跳转地址
+		function rightcaozuo() {
+			var cid = $('#cid').val();
+			
+			if (!cid) {
+				mui.alert('必须选择模板');
+				return;
+			}
+			$.post('__URL__/ApplyModel', {
+				tplid: cid
+			}, function(obj) {
+				var result = eval(obj);
+				mui.alert(result.msg);
+				/*setTimeout(
+				function() {
+					mui.openWindow({
+						url: '',
+						id: ''
+					});
+				}, 1000);*/
+			});
+		}
+	</script>
+
+</html>

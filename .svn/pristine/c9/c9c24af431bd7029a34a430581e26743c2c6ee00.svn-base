@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeIndex');
+		$("#transmit").submit();
+	}
+}
+function chexport(){
+   var east=$("#minimum").val();	
+   var maxi=$("#great").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/chIndex');
+		$("#transmit").submit();
+	}
+}
+function refer(){
+	$("#transmit").attr('action','__URL__/applyFor');
+	$("#transmit").submit();
+}
+</script>
+<title>提款申请</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 提款申请 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:120px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:120px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:120px" placeholder="输入提款编码" name="c_tx_code" value="{$post['c_tx_code']}">
+		<input type="text" class="input-text" style="width:120px" placeholder="输入账户名称" name="c_uname" value="{$post['c_uname']}">
+		<input type="text" class="input-text" style="width:120px" placeholder="输入提现备注" name="c_remarks" value="{$post['c_remarks']}">
+		<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="申请起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="申请结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+
+		<if condition="$flag eq 0">
+			<span class="select-box inline">
+				<select name="sign1" class="select">
+					<option value="">账户类型</option>
+					<option value="1" <if condition="$post['sign1']  eq 1">selected="selected"</if>>银行卡提现</option>
+		     		<option value="2" <if condition="$post['sign1']  eq 2">selected="selected"</if>>微信提现</option>
+		     		<option value="3" <if condition="$post['sign1']  eq 3">selected="selected"</if>>支付宝提现</option>
+				</select>
+			</span>
+			<input type="text" id="EntTime3" name="begintime" value="{$post.begintime}" placeholder="已处理起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+			-
+			<input type="text" id="EntTime4" name="endtime" value="{$post.endtime}" placeholder="已处理结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+			<span class="select-box inline">
+				<select name="c_state" class="select">
+					<option value="">选择状态</option>
+					<option value="sqz" <if condition="$post['c_state']  eq 'sqz'">selected="selected"</if>>申请中</option>
+		     		<option value="1" <if condition="$post['c_state']  eq 1">selected="selected"</if>>申请成功</option>
+		     		<option value="2" <if condition="$post['c_state']  eq 2">selected="selected"</if>>申请失败</option>
+				</select>
+			</span>
+		</if>
+		
+		<input type="hidden" name="sign"  value="{$sign}">
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button type="submit" class="btn btn-success radius" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>			
+			</span> 
+			<span class="l">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">待处理提现金额：￥{$sum_money}</font></span>
+			<span class="l">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    <if condition="$sign eq 1">
+					<input type="text" name="minimum" id="minimum" size="5" value="{$post.minimum}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		    <input type="text" name="great" size="5" id="great" value="{$post.great}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>&nbsp;
+				    <a href="javascript:;" onclick="chexport();" class="btn btn-danger radius">
+				    	<i class="Hui-iconfont">&#xe644;</i> 传化导出
+				    </a>
+				</if>
+			</span> 
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</div>
+	</form>
+	<if condition="$sign eq 1">
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<form method="post" action="OptionApply" enctype="multipart/form-data">
+					<input  type="file" name="file_stu" />
+					<input type="submit"  value="批量导入" class="btn btn-danger radius"/>
+				</form>
+			</span>
+		</div>
+	</if> 
+	<div class="btn mt-20 btn-danger" onclick="ajaxdf()"> 通联批量代付</div>
+	<!-- <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l" ></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div> -->
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="checks" value=""></th>
+				<th width="25">ID</th>
+				<th width="45">编码</th>
+				<th width="100">用户昵称</th>
+				<th width="40">头像</th>
+				<th width="60">账户类型</th>
+				<th width="80">银行支行名称</th>
+				<th width="60">账户名称<br/>(账号)</th>
+				<th width="30">提现金额</th>
+				<th width="100">第三方流水号<br/>(提现备注)</th>
+				<th width="40">申请状态</th>
+				<?php if($sign == 2) {?>
+					<th width="120">自动失败原因<br/>(商户单号)</th>
+				<?php } ?>
+				<th width="80">加入时间</th>
+				<th width="80">更新时间</th>
+				<th width="80">银盛代付</th>				
+				<th width="100">处理操作</th>
+				<th width="80">通联代付</th>
+				<?php if($sign > 0) {?>
+					<th width="60">修改操作</th>
+				<?php } ?>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo['c_id']}" name="checkbox"></td>
+				<td>{$i}</td>
+				<td><a title="金额记录" href="__HHOME__/Member/detail_account?ucode={$vo.c_ucode}">{$vo['c_tx_code']}</a></td>
+				<td><a title="用户详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}">{$vo['c_nickname']}</a></td>
+				<td><if condition="$vo['c_headimg'] neq ''" ><a href="{$root_url}{$vo['c_headimg']}" target="_blank"><img src="{$root_url}{$vo['c_headimg']}" style="width:80px;"/></a><else/><img src="__HIMG__/user.png" style="width:80px;"/></if></td>
+				<td>{$vo['c_bankname']}</td>
+				<td>{$vo['c_sub_bankname']}</td>
+				<td>{$vo['c_uname']}<br/>({$vo['c_banksn']})</td>
+				<td>￥{$vo['c_money']}</td>
+				<td>
+					<if condition="$vo.c_thirdparty_code neq null">
+		              <input class=""  type="text" value="{$vo['c_thirdparty_code']}" style="width:130px;height:30px;margin-left:15px;" onchange="change('{$vo['c_tx_code']}',this)" />
+		          	<else/>
+		              <input class="" type="text" style="width:150px;height:30px;margin-left:15px;"  placeholder="点击输入第三方单号" onchange="change('{$vo['c_tx_code']}',this)" />
+					</if>
+					<br/>
+                    {$vo['c_remarks']}
+				</td>
+				<td>{$vo['mystate']}</td>
+				<if condition="$sign eq 2">
+					<td>{$vo['c_remarks']}<br/><if condition="$vo.c_paycode neq null">({$vo['c_paycode']})</if></td>
+				</if>
+				<td>{$vo['c_addtime']}</td>
+				<td>{$vo['c_updatetime']}</td>
+				<td>
+					<if condition="$vo['c_state'] eq 0">
+						<if condition="$vo['c_sign'] eq 1">
+							<a title="银盛代付" href="javascript:;" onclick="ajax_handle_df('1','{$vo['c_tx_code']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="red">银盛代付</font></i></a>
+						</if>
+					</if>
+				</td>				
+				<if condition="$vo['c_state'] eq 0">
+					<td class="td-manage">
+						<if condition="$vo['c_sign'] eq 2">
+							<a title="微信自动打款" href="javascript:;" onclick="ajax_wxhandle('{$vo['c_tx_code']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="red">微信自动打款</font></i></a><br/><br/>
+						</if>
+						<a title="同意提现" href="javascript:;" onclick="ajax_handle('1','{$vo['c_tx_code']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="#666600">同意</font></i></a>
+						<a title="不同意提现" href="javascript:;" onclick="ajax_handle('2','{$vo['c_tx_code']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="#666600">不同意</font></i></a>
+					</td>  
+				<else/>
+					<td class="td-status">
+						<if condition="$vo['c_state'] eq 1">
+							<span class="label label-success radius">申请成功</span>
+							<a title="撤回" href="javascript:;" onclick="back_handle('{$vo['c_tx_code']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="red">撤回</font></i></a>
+						<else/>
+							<span class="label label-success radius">申请失败</span>
+						</if>
+					</td>
+				</if>
+				<td>
+					<if condition="$vo['c_state'] eq 0">
+						<if condition="$vo['c_sign'] eq 1">
+							<a title="通连代付" href="javascript:;" onclick="ajax_handle_tldf('1','{$vo['c_tx_code']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="blue">通连代付</font></i></a>
+						</if>
+					</if>
+				</td>
+				<if condition="$sign gt 0">
+					<td class="td-manage">
+						<a title="编辑" href="javascript:;" onclick="bank_edit('编辑','Applyfor/bank_edit?tx_code={$vo.c_tx_code}&sign={$sign}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					</td>
+				</if> 
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+//撤回提现金额
+var backstate = true;
+function back_handle(txcode) {
+	if (backstate) {
+		backstate = false;
+		var message = '涉及金额，撤回提现需谨慎？';
+		layer.confirm(message, {
+			btn: ['确定', '取消'] //按钮
+		}, function() {
+			//此处请求后台程序，下方是成功后的前台处理……	
+			$.post(HHOME+'/Applyfor/ajax_back_handle',{txcode:txcode}, function(obj) {
+				var result = eval(obj);		
+		        if (result['code'] != 0) {
+		        	layer.msg(result['msg'],{icon:10,time:2000});
+		        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000);
+		        } else {
+		        	layer.msg(result['msg'],{icon:1,time:2000});
+		        	window.location.reload(); 
+		        }        
+		    });	
+		}, function() {
+			backstate = true;
+		});
+	}
+}
+/*账户信息修改*/
+function bank_edit(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*提现申请操作*/
+function ajax_handle(handle,txcode){
+	if(handle == 1){
+		var message = '牵涉金钱操作需谨慎,确定要同意吗？';
+	}else{
+		var message = '牵涉金钱操作需谨慎,确定要不同意吗？';
+	}
+	
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Applyfor/ajax_apply_handle',{handle:handle,txcode:txcode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+				setTimeout(function() {
+					window.location.reload();
+				}, 2000)
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+//银盛代付
+function ajax_handle_df(handle,txcode){
+	
+	var message = '牵涉金钱操作需谨慎,确定要代付吗？';
+	
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Applyfor/apply_df',{handle:handle,txcode:txcode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+				setTimeout(function() {
+					window.location.reload();
+				}, 2000)
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+//通连代付
+function ajax_handle_tldf(handle,txcode){
+	
+	var message = '牵涉金钱操作需谨慎,确定要代付吗？';
+	
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Applyfor/apply_tldf',{handle:handle,txcode:txcode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+				setTimeout(function() {
+					window.location.reload();
+				}, 2000)
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+//通连批量代付
+function ajaxdf(){
+
+	var message = '牵涉金钱操作需谨慎,确定要代付吗？';
+	var checkval=[];
+	$('input[name=checkbox]').each(function() {
+	   if(this.checked) {
+	     checkval.push($(this).val());
+	  	}
+    });
+    var ob="";
+	for (var i = 0; i < checkval.length ; i++) {
+		if (i == checkval.length-1) {
+			ob += checkval[i];
+		}else{
+			ob += checkval[i]+',';
+		}
+	}
+
+	console.log(ob);
+
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.post(HHOME+'/Applyfor/apply_pldf',{val:ob}, function(obj) {
+			var result = eval(obj);	
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+				setTimeout(function() {
+					window.location.reload();
+				}, 2000)
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+function change(txcode,obj){
+   	var val = $(obj).val(); 
+    if(val!=''){
+        if(confirm("你确定执行该操作吗？")){
+            $.post('__URL__/save_thirdparty',{txcode:txcode,thirdparty:val},function(data){
+                var result = eval(data);		
+    	        if (result['code'] != 0) {
+    	        	layer.msg(result['msg'],{icon:10,time:2000});
+					setTimeout(function() {
+						window.location.reload();
+					}, 2000)
+    	        } else {
+    	        	layer.msg(result['msg'],{icon:1,time:2000});
+    	        	window.location.reload(); 
+    	        }        
+            });
+        }
+    }
+    return false;
+}
+
+var flag = true; 
+function ajax_wxhandle(txcode){
+    if(confirm("你确定执微信自动打款吗？")){
+    	if(flag){
+    		flag = false;
+	        $.post('__URL__/wxpay',{txcode:txcode},function(data){
+	        	flag = true;
+	            var result = eval(data);		
+		        if (result['code'] != 0) {
+		        	layer.msg(result['msg'],{icon:10,time:2000});
+					setTimeout(function() {
+						window.location.reload();
+					}, 2000)
+		        } else {
+		        	layer.msg(result['msg'],{icon:1,time:2000});
+		        	window.location.reload(); 
+		        }        
+	        });
+    	}
+    }
+}
+</script> 
+</body>
+</html>

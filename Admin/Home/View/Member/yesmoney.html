@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<title>银盛资金管理</title>
+</head>
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 
+    <span class="c-gray en">&gt;</span> 会员管理 
+    <span class="c-gray en">&gt;</span> 银盛资金管理
+    <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="pd-20">
+	<form action=" " method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	    <table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="30">ID</th>
+					<th width="80">用户昵称</th>
+					<th width="60">银盛账户金额</th>
+					<th width="60">银盛可提现金额</th>
+					<th width="80">银盛待结算金额</th>
+					<th width="60">用户小蜜总余额</th>
+					<th width="60">结算中金额(不可提现金额)</th>
+					<th width="100">更新时间</th>
+					<th width="40">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c" >
+					<td><input type="checkbox" value="" name=""></td>
+					<td>{$i}</td>
+					<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a></td>
+					<td>{$vo['c_ysmoney']}</td>
+					<td>{$vo['c_ysdrmoney']}</td>
+					<td>{$vo['c_ysstmoney']}</td>
+					<td>{$vo['c_money']}</td>
+					<td>{$vo['c_stmoney']}</td>
+					<td>{$vo['c_updatetime']}</td>
+					<td>
+					    <a style="text-decoration:none" class="ml-5" onClick="Synchronization('{$vo['c_ucode']}')" href="javascript:;" title="同步">
+					    <i class="Hui-iconfont">&#xe638;</i>
+					    </a>
+					</td>
+				</tr>
+				</volist>
+			</tbody>
+	    </table>
+	</div>
+	
+<div class="pages">
+		{$page}
+		<div  class="mypages" style="display:inline;position:relative;left:20;">
+			<input class="input-text" type="number" min="1" max="{$count}" name="mypage" id="mypage" placeholder="请输入页码" style="width:130px;height:40px;position:absolute;left:50px;"/>
+		    <input class="btn btn-danger" type="submit" value="确定" style="height:40px;position:absolute;left:200px;" onclick="btnAction()"/>
+		</div>
+    </div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,3,4]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+//  同步
+function Synchronization(ucode){
+	if(confirm("你确定执行该操作吗？")){
+        $.post('__URL__/Synchronization',{ucode:ucode},function(data){
+            var result = eval(data);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000);
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000); 
+	        }          
+        });
+    }
+} 
+
+/*页码跳转*/
+function btnAction(){
+	var mypage = $("#mypage").val();
+	if(mypage != ''){
+		var url = window.location.href;
+		if(url.indexOf("/p/") > 0){
+			var webhost = HHOME+'/Member/index';
+			url = webhost+'/p/'+mypage;
+
+			var phone = $('input[name=phone]').val();
+			if(phone != ''){
+				url = url+'/phone/'+phone;
+			}
+			var nickname = $('input[name=nickname]').val();
+			if(nickname != ''){
+				url = url+'/nickname/'+nickname;
+			}
+			var c_merchantname = $('select[name=c_merchantname]').val();
+			if(c_merchantname != ''){
+				url = url+'/c_merchantname/'+c_merchantname;
+			}
+			var name = $('select[name=name]').val();
+			if(name != ''){
+				url = url+'/name/'+name;
+			}
+			
+			var c_mchdealtype = $('input[name=c_mchdealtype]').val();
+			if(c_mchdealtype != ''){
+				url = url+'/c_mchdealtype/'+c_mchdealtype;
+			}
+			var hide = $('input[name=ismerch]').val();
+			if(ismerch != ''){
+				url = url+'/ismerch/'+ismerch;
+			}
+			
+			var istijiao = $('input[name=istijiao]').val();
+			if(istijiao != ''){
+				url = url+'/ismerch/'+istijiao;
+			}
+		}else{
+			if(url.indexOf("?") > 0){
+				var strs= new Array(); //定义一数组
+				strs=url.split("?");
+				url = strs[0]+'/p/'+mypage+'?'+strs[1];
+			}else{
+				url = url+'/p/'+mypage;
+			}
+		}
+
+		location.href = url;//location.href实现客户端页面的跳转  
+	}	
+}
+</script> 
+</body>
+</html>

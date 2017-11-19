@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+.gdshop-info{ padding: 2% 4%; width: 100%; top: 15%;}
+.gdshop-left{ width: 25%;}
+.gdshop-img{ width: 85%; margin: 20% auto; border-radius: 50%; border: 2px solid #fff; overflow: hidden;}
+.gdshop-right{ width: 75%;}
+.gdshop-right div{ bottom: 0;}

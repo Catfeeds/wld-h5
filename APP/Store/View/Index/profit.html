@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>优惠专区</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">	
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content">
+				<!--  内容     -->
+				<div class="collage-main divtab" id="data_list">
+					<!--  一行数据区  -->
+					<!-- <div class="collage-box divre bgcolor">
+						<div class="c-box-img">
+							<img src="__IMG__/index/tu15.jpg" />
+						</div>
+						<div class="c-box-info">
+							<div class="c-box-name fs14">良品铺子麻辣/五香灯影牛肉丝重庆特产良品铺子良品铺子麻辣/五香灯影牛肉丝重庆特产</div>
+							<div class="c-box-price-number divtab">
+								<div class="c-box-price ccd fl fs11">
+									<font>￥</font>
+									<font class="fs20 fb400">10</font>
+									<font>.00</font>
+									<span class="c9">原件：￥19.00</span>
+								</div>
+								<div class="c-box-number divre fr none">
+									<span class="divab ccb fs11">10人团</span>
+									<span class="cf fs12 divab">去开团</span>
+									<img src="__IMG__/index/spell_btn_qkt.png" />
+								</div>
+								<div class="c-box-kjbtn cf fs14 fr">去砍价</div>
+							</div>
+						</div>
+					</div> -->
+					<!-- 一行数据区  end-->
+
+				</div>
+				<!--  内容   end  -->
+
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			$('.c-box-img').height($('.c-box-img').width());
+
+		}
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/ShopProductList?acode=<?php echo $issue_ucode; ?>&pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html+='<div class="divtab divempty">';
+									_html+='<h3 class="divtab c6 fs14">空空如也~</h3>';
+									_html+='<p class="divtab c9 fs12">去联系商家搞点活动吧~</p>';
+								_html+='</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="collage-box divre bgcolor jumpclk'+pageindex+'" title="'+dataarr['c_id']+'">';
+										_html+='<div class="c-box-img">';
+											_html+='<img src="'+dataarr['c_imgpath']+'" />';
+										_html+='</div>';
+										_html+='<div class="c-box-info">';
+											_html+='<div class="c-box-name fs14">'+dataarr['c_name']+'</div>';
+											_html+='<div class="c-box-price-number divtab">';
+												_html+='<div class="c-box-price ccd fl fs11">';
+													_html+='<font>￥</font>';
+													_html+='<font class="fs20 fb400">'+dataarr['c_actprice']+'</font>';
+													_html+='<font>.00</font>';
+													_html+='<span class="c9">原价：￥'+dataarr['c_value']+'</span>';
+												_html+='</div>';
+
+												_html+='<input type="hidden" value="'+dataarr['jumpurl']+'" id="jumpurl'+dataarr['c_id']+'" />';
+												if (dataarr['c_activitytype'] == 26) {   //拼团
+													_html+='<div class="c-box-number divre fr jumpinfo'+dataarr['c_id']+'" >';
+														_html+='<span class="divab ccb fs11">'+dataarr['c_targetnum']+'人团</span>';
+														_html+='<span class="cf fs12 divab">去开团</span>';
+														_html+='<img src="__IMG__/index/spell_btn_qkt.png" />';
+													_html+='</div>';		
+												} else if (dataarr['c_activitytype'] == 27) { //砍价
+													_html+='<div class="c-box-kjbtn cf fs14 fr jumpinfo'+dataarr['c_id']+'">去砍价</div>';	
+												} else if (dataarr['c_activitytype'] == 28) {  //秒杀	
+													_html+='<div class="c-box-kjbtn cf fs14 fr jumpinfo'+dataarr['c_id']+'">去秒杀</div>';
+												}
+												
+											_html+='</div>';
+										_html+='</div>';
+									_html+='</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						loadclick();			
+					}
+				}
+			});
+		}
+
+		//加载点击事件
+		loadclick();
+		function loadclick() {
+			/*进入详情*/
+			$('.jumpclk' + pageindex).each(function(index) {
+				var cid = $(this).attr('title');
+				mui('.mui-content').on('tap', '.jumpinfo' + cid, function() {
+					var url = $('#jumpurl' + cid).val();
+					mui.openWindow({
+						url: url,
+						id: 'urlinfo'
+					});
+				});
+			});
+		}
+
+	</script>
+
+</html>

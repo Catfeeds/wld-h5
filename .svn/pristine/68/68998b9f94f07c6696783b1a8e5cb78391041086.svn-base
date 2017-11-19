@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/style2.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/content.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>友收宝资料</title>
+</head>
+<body>
+<body>
+<div class="contentbox">
+<style type="text/css">
+.order_basic table td{ border:1px solid #F4F6F1; }
+.order_basic td p{background:#F5F7F2; text-align:center; line-height:25px; font-size:13px; font-weight:bold; margin-bottom:0px; margin-top:0px}
+</style>
+<table cellspacing="2" cellpadding="5" width="100%" class="order_basic">
+	<tr>
+		<td>
+		<p>商户基本信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td class="label" width="15%">商户名称：</td>
+				<td width="35%"><font color="#666600">{$rt['c_merchantname']}</font></td>
+				<td class="label" width="15%">内部的商户：</td>
+				<td width="35%">{$rt['c_outmerchantid']}</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">经营币种：</td>
+				<td width="35%">
+					<?php if ($rt['c_feetype'] === 'CNY') { ?>
+						人民币
+					<?php }else if($rt['c_feetype'] === 'USD'){ ?>
+						美元
+					<?php }else if($rt['c_feetype'] === 'EUR'){ ?>
+						欧元
+					<?php }else if($rt['c_feetype'] === 'HKD'){ ?>
+						港币
+					<?php } ?>
+        		</td>
+				<td class="label" width="15%">商户经营类型：</td>
+				<td width="35%">
+					<if condition="$rt.c_mchdealtype eq 1">实体<else/>虚拟</if>
+				</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">备注：</td>
+				<td width="35%">{$rt['c_remark']}</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">商户简称：</td>
+				<td  width="35%">{$rt['c_merchantshortname']}</td>
+				<td class="label" width="15%">行业类型：</td>
+				<td width="35%">{$rt['industry']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">省份编码：</td>
+				<td>{$rt['c_province']}</td>
+				<td class="label" width="15%">城市编码：</td>
+				<td>{$rt['c_city']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">地区编码：</td>
+				<td>{$rt['c_county']}</td>
+				<td class="label" width="15%">具体地址：</td>
+				<td>{$rt['c_address']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">电话：</td>
+				<td>{$rt['c_tel']}</td>
+				<td class="label" width="15%">邮箱：</td>
+				<td>{$rt['c_email']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">企业法人：</td>
+				<td>{$rt['c_legalperson']}</td>
+				<td class="label" width="15%">客服电话：</td>
+				<td>{$rt['c_customerphone']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">负责人：</td>
+				<td>{$rt['c_principal']}</td>
+				<td class="label" width="15%">负责人手机号：</td>
+				<td>{$rt['c_principalmobile']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">负责人身份证：</td>
+				<td>{$rt['c_idcode']}</td>
+				<td class="label" width="15%">负责人手机号：</td>
+				<td>{$rt['c_principalmobile']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">身份证图片是否上传：</td>
+				<td><if condition="$rt.c_indentityphoto neq ''"><font color="green">是</font><else/><font color="red">否</font></if></td>
+				<td class="label" width="15%">营业执照图片是否上传：</td>
+				<td><if condition="$rt.c_licensephoto neq ''"><font color="green">是</font><else/><font color="red">否</font></if></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+		<tr>
+		<td>
+		<p></p>
+		</td>
+	</tr>
+	<tr>
+	<td>
+		<p>收款帐号信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td class="label" width="15%">银行卡号：</td>
+				<td width="35%"><font color="#666600">{$rt['c_accountcode']}</font></td>
+				<td class="label" width="15%">开户银行：</td>
+				<td width="35%">{$rt['c_bankid']}</td>
+			</tr>			
+			<tr>
+				<td class="label" width="15%">开户人：</td>
+				<td  width="35%">{$rt['c_accountname']}</td>
+				<td class="label" width="15%">开户类型：</td>
+				<td width="35%"><if condition="$rt.c_accounttype eq 1">企业<else/>个人</if></td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">联行号：</td>
+				<td>{$rt['c_contactline']}</td>
+				<td class="label" width="15%">开户支行名称：</td>
+				<td>{$rt['c_bankname']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">开户支行所在省：</td>
+				<td>{$rt['c_bankprovince']}</td>
+				<td class="label" width="15%">开户支行所在市：</td>
+				<td>{$rt['c_bankcity']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">持卡人证件类型：</td>
+				<td><if condition="$rt.c_idcardtype eq 1">身份证<else/>护照</if></td>
+				<td class="label" width="15%">持卡人证件号：</td>
+				<td>{$rt['c_idcard']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">持卡人地址：</td>
+				<td>{$rt['c_bankaddress']}</td>
+				<td class="label" width="15%">持卡人手机号码：</td>
+				<td>{$rt['c_banktel']}</td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">资料审核状态：</td>
+				<td><if condition="$rt.c_status eq 1"><font color="green">资料不可提交</font><else/><font color="red">资料可提交</font></if></td>
+				<td class="label" width="15%">提交审核次数：</td>
+				<td>{$rt['c_checknum']}</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">更新时间：</td>
+				<td  width="35%">{$rt['c_updatetime']}</td>
+				<td class="label" width="15%">添加时间：</td>
+				<td width="35%">{$rt['c_addtime']}</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+
+	</tr>
+		<tr>
+		<td>
+		<p>操作信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+			<td width="15%"><strong>当前可执行操作:</strong></td>
+			<td id="get_button">
+				<if condition="$rt.c_checknum eq 0">
+					<input value="同步商家资料" class="order_action" type="button" onClick="order_action('{$rt['c_ucode']}');">
+					<if condition="$rt.c_status eq 1">
+						<input value="商户进件" class="order_action" type="button" onClick="PostAddmerchant('{$rt['c_ucode']}');">
+					</if>
+				<else/>
+					<font color="red">此资料已提交银行审核,不能进行任何操作！</font>
+				</if>
+			</td>
+		</tr>
+		</table> 
+		</td>
+	</tr>
+</table>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript">
+function order_action(ucode){
+	$.post('__URL__/synchronize',{ucode:ucode},function(data){
+		var result = eval(data);		
+		if(result['code'] != 0){
+			layer.msg(result['msg'],{icon:10,time:2000});
+		}else{
+			layer.msg(result['msg'],{icon:1,time:2000});
+			setTimeout(function() {
+				window.location.reload();
+			}, 1000);			
+		}
+	});
+}
+
+//商户进件
+function PostAddmerchant(ucode) {
+	layer.confirm('进件前请先仔细审核商户资料！',function(index){
+		tjpost(ucode);
+	});
+}
+
+var kongzhi = true;
+function tjpost(ucode) {
+	if (kongzhi) {
+		kongzhi = false;
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Agent/PostAddmerchant',{ucode:ucode}, function(obj) {
+			var result = eval(obj);					
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});  
+	        	kongzhi = true;	      	      	
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	}
+}
+</script>
+</body>
+</html>

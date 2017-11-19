@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>banner列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> banner管理 <span class="c-gray en">&gt;</span> banner列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="banner_list" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入banner标题" name="c_title" value="{$post['c_title']}">
+		
+		<span class="select-box inline">
+		<select name="source" class="select">
+			<option value="">banner位置</option>
+     		<option value="1" <if condition="$post['source']  eq 1">selected="selected"</if>>商城</option>
+     		<option value="2" <if condition="$post['source']  eq 2">selected="selected"</if>>小蜜商城</option>
+     		<option value="3" <if condition="$post['source']  eq 3">selected="selected"</if>>新版商城</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="state" class="select">
+			<option value="">选择发布状态</option>
+			<option value="10" <if condition="$post['state']  eq 10">selected="selected"</if>>发布</option>
+     		<option value="1" <if condition="$post['state']  eq 1">selected="selected"</if>>不发布</option>
+		</select>
+		</span>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+	</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span>
+		<a href="javascript:;" onclick="banner_add('添加banner','Resourcev2/banner_add','','720')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe62f;</i>添加banner</a>
+		<a href="javascript:;" onclick="batch_msg('','',1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="90">标题</th>
+				<th width="100">图片</th>
+				<th width="60">Web链接</th>
+				<th width="90">跳转类型</th>
+				<th width="100">附加值</th>
+				<th width="45">排序</th>
+				<th width="60">位置</th>
+				<th width="60">发布状态</th>
+				<th width="130">添加时间</th>
+				<th width="60">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo['c_id']}" name="msgid"></td>
+				<td>{$i}</td>
+				<td>{$vo['c_title']}</td>
+				<td>
+					<if condition="$vo['c_img'] neq ''" >
+						<a href="{$root_url}{$vo['c_img']}" target="_blank"><img src="{$root_url}{$vo['c_img']}" style="width:80px;"/></a>
+					</if>
+				</td>
+				<td>{$vo['c_weburl']}</td>
+				<td>
+					<?php if ($vo['c_tag'] == 100) { ?>
+						不跳转
+					<?php }else if($vo['c_tag'] == 1){ ?>
+						跳转url
+					<?php }else if($vo['c_tag'] == 2){ ?>
+						带openid跳转url
+					<?php }else if($vo['c_tag'] == 3){ ?>
+						订单详情
+					<?php }else if($vo['c_tag'] == 4){ ?>
+						商品详情
+					<?php }else if($vo['c_tag'] == 5){ ?>
+						个人空间
+					<?php }else if($vo['c_tag'] == 6){ ?>
+						个人资料
+					<?php }else{ ?>
+						商家商品列表
+					<?php } ?>
+				</td>
+				<td>{$vo['c_tagvalue']}</td>
+				<td>{$vo['c_sort']}</td>
+				<td>
+					<?php if ($vo['c_source'] == 1) { ?>
+						商城
+					<?php }else if($vo['c_source'] == 2){ ?>
+						小蜜商城
+					<?php }else if($vo['c_source'] == 3){ ?>
+						新版商城
+					<?php } ?>
+				</td>
+				<td>
+					<?php if ($vo['c_state'] == 0) { ?>
+						发布
+					<?php }else if($vo['c_state'] == 1){ ?>
+						不发布
+					<?php } ?>
+				</td>
+				<td>{$vo['c_addtime']}</td>
+				<td class="td-manage">
+				<a title="编辑" href="javascript:;" onclick="banner_edit('banner编辑','Resourcev2/banner_edit?Id={$vo.c_id}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+				 <a title="删除" href="javascript:;" onclick="banner_delete(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				 </td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+//批量处理
+function banner_delete(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=msgid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('消息记录删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Resourcev2/banner_delete',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+/*banner-添加*/
+function banner_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*banner-编辑*/
+function banner_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

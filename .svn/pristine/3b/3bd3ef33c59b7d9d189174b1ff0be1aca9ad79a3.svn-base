@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>拼手气</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/extgoods/index.css" />
+</head>
+
+<body class="bgeb">
+	<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+		<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content">
+				<div class="divtab divre extgoods-main">
+					<div class="divtab extgoods-title">
+						<img src="__IMG__/extgoods/jh_title.png" alt="">
+					</div>
+					<div class="divtab divre extgoods-actdetails">
+						<div class="extgoods-actimage">
+							<img src="__IMG__/extgoods/jh_lw.png" alt="">
+						</div>
+						<div class="divab extgoods-actrule">
+							<img src="__IMG__/extgoods/gz_btn.png" alt="">
+						</div>
+					</div>
+					<div class="divtab extgoods-prizes">
+						<li class="fl divre">
+							<img src="__IMG__/extgoods/kp_gx.png" alt="">
+							<img class="second-img" data-prizeId="gx" src="__IMG__/extgoods/kp-bm.png" alt="">
+						</li>
+						<li class="fl divre">
+							<img src="__IMG__/extgoods/kp_hb.png" alt="">
+							<img class="second-img" data-prizeId="hb" src="__IMG__/extgoods/kp-bm.png" alt="">
+						</li>
+						<li class="fl divre">
+							<img src="__IMG__/extgoods/kp_iphone.png" alt="">
+							<img class="second-img" data-prizeId="iphone" src="__IMG__/extgoods/kp-bm.png" alt="">
+						</li>
+						<li class="fl divre">
+							<img src="__IMG__/extgoods/kp_gx.png" alt="">
+							<img class="second-img" data-prizeId="gx" src="__IMG__/extgoods/kp-bm.png" alt="">
+						</li>
+					</div>
+					<div class="divab show-prize">
+						<div class="show-prize-title">
+							<img src="__IMG__/extgoods/tc_gx.png" alt="">
+						</div>
+						<div class="show-prize-content">
+							<img src='__IMG__/extgoods/kp_hb.png'>
+						</div>
+					</div>
+					<div class="divab show-rule">
+						<h3 class="fs15">活动细则</h3>
+						<div class="extgoods-actrule-introduction">
+							<p class="divre c3"><em class="divab"></em>在小蜜APP中任意店铺中消费付款，订单金额在1~10元之间，即可获得一次抽奖机会，每个消费者在一个店铺中每日最多能够获取3次抽奖机会。</p>
+							<p class="divre c3"><em class="divab"></em>大于10元的金额，将在确认收货后再次获得一次抽奖机会。</p>
+							<p class="divre c3"><em class="divab"></em>进入抽奖界面后，用户将会看到3张扑克牌，3张扑克牌上分别印有iPhone
+								X、现金红包【0.1~0.5】、感谢参与。随后扑克牌翻转，高速变换位置，打乱位置后用户可通过翻转扑克牌获取iPhone X、现金红包或者感谢参与。</p>
+							<p class="divre c3"><em class="divab"></em>若抽到iPhone X，将会发送至订单所登记地址，现金红包将在用户下次进行消费时抵扣。</p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function () {
+		var imgHeight = $(".extgoods-prizes li img:first-child").width()
+		$(".extgoods-prizes li").height(imgHeight)
+		// 1. 入场动画
+		setTimeout(function () {
+			$(".extgoods-prizes li img:first-child").animate({
+				'width': 0,
+				'height': imgHeight
+			}, 800).hide(0, function () {
+				$(this).next().animate({
+					'width': '100%',
+					'height': imgHeight
+				}, 800)
+			})
+		}, 2000);
+		setTimeout(function () {
+			$(".extgoods-prizes li:nth-child(1) img:last-child").css({
+				"position": "absolute",
+				"left": 0
+			}).animate({
+				"left": "50%",
+				"top": "50%",
+				"opacity": 0
+			}, 800)
+			$(".extgoods-prizes li:nth-child(2) img:last-child").css({
+				"position": "absolute",
+				"right": 0
+			}).animate({
+				"left": "-50%",
+				"top": "50%",
+				"opacity": 0
+			}, 800)
+			$(".extgoods-prizes li:nth-child(3) img:last-child").css({
+				"position": "absolute",
+				"left": 0
+			}).animate({
+				"left": "50%",
+				"bottom": "50%",
+				"opacity": 0
+			}, 800)
+			$(".extgoods-prizes li:nth-child(4) img:last-child").css({
+				"position": "absolute",
+				"right": 0
+			}).animate({
+				"left": "-50%",
+				"bottom": "50%",
+				"opacity": 0
+			}, 800)
+		}, 3600)
+		setTimeout(function () {
+			$(".extgoods-prizes li:nth-child(1) img:last-child").animate({
+				"opacity": 1
+			}, 800)
+		}, 4400)
+		setTimeout(function () {
+			$(".extgoods-prizes li:nth-child(1) img:last-child").animate({
+				"left": "0",
+				"top": "0",
+				"opacity": 1
+			}, 800)
+			$(".extgoods-prizes li:nth-child(2) img:last-child").animate({
+				"left": "0",
+				"top": "0",
+				"opacity": 1
+			}, 800)
+			$(".extgoods-prizes li:nth-child(3) img:last-child").animate({
+				"left": "0",
+				"bottom": "0",
+				"opacity": 1
+			}, 800)
+			$(".extgoods-prizes li:nth-child(4) img:last-child").animate({
+				"left": "0",
+				"bottom": "0",
+				"opacity": 1
+			}, 800)
+		}, 5200)
+
+		// 2. 点击显示相应内容
+		$(".second-img").on("click", function () {
+			var mask = mui.createMask(function () {
+				$(".show-prize").show(1000)
+			})
+			mask.show()
+		})
+		$(".extgoods-actrule img").on("click", function () {
+			var mask2 = mui.createMask(function () {
+				$(".show-rule").fadeIn(1000)
+			})
+			mask2.show()
+		})
+
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		// body...
+	}
+</script>
+
+</html>

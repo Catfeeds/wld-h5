@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>修改登录密码</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+		<form name="formEdit" enctype="multipart/form-data" id="form1">
+			<div class="wrap-page" style="margin-bottom:13%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<div class="upadte-banner">
+						<div class="old-telephone fs14">修改登录密码</div>
+						<img src="__IMG__/usercenter/pwd-banner.png" alt="">
+					</div>
+					<div class="update-list fs13">
+						<div class="update-font fl">原密码</div>
+						<div class="update-text fl"><input type="password" id="oldpwd" name="oldpwd" placeholder="请输入原密码" class="fs13"></div>
+					</div>
+					<div class="update-list fs13">
+						<div class="update-font fl">新密码</div>
+						<div class="update-text fl"><input type="password" id="newpwd" name="newpwd" placeholder="请输入新密码" class="fs13"></div>
+					</div>
+					<div class="update-list fs13">
+						<div class="update-font fl">确认密码</div>
+						<div class="update-text fl"><input type="password" id="confirmpwd" name="confirmpwd" placeholder="请输入确认密码" class="fs13"></div>
+					</div>
+					<div class="send-code-next next-hover fs16" onclick="submit1()">修改</div>
+					<div class="password-tip fs14">密码不能过于简单，请设置6到16位字符！</div>
+				</div>
+			</div>
+		</form>
+	</body>
+	<include file="Base@Public/pubjs" />
+	<script type="text/javascript">
+		window.onload = function() {
+			var codeh = $('.send-checkcode').height();
+			$('.send-checkcode').css('line-height', codeh + "px");
+			var lih = $('.update-list').height();
+			$('.update-list').css('line-height', lih + "px");
+
+		}
+		var subflag = true;
+		/*修改密码*/
+		function submit1() {
+			if(subflag) {
+				subflag = false;
+				var oldpwd = $('#oldpwd').val();
+				var newpwd = $('#newpwd').val();
+				var confirmpwd = $('#confirmpwd').val();
+				if(oldpwd == "" || newpwd == "" || confirmpwd == "") {
+					mui.toast('请输入完整信息！');
+					subflag = true;
+					return false;
+				} else if(newpwd != confirmpwd) {
+					mui.toast('两次密码输入不一致！');
+					subflag = true;
+					return false;
+				}
+				$.ajax({
+					type: "POST",
+					url: "__URL__/updatepwd",
+					data: {
+						oldpwd: $('#oldpwd').val(),
+						newpwd: $('#newpwd').val(),
+						confirmpwd: $('#confirmpwd').val()
+					},
+					datatype: "json",
+					success: function(data) {
+						var obj = eval(data);
+						if(obj['code'] == 0) {
+							mui.toast(obj['msg']);
+							mui.openWindow({url:"__URL__/index",id:"index"});							
+						} else {
+							mui.toast(obj['msg']);
+							subflag = true;
+						}
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

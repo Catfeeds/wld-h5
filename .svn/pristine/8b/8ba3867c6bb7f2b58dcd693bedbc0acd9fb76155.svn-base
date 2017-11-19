@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>小蜜商家红包</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/rednewact/index.css" />
+	<style type="text/css">
+		.red-get-tn span{padding-left: 0px;}
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="redshare-main divtab divre">
+				<div class="rshare-ico divab"><img src="__IMG__/rednewact/redpacket_share_bq2.png" alt="" /></div>
+				<div class="rshare-uinfo divab divtab">
+					<div class="rshare-head"><img src="{$user['c_headimg']}" alt="" /></div>
+					<div class="rshare-nickname cf fs16">{$user['c_nickname']}</div>
+					<div class="rshare-desc fov cf fs13">{$user['c_signature']}</div>
+					<div class="rshare-unum cf fs13"><span>关注{$user['c_attention']}</span><span>浏览量{$user['c_pv']}</span></div>					
+				</div>
+				<div class="rshare-redinfo divab">
+					<div class="rshare-redimg divre">
+						<div class="red-get-info divab">
+							<p><span class="fs13">共</span><span class="fs22">{$redinfo['c_money']}</span><span class="fs13">元</span></p>
+							<p class="divtab fs12 fov alignc">{$redinfo['c_name']}</p>
+							<p class="divtab fs11 red-get-tn">
+								<span class="divtab alignc block">已领取{$redinfo['c_totalnum']-$redinfo['c_num']}/{$redinfo['c_totalnum']}个</span>
+								<span class="divtab alignc block">发起时间：<?php echo date('Y-m-d H:i',strtotime($redinfo['c_addtime'])); ?></span>
+							</p>
+						</div>
+						<div class="rshare-erweima divab">
+							<p class="fs13 cf">温馨提示：24小时后失效</p>
+							<div class="erweimaimg"><img src="{$qcode['img']}" alt="" /></div>
+							<p class="fs13 cf">长按扫描二维码，进入店铺领取红包</p>
+						</div>
+						<img src="__IMG__/rednewact/redpacket_share_hb.png" alt="" />
+					</div>
+				</div>
+				<img src="__IMG__/rednewact/redpacket_share_bg.png" alt="" />
+			</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.xm-bar-nav-right').hide();
+		$('.xiaomi-bar').css('background', 'none');
+		$('.mui-content').css('margin-top', '0px');
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		$('.redshare-main').height($('.redshare-main').width()*1.78);
+		$('.rshare-head').width($('.rshare-head').width());
+		$('.rshare-head').height($('.rshare-head').width());
+		$('.rshare-head').css('border-radius',$('.rshare-head').width()+'px');
+		$('.rshare-redimg').height($('.rshare-redimg').width()*1.30);
+	}
+	
+	$(window).bind('scroll', function() {
+		if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+			$('.xiaomi-bar').css('background', '#47ABF7');
+		}
+		if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+			$('.xiaomi-bar').css('background', 'none');
+		}				
+	});
+
+
+</script>
+
+</html>

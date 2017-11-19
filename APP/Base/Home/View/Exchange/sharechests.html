@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>挖到宝了</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/exchange/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+
+			<div class="share-main divre" id="data_list">
+				<div class="share-con chests-share divab">
+					<div class="share-pro-img">
+						<img src="__IMG__/cpackage/tu14.jpg">
+					</div>
+					<div class="share-pro-info divtab">
+						<div class="ex-pro-price exsu-price divre">
+							<div class="fs16 cy">￥120</div>
+							<div class="diagonal exbg01 divab"></div>
+						</div>
+						<div class="share-pro-name cy fs14">我在小蜜平台<span>良品铺子</span>的店发现<span>百宝箱</span>获得<span>玫瑰花酒</span></div>
+					</div>
+				</div>
+
+				<div class="go-find chests-find divab">
+					<span class="divab fs16 scf">去寻宝</span>
+					<img src="__IMG__/exchange/share_bx_btn.png">
+				</div>
+				<img src="__IMG__/exchange/share_bx_bg.png">
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.xiaomi-bar').css('background','#1b1a1f');
+		$('.xm-nav-close').css('display','block');
+		$('.xm-nav-close').text('返回');
+		$('.xm-nav-close').css('text-decoration','underline');
+		$('.xm-nav-title').css('width','72%');
+		$('.xm-bar-nav-right').text('...');
+		$('.xm-bar-nav-right').css('font-size','28px');
+		$('.xm-bar-nav-right').css('margin-top','-2%');
+		
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+
+
+	}
+
+
+
+	//跳转
+	mui('.mui-content').on('tap', '.store' + sid, function() {
+		var acode = $(this).attr('title');
+		mui.openWindow({
+			url: "__APP__/Store/Index/index?fromucode=<?php echo $acode; ?>",
+			id: "storeinfo"
+		});
+	});
+</script>
+
+</html>

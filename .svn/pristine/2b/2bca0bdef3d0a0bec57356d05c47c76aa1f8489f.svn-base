@@ -1,0 +1,161 @@
+*{
+    padding: 0px;margin: 0px;font-family: '微软雅黑'
+}
+ul{list-style: none;}
+
+img{display: block;width: 100%;overflow: hidden; border: 0px;}
+body{
+	color: #ffffff;
+}
+.logistics{
+	width: 100%;
+	overflow: hidden;
+	
+}
+.logistics_head{
+	width: 100%;
+	overflow: hidden;
+	border-bottom: 1px solid #cccccc;
+}
+.logistics_particular{
+	width: 100%;
+	overflow: hidden;
+}
+
+.logistics_img1,.logistics_message,.logistics_img2,.logistics_qiangxi{
+	float: left;
+}
+
+.logistics_img1 img,.logistics_img2 img{
+	width: 50%;
+	overflow: hidden;
+	float: right;
+	margin-right: 15%;
+
+}
+.logistics_img2 img{
+	width: 30%;
+}
+.logistics_message,.logistics_qiangxi{
+	width: 83%;
+	overflow: hidden;
+	color: #999999;
+	
+}
+.logistics_message p{
+	margin-top: 3%;
+}
+.logistics_name,.logistics_number,.logistics_state{
+	width: 100%;
+	color: #555555;	
+}
+
+.logistics_state{	
+	margin-bottom: 3%;
+}
+.logistics_number span{margin-left: 2%;}
+.logistics_state span{
+	color: #E43736;
+}
+.logistics_qiangxi{
+	border-bottom: 1px solid #cccccc
+}
+.logistics_qiangxi1{
+	width: 100%;	
+	margin-top: 2%;
+}
+
+.logistics_type1{
+	margin-left: 2%;
+	margin-right: 2%;
+}
+.logistics_time{
+	width: 100%;
+	overflow: hidden;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+.logistics_img1{
+	width: 15%;
+	overflow: hidden;
+	margin-top:9%;
+}
+.logistics_img2{
+	width: 15%;
+	overflow: hidden;
+	margin-top:2%;
+}
+
+@media screen and (max-width: 480px)   {
+	.logistics_name,.logistics_number,.logistics_state{
+		font-size: 16px;
+	}
+	.logistics_number{
+	font-size: 13px;
+}
+	.logistics_state,.logistics_name,.logistics_type1,.logistics_qianshouren,.logistics_time{
+		font-size: 12px;
+	}
+	.logistics_img2{
+	width: 15%;
+	overflow: hidden;
+	margin-top:5%;
+}	
+}	
+@media (min-width: 481px) and (max-width: 767px)  {
+	.logistics_name,.logistics_number,.logistics_state{
+		font-size: 20px;
+	}
+	.logistics_number{
+	font-size: 17px;
+}
+	.logistics_state,.logistics_name,.logistics_type1,.logistics_qianshouren,.logistics_time{
+		font-size: 18px;
+	}
+	
+	
+}
+@media (min-width: 768px) and (max-width: 979px) {
+	.logistics_name,.logistics_number,.logistics_state{
+		font-size: 24px;
+	}
+	.logistics_number{
+	font-size: 21px;
+}
+	.logistics_state,.logistics_name,.logistics_type1,.logistics_qianshouren,.logistics_time{
+		font-size: 22px;
+	}
+	.logistics_img2{
+	width: 15%;
+	overflow: hidden;
+	margin-top:3%;
+	}
+	.logistics_img1{
+	width: 15%;
+	overflow: hidden;
+	margin-top:7%;
+}
+
+}
+@media (min-width: 980px) {
+	.logistics_name,.logistics_number,.logistics_state{
+		font-size: 28px;
+	}
+	.logistics_number{
+	font-size: 25px;
+	}
+	.logistics_state,.logistics_name,.logistics_type1,.logistics_qianshouren,.logistics_time{
+		font-size: 26px;
+	}
+	.logistics_img2{
+	width: 15%;
+	overflow: hidden;
+	margin-top:1%;
+	}
+	.logistics_img1{
+	width: 15%;
+	overflow: hidden;
+	margin-top:5%;
+}
+}
+

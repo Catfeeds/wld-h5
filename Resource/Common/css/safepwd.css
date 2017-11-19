@@ -1,0 +1,12 @@
+.set-pwd-bg{display: none; background-color: black; z-index:999; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.set-pwd-pup{ display: none;top:10%;left:0; position:fixed;z-index: 100000;width:90%;margin:0 auto;right: 0;left:0;max-width: 720px;min-width: 320px;padding: 10%;}
+.set-pwd-con{background: #fff;border-radius: 10px;}
+.set-pwd-tit{padding:4% 0;border-bottom:1px solid #ebebeb;}
+.set-cancel{width: 5%;text-align: center;margin: 1.5% 0 0 4%;}
+.set-font-pwd{width: 75%;text-align: left;margin-left: 15%;}
+.set-pwd-money{text-align: center;padding: 2% 0;margin: 0 7.5%;}
+.set-pwd-surplus{text-align: center;padding: 2% 0;margin: 0 7.5%;}
+.pwd-input-list{padding: 6% 2% 6% 5%;}
+.pass { background: #fff; text-align: center;width: 15%;line-height: 100%;float: left;margin-left: 1%;border:1px solid #d9d9d9;padding:4% 0;}
+.pass_right{border-right:1px solid #d9d9d9;}
+

@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<!-- 上传图片控件 -->
+<script type="text/javascript" src="__HJS__/tuo.js"></script> 
+<title>代理商信息编辑</title>
+</head>
+<body>
+<div class="pd-20">
+  <form action="ajax_agent_edit" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>代理商昵称：</label>
+      <div class="formControls col-10">
+        <input type="text" class="input-text" value="{$vo.c_nickname}" placeholder="" id="" name="nickname" disabled="disabled">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">代理商类型：</label>
+      <div class="formControls col-10"> 
+        <div class="radio-box">
+          <input type="radio" id="sex-1" name="c_type" <if condition="$vo['c_type'] eq 1">checked="checked"</if> value="1">
+          <label for="sex-1">个人代理</label>
+        </div>
+        <div class="radio-box">
+          <input type="radio" id="sex-2" name="c_type" <if condition="$vo['c_type'] eq 2">checked="checked"</if> value="2">
+          <label for="sex-2">企业代理</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-2">联系人姓名：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_name}" placeholder="个人、企业代理填写" id="" name="c_name">
+      </div>  
+      <label class="form-label col-2">联系人邮箱：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_email}" placeholder="个人、企业代理填写" id="" name="c_email">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">联系人QQ：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_qq}" placeholder="个人、企业代理填写" id="" name="c_qq">
+      </div>  
+      <label class="form-label col-2">固定电话：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_home_tel}" placeholder="个人、企业代理填写" id="" name="c_home_tel">
+      </div>  
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-2">申请单位名称：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_company}" placeholder="企业代理填写" id="" name="c_company">
+      </div>  
+      <label class="form-label col-2">单位邮编：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_postcode}" placeholder="企业代理填写" id="" name="c_postcode">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">申请单位地址：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_address}" placeholder="企业代理填写" id="" name="c_address">
+      </div>  
+      <label class="form-label col-2">营业执照号：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_charter}" placeholder="企业代理填写" id="" name="c_charter">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">营业执照图片：</label>
+      <div class="formControls col-2">
+        <div id="file_1" class="file_1 cla">
+          <a href="javascript:;" id="tdd_1"  calss="span_1" <if condition="$vo['c_charter_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(1)">X</a>
+              <div class="show" id="show_1" >  
+               <if condition="$vo['c_charter_img'] neq ''">
+                <img src="__ROOT__/{$vo['c_charter_img']}" width="100" height="100" />
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_1" class="fileList1 tdaa" onclick="dianji(1)"  <if condition="$vo['c_charter_img'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_charter_img" id="fileElem_1" class="fileElem" style="display:none" onchange="handleFiles(this,1)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_1"  value="{$vo['c_charter_img']}" />
+         </div>
+      </div>
+
+      <label class="form-label col-2">单位企业标志图：</label>
+      <div class="formControls col-2">
+        <div id="file_2" class="file_2 cla">
+          <a href="javascript:;" id="tdd_2"  calss="span_2" <if condition="$vo['c_company_sign'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(2)">X</a>
+              <div class="show" id="show_2" >  
+               <if condition="$vo['c_company_sign'] neq ''">
+                <img src="__ROOT__/{$vo['c_company_sign']}" width="100" height="100"/>
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_2" class="fileList2 tdaa" onclick="dianji(2)"  <if condition="$vo['c_company_sign'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_company_sign" id="fileElem_2" class="fileElem" style="display:none" onchange="handleFiles(this,2)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_2"  value="{$vo['c_company_sign']}" />
+         </div>
+      </div>
+    </div>
+    
+    <div class="row cl">
+      <label class="form-label col-2">负责人身份证号：</label>
+      <div class="formControls col-10">
+        <input type="text" class="input-text" value="{$vo.c_idcard}" placeholder="个人、企业代理填写" id="" name="c_idcard">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">身份证正面照：</label>
+      <div class="formControls col-2">
+        <div id="file_3" class="file_3 cla">
+          <a href="javascript:;" id="tdd_3"  calss="span_3" <if condition="$vo['c_idcard_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(3)">X</a>
+              <div class="show" id="show_3" >  
+               <if condition="$vo['c_idcard_img'] neq ''">
+                <img src="__ROOT__/{$vo['c_idcard_img']}" width="100" height="100" />
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_3" class="fileList3 tdaa" onclick="dianji(3)"  <if condition="$vo['c_idcard_img'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_idcard_img" id="fileElem_3" class="fileElem" style="display:none" onchange="handleFiles(this,3)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_3"  value="{$vo['c_idcard_img']}" />
+         </div>
+      </div>
+
+      <label class="form-label col-2">身份证反面照：</label>
+      <div class="formControls col-2">
+        <div id="file_4" class="file_4 cla">
+          <a href="javascript:;" id="tdd_4"  calss="span_4" <if condition="$vo['c_idcard_img1'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(4)">X</a>
+              <div class="show" id="show_4" >  
+               <if condition="$vo['c_idcard_img1'] neq ''">
+                <img src="__ROOT__/{$vo['c_idcard_img1']}" width="100" height="100"/>
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_4" class="fileList4 tdaa" onclick="dianji(4)"  <if condition="$vo['c_idcard_img1'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_idcard_img1" id="fileElem_4" class="fileElem" style="display:none" onchange="handleFiles(this,4)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_4"  value="{$vo['c_idcard_img1']}" />
+         </div>
+      </div>
+    </div>
+
+
+    <div class="row cl">
+      <label class="form-label col-2">收款人姓名：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_fee_name}" placeholder="" id="" name="c_fee_name">
+      </div>  
+      <label class="form-label col-2">收款开户银行：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_fee_bank}" placeholder="" id="" name="c_fee_bank">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">收款支行名称：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_fee_branch}" placeholder="" id="" name="c_fee_branch">
+      </div>  
+      <label class="form-label col-2">收款银行卡号：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_fee_cardnum}" placeholder="" id="" name="c_fee_cardnum">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">收款支付宝号：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_fee_alipay}" placeholder="" id="" name="c_fee_alipay">
+      </div>  
+      <label class="form-label col-2">收款微信帐号：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_fee_weixin}" placeholder="" id="" name="c_fee_weixin">
+      </div>  
+    </div>
+
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <input name="ucode" type="hidden" value="{$vo['c_ucode']}">
+        <input type="submit" value="提交" class="btn btn-primary radius">
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

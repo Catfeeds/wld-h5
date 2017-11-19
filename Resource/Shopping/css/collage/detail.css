@@ -1,0 +1,36 @@
+img{width: 100%;height: 100%;}
+
+.pt-pro-con{border-bottom: 1px solid #eff0f5; padding: 3%; }
+.pt-pro-img{ width: 25%; margin-right: 3%;}
+.pt-pro-info{ width: 72%;}
+.pt-pro-price span{ text-decoration: line-through; padding-left: 2%;}
+.pt-pro-state{ width: 25%; right: -2%; bottom: 12%; text-align: center;}
+.pt-college-img{ width: 70%;}
+
+.pt-number-con{ padding: 6% 0;}
+.pt-number-con ul{ padding: 0 18%;}
+.pt-number-con ul li{ float: left; width: 18%; margin: 2% 1%; overflow: hidden; border-radius: 50%; display: block;}
+.pt-number-img{ border-radius: 50%; border: 1px solid #eff0f5; overflow: hidden; width: 100%;}
+.pt-number-bg,.pt-pro-bg{ width: 100%; height: 100%; background: rgba(0,0,0,0.5); bottom: 0;}
+.pt-time-state{ text-align: center;}
+.pt-time-state p:nth-of-type(1){ padding: 2.5% 0;}
+.pt-time-state .pt-time-show p {color: #F72A2F; font-weight: bold; padding: 0;}
+.pt-time-show p span{ margin: 0 1%;}
+.pt-time-show p font{ color:#333;}
+
+.pt-title{ font-weight: bold; padding-bottom: 2%;}
+.pt-title font{display: block; width: 5px; background: #000;float: left; margin-right: 2%; height: 1.5rem; margin-top: 0.5%;}
+
+.pt-playwy-con{ border-top: 8px solid #f0f0f0; border-bottom: 8px solid #f0f0f0; padding: 5% 3%;}
+.pt-playwy-con p{ margin: 2% auto;}
+.pt-playwy-con p font{ display: block; width: 4px; height: 4px; border-radius: 50%; background: #000; float: left; margin: 2% 1.5% 0 0;}
+.pt-help-img{ width: 6%; right: 1%; top: 0; z-index: 99;}
+
+.pt-good-remark{ padding: 3%; margin-top: 2.5%;}
+.pt-good-imglist{ max-width: 720px;}
+
+.pt-buy-btn{ overflow: hidden; position: fixed; text-align: center;width: 100%; max-width: 720px; min-width: 320px; margin: auto; left: 0; right: 0; bottom: 0; z-index: 99;}
+.server-btn,.shop-btn { width: 15%; display: block; background: #fff; padding: 1% 0; }
+.server-btnimg,.shop-btnimg{ width: 55%; margin: 0 auto;}
+.pt-shopping-text{ width: 70%; background: #ff4a49; padding: 1.1% 0;}
+.pt-shopping-text span{ display: block;}

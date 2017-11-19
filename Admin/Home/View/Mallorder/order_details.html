@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/style2.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/content.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<script type="text/javascript">
+function ajax_change_shopping(obj){
+    vv = $(obj).val();
+    if(vv!="0"){
+      $(obj).parent().find('.vieworder').show();
+    }else{
+      $(obj).parent().find('.vieworder').hide();
+    }
+  }
+
+function change_express_ajx(oid,thisobj){
+	expname = $('#shopping_id').val();
+	val = $(thisobj).val();
+	if(val){
+		if(confirm("你确定执行该操作吗？")){
+		  $.get('__URL__/change_express',{oid:oid,expname:expname,val:val},function(data){
+		  	var result = eval(data);
+		  	if(result['code'] != 0){
+				layer.msg(result['msg'],{icon:10,time:2000});
+				window.location.reload(); 
+			}else{
+				layer.msg(result['msg'],{icon:1,time:2000});
+				window.location.reload(); 
+			}
+		  });
+		}
+	}
+	return false;
+}
+</script>
+<title>订单详情</title>
+</head>
+<body>
+<body>
+<div class="contentbox">
+<style type="text/css">
+.order_basic table td{ border:1px solid #F4F6F1; }
+.order_basic td p{background:#F5F7F2; text-align:center; line-height:25px; font-size:13px; font-weight:bold; margin-bottom:0px; margin-top:0px}
+</style>
+<table cellspacing="2" cellpadding="5" width="100%" class="order_basic">
+	<tr>
+		<td>
+		<p>订单基本信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td class="label" width="15%">订单号：</td>
+				<td width="35%">{$rt['c_orderid']}</td>
+				<td class="label" width="15%">订单状态：</td>
+				<td width="35%">{$rt['mystatus']}</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">购货人：</td>
+				<td width="35%">{$rt['c_nickname']}</td>
+				<td class="label" width="15%">下单时间：</td>
+				<td width="35%">{$rt['c_addtime']}</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">商家名称：</td>
+				<td width="35%">
+					<if condition="$rt['c_scode'] neq ''"><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$rt.c_scode}" style="text-decoration:none">{$rt['pnickname']}&nbsp;&nbsp;<font color="#DC143C">(用户购买)</font></a><else/>{$rt['pnickname']}&nbsp;&nbsp;<font color="#DC143C">(商家购买)</font></if>
+				</td>
+				<td class="label" width="15%">供货商名称：</td>
+				<td width="35%">{$rt['c_name']}</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">支付方式：</td>
+				<td width="35%">
+					<if condition="$rt['c_pay_rule'] eq 1"><font color="blue">【支付宝支付】</font>
+		         	<elseif condition="$rt['c_pay_rule'] eq 2"/><font color="green">【手机微信支付】</font>
+		         	<elseif condition="$rt['c_pay_rule'] eq 3"/><font color="green">【H5支付方式】</font>
+					<elseif condition="$rt['c_pay_rule'] eq 4"/><font color="green">【余额支付】</font>
+		         	</if>
+				</td>
+				<td class="label" width="15%">付款时间：</td>
+				<td width="35%"><if condition="$rt.c_paytime neq ''">{$rt['c_paytime']}<else/>'未知'</if></td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">订单附言：</td>
+				<td >{$rt['c_postscript']}</td>
+				<td class="label" width="15%">确认时间：</td>
+				<td width="35%"><if condition="$rt.c_confirmtime neq ''">{$rt['c_confirmtime']}<else/>'未知'</if></td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">邮费：</td>
+				<td><if condition="$rt.c_free neq ''">￥{$rt['c_free']}<else/>￥0.00</if></td>
+				<td class="label" width="15%">发货时间：</td>
+				<td><if condition="$rt.c_deliverytime neq ''">{$rt['c_deliverytime']}<else/>未发货</if></td>
+			</tr>
+			<tr> 
+				<td class="label" width="15%">订单总金额：</td>
+				<td>￥{$rt['c_total_price']}</td>
+				<td class="label" width="15%">实际支付金额：</td>
+				<td><if condition="$rt.c_actual_price neq ''">￥{$rt['c_actual_price']}（包含邮费）<else/>暂未支付</if></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>收货人信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%" class="order_basic">
+			<tr>
+				<td class="label" width="15%">收货人：</td>
+				<td width="35%">{$rt['c_consignee']}</td>
+				
+				<td class="label" width="15%">配送方式：</td>
+				<td width="35%">
+				<if condition="$rt.c_delivery eq 2">
+				面对面提货
+				<else/>
+					<select class="select" name="shopping_id" id="shopping_id" onchange="ajax_change_shopping(this)">
+		                <option value="0">选择物流</option> 
+		                <option value="中通快递" <if condition="$rt.c_expressname eq '中通快递'">selected="selected"</if>>中通快递</option>
+		                <option value="优速快递" <if condition="$rt.c_expressname eq '优速快递'">selected="selected"</if>>优速快递</option>
+		                <option value="申通快递" <if condition="$rt.c_expressname eq '申通快递'">selected="selected"</if>>申通快递</option>
+		                <option value="顺丰快递" <if condition="$rt.c_expressname eq '顺丰快递'">selected="selected"</if>>顺丰快递</option>
+		                <option value="圆通快递"<if condition="$rt.c_expressname eq '圆通快递'">selected="selected"</if>>圆通快递</option>
+		                <option value="天天快递"<if condition="$rt.c_expressname eq '天天快递'">selected="selected"</if>>天天快递</option>
+		                <option value="韵达快递"<if condition="$rt.c_expressname eq '韵达快递'">selected="selected"</if>>韵达快递</option>
+		                <option value="汇通快递"<if condition="$rt.c_expressname eq '汇通快递'">selected="selected"</if>>汇通快递</option>
+		                <option value="中国邮政EMS"<if condition="$rt.c_expressname eq '中国邮政EMS'">selected="selected"</if>>中国邮政EMS</option>
+		                <option value="德邦快递"<if condition="$rt.c_expressname eq '德邦快递'">selected="selected"</if>>德邦快递</option>
+		                <option value="快捷速递"<if condition="$rt.c_expressname eq '快捷速递'">selected="selected"</if>>快捷速递</option>      
+		            </select>
+			        <if condition="$rt.c_expressnum neq null">
+			            <input  class="vieworder" type="text" value="{$rt['c_expressnum']}" style="margin-left:15px;" onchange="change_express_ajx('{$rt['c_orderid']}',this)"/>
+			        <else/>
+			            <input  class="vieworder" type="text" style="display:none;margin-left:15px;"  placeholder="点击输入物流单" onchange="change_express_ajx('{$rt['c_orderid']}',this)" />
+			        </if>
+			    </if>
+			    &nbsp;&nbsp;
+				<if condition="($rt.c_expressnum neq null) and ($rt.c_expressname neq null)">
+					<input value="查询物流" class="Express" type="button" onClick="layer_show('物流信息','Order/query_express?expressname={$rt['c_expressname']}&expressnum={$rt['c_expressnum']}','780','580')";>
+				</if>
+				</td>
+			</tr>
+			<tr>
+				<td class="label" width="15%">收货地址：</td>
+				<td width="35%">{$rt['c_province']}省&nbsp;&nbsp;{$rt['c_cityname']}市&nbsp;&nbsp;{$rt['c_district']}&nbsp;&nbsp;{$rt['c_address']}</td>
+				<td class="label" width="15%">电话|手机：</td>
+				<td width="35%">{$rt['c_telphone']}</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>商品信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%" >
+			<tr align="center" >
+				<td ><strong>商品编码</strong></td>
+				<td ><strong>商品名称（型号名称）</strong></td>
+				<td ><strong>商品主图</strong></td>
+				<td ><strong>单价×（数量）</strong></td>
+				<td><strong>金额（邮费）</strong></td>
+				<!-- <td ><strong>推广人</strong></td> -->
+				<td ><strong>商家利润</strong></td>
+				<td ><strong>平台抽成</strong></td>
+				<td ><strong>是否返利<br/>金额（返利比例）</strong></td>
+				<td ><strong>是否推广<br/>金额（推广比例）</strong></td>
+				<td ><strong>商品状态</strong></td>
+				<td ><strong>评价状态</strong></td>
+			</tr>
+			<?php $goods_info=$rt['order_details'] ?>
+			<volist name='goods_info' id='vo'>
+			<tr align="center">
+				<td>{$vo['c_pcode']}</td>
+				<td>{$vo['c_pname']}（{$vo['c_pmodel_name']}）</td>
+				<td><img src="__ROOT__/{$vo['c_pimg']}" height="60" /></td>
+				<td>￥{$vo['c_pprice']}&nbsp;&nbsp;×（{$vo['c_pnum']}）</td>
+				<td>￥<?php $price = $vo['c_pprice']*$vo['c_pnum']; echo "$price"; ?>&nbsp;&nbsp;（￥{$vo['c_free']}）</td>
+				<!-- <td>{$vo['c_tgname']}</td> -->
+				<td>
+					<if condition="$rt['c_pay_state'] eq 0">
+					<else/>
+						￥{$vo['c_profit']}
+					</if>
+				</td>
+				<td>
+					<if condition="$rt['c_pay_state'] eq 0">
+					<else/>
+						￥{$vo['c_commission']}
+					</if>
+				</td>
+				<td>
+					<if condition="$rt['c_pay_state'] eq 0">
+					<else/>
+						<if condition="$vo.c_isrebate eq 1">是<br/>￥{$vo['c_rebate']}({$vo['c_rebate_proportion']})<else/>否</if>
+					</if>
+				</td>
+				<td>
+					<if condition="$rt['c_pay_state'] eq 0">
+					<else/>
+						<if condition="$vo.c_isspread eq 1">是<br/>￥{$vo['c_spread']}({$vo['c_spread_proportion']})<else/>否</if>
+					</if>
+				</td>
+				<td>{$vo['c_productstatus']}</td>
+				<td><if condition="$vo.c_isevaluate eq 1"> <a title="评价详情" href="__HHOME__/Shop/product_score?detailid={$vo.c_detailid}"><font color="green">已评价</font></a><else/><font color="red">未评价</font></if></td>
+			</tr>
+			</volist>
+			<tr align="center">
+				<td colspan="11" align="right">总价:</td><td><font color="red">
+				￥<?php $total_price = $rt['c_free']+$rt['c_total_price']; echo "$total_price"; ?></font></td>
+			</tr>
+			
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>支付记录</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%" >
+			<tr align="center" >
+				<td ><strong>支付类型</strong></td>
+				<td ><strong>支付金额</strong></td>
+				<td ><strong>第三方支付单号</strong></td>
+				<td ><strong>支付时间</strong></td>
+			</tr>
+			<?php $order_paylog=$rt['order_paylog'] ?>
+			<volist name='order_paylog' id='vo'>
+			<tr align="center">
+				<td>{$vo['c_payname']}</td>
+				<td>￥{$vo['c_money']}</td>
+				<td>{$vo['c_thirdparty']}</td>
+				<td>{$vo['c_addtime']}</td>
+			</tr>
+			</volist>
+		</table>
+		</td>
+	</tr>
+		<tr>
+		<td>
+		<p>操作信息</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+			<td width="15%"><strong>当前可执行操作:</strong></td>
+			<input name="orderid" value="{$rt['c_orderid']}" type="hidden">
+			<td id="get_button">
+				{$rt['order_action_button']}
+			</td>
+		</tr>
+		</table> 
+		</td>
+	</tr>
+</table>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+function order_action(opstatus){
+	var id = $('input[name="orderid"]').val();
+	$.post('__URL__/ajax_op_status',{opstatus:opstatus,opid:id},function(data){
+		var result = eval(data);		
+		if(result['code'] != 0){
+			layer.msg(result['msg'],{icon:10,time:2000});
+		}else{
+			$.post('__URL__/get_status_button',{status:opstatus},function(datas){
+				if(datas){
+					$("#get_button").html("");
+					$("#get_button").html(datas);
+					window.location.href=""; 
+				}else{
+					layer.msg("获取订单操作按钮失败",{icon:1,time:2000});
+				}
+			});
+		}
+	});
+}
+
+function refund_action(opstatus){
+	var oid = $('input[name="orderid"]').val();
+	var title = "输入退款金额";
+	var url = "Order/refund_money?orderid="+oid+"&opstatus="+opstatus;
+	layer_show(title,url,760,380);
+}
+
+function query_express(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+</script>
+</body>
+</html>

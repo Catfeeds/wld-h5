@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$datainfo["c_name"]}店铺相册</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/entity/index.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page" style="margin-bottom:13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="photo-list">
+					<ul class="divtab">
+						<volist id="vo" name="imglist">
+						<li class="photo-img-li fl">
+							<img src="{$vo['c_thumbnail_img']}" alt="">
+						</li>
+						</volist>
+					</ul>				
+					<!-- <div class="photo-img-li fl">
+						<a href="__IMG__/entity/qdpage-.jpg" class="swipebox"><img src="__IMG__/entity/qdpage-.jpg" alt=""></a>
+					</div>
+					<div class="photo-img-li fl">
+						<a href="__IMG__/entity/qdpage-.jpg" class="swipebox"><img src="__IMG__/entity/qdpage-.jpg" alt=""></a>
+					</div>
+					<div class="photo-img-li fl">
+						<a href="__IMG__/entity/qdpage-.jpg" class="swipebox"><img src="__IMG__/entity/qdpage-.jpg" alt=""></a>
+					</div> -->
+				</div>
+				
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$(".photo-list").viewer({
+					title: false
+				});
+				styles();
+			}
+
+			function styles() {
+				var imgh = $('.photo-img-li').width();
+				$('.photo-img-li').height(imgh);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>修改昵称</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+	<style type="text/css">
+	img{width: 100%;height: 100%;}
+	</style>
+</head>
+<body class="bgeb">
+<form name="formEdit" action="" method="post" enctype="multipart/form-data" id="form1">
+<div class="wrap-page" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="nickname-main">
+		<div class="nickname-txt">昵称</div>
+		<div class="nickname-input">
+			<input type="text" name="c_nickname" id="nickname" class="fl" placeholder="请输入昵称" value="{$data['c_nickname']}" onblur="changetxt()" maxlength="15">
+			<div class="nickname-success none"><img src="__IMG__/usercenter/nickico.png" alt=""></div>
+		</div>
+		<div class="nickname-desc">
+		1、此昵称非登录会员名，仅在商盟、发现、微聊等版块显示。<br>2、与微领地业务或其他会员经营的品牌冲突的昵称，微领地有权收回。<br>3、此昵称具有唯一性，不得与其他会员昵称相冲突。
+		</div>
+	</div>
+	<div class="editor-btn" onclick="submit1()">保存</div>
+</div>
+</div>
+</form>
+
+</body>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function(){	
+		var inputh = $('.nickname-input').height();
+		$('#nickname').css('height',inputh+'px');
+		$('#nickname').css('line-height',inputh+'px\9');
+		$('.nickname-input').height(inputh);			
+	}	
+
+
+	/*验证*/
+	function changetxt () {
+		var nickname = $('#nickname').val().trim().replace(/[\r\n]/g,"");
+		if (nickname!="") {
+			$.ajax({
+			    //提交数据的类型 POST GET
+			    type:"GET",
+			    //提交的网址
+			    url:"__URL__/checknick",
+			    //提交的数据
+			    data:{nickname:nickname},
+			    //返回数据的格式
+			    datatype: "json",//"xml", "html", "script", "json", "jsonp", "text"            
+			    success:function(data){
+			   		var obj = eval(data);
+			   		if (obj['code']==0) {				   			
+			   			$('.nickname-success').show();
+						// var inputh = $('.nickname-success').height();
+						// $('#nickname').css('height',inputh+'px');
+						// $('#nickname').css('line-height',inputh+'px\9');			
+			   			return true;
+			   		}else{
+						mui.toast(obj['msg']);
+						return false;
+			   		}
+			    }        
+		 	});							
+		}else{				
+			mui.toast('请输入昵称！');
+			return false;
+		}
+		return true;
+	}
+	/*提交信息*/
+	function submit1 () {
+		var nickname = $('#nickname').val().trim().replace(/[\r\n]/g,"");
+		if (nickname!="") {
+			$('#form1').submit();
+		}else{	
+			mui.toast('请输入昵称！');
+			return false;
+		}			
+	}	
+</script>
+</html>

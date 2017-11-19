@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--激活码</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<style type="text/css">.str-nav-num li { width: 50%;}</style>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="content-s w_960">
+			<ul class="str-nav-num">
+				<!-- <li class="clihover">
+					<p>{$info['unshen']}个</p>
+					<p>商家待审核</p>
+				</li> -->
+				<!--<li class="clihover">
+					<p>{$info['count']}个</p>
+					<p>剩余激活码</p>
+				</li>-->
+				<!-- <li class="clihover">
+					<p>{$info['not_active_total']}个</p>
+					<p>待激活</p>
+				</li> -->
+				<li class="clihover">
+					<p id="code_checked">个</p>
+					<p>已激活</p>
+				</li>
+			</ul>
+
+			<div class="code-apply">
+				<div class="code-apply-txt fl c5">激活码生成</div>
+				<div class="code-apply-input fl "><input type="tel" placeholder="" id="code_num" maxlength="10">
+					<font>个</font>
+				</div>
+				<div class="code-apply-btn fl applyfor">生成</div>
+			</div>
+
+			<!--已激活-->
+			<div class="code-state">
+				<div class="code-state-title">
+					<ul>
+						<li id="c-snav-t2" class="shover" title="2" onclick="selectstatu(2)">待激活</li>
+						<li id="c-snav-t1" title="1" onclick="selectstatu(1)">已激活</li>
+					</ul>
+				</div>
+				<div class="code-state-one code-state-style">
+					<ul id="data_list">
+						<!--<li>
+							<div class="u-shopimg fl">
+								<img src="__IMG__/mobile/agentimg.jpg" alt="" />
+							</div>
+							<div class="u-shopinfo fl">
+								<p>微领地小蜜</p>
+								<p>SADA 3245 5467</p>
+								<font>2017-22-22 12:12:12</font>
+							</div>
+						</li>
+						
+						<li>
+							<div class="u-strinfo fl">
+								<p>SADA 3245 5467</p>
+								<p>2017-22-22 12:12:12</p>
+							</div>
+							<div class="u-stroperate fr">复制</div>
+						</li>
+						
+						<li>
+							<div class="u-shopimg fl">
+								<img src="__IMG__/mobile/agentimg.jpg" alt="" />
+							</div>
+							<div class="u-shopinfo fl">
+								<p>微领地小蜜</p>
+								<p>SADA 3245 5467</p>
+								<font>2017-22-22 12:12:12</font>
+							</div>
+							<div class="u-shopcheck fr fs12 cred">区域经理审核中</div>
+						</li>-->
+					</ul>
+					<div id="console"></div>
+				</div>
+
+				<!--待激活-->
+				<div class="code-state-two none">
+					<ul id="data_list_2">
+					</ul>
+				</div>
+
+				<!--待审核-->
+				<div class="code-state-three code-state-style none">
+					<ul id="data_list_3">
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				yangshi();
+			}
+
+			function yangshi() {
+				var hzw = $('.u-shopimg').width();
+				$('.u-headimg').width(hzw);
+				$('.u-headimg').height(hzw);
+				$('.u-shopcheck').css('line-height', hzw + 'px');
+			}
+
+			var tjsign = true;
+
+			function codecheck() {
+				if(tjsign) {
+					tjsign = false;
+					var re = /^[0-9]*[1-9][0-9]*$/;
+					var codenum = $('#code_num').val();
+					if(codenum == "" || codenum == null || typeof(codenum) == undefined) {
+						alert('请输入申请串码个数');
+						tjsign = true;
+						return;
+					} else if(!re.test(codenum)) {　　
+						alert("请输入数字");　　　
+						$('#code_num').val("");　
+						tjsign = true;　　
+						return false;　　
+					} else if(parseInt(codenum) <= 0 || parseInt(codenum) > 99) {
+						alert("请输入0~99内的数字！");
+						tjsign = true;
+						return false;
+					}
+
+					$.post("__URL__/ApplyCode", {
+						num: codenum
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							alert(data['msg']);
+							//selectstatu(1);
+							window.location.href = "__URL__/index?statu=2";
+						} else {
+							alert(data['msg']);
+							tjsign = true;
+						}
+					});
+
+				}
+			}
+
+			$('.code-apply-input input').bind('input propertychange', function() {
+				if($(this).val().length > 0) {
+					$('.code-apply-btn').css('background', '#46A9FA');
+					$('.applyfor').bind('click', function() {
+						codecheck();
+					});
+				} else {
+					$('.code-apply-btn').css('background', '#ccc');
+					$('.applyfor').unbind('click');
+				}
+			});
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var statu = '<?php echo $statu; ?>';
+			if(!statu) {
+				statu = 2;
+			}
+			selectstatu(statu);
+
+			$('.code-state-title ul li').click(function() {
+				$(this).addClass('shover');
+				$(this).siblings().removeClass('shover');
+				var id = $(this).attr('title');
+				selectstatu(id);
+			});
+
+			function selectstatu(i) {
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				//				if(statu == 0) {
+				//					$('.code-state-one').css('display', 'block');
+				//					$('.code-state-two').css('display', 'none');
+				//					$('.code-state-three').css('display', 'none');
+				//				} else if (statu == 1) {
+				//					$('.code-state-two').css('display', 'block');
+				//					$('.code-state-one').css('display', 'none');
+				//					$('.code-state-three').css('display', 'none');
+				//
+				//				} else {
+				//					$('.code-state-three').css('display', 'block');
+				//					$('.code-state-one').css('display', 'none');
+				//					$('.code-state-two').css('display', 'none');
+				//				}
+				getdatalist(statu);
+			}
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist(statu);
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist(statu) {
+				var _html = "";
+				var url = "__URL__/GetNumList?type=" + statu + "&pageindex=" + pageindex;
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">抱歉，没有找到相关信息</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									$('#code_checked').text(data.jihuo_total);
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										if(statu == 1) {
+											_html += '<li>';
+											_html += '<div class="u-shopimg fl">';
+											_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+											_html += '</div>';
+											_html += '<div class="u-shopinfo fl">';
+											_html += '<p>' + datalist[i]['c_nickname'] + '</p>';
+											_html += '<p>' + datalist[i]['c_code'] + '</p>';
+											_html += '<font>' + datalist[i]['c_activitime'] + '</font>';
+											_html += '</div>';
+											_html += '</li>';
+										} else if(statu == 2) {
+											_html += '<li>';
+											_html += '<div class="u-strinfo fl">';
+											_html += '<p><textarea cols="" rows="" id="codestr' + datalist[i]['c_id'] + '" readonly="readonly">' + datalist[i]['c_code'] + '</textarea></p>';
+											_html += '<p>' + datalist[i]['c_addtime'] + '</p>';
+											_html += '</div>';
+											_html += '<div class="u-stroperate fr" onclick="copystr(' + datalist[i]['c_id'] + ')">复制</div>';
+											_html += '</li>';
+										 } //else if(statu == 2) {
+										// 	_html += '<li>';
+										// 	_html += '<div class="u-shopimg fl">';
+										// 	_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+										// 	_html += '</div>';
+										// 	_html += '<div class="u-shopinfo fl">';
+										// 	_html += '<p>' + datalist[i]['c_nickname'] + '</p>';
+										// 	_html += '<p>' + datalist[i]['c_code'] + '</p>';
+										// 	_html += '<font>' + datalist[i]['c_addtime'] + '</font>';
+										// 	_html += '</div>';
+										// 	if(datalist[i]['c_checked'] == 2) {
+										// 		_html += '<div class="u-shopcheck fr fs12 cred">区域经理审核中</div>';
+										// 	} else if(datalist[i]['c_checked'] == 0) {
+										// 		_html += '<div class="u-shopcheck fr fs12 cyellow">代理审核中</div>';
+										// 	}
+										// 	_html += '</li>';
+										// }
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						yangshi();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+			/*复制*/
+			function copystr(obj) {
+				var Url2 = document.getElementById("codestr" + obj);
+				Url2.select();
+				document.execCommand("Copy");
+				alert("已复制好，可贴粘。");
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>收款方式</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=1.3">
+
+</head>
+<body class="bgcolor">
+<div class="wrap-page" style="padding-bottom: 12%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<div class="mui-content" style="background: #fff;">
+		<div class="cashway-box" id="cashway_1">
+			<!--<div class="cashway-font c9 fs12">微信提现2小时到账</div>-->
+			<div class="cashway-btn">
+				<img src="__IMG__/newb01.png" alt="">
+			</div>
+		</div>
+		<div class="cashway-box" id="cashway_2">
+			<!--<div class="cashway-font c9 fs12">支付宝提现12小时到账</div>-->
+			<div class="cashway-btn">
+				<img src="__IMG__/newb09.png" alt="">
+			</div>
+		</div>
+		<div class="cashway-box" id="cashway_3">
+			<!--<div class="cashway-font c9 fs12">银行提现24小时到账</div>-->
+			<div class="cashway-btn">
+				<img src="__IMG__/newb08.png" alt="">
+			</div>
+		</div>
+		
+	</div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function(){
+	}
+	var uname = '<?php echo $info["c_uname"] ?>';
+	var carid = '<?php echo $info["c_carid"] ?>';
+	var wxname = '<?php echo $info["c_wxname"] ?>';
+	var wxcard = '<?php echo $info["c_wxcard"] ?>';
+	var alipayname = '<?php echo $info["c_alipayname"] ?>';
+	var alipaycard = '<?php echo $info["c_alipaycard"] ?>';
+	var banksn = '<?php echo $info["c_banksn"] ?>';
+	var bankname = '<?php echo $info["c_bankname"] ?>';
+	var subbankname = '<?php echo $info["c_sub_bankname"] ?>';
+	var province = '<?php echo $info["c_province"] ?>';
+	var city = '<?php echo $info["c_city"] ?>';
+	
+
+	/*绑定微信跳转*/
+	mui('.mui-content').on('tap','#cashway_1',function(){		
+		if(!emptyval(uname) && !emptyval(carid)){
+			if(!emptyval(wxname) && !emptyval(wxcard)){
+				mui.openWindow({url:'__URL__/withdraw?sign=2',id:'withdraw'});
+			}else{
+				mui.confirm('您还未绑定微信账号，是否进行绑定','提示',['取消','确认'],function (e) {
+			   		e.index == 0 ? hrefindex() : mui.openWindow({url:'__URL__/bindingwx',id:'bindingwx'});
+			    },'div');				
+			}
+		}else{
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+				e.index == 0 ? hrefindex() : mui.openWindow({url:'__URL__/identify?sign=2',id:'identify2'});
+			},'div');			
+		}
+	});
+	/*绑定支付宝跳转*/
+	mui('.mui-content').on('tap','#cashway_2',function(){		
+		if (!emptyval(uname) && !emptyval(carid)) {
+			if (!emptyval(alipayname) && !emptyval(alipaycard)) {
+				mui.openWindow({url:'__URL__/withdraw?sign=3',id:'withdraw'});
+			} else {
+				mui.confirm('您还未绑定支付宝，是否进行绑定','提示',['取消','确认'],function (e) {
+			   		e.index == 0 ? hrefindex() : mui.openWindow({url:'__URL__/bindingap',id:'bindingap'});
+			    },'div');
+			}
+		} else {
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+				e.index == 0 ? hrefindex() : mui.openWindow({url:'__URL__/identify?sign=3',id:'identify3'});
+			},'div');
+		}
+	});
+
+	/*绑定银行卡跳转*/
+	mui('.mui-content').on('tap','#cashway_3',function(){		
+		if (!emptyval(uname) && !emptyval(carid)) {
+			if (!emptyval(bankname) && !emptyval(banksn) && !emptyval(subbankname) && !emptyval(province) && !emptyval(city)) {
+				mui.openWindow({url:'__URL__/withdraw?sign=1',id:'withdraw'});
+			} else {
+				mui.confirm('银行卡信息不完善，请先完善','提示',['取消','确认'],function (e) {
+			   		e.index == 0 ? hrefindex() : mui.openWindow({url:'__URL__/bindingup',id:'bindingup'});
+			    },'div');
+			}
+		} else {
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+				e.index == 0 ? hrefindex() : mui.openWindow({url:'__URL__/identify?sign=1',id:'identify3'});
+			},'div');
+		}
+	});	
+
+	function hrefindex(){
+		mui.openWindow({url:'__URL__/index',id:'bindex'});
+	}
+</script>
+
+<include file="Common/footer"/>
+</body>
+</html>

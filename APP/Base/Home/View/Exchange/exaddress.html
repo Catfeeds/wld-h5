@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>到店领取地址</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	
+	<link rel="stylesheet" type="text/css" href="__RSC__/Order/css/order.css?v=3.0.0">
+	<link rel="stylesheet" type="text/css" href="__CSS__/exchange/index.css" />
+	<style>
+		.duihuanbt{background: #46aafa; cursor: pointer;color: #fff;text-align: center;
+	    padding: 3% 0; width: 60%;border: none; border-radius: 10px;margin:10% auto;}
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="CONSIGNEE_ADDRESS" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" id="addressid" name="addressid" value="{$defaultdz['c_id']}">
+		<input type="hidden" id="isdefault" name="isdefault" value="">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">			
+
+			<!-- 填写收货地址 -->
+			<div class="insert_bg"></div>
+			<div class="insert_address">
+			  <li>
+			      <div class="fl insert_left">新地址</div>
+			      <div class="fl insert_right">
+			          <img src="__RSC__/Order/img/delivery-hover.png" alt="" class="fr" id="imgshow_2">
+			      </div>
+			  </li>
+			  <li>
+			      <div class="fl insert_left">收货人</div>
+			      <div class="fl insert_right">
+			          <input type="text" id="consignee" name="consignee" value="" class="login_inpt"  placeholder="请输入收货人姓名">
+			      </div>
+			  </li>
+			  <li>
+			      <div class="fl insert_left">联系电话</div>
+			      <div class="fl insert_right">
+			          <input type="text" id="mobile" name="mobile" value="" class="login_inpt"  placeholder="请输入收货人电话号码">
+			      </div>
+			  </li>
+			  <li>
+			      <div class="fl insert_left">地区</div>
+			      <div class="fl insert_right">
+					<select name="province" id="province" class="fl selectct" onchange="loadcity('province',2,'city','__APP__/Home/Address/getRegion');">
+						  <option value="" id="provincename">选择省</option>
+				          <foreach name="province" item="province">
+				              <option id="{$province.region_id}" value="{$province.region_name}" <if condition="$province.region_name eq $data['c_province']"> selected</if> >{$province.region_name}</option>
+				          </foreach>
+					</select>
+					<select name="city" id="city" class="fl selectct" onchange="loadcity('city',3,'district','__APP__/Home/Address/getRegion');">
+						<option value="" id="cityname">选择市</option>
+					</select>
+					<select name="district" id="district" class="fl selectct">
+						<option value="" id="districtname">选择区</option>
+					</select>
+
+			      </div>
+			  </li>
+			  <li>
+			      <div class="fl insert_left">详细地址</div>
+			      <div class="fl insert_right">
+			          <input type="text" id="address" name="address" value="" class="login_inpt"  placeholder="请输入详细地址">
+			      </div>
+			  </li>
+			  <li>
+			      <input type="hidden" name="id" id="id" value="">
+			      <div class="insert_sub" id="insert_sub_address" onclick="insertAddress('CONSIGNEE_ADDRESS')">添加</div>
+			  </li>
+			</div>
+
+			<!--收货地址列表-->
+			<div class="address-list-main">
+				<div id="address-list-li">
+					<volist name="addresslist" id="voa">
+					<div id="address_{$voa.c_id}">
+						<div class="address-list">
+							<div class="address-list-box">
+								<div class="address-name" id="consignee-{$voa['c_id']}">{$voa['c_consignee']}&nbsp;&nbsp;&nbsp;&nbsp;{$voa['c_mobile']}</div>
+								<div class="address-info" id="addressxq-{$voa['c_id']}">{$voa['c_provincename']}{$voa['c_cityname']}{$voa['c_districtname']}，{$voa['c_address']}</div>
+								<div class="selectedimg" id="selectedimg_{$voa['c_id']}">
+									<input type="radio" name="selected_addr" onclick="sel_address({$voa['c_id']})" id="selected_addr_{$voa['c_id']}">
+								</div>
+							</div>
+							<div class="address-opration">
+								<div class="address-opr-input">
+									<input name="default-addr" <?php if ($voa['c_is_default'] == 1): ?>checked="checked"<?php endif ?> id="default-addr-{$voa['c_id']}" value="{$voa['c_id']}" type="radio" onclick="SetAddress({$voa['c_id']});" style="margin-top:2%;"><div class="default-addr-txt">默认地址</div>
+								</div>
+								<div class="address-opr-btn">
+									<a id="address-del" onclick="deleteAddress({$voa['c_id']})">删除</a>
+									<a id="address-editor" onclick="xinzengdz({$voa['c_id']})">编辑</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					</volist>
+				</div>
+				<div class="address-add-btn">
+					<div id="address-btn-add">+ 新增地址</div>
+				</div>
+			</div>
+			
+			<div class="divtab" id="suborder-list-main">
+			<!--头部  -->
+			<include file="Home@Exchange/exgettop" />
+			<!--头部  -->
+
+			<div class="exaddress-main">
+				<div class="exget-pro ex-bbox bgcolor pcode">
+					<div class="exget-pro-img">
+						<img src="{$info['c_pimg']}">
+					</div>
+					<div class="ex-pro-info divtab">
+						<div class="ex-pro-name fov fl c3 fs12">{$info['c_name']}</div>
+						<div class="ex-pro-price fr divre">
+							<div class="fs16 cy">￥{$info['c_maxvalue']}</div>
+							<div class="diagonal exbg01 divab"></div>
+						</div>
+						<div class="fl exget-time divtab c9 fs11">
+							<?php if ($info['c_value'] > 0) { ?>
+								邮费：{$info['c_value']}元
+							<?php } else { ?>
+								包邮
+							<?php } ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="exaddress-con ex-bbox bgcolor divtab" id="checkaddress">
+					<div class="fl exaddress-img">
+						<img src="__IMG__/exchange/receive_icon_address@2x.png">
+					</div>
+					<div class="fl exaddress-info">
+						<span class="fs12">{$defaultdz['c_consignee']}</span>
+						<span class="fs12">{$defaultdz['c_mobile']}</span>
+						<div class="fs11 c9"><if condition="$defaultdz['c_provincename'] neq null">{$defaultdz['c_provincename']}{$defaultdz['c_cityname']}{$defaultdz['c_districtname']}，{$defaultdz['c_address']}<else />请选择收货地址</if></div>
+					</div>
+					<div class="fr exaddress-icon_edit">
+						<img src="__IMG__/exchange/receive_icon_edit@2x.png">
+					</div>
+				</div> -->
+				
+				<div class="suborder-header exaddress-con ex-bbox" id="checkaddress">
+					<div class="subo-h-left">
+						<div class="subo-h-icon"><img src="__RSC__/Order/img/addressico.png" alt=""></div>
+						<div class="subo-receipt-addr">
+							<div class="subo-receipt-name"><if condition="$defaultdz['c_consignee'] neq null">{$defaultdz['c_consignee']}&nbsp;&nbsp;&nbsp;&nbsp;{$defaultdz['c_mobile']}<else />收货地址</if></div>
+							<div class="subo-receipt-address"><if condition="$defaultdz['c_provincename'] neq null">{$defaultdz['c_provincename']}{$defaultdz['c_cityname']}{$defaultdz['c_districtname']}，{$defaultdz['c_address']}<else />请选择地址</if></div>
+						</div>
+					</div>
+					<div class="subo-h-right"><img src="__RSC__/Order/img/ordersb05_06.png" alt=""></div>
+				</div>
+
+				<div class="exmessage-con fs12 c9 ex-bbox bgcolor divtab">
+					<textarea id="postscript" rows="6" name="exmessage" placeholder="给商家捎句话吧~"></textarea>
+				</div>
+
+				<!-- 确认兑换 -->
+				<div class="duihuanbt fs16">确认兑换</div>
+
+			</div>
+
+			</div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript" src="__COMMON__/js/region.js?v=3.0.0"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+	$('.xiaomi-bar').css('background','none');
+	$('.mui-content').css('margin-top', '0px');
+	yangshi();
+	yangshit();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		$('.exget-pro-img').height($('.exget-pro-img').width()*0.6+'px');
+		$('.exaddress-icon_edit').height($('.exaddress-icon_edit').width()*1.5+'px');
+		$('.exaddress-img').height($('.exaddress-img').width()*1.2+'px');
+
+
+	}
+
+	//跳转店铺
+	mui('.mui-content').on('tap', '.store', function() {
+		var acode = $(this).attr('title');
+		goShopDetail(acode);
+	});
+
+	//进入产品详情
+	mui('.mui-content').on('tap', '.pcode', function() {
+		var pcode = "<?php echo $info['c_pcode']; ?>";
+		var c_type = "<?php echo $info['c_type']; ?>";
+		if (c_type == 2) {  //线下
+			mui.openWindow({
+				url: "__APP__/Shopping/Entitymap/detail?pcode="+pcode,
+				id: "pdetail"
+			});	
+		} else {
+			mui.openWindow({
+				url: "__APP__/Shopping/Index/detail?pcode="+pcode,
+				id: "pdetail"
+			});
+		}
+	});
+
+	//确认对话框事件
+	mui('.mui-content').on('tap', '.duihuanbt', function() {
+		mui.confirm('兑换后将转入订单列表，确认兑换？', '提示', ['取消', '确认'], function(e) {
+			e.index == 0 ? "" : tijiao();
+		}, 'div');
+	});
+
+
+	var tjsign = true;
+	function tijiao() {
+		if (tjsign) {
+			var addressid = $('#addressid').val();
+			if (!addressid) {
+				mui.toast('请选择收货地址！');return;
+			}
+
+			var postscript = $('#postscript').val();
+			
+			tjsign = false;
+			$.post("__URL__/OnlineExchange", {
+				sid: "<?php echo $sid; ?>",
+				addressid: addressid,
+				postscript:postscript
+			}, function(obj) {
+				var data = eval(obj);
+				tjsign = true;
+				if (data['code'] == 0) {
+					mui.alert('兑换成功');
+					setTimeout(function() {
+						mui.openWindow({
+							url: '__URL__/index',
+							id: 'cindex'
+						});
+					}, 2000);
+				} else {
+					mui.toast(data['msg']);
+				}
+			});
+		}	
+	}
+
+$(function () {
+	/*查看收货地址*/
+	mui('.mui-content').on('tap', '#checkaddress', function() {
+		$('.address-list-main').fadeIn(200);
+		$('#suborder-list-main').fadeOut(200);
+
+		var inputh = $(".address-opr-input").height();
+		$(".address-opr-input").css("line-height",inputh+"px");
+	});
+	/*添加地址*/
+	$('#address-btn-add').click(function(){
+		$('#isdefault').val('');
+		$('#id').val('');
+		$('#consignee').val('');
+		$('#mobile').val('');
+		$('#province option:selected').text('选择省');
+		$('#city option:selected').text('请选择');
+		$('#district option:selected').text('请选择');
+		$('#address').val('');
+		$('.insert_bg').fadeIn(200);
+		$('.insert_address').fadeIn(200);
+		$('#insert_sub_address').text('添加');
+
+	});
+	$('.insert_bg').click(function(){
+		$('#isdefault').val('');
+		$('#id').val('');
+		$('.insert_bg').fadeOut(200);
+		$('.insert_address').fadeOut(200);
+	});
+});
+	
+
+/*添加，编辑地址加载*/
+function loadaddress (data,id) {
+var htmls='';
+	htmls+='<div id="address_'+data['c_id']+'">';
+	htmls+='<div class="address-list">';
+	htmls+='<div class="address-list-box">';
+	htmls+='<div class="address-name" id="consignee-'+data['c_id']+'">'+data['c_consignee']+'&nbsp;&nbsp;&nbsp;&nbsp;'+data['c_mobile']+'</div>';
+	htmls+='<div class="address-info" id="addressxq-'+data['c_id']+'">'+data['c_provincename']+''+data['c_cityname']+''+data['c_districtname']+''+data['c_address']+'</div>';
+	htmls+='<div class="selectedimg" id="selectedimg_'+data['c_id']+'">';
+	htmls+='<input type="radio" name="selected_addr" onclick="sel_address('+data['c_id']+')" id="selected_addr_'+data['c_id']+'">';
+	htmls+='</div>';
+	htmls+='</div>';
+	htmls+='<div class="address-opration">';
+	htmls+='<div class="address-opr-input">';
+	var isdefault = data['c_is_default'];
+	if (isdefault==1) {
+		htmls+='<input name="default-addr" checked="checked" id="default-addr-'+data['c_id']+'" value="'+data['c_id']+'" type="radio" onclick="SetAddress('+data['c_id']+');" style="margin-top:2%;">';
+	}else{
+		htmls+='<input name="default-addr" id="default-addr-'+data['c_id']+'" value="'+data['c_id']+'" type="radio" onclick="SetAddress('+data['c_id']+');" style="margin-top:2%;">';
+	}
+	htmls+='<div class="default-addr-txt">默认地址</div>';
+	htmls+='</div>';
+	htmls+='<div class="address-opr-btn">';
+	htmls+='<a id="address-del" onclick="deleteAddress('+data['c_id']+')">删除</a>';
+	htmls+='<a id="address-editor" onclick="xinzengdz('+data['c_id']+')">编辑</a>';
+	htmls+='</div>';
+	htmls+='</div>';
+	htmls+='</div>';
+	htmls+='<div class="address-add-btn">';
+	htmls+='<input type="button" name="address-btn-add" id="address-btn-add" value="+ 新增地址">';
+	htmls+='</div>';
+	htmls+='</div>'
+  $('.insert_bg').fadeOut(200);
+  $('.insert_address').hide();
+  $('#id').val('');
+  if (id){
+    $('#address_'+id).html(htmls);
+  } else {
+    $('#address-list-li').append(htmls);
+  }
+}
+
+/*选择地址*/
+function sel_address (id) {
+	$('#addressid').val(id);
+	$('#selected_addr_'+id).attr('checked','checked');
+	$('.subo-receipt-name').html($('#consignee-'+id).html());
+	$('.subo-receipt-address').html($('#addressxq-'+id).html());
+	$('.address-list-main').hide();
+	$('#suborder-list-main').show();
+	$('#myaddress-list').show();
+}
+
+</script>
+
+</html>

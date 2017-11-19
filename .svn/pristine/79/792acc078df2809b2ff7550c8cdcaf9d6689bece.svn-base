@@ -1,0 +1,112 @@
+@charset "utf-8";
+
+
+/*活动入口页面---首页*/
+.p-index-banner{width: 100%;}
+.page-cont-box{border-bottom: solid 1px #d9d4d1;padding-bottom: 6%;width: 100%;}
+
+.check-more{color: #8e8e8e;margin-right: 4%;}
+
+.lottery-num{ background: url(../../img/lottery/index02.png) no-repeat;background-size: 100% 100%;width: 40%;text-align: center;margin: 0 auto;color: #fff;padding: 4% 0;margin-top: 4%;}
+.lottery-big-img{padding: 2% 4% 0 4%;overflow: hidden;}
+
+.index-promote-btn{ background: rgba(0,0,0,0.8); z-index:998;  width: 100%;position: fixed;  bottom: 0;  left: 0;right: 0;max-width: 720px;min-width: 320px;margin: 0 auto;padding: 2% 0;}
+.my-promote{width: 65%;margin: 0 auto;}
+
+
+/*详情页********************************************/
+.promote-banner{max-width: 720px;min-width: 320px;}
+.banbg-1{background: #f9c9c5;}
+.banbg-2{background: #f4dda9;}
+.promote-ban-img{position: relative;width: 100%;overflow: hidden;}
+.promote-rule{position: absolute;top: 8%;right: 4%;color: #fff;padding: 0.5% 2.5%;border-radius: 20px;}
+.rule-b1{background: #f45679;}
+.rule-b2{background: #925634;}
+.promote-times{position: absolute;text-align: center;width: 100%;overflow: hidden;} 
+.time-color-1{color: #ea0651;bottom: 12%;font-size: 12px;}
+.time-color-2{color: #5b5c0c;top: 40%;font-size: 11px;width: 49%;left: 0;right: 0;margin: 0 auto;}
+.time-color-3{color: #5b5c0c;top: 43%;left: 25%;}
+
+
+
+.snatch-font{color: #786312;font-weight: bold;width: 13%;font-size: 12px;}
+.snatch-time{color: #786312;background: #fff;border-radius: 5px;padding:0.3% 0.5%;font-weight: bold;margin-top: 1.5%;}
+.snatch-timf{color: #555;font-size: 12px;margin:0 0.5%;padding-top: 2%;}
+/*进度条*/
+.jindutiao{width: 66%;margin:auto;left:17%;bottom:0;}
+.jindutext{color:#9c3514;width: 90%;top:0px;left:5%;}
+.jindutop{padding:0.5% 0px;}
+/* votebox */
+.votebox2{width:50%;text-align:left;position:relative;z-index:66;overflow:hidden;margin-left:4%;}
+.barbox dt a{color:#0048CC;}
+.barbox dd{float:left;}
+.barbox dd.last{color:#999;}
+.barline1{width:100%;background:url(../../img/promote/d04.png) left center no-repeat;
+	background-size: 100% 100%;overflow:hidden;display:inline;}
+.charts1{width:100%;overflow:hidden;background:url(../../img/promote/d03.png) right center repeat-x;
+	border-radius:8px;background-size: 100% 100%;}
+
+/*规则弹框*/
+.promote-pop-bg{display:none; background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.promote-pop-rule{ position: fixed;top:15%;right:0;left: 0; z-index:9999;  width:100%;display:none;margin:0 auto;max-width: 720px;min-width: 320px;padding: 0 4%;}
+.promote-pop-con{border-radius: 10px;padding: 4%;width: 100%;position: relative;}
+.promote-pop-con h3{font-weight: 600;text-align: center;padding-bottom: 3%;}
+.promote-pop-con p{padding: 2% 0;}
+.promote-pop-close{position: absolute;right: -3%;top: -3%;width: 6%;}
+.rpopbg-1{background:#f3dfde;color: #fe2870;}
+.rpopbg-2{background:#f3e0b8;color: #83302c;}
+
+
+
+
+/*购物抽奖************************************/
+.lottery-g{width: 26%;margin-left: 5%;}
+.fortune-machine{padding: 8% 4% 0 4%;}
+.lottery-ptit{border-bottom: solid 2px #fc3d70;width: 92%;margin: 0 auto;padding: 10% 0 2% 0;overflow: hidden;}
+.lottery-ptit-i{width: 6%;}
+.lottery-ptit-f{color: #fc3d70;margin-left: 2%;}
+.lottery-rule-c{padding: 3% 4% 0 4%;}
+.lottery-rule-c p{padding: 2% 0;}
+
+/*填写地址弹出框*/
+.popup-bg{display: none; background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.if-login-popup{display: none;position: fixed;background: #fee595; border-radius: 8px;width: 70%;top: 30%;left: 15% ;right: 15%;margin: auto;z-index: 9999;max-width: 520px;}
+.if-login-font{color: #555;text-align: center;padding: 5% 0;}
+.if-login-btn{border-top: solid 1px #e8ba6a;width: 100%;overflow: hidden;}
+.if-login-btn a{display: block;text-align: center;padding: 4% 0;
+	border-bottom-right-radius: 8px;width: 100%;color: #999;
+	border-bottom-left-radius: 8px;}
+.if-address-popup{display: none;}
+
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	.time-color-2{top:43%;}
+	.time-color-2,.snatch-font{font-size: 12px;}
+	.time-color-1{font-size: 14px;}
+	.promote-rule{font-size: 14px;}
+
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	.time-color-2{top:43%;}
+	.time-color-2,.snatch-font{font-size: 14px;}
+	.time-color-1{font-size: 16px;}
+	.promote-rule{font-size: 16px;}
+
+}
+
+@media (min-width: 621px){	
+	.time-color-2{top:43%;}
+	.time-color-2,.snatch-font{font-size: 16px;}
+	.time-color-1{font-size: 18px;}
+	.promote-rule{font-size: 18px;}
+	.time-color-3{top: 46%;}
+	.snatch-time{margin-top: 0.5%;}
+}
+
+
+
+
+ 
+

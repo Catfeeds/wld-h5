@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />    
+<title>公告详情--{$vo.c_ptitle}</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript">
+  window.onload=function(){
+
+    topstyle();/*头部样式*/
+
+  }
+</script>
+</head>
+<body> 
+
+    <include file="Common/head"/>
+    <div class="wrap-page bgcolor">
+        <div class="notice-details">
+            <div class="notice-titles">
+                {$vo.c_ptitle}
+            </div>
+            <div class="notice-time-re">
+                <div class="notice-de-tim fl">发表时间：{$vo.c_addtime|mb_substr=0,10,'utf-8'}</div>
+                <div class="notice-de-res fr">文章来源：{$vo.c_origin}</div>
+            </div>
+            <div class="notice-con-zw">
+                {$vo.c_content}
+            </div>  
+
+        </div>
+        
+    </div>
+</body> 
+</html>

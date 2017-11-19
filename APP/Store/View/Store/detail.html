@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$datainfo['c_name']}</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<link rel="stylesheet" type="text/css" href="__CSS__/reset.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__CSS__/entity/detail.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/jquery_dialog.css?v=1.2">
+		<script type="text/javascript" src="__JS__/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__JS__/common.js"></script>
+		<script type="text/javascript" src="__JS__/jquery_dialog.js"></script>
+		<script type="text/javascript" src="__JS__/shop/jquery.swipebox.js"></script>
+		<link rel="stylesheet" href="__CSS__/shop/swipebox.css?v=1.2">
+	</head>
+
+	<body>
+
+		<form action="" method="post" accept-charset="utf-8" id="form1" name="form1">
+			<div class="wrap-page" style="margin-bottom:16%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<!-- 幻灯切换 -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<?php foreach ($imglist as $k => $img) { ?>
+							<?php if($k<3){ ?>
+							<div class="swiper-slide" style="position:relative;text-align:center;">
+								<a href="__URL__/photo?storeid={$datainfo['c_id']}" style="width:100%;height:100%;display:block">
+									<img id="bimg" src="<?php echo $img['c_img'] ?>" alt="" />
+								</a>
+							</div>
+							<?php }?>
+							<?php }?>
+							<!-- <div class="swiper-slide" style="position:relative;text-align:center;">
+                    <a href="javascript:;" style="width:100%;height:100%;display:block">
+                        <img id="bimg" src="__IMG__/entity/qdpage-.jpg" alt=""/>
+                    </a>
+                </div> -->
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+					<script src="__COMMON__/js/swiper.min.js" type="text/javascript"></script>
+					<script type="text/javascript">
+						/*幻灯切换*/
+						var swiper = new Swiper('.swiper-container', {
+							pagination: '.swiper-pagination',
+							nextButton: '.swiper-button-next',
+							prevButton: '.swiper-button-prev',
+							paginationClickable: true,
+							spaceBetween: 0,
+							centeredSlides: true,
+							autoplay: 2500,
+							autoplayDisableOnInteraction: false
+						});
+					</script>
+					<div class="spance-info bgcolor">
+						<div class="space-name-a" onclick="window.location.href='__APP__/Home/Myspace/index?fromucode={$datainfo['c_ucode']}'">
+							<div class="space-name fl c3 fs16">
+								<a href="javascript:;">{$datainfo['c_name']}</a>
+							</div>
+							<div class="space-href fr fs12">
+								<a href="__APP__/Home/Myspace/index?fromucode={$datainfo['c_ucode']}">空间</a>
+							</div>
+						</div>
+						<div class="space-desc c5 fs14">
+							{$datainfo['c_desc']}
+						</div>
+						<div class="space-address">
+							<div class="addr-ico fl"><img src="__IMG__/entity/map_003.jpg"></div>
+							<div class="addr-info fl fs14 c5">{$datainfo['c_provice']}{$datainfo['c_city']}{$datainfo['c_district']}{$datainfo['c_address']}</div>
+							<div class="addr-arrow fr"><img src="__IMG__/entity/jt_05.jpg" alt=""></div>
+						</div>
+					</div>
+					<div class="store-info bgcolor">
+						<ul>
+							<li>
+								<div class="store-font fl c9 fs14">营业时间</div>
+								<div class="store-text fl fs14 c5" style="width:59%;">{$datainfo['c_opentime']}</div>
+								<div class="store-server fr fs12" style="width:18%;">
+									<a href="javascript:;" onclick="fchat()">联系客服</a>
+								</div>
+							</li>
+							<li>
+								<div class="store-font fl c9 fs14">商家服务</div>
+								<div class="store-text fl fs14 c5">
+									<!-- <volist name="service" id="vos">{$vos['c_name']}、</volist> -->
+									<volist name="service" id="vos">
+										<div class="fl signimgbox fs12">
+											<div class="fl signimg">
+												<img src="{$vos['c_imgpath']}" alt="">
+											</div>
+											<div class="fl signtext">
+												{$vos['c_name']}
+											</div>
+										</div>
+									</volist>
+								</div>
+							</li>
+							<li>
+								<div class="store-font fl c9 fs14">商家提示</div>
+								<div class="store-text fl fs14 c5">{$datainfo['c_remind']}</div>
+							</li>
+						</ul>
+					</div>
+					<div class="pro-comment-main">
+						<div class="pro-comment-f c5 fs16">用户评论
+							<if condition="$commentcount gt 0">（{$commentcount}）</if>
+						</div>
+						<?php if ($commentcount > 0) { ?>
+						<div class="pro-comment-tit">
+							<div class="pro-comment-head" onclick="lookstore('{$comment['c_ucode']}')"><img src="{$comment['c_headimg']}" alt=""></div>
+							<div class="pro-c-grade fl">
+								<div class="pro-c-n-score">
+									<div class="pro-comment-nkname fs14">{$comment['c_nickname']}</div>
+									<div class="pro-comment-star">
+										<ul>
+											<if condition="$comment['c_score'] eq 5">
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<elseif condition="$comment['c_score'] eq 4" />
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<elseif condition="$comment['c_score'] eq 3" />
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<elseif condition="$comment['c_score'] eq 2" />
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+												<elseif condition="$comment['c_score'] eq 1" />
+												<li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+											</if>
+										</ul>
+									</div>
+								</div>
+								<div class="pro-comment-time fs12">{$comment['c_addtime']}</div>
+							</div>
+						</div>
+						<div class="pro-comment-con fs14">{$comment['c_content']}</div>
+						<?php } else { ?>
+						<div class="pro-comment-con c9 fs14" style="padding: 4%;text-align: center;">暂未有相关评论</div>
+						<?php } ?>
+
+						<?php if (count($comment['imglist']) > 0) { ?>
+						<div class="pro-comment-img thumbnails" id="gallery">
+							<div class="share">
+								<?php foreach ($comment['imglist'] as $key => $value) { ?>
+								<a href="{$value['c_img']}" class="swipebox"><img src="{$value['c_img']}" alt="image"></a>
+								<?php } ?>
+							</div>
+						</div>
+						<?php } ?>
+
+						<a class="pro-comment-more fs14" href="javascript:;" <?php if ($commentcount <=0 ) { ?> style="display:none;"<?php } ?> onclick="window.location.href='__URL__/comment?acode={$datainfo['c_ucode']}'" >查看更多评论</a>
+
+					</div>
+					<div class="store-pro-tit c3 fs16">商家热销商品</div>
+					<div id="console"></div>
+					<div class="store-prolist bgcolor" id="pro-list">
+						<!-- <div class="store-pro-box">
+				<div class="s-pro-img fl"><img src="__IMG__/entity/qdpage-.jpg" alt=""></div>
+				<div class="s-pro-info fl">
+					<div class="s-pro-name fs16 c3">缇丽莎尔全能美颜洁面乳</div>
+					<div class="s-pro-state">
+						<ul>
+							<li><img src="__IMG__/entity/qdpage-1.png" alt=""></li>
+							<li><img src="__IMG__/entity/qdpage-2.png" alt=""></li>
+							<li><img src="__IMG__/entity/qdpage-3.png" alt=""></li>
+						</ul>
+					</div>
+					<div class="s-pro-price fs16"><span class="fs12">￥</span>128</div>
+				</div>
+				<div class="s-pro-buynum">
+					<div class="buynum-add fr" id="byadd_1">
+						<img src="__IMG__/entity/qdpage-7.png" alt="">
+					</div>
+					<div class="buyinput-txt fr" id="bytxt_1">
+						<input type="text" name="buyinput[]" id="buyinput_1" class="c9 fs12">
+					</div>
+					<div class="buynum-sub fr" id="bysub_1">
+						<img src="__IMG__/entity/qdpage-8.png" alt="">
+					</div>
+				</div>
+			</div>-->
+
+					</div>
+				</div>
+				<div class="s-pro-buybtn">
+					<?php if($preview == 1){ ?>
+					<div class="s-pro-button s-gray-btn" id="check_cart">
+						<div class="s-pro-buycar fl">
+							<a href="javascript:;">
+								<div class="buy-ico-num none">0</div>
+								<img src="__IMG__/entity/qdpage-6.png" alt="">
+							</a>
+						</div>
+						<button class="s-pro-buyfont fs16 fl" type="button">立即结算</button>
+					</div>
+					<?php }else{ ?>
+					<div class="s-pro-button" id="carcount-0" onclick="mycart()" <?php if(!empty($datainfo[ 'carcount'])){ ?>
+						style="display:block"
+						<?php }else{ ?> style="display:none"
+						<?php } ?> >
+						<div class="s-pro-buycar fl">
+							<a href="javascript:;">
+								<div class="buy-ico-num" id="ico-num">{$datainfo['carcount']}</div>
+								<img src="__IMG__/entity/qdpage-6.png" alt="">
+							</a>
+						</div>
+						<button class="s-pro-buyfont fs16 fl" type="button">立即结算</button>
+					</div>
+
+					<div class="s-pro-button s-gray-btn" id="carcount-1" <?php if(!empty($datainfo[ 'carcount'])){ ?>
+						style="display:none"
+						<?php }else{ ?> style="display:block"
+						<?php } ?> >
+						<div class="s-pro-buycar fl">
+							<a href="javascript:;">
+								<div class="buy-ico-num"></div>
+								<img src="__IMG__/entity/qdpage-6.png" alt="">
+							</a>
+						</div>
+						<button class="s-pro-buyfont fs16 fl" type="button">立即结算</button>
+				</div>
+					<?php } ?>
+				</div>
+			</div>			
+		</form>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*banner图片样式*/
+				var pre = 5 / 6;
+				var swh = $('.swiper-slide').height();
+				var sws = $('.swiper-slide').width();
+				var swh2 = (sws * pre).toFixed(2);
+				if(swh > swh2) {
+					$('.swiper-slide').css({
+						"height": swh2
+					});
+					$('.swiper-slide a img').css({
+						'width': '100%',
+						'height': '100%'
+					});
+				} else {
+					$('.swiper-slide').height(swh);
+					$('.swiper-slide a img').css({
+						'width': '100%',
+						'height': '100%'
+					});
+				}
+				/*评论样式*/
+				var headh = $('.pro-comment-head').width();
+				$('.pro-comment-head').height(headh);
+				$('.pro-comment-head').css("border-radius", headh + "px");
+				//$(".pro-comment-tit").css("line-height",headh+"px");
+				var comimgw = $('.pro-comment-img a').width();
+				$('.pro-comment-img a').width(comimgw);
+				$('.pro-comment-img a').height(comimgw);
+				$(".swipebox").swipebox({
+					useSVG: false
+				});
+
+				styles();
+				styles_btn();
+			}
+			/*商品列表样式*/
+			function styles() {
+				var imgh = $('.s-pro-img').width(),
+					boxh = imgh * 25 / 100;
+				$('.s-pro-img').height(imgh);
+				$('.store-pro-box').height(imgh);
+				$('.store-pro-box').css('line-height', boxh + 'px');
+			}
+			/*结算btn样式*/
+			function styles_btn() {
+				var btnh = $('#check_cart').height();
+				$('#check_cart').height(btnh);
+				$('#check_cart .s-pro-buyfont').css('line-height', btnh + "px");
+
+				var btnh = $('#carcount-0').height();
+				$('#carcount-0').height(btnh);
+				$('#carcount-0 .s-pro-buyfont').css('line-height', btnh + "px");
+
+				var gtnh = $('#carcount-1').height();
+				$('#carcount-1').height(gtnh);
+				$('#carcount-1 .s-pro-buyfont').css('line-height', gtnh + "px");
+			}
+
+			/*预览*/
+			var preview = '<?php echo $preview ?>';
+			/*商家编码*/
+			var acode = '<?php echo $datainfo["c_ucode"] ?>';
+
+			/*获取商品信息列表*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						GetShopData();
+					}
+				}
+			});
+			GetShopData();
+			/*获取商品信息列表*/
+			function GetShopData() {
+				var _html = "";
+				var strdata = "?pageindex=" + pageindex + "&gettype=1&acode=" + acode;
+				var strurl = WEB_HOST + "/index.php/Home/Entity/GetProduceList" + strdata;
+				if(pageindex == 1) {
+					$('#pro-list').empty();
+				}
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: strurl,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										_html += '<div class="store-pro-box">';
+										if(preview == 1) {
+											_html += '<div class="s-pro-img fl"><img src="' + datalist[i]['c_pimg'] + '" alt=""></div>';
+										} else {
+											_html += '<div class="s-pro-img fl" onclick="pro_details(\'' + datalist[i]['c_pcode'] + '\')"><img src="' + datalist[i]['c_pimg'] + '" alt=""></div>';
+										}
+										_html += '<div class="s-pro-info fl">';
+										_html += '<div class="s-pro-name fs16 c3">' + datalist[i]['c_name'] + '</div>';
+										_html += '<div class="s-pro-state fs12">';
+										_html += '<ul>';
+										if(datalist[i]['c_isagent'] == 0) {
+											_html += '<li class="blue-btn">自营</li>';
+										} else if(datalist[i]['c_isagent'] == 1) {
+											_html += '<li class="yellow-btn">代理</li>';
+										} else if(datalist[i]['c_isrebate'] == 1) {
+											_html += '<li class="yellow-btn">优惠</li>';
+										} else if(datalist[i]['c_isspread'] == 1) {
+											_html += '<li class="yellow-btn">佣金</li>';
+										} else if(datalist[i]['c_isfree'] == 1) {
+											_html += '<li class="blue-btn">包邮</li>';
+										}
+										_html += '</ul>';
+										_html += '</div>';
+										_html += '<div class="s-pro-price fs16"><span class="fs12">￥</span>' + datalist[i]['c_price'] + '</div>';
+										_html += '</div>';
+										if(preview == 1) {
+											_html += '<div class="s-pro-buynum">';
+											_html += '<div class="buynum-add fr" id="byadd_' + datalist[i]["c_id"] + '">';
+											_html += '<img src="__IMG__/entity/qdpage-7.png" alt="">';
+											_html += '</div>';
+											_html += '<div class="buyinput-txt fr" id="bytxt_' + datalist[i]["c_id"] + '">';
+											_html += '<input type="text" name="maxnum[]" id="buyinput_' + datalist[i]["c_id"] + '" class="c9 fs12" value="" readonly="readonly">';
+											_html += '</div>';
+											_html += '<div class="buynum-sub fr" id="bysub_' + datalist[i]["c_id"] + '">';
+											_html += '<img src="__IMG__/entity/qdpage-8.png" alt="">';
+											_html += '</div>';
+											_html += '</div>';
+										} else {
+											_html += '<div class="s-pro-buynum">';
+											_html += '<div class="buynum-add fr" id="byadd_' + datalist[i]["c_id"] + '" onclick="addgoods(' + datalist[i]["c_id"] + ',' + datalist[i]['c_num'] + ',\'' + datalist[i]['c_pcode'] + '\')">';
+											_html += '<img src="__IMG__/entity/qdpage-7.png" alt="">';
+											_html += '</div>';
+											var carnum = datalist[i]['carnum'];
+											if(carnum == 0) {
+												_html += '<div class="buyinput-txt fr" id="bytxt_' + datalist[i]["c_id"] + '">';
+												_html += '<input type="text" name="maxnum[]" id="buyinput_' + datalist[i]["c_id"] + '" class="c9 fs12" value="" readonly="readonly">';
+												_html += '<input type="hidden" value="' + carnum + '" id="hid_' + datalist[i]["c_id"] + '" />';
+												_html += '</div>';
+
+												_html += '<div class="buynum-sub fr" style="display:none;" id="bysub_' + datalist[i]["c_id"] + '" onclick="subgoods(' + datalist[i]["c_id"] + ',' + datalist[i]['c_num'] + ',\'' + datalist[i]['c_pcode'] + '\')">';
+												_html += '<img src="__IMG__/entity/qdpage-8.png" alt="">';
+												_html += '</div>';
+
+											} else {
+												_html += '<div class="buyinput-txt fr" id="bytxt_' + datalist[i]["c_id"] + '">';
+												_html += '<input type="text" name="maxnum[]" id="buyinput_' + datalist[i]["c_id"] + '" class="c9 fs12" value="' + carnum + '" readonly="readonly">';
+												_html += '<input type="hidden" value="' + carnum + '" id="hid_' + datalist[i]["c_id"] + '" />';
+												_html += '</div>';
+
+												_html += '<div class="buynum-sub fr" id="bysub_' + datalist[i]["c_id"] + '" onclick="subgoods(' + datalist[i]["c_id"] + ',' + datalist[i]['c_num'] + ',\'' + datalist[i]['c_pcode'] + '\')">';
+												_html += '<img src="__IMG__/entity/qdpage-8.png" alt="">';
+												_html += '</div>';
+											}
+
+											_html += '</div>';
+
+										}
+
+										_html += '</div>';
+
+									}
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						if(pageindex == 1) {
+							_html += '<div class="baoqian">抱歉！没有找到相关商品信息。</div>';
+						}
+						$("#pro-list").append(_html);
+						$('#console').css('display', 'none');
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+			/*查看个人空间*/
+			function lookstore(arg) {
+				window.location.href = "__APP__/Home/Myspace/index?fromucode=" + arg;
+			}
+
+			/*查看商品详情*/
+			function pro_details(pcode) {
+				var pcode = pcode;
+				window.location.href = WEB_HOST + "/index.php/Home/Entitymap/details?pcode=" + Trim(pcode);
+			}
+
+			function Trim(str) {
+				return str.replace(/(^\s*)|(\s*$)/g, "");
+			}
+
+			/*未登录confirm提示框*/
+			var ucode = '<?php echo $ucode ?>';
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['
+			HTTP_HOST '] . $_SERVER['
+			REQUEST_URI '])?>';
+
+			function dialogif(desc) {
+				//获取客户端页面宽高
+				var _client_width = document.body.clientWidth;
+				var _client_height = document.documentElement.scrollHeight;
+
+				//create shadow
+				if(typeof($("#jd_shadow")[0]) == "undefined") {
+					//前置
+					$("body").prepend("<div id='jd_shadow'>&nbsp;</div>");
+				}
+
+				//create dialog
+				if(typeof($("#jd_dialog")[0]) != "undefined") {
+					$("#jd_dialog").remove();
+				}
+				var show = '';
+				show += '<div id="jd_dialog" style="position: fixed;">';
+				show += '<div id="jd_dialog_h">提示</div>';
+				show += '<table align="center" id="jd_dialog_c">';
+				show += '<tr>';
+				show += '<td align="center">' + desc + '</td>';
+				show += '</tr>';
+				show += '</table>';
+				show += '<div id="jd_dialog_b">';
+				show += '<div id="jd_dialog_l" onclick="Close_dialog()">否</div>';
+				show += '<div id="jd_dialog_r" onclick="Ok_dialog()">是</div>';
+				show += '</div>';
+				show += '</div>';
+				$("body").prepend(show);
+			}
+
+			function Close_dialog() {
+				$("#jd_shadow").remove();
+				$("#jd_dialog").remove();
+			}
+
+			function Ok_dialog() {
+				window.location.href = "__APP__/Home/Shop/adrs?url=" + detailurl;
+			}
+
+			var pucode = '';
+			/*购买数量*/
+			var pnum = "";
+			var zongnum = "";
+			/*加*/
+			function addgoods(obj, totaln, pcode) {
+				if(!ucode) {
+					dialogif("购买需填写收货地址！");
+					return false;
+				} else {
+					if(!isshow()) {
+						mui.toast("该商品已下架！");
+						return false;
+					}
+					var pcode = pcode;
+					var pronum = $("#hid_" + obj).val();
+					pnum = parseInt(pronum) + 1;
+					if(pnum <= totaln) {
+						$("#hid_" + obj).val(pnum);
+						$('#buyinput_' + obj).val(pnum);
+						$('#bysub_' + obj).css("display", "block");
+						operate_car(obj, pcode, 1);
+					}
+				}
+			}
+			/*减*/
+			function subgoods(obj, totaln, pcode) {
+				var pronum = $("#hid_" + obj).val();
+				pnum = parseInt(pronum);
+				var nums = pnum;
+				if(pnum >= 1) {
+					nums = pnum - 1;
+					if(nums == 0) {
+						$('#bysub_' + obj).css("display", "none");
+						$("#buyinput_" + obj).val("");
+						$("#hid_" + obj).val('0');
+						delecar(pcode);
+						var iconum = parseInt($('#ico-num').text());
+						$('#ico-num').text(iconum - 1);
+					} else {
+						$("#buyinput_" + obj).val(nums);
+						$("#hid_" + obj).val(nums);
+						operate_car(obj, pcode, 0);
+					}
+				}
+			}
+
+			/*购物车*/
+			function operate_car(obj, pcode, type) {
+				var pcode = pcode;
+				$.post("__APP__/Home/Entitymap/AddCar", {
+					pcode: pcode,
+					pucode: pucode,
+					num: pnum
+				}, function(msg) {
+					if(msg['code'] == 0) {
+						mui.toast(msg['msg']);
+						$('#carcount-1').css("display", "none");
+						$('#carcount-0').css("display", "block");
+						var btnh = $('#carcount-0 .s-pro-buycar').height();
+						$('#carcount-0').height(btnh);
+						$('#carcount-0 .s-pro-buyfont').css('line-height', btnh + "px");
+						$('#ico-num').css("display", "block");
+						/*1，添加；0，减少*/
+						if(type == 1) {
+							$('#ico-num').text(msg['data']['count']);
+						} else {
+							$('#ico-num').text(msg['data']['count'] - 1);
+						}
+					} else {
+						mui.toast(msg['msg']);
+						return false;
+					}
+				});
+			}
+
+			/*删除购物车商品*/
+			function delecar(pcode) {
+				var pcode = pcode;
+				$.post("__APP__/Home/Entitymap/Delecar", {
+					pcode: pcode
+				}, function(msg) {
+					if(msg['code'] == 0) {
+						mui.toast(msg['msg']);
+						var iconum = $('#ico-num').text();
+						if(parseInt(iconum) == 0) {
+							$('#carcount-0').css("display", "none");
+							$('#carcount-1').css("display", "block");
+							var gtnh = $('#carcount-1 .s-pro-buycar').height();
+							$('#carcount-1').height(gtnh);
+							$('#carcount-1 .s-pro-buyfont').css('line-height', gtnh + "px");
+							$('#ico-num').css("display", "block");
+						}
+					} else {
+						mui.toast(msg['msg']);
+						return false;
+					}
+				});
+			}
+
+			/*查看购物车*/
+			function mycart() {
+				if(!ucode) {
+					dialogif("加入购物车需登录！");
+					return false;
+				} else {
+					window.location.href = "__APP__/Home/Entitymap/mycart?acode=" + '<?php echo $datainfo["c_ucode"] ?>';
+				}
+			}
+
+			/*获取购物车数量*/
+			// function getcarnum (pcode) {
+			//     var count = "";
+			//     $.getJSON('__URL__/Getprocount', {pcode:pcode}, function(json) {
+			//         var msg = eval(json);
+			//         if(msg['code']==0){
+			//             count = msg['data']['count'];
+			//         }
+			//     });
+			//     return count;
+			// }
+			/*是否下架*/
+			function isshow() {
+				var isshow = '<?php $datainfo["c_ishow"] ?>';
+				if(isshow == 2) {
+					mui.toast('该商品已下架！');
+					return false;
+				}
+				return true;
+			}
+
+			function Appshare() {
+				var description = '<?php echo $datainfo["sharedesc"] ?>';
+				var url = '<?php echo $datainfo["shareurl"] ?>';
+				var imgurl = "<?php echo $datainfo['shareimg'] ?>";
+				var title = '<?php echo $datainfo["sharetit"] ?>';
+				var s = imgurl + ',' + url + ',' + title + ',' + description;
+				return s;
+			}
+		</script>
+
+		<include file="Common/foot" />
+	</body>
+
+</html>

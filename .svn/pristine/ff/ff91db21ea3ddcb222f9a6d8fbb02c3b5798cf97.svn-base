@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>老用户回归</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/impower/index.css?v=1.3">
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" id="regress">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="regress-top">
+					<img src="__IMG__/impower/regress-1.png" alt="">
+				</div>
+				<div class="regress-register">
+					<div class="regress-reg-tit"><img src="__IMG__/impower/regress-3.png" alt=""></div>
+					<div class="regress-reg-con">
+						<div class="regress-reg-box">
+							<input type="text" name="phone" id="phone" class="regress-txt fs13" placeholder="请输入手机号">
+						</div>
+						<div class="regress-reg-box">
+							<input type="text" id="verify" name="verify" class="regress-txt fl fs13" placeholder="请输入短信校验码">
+							<button class="regress-duanx fl fs13" id="secondbtn">获取校验码</button>
+						</div>
+						<div class="regress-reg-box">
+							<input type="password" id="pwd" name="pwd" class="regress-txt fs13" placeholder="请输入登陆密码">
+						</div>
+						<div class="regress-reg-box">
+							<input type="password" id="repwd" name="repwd" class="regress-txt fs13" placeholder="请输入确认密码">
+						</div>
+						<div class="regress-reg-box">
+							<input type="text" name="incode" class="regress-txt fs13" placeholder="请输入邀请码（没有可不填）">
+						</div>
+						<div class="reg-txt-6">
+							<div class="agree_left">
+								<input type="checkbox" id="chk_agree" name="chk_agree">
+							</div>
+							<div class="agree_right fs13">
+								<a href="__APP__/Home/Login/read">我已阅读并同意《微领地服务协议》</a>
+							</div>
+						</div>
+						<div id="registerbtn"><img src="__IMG__/impower/regress-6.png" alt=""></div>
+
+					</div>
+				</div>
+
+				<div class="regress-register" id="regress-two">
+					<div class="regress-reg-tit"><img src="__IMG__/impower/regress-4.png" alt=""></div>
+					<div class="regress-reg-con" id="rule-regress">
+						<p class="fs13">1、凡是还未注册小蜜APP的微领地用户都可以直接领取红包。</p>
+						<p class="fs13">2、活动有效期为7月2日—7月8日</p>
+						<p class="fs13">3、在完成小蜜APP注册之后，需要下载登录小蜜APP激活红包。</p>
+						<p class="fs13">4、可以在小蜜APP的“服务中心”-“结算中心”查看红包。</p>
+						<p class="fs13">5、余额可以用于购买小蜜平台的商品或者直接提现。</p>
+						<p class="fs13">6、小蜜官方享有该活动的最终解释权。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<include file="Base@Public/pubjs" />
+	<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="__COMMON__/js/sendcode.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var aleft = $('.agree_left').height();
+			$('.agree_right').css('line-height', aleft + 'px');
+		}
+
+		$(document).ready(function() {
+			v = $.cookie("secondcode"); //获取cookie值
+			if(v > 0) {
+				settimep($("#secondbtn"), 'secondcode'); //开始倒计时
+			}
+		});
+		/*验证手机校验码*/
+		mui('.mui-content').on('tap', '#secondbtn', function() {
+			sendCode($("#secondbtn"), 1, 'secondcode', $('#phone'));
+		});
+
+		mui('.mui-content').on('tap', '#registerbtn', function() {
+			subinfo('<?php echo $url?>');
+		});
+		var clicktag = true;
+
+		function subinfo(url) {
+			if(clicktag) {
+				clicktag = false;
+				var verify = $('#verify').val();
+				var pwd = $('#pwd').val();
+				var repwd = $('#repwd').val();
+				var agree = $('#chk_agree');
+				if(phone == '' || verify == '' || pwd == '' || repwd == '') {
+					mui.toast('请输入完整的信息');
+					clicktag = true;
+					return false;
+				}
+				if(pwd != repwd) {
+					mui.toast('两次密码输入不一致');
+					clicktag = true;
+					return false;
+				}
+				if(!agree.attr('checked')) {
+					mui.toast('您还未阅读《微领地服务协议》');
+					clicktag = true;
+					return false;
+				}
+				var phone = $('input[name=phone]').val();
+				if(phone != "") {
+					if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))) {
+						mui.toast("手机号码格式错误！");
+						clicktag = true;
+						return false;
+					}
+				} else {
+					mui.toast("请输入手机号码！");
+					clicktag = true;
+					return false;
+				}
+
+				var incode = $('input[name=incode]').val();
+				$.post(WEB_HOST + '/index.php/Home/Impower/regress', {
+						phone: phone,
+						pwd: pwd,
+						verify: verify,
+						url: url,
+						incode: incode
+					},
+					function(obj) {
+						var msg = eval(obj);
+						if(msg['code'] == 0) {
+							mui.toast('注册成功');
+							window.location.href = msg['data']['url'];
+						} else {
+							mui.toast(msg['msg']);
+							clicktag = true;
+							return false;
+						}
+					});
+			}
+		}
+
+
+	</script>
+
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>商品分类管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/gcategory/index.css" />
+</head>
+<body class="bgeb">
+<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<div class="wrap-page" style="margin-bottom: 18%;">
+		<include file="Base@Public/pubheader" />
+		<div class="mui-content">
+			<ul class="gcategory-main divtab" id="data_list">
+				<!--<li class="gcategory-box">-->
+					<!--<div class="g-box-top divtab">-->
+						<!--<div class="g-box-tfl fl">-->
+							<!--<p class="fs16" style="color: #202324;">未分类</p>-->
+							<!--<p class="fs12" style="color: #3E4144;">商品数量：100件</p>-->
+						<!--</div>-->
+						<!--<div class="g-box-tfr fr"><img src="__IMG__/gcategory/spfl_icon_arrow.png" alt=""></div>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--<li class="gcategory-box" data-id="">-->
+					<!--<div class="g-box-top divtab">-->
+						<!--<div class="g-box-tfl fl">-->
+							<!--<p class="fs16" style="color: #202324;">全天8折起</p>-->
+							<!--<p class="fs12" style="color: #3E4144;">商品数量：100件</p>-->
+						<!--</div>-->
+						<!--<div class="g-box-tfr fr"><img src="__IMG__/gcategory/spfl_icon_arrow.png" alt=""></div>-->
+					<!--</div>-->
+					<!--<div class="g-box-bottom divtab">-->
+						<!--<div class="divtab">-->
+							<!--<div class="icon-box upc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_up.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">上移</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box downc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_down.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">下移</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box editor" data-id="" data-name="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_write.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">编辑</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box delc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_delete.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">删除</div>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--<li class="gcategory-box" data-id="">-->
+					<!--<div class="g-box-top divtab">-->
+						<!--<div class="g-box-tfl fl">-->
+							<!--<p class="fs16" style="color: #202324;">全天6.5折起</p>-->
+							<!--<p class="fs12" style="color: #3E4144;">商品数量：200件</p>-->
+						<!--</div>-->
+						<!--<div class="g-box-tfr fr"><img src="__IMG__/gcategory/spfl_icon_arrow.png" alt=""></div>-->
+					<!--</div>-->
+					<!--<div class="g-box-bottom divtab">-->
+						<!--<div class="divtab">-->
+							<!--<div class="icon-box upc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_up.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">上移</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box downc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_down.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">下移</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box editor" data-id="" data-name="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_write.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">编辑</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box delc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_delete.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">删除</div>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--<li class="gcategory-box" data-id="">-->
+					<!--<div class="g-box-top divtab">-->
+						<!--<div class="g-box-tfl fl">-->
+							<!--<p class="fs16" style="color: #202324;">明日起全场买一送一</p>-->
+							<!--<p class="fs12" style="color: #3E4144;">商品数量：200件</p>-->
+						<!--</div>-->
+						<!--<div class="g-box-tfr fr"><img src="__IMG__/gcategory/spfl_icon_arrow.png" alt=""></div>-->
+					<!--</div>-->
+					<!--<div class="g-box-bottom divtab">-->
+						<!--<div class="divtab">-->
+							<!--<div class="icon-box upc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_up.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">上移</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box downc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_down.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">下移</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box editor" data-id="" data-name="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_write.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">编辑</div>-->
+							<!--</div>-->
+							<!--<div class="icon-box delc" data-id="">-->
+								<!--<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_delete.png" alt=""></div>-->
+								<!--<div class="gbox-font fl fs12 c9">删除</div>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</li>-->
+			</ul>
+			<div id="console"></div>
+		</div>
+		<div class="fixed-btn add-gcategory cf bgb fs16" style="z-index: 997;">添加分类</div>
+
+		<div class="pup-bg add-gcate-bg"></div>
+		<div class="add-gcate-con">
+			<div class="gcate-tt c3 fs14 divtab"></div>
+			<div class="gcate-name divtab">
+				<input type="text" maxlength="8" class="fs16 c0" value="" id="categoryname" name="categoryname" placeholder="请输入分类名称">
+				<span id="error_msg" class="fs12">分类名称不能为空，且不能超出8个字</span>
+			</div>
+			<div class="gcvate-btn divtab fs14">
+				<span class="c9 s-btncancel">取消</span>
+				<input type="hidden" value="0" id="action_id">
+				<input type="hidden" value="" id="cateid">
+				<span class="c3 s-btnsave">保存</span>
+			</div>
+		</div>
+
+	</div>
+	<include file="Base@Public/pubjs" />
+</form>
+</body>
+<script type="text/javascript">
+	window.onload = function () {
+        yangshi();
+    }
+
+	//页面加载完js改变样式
+	function yangshi() {
+	    var tflh = $('.g-box-tfl').height();
+	    $('.g-box-tfr').css('padding-top',tflh*0.3+'px');
+	}
+
+	//var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	getdatalist();
+
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/getList";
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+                    _html+='<li class="gcategory-box">';
+                    _html+='<div class="g-box-top divtab" data-id="0" data-name="未分类">';
+                    _html+='<div class="g-box-tfl fl">';
+                    _html+='<p class="fs16" style="color: #202324;">未分类</p>';
+                    _html+='<p class="fs12" style="color: #3E4144;">商品数量：'+mgs.total+'件</p>';
+                    _html+='</div>';
+                    _html+='<div class="g-box-tfr fr"><img src="__IMG__/gcategory/spfl_icon_arrow.png" alt=""></div>';
+                    _html+='</div>';
+                    _html+='</li>';
+					if(!data) {
+						html += '<div class="data-empty">';
+						html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+						html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+						html += '</div>';
+						emptyval = false;
+					} else {
+							var datalist = data;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+                            	_html+='<li class="gcategory-box" data-id="'+dataarr['c_id']+'">';
+                                _html+='<div class="g-box-top divtab" data-id="'+dataarr["c_id"]+'" data-name="'+dataarr['c_category_name']+'">';
+                                _html+='<div class="g-box-tfl fl">';
+                                _html+='<p class="fs16" style="color: #202324;">'+dataarr['c_category_name']+'</p>';
+                                _html+='<p class="fs12" style="color: #3E4144;">商品数量：'+dataarr["total"]+'件</p>';
+                                _html+='</div>';
+                                _html+='<div class="g-box-tfr fr"><img src="__IMG__/gcategory/spfl_icon_arrow.png" alt=""></div>';
+                                _html+='</div>';
+                                _html+='<div class="g-box-bottom divtab">';
+                                // _html+='<div class="divtab">';
+                                _html+='<div class="icon-box upc" data-id="'+dataarr['c_id']+'">';
+                                _html+='<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_up.png" alt=""></div>';
+                                _html+='<div class="gbox-font fl fs12 c9">上移</div>';
+                                _html+='</div>';
+                                _html+='<div class="icon-box downc" data-id="'+dataarr['c_id']+'" data-count="'+datalist.length+'">';
+                                _html+='<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_down.png" alt=""></div>';
+                                _html+='<div class="gbox-font fl fs12 c9">下移</div>';
+                                _html+='</div>';
+                                _html+='<div class="icon-box editor" data-id="'+dataarr['c_id']+'" data-name="'+dataarr['c_category_name']+'">';
+                                _html+='<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_write.png" alt=""></div>';
+                                _html+='<div class="gbox-font fl fs12 c9">编辑</div>';
+                                _html+='</div>';
+                                _html+='<div class="icon-box delc" data-id="'+dataarr['c_id']+'">';
+                                _html+='<div class="gbox-icon fl"><img src="__IMG__/gcategory/spfl_icon_delete.png" alt=""></div>';
+                                _html+='<div class="gbox-font fl fs12 c9">删除</div>';
+                                // _html+='</div>';
+                                _html+='</div>';
+                                _html+='</div>';
+                                _html+='</li>';
+							};
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				//提交编辑
+				$('.gcategory-box').on('tap','.editor',function () {
+					$('.gcate-tt').text("分类名称编辑");
+					$('#action_id').val("2");
+					$('#categoryname').val($(this).attr('data-name'));
+					$('#cateid').val($(this).attr('data-id'));
+					$('.add-gcate-bg').css("display","block");
+					$('.add-gcate-con').css("display","block");
+					$('.add-gcate-bg').height($(document).height());
+				});
+
+				//确认对话框事件
+				mui('.gcategory-box').on('tap', '.delc', function() {
+					var cid = $(this).attr('data-id');
+					mui.confirm('删除此类后，则此类的所有商品都将分类于‘未分类’下', '确认删除此类？', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : delcategory(cid);
+					}, 'div');
+				});
+
+				//	上移处理
+				mui(".gcategory-box").on("tap",".upc",function(){
+					var index = $(this).parents(".gcategory-box").index();
+					var id1 = $(".gcategory-box").eq(index-1).attr('data-id');
+					var id2 = $(this).attr('data-id');
+					change(index,true,id1,id2);
+				});
+				//下移处理
+				mui(".gcategory-box").on("tap",".downc",function(){
+					var index = $(this).parents(".gcategory-box").index();
+					var id1 = $(".gcategory-box").eq(index+1).attr('data-id');
+					var id2 = $(this).attr('data-id');
+                    var count = $(this).attr('data-count');
+					change(index,false,id1,id2,count);
+				});
+				/*分类商品列表*/
+				mui(".gcategory-box").on('tap','.g-box-top',function () {
+					var categoryid = $(this).attr("data-id");
+                    var name = $(this).attr("data-name");
+					mui.openWindow({url:"__APP__/Store/Gmanage/batchgoods?statu=3&categoryid="+categoryid+"&name="+name,id:"goods"});
+                });
+			}
+		});
+	}
+
+    /*添加分类弹窗*/
+    mui('.wrap-page').on('tap','.add-gcategory',function () {
+        $('.gcate-tt').text("新建分类");
+        $('#action_id').val("1");
+        $('#categoryname').val("");
+        $('.add-gcate-bg').css("display","block");
+        $('.add-gcate-con').css("display","block");
+        $('.add-gcate-bg').height($(document).height());
+    });
+
+    /*取消*/
+    mui('.gcvate-btn').on('tap','.s-btncancel',function () {
+        $('.add-gcate-bg').css("display","none");
+        $('.add-gcate-con').css("display","none");
+    });
+    /*保存分类*/
+    mui('.gcvate-btn').on('tap','.s-btnsave',function () {
+        putform();
+    });
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+		    var cname = $('#categoryname').val();
+		    var cid = $('#cateid').val();
+            var length = $('#categoryname').val().trim().length;
+            if(length == 0 || length > 8){
+                $('#categoryname').next().css("visibility","visible");
+                return;
+            }else{
+                $('#categoryname').next().css("visibility","hidden");
+            }
+			resign = false;
+			var act = $('#action_id').val();
+			var geturl = "";
+            if(act==1){
+                //新建
+                geturl = "__URL__/createCategory";
+            }else if(act == 2) {
+                //编辑
+                geturl = "__URL__/editCategory";
+			}
+            $.post(geturl, {
+                cid: cid,
+                name:cname
+            }, function(obj) {
+                var result = eval(obj);
+                if(result['code'] == 0) {
+                    if(act==1){
+                        mui.alert("添加成功！");
+					}else if(act==2){
+                        mui.alert("编辑成功！");
+					}
+                    $('.add-gcate-bg').css("display","none");
+                    $('.add-gcate-con').css("display","none");
+                    setTimeout(function() {
+                        mui.openWindow({
+                            url: '__URL__/index',
+                            id: 'index'
+                        });
+                    }, 1000);
+                } else {
+                    mui.alert(result.msg);
+                    resign = true;
+                }
+            });
+		}	
+	}
+
+	/*删除分类*/
+	function delcategory(id) {
+        $.post("__URL__/delCategory", {
+            cid: id
+        }, function(obj) {
+            var result = eval(obj);
+            if(result['code'] == 0) {
+                mui.alert("删除成功！");
+                setTimeout(function() {
+                    mui.openWindow({
+                        url: '__URL__/index',
+                        id: 'index'
+                    });
+                }, 1000);
+            } else {
+                mui.alert(result.msg);
+            }
+        });
+    }
+
+    //位置移动处理
+    function change(index,isUp,id1,id2,count){
+        if(isUp && index!=1){
+            $(".gcategory-box").eq(index-1).before($(".gcategory-box").eq(index).hide());
+            $(".gcategory-box").eq(index-1).slideDown();
+            changeupd(id1,id2);
+        }else if(!isUp && index!=count){
+            $(".gcategory-box").eq(index+1).after($(".gcategory-box").eq(index)).hide();
+            $(".gcategory-box").eq(index).slideDown();
+            changeupd(id1,id2);
+        }
+    }
+
+    /*移动*/
+    function changeupd(upid,downid) {
+        $.post("__URL__/moveCategory", {
+            id1: upid,
+            id2: downid
+        }, function(obj) {
+            var result = eval(obj);
+            if(result['code'] == 0) {
+
+            } else {
+                mui.alert(result.msg);
+            }
+        });
+    }
+
+</script>
+
+</html>

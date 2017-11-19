@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>分类搜索</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/index/index.css" />
+	</head>
+
+	<body>
+		<div class="wrap-page">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}" />
+				<input type="hidden" name="citycode" id="citycode" value="{$citycode}" />
+				<input type="hidden" name="localtitle" id="localtitle" value="{$circlename}" />
+				<input type="hidden" name="sstype" id="sstype" value="{$sstype}" />
+				<input type="hidden" name="categoryid" id="categoryid" value="{$categoryid}" />
+				<input type="hidden" name="ordertype" id="ordertype" value="0" />
+				<div class="search-bar">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs28 search-j" id="muinav_return"></a>
+					<div class="xiaomi-search">
+						<div class="xm-search-con divre">
+							<div class="mui-input-row mui-search">
+								<input type="text" id="keyname" name="keyname" class="fs13" placeholder="搜索商品名称" style="width: 100%;padding:3% 0 3% 0;" />
+							</div>
+						</div>
+					</div>
+					<div class="xm-search-btn cf fs14" id="xm_ssbtn">搜索</div>
+				</div>
+				<div class="mui-content" style="background-color: white;margin: 0 1.3rem;">
+					<!--<div id="hot" style="display: none;">
+						<div class="fs13 hot">
+							热门推荐
+						</div>
+
+						<ul class="fs12 more">
+							<li>
+								柔情坚果
+							</li>
+							<li>面包</li>
+							<li>泰国产地芒果干</li>
+							<li>每日坚果组合装</li>
+							<li>手撕面包</li>
+							<li>麻辣味猪肉铺</li>
+							<li>中秋月饼</li>
+							<li>清香海味</li>
+						</ul>
+					</div>-->
+
+				</div>
+				<div class="category">
+					<ul class="nav fs13">
+						<li class="active">
+							<div class="nav_n">
+								<span>综合</span>
+							</div>
+						</li>
+						<li>
+							<div class="nav_n">
+								<span>新品</span>
+							</div>
+						</li>
+						<li>
+							<div class="nav_n">
+								<span>价格</span>
+								<img src="__IMG__/index/store_icon_default.png" alt="" />
+							</div>
+						</li>
+						<li>
+							<div class="nav_n">
+								<span>销量</span>
+								<img src="__IMG__/index/store_icon_default.png" alt="" />
+							</div>
+						</li>
+					</ul>
+					<!--<div class="without">
+						<img src="__IMG__/index/default_bg.png" alt="" />
+						<div>没有相关宝贝</div>
+						<div>查看全部分类</div>
+					</div>-->
+					<ul class="shops" style="display: none;">
+						<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>
+						<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>
+						<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>
+						<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>
+						<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>
+						<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>
+					</ul>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script>
+		var screenWith = $('.wrap-page').width() / 720;
+		console.log($('.without>img').width());
+//		$('.without>img').css('width',$('.without>img').width()*screenWith);
+		var times;
+		$('.mui-content').css('padding-top', $('.search-bar').height());
+		$('.nav').height($($('.nav:first').children('li').get(0)).height());
+		console.log($('.nav>li'))
+		$('.nav>li').each(function(i) {
+			var num = 0;
+			if(i == 2) {
+				$(this).click(function() {
+					eachs();
+					$(this).addClass("active");
+					if(num == 0) {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_jiang.png');
+						num = 1;
+					} else {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_sheng.png');
+						num = 0;
+					}
+				});
+			} else if(i == 3) {
+				$(this).click(function() {
+					eachs()
+					$(this).addClass("active");
+					if(num == 0) {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_jiang.png');
+						num = 1;
+					} else {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_sheng.png');
+						num = 0;
+					}
+				});
+			} else {
+				$(this).click(function() {
+					eachs()
+					$(this).addClass("active");
+				});
+			}
+		});
+
+		function eachs() {
+			$('.nav>li').each(function(i) {
+				$(this).removeClass("active");
+				$(this).find('img').attr('src', '__IMG__/index/store_icon_default.png');
+			});
+		}
+		/*$("input").focus(function() {
+			clearInterval(times);
+			$('#hot').css('display', 'block');
+			$('.category').css('display', 'none');
+		});
+		$("input").blur(function() {
+			times = setInterval(function() {
+				$('#hot').css('display', 'none');
+				$('.category').css('display', 'block');
+			}, 1000)
+		});*/
+	</script>
+
+</html>

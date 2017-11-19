@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>系统消息</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/message/newindex.css?v=1.00" />
+</head>
+<body class="bgcolor">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<div class="message-menu">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" id="menu-ordermsg">
+						<?php if ($data[0]['count'] > 0): ?>
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-red">标为已读</a>
+							</div>
+						<?php endif ?>
+						<div class="mui-slider-handle message-menu-box divtab">
+							<div class="msg-menu-sign divre fl">
+								<div class="msg-menu-img fl">
+									<img src="__IMG__/message/message_icon_order.png" alt=""/ >
+								</div>
+								<?php if ($data[0]['count'] > 0): ?>
+									<div class="sign-red divab"></div>
+								<?php endif ?>
+							</div>
+							<div class="msg-menu-info divre fl c9">
+								<div class="msg-menu-name fl">
+									<p class="c3 fs14 fb800">订单助手<font class="cb fs11">官方</font></p>
+									<?php if ($data[0]['c_content']): ?>
+										<p class="fs12 fov">{$data[0]['c_content']}</p>
+									<?php endif ?>
+								</div>
+								<?php if ($data[0]['c_content']): ?>
+									<span class="msg-menu-time divab fr fs14">{$data[0]['c_time']}</span>
+								<?php endif ?>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell" id="menu-activitymsg">
+						<?php if ($data[1]['count'] > 0): ?>
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-red">标为已读</a>
+							</div>
+						<?php endif ?>
+						<div class="mui-slider-handle message-menu-box divtab">
+							<div class="msg-menu-sign divre fl">
+								<div class="msg-menu-img fl">
+									<img src="__IMG__/message/message_icon_activity.png" alt=""/ >
+								</div>
+								<?php if ($data[1]['count'] > 0): ?>
+									<div class="sign-red divab"></div>
+								<?php endif ?>
+							</div>
+							<div class="msg-menu-info divre fl c9">
+								<div class="msg-menu-name fl">
+									<p class="c3 fs14 fb800">活动消息<font class="cb fs11">官方</font></p>
+									<?php if ($data[1]['c_content']): ?>
+										<p class="fs12 fov">{$data[1]['c_content']}</p>
+									<?php endif ?>
+								</div>
+								<?php if ($data[1]['c_content']): ?>
+									<span class="msg-menu-time divab fr fs14">{$data[1]['c_time']}</span>
+								<?php endif ?>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell" id="menu-noticemsg">
+						<?php if ($data[2]['count'] > 0): ?>
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-red">标为已读</a>
+							</div>
+						<?php endif ?>
+						<div class="mui-slider-handle message-menu-box divtab">
+							<div class="msg-menu-sign divre fl">
+								<div class="msg-menu-img fl">
+									<img src="__IMG__/message/message_icon_gg.png" alt=""/ >
+								</div>
+								<?php if ($data[2]['count'] > 0): ?>
+									<div class="sign-red divab"></div>
+								<?php endif ?>
+							</div>
+							<div class="msg-menu-info divre fl c9">
+								<div class="msg-menu-name fl">
+									<p class="c3 fs14 fb800">公告<font class="cb fs11">官方</font></p>
+									<?php if ($data[2]['c_content']): ?>
+										<p class="fs12 fov">{$data[2]['c_content']}</p>
+									<?php endif ?>
+								</div>
+								<?php if ($data[2]['c_content']): ?>
+									<span class="msg-menu-time divab fr fs14">{$data[2]['c_time']}</span>
+								<?php endif ?>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell" id="menu-systemmsg">
+						<?php if ($data[3]['count'] > 0): ?>
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-red">标为已读</a>
+							</div>
+						<?php endif ?>
+						<div class="mui-slider-handle message-menu-box divtab">
+							<div class="msg-menu-sign divre fl">
+								<div class="msg-menu-img fl">
+									<img src="__IMG__/message/message_icon_xms.png" alt=""/ >
+								</div>
+								<?php if ($data[3]['count'] > 0): ?>
+									<div class="sign-red divab"></div>
+								<?php endif ?>
+							</div>
+							<div class="msg-menu-info divre fl c9">
+								<div class="msg-menu-name fl">
+									<p class="c3 fs14 fb800">小蜜书</p>
+									<?php if ($data[3]['c_content']): ?>
+										<p class="fs12 fov">{$data[3]['c_content']}</p>
+									<?php endif ?>
+								</div>
+								<?php if ($data[3]['c_content']): ?>
+									<span class="msg-menu-time divab fr fs14">{$data[3]['c_time']}</span>
+								<?php endif ?>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi()
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var msImg = $('.msg-menu-img').width();
+		$('.msg-menu-img').height(msImg);
+		$('.msg-menu-name').css('line-height', msImg *0.4 +'px');
+		$('.msg-menu-info').css('height', msImg +'px');
+	}
+
+
+	//确认标记为已读
+	$('.mui-content').on('slideleft', '.mui-table-view-cell', function() {
+		var emel = this;
+		mui(emel).on('tap', '.mui-btn', function(event) {
+			signread(emel);
+		});
+	});
+
+	function signread(ts) {
+		$(ts).find('.sign-red').hide();
+		$(ts).find('.message-menu-box').css({
+			'transform': 'translate(0px, 0px)'
+		});
+	}
+
+
+	//跳转订单助手
+	mui('.mui-content').on('tap', '#menu-ordermsg', function() {
+		mui.openWindow({url:"__URL__/msginfo?mtype=0",id:"msginfo1"});
+	});
+
+	//跳转活动消息
+	mui('.mui-content').on('tap', '#menu-activitymsg', function() {
+		mui.openWindow({url:"__URL__/msginfo?mtype=1",id:"msginfo2"});
+	});
+
+	//跳转公告
+	mui('.mui-content').on('tap', '#menu-noticemsg', function() {
+		mui.openWindow({url:"__URL__/msginfo?mtype=2",id:"msginfo3"});
+	});
+
+	//跳转小蜜书
+	mui('.mui-content').on('tap', '#menu-systemmsg', function() {
+		mui.openWindow({url:"__URL__/msginfo?mtype=3",id:"msginfo4"});
+	});
+</script>
+
+</html>

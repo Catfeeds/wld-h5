@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>我的资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<link rel="stylesheet" href="__CSS__/viewer.min.css">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript" src="__JS__/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style>
+			.resource-l {
+				color: #555;
+			}
+			
+			.bbox {
+				font-weight: normal;
+				color: #000;
+			}
+		</style>
+	</head>
+
+	<body style="background:#fff">
+
+		<include file="Common/head" />
+		<div class="pup-bg success-bg"></div>
+		<div class="success-tip">
+			<div class="success-tip-con">
+				<div class="success-icon"><img src="__IMG__/sjjh_icon_pop.png" alt="" /></div>
+				<div class="success-font fs16" style="color: #01C12D;">恭喜你，审核已通过</div>
+				<div class="success-sure cf fs16" onclick="sure_close()">确认</div>
+			</div>
+		</div>
+		<div class="wrap-page bgcolor" style="margin-bottom: 15%;">
+			<div class="p_info_tit"><span class="fs16" style="color: #000;">商户资料</span></div>
+			<div class="resource-main fs14">
+				<div class="data-list">
+					<div class="resource-l fl">商户名称：</div>
+					<div class="resource-r bbox fl">{$data['c_merchantname']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">
+					<?php if($data['c_type'] == 1){ ?>负责人姓名 <?php } else if($data['c_type'] == 2){ ?>法人姓名<?php } else if($data['c_type'] == 3){ ?>经营者姓名 <?php } ?>：</div>
+					<div class="resource-r bbox fl">{$data['c_name']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">身份证号码：</div>
+					<div class="resource-r bbox fl">{$data['c_idcardinfo']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">证件有效期：</div>
+					<div class="resource-r bbox fl">{$data['c_idcardstarttime']}至{$data['c_idcardendtime']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">手机号码：</div>
+					<div class="resource-r bbox fl">{$data['c_phone']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">所在省市区：</div>
+					<div class="resource-r bbox fl ">{$data['c_province']}{$data['c_city']}{$data['c_county']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">详细地址：</div>
+					<div class="resource-r bbox fl ">{$data['address1']}</div>
+				</div>
+
+
+				<?php if ($data['c_type'] == 2 || $data['c_type'] == 3) { ?>
+					<div class="data-list">
+						<div class="resource-l fl">营业执照号：</div>
+						<div class="resource-r bbox fl ">{$data['c_charter']}</div>
+					</div>
+				<?php } ?>
+
+				<div class="p_info_tit"><span class="fs16" style="color: #000;">结算资料</span></div>
+				<div class="data-list">
+					<div class="resource-l fl"><?php if($ctype==2){ ?>银行公户名<?php } else { ?>银行开户名<?php } ?>：</div>
+					<div class="resource-r bbox fl ">{$data['c_fee_name']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl"><?php if($ctype==2){ ?>银行公户号<?php } else { ?>银行卡号<?php } ?>：</div>
+					<div class="resource-r bbox fl ">{$data['c_fee_cardnum']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl"><?php if($ctype==2){ ?>公户开户行<?php } else { ?>开户银行<?php } ?>：</div>
+					<div class="resource-r bbox fl ">{$data['c_fee_bank']}</div>
+				</div>
+				<div class="data-list">
+					<div class="resource-l fl">开户支行：</div>
+					<div class="resource-r bbox fl ">{$data['c_bankname']}</div>
+				</div>
+			</div>
+
+			<div class="p_info_tit"><span class="fs16" style="color: #000;">身份证件</span></div>
+			<div class="resource-main fs14">
+				<div class="data-list">
+					<ul>
+						<li>
+							<div class="data-idImg"><img src="{$data['c_idcard_img']}"></div>
+						</li>
+						<li>
+							<div class="data-idImg"><img src="{$data['c_idcard_img1']}"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<?php if ($data['c_type'] == 1 || $data['c_type']==3) { ?>
+				<div class="p_info_tit"><span class="fs16" style="color: #000;">银行卡</span></div>
+				<div class="resource-main fs14">
+					<div class="data-list">
+						<ul>
+							<li>
+								<div class="data-idImg"><img src="{$data['c_bankcardimg']}"></div>
+							</li>
+							<li>
+								<div class="data-idImg"><img src="{$data['c_bankcardimg1']}"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			<?php } ?>
+
+			<?php if ($data['c_type'] == 2 || $data['c_type'] == 3) { ?>
+				<div class="p_info_tit"><span class="fs16" style="color: #000;">营业执照</span></div>
+				<div class="resource-main fs14">
+					<div class="data-list">
+						<ul>
+							<li>
+								<div class="data-idImg"><img src="{$data['c_charter_img']}"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			<?php } ?>
+
+			<?php if ($data['c_type']== 2) { ?>
+				<div class="p_info_tit"><span class="fs16" style="color: #000;">公户开户许可证</span></div>
+				<div class="resource-main fs14">
+					<div class="data-list">
+						<ul>
+							<li>
+								<div class="data-idImg"><img src="{$data['c_charterpub_img']}"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			<?php } ?>
+
+		</div>
+
+		<script type="text/javascript">
+			var cchecked = '<?php echo $vo["c_checked"] ?>';
+			window.onload = function() {
+				$('.data-idImg').height($('.data-idImg').width());
+				$('.data-licImg').height($('.data-licImg').width());
+				if(cchecked==3){
+					$('.success-bg').fadeIn();
+					$('.success-tip').fadeIn();
+					$('.success-bg').height($(document).height());
+					$.cookie('prolead', '1', {
+					    expires: 1
+					});					
+				}
+	            if ($.cookie('prolead') == 1) {
+					$('.success-bg').fadeOut();
+					$('.success-tip').fadeOut();       
+	            }				
+			}
+			function sure_close(){
+				$('.success-bg').fadeOut();
+				$('.success-tip').fadeOut();
+			}
+		</script>
+		<script src="__JS__/viewer.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.data-idImg img').click(function() {
+					$('.data-list').viewer({
+						url: 'data-original',
+						navbar: false,
+						toolbar: true,
+						keyboard: false,
+						movable: false,
+						scalable: false,
+						fullscreen: false
+					});
+					setTimeout("$('.viewer-play').css(\"display\",\"none\");$('.viewer-prev').css(\"display\",\"none\");$('.viewer-next').css(\"display\",\"none\");", 100);
+				});
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,478 @@
+a{display: block;}img{width: 100%;height: auto;}
+/*结算中心首页*/
+.index-top-bg{background: #51aafd;width: 100%;padding: 4% 20%;}
+.index-circle{height: 100%;}
+.usable-money{top: 30%; text-align: center;width: 100%;}
+.usable-money-val{top: 43%; text-align: center;width: 100%;font-weight: bold;font-size: 24px;}
+.usable-money-font{text-align: center;bottom: 12%;width: 100%;color: #51aafd;}
+.index-record-li{width: 100%;padding: 3% 0;border-bottom: solid 2px #ededed;overflow: hidden;}
+.record-box{width: 49%;text-align: center;}
+.record-box p{ padding-bottom: 1%;}
+.record-box h3{color: #ffa93f;}
+.record-box-b{border-left: solid 1px #ededed;}
+ul.balance-menu{overflow: hidden;width: 100%;padding: 0 4%;}
+ul.balance-menu li{float: left;width: 32%;padding: 4% 6%;}
+
+
+
+.balan-top{width:100%;overflow:hidden;position:relative;}
+.balan-money{position:absolute;bottom:54%;left:30%;width: 40%;overflow: hidden;color:#fff;
+text-align: center;font-size: 18px;font-weight:600;padding-bottom: 2%;}
+.balan-tx{position:absolute;width:30%;overflow:hidden;color:#49abf7;font-size:16px;
+bottom:10%;left:27%;text-align: right;padding-bottom:1%;}
+.mid_column{width: 100%;overflow: hidden;margin-top:4%;background: #ffffff;padding:0 3%;}
+.nav_column{width: 100%;overflow: hidden;border-bottom:1px solid #ebebeb;padding:3% 0px;}
+.column_left{width: 10%;overflow: hidden;}
+.column_left img{width: 100%; height: 100%;}
+.column_right{width: 80%;overflow: hidden;}
+.column_right2{width: 9%;}
+.column_right2 img{width: 100%;height: 100%;margin-top: 9%;}
+.right_text{width: 40%;font-size: 16px;}
+.left_text{width: 60%;font-size: 16px;text-align:right;}
+
+
+/*提现记录*/
+.draw-top{width: 100%;padding:10% 4%;overflow: hidden;background:#49abf7;}
+.draw-tit{padding:1% 0px;text-align: center;}
+.draw-money{width: 100%;overflow: hidden;text-align:center;font-weight: 600;}
+.draw-left{width: 60%;overflow: hidden;}
+.draw-left h5{padding:2% 0px;}
+.draw-left h5 span{font-weight: 600;margin-left: 3%;}
+.draw-left p{padding:2% 0px;}
+.draw-right{width:40%;overflow:hidden;padding:4% 0px;text-align:right;}
+.budget-top{width: 100%;overflow: hidden;background:#fff;}
+.budget-li{width: 33.333333%;overflow: hidden;padding: 3% 0px;text-align: center;border-bottom: 1px solid #ebebeb;}
+.topli-hover{border-bottom:2px solid #49abf7;color:#49abf7;}
+
+/*收支明细*/
+.budget-left{width: 70%;}
+.budget-right{width: 30%;color:#ffad3f;font-weight: 600;font-size: 18px;}
+.remindtext{width: 100%;overflow: hidden;padding: 2% 4%;color: #999999;margin-top:5%;
+	font-size: 14px;}
+.remindtext span{color:#46a9fa;}
+
+/*绑定银行卡*/
+.user_msg{width: 100%;overflow: hidden;background: #ffffff;}
+.login_li{width: 100%;overflow: hidden;font-weight: 400;padding: 3% 4%;
+	font-size: 14px;border-bottom: #e6e6e6 1px solid;background: #fff;}
+.login_text{width: 25%;padding: 1.5% 0px;padding-left: 3%; float: left;text-align: left;color: #999999;}
+select.login_inpt{font-size: 14px;color: #999999;outline: none;}
+.login_inpt{float: left;width: 70%;border: 0px;color: #999999;padding: 1.5% 2%;background: #fff;outline: none;}
+.login_btn{width: 92%;box-sizing: border-box;color: #fff;font-size: 16px;padding: 2% 0px;
+	border-radius: 6px;cursor: pointer;border: none;background: #46a9fa;margin:1% 4%;margin-top: 5%;
+text-align: center;}
+
+
+/*交易进行中*/
+.orderlist-box{width: 100%;overflow: hidden;background:#ebebeb;}
+.orderlist-box li{padding:2%;}
+.orderlist-body{width: 100%;overflow: hidden;padding:2%;border-bottom: 1px solid #ebebeb;background:#fff;}
+.top-left{width: 80%;overflow: hidden;}
+.top-text{padding:1% 2%;font-size: 14px;}
+.top-img{width: 8%;overflow:hidden;}
+.top-right{width: 20%;font-size: 14px;overflow: hidden;padding:1% 0px;text-align: right;
+	color:#ffad3f;}
+.listbody-left{width: 25%;overflow: hidden;}
+.listbody-left img{width: 100%;height: 100%;}
+.listbody-center{width: 71%;overflow: hidden;margin: 0px 2%;}
+.listbody-center h5{width: 100%;padding:2% 0px;}
+.listbody-center p{width: 100%;padding:1% 0px;}
+.listbody-bot{width: 100%;overflow: hidden;background:#fff;}
+.order-price{font-weight: 400;}
+
+.orderlist-mid b{color:#ffad3f;font-weight: 400;}
+.orderlist-mid{width: 100%;overflow: hidden;padding:2%;text-align: right;border-bottom: 1px solid #ebebeb;font-weight: 400;margin-bottom: 3%;background:#fff;}
+.orderlist-mid span{color:#999;}
+
+
+/*申请提现*/
+.post_inpu{width: 92%;overflow: hidden;font-weight: 400;padding: 3% 4%;margin-top: 4%;
+	font-size: 14px;border: #e6e6e6 1px solid;background: #fff;margin-left: 4%;}
+.post-li{width: 92%;overflow: hidden;margin-left: 4%;padding: 2% 0px;}
+.post_left{width: 10%;overflow: hidden;}
+.post_right{width: 80%;overflow: hidden;margin-left: 4%;font-size: 14px;padding:2% 0px;}
+
+.post_right p{padding: 0.5% 0;}
+
+.li-input-mon{border: #e6e6e6 1px solid;width:92%;overflow: hidden; padding: 2% 0px;margin-left: 4%;margin-top: 2%;}
+.input-ico{float: left;width: 8%;text-align: center;}
+.input-money{width: 84%;float: left;border: none;margin-top: 0;margin-left: 0;}
+
+
+/*2016-10-19-提现页面修改*/
+.withdraw-bankimg{padding: 4% 3%;margin-bottom: 3%;}
+.w-bankimg{width: 15%;}
+.w-banknames{width: 82%;margin-left: 3%;}
+
+
+
+/*2016-12-28-hhs-----------*/
+/*提现选择*/
+.cashway-box{ display: block; text-align: center;overflow: hidden;padding-top: 12%;width: 100%;}
+.cashway-font{padding-bottom: 1.5%;}
+.cashway-btn{width: 60%;margin:0 auto;}
+
+
+/*实名认证*/
+
+.identify-font{padding:4%;}
+.identify-desc{font-size: 14px;padding:4%;}
+
+
+.info-box{overflow: hidden;padding: 2% 4%;width: 100%;border-top: solid 1px #ededed;}
+.yourname{width: 25%;}
+.yourname-text{width: 72%;margin-left: 3%;}
+.yourname-text input[type="text"]{border:none;outline: none;width: 100%;padding:0 2%;margin: 0;line-height: auto;}
+.yourname-text select{border:none;outline: none;width: 100%;color: #999;}
+.tijiao-sub{width: 55%;margin:5% auto;}
+.sub-btns{ border: none; background: #46a9fa;color: #fff;text-align: center;border-radius: 25px;width: 100%;
+ -webkit-box-shadow:0 0 18px 1px rgba(70, 169, 250, .5);
+  -moz-box-shadow:0 0 18px 1px rgba(70, 169, 250, .5);
+  box-shadow:0 0 18px 1px rgba(70, 169, 250, .5); padding: 4% 0;letter-spacing: 3px;}
+
+.btn-withdraw{background: #46a9fa; color: #fff; text-align: center;width: 100%; padding: 3% 0;letter-spacing: 3px;}
+
+.sub-btns-gray{background: #ebebeb;-webkit-box-shadow:0 0 18px 1px rgba(0, 0, 0, .14);
+  -moz-box-shadow:0 0 18px 1px rgba(0, 0, 0, .14);
+  box-shadow:0 0 18px 1px rgba(0, 0, 0, .14);color: #555;}
+
+
+/*绑定微信,alipay,unionpay*/
+.binding-intro{width: 100%;padding: 3% 0 6% 0;}
+.binding-ico{width: 25%;margin: 0 auto;padding: 6% 0 3% 0;}
+.binding-font{text-align: center;width: 100%;padding-bottom: 1%;}
+.bggray{background: #f4f4f4;}
+
+.bind-info-desc{padding: 4% 4% 0 4%;}
+.bind-info-desc span{color: #5db4f7;}
+.bind-info-btn{width: 60%;margin: 10% auto;display: block;}
+.btnfont{top: 0;text-align: center;width: 100%;}
+
+
+/*提现，输入登录密码*/
+.input-cash-info{margin-top: 3%;}
+.withdraw-box{border-bottom: solid 2px #ededed;overflow: hidden;width: 100%;padding: 3% 0;margin: 0 3%;}
+.withdraw-font{width: 25%;}
+.withdraw-txt{width: 72%;margin-left: 3%;}
+.withdraw-money{overflow: hidden;width: 100%;margin-top: 2%;}
+.withdraw-money input[type="number"]{width: 89%;outline: none;border: none;margin-left: 1%;padding: 2% 0;}
+
+.withdraw-password{border: none;outline: none; width: 100%;padding: 4%;}
+.withdraw-tip{padding:4%;border:solid 1px #ccc; background: #fff; border-radius: 8px;margin: 6% 4%;}
+
+/*提现申请提交成功*/
+.apply-for-ico{width: 45%;margin:0 auto; padding: 12% 0 0 0;}
+.apply-for-font{color: #46a9fa;text-align: center;padding: 4% 0 0 0;}
+ul.draw-infos{width: 100%;padding-top: 7%;}
+ul.draw-infos li{overflow: hidden;width: 100%;padding: 2% 0;}
+.apply-for-txt{width: 20%;text-align: left;margin-left: 20%;}
+.apply-for-val{margin-left: 2%;width: 57%;text-align: left;}
+.withdraw-balance{padding: 3%;width: 100%;}
+
+
+
+/*2017-3-10结算中心~商家*/
+.borderra{
+	-moz-border-radius:25px;-webkit-border-radius: 25px;border-radius: 25px;
+}
+.divsbox{margin:0 0 4% 0;}
+.sumasset-font{padding: 3% 3% 2% 3%;}
+.sumasset{padding-bottom: 3%;}
+.sumasset-mon{width: 80%;margin-left: 3%; font-weight: bolder;}
+.sumasset-ico{width: 6%;margin-right: 3%;}
+.sumasset-detail{ padding: 2% 3% 4% 3%; border-top: solid 1px #ebebeb;}
+.cash-detail,.account-detail{ width: 50%;}
+.cash-detail p,.account-detail p{ padding: 1.5% 0;}
+.ce{color: #ffc12e;}
+
+
+
+.asset-Report{padding: 4% 0 0 0;}
+.asset-tab-list{width: 65%;margin:0 auto;border:solid 1px #46a9fa;}
+.asset-tab-list ul{width: 100%;overflow: hidden;}
+.asset-tab-list ul li{ background: #fff;color: #46a9fa; width: 25%;text-align: center;float: left;padding: 1.5% 0;}
+.asset-tab-list ul li.hover{background: #46a9fa;color: #fff;}
+
+.report-list{padding-top: 5%;}
+.outin_con{padding: 3% 0;}
+.today-left{width: 55%;margin-left: 3%;}
+.today-left ul{width: 100%;overflow: hidden;}
+.today-left ul li{overflow: hidden;width: 100%;padding: 3% 0;}
+.todaysum{margin-bottom: 5%;}
+.sumin-num{width: 86%;margin-left: 3%;}
+.sumin-time{width: 6%;margin-right: 3%;}
+.sico{width: 10%;margin-right: 2%;}
+.sname{margin-right: 5%;}
+.smoney{}
+.today-right{width: 39%;margin-right: 3%;}
+
+.report_line{/*padding-bottom: 4%;*/max-width: 720px;min-width: 320px;}
+
+.outin_tab{padding: 3% 0;border-top: solid 1px #ebebeb;}
+.tab-out-fl{margin-left: 3%;}
+.tab-out-mon{margin-right: 3%;}
+
+
+
+.months-bg{ display: none; background-color: black; z-index:9989; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.months-pup{ display: none;top:15%;position:fixed;z-index: 100000;width:35%;right: 3%;}
+.months-pup-con{right: 10%;width: 100%;}
+.months-list{top: 0;left:0;right: 0;}
+.months-list ul{padding-top: 5%;}
+.months-list li{text-align: center;border-bottom: solid 1px #ccc;}
+.months-list li.li5{border-bottom: none;}
+
+/*月账单*/
+.moth{padding: 2% 3%;}
+.moth-time{width: 30%;text-align: left;padding: 1% 0;}
+.moth-img{width: 6%;}
+.moth-expend{padding: 3% 0;margin-top: 2%;}
+.moth-num{width: 65%;}
+.switchover{overflow: hidden;margin-right: 5%;}
+.switchover-logo{width: 22%;margin-right: 1%;padding-top: 1%;}
+.switchover-text{margin-right:3%;padding-top: 1%;}
+.moth-bottom{border-bottom: 1px solid #f0f0f0;margin-left: 3%;margin-bottom: 4%;padding-bottom: 3%;overflow: hidden;}
+
+
+/*2017-3-11改版收支明细首页*/
+.newbg-top{padding:0px 0px 0px 4%;}
+.newbgimg{width: 10%;}
+.newbg_column{width: 96%;overflow: hidden;border-bottom:1px solid #ebebeb;padding:3% 4% 3% 0px;margin-left: 4%;}
+.newbg-left h5,.newbg-mid h5{padding: 1% 0px;}
+.newbg-left p,.newbg-mid p{padding: 1% 0px;}
+.newbg-img{width: 13%;overflow: hidden; border-radius: 50%;}
+.newbg-img img{width: 100%;height: 100%;}
+.newbg-mid{width: 50%;overflow: hidden;padding-left: 3%;}
+.newbg-right{width: 20%;text-align: center;padding: 3% 0px;}
+.newbg-mid span font:nth-of-type(2){ padding-left: 2%;}
+
+
+
+/*2017-3-11交易明细详情*/
+.bbo{border-bottom:solid 1px #e5e5e5;}
+.detail-top{padding: 4%;}
+.detail-main{
+	margin:4% auto;
+	width: 92%;
+	height: auto;
+	border-bottom: none;
+	background: radial-gradient(circle at 50% 50%, #f4f4f4 0%, #f4f4f4 50%, rgba(0, 0, 0, 0) 0%) repeat-x;
+	background: -moz-radial-gradient(circle at 50% 50%, #f4f4f4 0%, #f4f4f4 50%, rgba(0, 0, 0, 0) 0%) repeat-x;
+	background: -webkit-radial-gradient(circle at 50% 50%, #f4f4f4 0%, #f4f4f4 50%, rgba(0, 0, 0, 0) 0%) repeat-x;
+	background-color: white;
+	background-size: 40px 40px;
+	background-position: 40px 180px;
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+}
+
+.state-one{}
+
+.state-tit-list{padding: 4% 0;}
+.state-tit-fl{margin-left: 4%;}
+.state-tit-fr{margin-right: 4%;}
+
+.state-con-list{}
+.state-con-list ul{padding-bottom: 8%;}
+.state-con-list ul li{padding:3% 4%;overflow: hidden;}
+.state-con-fl{text-align: left;}
+.state-con-fr{text-align: right;}
+.state-con-img{width: 10%;margin-right: 4%;}
+
+.buy-list-t{padding: 3% 0;}
+.buy-list-c{}
+.buy-list-c p{padding: 1% 0;}
+
+.store-ico{width: 7%;margin-left: 3%;}
+.store-name{margin-left: 2%;}
+.store-arror{width: 7%;margin-left: 2%;}
+
+
+.detail-bottom{text-align: center;padding: 4% 0;}
+
+
+.query-bg{ display: none; background-color: black; z-index:9989; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.query-pup{ display: none;top:16%;left:0; position:fixed;z-index: 100000;width:80%;margin:0 auto;right: 0;left:0;/*max-width: 720px;min-width: 320px;*/}
+.query-content{background: #fff;border-radius: 8px;}
+.query-title{text-align: center;padding:4% 0 0 0;}
+.query-con-li{padding: 4%;overflow: hidden;}
+.query-con-li p{padding: 2% 0;text-align: left;overflow: hidden;}
+.query-con-li p span{display: block;}
+
+/*2017-03-13设置安全密码*/
+/*键盘样式*/
+
+/*#keyboard {border-top:solid 1px #e6e6e6;margin: 0;	padding: 0;	list-style: none;overflow: hidden;width: 100%;position: fixed;left:0;right: 0;bottom: 0;margin: 0 auto;z-index: 10000;}
+#keyboard li {float: left;border-right:solid 1px #e6e6e6;border-bottom:solid 1px #e6e6e6;width: 33.3%;text-align: center;background: #fff;margin-bottom: 0.25px;
+	vertical-align: middle;padding: 4.5% 0;}
+#keyboard span{color: #000000;}
+#keyboard .tab {width: 33.3%;}
+#keyboard .cancle {	width: 33.3%;background: #f5f5f5;}
+#keyboard .delete{width: 33.3%; background:#d2d5dc;}
+#keyboard .nbsp{ background:#d2d5dc;}
+
+#keyboard .del-clear{width: 25%;margin:0 auto;}
+
+.on {display: none;}
+.hide-keyp{ background: #fff; width:100%;padding:1.5% 0;text-align: center;border-top: solid 1px #bfbfbf;}
+.hide-keyp:hover{background: #e0e0e0;}
+.hide-keyp-ar{width: 8%;margin: 0 auto;}
+#keyboard li.symbol:active,#keyboard li.tab:active,#keyboard li.delete:active {background: #e0e0e0;cursor: pointer;}
+*/
+
+.set-pwd-bg{display: none; background-color: black; z-index:999; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.set-pwd-pup{ display: none;top:12%;left:0; position:fixed;z-index: 100000;width:90%;margin:0 auto;right: 0;left:0;max-width: 720px;min-width: 320px;padding: 10%;}
+.set-pwd-con{background: #fff;border-radius: 10px;}
+.set-pwd-tit{padding:4% 0;border-bottom:1px solid #ebebeb;}
+.set-cancel{width: 5%;text-align: center;margin: 1.5% 0 0 4%;}
+.set-font-pwd{width: 75%;text-align: left;margin-left: 15%;}
+.pwd-input-list{padding: 6% 2% 6% 5%;}
+.pass { background: #fff; text-align: center;width: 15%;line-height: 100%;float: left;margin-left: 1%;border:1px solid #d9d9d9;padding:4% 0;}
+.pass_right{border-right:1px solid #d9d9d9;}
+
+
+/*2017-05-10-记账本*/
+
+.coupon-nav-tab{padding: 0 0 0 0;border-top: solid 1px #ebebeb;}
+.coupon-nav-tab ul{overflow: hidden;}
+.coupon-nav-tab ul li{ border-bottom: solid 2px #ebebeb; float: left;padding: 3% 0;width: 50%;text-align: center;color: #999;}
+.coupon-nav-tab ul li.hover{border-bottom: solid 2px #47ABF7;color: #47ABF7;}
+
+
+.tally-top{padding: 3%;}
+.tally-t-tit{}
+.tally-t-tit span{display: block;}
+.tally-t-tit span em{font-style: normal;}
+.tally-t-tit span.tally-t-fl{width: 90%;}
+.tally-t-tit span.tally-t-fr{width: 8%;}
+.tally-t-money{color: #FEAA3A;padding: 2% 0;}
+.tally-t-count{padding: 2% 0;}
+
+.tally-dealing{border-bottom: solid 1px #f0f0f0;border-top: solid 1px #f0f0f0;padding: 3%;}
+.tally-dealing span{display: block;}
+.tally-dealing span.icon_next{width: 8%;}
+
+.tally-detail{padding: 0 3%;}
+.tally-de-list{margin: 3% 0;}
+.tally-d-time{padding:0 0 2% 0;}
+.tally-d-info{border-radius: 5px;-webkit-box-shadow:0 0 5px rgba(0, 0, 0, .1);
+	-moz-box-shadow:0 0 5px rgba(0, 0, 0, .1);
+	box-shadow:0 0 5px rgba(0, 0, 0, .1);}
+.tally-d-info p{text-align: center;}
+.tally-li-left{padding: 4% 0 4% 6%;}
+.tally-li-right{padding: 4% 6% 4% 0;}
+
+
+.month-pup-bg{display: none; background-color: black; z-index:999; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.month-pup{ display: none;top:2%;right:auto; position:fixed;z-index: 100000;width: 100%;max-width: 720px;right: auto;margin: auto;}
+.month-pup-con{width:40%;position: relative;left: 56%;}
+.mpup-iconm{width: 20%;margin-left: 75%;}
+.mpup-icon{width: 12%;margin-left: 83%;}
+/*.mpup-list{border-radius: 5px;margin-top: -7%;padding:5% 3%;}*/
+.mpup-list{bottom: 7%;left: 0;right: 0;margin: 0 auto;}
+.mpup-list li{padding: 5% 0 ;color: #333;text-align: center;}
+.mpup-list li:active{background: #f0f0f0;}
+
+/*账单详情*/
+.account-list{margin-top: 5%;}
+.account-box{margin-left: 3%;border-bottom: solid 1px #f0f0f0;padding: 3% 0;overflow: hidden;}
+.account-img{overflow: hidden;width: 13%;}
+.account-type{margin-left: 3%;}
+.account-mon{margin-right: 3%;}
+
+
+.ledger-type{padding: 1% 0 3% 0;}
+.ledger-type ul li{ background: #fff;border-radius: 5px; margin: 4% 3% 0 3%;  -webkit-box-shadow:0 0 10px rgba(0, 0, 0, .2);  
+  -moz-box-shadow:0 0 10px rgba(0, 0, 0, .2);  
+  box-shadow:0 0 10px rgba(0, 0, 0, .2);padding: 4% 3%;overflow: hidden;}
+
+.ledger-icon{width: 15%;}
+.ledger-info{width: 57%;margin-left: 3%;}
+.ledger-money{width: 25%;}
+
+
+/*账户类型，账单详情*/
+.billtime{border-bottom: solid 1px #f0f0f0;padding: 3.5% 3%;text-align: center;}
+.billbook-list{padding: 2% 0;}
+.billbook-list ul{overflow: hidden;width: 100%;}
+.billbook-list li{border-bottom: solid 1px #f0f0f0;margin-left: 3%;padding: 3% 3% 3% 0;overflow: hidden;width: 97%;}
+.bill-li-le{width: 65%;}
+.bill-li-le p{padding: 1% 0;}
+.bill-li-ri{width: 35%;text-align: right;}
+
+/*收支筛选*/
+.filter-time{ background: #fff; padding: 2% 0% 1% 3%; margin-bottom: 2.5%; border-bottom: 1px solid #e1e3e2;}
+.fnext-icon{ width: 10%;}
+.filter-type{ background: #fff; border-top: 1px solid #e1e3e2; padding: 3% 3% 8% 3%;}
+.filter-type ul li{ float: left; width: 22%; border:1px solid #dfdfdf; text-align: center; border-radius: 5px;margin: 3% 1.5%; padding: 2% 0;}
+.filter-type ul li.hover{ background:#45aafa; color: #fff;}
+.add-save-btn { background: #fff; position: fixed; border-top: 1px solid #e5e5e5; left: 0; right: 0; bottom: 0; margin: 0 auto; width: 100%; max-width: 720px; min-width: 320px; padding: 3% 0; text-align: center;z-index: 99; }
+
+
+/*首页筛选*/
+.budget-filter{ background: #fff; padding: 4% 0; border-bottom: 1px solid #e1e3e2;}
+.budget-filter-type,.budget-filter-time{ width: 32%; margin-bottom: 2%; border-radius: 25px; border: 1px solid #dfdfdf; float: left; padding: 1% 0; text-align: center; margin-left: 5%;}
+.edit-icon{ width: 16%; margin-right: 10%;}
+.budget-total span{ float: left; margin-left: 3%;}
+.filter-type-con{ position: fixed; width: 100%; bottom: 0; z-index: 999; display: none;}
+.filter-cancel{ background: #fff; text-align: center; margin-top: 2%; padding: 3%; }
+.b-f-type-bg{ display: none; background-color: black; z-index: 998; -moz-opacity: 0.5; opacity: .50; filter: alpha(opacity=50); width: 100%; position: absolute; top: 0%;left: 0%;}
+
+
+
+/*待结算页面*/
+.staysettle-top{width: 100%;padding:10% 4%;overflow: hidden;background:#49abf7;}
+.staysettle-tit{padding:1% 0px;text-align: center;}
+.staysettle-money{width: 100%;overflow: hidden;text-align:center;font-weight: 600;}
+.staysettle_column{width: 100%;overflow: hidden;margin-top:4%;}
+.staysettle_column li{margin-bottom: 4%;background: #ffffff;}
+.stay-s-top{padding: 3%;}
+.stay-st-fl{width: 70%;}
+.stay-st-fl p{padding: 0.5% 0;}
+.stay-st-fr{width: 30%;text-align: right;}
+.stay-s-con{padding: 3%;}
+.stay-sc-img{width: 20%;overflow: hidden;}
+.stay-sc-info{width: 76%;margin-left: 4%;}
+.stay-s-down{padding: 3%;overflow: hidden;}
+
+/*待结算详情*/
+
+/*待结算说明*/
+.explain-con{ padding: 5% 3% 5% 3%;}
+.explain-tit{ margin-bottom: 3%;}
+.explain-info{ margin-bottom: 8%;}
+.explain-phone{ position: fixed; bottom: 3%; width: 60%;text-align: center; left: 20%;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	/*.draw-tit,.draw-money span,.draw-left p,.listbody-center p{font-size: 15px;}
+	.budget-li,.login_li,select.login_inpt,.top-text,.top-right,.orderlist-mid,.post_right,.post_inpu{font-size:17px;}
+	.balan-tx,.right_text,.left_text,.draw-left h3,.draw-right,.listbody-center h3,.listbody-bot{font-size: 22px}
+	.draw-left h3 span,.budget-right{font-size:22px;}
+	.balan-money{font-size: 22px}
+	.draw-money{font-size: 50px;}
+	.login_btn{font-size: 20px;}
+	.usable-money-val{font-size: 36px;}*/
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	/*.draw-tit,.draw-money span,.draw-left p,.listbody-center p{font-size: 18px;}
+	.budget-li,.login_li,select.login_inpt,.top-text,.top-right,.orderlist-mid,.post_right,.post_inpu{font-size:20px;}
+	.balan-tx,.right_text,.left_text,.draw-left h3,.draw-right,.listbody-center h3,.listbody-bot{font-size: 26px}
+	.draw-left h3 span,.budget-right{font-size:26px;}
+	.balan-money{font-size: 26px;}
+	.draw-money{font-size: 60px;}
+	.login_btn{font-size: 24px;}
+	.usable-money-val{font-size: 48px;}*/
+}
+
+@media (min-width: 621px){
+	/*.draw-tit,.draw-money span,.draw-left p,.listbody-center p{font-size: 21px;}
+	.budget-li,.login_li,select.login_inpt,.top-text,.top-right,.orderlist-mid,.post_right,.post_inpu{font-size:23px;}
+	.balan-tx,.right_text,.left_text,.draw-left h3,.draw-right,.listbody-center h3,.listbody-bot{font-size: 30px;}
+	.draw-left h3 span,.budget-right{font-size:29px;}
+	.balan-money{font-size: 30px}
+	.draw-money{font-size: 70px;}
+	.login_btn{font-size: 28px;}
+	.usable-money-val{font-size: 58px;}*/
+}

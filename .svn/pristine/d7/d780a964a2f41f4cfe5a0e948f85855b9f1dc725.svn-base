@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>新建网站角色</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="role_add" method="post" class="form form-horizontal" id="form-user-character-add">
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>角色名称：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$vo.c_rolename}" placeholder="" id="user-name" name="rolename" datatype="*4-16" nullmsg="角色名称不能为空">
+			</div>
+		</div>		
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<div onclick="ajax_post_data('{$action}','form-user-character-add','Role/index');" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</div>
+			</div>
+		</div>
+		<input type="hidden" name="id" value="{$vo.c_id}">
+	</form>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+
+</body>
+</html>

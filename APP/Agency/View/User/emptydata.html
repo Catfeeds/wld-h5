@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>微店管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/user/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<div class="mui-content">
+			<div class="divtab child-img shophd">
+				<div class="divtab divab divempty">
+					<h3 class="divtab c6 fs14">您还没有代理任何商品</h3>
+					<p class="divtab c9 fs12">快去代理商城看一下吧~</p>
+				</div>
+				<div class="divtab divab shopmenu fs16 cf" id="nav-t4">代理商城
+					<!--<img src="__IMG__/user/agshop.png" alt="">-->
+				</div>
+				<img src="__IMG__/shop/shopbg.png" alt="">
+			</div>
+
+		</div>	
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+
+	//代理商城
+	mui('.mui-content').on('tap', '#nav-t4', function() {
+		mui.openWindow({
+			url: '__APP__/Agency/Index/index',
+			id: 'agindex'
+		});
+	});
+
+</script>
+
+</html>

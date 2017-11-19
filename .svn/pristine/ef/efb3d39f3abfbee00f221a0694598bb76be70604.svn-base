@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>交易进行中</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+
+</head>
+
+<body class="bgcolor">
+<div class="wrap-page bgeb">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<ul class="budget-top fs13 c5">
+		<li class="fl budget-li" id="topli_0">货款进账</li>
+		<li class="fl budget-li" id="topli_1">购物优惠</li>
+		<li class="fl budget-li" id="topli_2">推广佣金</li>
+	</ul>
+
+	<ul class="orderlist-box" id="tixianlist" style="margin-top:0px;">
+	    <!--<li class="nav_column bgcolor">
+		    <div class="fl draw-left budget-left">
+		    	<h5 class="c6 fs13">订单号：1551313132132131</h5>
+		    	<p class="c9 fs12">创建时间：2016-05-06 12:00:20</p>
+		    </div>
+		    <div class="fr draw-right fs12" style="width:30%;">
+		    	待收货
+		    </div>
+	    </li>
+	    <li class="orderlist-body">
+			<div class="fl listbody-left">
+				<img src="__COMMON__/img/logo.png" alt="">
+			</div>
+			<div class="fl listbody-center">
+				<h3>这是一个产品名称</h3>
+				<p>型号名称</p>				
+				<div class="listbody-bot">
+					<div class="fl order-price c5">
+						￥37.50
+					</div>					
+					<div class="fr order-num">
+						x1
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="orderlist-mid">
+			购买优惠：<b>￥35.50</b>
+	    </li>-->
+	</ul>
+	<div id="console"></div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('.listbody-left').height($('.listbody-left').width());
+	}
+	var page = 1;	
+	var ctrls = true;
+	var kongzhi = true;
+	var statu = '<?php echo $statu ?>';
+	if (!statu) {
+		statu = 0;
+	}
+	mui('.budget-top').on('tap','#topli_0',function(){
+		selectstatu(0);
+	});
+	mui('.budget-top').on('tap','#topli_1',function(){
+		selectstatu(1);
+	});
+	mui('.budget-top').on('tap','#topli_2',function(){
+		selectstatu(2);
+	});
+	selectstatu(statu);
+	function selectstatu(i){
+		$(window).scrollTop(0);
+		statu = i;page = 1;ctrls = true;kongzhi = true;
+		$('.budget-li').removeClass('topli-hover');
+		$('#topli_' + i).addClass('topli-hover');
+		getdata();
+	}
+	//获取当前可是范围的高度
+	$(window).bind('scroll', function() {
+		if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if (ctrls && kongzhi) {
+				getdata();
+			}
+		}
+		if ($(window).scrollTop() >= $('.budget-top').height()) {
+			$('.budget-top').addClass('menu-fixed');
+		}
+		if ($(window).scrollTop() < $('.budget-top').height()) {
+			$('.budget-top').removeClass('menu-fixed');
+		}
+	});
+	function getdata() { 
+	var html = '';
+	$.ajax({
+	        type: 'get',
+	        dataType: 'json', 
+	        url: '__URL__/GetTradeList?statu='+statu+'&pageindex='+page,              
+	        cache: false,
+	        beforeSend: function() {          
+	          $('#console').css('display','block');
+	          $('#console').html('加载中...'); 
+	          ctrls = false;        
+	        },
+	        error: function(){
+	          $('#console').css('display','block');
+	          $('#console').html('加载失败'); 
+	          ctrls = true;  
+	        },
+	        success: function(json) {  
+	        	if (page==1) {
+			        $('#tixianlist').empty();
+			    }  
+				var obj = eval(json);
+				if (obj.code==0) {
+				var data = obj.data;
+				if (data) {
+				var orderlist = data.list;				
+				var pageCount = data.pageCount;	
+		          	
+				if (pageCount >= page) {
+					page++;
+					for (var i=0; i<orderlist.length; i++ ) {	
+					    html += '<li class="nav_column bgcolor">';
+						html += '<div class="fl draw-left budget-left">';
+						html += '<h5 class="c5 fs13">订单号：'+orderlist[i]['c_orderid']+'</h5>';
+						html += '<p class="c9 fs12">创建时间：'+orderlist[i]['c_addtime']+'</p>';
+						html += '</div>';
+						html += '<div class="fr draw-right fs12 c5" style="width:30%;">'+orderlist[i]['order_state']+'</div>';
+						html += '</li>';
+						
+						var detail = orderlist[i]['detail'];
+						for (var j=0; j<detail.length; j++ ) {
+							html += '<li class="orderlist-body">';
+							html += '<div class="fl listbody-left">';
+							html += '<img src="'+detail[j]['c_pimg']+'" alt="">';
+							html += '</div>';
+							html += '<div class="fl listbody-center">';
+							html += '<h5 class="fs13 c5">'+detail[j]['c_pname']+'</h5>';
+							html += '<p class="fs12 c9">'+detail[j]['c_pmodel_name']+'</p>';				
+							html += '<div class="listbody-bot">';
+							html += '<div class="fl order-price cy fs14">￥'+detail[j]['c_pprice']+'</div>';					
+							html += '<div class="fr order-num fs12 c9">x'+detail[j]['c_pnum']+'</div>';
+							html += '</div>';
+							html += '</div>';
+							html += '</li>';
+							html += '<li class="orderlist-mid fs12 c5">';
+							if (statu == 0) {
+								html += '货款进账：<b>￥'+detail[j]['c_profit']+'</b>';
+							} else if (statu == 1) {
+								html += '购买优惠：<b>￥'+detail[j]['c_profit']+'</b>';
+							} else if (statu == 2) {
+								html += '推广佣金：<b>￥'+detail[j]['c_profit']+'</b>';	
+							}
+							
+							html += '</li>';
+						};
+						
+						
+					};					
+					
+				} else {
+				    kongzhi = false;
+				}
+				} else {
+					kongzhi = false;
+				}
+				} else {
+					kongzhi = false;
+				}	
+				if (page==1) {
+			        html += '<div class="baoqian bgcolor">抱歉！没有查询到您的相关记录</div>';
+			    } 
+				
+	         	$('#tixianlist').append(html);
+	         	$('#console').css('display','none');
+	        },
+	        complete: function() {
+	        	$('.listbody-left').height($('.listbody-left').width());
+	        	$('#console').css('display','none');
+	          	ctrls = true;           	             
+	        }
+	    });
+	}
+
+</script>
+</body>
+</html>

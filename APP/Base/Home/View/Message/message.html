@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>布局基本模板页</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/message/index.css?v=1.2">
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!-- 数据列表部分 -->
+			<div class="divtab" id="data_list">
+
+				<!-- 系统消息 -->
+				<!-- <div class="divtab box">
+					<div class="list-time fs12 c9 divtab">
+						2017-07-10 08:54:51
+					</div>
+					<div class="divtab">
+						<div class="message-list-left fl child-img">
+							<img alt="" src="__IMG__/message/02.png">
+						</div>
+						<div class="message-list-right fr">
+							<div class="list-info-text c6 fs14 divtab">收到金额￥0.01,来自支付宝扫码支付</div>
+							<div class="list-info-next divtab"><a href="">查看详情</a></div>
+						</div>
+					</div>
+				</div> -->
+							
+				<!-- 订单消息	 -->
+				<!-- <div class="divtab box">
+					<div class="list-time fs12 c9 divtab">
+						2017-07-10&nbsp;08:54:51
+					</div>
+					<div class="divtab">
+						<div class="message-list-left fl child-img">
+							<img alt="" src="__IMG__/message/01.png">
+						</div>
+						<div class="message-list-right fr">
+							<div class="list-info-left fl child-img">
+								<img src="__IMG__/message/03.png" alt="">
+							</div>
+							<div class="list-info-right fr">
+								<div class="list-info-text1 c6 fs14 divtab">收到金额￥0.01,来自支付宝扫码支收到金额￥0.01,来自支付宝扫码支付收到金额￥0.01,来自支付宝扫码支付</div>
+								<div class="list-info-next1 divtab"><a href="">查看详情</a></div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				
+			</div>
+			<div id="console"></div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		// ChRightText("添加");
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		// body...
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/GetMessageList?pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关消息</div>';
+							// _html += '<div class="data-empty-font c3 fs14">请添加您需要的品牌~~</div>';
+							_html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html += '<div class="divtab box">';
+								_html += '<div class="list-time fs12 c9 divtab">'+dataarr['c_addtime']+'</div>';
+								_html += '<div class="divtab">';
+									if (dataarr['c_type'] == 0) {
+										// 系统消息
+										_html += '<div class="message-list-left fl child-img">';
+											_html += '<img alt="" src="__IMG__/message/02.png">';
+										_html += '</div>';
+										_html += '<div class="message-list-right fr">';
+											_html += '<div class="list-info-text c3 fs14 divtab">'+dataarr['c_content']+'</div>';
+											_html += '<div class="list-info-next divtab"><a href="'+dataarr['c_weburl']+'">查看详情</a></div>';
+										_html += '</div>';
+									} else if (dataarr['c_type'] == 1) {
+										//订单消息
+										_html += '<div class="message-list-left fl child-img">';
+											_html += '<img alt="" src="__IMG__/message/01.png">';
+										_html += '</div>';
+										_html += '<div class="message-list-right fr">';
+											_html += '<div class="list-info-left fl child-img">';
+												_html += '<img src="__IMG__/message/03.png" alt="">';
+											_html += '</div>';
+											_html += '<div class="list-info-right fr">';
+												_html += '<div class="list-info-text1 c3 fs14 divtab">'+dataarr['c_content']+'</div>';
+												_html += '<div class="list-info-next1 divtab"><a href="'+dataarr['c_weburl']+'">查看详情</a></div>';
+											_html += '</div>';
+										_html += '</div>';
+									}
+
+									_html += '</div>';
+								_html += '</div>';
+
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+</script>
+
+</html>

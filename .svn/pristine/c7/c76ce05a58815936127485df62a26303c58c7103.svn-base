@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>卡券管理</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/coupon/index.css" />
+		<style type="text/css">
+		.coupon-tit{top:15%;}
+		.coupon-time{top:52%;}
+		/*.coupon-detail{letter-spacing: 2px;vertical-align: middle;text-align: center;top: 19%;right: 4%;}*/
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 16%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="coupon-nav-tab bgcolor divtab fs13 menu-fixed">
+				<ul>
+					<li class="hover c-nav-tli" id="c-nav-t1">未领取</li>
+					<li class="c-nav-tli" id="c-nav-t2">已领取</li>
+					<li class="c-nav-tli" id="c-nav-t3">已过期</li>
+				</ul>
+			</div>
+			<div class="mui-content">
+				<div class="coupon-main" id="coupon_list">
+					<!--<div class="coupon-box divre">
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs14">代金券</p>
+							<p class="cf fs14"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13">
+							
+							<button type="button" class="cf fs13">卡<br/>券<br/>详<br/>情</button>
+						</div>
+						<div class="coupon-get-detail divtab divab c9 fs12">
+							<div class="coupon-num fl">数量：<span class="">88</span></div>
+							<div class="coupon-g-de fl">领取详情<span><img src="__IMG__/coupon/kqgl_icon_next.png" alt="" /></span></div>
+						</div>
+						<div class="coupon-le-ico divab fs12 cf">平台补贴</div>
+						<img src="__IMG__/coupon/kqgl_gl_bg_replace.png" alt="" />
+					</div>
+					<div class="coupon-box divre">
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs14">代金券</p>
+							<p class="cf fs14"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13">
+							
+							<button type="button" class="cf fs13">卡<br/>券<br/>详<br/>情</button>
+						</div>
+						<div class="coupon-get-detail divtab divab c9 fs12">
+							<div class="coupon-num fl">数量：<span class="">88</span></div>
+							<div class="coupon-g-de fl">领取详情<span><img src="__IMG__/coupon/kqgl_icon_next.png" alt="" /></span></div>
+						</div>
+						<img src="__IMG__/coupon/kqgl_gl_bg_break.png" alt="" />
+					</div>
+					<div class="coupon-box divre">
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs14">代金券</p>
+							<p class="cf fs14"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13">
+							
+							<button type="button" class="cf fs13">卡<br/>券<br/>详<br/>情</button>
+						</div>
+						<div class="coupon-get-detail divtab divab c9 fs12">
+							<div class="coupon-num fl">数量：<span class="">88</span></div>
+							<div class="coupon-g-de fl">领取详情<span><img src="__IMG__/coupon/kqgl_icon_next.png" alt="" /></span></div>
+						</div>
+						<div class="coupon-outdate divab">
+							<img src="__IMG__/coupon/kqgl_icon_past.png" alt="" />
+						</div>
+						<div class="coupon-le-ico divab fs12 cf c-le-icogray">平台补贴</div>
+						<img src="__IMG__/coupon/kqgl_hgl_bg_past.png" alt="" />
+					</div>-->
+
+				</div>
+				
+				<!-- <div class="data-empty divtab">
+					<div class="c-empty-img"><img src="__IMG__/coupon/kqgl_icon_defect.png" alt="" /></div>
+					<div class="c-empty-font c3 fs13">暂时还没有优惠券</div>
+					<div class="c-empty-font c3 fs13">暂时还没有被领取的优惠券</div>
+					<div class="c-empty-font c3 fs13">暂时还没有过期的优惠券</div>
+					<div class="c-empty-font c9 fs12">点击下方按钮添加优惠券</div>
+				</div> -->
+
+				<div id="console"></div>
+				<div class="add-save-btn fs16 cb">添加优惠券</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+            var apptype = "<?php echo get_app_type(); ?>";
+			window.onload = function() {
+				ChRightText("帮助");
+				styles();
+			}
+			/*help*/
+			function rightcaozuo() {
+				mui.openWindow({
+					url: "__URL__/help",
+					id: "help"
+				});
+			}			
+			$(document).ready(function() {
+
+			});
+
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.46;
+				$('.coupon-box').height(boxh);
+				if(apptype==3){
+					$('.coupon-nav-tab').css('top',$('.xiaomi-bar').height()+'px');
+                    $('.mui-content').css('padding-top',$('.coupon-nav-tab').height()+'px');
+				}else{
+                    $('.mui-content').css('padding-top',$('.coupon-nav-tab').height()+'px');
+                }
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var statu = '<?php echo $statu ?>';
+			if(!statu) {
+				statu = 1;
+			}
+			selectstatu(statu);
+			function selectstatu(i) {
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				$('.c-nav-tli').removeClass('hover');
+				$('#c-nav-t' + i).addClass('hover');
+				getdatalist();
+			}
+			mui('.wrap-page').on('tap', '#c-nav-t1', function() {
+				selectstatu(1);
+			});
+			mui('.wrap-page').on('tap', '#c-nav-t2', function() {
+				selectstatu(2);
+			});
+			mui('.wrap-page').on('tap', '#c-nav-t3', function() {
+				selectstatu(3);
+			});
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+
+//            if($(window).scrollTop() >= $('.coupon-nav-tab').height()) {
+//                $('.coupon-nav-tab').addClass('menu-fixed');
+//            }
+//            if($(window).scrollTop() < $('.coupon-nav-tab').height()) {
+//                $('.coupon-nav-tab').removeClass('menu-fixed');
+//            }
+			});
+
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/CouponList?pageindex="+pageindex+"&type="+statu;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab bgeb">';
+									_html += '<div class="c-empty-img"><img src="__IMG__/coupon/kqgl_icon_defect.png" alt="" /></div>';
+									if(statu == 1) {
+										_html += '<div class="c-empty-font c3 fs13">暂时还没有优惠券</div>';
+										_html += '<div class="c-empty-font c9 fs12">点击下方按钮添加优惠券</div>';
+									} else if(statu == 2) {
+										_html += '<div class="c-empty-font c3 fs13">暂时还没有被领取的优惠券</div>';
+									} else if(statu == 3) {
+										_html += '<div class="c-empty-font c3 fs13">暂时还没有过期的优惠券</div>';
+									}
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="coupon-box divre">';									
+										if (dataarr['c_type'] == 1) {
+											_html += '<div class="coupon-money divab cf"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">元</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16">代金券</p>';
+											_html += '<p class="cf fs12">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>满'+dataarr['c_limit_money']+'元可用</span></p>';
+										} else if (dataarr['c_type'] == 2) {
+											_html += '<div class="coupon-money divab cf"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">折</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16">折扣劵</p>';
+											_html += '<p class="cf fs12">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>最高折扣'+dataarr['c_limit_money']+'元</span></p>';
+										}
+										_html += '</div>';
+										_html += '<div class="coupon-time divab cf fs12">'+dataarr['c_starttime']+'-'+dataarr['c_endtime']+'</div>';
+										_html += '<div class="coupon-detail divab cf fs13 verticle-mode" onclick="couponInfo(\''+dataarr['c_id']+'\')">';
+										_html += '卡券详情';
+										_html += '</div>';
+
+										_html += '<div class="coupon-get-detail divtab divab c9 fs12">';
+										if (statu == 1) {
+											_html += '<div class="coupon-num fl">总数量：<span class="">'+dataarr['c_totalnum']+'</span></div>';
+										} else {
+											_html += '<div class="coupon-num fl">剩余数量：<span class="">'+dataarr['c_num']+'</span></div>';	
+										}
+										
+
+										_html += '<div class="coupon-g-de fl" onclick="getcInfo(\''+dataarr['c_id']+'\')">领取详情<span><img src="__IMG__/coupon/kqgl_icon_next.png" alt="" /></span></div>';
+										_html += '</div>';
+										
+
+										if (statu == 3) {
+											_html+='<div class="coupon-outdate divab">';
+											_html+='<img src="__IMG__/coupon/kqgl_icon_past.png" alt="" />';
+											_html+='</div>';
+											if (dataarr['c_sign'] == 1) {
+												_html += '<div class="coupon-le-ico divab fs12 cf c-le-icogray">平台补贴</div>';
+											}
+											_html+='<img src="__IMG__/coupon/kqgl_hgl_bg_past.png" alt="" />';	
+										} else {
+											if (dataarr['c_sign'] == 1) {
+												_html += '<div class="coupon-le-ico divab fs12 cf">平台补贴</div>';
+											}
+											if (dataarr['c_type'] == 1) {
+												_html += '<img src="__IMG__/coupon/kqgl_gl_bg_replace.png" alt="" />';
+											} else if (dataarr['c_type'] == 2) {
+												_html += '<img src="__IMG__/coupon/kqgl_gl_bg_break.png" alt="" />';
+											}
+										}
+
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#coupon_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+			/*卡券详情*/
+			function couponInfo(cid){
+				mui.openWindow({
+					url: '__URL__/kqdetail?cid='+cid,
+					id: 'kqdetail'
+				});
+			}
+			/*领取详情*/
+			function getcInfo(cid){
+				mui.openWindow({
+					url: '__URL__/getdetail?cid='+cid,
+					id: 'getdetail'
+				});
+			}
+			/*跳转到添加优惠券*/
+			mui('.mui-content').on('tap', '.add-save-btn', function() {
+				mui.openWindow({
+					url: '__URL__/addcoupon',
+					id: 'couponadd'
+				});
+			});
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

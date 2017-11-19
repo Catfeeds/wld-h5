@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>待结算说明</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+</head>
+
+<body class="bgcolor">
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content bgcolor">
+		<div class="explain-con divre fs14">
+			<div class="explain-tit c3 fb600">1.为什么会有待结算金额？</div>
+			<div class="explain-info c5">
+				为进一步保障您的资金账户安全，提高提现到账的时效性。通过扫码支付和订单交易等获得的收入，会先成为待结算金额，由银行和银盛支付进行资金安全托管与资金结算。结算期间，资金将不能直接申请提现。
+			</div>
+			<div class="explain-tit c3 fb600">2.待结算的时间周期说明</div>
+			<div class="explain-info c5">
+				待结算资金将在“T+1”工作日内完成结算，完成结算后资金将可实现快速提现，到账将更加快速。
+			</div>
+			<div class="explain-tit c3 fb600">3.哪些收入会进行待结算处理？</div>
+			<div class="explain-info c5">
+				扫码收入、订单收入、跨界佣金、推广佣金、购物优惠这五种收入将实行待结算规则，红包和活动等收入将不受待结算影响，领取后可直接进行提现。
+			</div>
+
+			<div class="explain-phone">
+				<p  class="c5 fs12">如有疑问请咨询官方客服热线</p>
+				<h1 class="c5 fs18 fb600">400-9603-400</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript">
+    window.onload = function(){
+
+    }
+
+</script>
+</body>
+</html>

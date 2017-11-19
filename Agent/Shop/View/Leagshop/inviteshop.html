@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>邀请加盟</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css?v=1.3">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/agent.js"></script>
+		<script type="text/javascript" src="__JS__/common.js"></script>
+	</head>
+	<style type="text/css">
+		.store-logo{overflow: hidden;}
+		.store-logo img{width: 100%;height: 100%;}
+	</style>
+	<body>
+		<include file="Common/head" />
+		<form action="" id="formdata" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="content-s w_960">
+				<div class="page-title divre">
+					<div class="page-tit-name">邀请加盟</div>
+				</div>
+				<div class="resource-main">
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">设置店铺编号NO：</div>
+							<div class="resource-r fl"><input type="text" id="shopcode" value="" name="shopcode" class="resource-text"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">商家注册手机号：</div>
+							<div class="resource-r fl"><input type="text" id="phone" value="" name="phone" class="resource-text"></div>
+						</div>
+						<div class="resource-tipt fl" id="error_tip" style="display:none;"><span>*&nbsp;</span></div>
+					</div>
+					<input type="hidden" name="pucode" id="pucode" value="" >
+					<div class="js-invited-verify" style="text-align:left;padding:2%;color:red;">*<span id="remindinfo"></span></div>
+					<div id="store-label" style="display: none;" class="showinfo">
+						<div class="store-info-con fs14 c5">
+							<div class="store-logo"><img  id="headimg" src="__IMG__/agentimg.jpg" alt="" /></div>
+							<p class="txt_c" id="nickname">花木兰</p>
+							<p class="txt_c" id="telephone">18888888888</p>
+							<p class="txt_c" id="signinfo">心大了，所有的大事都小了！心大了，所有的大事都小了</p>
+						</div>
+						<div class="store-tipfont cb fs14 showinfo" style="display:none;">*请仔细核对信息</div>
+					</div>
+
+					<div class="invite-storebtn cf fs18 txt_c js-invited-submit" style="display:none;" onclick="invitesub()">邀请</div>
+
+				</div>
+			</div>
+
+		</form>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('#li-6 a').addClass('hover');
+				var bImg = $('.store-logo').width();
+				$('.store-logo').height(bImg);
+				$('.store-logo').css('border-radius', bImg + 'px');
+			}
+			
+			$('#phone').keyup(function() {
+				tijiao();		
+			});
+
+			//获取用户信息
+			function tijiao() {
+				$.post("__URL__/UserInfo", {
+					phone: $('#phone').val(),
+				}, function(obj) {
+					var result = eval(obj);
+					if (result['code'] == 0) {
+						var data = result['data'];
+						$('.js-invited-verify').hide();
+						$('#headimg').attr('src', data['c_headimg']);
+						$('#nickname').text(data['c_nickname']);
+						$('#telephone').text(data['c_phone']);
+						$('#signinfo').text(data['c_signature']);
+						$('#pucode').val(data['c_ucode']);
+						$('.showinfo').show();
+						$('.js-invited-submit').show();
+						
+						var bImg = $('.store-logo').width();
+						$('.store-logo').height(bImg);
+						$('.store-logo').css('border-radius', bImg + 'px');
+					} else {
+						$('.js-invited-submit').hide();
+						$('.showinfo').hide();
+						$('#pucode').val('');
+						$('#remindinfo').text(result['msg']);
+						$('.js-invited-verify').show();
+					}
+				});
+			}
+
+			//提交表单			
+			var resign = true;
+			function invitesub() {
+				var shopcode = $('#shopcode').val();
+				var reg = /^[0-9a-zA-Z]+$/;
+				if (!reg.test(shopcode)) {
+					alert('请输入数字与英文编号');return;	
+				}
+				if (resign) {
+					resign = false;
+					var	attrbul = getFormAttrs('formdata');
+					$.ajax({
+						type: "POST",
+					    url: '__URL__/Confirmsubmit',		
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+								resign = true;
+								var msg = eval(json);
+								if (msg.code == 0) {
+									alert('发送邀请成功');
+									setTimeout(function () {
+										window.location.href = '__URL__/index';
+									}, 2000);
+								} else {
+									alert(msg.msg);					
+								}
+							}
+					});
+				}	
+			}
+		</script>
+	</body>
+
+</html>

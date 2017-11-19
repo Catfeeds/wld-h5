@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+body{position:relative;}
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+img{width: 100%;height: 100%;}
+
+/*商家*/
+.footmark-tab{width: 100%;overflow: hidden;}
+.footmark-tab ul li{border-bottom: solid 2px #f2f2f2;float: left;width: 50%;color: #999;padding: 3% 0;text-align: center;}
+.footmark-tab ul li.hover{color: #46abfb;border-bottom: solid 2px #46abfb;}
+
+.footmark-view{overflow: hidden;width: 100%;}
+.footmark-view ul{overflow: hidden;padding: 6% 0;}
+.business-list{width: 100%;}
+.business-left{width: 15%;text-align: right;margin-right: 4%;}
+.timesmonth{}
+.business-right{width: 81%; border-left: solid 3px #ebebeb;}
+.big-boss{width: 100%;margin-bottom: 6%}
+.boss-ico-1{width: 5%;margin-left: -3%;top:2%;left: 0; }
+.boss-ico{width: 3%;margin-left: -2%;top:33%;left: 0;}
+
+.business-box{width: 100%;overflow: hidden;padding:0 0 5% 9%;position: relative;}
+.boxico-1{margin-top: 0;}
+.boxico{margin-top: 0;}
+.business-img{width: 20%;overflow: hidden;margin-left: 3%;}
+.business-info{width: 74%;margin-left: 3%;}
+.business-name{overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 100%;}
+.business-fwtime{}
+
+
+/*访问商品*/
+#view-ul-2{padding:0 0 4% 0;overflow: hidden;}
+.product-li{background: #fff;width: 44%;margin: 4% 0 0 4%;float: left;}
+.product-img{width: 100%;overflow: hidden;}
+.product-name{padding: 3%;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;height: 46px;}
+.product-price{overflow: hidden;border-bottom: solid 1px #ebebeb;padding: 0 3% 3% 3%;}
+.proprice{color: #FEAC48;}
+.protime{padding-top: 2%;}
+.product-state{overflow: hidden;padding: 4% 3%;}
+.product-state span{display: block;float: left;padding: 0 2%;border-radius: 3px;text-align: center;margin-right: 3%;}
+.product-state span.bluecc{color: #46a9fa;border: solid 1px #46a9fa;}
+.product-state span.yellowc{color: #ffc93b;border: solid 1px #ffc93b;}
+
+.menu-fixed{width: 100%; position: fixed;top: 0; z-index: 999;max-width: 720px;min-width: 320px;margin:0 auto;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	/*.boxico-1{margin-left: -4%;}
+	.boxico{margin-left: -3%;}*/
+	.product-name{height: 56px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	/*.boxico-1{margin-left: -2%;}
+	.boxico{margin-left: -1.5%;}*/
+	.product-name{height: 66px;}
+}
+
+@media (min-width: 621px){
+	/*.boxico-1{margin-left: -2%;}
+	.boxico{margin-left: -1.3%;}*/
+	.product-name{height: 80px;}
+}

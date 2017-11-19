@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>跨界收益</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/multshop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<div class="dc-trend-money divtab">
+				<ul>
+					<li><p class="cy fs20 fb600">{$zmoney}</p><span class="fs12">总收益</span></li>
+					<li><p class="cy fs20 fb600">{$zrmoney}</p><span class="fs12">昨日收益</span></li>
+				</ul>
+			</div>
+
+			<div class="cin-list">
+				<ul id="data_list">
+					<!-- <li>
+						<div class="cin-shop-img fl"><img src="__IMG__/member/hy8.png" ></div>
+						<div class="cin-shop-info fl">
+							<span class="c3 fs14 fov">良品铺子</span>
+							<p class="cin-shop-time c9 fs11">
+								<font>7月8号</font>
+								<font>12:23:17</font>
+							</p>
+						</div>
+						<div class="cin-money fr fs14 c3 ">12.00</div>
+					</li>
+					<li>
+						<div class="cin-shop-img fl"><img src="__IMG__/member/hy8.png" ></div>
+						<div class="cin-shop-info fl">
+							<span class="c3 fs14 fov">良品铺子</span>
+							<p class="cin-shop-time c9 fs11">
+								<font>7月8号</font>
+								<font>12:23:17</font>
+							</p>
+						</div>
+						<div class="cin-money fr fs14 c3 ">12.00</div>
+					</li> -->
+				</ul>
+				<div id="console"></div>
+			</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var	shopImg = $('.cin-shop-img').width();
+	    $('.cin-shop-img').height(shopImg);
+	    $('.cin-shop-img').css('border-radius', shopImg + 'px');
+	    $('.cin-shop-info').css('line-height', shopImg*0.5 + 'px');
+	    $('.cin-money').css('line-height', shopImg + 'px');
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	var federationid = '';  //分店id
+	var datetime = '';      //选择的时间
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/Getdatakj?pid=&federationid=<?php echo $unioninfo['c_id']; ?>&datetime="+datetime+"&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					emptyval = true;
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html+='<div class="baoqian">没有相关数据记录</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<li class="viewlog_'+pageindex+'" id="viewlog_'+dataarr['c_id']+'" title="'+dataarr['c_id']+'">';
+									_html+='<div class="cin-shop-img fl"><img src="'+dataarr['c_headimg']+'" ></div>';
+									_html+='<div class="cin-shop-info fl">';
+										_html+='<span class="c3 fs14 fov">'+dataarr['c_nickname']+'</span>';
+										_html+='<p class="cin-shop-time c9 fs11">'+dataarr['showtime']+'</p>';
+									_html+='</div>';
+									_html+='<div class="cin-money fr fs14 c3 ">'+dataarr['c_money']+'</div>';
+								_html+='</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}		
+			}
+		});
+	}
+
+	loadclick();
+	function loadclick(){
+		$('.viewlog_'+pageindex).each(function(index) {
+			var mid = $(this).attr('title');
+			mui('.mui-content').on('tap', '#viewlog_' + mid, function() {
+				var viewlogurl = WEB_HOST + '/index.php/Balance/Index/detail?id=' + mid;
+				mui.openWindow({
+					url: viewlogurl,
+					id: 'viewlog'
+				});			
+			});
+		});	
+	}
+
+</script>
+
+</html>

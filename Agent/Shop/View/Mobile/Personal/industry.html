@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>行业选择</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="wrap-page bgcolor">
+	<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="form1">
+		<div class="industry-con">
+			<div class="industry-title">
+				<h3 class="fs16 c5">请选择所属行业（单项选择）</h3>
+				<p class="fs12 c9">*一旦选择不可修改，请慎重选择</p>
+			</div>
+			<div class="industry-list">
+				<ul>
+					<volist name="industry" id="vo">
+						<li class="fs12 c5">
+							<input type="radio" name="tradetid" value="{$vo['c_id']}" id="industry_{$vo['c_id']}">&nbsp;{$vo['c_name']}
+						</li>
+					</volist>
+				</ul>
+			</div>
+			<div class="industry-save fs16" onclick="validateForm()">保存</div>
+		</div>
+
+	</form>
+</div>
+<div class="mar30"></div>
+<script type="text/javascript">
+window.onload=function(){
+
+	topstyle();/*头部样式*/
+
+	$('#page-top-c-t').text("行业选择");
+
+	var lih = $('.industry-list ul li').height();
+	$('.industry-list ul li').css("line-height",lih+"px");
+}
+	// 表单提交验证
+	function validateForm() {
+		var tid = $('input[name="tradetid"]:checked').val();
+		if (tid == "" || tid == null || typeof(tid) == "undefined") {
+			alert("请选择所属行业！");
+			return;
+		} else {
+		    $.post('__APP__/Shop/Personal/SaveIndustr',{tid:tid},function(obj){
+		    	var data = eval(obj);
+		    	if(data['code']==0){
+		    		alert("保存成功！");
+		    		window.location.href="__APP__/Shop/Personal/index?isfixed=<?php echo $isfixed ?>";
+		    	}else{
+		    		alert("保存失败！");
+		    		return false;
+		    	}
+		    });
+		}
+	}
+
+
+</script>
+
+</body>
+</html>

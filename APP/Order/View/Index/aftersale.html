@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请售后</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地申请售后" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style>
+			.mui-btn, button, input[type=button], input[type=reset], input[type=submit]{font-size: 1.6rem;}
+		</style>
+
+	</head>
+
+	<body>
+		<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="formsale">
+			<div class="wrap-page" style="margin-bottom: 10%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<ul class="orderlist-box" id="list_order" style="padding-top: 4%;">
+						<li class="orderlist" style="width: 100%;margin: 0 0 3% 0;border-radius: 0;">
+							<div class="orderlist-body">
+								<div class="fl listbody-left">
+									<img src="{$detail.c_pimg}" alt="">
+								</div>
+								<div class="fl listbody-center">
+									<h3 class="fs14">{$detail.c_pname}</h3>
+									<p class="fs13">{$detail.c_pmodel_name}</p>
+									<div class="listbody-bot">
+										<div class="fl order-price fs14">
+											￥{$detail.c_pprice}
+										</div>
+										<div class="fr order-sub subcolor evaluate-bell fs13" onclick="fchat();">
+											联系买家
+										</div>
+										<div class="fr order-num fs12">
+											x{$detail.c_pnum}
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="evaluate-textarea fs13">
+						<div class="upload-title">服务类型</div>
+						<input type="hidden" name="detailid" value="{$detail.c_detailid}">
+						<?php if ($orderinfo['c_deliverystate'] == 0) {?>
+						<input type="hidden" name="type" value="1">
+						<?php } else { ?>
+						<input type="hidden" name="type" value="2">
+						<?php } ?>
+						<div class="lable-box">
+							<div class="fl lable-list <?php if ($orderinfo['c_deliverystate'] == 0){ ?>lable-hover<?php } ?>">
+								仅退款
+							</div>
+							<div class="fl lable-list <?php if ($orderinfo['c_deliverystate'] != 0){ ?>lable-hover<?php } ?>">
+								退款退货
+							</div>
+						</div>
+						<p class="fs13">已收到的货物，需要退还已收到的货物</p>
+					</div>
+
+					<div class="evaluate-textarea fs13" style="margin-top:3%;">
+						<div class="upload-title">货物状态</div>
+						<input type="hidden" name="status" value="">
+						<div class="lable-box">
+							<div class="fl lable-list" onclick="checklable(this,'status');">已收到货物</div>
+							<div class="fl lable-list" onclick="checklable(this,'status');">未收到货物</div>
+						</div>
+					</div>
+
+					<div class="evaluate-textarea fs13" style="margin-top:3%;">
+						<div class="upload-title">申请原因</div>
+						<input type="hidden" name="reason" value="">
+						<div class="lable-box">
+							<?php if ($orderinfo['c_deliverystate'] == 0) { ?>
+							<div class="fl lable-list" onclick="checklable(this,'reason');">买错了</div>
+							<div class="fl lable-list" onclick="checklable(this,'reason');">不想买了</div>
+							<?php } else { ?>
+							<div class="fl lable-list" onclick="checklable(this,'reason');">商品损坏</div>
+							<div class="fl lable-list" onclick="checklable(this,'reason');">商品发错</div>
+							<?php } ?>
+							<div class="fl lable-list" onclick="checklable(this,'reason');">其他</div>
+						</div>
+					</div>
+
+					<div class="evaluate-textarea fs13" style="margin-top:3%;">
+						<div class="upload-title">问题描述</div>
+						<textarea style="resize: none;" name="remarks" class="text-area fs13" id="text-area" placeholder="长度不超过200个字，请您在此处描述详细问题" datatype="*10-100" dragonfly="true" onKeyUp="textarealength(this,200)"></textarea>
+					</div>
+
+					<div class="upload-img" style="margin-top:3%;">
+						<div class="upload-title fs13">
+							上传图片
+						</div>
+						<div class="productmodular-bottom">
+							<div class="productmodular-img" onclick="dianji(this,'img');" id="imgbox">
+								<img src="__IMG__/imgadd.png">
+							</div>
+						</div>
+						<div class="upload-text fs12">
+							*最多上传3张，每张不超过500kb,支持JPG,PNG
+						</div>
+						<input type="hidden" name="imglist" value="" id="imglist"/>
+						<input type="button" style="color: #fff; border: 1px solid #46A9FA;background-color: #46A9FA;" class="upload-submit fs16" value="提交">
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.listbody-left').height($('.listbody-left').width());
+			}
+            function styles() {
+                $('.productmodular-img').height($('.productmodular-img').width());
+                $('.productmodular-position').height($('.productmodular-position').width());
+                $('.productmodular-img input[type="file"]').width($('.productmodular-img').width());
+                $('.productmodular-img input[type="file"]').height($('.productmodular-img').width());
+            }
+		</script>
+		<script type="text/javascript">
+			// 选择
+			function checklable(tg, ig) {
+				var text = $(tg).html();
+				$(tg).parent().find('.lable-list').removeClass('lable-hover');
+				$(tg).addClass('lable-hover');
+				$('input[name="' + ig + '"]').val(text);
+			}
+
+			//提交表单
+            var tjflag = true;
+            mui('.mui-content').on('tap', '.upload-submit', function () {
+                if(tjflag = true){
+                    if(!$('input[name=status]').val()) {
+                        mui.toast('请填写货物状态');
+                        return false;
+                    }
+                    if(!$('input[name=reason]').val()) {
+                        mui.toast('请选择申请原因');
+                        return false;
+                    }
+//                    if(!$('#text-area').val()) {
+//                        mui.toast('请填写问题描述');
+//                        return false;
+//                    }
+                    tjflag = false;
+                    var resultli = "";
+                    $("input[name^='imglist_']").each(function () {
+                        if ($(this).val() != "") {
+                            resultli += '|' + $(this).val();
+                        }
+                    });
+                    $('#imglist').val(resultli.slice(1));
+                    var attrbul = getFormAttrs("formsale");
+                    $.ajax({
+                        type: "POST",
+                        url: '__URL__/Refundinfor',
+                        data: "attrbul=" + JSON.stringify(attrbul),
+                        dataType: "json",
+                        success: function (json) {
+                            var msg = eval(json);
+                            if (msg.code == 0) {
+                                mui.toast('申请成功');
+                                setTimeout(function () {
+                                    mui.openWindow({url: "__APP__/Order/Index/warranty", id: "warranty"});
+                                }, 800);
+                            } else {
+                                mui.toast(msg.msg);
+                                tjflag = true;
+                            }
+                        }
+                    });
+				}
+			});
+			/*textarea 字数限制*/
+			function textarealength(obj, maxlength) {
+				var v = $(obj).val();
+				var l = v.length;
+				if(l > maxlength) {
+					v = v.substring(0, maxlength);
+				}
+				$('#text-area').val(v);
+			}
+
+            function eventupload(id) {
+                mui('#imgmodular' + id).on('tap', '#imgfile' + id, function () {
+                    var obj = $(this);
+                    document.getElementById("imgfile" + id).onchange = function () {
+                        tempUploadimg('imgfile' + id, 'imgpath' + id, 'imgfile_val_' + id, id, obj);
+                    }
+                });
+                mui('#imgmodular' + id).on('tap', '#delimg_' + id, function () {
+                    deleteimg(id, $(this));
+                });
+            }
+
+            /*清空图片*/
+            function deleteimg(id, obj) {
+                delUploadimg($('#imgfile_val_' + id).val());
+                $(obj).parent().remove();
+                $('#imgfile_val_' + id).val("");
+                $('#imgfile' + id).val("");
+                $('#imgfile' + id).removeAttr("disabled");
+                $('#imgpath' + id).attr("src", "__RSC__/Trade/img/district_adv_add2x.png");
+                $('#delimg_' + id).css("display", "none");
+            }
+
+            /*上传图片*/
+            function dianji(tg, sg) {
+                var html = '';
+                var n = $(tg).parent().find('.productmodular-img').size();
+                if(n > 3) {
+                    mui.toast('最多上传3张图片');
+                    return;
+                }
+                html += '<div class="productmodular-img" id="' + sg + 'modular' + n + '">';
+                html += '<div class="productmodular-position" onclick="deleteimg('+n+',this);">';
+                html += '<img src="__IMG__/delete.png" alt=""> ';
+                html += '</div>';
+                html += '<img src="" id="' + sg + 'path' + n + '">';
+                html +=	'<input type="file" name="imgfile'+n+'" value="" id="imgfile'+n+'">';
+                html += '<input type="hidden" name="imglist_'+n+'" value="" id="imgfile_val_'+n+'">';
+                html += '</div>';
+
+                $('#' + sg + 'box').before(html);
+                eventupload(n);
+                styles();
+            }
+
+		</script>
+
+	</body>
+
+</html>

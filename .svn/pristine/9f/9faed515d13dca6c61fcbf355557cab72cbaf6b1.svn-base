@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>
+			<?php if ($orderdata['c_actual_price'] > 0) { ?>确认支付
+			<?php } else { ?>支付方式
+			<?php } ?>
+		</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__RSC__/Order/css/order.css?v=3.0.0">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style type="text/css">
+			/*透明度*/
+			
+			.coupon-detail {
+				opacity: 0;
+				filter: alpha(opacity=0);
+				-moz-opacity: 0;
+				-khtml-opacity: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+			}
+			/*取消长按复制*/
+			
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<form action="" method="post" accept-charset="utf-8" id="formorder">
+			<input type="hidden" value="{$orderid}" name="orderid" id="orderid">
+			<input type="hidden" name="backurl" id="backurl" value="{$backurl}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="wrap-page" style="margin-bottom:15%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<div id="page_1">
+						<div class="pay-sum-money bgcolor divtab">
+							<p class="fs14 c9 aglinc">支付金额</p>
+							<p class="fs28 c3 aglinc">￥{$actual}</p>
+							<input type="hidden" id="actval_mon" value="{$actual}" />
+						</div>
+
+						<?php if ($orderdata['c_actual_price'] <= 0): ?>
+						<div class="pay-types bgcolor fs13">
+							<div class="pay-types-font">余额支付</div>
+							<div class="pay-type-money">
+								<input type="text" id="balance" name="money" placeholder="可用余额￥{$cmoney}" value="">
+							</div>
+						</div>
+						<?php endif ?>
+
+						<div class="payment-type fs13">
+							<div class="paytype-tit"><span class="fs14 c3">第三方支付</span><span class="fs12">还需支付￥<em id="needmoney">{$actual}</em></span></div>
+							<?php if (!is_weixin()) { ?>
+							<div class="payment-list" id="alipay">
+								<div class="payment-icon"><img src="__RSC__/Order/img/smzf_icon_zfb01.png" alt="" id="pay-icon-1"></div>
+								<div class="payment-text">支付宝支付</div>
+								<div class="payment-radio">
+									<input name="pay_id" value="1" type="radio" checked="checked" id="alipay-radio">
+								</div>
+							</div>
+							<?php }else{ ?>
+							<div class="payment-list" id="wxpay">
+								<div class="payment-icon"><img src="__RSC__/Order/img/smzf_icon_wechat01.png" alt="" id="pay-icon-2"></div>
+								<div class="payment-text">微信支付</div>
+								<div class="payment-radio">
+									<input name="pay_id" value="2" type="radio" checked="checked" id="weixin-radio">
+								</div>
+							</div>
+							<?php } ?>
+						</div>
+						<?php if ($orderdata['c_actual_price'] <= 0): ?>
+						<div class="pay-coupon divtab bgcolor" id="sel_coupon">
+							<span class="c3 fs14">优惠券</span><span class="c9 fs14" id="use_coupon"></span><span><img src="__RSC__/Order/img/online_icon_next.png" alt="" /></span>
+							<input type="hidden" id="couponid" name="couponid" value="" />
+							<input type="hidden" name="coupondem" id="coupondem" value="" />
+							<input type="hidden" name="couponnum" id="couponnum" value="" />
+							<input type="hidden" name="rusultmon" id="rusultmon" value="0.00" />
+							<input type="hidden" id="kq_statu" value="0" />
+						</div>
+						<?php endif ?>
+					</div>
+					<div class="fixed-btn payment-btn">
+						<div class="paym-btn fs16" id="paym-btn">确认支付<span id="sure_paym">￥{$actual}</span></div>
+					</div>
+				</div>
+				<div id="page_2" style="display: none;">
+					<div class="coupon-main" id="coupon_list">
+						<!--<div class="coupon-box divre">
+							<input type="hidden" name="ctype" id="ctype_1_0" value="1" />
+							<div class="coupon-money divab cf" id="cmoney_1_0"><span class="fs18">88</span><br /><span class="fs12">元</span></div>
+							<div class="coupon-tit divab">
+								<p class="cf fs13" id="ctit_1_0">代金券</p>
+								<p class="cf fs12" id="cinfo_1_0"><span>部分商品</span>|<span>满10元可用</span></p>
+							</div>
+							<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+							<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1_0" title="0">选择卡券</div>
+							<div class="coupon-le-ico divab fs12 cf c-le-icogray">平台补贴</div>
+							<img src="__RSC__/Order/img/type_1_default.png" alt="" id="typeimg_1_0" />
+						</div>
+						<div class="coupon-box divre">
+							<input type="hidden" name="ctype" id="ctype_1_1" value="2" />
+							<div class="coupon-money divab cf" id="cmoney_1_1"><span class="fs18">8.8</span><br /><span class="fs12">折</span></div>
+							<div class="coupon-tit divab">
+								<p class="cf fs13" id="ctit_1_1">折扣券</p>
+								<p class="cf fs12" id="cinfo_1_1"><span>部分商品</span>|<span>满10元可用</span></p>
+							</div>
+							<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+							<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1_1" title="1">选择卡券</div>
+							<img src="__RSC__/Order/img/type_2_default.png" alt="" id="typeimg_1_1" />
+						</div>
+						<div class="coupon-box divre">
+							<input type="hidden" name="ctype" id="ctype_1_2" value="2" />
+							<div class="coupon-money divab cf" id="cmoney_1_2"><span class="fs18">7.8</span><br /><span class="fs12">折</span></div>
+							<div class="coupon-tit divab">
+								<p class="cf fs13" id="ctit_1_2">折扣券</p>
+								<p class="cf fs12" id="cinfo_1_2"><span>部分商品</span>|<span>满10元可用</span></p>
+							</div>
+							<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+							<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1_2" title="2">选择卡券</div>
+							<img src="__RSC__/Order/img/type_2_default.png" alt="" id="typeimg_1_2" />
+						</div> -->
+						<div id="console"></div>
+					</div>
+
+					<div class="fixed-btn payment-btn bgcolor">
+						<div class="paym-btn bgcolor cb fs16" id="not_selcoupon">不使用优惠券</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/safepwd.js?v=20171115"></script>
+		<script type="text/javascript">			
+			/*选卡券状态公用*/
+			var mebtype = -1,
+				mbcid = -1;
+			var reg = new RegExp('^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$');
+			window.onload = function() {
+				pstyle();
+			}
+
+			function pstyle() {
+				var rh = $(".payment-icon").width();
+				$(".payment-text").css("line-height", rh + "px");
+
+				var proimgh = $('.buy-pro-img').width();
+				$('.buy-pro-img').height(proimgh);
+				var lh = proimgh * 33 / 100;
+				$(".buy-pro-r-info").css("line-height", lh + "px");
+
+				var pth = $('.pay-types').height();
+				$('#balance').css('line-height', pth + 'px');
+
+				var mh = $('.pay-type-money').height();
+				$('.pay-types-font').css('line-height', mh + 'px');
+			}	
+
+
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.36;
+				$('.coupon-box').height(boxh);
+			}
+			
+			/*选择卡券*/
+			mui('#page_1').on('tap', '#sel_coupon', function() {
+				$('.xm-nav-title').text('选择卡券');
+				$('#page_1').hide();
+				$('#page_2').show();
+				styles();
+				if(mebtype != -1 && mbcid != -1) {
+					$('#typeimg_' + mbcid).attr('src', '__RSC__/Order/img/type_' + mebtype + '_selection.png');
+				}
+				$('#muinav_return').removeClass('mui-action-back');
+				mui('.xiaomi-bar').on('tap', '#muinav_return', function() {
+					$('#muinav_return').addClass('mui-action-back');
+					$('.xm-nav-title').text('支付方式');
+					$('#page_1').show();
+					$('#page_2').hide();
+					$('#balance').val("");
+				});
+			});
+			/*不使用优惠券*/
+			mui('#page_2').on('tap', '#not_selcoupon', function() {
+				$('#couponid').val("");
+				$('#coupondem').val("");
+				if($('#couponnum').val()) {
+					$('#use_coupon').text($('#couponnum').val() + "张可用");
+				} else {
+					$('#use_coupon').text("无可用优惠券");
+				}
+				$('#muinav_return').addClass('mui-action-back');
+				$('.xm-nav-title').text('支付方式');
+				$('#balance').val("");
+				$('#needmoney').text($('#actval_mon').val());
+				$('#sure_paym').text($('#actval_mon').val());
+				$('#page_1').show();
+				$('#page_2').hide();
+				$('#kq_statu').val(0);
+			});
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			getdatalist();
+			$("#page_2").bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__APP__/Order/Index/CouponUseList?pageindex=" + pageindex + "&orderid=" + $('#orderid').val();
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab bgeb">';
+									_html += '<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>';
+
+									_html += '<div class="c-empty-font c3 fs13">暂时没有可使用的优惠券</div>';
+
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(data.dataCount > 0) {
+									$('#couponnum').val(data.dataCount);
+									$('#use_coupon').text("" + data.dataCount + "张可用");
+									$('#use_coupon').removeClass("c9");
+									$('#use_coupon').addClass("c3");
+								} else {
+									$('#couponnum').val("");
+									$('#use_coupon').text("无可用优惠券");
+									$('#use_coupon').removeClass("c3");
+									$('#use_coupon').addClass("c9");
+								}
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										ctype = dataarr['c_type'];
+										_html += '<div class="coupon-box divre coupon-box-' + pageindex + '">';
+										_html += '<input type="hidden" name="ctype" id="ctype_' + dataarr['c_id'] + '" value="' + dataarr['c_type'] + '" />';
+										_html += '<input type="hidden" name="actnum" id="actnum_' + dataarr['c_id'] + '" value="' + dataarr['c_actnum'] + '" />';
+										_html += '<input type="hidden" name="ruleval" id="ruleval_' + dataarr['c_id'] + '" value="1" />';
+
+										if(ctype == 1) {
+											_html += '<input type="hidden" name="cmoney" id="kq_money_' + dataarr['c_id'] + '" value="' + dataarr['c_money'] + '" />';
+											_html += '<div class="coupon-money divab cf" id="cmoney_' + dataarr['c_id'] + '"><span class="fs22">' + dataarr['c_money'] + '</span><br /><span class="fs12">元</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16" id="ctit_' + dataarr['c_id'] + '">代金券</p>';
+											_html += '<p class="cf fs12" id="cinfo_' + dataarr['c_id'] + '">';
+											if(dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>满' + dataarr['c_limit_money'] + '元可用</span></p>';
+										} else {
+											_html += '<input type="hidden" name="cmoney" id="kq_money_' + dataarr['c_id'] + '" value="' + dataarr['c_money'] + '" />';
+											_html += '<div class="coupon-money divab cf" id="cmoney_' + dataarr['c_id'] + '"><span class="fs22">' + dataarr['c_money'] + '</span><br /><span class="fs12">折</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16" id="ctit_' + dataarr['c_id'] + '">折扣券</p>';
+											_html += '<p class="cf fs12" id="cinfo_' + dataarr['c_id'] + '">';
+											if(dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>最高折扣' + dataarr['c_limit_money'] + '元</span></p>';
+										}
+										_html += '</div>';
+
+										_html += '<div class="coupon-time divab cf fs12">' + dataarr['c_addtime'] + '</div>';
+										_html += '<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_' + dataarr['c_id'] + '" title="' + dataarr['c_id'] + '">选择卡券</div>';
+										if(ctype == 1) {
+											_html += '<img src="__RSC__/Order/img/type_1_default.png" alt="" id="typeimg_' + dataarr['c_id'] + '" />';
+										} else {
+											_html += '<img src="__RSC__/Order/img/type_2_default.png" alt="" id="typeimg_' + dataarr['c_id'] + '" />';
+										}
+
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#coupon_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							/*选择卡券*/
+							mui('.coupon-box-' + pageindex).on('tap', '.coupon-detail', function() {
+								var cid = $(this).attr('title');
+								issue_coupon(cid);
+							});
+						}
+					}
+				});
+			}
+			/*选择优惠券*/
+			function issue_coupon(cid) {
+				$('#kq_statu').val(1);
+				$('#couponid').val("");
+				$('#coupondem').val("");
+				/*默认未选中*/
+				if(mbcid != -1 && mebtype != -1) {
+					$('#typeimg_' + mbcid).attr('src', '__RSC__/Order/img/type_' + mebtype + '_default.png');
+				}
+				mbcid = cid;
+				$('#couponid').val(cid);
+				$('#coupondem').val($('#kq_money_' + cid).val());
+				var ctype = $('#ctype_' + cid).val();
+				mebtype = ctype;
+				if(ctype == 2) {
+					$('#typeimg_' + cid).attr('src', '__RSC__/Order/img/type_2_selection.png');
+					$('#use_coupon').text("已折扣￥" + (parseFloat($('#actval_mon').val()) * (1 - (parseFloat($('#coupondem').val()) / 10))).toFixed(2) + "元");
+					$('#needmoney').text((parseFloat($('#actval_mon').val()) - parseFloat($('#actval_mon').val()) * (1 - parseFloat(($('#coupondem').val()) / 10))).toFixed(2));
+					/*计算的最后折扣金额*/
+					$('#rusultmon').val((parseFloat($('#actval_mon').val()) - parseFloat($('#actval_mon').val()) * (1 - parseFloat($('#coupondem').val()) / 10)).toFixed(2));
+					$('#sure_paym').text("￥" + (parseFloat($('#actval_mon').val()) - parseFloat($('#actval_mon').val()) * (1 - parseFloat($('#coupondem').val()) / 10)).toFixed(2));
+				} else {
+					$('#typeimg_' + cid).attr('src', '__RSC__/Order/img/type_1_selection.png');
+					if(parseFloat($('#coupondem').val()) >= parseFloat($('#actval_mon').val())) {
+						$('#needmoney').text("0.00");
+						$('#use_coupon').text("已全额抵扣");
+						$('#rusultmon').val("0.00");
+						$('#sure_paym').text("￥0.00");
+					} else {
+						$('#needmoney').text((parseFloat($('#actval_mon').val()) - parseFloat($('#coupondem').val())).toFixed(2));
+						/*计算的最后抵扣金额*/
+						$('#rusultmon').val((parseFloat($('#actval_mon').val()) - parseFloat($('#coupondem').val())).toFixed(2));
+						$('#sure_paym').text("￥" + (parseFloat($('#actval_mon').val()) - parseFloat($('#coupondem').val())).toFixed(2)); //						
+						$('#use_coupon').text("已抵扣￥" + parseFloat($('#coupondem').val()).toFixed(2) + "元");
+					}
+				}
+				$('.xm-nav-title').text('支付方式');
+				$('#page_1').show();
+				$('#page_2').hide();
+				$('#balance').val("");
+			}
+
+			/*余额处理*/
+			$(function() {
+				$('#balance').change(function() {
+					var actval = parseFloat($('#actval_mon').val());
+					var aftercoum = parseFloat($('#rusultmon').val());
+					if($(this).val() != "") {
+						if(!(reg.test($(this).val()))) {
+							mui.toast("请输入正确的金额格式！");
+							return false;
+						} else {
+							if($('#kq_statu').val() == 0) { /*不使用优惠券*/
+								if(parseFloat($(this).val()) >= actval) {
+									$(this).val(actval.toFixed(2));
+									$('#needmoney').text("0.00");
+									$('#sure_paym').text("￥" + actval.toFixed(2));
+								} else {
+									$('#needmoney').text((actval - parseFloat($(this).val())).toFixed(2));
+									$(this).val(parseFloat($(this).val()).toFixed(2));
+									$('#sure_paym').text("￥" + (actval - parseFloat($(this).val())).toFixed(2));
+								}
+							} else { /*使用优惠券*/
+								if(aftercoum >= 0) {
+									if(parseFloat($(this).val()) >= aftercoum) {
+										$('#needmoney').text("0.00");
+										$(this).val((aftercoum).toFixed(2));
+										$('#sure_paym').text("￥" + (aftercoum).toFixed(2));
+									} else {
+										$('#needmoney').text((aftercoum - parseFloat($(this).val())).toFixed(2));
+										$(this).val(parseFloat($(this).val()).toFixed(2));
+										$('#sure_paym').text("￥" + (aftercoum - parseFloat($(this).val())).toFixed(2));
+									}
+								} else {}
+							}
+						}
+					}
+				});
+			});
+
+			/*保留两位小数*/
+			function toDecimal2(x) {
+				var f = parseFloat(x);
+				if(isNaN(f)) {
+					return false;
+				}
+				var f = Math.round(x * 100) / 100;
+				var s = f.toString();
+				var rs = s.indexOf('.');
+				if(rs < 0) {
+					rs = s.length;
+					s += '.';
+				}
+				while(s.length <= rs + 2) {
+					s += '0';
+				}
+				return s;
+			}
+
+			/*提交*/
+			mui('.wrap-page').on('tap', '#paym-btn', function() {
+				tijiao();
+			});
+
+			var orderid = $('#orderid').val();
+			var payid = $('input:radio[name="pay_id"]:checked').val();
+
+			function tijiao() {
+				var balance = $('#balance').val();
+				var cbid = $('#couponid').val();
+				var cbmoney = $('#aftercoum').val();
+				var money;
+				if(balance > 0) {
+					if(!(reg.test(balance))) {
+						mui.toast("请输入正确的金额格式！");
+						return false;
+					} else {
+						$('#balance').val(toDecimal2(balance));
+						money = $('#balance').val();
+                        /*全余额*/
+                        var actvalmoney= '<?php echo $actual; ?>';
+                        if(money==actvalmoney){
+                            checkNo($('#returnurl').val(),1,1,payid,money,cbid,cbmoney,orderid);
+                        }else{
+                            moneypay(payid, money, cbid, cbmoney, orderid);
+                        }
+					}
+				} else {
+					moneypay(payid, money, cbid, cbmoney, orderid);
+				}
+			}
+
+			var is_weixin = "<?php echo is_weixin(); ?>";
+			var is_aliApp = "<?php echo is_aliApp(); ?>";
+
+			//支付提交
+			function moneypay(payid, money, cbid, cbmoney, orderid) {
+				$.post(WEB_HOST + '/index.php/Order/Index/BalancePay8', {
+					payrule: payid,
+					money: money,
+					bid: cbid,
+					bmoney: cbmoney,
+					orderid: orderid
+				}, function(json) {
+					var result = eval(json);
+					if(result['code'] == 0) {
+						var data = result['data'];
+						if(is_weixin) { //进入微信支付
+							//调用微信JS api 支付
+							WeixinJSBridge.invoke('getBrandWCPayRequest', {
+								"appId": data['appId'],
+								"nonceStr": data['nonceStr'],
+								"package": data['package'],
+								"paySign": data['paySign'],
+								"signType": data['signType'],
+								"timeStamp": data['timeStamp']
+							}, function(res) {
+								if(res.err_msg == "get_brand_wcpay_request:ok") {
+									var url = WEB_HOST + "/index.php/Order/Index/achieve?orderid=" + result['data']['orderid'];
+									mui.openWindow({
+										url: url,
+										id: "success"
+									});
+								} else if(res.err_msg == "get_brand_wcpay_request:cancel") { //取消支付
+									window.location.reload();
+								}
+								WeixinJSBridge.log(res.err_msg);
+							});
+						} else if(is_aliApp) { //进入支付宝支付
+							AlipayJSBridge.call('tradePay', {
+								tradeNO: data['tradeNO']
+							}, function(ret) {
+								if(ret.resultCode == '9000') { //支付成功
+									var url = WEB_HOST + "/index.php/Order/Index/achieve?orderid=" + result['data']['orderid'];
+									window.open(url);
+								}
+							});
+						} else {
+							mui.openWindow({
+								url: WEB_HOST + "/index.php/Order/Alipay/doalipay?orderid=" + result['data'],
+								id: "Alipay"
+							});
+						}
+
+					} else if(result['code'] == 10086) {
+						mui.openWindow({
+							url: WEB_HOST + "/index.php/Order/Index/achieve?orderid=" + result['data'],
+							id: "success"
+						});
+					} else {
+						mui.toast(result['msg']);
+						return false;
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

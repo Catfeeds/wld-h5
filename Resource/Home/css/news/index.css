@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+
+.wrap-page { width: 100%;}
+
+
+/*首页新闻*/
+.index_news_t{width: 100%; margin-top: 5%; }
+.index_news_t img{margin-right: 3%;}
+.news_t{width: 95%; border-bottom: solid 1px #f0f0f0;}
+.news_t span{color:#555;display: block; float: left; text-align: left;}
+.news_t a{color:#999;display: block; float: right;padding: 0 2%;}
+/*.news_t a:hover{background: rgba(0,0,0,0.05); }*/
+.index_news_c{width: 100%;}
+.index_news_c ul li{padding: 2% 0;border-bottom: solid 1px #ebebeb;width: 97%; margin-left: 3%;}
+.index_news_c ul li p.news_font{width: 72%;}
+.index_news_c ul li a{ display: block;}
+.index_news_c ul li a span{display: block;}
+.index_news_c ul li a span.tit{color: #555;overflow: hidden;}
+.index_news_c ul li a span.tim{color: #999;}
+.index_news_c ul li a img{width: 16%; margin-right: 3%}
+
+
+/*新闻列表*/
+.news_data_list{margin-bottom: 0;}
+
+/*新闻详情*/
+.news_details{padding:3%;}
+.news_details h2{color: #333; text-align: center;}
+.n_time{width: 100%; padding-top: 3%;}
+.n_time span{color: #999;}
+.article_con{padding-top: 4%; line-height: 1.8rem; /*text-indent: 30px;*/}
+.article_con p{color: #555; line-height: 1.8rem;}
+
+/*支付页面*/
+.pay_content{text-align: center;}
+.pay_btn{width: 100%;bottom: 0; left: 0; position: fixed; z-index: 999;}
+.pay_btn a{display: block;float: left;width: 50%;}
+.pay_btn a.btn_left{text-align: right;}
+.pay_btn a.btn_right{text-align: left;}
+
+/*支付详情*/
+.swiper-container {width: 100%;  height: 100%; }
+.swiper-slide { text-align: center;}
+
+.pro_name_Info{padding: 3% 0 4% 0;width: 100%;}
+.pro_name_Info .proname{color: #333; padding-left: 3%;}
+.proprice{ padding: 2% 0 2% 3%;color: #999;}
+.proprice2{ padding-left: 3%; padding-bottom: 2%;}
+.proprice2 p{color:#ef7172; float: left;}
+.proprice2 span{background: url(../images/payzkbg.png); display: block; width: 90px; height: 36px; line-height: 36px; text-align: center;color: #fff; float: left; margin-left: 3%;}
+/* 数量 */
+.number{width:100%; height:auto;padding-top:3%;padding-bottom:3.5%;border-top:1px solid #ccc;border-bottom:1px solid #ccc;}
+.number .tond{width:95%;height:auto;margin:auto;}
+.number .tond b{ display: block; float:left;height:100%;color:#999;}
+.number .tond .tanum b{font-weight:normal;}
+.number .tond p{width:40%; border:1px solid #ccc;margin-left:20px;float:left;display:block; margin-right:10%;}
+.number .tond p span{width:33%; font-weight:normal;float:left;text-align:center;cursor:pointer;color:#555; padding: 3% 0;}
+.number .tond p input{width:100%; height:90%;border:0;text-align: center;color:#555;}
+.number .tond p .tanum_span{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0); out-line:none;outline:none;}
+.number .tond p .tanum_span:hover{background:#E8442f;color:#fff;}
+.number .tond p .tanum_span1{width: 33.3%;}
+.number .tond .tanum_b{	border-left:1px solid #ccc;border-right:1px solid #ccc;}
+.number .tond .tannum_div{color:#555;}
+.number .tond .tannum_div span{color:#999;}
+.bottomImg{text-align: center; margin-top: 5%;}
+
+/*底部支付样式*/
+.info_dit{width: 100%;position: fixed;bottom: 0px;border-top:1px solid #dbdbdb;background: #fff;overflow: hidden;}
+.infoleft{float: left;color: #555;margin-left: 2%;}
+.infoleft span{	color: #ff5a5a;}
+.info_spand{cursor: pointer;float: right;padding: 3% 4%;overflow: hidden;background: #ff5a5a;color: #fff;font-weight: 400;	}
+
+/*新增分享*/
+.n_time span.newsshare{color:#46aafa;}
+.pro-lead{width:100%;min-width: 320px;max-width: 720px;margin:0 auto;height:100%; position:fixed; top:-13%; z-index: 9999;display:none;}
+.newssharesub{width: 80%;margin:8% auto;overflow: hidden;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

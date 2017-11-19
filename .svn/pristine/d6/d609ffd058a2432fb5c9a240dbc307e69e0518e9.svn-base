@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+img{width: 100%;height: 100%;}
+
+/*首页*/
+.entity-list{padding: 0 4%;}
+.entity-li-box{background: #fff;margin: 4% auto;border-radius: 5px;overflow: hidden;padding: 2%;}
+.entity-le{width: 28%;overflow: hidden;}
+.entity-re{width: 69%;margin-left: 3%;position: relative;}
+.entity-info{text-align: left;width: 100%;border-bottom: solid 1px #ccc;padding-bottom: 3%;overflow: hidden;}
+.entity-name{}
+.entity-addr{padding-top: 2%;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;}
+.entity-time{position: absolute;bottom: 0;left: 0;}
+
+.entity-operate{width: 100%;padding: 4% 0 2% 0;overflow: hidden;}
+.entity-operate button{ background: #fff; border: solid 1px #b2b2b2;border-radius: 5px;margin-left: 4%;width: 28%;text-align: center;padding: 2% 0;}
+.entity-operate button.preview{background: #46a9fa; border: none; color: #fff;}
+
+
+.entity-add-btn{position: fixed;left: 0;right: 0;bottom: 0;margin:0 auto;width: 100%;min-width: 320px;max-width: 720px;}
+.entity-add-btn button{ border: 0; background: #46a9fa;color: #fff;padding: 3.5% 0;text-align: center;width: 100%;}
+
+/*店铺相册*/
+.photo-list{width: 100%;overflow: hidden;}
+.photo-img-li{background: #fff; padding: 2%;border-radius: 8px;margin: 4% 0 0 4%;width: 44%;overflow: hidden;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	.entity-addr{padding-top: 4%;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+
+}
+
+@media (min-width: 621px){
+}
+
+

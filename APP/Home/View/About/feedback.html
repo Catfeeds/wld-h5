@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>快速反馈</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/about/index.css?v=1.2">
+		<style>input[type="file"]{border:none;outline: none;}</style>
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="form1">
+					<div class="feedback-text fs13" style="padding: 4% 0;">
+						<textarea name="feedback" id="feedback-txt" placeholder="输入您的宝贵意见如发现BUG，可截图告知我们，我们会第一时间进行修复" rows="8" style="resize:none;padding: 3%;"></textarea>
+					</div>
+					<div class="productmodular">
+						<div class="productmodular-top">
+							<div class="producttitle" style="font-size: 1.4rem;">
+								上传图片
+							</div>
+							<p class="fs12 c9" style="padding: 2% 0 0 0;">图片大小规格500k以内，最多上传3张图片。</p>
+						</div>
+						<div class="productmodular-bottom" style="padding-bottom: 6%;">
+							<div class="productmodular-img" id="imgmodular1">
+								<div class="productmodular-position" id="delimg_1" style="display: none;" onclick="deleteimg(1);">
+									<img src="__RSC__/Order/img/delete.png" alt="">
+								</div>
+								<img src="__IMG__/about/add.jpg" id="imgpath1">
+								<input type="file" name="imgfile1" value="" id="imgfile1" onclick="eventupload(1)">
+								<input type="hidden" name="imglist_1" value="" id="imgfile_val_1">
+							</div>
+							<div class="productmodular-img" id="imgmodular2">
+								<div class="productmodular-position" id="delimg_2" style="display: none;" onclick="deleteimg(2);">
+									<img src="__RSC__/Order/img/delete.png" alt="">
+								</div>
+								<img src="__IMG__/about/add.jpg" id="imgpath2">
+								<input type="file" name="imgfile2" value="" id="imgfile2" onclick="eventupload(2)">
+								<input type="hidden" name="imglist_2" value="" id="imgfile_val_2">
+							</div>
+							<div class="productmodular-img" id="imgmodular3">
+								<div class="productmodular-position" id="delimg_3" style="display: none;" onclick="deleteimg(3);">
+									<img src="__RSC__/Order/img/delete.png" alt="">
+								</div>
+								<img src="__IMG__/about/add.jpg" id="imgpath3">
+								<input type="file" name="imgfile3" value="" id="imgfile3" onclick="eventupload(3)">
+								<input type="hidden" name="imglist_3" value="" id="imgfile_val_3">
+							</div>
+							<!--<div class="productmodular-img" onclick="dianji(this,'img');" id="imgbox">-->
+								<!--<img src="__IMG__/about/nullimg.png">-->
+							<!--</div>-->
+						</div>
+					</div>
+					<input type="hidden" name="imglist" value="" id="imglist"/>
+					<div class="resource-sub sub-blue" id="addfeedback">提交</div>
+				</form>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript">
+
+            window.onload = function() {
+                styles();
+            }
+            function styles() {
+                $('.productmodular-img').height($('.productmodular-img').width());
+                $('.productmodular-position').height($('.productmodular-position').width());
+                $('.productmodular-img input[type="file"]').width($('.productmodular-img').width());
+                $('.productmodular-img input[type="file"]').height($('.productmodular-img').width());
+            }
+
+            function eventupload(id) {
+				document.getElementById("imgfile" + id).onchange = function () {
+					tempUploadimgStatic('imgfile' + id, 'imgpath' + id, 'imgfile_val_' + id, id,'delimg_' + id, 1);
+					//$('#imgfile' + id).attr('disabled','disabled');
+				}
+            }
+
+            /*清空图片*/
+            function deleteimg(id) {
+                delUploadimg($('#imgfile_val_' + id).val());
+                $('#imgfile_val_' + id).val("");
+                $('#imgfile' + id).val("");
+                //$('#imgfile' + id).removeAttr("disabled");
+                $('#imgpath' + id).attr("src", "__IMG__/about/add.jpg");
+                $('#delimg_' + id).css("display", "none");
+            }
+            //提交表单
+            var tjflag = true;
+            mui('.mui-content').on('tap', '#addfeedback', function () {
+                if(tjflag = true){
+					if($('#feedback-txt').val() == '') {
+						mui.toast('请填写反馈的内容！');
+						return false;
+					}
+                    tjflag = false;
+                    var resultli = "";
+                    $("input[name^='imglist_']").each(function () {
+                        if ($(this).val() != "") {
+                            resultli += '|' + $(this).val();
+                        }
+                    });
+                    $('#imglist').val(resultli.slice(1));
+                    var attrbul = getFormAttrs("form1");
+                    $.ajax({
+                        type: "POST",
+                        url: '__URL__/AddFeedback',
+                        data: "attrbul=" + JSON.stringify(attrbul),
+                        dataType: "json",
+                        success: function (json) {
+                            var msg = eval(json);
+                            if (msg.code == 0) {
+                                mui.toast('反馈提交成功');
+                                setTimeout(function () {
+                                    returnset();
+                                }, 1000);
+                            } else {
+                                mui.toast(msg.msg);
+                                tjflag = true;
+                            }
+                        }
+                    });
+                }
+            });
+
+			function returnset() {
+				var apptype = '<?php echo $apptype ?>';
+				//alert(apptype);
+				if(apptype == 1) {
+					javaScript: resultData.webFinish();
+				}
+				else if(apptype == 2) {
+					//alert("ios");
+					window.webkit.messageHandlers.AppModel.postMessage({
+						"popSet": ""
+					});
+				} else {
+				    mui.openWindow({url:"__APP__/Home/About/index"});
+				}
+			}
+		</script>
+	</body>
+
+</html>

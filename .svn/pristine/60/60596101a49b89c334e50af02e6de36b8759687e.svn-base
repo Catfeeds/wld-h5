@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeIndex');
+		$("#transmit").submit();
+	}
+}
+function refer(){
+	$("#transmit").attr('action','__URL__/merchant_id');
+	$("#transmit").submit();
+}
+</script>
+<title>商户费率列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>代理商管理<span class="c-gray en">&gt;</span>商家列表<span class="c-gray en">&gt;</span> 商家列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商家注册手机" name="phone" value="{$post['phone']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商家昵称" name="nickname" value="{$post['nickname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商户昵称" name="merchantname" value="{$post['merchantname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商户简称" name="merchantshortname" value="{$post['merchantshortname']}">
+
+		<!-- <span class="select-box inline">
+			<select name="type" class="select">
+				<option value="">消费类型</option>
+				<option value="1" <if condition="$post['type']  eq 1">selected="selected"</if>>跨界消费</option>
+	     		<option value="2" <if condition="$post['type']  eq 2">selected="selected"</if>>不跨界消费</option>
+			</select>
+		</span> -->
+
+		<span class="select-box inline">
+			<select name="status" class="select">
+				<option value="">选择审核状态</option>
+				<option value="10" <if condition="$post['status']  eq 10">selected="selected"</if>>审核中</option>
+	     		<option value="1" <if condition="$post['status']  eq 1">selected="selected"</if>>审核通过</option>
+	     		<option value="2" <if condition="$post['status']  eq 2">selected="selected"</if>>审核不通过</option>
+			</select>
+		</span>
+
+		<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;		
+
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button type="submit" class="btn btn-success radius" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i>搜索</button>		
+
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<if condition="$flag eq 0">
+				<span class="l">
+					<input type="text" name="least" id="least" size="5" value="{$post['least']}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+					&nbsp;&nbsp;页至&nbsp;&nbsp;
+		    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+		    		&nbsp;
+					<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>			
+				</span>
+				<span class="l">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">审核中总记录：{$shz} 条</font></span>
+			</if> 
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</div>
+	</form>
+	<if condition="$flag eq 0">
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<form method="post" action="Tolead" enctype="multipart/form-data">
+					<input  type="file" name="file_stu" />
+					<input type="submit"  value="批量导入" class="btn btn-danger radius"/>
+				</form>
+			</span>
+		</div>
+	</if> 
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25">ID</th>
+				<th width="100">商家昵称</th>
+				<th width="80">注册号码</th>
+				<th width="60">商家友收宝商户号</th>
+				<th width="80">微信公众号APPID</th>
+				<th width="80">商户昵称</th>
+				<th width="80">商户简称</th>
+				<th width="30">结算费率</th>
+				<th width="60">消费类型</th>
+				<th width="40">审核状态</th>				
+				<th width="80">更新时间</th>
+				<th width="80">添加时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="" name=""></td>
+				<td>{$i}</td>
+				<td><a title="用户详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}">{$vo['c_nickname']}</a></td>
+				<td>{$vo['c_phone']}</td>
+				<td>{$vo['c_merchantid']}</td>
+				<td>{$vo['c_appid']}</td>
+				<td>{$vo['c_merchantname']}</td>
+				<td>{$vo['c_merchantshortname']}</td>
+				<td>{$vo['c_billrate']}</td>
+				<td><if condition="$vo.c_type eq 1"><font color="#666600">跨界</font><else/><font color="#666600">不跨界</font></if></td>
+				<td>{$vo['mystatus']}</td>
+				<td>{$vo['c_updatetime']}</td>
+				<td>{$vo['c_addtime']}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+</script> 
+</body>
+</html>

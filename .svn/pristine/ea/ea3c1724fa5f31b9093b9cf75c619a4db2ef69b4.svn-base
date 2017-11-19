@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>banner主题目标</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/store/homepage.css?v=1.2" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<!--<include file="Base@Public/pubheader" />-->
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+
+				<div class="mui-content">
+					<!-- 数据列表部分 -->
+					<div id="data_list">
+						<div class="header">
+							<a class="mui-icon mui-icon-left-nav mui-pull-left cf fs28"></a>
+							<span class="cf fs15 header_a">分享</span>
+
+							<div class="header_b">
+								<img class="trademark" src="__IMG__/store/dlsc_xq_03.jpg" alt="" />
+								<div class="ming cf">
+									良品铺子
+									<!--是商家还是会员图标显示-->
+									<?php if ($data['c_source'] == 1) { ?>
+									<img src="__IMG__/store/dpsy_icon_shang.png" alt="" />
+									<?php } else { ?>
+									<img src="__IMG__/store/dpsy_icon_pu.png" alt="" />
+									<?php } ?>
+								</div>
+								<div class="flow">
+									<span class="fs11 cf">粉丝 122324</span>
+									<span class="fs11 cf">浏览量 45647</span>
+								</div>
+							</div>
+							<div class="address fs12 line-top cf">
+								<div>
+									恢复默认
+								</div>
+								<div>
+									编辑封面
+								</div>
+							</div>
+							<img src="__IMG__/store/background.jpg" alt="" />
+						</div>
+					</div>
+					<div class="clearfix details">
+						<div class="fs13 c3 details1">
+							良品铺子是一家集体休闲食品研发、加工分装、零售服务的专业品牌连锁运营公司。秉承着品质·快乐·家的企业...
+						</div>
+						<a href="javascript:void(0)" id="details" class="fr c9 fs11">
+							<span>查看全部商家信息</span> <img src="__IMG__/store/icon_next-b.png" alt="" />
+						</a>
+					</div>
+					<div class="nav fs14">
+						<a href="javascript:void(0)" class="alignc">
+							<img src="__IMG__/store/dpsy_icon_sjdt.png" alt="" />
+
+							<div class="c3">商家动态</div>
+						</a>
+						<a href="javascript:void(0)" class="alignc">
+							<img src="__IMG__/store/dpsy_icon_hdzq.png" alt="" />
+
+							<div class="c3">活动专区</div>
+						</a>
+						<a href="javascript:void(0)" class="alignc">
+							<img src="__IMG__/store/dpsy_icon_kqlq.png" alt="" />
+
+							<div class="c3">卡券领取</div>
+						</a>
+					</div>
+					
+					<!--banner预览(线上)-->
+					<div class="commodity fs15">
+						<div class="fl">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span class="fs11">￥</span>50.00
+							</div>
+						</div>
+						<div class="fr">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+							<div>快乐柠檬-伊利</div>
+							<div style="color: #FFAA3D;">
+								<span class="fs11">￥</span>50.00
+							</div>
+						</div>
+					</div>
+					<!--banner预览(线下)-->
+					<div class="offline">
+						<ul class="fl nav_l fs14">
+							<li class="active">全部8折</li>
+							<li>热销款</li>
+							<li>肉类</li>
+							<li>素食类</li>
+							<li>饮品</li>
+							<li>其他</li>
+						</ul>
+						<ul class="fr nav_r fs11">
+							<li>
+								<img class="fl" src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+								<div class="fr divre">
+									<div>良品铺子麻辣/五香灯影牛肉丝重庆特产良品麻辣</div>
+									<div class="divab" style="color: #FFAA3D;">
+										<span class="fs11">￥50.00</span>
+									</div>
+									<div class="divab add">
+										<img class="sub" src="__IMG__/store/dpgl_icon_jdsp.png" alt="" />
+										<input class="count" disabled="disabled" type="text" />
+										<img class="augment" src="__IMG__/store/dpgl_icon_tjsp.png" alt="" />
+									</div>
+								</div>
+							</li>
+							<li>
+								<img class="fl" src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+								<div class="fr divre">
+									<div>良品铺子麻辣/五香灯影牛肉丝重庆特产良品麻辣</div>
+									<div class="divab" style="color: #FFAA3D;">
+										<span class="fs11">￥50.00</span>
+									</div>
+									<div class="divab add">
+										<img class="sub" src="__IMG__/store/dpgl_icon_jdsp.png" alt="" />
+										<input class="count" disabled="disabled" type="text" />
+										<img class="augment" src="__IMG__/store/dpgl_icon_tjsp.png" alt="" />
+									</div>
+								</div>
+							</li>
+							<li>
+								<img class="fl" src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+								<div class="fr divre">
+									<div>良品铺子麻辣/五香灯影牛肉丝重庆特产良品麻辣</div>
+									<div class="divab" style="color: #FFAA3D;">
+										<span class="fs11">￥50.00</span>
+									</div>
+									<div class="divab add">
+										<img class="sub" src="__IMG__/store/dpgl_icon_jdsp.png" alt="" />
+										<input class="count" type="text" disabled="disabled" />
+										<img class="augment" src="__IMG__/store/dpgl_icon_tjsp.png" alt="" />
+									</div>
+								</div>
+							</li>
+							<li>
+								<img class="fl" src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+								<div class="fr divre">
+									<div>良品铺子麻辣/五香灯影牛肉丝重庆特产良品麻辣</div>
+									<div class="divab" style="color: #FFAA3D;">
+										<span class="fs11">￥50.00</span>
+									</div>
+									<div class="divab add">
+										<img class="sub" src="__IMG__/store/dpgl_icon_jdsp.png" alt="" />
+										<input class="count" class="fs11" disabled="disabled" type="text" />
+										<img class="augment" src="__IMG__/store/dpgl_icon_tjsp.png" alt="" />
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<nav class="mui-bar mui-bar-tab fs15">
+						<a class="mui-tab-item mui-tab-preview">
+							<img src="__IMG__/store/dpgl_icon_yl01.png" alt="" />
+							<div class="mui-tab-label c3">预览效果</div>
+						</a>
+						<a class="mui-tab-item mui-tab-user">
+							<!--<img src="__IMG__/Store/dpgl_icon_dlsp.png" alt="" />-->
+							<div class="mui-tab-label cf">应用到店铺</div>
+						</a>
+					</nav>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script>
+		$('.mui-icon-left-nav').click(function() {
+
+			var btnArray = ['不应用', '应用'];
+			mui.confirm('是否将此排版应用到店铺', ' ', btnArray, function(e) {
+
+				if(e.index == 1) {
+					mui.toast('已保存');
+
+				} else {
+					mui.toast('保存失败');
+				}
+				/*clearInterval(settime);
+				var settime=setInterval(function(){
+					history.back();
+				},1000)*/
+			})
+		})
+	</script>
+	<script type="text/javascript">
+		window.onload = function() {
+			//			ChRightText("添加");
+			yangshi()
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var screenWith = $('.wrap-page').width() / 720;
+			$('.header').css('width', $(window).width());
+			$('.header').height($('.header').width() * 0.65);
+			$('.jia').css('width', $(window).width());
+			$('.mui-bar').css('width', $('.mui-content').width());
+			$('.mui-tab-preview>img').css('width', $('.mui-tab-preview>img').width()*screenWith);
+			window.onresize = function() {
+				$('.header').css('width', $(window).width());
+				$('.jia').css('width', $(window).width());
+			};
+			$('#details').on('tap', function() {
+				if($(".details>.details1").css("display") == 'block') {
+					$('.details>.details1').css('display', '-webkit-box');
+					$('#details>span').html('查看全部商家信息');
+					$('#details>img').attr("src", "__IMG__/store/icon_next-b.png");
+				} else {
+					$('.details>.details1').css('display', 'block');
+					$('#details>span').html('收起');
+					$('#details>img').attr("src", "__IMG__/store/icon_next-a.png");
+				}
+			});
+			$('.ticket>.fl>img').height($('.ticket>.fl>img').height() * screenWith);
+			$('.addticket>img').height($('.addticket>img').height() * screenWith);
+			$('.offline>.nav_l>li').each(function() {
+				$(this).click(function() {
+					$('.offline>.nav_l>li').each(function() {
+						$(this).removeClass('active');
+					})
+					$(this).addClass('active');
+				})
+			})
+			$('.add').each(function(i) {
+				var shu = 0;
+				$(this).find('.augment').click(function() {
+					++shu;
+					if(shu > 0) {
+						$(this).siblings('.sub').css('display', 'inline-block');
+						$(this).siblings('.count').css('display', 'inline-block');
+					} else {
+						$(this).siblings('.sub').css('display', 'none');
+					}
+					$(this).siblings('.count').val(shu);
+					console.log(1)
+				})
+				$(this).find('.sub').click(function() {
+					--shu;
+					if(shu > 0) {
+						$(this).siblings('.sub').css('display', 'inline-block');
+					} else if(shu == 0) {
+						$(this).siblings('.count').css('display', 'none');
+						$(this).css('display', 'none');
+					}
+					$(this).siblings('.count').val(shu);
+					console.log(2)
+				})
+
+			})
+		}
+	</script>
+
+</html>

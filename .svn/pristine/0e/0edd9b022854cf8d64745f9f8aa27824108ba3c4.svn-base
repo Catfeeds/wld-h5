@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="msapplication-tap-highlight" content="no" />
+    <include file="Base@Public/header" />
+	<title>信息提示</title>
+	<style type="text/css">
+		body{background: #ebebeb;}
+		.info_tip{padding-top:30%;width: 100%; overflow: hidden;}
+		.info_tip_left{float: left;overflow: hidden;margin-left: 20%;width: 22%;}
+		.info_tip_right{float: right;overflow: hidden;padding-left: 4%;width: 58%;}
+		.info_tip_tit{color: #e7b110;font-size: 18px;}
+		.info_tip_con{color: #555;font-size: 14px;margin-top: 4%;}
+		.info_tip_jump{color: #555;font-size: 14px;text-align: center; padding-top: 4%;}
+		.info_tip_jump a{color: #e7b110; text-decoration: underline;}
+
+		@media (min-width: 421px) and (max-width: 520px) {
+			.info_tip_tit{font-size: 22px;}
+			.info_tip_con,.info_tip_jump{font-size: 18px;}
+		}
+
+		@media  (min-width: 521px) and (max-width: 620px) {
+			.info_tip_tit{font-size: 26px;}
+			.info_tip_con,.info_tip_jump{font-size: 22px;}
+		}
+
+		@media (min-width: 621px){	
+			.info_tip_tit{font-size: 30px;}
+			.info_tip_con,.info_tip_jump{font-size: 26px;}
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class="wrap-page">
+		<div class="info_tip">
+			<div class="info_tip_left">
+				<img src="__COMMON__/img/infotip.png" alt="">
+			</div>
+			<div class="info_tip_right">
+				<div class="info_tip_tit">信息提示</div>  				
+				<div class="info_tip_con">
+					<?php if(isset($message)) {?>
+					 	<?php echo($message); ?>
+					<?php }else{?>
+				    	<?php echo($error); ?>
+				    <?php }?>
+				</div>
+			</div>
+		</div>
+		<div class="info_tip_jump"><span id="wait"><?php echo($waitSecond); ?></span>秒后页面将自动跳转<a href="<?php echo($jumpUrl); ?>" id="href">立即跳转</a></div>
+	</div>	
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function()
+{
+	// var tiph = $(".info_tip_left img").height(),
+	// 	tipinfo = tiph *50/100;
+	// $('.info_tip_right').css('line-height',tipinfo+"px");
+}
+$(function(){
+ var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+ var interval = setInterval(function(){
+     	var time = --wait.innerHTML;
+     	if(time <= 0) {
+     		location.href = href;
+     		clearInterval(interval);
+     	};
+     }, 1000);
+  window.stop = function (){
+         console.log(111);
+            clearInterval(interval);
+ }
+ })();
+</script>	
+</body>
+</html>

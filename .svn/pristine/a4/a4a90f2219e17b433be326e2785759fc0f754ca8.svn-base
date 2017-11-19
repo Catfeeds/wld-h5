@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>记账本</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+	</head>
+
+	<body style="background: #f0f0f0;">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="tally-top bgcolor divtab">
+					<div class="tally-t-tit divtab">
+						<span class="c9 fs14 fl tally-t-fl"><em id="monthval">本</em>月收款总额</span>
+						<span class="fr tally-t-fr" onclick="monthPup()"><img src="__IMG__/jszx_icon_sx.png" alt=""></span>
+					</div>
+					<div class="tally-t-money fs22">0.00</div>
+					<div class="tally-t-count c9 fs12">共0笔</div>
+				</div>
+				<!--<div class="tally-dealing bgcolor bborder divtab" onclick="dealing()">
+					<span class="fl fs14 c3">交易中订单</span>
+					<span class="fr icon_next"><img src="__IMG__/icon_next.png" alt=""></span>
+				</div>-->
+				<div class="tally-detail divtab" id="data_list">
+					<!-- <div class="tally-de-list">
+				<div class="tally-d-time c9 fs12 divtab">今日</div>
+				<div class="tally-d-info bgcolor divtab" onclick="tallydetail(0)">
+					<div class="tally-li-left fl">
+						<p class="fs14 c3">9</p>
+						<p class="fs12 c9">笔数</p>
+					</div>
+					<div class="tally-li-right fr">
+						<p class="fs14 c3">1232.00</p>
+						<p class="fs12 c9">金额（元）</p>
+					</div>
+				</div>
+			</div> -->
+				</div>
+				<div id="console"></div>
+			</div>
+			<div class="month-pup-bg"></div>
+			<div class="month-pup">
+				<div class="month-pup-con">
+					<div class="mpup-list bgcolor fs12 divab">
+						<ul>
+							<?php foreach ($datearr as $key => $value) { ?>
+							<li onclick="monthTally('{$value['date']}')">{$value['name']}</li>
+							<?php } ?>
+						</ul>
+					</div>
+					<img src="__IMG__/bg.png" alt="">
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+
+				$('.tally-t-fr').height($('.tally-t-fr').width());
+				$('.tally-t-fl').css('line-height', $('.tally-t-fr').height() + 'px');
+
+				$('.month-pup-bg').click(function() {
+					$('.tally-t-fr img').attr('src', '__IMG__/jszx_icon_sx.png');
+					$('.month-pup-bg').fadeOut();
+					$('.month-pup').fadeOut();
+				});
+			}
+
+			/*交易中订单*/
+			function dealing() {
+				window.location.href = "__URL__/tradeing";
+			}
+			/*账单详情*/
+			function tallydetail(time, money, num) {
+				window.location.href = "__URL__/tallydetail?time=" + time + "&money=" + money + "&num=" + num;
+			}
+			/*月份选择弹窗*/
+			function monthPup() {
+				$('.tally-t-fr img').attr('src', '__IMG__/jszx_icon_sx2.png');
+				$('.month-pup-bg').fadeIn();
+				$('.month-pup').fadeIn();
+				$('.month-pup-bg').height($(document).height());
+				$('.month-pup-con').height($('.month-pup-con').width() * 1.65);
+			}
+			/*月账单*/
+			function monthTally(txt) {
+				$('#monthval').text(txt.substr(5, 7));
+				$('.tally-t-fr img').attr('src', '__IMG__/jszx_icon_sx.png');
+				$('.month-pup-bg').fadeOut();
+				$('.month-pup').fadeOut();
+				getdatalist(txt);
+			}
+
+			/*列表信息*/
+			getdatalist('<?php echo $monthn; ?>');
+			/*数据加载*/
+			function getdatalist(time) {
+				$('#data_list').empty();
+				var url = "__URL__/GetdataTally?time=" + time;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							$('.tally-t-money').text(data['money']); /*总金额*/
+							$('.tally-t-count').text('共' + data['num'] + '笔'); /*交易的总笔数*/
+							if(data.list.length <= 0) {
+								//数据为空展示
+								_html += '<div class="baoqian">本月没有相关记录</div>';
+							} else {
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="tally-de-list">';
+									_html += '<div class="tally-d-time c9 fs12 divtab">' + dataarr['time'] + '</div>';
+									_html += '<div class="tally-d-info bgcolor divtab" onclick="tallydetail(\'' + dataarr['c_datetime'] + '\',\'' + dataarr['c_money'] + '\',\'' + dataarr['count'] + '\')">';
+									_html += '<div class="tally-li-left fl">';
+									_html += '<p class="fs14 c3">' + dataarr['count'] + '</p>';
+									_html += '<p class="fs12 c9">笔数</p>';
+									_html += '</div>';
+									_html += '<div class="tally-li-right fr">';
+									_html += '<p class="fs14 c3">' + dataarr['c_money'] + '</p>';
+									_html += '<p class="fs12 c9">金额（元）</p>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '</div>';
+								};
+							}
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+					}
+				});
+			}
+		</script>
+
+		<include file="Common/foot" />
+	</body>
+
+</html>

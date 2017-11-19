@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeIndex');
+		$("#transmit").submit();
+	}
+}
+function refer(){
+	$("#transmit").attr('action','__URL__/index');
+	$("#transmit").submit();
+}
+</script>
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>订单列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 订单列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20 text-c">	
+	<form action="" method="get" accept-charset="utf-8" id="transmit">
+	<div class="text-c">		
+		<input type="text" name="nickname" value="{$post['nickname']}" placeholder="输入用户昵称" style="width:120px" class="input-text">
+		<input type="text" name="c_phone" value="{$post['c_phone']}" placeholder="输入用户手机号" style="width:120px" class="input-text">
+		<input type="text" name="orderid" value="{$post['orderid']}" placeholder="订单号" style="width:150px" class="input-text">
+		<input type="text" name="pnickname" value="{$post['pnickname']}" placeholder="输入商家名称" style="width:120px" class="input-text">
+		<input type="text" name="c_phones" value="{$post['c_phones']}" placeholder="输入商家手机号" style="width:120px" class="input-text">
+		<input type="text" name="consignee" value="{$post['consignee']}" placeholder="输入收货人姓名" style="width:120px" class="input-text">
+		<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="下单开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="下单结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+		
+		<input type="text" id="EntTime3" name="EntTime3" value="{$post.EntTime3}" placeholder="支付开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime4" name="EntTime4" value="{$post.EntTime4}" placeholder="支付结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+		<span class="select-box inline">
+		<select name="status" class="select">
+			<option value="0">选择订单状态</option>
+		  	<option value="1" <if condition="$post.status eq 1">selected="selected"</if>>待付款</option>
+		  	<option value="2" <if condition="$post.status eq 2">selected="selected"</if>>待发货</option>
+		  	<option value="3" <if condition="$post.status eq 3">selected="selected"</if>>已发货</option>
+		  	<option value="4" <if condition="$post.status eq 4">selected="selected"</if>>已取消</option>
+		  	<option value="5" <if condition="$post.status eq 5">selected="selected"</if>>已退货</option>
+		  	<option value="6" <if condition="$post.status eq 6">selected="selected"</if>>已退款</option>
+		  	<option value="7" <if condition="$post.status eq 7">selected="selected"</if>>申请退货</option>
+		  	<option value="8" <if condition="$post.status eq 8">selected="selected"</if>>申请换货</option>
+		  	<option value="9" <if condition="$post.status eq 9">selected="selected"</if>>申请退款</option>
+		  	<option value="10" <if condition="$post.status eq 10">selected="selected"</if>>已完成</option>
+		</select></span>
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<input type="hidden" name="pcode"  value="{$pcode}">
+		<button name="" id="" class="btn btn-success" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i> 搜订单</button>
+
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>			
+			</span> 
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</form>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<volist name="list" id="vo">
+			<thead>
+				<tr style="margin-top: 20px;" >
+					<th style="border-right: 0px;"><strong title="{$vo['c_addtime']}"><?php echo substr($vo['c_addtime'] , 0 , 10); ?></strong>&nbsp;&nbsp;&nbsp;订单号:&nbsp;<font color="green">{$vo['c_orderid']}</font></th>
+					<th style="border-left: 0px;border-right: 0px;">用户昵称：&nbsp;<a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a></th>
+					<th style="border-left: 0px;border-right: 0px;">商家名称：&nbsp;<a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_acode}" style="text-decoration:none">{$vo['agent_name']}</a></th>
+					<th style="border-left: 0px;border-right: 0px;">商品类型：&nbsp;<font color="#DC143C">
+						<if condition="$vo['c_isagent'] eq 0">
+							自营商品</font>&nbsp;&nbsp;
+							<if condition="$vo['c_activity_name'] neq ''"><font color="#842B00">({$vo['c_activity_name']})</font></if>
+						<else/>
+							<a title="小蜜商城订单信息" href="__HHOME__/Mallorder/order_list?c_agent_orderid={$vo.c_orderid}" style="text-decoration:none;">代理商品</a>
+						</if>
+						<if condition="$vo['c_source'] eq 1">
+							<font color="#842B00">(线上订单)</font>
+						<else/>
+							<font color="#842B00">(实体订单)</font>
+						</if>
+					</th>
+					<!-- <th style="border-left: 0px;border-right: 0px;"></th> -->
+					<th style="border-left: 0px;">快递方式：&nbsp;{$vo['c_delivery']}</th>
+				</tr>
+			</thead>			
+			<tr>
+				<td width="460px">
+					<volist name="vo['order_details']" id="v">
+					    <div style="width: 460px;overflow:hidden;display:inline;">
+							<div style="width: 80px;height: 80px;float:left;overflow:hidden;padding:3px 0px;">
+								<img src="{$root_url}/{$v['c_pimg']}" style="width: 100%;height: 100%;" alt="">
+							</div>
+							<div style="width: 360px;float:left;overflow:hidden;margin-left:10px;padding:3px 0px;">
+								<p><strong>{$v['c_pname']}</strong>&nbsp;&nbsp;&nbsp;{$v['c_pmodel_name']}&nbsp;<font color="#0000FF"> 单价(￥{$v['c_pprice']})</font></p>
+								<p>数量：&nbsp;&nbsp;×{$v['c_pnum']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<if condition="$v['tgname'] neq ''"><font color="green">推广人(&nbsp;{$v['tgname']}&nbsp;)</font></if></p>
+								<p>总价：&nbsp;&nbsp;￥{$v['c_ptotal']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<if condition="$v['c_productstatus'] neq 0">({$v['mystatus']})</if></p>
+							</div>
+						</div>
+					</volist>
+				</td>
+				<td>订单总价：&nbsp;&nbsp;￥{$vo['c_total_price']}
+					<br/>支付总价：&nbsp;&nbsp;
+					<if condition="$vo['c_pay_state'] eq 0">
+						<font color="#DC143C">暂未支付</font>
+					<else/>
+						￥{$vo['c_actual_price']}&nbsp;&nbsp;<font color="#DC143C"><if condition="$vo['c_free'] eq '0.00'">(包邮)<else/>(包含邮费：￥{$vo['c_free']})</if></font>
+					</if>
+				</td>
+				<td>支付状态：&nbsp;&nbsp;
+				<if condition="$vo['c_pay_state'] eq 0">
+					<font color="red">【未支付】</font>
+				<elseif condition="$vo['c_pay_state'] eq 1"/>
+					<font color="green">【已支付】</font>
+					<if condition="$vo['c_pay_rule'] eq 1"><font color="blue">【支付宝支付】</font>
+		         	<elseif condition="$vo['c_pay_rule'] eq 2"/><font color="green">【手机微信支付】</font>
+		         	<elseif condition="$vo['c_pay_rule'] eq 3"/><font color="green">【H5支付方式】</font>
+					<elseif condition="$vo['c_pay_rule'] eq 4"/><font color="green">【余额支付】</font>
+		         	</if>
+		         	<br/>
+					支付时间：&nbsp;&nbsp;{$vo['c_paytime']}
+				<elseif  condition="$vo['c_pay_state'] eq 2"/>
+					<font color="red">【已退款】</font>
+				</if>
+		         </td>
+				<td>订单状态：&nbsp;&nbsp;{$vo['mystatus']}</td>
+				<!-- <td>内容内容2内容2内容25</td> -->
+				<td width="180px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a title="订单详情" href="javascript:;" onclick="system_category_add('订单详情','Order/order_details?Id={$vo.c_orderid}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe695;</i></a>&nbsp;&nbsp;
+					<a title="编辑" href="javascript:;" onclick="system_address_edit('地址编辑','Order/order_address?Id={$vo.c_orderid}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6c6;</i></a>
+				</td>
+			</tr>
+			<tr>
+				<th style="border-right: 0px;">地址：&nbsp;{$vo['address']}</th>
+				<th style="border-left: 0px;border-right: 0px;">收货人：&nbsp;{$vo['c_consignee']}</th>
+				<th style="border-left: 0px;border-right: 0px;">联系方式：&nbsp;{$vo['c_telphone']}</th>
+				<th style="border-left: 0px;border-right: 0px;">快递公司：&nbsp;{$vo['c_expressname']}</th>
+				<!-- <th style="border-left: 0px;border-right: 0px;">标题5</th> -->
+				<th style="border-left: 0px;">快递单号：&nbsp;{$vo['c_expressnum']}</th>
+			</tr>
+			<tr>
+				<th style="border-right: 0px;border-right: 0px;"></th>
+				<th style="border-left: 0px;border-right: 0px;"></th>
+				<th style="border-left: 0px;border-right: 0px;"></th>
+				<th style="border-left: 0px;border-right: 0px;"></th>
+				<!-- <th style="border-left: 0px;border-right: 0px;"></th> -->
+				<th style="border-left: 0px;"></th>
+			</tr>
+		</volist>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>		
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+/*系统-栏目-添加*/
+function system_category_add(title,url,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+function system_address_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+</script>
+</body>
+</html>

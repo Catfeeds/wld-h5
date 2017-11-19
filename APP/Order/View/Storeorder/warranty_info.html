@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>维权详情</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地维权详情" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/order.css?v=1.3">
+
+	</head>
+
+	<body>
+		<div class="wrap-page" style="margin-bottom:13%;" id="reshow">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="detail-top">
+					<li class="fl detail-right warranty_right fs14">
+						<?php if ($data['c_type'] == 1) { ?>
+						<?php if ($data['c_refundstate'] == 0) { ?> 买家申请退款
+						<?php } else if ($data['c_refundstate'] == 1) { ?> 同意退款
+						<?php } else if ($data['c_refundstate'] == 2) { ?> 不同意退款
+						<?php } else if ($data['c_refundstate'] == 3) { ?> 退款已完成
+						<?php } ?>
+						<?php } else { ?>
+						<?php if ($data['c_refundstate'] == 0) { ?> 买家申请退货
+						<?php } else if ($data['c_refundstate'] == 1 && empty($data['c_transcompany']) && empty($data['c_transno'])) { ?> 同意退货，等待买家提交快递信息
+						<?php } else if ($data['c_refundstate'] == 1 && !empty($data['c_transcompany']) && !empty($data['c_transno'])) { ?> 买家已提交快递信息
+						<?php } else if ($data['c_refundstate'] == 2) { ?> 不同意退货
+						<?php } else if ($data['c_refundstate'] == 3) { ?> 退货已完成
+						<?php } ?>
+						<?php } ?>
+					</li>
+				</ul>
+
+				<ul class="orderlist-box" id="list_order">
+					<li class="orderlist" style="margin: 0;border-radius: 0;width: 100%;">
+						<div class="orderlist-body">
+							<div class="warranty-tit">
+								<p class="fl c6 fs13">退款金额</p>
+								<span class="fl fs16">￥{$data.c_total}</span>
+							</div>
+							<div class="warranty-con fs13">
+								<?php if ($data['c_refundstate'] == 0) { ?>
+								<?php if ($subtime > 0) { ?> 等待处理中：您还有
+								<span id="t">00</span>天<span id="h">00</span>时<span id="f">00</span>分<span id="m">00</span>秒内处理该退款，预期未处理系统将自动处理
+								<?php } ?>
+								<?php } else if ($data['c_refundstate'] == 1) { ?> 商家已同意处理
+								<?php } else if ($data['c_refundstate'] == 2) { ?> 商家不同意处理
+								<?php } else if ($data['c_refundstate'] == 1) { ?> 处理完成
+								<?php } ?>
+							</div>
+						</div>
+					</li>
+					<div class="orderlist-top bgcolor">
+						<div class="fl top-left detaillist">
+							<div class="fl top-text c6 fs14">买家：{$data.c_nickname}</div>
+						</div>
+						<div class="fr contact-shop fs13" id="contact_btn"> 联系买家</div>
+					</div>
+					<div class="warranty-info c6 fs13" id="conferinfo">
+						协商详情
+						<img class="fr" src="__IMG__/jiantou.png" alt="">
+					</div>
+					<li class="detail-freight warranty-freight">
+						<div class="freight c6">
+							<div class="fl freight-left fs13">维权类型</div>
+							<div class="fl freight-right fs13">
+								<?php if ($data['c_type'] == 1): ?> 仅退款
+								<?php else: ?> 退款退货
+								<?php endif ?>
+							</div>
+						</div>
+						<div class="freight c6 fs13">
+							<div class="fl freight-left">退款金额</div>
+							<div class="fl freight-right">￥{$data.c_total}</div>
+						</div>
+						<div class="freight c6 fs13">
+							<div class="fl freight-left">维权原因</div>
+							<div class="fl freight-right">{$data.c_reason}</div>
+						</div>
+						<div class="freight c6 fs13">
+							<div class="fl freight-left">维权说明</div>
+							<div class="fl freight-right">
+								{$data.c_remarks}
+							</div>
+						</div>
+						<div class="freight c6 fs13">
+							<div class="fl freight-left">维权编码</div>
+							<div class="fl freight-right">{$data.c_refundcode}</div>
+						</div>
+						<div class="freight c6 fs13">
+							<div class="fl freight-left">申请时间</div>
+							<div class="fl freight-right">{$data.c_addtime}</div>
+						</div>
+						<?php if (!empty($data['c_handletime'])): ?>
+						<div class="freight c6 fs13">
+							<div class="fl freight-left">处理时间</div>
+							<div class="fl freight-right">{$data.c_handletime}</div>
+						</div>
+						<?php endif ?>
+						<?php if (count($data['c_img']) > 0): ?>
+						<div class="freight c6">
+							<div class="fl freight-left fs13">图片说明</div>
+							<div class="fl freight-right">
+								<?php foreach ($data['c_img'] as $key => $value) { ?>
+								<a class="fl warranty-img" href="{$value}">
+									<img src="{$value}" alt="">
+								</a>
+								<?php } ?>
+							</div>
+						</div>
+						<?php endif ?>
+					</li>
+				</ul>
+
+				<?php if ($data['c_type'] == 2) { ?>
+				<div class="logistics" style="padding: 0 2% 3% 2%;" id="sel_address">
+					<div class="logistics-name">
+						<div class="logistics-right c6 fl">
+							<span class="fl fs13" style="margin: 0;">选择收货地址</span>
+						</div>
+						<div class="fr freight-jiantou" style="margin: 0;width: 7%;">
+							<img src="__IMG__/jiantou.png">
+						</div>
+					</div>
+					<div class="fl freight-address c6" style="width: 100%;padding: 2% 0;">
+						<div class="fl freight-left fs13" style="width: 45%;">收货人：<span id="name">{$data.address.c_consignee}</span></div>
+						<div class="fl freight-right fs13" style="margin-left: 3%;width: 50%;">联系电话：<span id="tel">{$data.address.c_mobile}</span></div>
+					</div>
+					<div class="fl freight-address c6 fs13" style="width: 100%;padding: 2% 0;">详细地址：<span id="ad">{$data.address.c_provincename}{$data.address.c_cityname}{$data.address.c_districtname}{$data.address.c_address}</span></div>
+
+				</div>
+				<?php } ?>
+
+				<?php if ($data['c_type'] == 2 && !empty($data['c_transno'])) { ?>
+				<div class="logistics">
+					<div class="logistics-name">
+						<div class="logistics-right c6">
+							<img src="__IMG__/che.png" class="fl" alt="">
+							<span class="fl fs13">退回物流信息</span>
+						</div>
+					</div>
+					<div class="logistics-name">
+						<div class="fl logistics-left c6 fs13">
+							快递公司
+						</div>
+						<select name="transcompany" id="transcompany" class="fl logistics-right c9 fs13" readonly="readonly">
+							<option value="{$data.c_transcompany}">{$data.c_transcompany}</option>
+						</select>
+					</div>
+					<div class="logistics-name">
+						<div class="fl logistics-left c6 fs13">
+							快递单号
+						</div>
+						<input type="text" name="transno" id="transno" value="{$data.c_transno}" placeholder="请填写正确快递单号" class="fl logistics-right c9 fs13" readonly="readonly">
+					</div>
+				</div>
+				<?php } ?>
+				<div class="orderlist-bot fiexd-box fs13">
+					<?php if ($data['c_type'] == 1) { ?>
+						<?php if ($data['c_refundstate'] == 0) { ?>
+						<div class="fr order-sub subcolor" onclick="AgreeRefund('{$data.c_refundcode}');">
+							同意
+						</div>
+						<?php } ?>
+					<?php } else { ?>
+						<?php if ($data['c_refundstate'] == 0) { ?>
+						<div class="fr order-sub subcolor" onclick="AgreeRefundtf('{$data.c_refundcode}');">
+							同意
+						</div>
+						<?php } else if ($data['c_refundstate'] == 1 && !empty($data['c_transcompany']) && !empty($data['c_transno'])) { ?>
+						<div class="fr order-sub subcolor" id="sure_delivery" data-code="{$data['c_refundcode']}">
+							确认收货
+						</div>
+						<?php } ?>
+					<?php } ?>
+				</div>
+				
+				
+			</div>
+		</div>
+		<input type="hidden" name="addressid" id="addressid" value="">
+		<div class="wrap-page" id="showcheck" style="overflow:auto;" mce_style="overflow:auto;">
+			<iframe scrolling="" width="100%" height="100%" frameborder="0" src="__APP__/Home/Users/myaddress"></iframe>
+		</div>
+	</body>
+
+	<include file="Base@Public/pubjs" />
+	<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.1"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.warranty-img').height($('.warranty-img').width());
+		}
+	</script>
+	<script type="text/javascript">
+		var subtime = "<?php echo $subtime ?>";
+		var refundstate = "<?php echo $data['c_refundstate'] ?>";
+		if(refundstate == 0) {
+			$(function() {
+				setInterval(function() {
+					if(subtime > 0) {
+						subtime--;
+						t = parseInt(subtime / 86400);
+						b = parseInt((subtime % 86400) / 3600);
+						c = parseInt((subtime % 3600) / 60);
+						w = subtime % 60;
+						document.all["t"].innerHTML = t < 10 ? '0' + t : t;
+						document.all["h"].innerHTML = b < 10 ? '0' + b : b;
+						document.all["f"].innerHTML = c < 10 ? '0' + c : c;
+						document.all["m"].innerHTML = w < 10 ? '0' + w : w;
+
+					}
+				}, 1000);
+			});
+		}
+		mui('.mui-content').on('tap', '#sel_address', function() {
+			showcheck();
+		});
+		// 展示选择地址
+		function showcheck() {
+			$('#reshow').hide();
+			$('#showcheck').show();
+			$('#showcheck').height($(window).height());
+		}
+
+		function AgreeRefundtf(rcode) {
+			var adid = $('#addressid').val();
+			if(!adid) {
+				mui.toast('请选择收货地址');
+				return;
+			}
+			AgreeRefund(rcode, adid);
+		}
+	
+		/*协商详情*/
+		mui('.mui-content').on('tap', '#conferinfo', function() {
+			mui.openWindow({
+				url: "__URL__/confer_info?rcode={$data.c_refundcode}",
+				id: "confer_info"
+			});
+		});
+	
+
+		/*确认收货*/
+		mui('.mui-content').on('tap', '#sure_delivery', function() {
+			Refundreturn('' + $(this).attr('data-code') + '');
+		});
+		/*联系买家*/
+		mui('.mui-content').on('tap', '#contact_btn', function() {
+			var apptype = '<?php echo $apptype ?>';
+			var ucode = '<?php echo $data["c_ucode"] ?>';
+			var nickname = '<?php echo $data["c_nickname"] ?>';
+
+			if(apptype == 2) {
+				toChats(ucode, nickname);
+			} else if(apptype == 1) {
+				contactBuyer(ucode, nickname);
+			} else {
+				fchat();
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		function toChats(code, nkname) {
+			window.webkit.messageHandlers.AppModel.postMessage({"chat": {"code": "" + code + "","nkname": "" + nkname + ""}});
+		}
+		/*安卓*/
+		function contactBuyer(code, nkname) {
+			javaScript: resultData.contactBuyer(code, nkname);
+		}
+	</script>
+
+</html>

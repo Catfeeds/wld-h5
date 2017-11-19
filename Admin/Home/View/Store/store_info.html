@@ -1,0 +1,346 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加店铺信息</title>
+</head>
+<body>
+<div class="pd-20">
+  <form action="store_info_tj" class="form form-horizontal" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>店铺名称：</label>
+      <div class="formControls col-8">
+        <input class="input-text" type="text" name="name" value="{$vo.c_name}" placeholder="请输入商品名称">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	<div class="row cl">
+		<label class="form-label col-2"><span class="c-red">*</span>店铺详情：</label>
+		<div class="formControls col-8">
+			<textarea name="desc" cols="" rows="" class="textarea"  placeholder="本店商品均属正品，假一罚十信誉保证！欢迎广大顾客前来放心选购，我们将竭诚为您服务！" datatype="*10-300" dragonfly="true" nullmsg="店铺详情不能为空！" onKeyUp="textarealength(this,300)">{$vo['c_desc']}</textarea>
+			<p class="textarea-numberbar"><em class="textarea-length">0</em>/300</p>
+		</div>			
+	</div>
+
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>所在省份：</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+			<select class="select" size="1" name="c_provice" onchange="loadRegion(this,2)">
+	          	<option value="" selected>请选择省份</option>
+	          	<volist name="provice" id="v">
+	            	<option value="{$v['region_id']}" <if condition="$vo['c_provice'] eq $v['region_name']">selected="selected"</if>>{$v['region_name']}省</option>
+	          	</volist>
+        	</select>
+        </span>
+      </div>
+      <label class="form-label col-1"><span class="c-red">*</span>所在城市：</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+			<select class="select" size="1" name="c_city" id="city" onchange="loadcity(this,3);">
+          		<option value="" selected="selected">请选择城市</option>
+          		<option value="{$vo['c_cityid']}" selected="selected">{$vo['c_city']}市</option>
+        	</select>
+        </span>
+      </div>
+      <label class="form-label col-1"><span class="c-red">*</span>所在地区：</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+			<select class="select" size="1" name="c_district" id="region">
+          		<option value="" selected="selected">请选择区域</option>
+          		<option value="{$vo['c_districtid']}" selected="selected">{$vo['c_district']}</option>
+        	</select>
+        </span>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>详细地址：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" name="address" value="{$vo.c_address}" placeholder="请输入详细地址">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>经度：</label>
+      <div class="formControls col-2">
+			<input type="text" class="input-text" name="longitude" value="{$vo.c_longitude}" placeholder="尽量与您填写的地址相符">
+      </div>
+      <label class="form-label col-1"><span class="c-red">*</span>纬度：</label>
+      <div class="formControls col-2">
+        	<input type="text" class="input-text" name="latitude" value="{$vo.c_latitude}" placeholder="尽量与您填写的地址相符">
+      </div>
+      <div class="col-4"><a href="http://api.map.baidu.com/lbsapi/getpoint/index.html"  target="_blank"><span class="c-red">&nbsp;&nbsp;&nbsp;*点击显示地图</span></a></div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>商品图片：</label>
+      <div class="formControls col-5">
+        <div class="productmodular-bottom">
+			<?php if (count($vo['imglist']) > 0) { foreach ($vo['imglist'] as $key => $value) { ?>
+			<div class="productmodular-img" id="imgmodular{$key}">
+	        <div class="productmodular-position" onclick="delimg(this);">
+	        <img src="__HIMG__/delete.png" alt="">                  
+	        </div>
+	        <img src="{$value.c_img}" id="imgpath{$key}">
+	        <input style="display:none;" type="hidden" name="img{$key}" value="{$value.c_img}">
+	        </div>	
+			<?php } } ?>            
+    		
+            <div class="productmodular-img" onclick="dianji(this,'img');"  id="imgbox">
+                <img src="__HIMG__/imgadd.png">                
+            </div>            
+    	</div>
+
+      </div>  
+      <div class="col-4">(建议尺寸不小于720*720)</div>  
+    </div>
+
+    <div class="row cl">
+    	<label class="form-label col-2"><span class="c-red">*</span>店铺额外服务项目：</label>
+		<div class="formControls col-8">
+			<volist name="services" id="v">	
+				<input type="checkbox" <foreach name="store_service" item="de_1"><if condition="$de_1['c_id'] == $v['c_id']">checked="checked"</if> </foreach> value="<?php echo $v['c_id'] ?>" name="serviceid[]" id="user-Character-0-0" > <?php echo $v['c_name'] ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</volist>							
+		</div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-2"><span class="c-red">*</span>营业时间：</label>
+		<div class="formControls col-8">
+        	<input type="text" class="input-text" name="opentime" value="{$vo.c_opentime}" placeholder="格式：9:00~19:00或者24小时">
+      	</div>
+      	<div class="col-4"> </div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-2"><span class="c-red">*</span>店铺提示：</label>
+		<div class="formControls col-8">
+			<textarea name="remind" cols="" rows="" class="textarea"  placeholder="下雨请带伞，本店提供雨伞服务！" datatype="*10-100" dragonfly="true" nullmsg="" onKeyUp="textarealength(this,300)">{$vo['c_remind']}</textarea>
+			<p class="textarea-numberbar"><em class="textarea-length">0</em>/300</p>
+		</div>			
+	</div>
+
+    <div class="row cl">
+      <div class="col-10 col-offset-2">
+        <input  type="hidden" name="id" id="cids" value="{$vo['c_id']}"/>
+        <input  type="hidden" name="ucode" id="cids" value="{$ucode}"/>
+        <!-- <input  type="hidden" name="c_id" id="cids" value="{$data['c_id']}"/> -->
+        <div class="btn btn-primary radius" onclick="subform();">&nbsp;&nbsp;提交&nbsp;&nbsp;</div>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<!-- <script type="text/javascript" src="__HJS__/jquery.js"></script> -->
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript" src="__HJS__/imgshow.js"></script>
+<script type="text/javascript" src="__HJS__/brows.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			// parent.$('.btn-refresh').click();
+			// parent.layer.close(index);
+		}
+	});
+});
+	
+	function loadRegion(obj,value){
+	   var id=$(obj).val();
+	    if(id != ''){
+	    $.ajax({
+	        url: '__URL__/GetAddr',
+	        type: 'post',
+	        data: {id:id,value:value},
+	        success: function(data) {
+	          var da=eval(data);
+	          var str = '<option value="" >请选择</option>';
+	          $.each(da,function(i){
+	            str+='<option value="'+da[i]['region_id']+'">'+da[i]['region_name']+'市</option>'; 
+	          }); 
+	          $("#city").html(str);
+	        }
+	      });
+	   }
+	 }
+ 	function loadcity(obj,value){
+       var id=$(obj).val();
+        if(id != ''){
+        $.ajax({
+            url: '__URL__/GetAddr',
+            type: 'post',
+            data: {id:id,value:value},
+            success: function(data) {
+              var da=eval(data);
+              var str = '<option value="" >请选择</option>';
+              $.each(da,function(i){
+                str+='<option value="'+da[i]['region_id']+'">'+da[i]['region_name']+'</option>'; 
+              }); 
+              $("#region").html(str);
+            }
+          });
+       }
+     }
+	/*上传图片*/
+    function dianji(tg,sg) {
+        var html = '';
+        var n = $(tg).parent().find('.productmodular-img').size();
+        if (n > 12) {
+        	layer.msg('最多上传12张图片',{icon:10,time:2000});		
+        	return;
+        }
+        html += '<div style="display:none;" class="productmodular-img" id="' + sg + 'modular' + n + '">';
+        html += '<div class="productmodular-position" onclick="delimg(this);">';
+        html += '<img src="__HIMG__/delete.png" alt=""> ';                   
+        html += '</div>';
+        html += '<img src="" id="' + sg + 'path' + n + '">';
+        html += '<input style="display:none;" type="file" name="' + sg + n +'" value="" id="' + sg + 'file1' + n + '">';
+        html += '</div>';
+
+        $('#' + sg + 'box').before(html);        
+        $("#"+sg + 'file1' + n).uploadPreview({
+            Img: sg + 'path' + n,
+            Width: 200,
+            Height: 200
+        });
+       
+        var gg = document.getElementById(sg + 'file1' + n);
+        gg.click();
+        $('#'+sg + 'modular' + n).show();
+        $('.productmodular-img').height($('.productmodular-img').width());
+        $('.productmodular-position').height($('.productmodular-position').width()); 
+    }
+
+    //选择供货商
+	function selectucode(title,url,w,h) {
+		layer_show(title,url,w,h);
+		$('.ctrl_hidden').hide();
+	}
+
+    // 删除图片
+    function delimg(tg) {
+        $(tg).parent().remove();
+    }
+
+    // 提交表单
+	function subform() {	
+		if (!$('input[name=name]').val()) {
+			layer.msg('请填写店铺名称！',{icon:10,time:2000});
+			return;
+		}
+		if (!$('textarea[name=desc]').val()) {
+			layer.msg('请填写店铺详情！',{icon:10,time:2000});
+			return;
+		}
+		if (!$('select[name=c_provice]').val()) {
+			layer.msg('请选择所在省份！',{icon:10,time:2000});
+			return;
+		}
+		if (!$('select[name=c_city]').val()) {
+			layer.msg('请选择所在城市！',{icon:10,time:2000});
+			return;
+		}
+		if (!$('select[name=c_district]').val()) {
+			layer.msg('请选择所在区域！',{icon:10,time:2000});
+			return;
+		}
+
+		if (!$('input[name=address]').val()) {
+			layer.msg('请填写详细地址！',{icon:10,time:2000});
+			return;
+		}
+		if (!$('input[name=longitude]').val()) {
+			layer.msg('请填写经度！',{icon:10,time:2000});
+			return;
+		}
+		if (!$('input[name=latitude]').val()) {
+			layer.msg('请填写纬度！',{icon:10,time:2000});
+			return;
+		}
+		
+		$('#form1').submit();
+	}
+
+	function checkmodel() {
+		var ct = true;
+		$('input[name="mname[]"]').each(function(i) {
+			if (!$(this).val()) {
+				layer.msg('请完善型号名称！',{icon:10,time:2000});
+				ct = false;
+			}
+		});
+		$('input[name="mnum[]"]').each(function(i) {
+			if (!$(this).val()) {
+				layer.msg('请完善型号库存！',{icon:10,time:2000});
+				ct = false;
+			}
+		});
+		$('input[name="maxnum[]"]').each(function(i) {
+			if (!$(this).val()) {
+				layer.msg('请完善阶梯数量！',{icon:10,time:2000});
+				ct = false;
+			}
+		});
+		$('input[name="mprice[]"]').each(function(i) {
+			if (!$(this).val()) {
+				layer.msg('请完善代理价格！',{icon:10,time:2000});
+				ct = false;	
+			}
+		});
+		$('input[name="minprice[]"]').each(function(i) {
+			if (!$(this).val()) {
+				layer.msg('请完善建议零售价价格！',{icon:10,time:2000});
+				ct = false;	
+			}
+		});
+		return ct;
+	}
+
+	/*不能输入中文*/
+	function checknum(str){
+		var type = /^[0-9]*[1-9][0-9]*$/;
+	    var re = new RegExp(type);    
+	    if (str.match(re) == null) {        
+	        return false;
+	    }
+	    return true;
+	}
+
+</script>
+</body>
+</html>

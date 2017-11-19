@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title>订单评价</title>
+    <meta content="微域领地" name="keywords">
+    <meta content="微域领地订单评价" name="description">
+    <script type="text/javascript">
+        var WEB_HOST = "<?php echo WEB_HOST ?>";
+    </script>
+    <include file="Base@Public/header"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+    <style type="text/css" media="screen">
+        a {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap-page" style="background: #fff;padding-bottom: 6%;">
+    <include file="Base@Public/pubheader"/>
+    <div class="mui-content bgcolor">
+        <form action="" method="post" id="form1" accept-charset="utf-8" enctype="multipart/form-data"
+              target="ifram_sign">
+            <input type="hidden" name="detailid" value="{$detailid}">
+            <input type="hidden" name="acode" value="{$detail.c_acode}">
+            <div class="evaluate-top">
+                <div class="fl evaluate-img">
+                    <img src="{$detail.c_pimg}" alt="">
+                </div>
+                <div class="fl evaluate-star">
+                    <div class="title-top fs13">评分：</div>
+                    <input type="hidden" name="score" value="">
+                    <ul class="starBox" id="star">
+                        <li class="fl onestar" id="star_1" onmousemove="movestar(1);">&nbsp;</li>
+                        <li class="fl onestar" id="star_2" onmousemove="movestar(2);">&nbsp;</li>
+                        <li class="fl onestar" id="star_3" onmousemove="movestar(3);">&nbsp;</li>
+                        <li class="fl onestar" id="star_4" onmousemove="movestar(4);">&nbsp;</li>
+                        <li class="fl onestar" id="star_5" onmousemove="movestar(5);">&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="evaluate-textarea fs13">
+                <textarea name="content" style="resize: none;" class="text-area fs13" id="text-area"
+                          placeholder="长度不超过200个字，写下购买体会或使用过程中带来的帮助，可以为其他小伙伴提供参考" datatype="*10-100" dragonfly="true"
+                          onKeyUp="textarealength(this,200)"></textarea>
+            </div>
+            <div class="upload-img">
+                <div class="upload-title fs13">
+                    晒图
+                </div>
+                <div class="productmodular-bottom">
+                    <div class="productmodular-img" id="imgmodular0">
+                        <div style="display:none;" class="productmodular-position" id="delimg_0">
+                            <img src="__COMMON__/img/ca.png" alt=""/>
+                        </div>
+                        <img src="__RSC__/Trade/img/district_adv_add2x.png" id="imgpath0">
+                        <input type="file" name="imgfile0" value="" id="imgfile0">
+                        <input type="hidden" name="imglist_0" value="" id="imgfile_val_0">
+                    </div>
+                </div>
+                <div class="upload-text fs12">
+                    *最多上传3张，每张不超过500kb,支持JPG,PNG
+                </div>
+                <input type="hidden" name="time" value="{$time}">
+                <input type="hidden" name="imglist" value="" id="imglist"/>
+                <div class="upload-submit fs16">提交</div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<include file="Base@Public/pubjs"/>
+<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+
+<script type="text/javascript">
+    window.onload = function () {
+        $('.evaluate-img').height($('.evaluate-img').width());
+        $('.starBox li').height($('.starBox li').width());
+        styles();
+    }
+
+    function styles() {
+        $('.productmodular-img').height($('.productmodular-img').width());
+        $('.productmodular-position').height($('.productmodular-position').width());
+        $('.productmodular-img input[type="file"]').width($('.productmodular-img').width());
+        $('.productmodular-img input[type="file"]').height($('.productmodular-img').width());
+    }
+
+    // 选择评星
+    function movestar(s) {
+        $('.onestar').css('background', 'url(__IMG__/star.png)');
+        $('.onestar').css('background-size', '100% 100%');
+        for (var i = 1; i <= s; i++) {
+            $('#star_' + i).css('background', 'url(__IMG__/stared.png)');
+            $('#star_' + i).css('background-size', '100% 100%');
+        }
+        ;
+        $('input[name=score]').val(s);
+    }
+
+    /*textarea 字数限制*/
+    function textarealength(obj, maxlength) {
+        var v = $(obj).val();
+        var l = v.length;
+        if (l > maxlength) {
+            v = v.substring(0, maxlength);
+        }
+        $('#text-area').val(v);
+    }
+
+    /*上传图片*/
+    //		function dianji(tg, sg) {
+    //			var html = '';
+    //			var n = $(tg).parent().find('.productmodular-img').size();
+    //			if(n > 3) {
+    //				mui.toast('最多上传3张图片');
+    //				return;
+    //			}
+    //			html += '<div style="display:none;" class="productmodular-img" id="' + sg + 'modular' + n + '">';
+    //			html += '<div class="productmodular-position" onclick="delimg(this);">';
+    //			html += '<img src="__IMG__/delete.png" alt=""> ';
+    //			html += '</div>';
+    //			html += '<img src="" id="' + sg + 'path' + n + '">';
+    //			html += '<input style="display:none;" type="file" name="' + sg + n + '" value="" id="' + sg + 'file1' + n + '">';
+    //			html += '</div>';
+    //
+    //			$('#' + sg + 'box').before(html);
+    //			$("#" + sg + 'file1' + n).uploadPreview({
+    //				Img: sg + 'path' + n,
+    //				Width: 200,
+    //				Height: 200
+    //			});
+    //
+    //			var gg = document.getElementById(sg + 'file1' + n);
+    //			gg.click();
+    //			$('#' + sg + 'modular' + n).show();
+    //			$('.productmodular-img').height($('.productmodular-img').width());
+    //			$('.productmodular-position').height($('.productmodular-position').width());
+    //		}
+    //
+    //		// 删除图片
+    //		function delimg(tg) {
+    //			$(tg).parent().remove();
+    //		}
+
+    //		function subform() {
+    //			if(!$('input[name=score]').val()) {
+    //				mui.toast('请评分');
+    //				return;
+    //			}
+    //			if(!$('#text-area').val()) {
+    //				mui.toast('请输入内容');
+    //				return;
+    //			}
+    //			 if ($('.productmodular-img').size() == 1) {
+    //			     mui.toast('请选择上传图片');
+    //			     return;
+    //			 }
+    //			$('.form1').submit();
+    //		}
+
+
+    /*上传图片*/
+    mui('.upload-img').on('tap', '#imgfile0', function () {
+        var obj = $(this);
+        document.getElementById("imgfile0").onchange = function () {
+            tempUploadimg('imgfile0', 'imgpath0', 'imgfile_val_0', 0, obj);
+        }
+    });
+    mui('.upload-img').on('tap', '#delimg_0', function () {
+        deleteimg(0, $(this));
+    });
+    var valid = 0;
+
+    /*上传图片*/
+    function dianji(obj) {
+        valid++;
+        var html = '';
+        html += '<div class="productmodular-img"  id="imgmodular' + valid + '">';
+        html += '<div style="display:none;" class="productmodular-position" id="delimg_' + valid + '">';
+        html += '<img src="__COMMON__/img/ca.png" alt="" />';
+        html += '</div>';
+        html += '<img src="__RSC__/Trade/img/district_adv_add2x.png" id="imgpath' + valid + '">';
+        html += '<input type="file" name="imgfile' + valid + '" value="" id="imgfile' + valid + '">';
+        html += '<input type="hidden" name="imglist_' + valid + '" value="" id="imgfile_val_' + valid + '">';
+        html += '</div>';
+
+        $('.productmodular-bottom').append(html);
+        $('#imgmodular' + valid).show();
+        styles();
+        var idd = $(obj).parent().parent().find('.productmodular-img').size();
+        if (idd > 3) {
+            mui.toast('最多上传3张图片！');
+            return;
+        }
+        eventupload(valid);
+    }
+
+    function eventupload(id) {
+        mui('#imgmodular' + id).on('tap', '#imgfile' + id, function () {
+            var obj = $(this);
+            document.getElementById("imgfile" + id).onchange = function () {
+                tempUploadimg('imgfile' + id, 'imgpath' + id, 'imgfile_val_' + id, id, obj);
+            }
+        });
+        mui('#imgmodular' + id).on('tap', '#delimg_' + id, function () {
+            deleteimg(id, $(this));
+        });
+    }
+
+    /*清空图片*/
+    function deleteimg(id, obj) {
+        delUploadimg($('#imgfile_val_' + id).val());
+        $(obj).parent().remove();
+        $('#imgfile_val_' + id).val("");
+        $('#imgfile' + id).val("");
+        $('#imgfile' + id).removeAttr("disabled");
+        $('#imgpath' + id).attr("src", "__RSC__/Trade/img/district_adv_add2x.png");
+        $('#delimg_' + id).css("display", "none");
+    }
+
+    var tjflag = true;
+    mui('.mui-content').on('tap', '.upload-submit', function () {
+        if (tjflag) {
+            if (!$('input[name=score]').val()) {
+                mui.toast('请评分');
+                return;
+            }
+            if (!$('#text-area').val()) {
+                mui.toast('请输入内容');
+                return;
+            }
+//		if ($('.productmodular-img').size() == 1) {
+//		 	mui.toast('请选择上传图片');
+//			return;
+//		}
+            tjflag = false;
+            var resultli = "";
+            $("input[name^='imglist_']").each(function () {
+                if ($(this).val() != "") {
+                    resultli += '|' + $(this).val();
+                }
+            });
+            $('#imglist').val(resultli.slice(1));
+            var attrbul = getFormAttrs("form1");
+            $.ajax({
+                type: "POST",
+                url: '__URL__/ProductScore',
+                data: "attrbul=" + JSON.stringify(attrbul),
+                dataType: "json",
+                success: function (json) {
+                    var msg = eval(json);
+                    if (msg.code == 0) {
+                        mui.toast('评价成功');
+                        setTimeout(function () {
+                            mui.openWindow({url: "__URL__/orderlist?statu=4", id: "orderlist"});
+                        }, 1000);
+                    } else {
+                        mui.toast(msg.msg);
+                        tjflag = true;
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+</body>
+
+</html>

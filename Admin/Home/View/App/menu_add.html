@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加菜单</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabCon">
+			<div class="row cl">
+				<label class="form-label col-3">上级菜单：</label>
+				<div class="formControls col-6"> <span class="select-box">
+					<select class="select" id="sel_Sub" name="pid">
+						<option value="">--顶级菜单--</option>
+						<volist name="menu_list" id="v">
+							<?php if ($vo['c_pid'] === $v['c_id']) { ?>
+								<option value="{$v.c_id}" selected="selected">{$v.c_name}</option>
+							<?php } else { ?>
+								<option value="{$v.c_id}">{$v.c_name}</option>
+							<?php } ?>								
+						</volist>
+					</select>
+					</span> </div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>菜单名称：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_name}" placeholder="" id="" name="name" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>更新别名：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_alias}" placeholder="" id="" name="alias" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>菜单版本标识：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_discern}" placeholder="" id="" name="discern" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>权限控制：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="access">
+							<option value="0" <if condition="$vo.c_access eq 0">selected="selected"</if>>会员权限</option>
+							<option value="1" <if condition="$vo.c_access eq 1">selected="selected"</if>>商家通用权限</option>
+							<option value="2" <if condition="$vo.c_access eq 2">selected="selected"</if>>线上商家特有权限</option>
+							<option value="3" <if condition="$vo.c_access eq 3">selected="selected"</if>>实体商家特有权限</option>
+							<option value="4" <if condition="$vo.c_access eq 4">selected="selected"</if>>头部通用</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>角色身份：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="role">
+							<option value="0" <if condition="$vo.c_role eq 0">selected="selected"</if>>普通身份</option>
+							<option value="1" <if condition="$vo.c_role eq 1">selected="selected"</if>>收银员</option>
+							<option value="2" <if condition="$vo.c_role eq 2">selected="selected"</if>>连锁店</option>
+							<option value="3" <if condition="$vo.c_role eq 3">selected="selected"</if>>连锁总店</option>
+							<option value="4" <if condition="$vo.c_role eq 4">selected="selected"</if>>加盟店</option>
+							<option value="5" <if condition="$vo.c_role eq 5">selected="selected"</if>>加盟总店</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>上传图标：</label>
+				<div class="formControls col-6">
+					<input type="file" name="img">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>排序：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_sort}" placeholder="" id="" name="sort" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>接口类型：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="interface_type">
+							<option value="">--请选择--</option>
+							<option value="1" <if condition="$vo.c_interface_type eq 1">selected="selected"</if>>url地址</option>
+							<option value="2" <if condition="$vo.c_interface_type eq 2">selected="selected"</if>>url地址(需要传入openid)</option>
+							<option value="3" <if condition="$vo.c_interface_type eq 3">selected="selected"</if>>本地链接</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>接口地址：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_interface_address}" placeholder="" id="" name="interface_address" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>						
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>平台类型：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="terminal_type">
+							<option value="">--请选择--</option>
+							<option value="1" <if condition="$vo.c_terminal_type eq 1">selected="selected"</if>>Android</option>
+							<option value="2" <if condition="$vo.c_terminal_type eq 2">selected="selected"</if>>IOS</option>
+							<option value="3" <if condition="$vo.c_terminal_type eq 3">selected="selected"</if>>Web</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>版本号：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_version_number}" placeholder="" id="" name="version_number" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>是否跳转：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="isskip"  onchange="changskip(this);">
+							<option value="0" <if condition="$vo.c_isskip eq 0">selected="selected"</if>>正常跳转</option>
+							<option value="1" <if condition="$vo.c_isskip eq 1">selected="selected"</if>>不跳转</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl" id="listd1" style="display: none;">
+			      <label class="form-label col-3">不跳转原因：</label>
+			      <div class="formControls col-6">
+			        <input type="text" class="input-text" value="{$vo['c_reason']}" placeholder="" id="" name="reason" datatype="*2-100" nullmsg="不跳转原因不能为空">
+			      </div>
+			      <div class="col-4"> </div>
+			</div>
+			<if condition="$vo['c_isskip'] eq 1">
+			    <div class="row cl" id="listd1">
+			      <label class="form-label col-3">不跳转原因：</label>
+			      <div class="formControls col-6">
+			        <input type="text" class="input-text" value="{$vo['c_reason']}" placeholder="" id="" name="reason" datatype="*2-100" nullmsg="不跳转原因不能为空">
+			      </div>
+			      <div class="col-4"> </div>
+			    </div>
+		    </if>		
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<input type="submit" value="提交" class="btn btn-primary radius">
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+
+function changskip(obj){
+	var id=$(obj).val();
+	if(id == 1){
+	  $("#listd1").show();
+	}else{
+	  $("#listd1").hide();
+	}
+}
+</script>
+</body>
+</html>

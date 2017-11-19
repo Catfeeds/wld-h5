@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeIndex');
+		$("#transmit").submit();
+	}
+}
+// function refer(){
+// 	$("#transmit").attr('action','__URL__/appeal');
+// 	$("#transmit").submit();
+// }
+</script>
+<title>申诉列表</title>
+</head>
+<body>
+<nav class="breadcrumb">
+	    <i class="Hui-iconfont">&#xe67f;</i> 首页
+	    <span class="c-gray en">&gt;</span> 信息管理
+	    <span class="c-gray en">&gt;</span> 申诉列表
+	    <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" 
+	        href="javascript:location.replace(location.href);" title="刷新" >
+	        <i class="Hui-iconfont">&#xe68f;</i>
+	    </a>
+</nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<!-- <input type="text" class="input-text" style="width:150px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}"> -->
+		<input type="text" class="input-text" style="width:150px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入会员手机号" name="c_phone" value="{$post['c_phone']}">
+		<!-- <input type="text" class="input-text" style="width:150px" placeholder="输入提款编码" name="c_tx_code" value="{$post['c_tx_code']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入账户名称" name="c_uname" value="{$post['c_uname']}"> -->
+		<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="申诉起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="申诉结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+
+		<if condition="$flag eq 0">
+			<span class="select-box inline">
+				<select name="c_status" class="select">
+					<option value="">选择状态</option>
+					<option value="sqz" <if condition="$post['c_status']  eq 'sqz'">selected="selected"</if>>未处理</option>
+		     		<option value="1" <if condition="$post['c_status']  eq 1">selected="selected"</if>>申诉成功</option>
+		     		<option value="2" <if condition="$post['c_status']  eq 2">selected="selected"</if>>驳回</option>
+				</select>
+			</span>
+			<!-- <input type="text" id="EntTime3" name="begintime" value="{$post.begintime}" placeholder="已处理起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+			-
+			<input type="text" id="EntTime4" name="endtime" value="{$post.endtime}" placeholder="已处理结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+			<span class="select-box inline"> -->
+				<!-- <select name="c_status" class="select">
+					<option value="">选择状态</option>
+					<option value="sqz" <if condition="$post['c_status']  eq '0'">selected="selected"</if>>未处理</option>
+		     		<option value="1" <if condition="$post['c_status']  eq 1">selected="selected"</if>>申诉成功</option>
+		     		<option value="2" <if condition="$post['c_status']  eq 2">selected="selected"</if>>驳回</option>
+				</select>
+			</span> -->
+		</if>
+		<!-- <input type="hidden" name="sign"  value="{$sign}"> -->
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button type="submit" class="btn btn-success radius" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>			
+			</span> 
+			<!-- <span class="l">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">待处理提现金额：￥{$sum_money}</font></span> --> 
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</div>
+	</form>
+	<!-- <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l" ></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div> -->
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25">ID</th>
+				<th width="60">申诉人昵称</th>
+				<!-- <th width="40">被举报人</th> -->
+				<th width="120">申诉理由</th>
+				<th width="120">动态内容</th>
+				<th width="60">申诉状态</th>
+				<th width="80">申诉时间</th>
+				<th width="80">更新时间</th>
+				<th width="80">处理操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="" name=""></td>
+				<td>{$i}</td>
+				<td><a title="用户详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}">{$vo['c_nickname']}</a></td>
+				<!-- <td>{$vo['c_tip_id']}</td> -->
+				<td>{$vo['c_content']}</td>
+				<td><a title="动态内容新资源列表" href="__HHOME__/Resourcev2/index?Id={$vo.c_tip_id}">{$vo['c_cont']}</a></td>
+				<td>{$vo['mystate']}</td>
+				<td>{$vo['c_addtime']}</td>
+				<td>{$vo['c_updatetime']}</td>
+				<if condition="$vo['c_status'] eq 0">
+					<td class="td-manage">
+						<a title="同意" href="javascript:;" onclick="ajax_handle('1','{$vo['c_tip_id']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="#666600">同意</font></i></a>
+						<a title="驳回" href="javascript:;" onclick="ajax_handle('2','{$vo['c_tip_id']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"><font color="#666600">驳回</font></i></a>
+					</td>  
+				<else/>
+					<td class="td-status">
+						<if condition="$vo['c_status'] eq 1">
+							<span class="label label-success radius">通过申诉</span>
+						<else/>
+							<span class="label label-success radius">申诉失败</span>
+						</if>
+					</td>
+				</if>
+				<!-- <if condition="$sign gt 0"> -->
+					<!-- <td class="td-manage">
+						<a title="编辑" href="javascript:;" onclick="bank_edit('编辑','News/bank_edit?tip_id={$vo.c_tip_id}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					</td> -->
+				<!-- </if>  -->
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  // {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+// /*账户信息修改*/
+// function bank_edit(title,url,w,h){
+// 	layer_show(title,url,w,h);
+// }
+/*申诉申请操作*/
+function ajax_handle(handle,txcode){
+	if(handle == 1){
+		var message = '操作需谨慎,确定要同意吗？';
+	}else{
+		var message = '操作需谨慎,确定要驳回吗？';
+	}
+	
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/News/ajax_apply_handle',{handle:handle,txcode:txcode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+	        	window.location.reload();
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+// function change(txcode,obj){
+//    	var val = $(obj).val(); 
+//     if(val!=''){
+//         if(confirm("你确定执行该操作吗？")){
+//             $.post('__URL__/save_thirdparty',{txcode:txcode,thirdparty:val},function(data){
+//                 var result = eval(data);		
+//     	        if (result['code'] != 0) {
+//     	        	layer.msg(result['msg'],{icon:10,time:2000});
+//     	        	window.location.reload();
+//     	        } else {
+//     	        	layer.msg(result['msg'],{icon:1,time:2000});
+//     	        	window.location.reload(); 
+//     	        }        
+//             });
+//         }
+//     }
+//     return false;
+// }
+
+// var flag = true; 
+// function ajax_wxhandle(txcode){
+//     if(confirm("你确定执微信自动打款吗？")){
+//     	if(flag){
+//     		flag = false;
+// 	        $.post('__URL__/wxpay',{txcode:txcode},function(data){
+// 	        	flag = true;
+// 	            var result = eval(data);		
+// 		        if (result['code'] != 0) {
+// 		        	layer.msg(result['msg'],{icon:10,time:2000});
+// 		        	window.location.reload(); 
+// 		        } else {
+// 		        	layer.msg(result['msg'],{icon:1,time:2000});
+// 		        	window.location.reload(); 
+// 		        }        
+// 	        });
+//     	}
+//     }
+// }
+</script> 
+</body>
+</html>

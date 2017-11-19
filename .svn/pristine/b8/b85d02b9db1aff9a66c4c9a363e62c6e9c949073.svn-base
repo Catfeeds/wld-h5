@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/index.css?v=1.2">
+	</head>
+
+	<body>
+		<div class="dialog-bg"></div>
+		<div class="dialog-big-c">
+			<div class="dialog-con">
+				<div class="dialog-con-tit fs16 c3">提示</div>
+				<div class="dialog-con-desc fs14 c5">您还不是小蜜商家，是否成为商家？</div>
+				<div class="dialog-con-btn">
+					<div class="dialog-left fl c9 fs16 btn-gray" onclick="cancels()">否</div>
+					<div class="dialog-right fr fs16 btn-blue" onclick="sures()">是</div>
+				</div>
+			</div>
+		</div>
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<!-- <div class="tooltip-con bgcolor">
+					<div class="tooltip-desc fs14 c5">您还不是小蜜商家，是否成为商家？</div>
+					<div class="tooltip-con-btn">
+						<div class="dialog-left fl c9 fs16 btn-gray" onclick="cancels()">否</div>
+						<div class="dialog-right fr fs16 btn-blue" onclick="sures()">是</div>
+					</div>
+				</div> -->
+				<div class="step-intro bgcolor"><img src="__IMG__/getbusiness/fc-75.png" alt=""></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var checked = '<?php echo $data["c_checked"] ?>';
+			var cid = '<?php echo $data["c_id"] ?>';
+			var dcode = '<?php echo $data["c_dcode"] ?>';
+			var acode = '<?php echo $info["c_acode"] ?>';
+			var isagent = '<?php echo $info["c_isagent"] ?>';
+			var ucode = '<?php echo $info["c_ucode"] ?>';
+			var hrefurl= '<?php echo $hrefurl; ?>';/*1补全，2成为*/
+
+			window.onload = function() {
+				if(hrefurl==1){
+                    mui.openWindow({url:"__APP__/Home/Getbusiness/sub4_1?hreftype=1",id:"sub4_1"});
+				}else{
+                    if(isagent == 1 || isagent == 2) {
+                        mui.alert('亲，您已是代理身份，不能变更为商家了！', '提示', '确定',function(){
+                            JumpAppHome();
+                        });
+                        return false;
+                    }
+                    if(!emptyval(dcode) && checked != "" && checked != null && checked != -1) {
+                        mui.openWindow({url:"__APP__/Home/Getbusiness/checkstate",id:"checkstate"});
+                    } else {
+                        if(emptyval(dcode) && !emptyval(cid)) {
+                            mui.openWindow({url:"__APP__/Home/Getbusiness/sub4_1?hreftype=2",id:"sub4_1"});
+                        } else {
+                            $(".dialog-big-c").fadeIn(300);
+                            $(".dialog-bg").fadeIn(300);
+                            $(".dialog-bg").height($(document).height());
+                        }
+                    }
+				}
+			}
+
+			function cancels() {
+				$(".dialog-big-c").hide();
+				$(".dialog-bg").hide();
+			}
+
+			function sures() {
+				mui.openWindow({url:"__APP__/Home/Getbusiness/entryactive",id:"entryactive"});
+			}
+			
+			/*跳转首页*/
+			function JumpAppHome(){
+				var apptype = "<?php echo get_app_type(); ?>";
+				jumphome(apptype);
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

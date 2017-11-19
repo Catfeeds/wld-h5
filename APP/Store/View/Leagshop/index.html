@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>加盟店管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/leagshop/index.css" />
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+	<style type="text/css">
+	.js-ma-tab{width: 50%;}
+	.js-ma-tab ul li{padding: 3% 0;}
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="divtab bgcolor">
+				<div class="js-ma-tab divtab bgcolor">
+					<ul>
+						<li class="fs14 mhover" id="js-ma-li1">营业额</li>
+						<li class="fs14" id="js-ma-li2">加盟店</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<!--营业额 -->
+			<div class="js-ma-income" id="page1">
+				<div class="js-tab divtab bgcolor">
+					<ul>
+						<li class="c9 fs14 hover" id="tab_1">7天</li>
+						<li class="c9 fs14" id="tab_2">30天</li>
+					</ul>
+				</div>
+
+				<div class="js-report-data bgcolor">
+					<p class="js-total-money fs14 c3">全部加盟店总收益<span class="cy fs16" id="cmoney">￥0.00</span></p>
+					<!-- 折线图 -->
+					<div class="store-report-line">						
+						<div id="main1" style="width:100%;"></div>
+					</div>
+
+					<div class="js-report-income divtab">
+						<ul>
+							<li>
+								<div class="store-income-box fs12">
+									<p class="cy fs16">{$count['mymember']}</p>
+									<span>会员总数</span>
+									<font class="rline"></font>
+								</div>
+							</li>
+							<li>
+								<div class="store-income-box fs12">
+									<p class="cy fs16">￥{$count['allmoney']}</p>
+									<span>共收益</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div class="store-report-cright c9 fs11" style="padding-top:10%;">
+						由微领地小蜜提供技术支持
+						<p><img src="__IMG__/multshop/cashier_home_line.png"</p>
+					</div>
+				</div>
+			</div>
+
+			<!--加盟店 -->
+			<div class="js-ma-info none" id="page2" style="padding-bottom:10%;">
+				<ul>
+				<volist name="data" id="vo">
+					<li>
+						<div class="js-ma-shop fs14 divtab">
+							<div class="js-ma-img fl">
+								<img src="{$vo['headimg']}">
+							</div>
+							<span class="fl fov">{$vo['nickname']}</span>
+							<span class="fr">{$vo['c_shopcode']}</span>
+						</div>
+						<div class="store-ma-income divtab" id="income" title="{$vo['c_id']}">
+							<span class="c3 fs14">总收益：</span>
+							<span class="cy fs14">￥{$vo['money']}</span>
+							<span class="c9 fs12 fr">
+								<div class="store-ma-next" style="border-bottom: none;">
+									<img src="__IMG__/multshop/lsdgl_icon_next.png">
+								</div>
+								<font class="fr">收益详情</font>
+							</span>
+						</div>
+						<div class="store-ma-member">
+							<span class="c3 fs14">锁定会员：</span>
+							<span class="c3 fs14">{$vo['member_num']}位</span>
+						</div>
+						<div class="store-ma-mobile">
+							<span class="c3 fs14">联系方式：</span>
+							<span class="c3 fs14">{$vo['phone']}</span>
+						</div>
+						<div class="store-ma-time">
+							<span class="c3 fs14">加盟时间：</span>
+							<span class="c3 fs14">{$vo['c_addtime']}</span>
+						</div>
+					</li>
+				</volist>
+				</ul>
+
+
+				<div class="store-ma-add bgcolor">
+					<div class="stm-add-botton cf fs16">邀请加盟</div>
+				</div>
+
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script src="__COMMON__/echart/js/echarts.js"></script>
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('#main1').height($('#main1').width()*0.5);
+		drawline();	
+		yangshi();	
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var sImg = $('.js-ma-img').width();
+		$('.js-ma-img').height(sImg);
+		$('.js-ma-img').css('border-radius', sImg + 'px');
+		$('.js-ma-shop span').css('height', sImg + 'px');
+		$('.js-ma-shop span').css('line-height', sImg + 'px');
+
+		var nImg = $('.store-ma-next').width();
+		$('.store-ma-income span font').css('line-height',nImg + 'px')
+		
+		
+	}
+
+	//进入收益详情
+	mui('.mui-content').on('tap', '#income', function() {
+		var federationid = $(this).attr('title');
+		mui.openWindow({url:"__URL__/income?federationid="+federationid,id:"income"});
+	});
+
+	//营业额
+	mui('.mui-content').on('tap', '#js-ma-li1', function() {
+		$('#js-ma-li2').removeClass('mhover');
+		$('#js-ma-li1').addClass('mhover');
+		$('#page2').hide();
+		$('#page1').show();
+	});
+
+	//加盟店
+	mui('.mui-content').on('tap', '#js-ma-li2', function() {
+		$('#js-ma-li1').removeClass('mhover');
+		$('#js-ma-li2').addClass('mhover');
+		$('#page1').hide();
+		$('#page2').show();yangshi();
+	});
+
+	//邀请加盟
+	mui('.mui-content').on('tap', '.store-ma-add', function() {
+		mui.openWindow({url:"__URL__/invited",id:"invited"});
+	});
+	
+	//七天
+	mui('.mui-content').on('tap', '#tab_1', function() {
+		$('#tab_2').removeClass('hover');
+		$('#tab_1').addClass('hover');
+		getLinedata(1,'');
+	});
+
+	//30天
+	mui('.mui-content').on('tap', '#tab_2', function() {
+		$('#tab_1').removeClass('hover');
+		$('#tab_2').addClass('hover');
+		getLinedata(2,'');
+	});
+
+	getLinedata(1,'');
+	//获取折线图数据
+	function getLinedata(timetype, chtime) {
+		$.post("__URL__/GetdataTally", {
+			pid: "<?php echo $unioninfo['c_id']; ?>",
+			federationid:"",
+			timetype: timetype,
+			time: chtime
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				var data = result['data'];
+				$('#cmoney').text('￥'+data['money']);
+				var datalist = data['list'];
+				var datas = new Array();
+				var sdata = new Array();
+				//循环赋值数组
+				for (var i = 0; i < datalist.length; i++) {
+					datas[i] = datalist[i]['time'];
+					sdata[i] = datalist[i]['c_money'];
+				};
+				// $('#cshowtit').text(data['date']);
+				drawline(datas, sdata);
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+
+	//绘制折线图
+	function drawline(data,sdata) {
+		// 路径配置
+		require.config({
+			paths: {
+				echarts: WEB_HOST+'/Resource/Common/echart/build/dist'
+			}
+		});
+
+		// 使用
+		require(
+			[
+				'echarts',
+				'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+			],
+			function(ec) {
+				// 基于准备好的dom，初始化echarts图表
+				var myChart = ec.init(document.getElementById('main1'));
+
+				var option = {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							lineStyle: {
+								// color:['#ff7f7f'],
+							}
+						}
+					},
+					grid: {
+				        left: '0%',
+				        right: '0%',
+				        bottom: '0%',
+				        x:1,
+	                    y:'2%',
+	                    x2:1,
+	                    y2:30,
+				        containLabel: true
+				    },
+					calculable : true,
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false,
+						axisLine: {
+		                    lineStyle: {
+		                        type: 'solid',
+		                        color: '#555555',//左边线的颜色
+		                        width:'1'//坐标线的宽度
+		                    }
+		                },
+						data: data,
+						splitLine: {
+						    lineStyle: {
+						        // 使用深浅的间隔色
+						        color: ['#f0f0f0']
+						    }
+						}
+					}],
+					yAxis: [{
+						show: true,
+						axisLine: {
+							show: false,
+						},
+						axisLabel: {
+							show: false,
+						},
+						splitLine: {
+						    lineStyle: {
+						        type: 'dashed',
+						        color: ['#999999']
+						    }
+						}
+					}],
+					series: [
+						{
+							name: '收入',
+							type: 'line',
+							itemStyle : {  
+                                normal : {  
+                                    color:'#d8d8d8',  
+                                    lineStyle:{  
+                                        color:'#d8d8d8'  
+                                    }  
+                                }  
+                            },  
+							stack: '',
+							data: sdata
+						}
+					]
+				};
+
+				// 为echarts对象加载数据 
+				myChart.setOption(option);
+			}
+		);
+	}
+	
+</script>
+
+</html>

@@ -1,0 +1,356 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>月账单</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=5.0">
+
+</head>
+
+<body class="bgeb">
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+		<!-- 月份 -->
+		<div class="moth divtab">
+			<div class="moth-time fl fs14 c3" id="showdate"><?php if(!empty($txt)){ ?>{$txt}<?php }else{ ?>{$todaymon}<?php } ?></div>
+			<div class="moth-img fr" id="txt_10">
+				<img src="__IMG__/imgico5.png" alt="">
+			</div>
+		</div>
+		<!-- 收支详情 -->
+		<div class="divsbox bgcolor divtab">
+			<div class="divtab outin_con">
+				<div class="c3 fs16 divtab moth-bottom fb600">
+					<div class="moth-num fl">
+						<span id="txt_1">当月收入</span>&nbsp;&nbsp;<span class="fs16" id="txt_9"></span><span class="fs16" id="txt_2">+0.00</span>
+					</div>
+					<div class="switchover fr" id="out_tab">
+						<div class="switchover-text fr">切换收支</div>
+						<div class="switchover-logo fr"><img src="__IMG__/szmx_icon_qh.png" alt=""></div>
+					</div>
+				</div>
+				<div class="today-left fl">
+					<ul id="today-ul">
+						<li>
+							<div class="sico fl">
+								<img src="__IMG__/szmx_icon_ewm.png" alt="">
+							</div>
+							<div class="sname fl fs14 c9" id="txt_11">扫码支付</div>
+							<div class="smoney fl fs14" id="txt_3">0.00</div>
+						</li>
+						<li>
+							<div class="sico fl">
+								<img src="__IMG__/szmx_icon_xsdd.png" alt="">
+							</div>
+							<div class="sname fl fs14 c9" id="txt_12">线上订单</div>
+							<div class="smoney fl fs14" id="txt_4">0.00</div>
+						</li>
+						<li>
+							<div class="sico fl">
+								<img src="__IMG__/szmx_icon_hb.png" alt="" id="imgsrc_1">
+							</div>
+							<div class="sname fl fs14 c9" id="txt_13">红包&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+							<div class="smoney fl fs14" id="txt_5">0.00</div>
+						</li>
+						<li>
+							<div class="sico fl">
+								<img src="__IMG__/szmx_icon_qt2.png" alt="">
+							</div>
+							<div class="sname fl fs14 c9" id="txt_14">其他&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+							<div class="smoney fl fs14" id="txt_6">0.00</div>
+						</li>
+					</ul>
+				</div>
+				<div class="today-right fl">
+					<div id='canvasDiv'></div>
+				</div>
+			</div>
+		</div>
+		<div class="divtab moth-expend bgcolor c3 fb600">
+			<div class="tab-out-fl fl fs16"><span id="txt_7">当月支出</span></div>
+			<div class="tab-out-mon fr fs16" id="txt_8">0.00</div>
+		</div>
+
+		<input type="hidden" name="todayn" id="todayn" value="{$todayn}">
+		<input type="hidden" name="yestoday" id="yestoday" value="{$yestoday}">
+		
+		<input type="hidden" name="endtimes" id="endtimes" value="{$endtimes}">
+		<input type="hidden" name="begintimes" id="begintimes" value="{$begintimes}">
+		<input type="hidden" name="txt" id="txt" value="{$txtmonth}">
+		<input type="hidden" name="endday" id="endday" value="{$endday}">
+		<input type="hidden" name="todaymon" id="todaymon" value="{$todaymon}">
+	</div>	
+	<div class="months-bg"></div>
+	<div class="months-pup">
+		<div class="months-pup-con divre">
+			<div class="months-list divab">
+				<ul class="fs12">
+					<volist name="datearr" id="vo">
+						<li onclick="monthlist('{$vo['date']}','{$vo['moname']}')" class="li{$i}">{$vo['name']}</li>
+					</volist>
+				</ul>
+			</div>
+			<img src="__IMG__/imgico-5.png" alt="">
+		</div>
+	</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/ichart.1.2.min.js"></script>
+<script type="text/javascript">
+	mui('.mui-content').on('tap','#txt_10',function(){
+		getmonths();
+	});
+	/*饼状的宽高*/
+	var wih = $('.today-right').width();
+	$('.today-right').height(wih);
+	var hih = $('.today-right').height();
+
+	var val1,val2,val3,val4;/*饼状数据*/
+	var ctrls = true;
+	var emptyv = true;
+
+	var begintimes = $('#begintimes').val();
+	var endtimes = $('#endtimes').val();
+	var txt = $('#txt').val();
+	var dqmonth = '<?php echo $tmonname; ?>';
+    var arg = 1;
+	window.onload = function() {
+		
+		$('.months-bg').click(function(){
+			$('.months-bg').fadeOut();
+			$('.months-pup').fadeOut();
+		});
+
+		if(begintimes!="" && endtimes !=""){
+			outintab(txt,txt,1);
+            mui('.mui-content').on('tap','#out_tab',function(){
+                outintab(txt,txt,1);
+            });
+		}else{
+			outintab(dqmonth+'收入',dqmonth+'支出',2);
+            mui('.mui-content').on('tap','#out_tab',function(){
+                outintab(dqmonth+'收入',dqmonth+'支出',2);
+            });
+		}
+	}
+	/*查看支出，收入*/
+	function outintab(t1,t2,endts) {
+		if(endts == 2){
+			if(arg==1){
+				//mui('.mui-content').on('tap','#out_tab',function(){outintab(2,t1,t2,endts)});
+				getmonthincome(1,$('#todaymon').val(),t1,t2);
+			}else{
+				//mui('.mui-content').on('tap','#out_tab',function(){outintab(1,t1,t2,endts)});
+				getmonthincome(2,$('#todaymon').val(),t2,t1);
+			}
+		}else if(endts == 1){
+			if(arg==1){
+				//mui('.mui-content').on('tap','#out_tab',function(){outintab(2,txt,txt,endts)});
+				getmonthincome(1,begintimes,txt+'收入',txt+'支出',endtimes);
+			}else{
+				//mui('.mui-content').on('tap','#out_tab',function(){outintab(1,txt,txt,endts)});
+				getmonthincome(2,begintimes,txt+'支出',txt+'收入',endtimes);
+			}
+		}else{
+			if(arg==1){
+				//mui('.mui-content').on('tap','#out_tab',function(){outintab(2,t1,t2)});
+				getmonthincome(1,$('#date1').val(),t1,t2);
+			}else{
+				//mui('.mui-content').on('tap','#out_tab',function(){outintab(1,t1,t2)});
+				getmonthincome(2,$('#date1').val(),t2,t1);
+			}
+		}
+		if(arg == 2){
+            arg = 1;
+		}else {
+            arg = 2;
+		}
+	}
+
+	/*弹出月份*/
+	function getmonths () {
+		$('.months-bg').fadeIn();
+		$('.months-pup').fadeIn();
+		$('.months-bg').height($(document).height());
+		var mTop = document.getElementsByClassName('moth-img')[0].offsetTop;
+		var mheight = $('.moth-img').height();
+	    var sTop = document.body.scrollTop;
+	    var resultop = mTop - sTop -(-mheight);
+	    $('.months-pup').css('top',resultop+'px');
+	    var mh = $('.months-pup-con').height(),
+	    mhh = mh*18.5/100;
+	    $('.months-pup-con').css('line-height',mhh+'px');
+	}
+
+
+	/*点击月份效果*/
+	function monthlist (begint,val) {
+		$('#showdate').text(begint);
+		$('#todaymon').val(begint);
+		var begint = $('#todaymon').val();
+		outintab(val+"收入",val+"支出",2);
+        mui('.mui-content').off('tap','#out_tab');
+        mui('.mui-content').on('tap','#out_tab',function(){
+            outintab(val+'收入',val+'支出',2);
+        });
+		$('.months-bg').fadeOut();
+		$('.months-pup').fadeOut();
+	}
+
+
+	/*时间段统计*/
+	function getmonthincome (type,begint,t1,t2,endt) {
+		$('#txt_2').text("");
+		$('#txt_8').text("");
+		var sign = type;/*1 收入，2 支出*/
+		var begint = begint;
+
+		$('#txt_10').show();
+		$('#lineimg_1').hide();
+		console.log(begint);
+        console.log(endt);
+		$('#txt_1').text(t1);
+		$('#txt_7').text(t2);
+		var weburl = "";
+		if(endt){
+			weburl += WEB_HOST+"/index.php/Balance/Index/getdetailtime?begintime="+begint+"&sign="+sign+"&endtime="+endt;
+		}else{
+			weburl += WEB_HOST+"/index.php/Balance/Index/timeslotincome?begintime="+begint+"&sign="+sign;
+		}
+		$.ajax({
+			type: "get",
+			url: weburl,
+			dataType: "json",
+			//在请求之前调用的函数
+			beforeSend: function() {
+				ctrls = false;
+			},
+			//成功返回之后调用的函数
+			success: function(obj) {
+				var msg = eval(obj);
+				if(msg['code']==0){
+					var json = msg.data;
+					if(json==null || json.list ==null){
+						emptyv = false;
+					}else{
+						var data = json.list;
+						for (var i = 0; i < data.length; i++) {
+							if(data[i]['c_type']==2){/*扫码支付*/
+								val2 = data[i]['c_money'];
+								$('#txt_3').text(data[i]['c_money'].toFixed(2));
+							}else if(data[i]['c_type']==3){/*线上订单*/
+								val3 = data[i]['c_money'];
+								$('#txt_4').text(data[i]['c_money'].toFixed(2));
+							}else if(data[i]['c_type']==4){/*收入红包，支出提现*/
+								if(sign==1){
+									val4 = data[i]['c_money'];
+									$('#txt_5').text(data[i]['c_money'].toFixed(2));
+									$('#txt_13').html("红包&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+									$('#imgsrc_1').attr('src',WEB_HOST+'/Resource/Balance/img/imgico1.png');
+								}else{
+									val4 = data[i]['c_money'];
+									$('#txt_5').text(data[i]['c_money'].toFixed(2));
+									$('#txt_13').html("提现&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+									$('#imgsrc_1').attr('src',WEB_HOST+'/Resource/Balance/img/imgico7.png');
+								}
+							}else if(data[i]['c_type']==1){/*其他*/
+								val1 = data[i]['c_money'];
+								$('#txt_6').text(data[i]['c_money'].toFixed(2));
+							}
+						};
+						if(sign == 1){
+							$('#txt_2').text("+"+json['dateincome']);
+							$('#txt_8').text("-"+json['dateout']);
+						}else{
+							$('#txt_2').text("-"+json['dateout']);
+							$('#txt_8').text("+"+json['dateincome']);
+						}
+
+						drawchart(val1,val2,val3,val4,wih,hih);
+					}
+				}else {
+					mui.toast(msg['msg']);
+					emptyv = false;
+				}
+			},
+			complete: function(XMLHttpRequest, textStatus) {
+
+			},
+			error: function() {
+				ctrls = true;
+			}
+		});
+	}
+
+	//画饼状图
+	function drawchart(a,b,c,d,w,h) {
+		var a = a;
+		var b = b;
+		var c = c;
+		var d = d;
+		var data = [{
+			name: '',
+			value: a,
+			color: '#37c887'
+		}, {
+			name: '',
+			value: b,
+			color: '#45aafa'
+		}, {
+			name: '',
+			value: c,
+			color: '#ffbf2f'
+		}, {
+			name: '',
+			value: d,
+			color: '#ff4a49'
+		}];
+		var chart = new iChart.Donut2D({
+			render: 'canvasDiv',
+			align:'center',
+			center: {
+				text: '',
+				shadow: false,
+				shadow_offsetx: 0,
+				shadow_offsety: 2,
+				shadow_blur: 2,
+				shadow_color: '#b7b7b7',
+				color: '#6f6f6f'
+			},
+			data: data,
+			offsetx: 0,
+			offsety: 0,
+			shadow: false,
+			background_color: '#ffffff',
+			separate_angle: 0, //分离角度
+			tip: {
+				enable: true,
+				showType: 'fixed'
+			},
+			sub_option: {
+				label: false,
+				color_factor: 0.3
+			},
+			showpercent: true,
+			decimalsnum: 2,
+			width: w,
+			height: h,
+			radius: w,
+			border:false
+		});
+
+		chart.draw();
+	}
+
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

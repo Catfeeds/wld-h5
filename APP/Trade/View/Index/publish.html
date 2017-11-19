@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>发布动态</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publish.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+			<form action="" method="post" id="form1" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<input type="hidden" name="province" id="province" value="{$province}" />
+				<input type="hidden" name="city" id="city" value="{$city}" />
+				<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}" />
+				<input type="hidden" name="citycode" id="citycode" value="{$citycode}" />
+				<div class="mui-content" style="background: #fff;">
+					<div class="evaluate-textarea">
+						<textarea name="content" class="text-area c9 fs13" id="text-area" placeholder="有什么新鲜事想告诉大家？..." datatype="*10-100" dragonfly="true" onKeyUp="textarealength(this,140)"></textarea>
+					</div>
+					<div class="upload-img">
+						<div class="productmodular-bottom">
+							<div class="productmodular-img" id="imgmodular0">
+								<div style="display:none;" class="productmodular-position" id="delimg_0">
+									<img src="__COMMON__/img/ca.png" alt="" />
+								</div>
+								<img src="__IMG__/district_adv_add2x.png" id="imgpath0">
+								<input type="file" name="imgfile0" value="" id="imgfile0">
+								<input type="hidden" name="imglist_0" value="" id="imgfile_val_0">
+							</div>
+						</div>
+						<div class="upload-text fs12 c9">
+							*最多上传9张，每张不超过2M,支持JPG,PNG
+						</div>
+					</div>
+					<!--<div class="issue-position">
+					<div class="i-position-l fl"><img src="__IMG__/district_icon_address_default2x.png" alt=""></div>
+					<div class="i-position-c fl fs13 c5">所在位置</div>
+					<div class="i-position-r fl"><img src="__IMG__/district_icon_continue2x.png" alt=""></div>
+			    	<input type="hidden" id="isaddress" name="isaddress" value="1">
+			    	<input type="hidden" id="address" name="address" value="长沙">
+				</div> -->
+					<div class="issue-position" id="recommpro-link" style="border-top: solid 1px #ebebeb;">
+						<div class="i-position-l fl"><img src="__IMG__/district_icon_commodity_default2x.png" alt=""></div>
+						<div class="i-position-c fl fs13 c5">推荐我的宝贝</div>
+						<div class="i-position-r fl"><img src="__IMG__/district_icon_continue2x.png" alt=""></div>
+					</div>
+					<div class="issue-trade-name fs14 c9">{$circlename}</div>
+					<div class="issue-position none" id="recommpro-hover">
+						<div class="i-position-l fl" id="i-recomm-le"><img src="__IMG__/district_icon_commodity_selection2x.png" alt=""></div>
+						<div class="i-position-c fl" id="i-recomm-c">
+							<div class="recomm-pro-r fl">
+								<div class="recomm-pro-img fl">
+									<img src="__IMG__/founder1.jpg" alt="">
+								</div>
+								<div class="recomm-pro-info fl">
+									<div class="recomm-pro-name fs12">商品名称商品名称商品名称商品名称商品名称商品名称商品名称</div>
+									<div class="recomm-pro-price fs14">￥52.00</div>
+								</div>
+							</div>
+						</div>
+						<div class="i-position-r fl" id="i-recomm-re"><img src="__IMG__/district_icon_continue2x.png" alt=""></div>
+					</div>
+					<input type="hidden" name="pcode" vlaue="" id="pcode">
+					<input type="hidden" name="time" value="{$time}">
+					<input type="hidden" name="imglist" value="" id="imglist" />
+					<div class="issue-submit fs16 cf">发布</div>
+
+				</div>
+				<div class="recomm-pro-bg"></div>
+				<div class="recomm-pro-pup">
+					<div class="donot-pro-tit">
+						<div class="donot-recomm fl ">
+							<input type="radio" name="p_c_code" value="" id="pccode">
+						</div>
+						<div class="recomm-no-pro fl">不推荐宝贝</div>
+					</div>
+					<ul id="recommpro-list">
+						<!-- <li>
+				<div class="recomm-pro-l fl">
+					<input type="radio" name="p_c_code" id="proid_" value="">
+				</div>
+				<div class="recomm-pro-r fl">
+					<div class="recomm-pro-img fl">
+						<img src="__IMG__/index/founder1.jpg" alt="">
+					</div>
+					<div class="recomm-pro-info fl">
+						<div class="recomm-pro-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称</div>
+						<div class="recomm-pro-price">￥52.00</div>
+					</div>
+				</div>
+			</li>	 -->
+					</ul>
+					<div id="console"></div>
+				</div>
+
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				styles();
+				/*关闭推荐商品*/
+				$(".recomm-pro-bg").click(function() {
+					$(".recomm-pro-bg").fadeOut(300);
+					$(".recomm-pro-pup").fadeOut(300);
+				});
+			}
+			$(document).ready(function() {
+				
+			});
+
+            /*textarea 字数限制*/
+            function textarealength(obj, maxlength) {
+                var v = $(obj).val();
+                var l = v.length;
+                if(l > maxlength) {
+                    v = v.substring(0, maxlength);
+                }
+                $('#text-area').val(v);
+            }
+			/*样式*/
+			function styles() {
+				$('.productmodular-img').height($('.productmodular-img').width());
+				$('.productmodular-position').height($('.productmodular-position').width());
+				$('.productmodular-img input[type="file"]').width($('.productmodular-img').width());
+				$('.productmodular-img input[type="file"]').height($('.productmodular-img').width());
+
+				var ph = $('.i-position-l').height();
+				$('.i-position-c').css('line-height', ph + 'px');
+			}
+			/*上传图片*/
+			mui('.upload-img').on('tap', '#imgfile0', function() {
+				var obj = $(this);
+				document.getElementById("imgfile0").onchange = function() {
+					tempUploadimg('imgfile0', 'imgpath0', 'imgfile_val_0', 0, obj);
+				}
+			});
+			mui('.upload-img').on('tap', '#delimg_0', function() {
+				deleteimg(0, $(this));
+			});
+			var valid = 0;
+			/*上传图片*/
+			function dianji(obj) {
+				valid++;
+				var html = '';
+				html += '<div class="productmodular-img"  id="imgmodular' + valid + '">';
+				html += '<div style="display:none;" class="productmodular-position" id="delimg_' + valid + '">';
+				html += '<img src="__COMMON__/img/ca.png" alt="" />';
+				html += '</div>';
+				html += '<img src="__IMG__/district_adv_add2x.png" id="imgpath' + valid + '">';
+				html += '<input type="file" name="imgfile' + valid + '" value="" id="imgfile' + valid + '">';
+				html += '<input type="hidden" name="imglist_'+valid+'" value="" id="imgfile_val_' + valid + '">';
+				html += '</div>';
+
+				$('.productmodular-bottom').append(html);
+				$('#imgmodular' + valid).show();
+				styles();
+				var idd = $(obj).parent().parent().find('.productmodular-img').size();
+				if(idd > 9) {
+					mui.toast('最多上传9张图片！');
+					return;
+				}
+				eventupload(valid);
+			}
+
+			function eventupload(id) {
+				mui('#imgmodular' + id).on('tap', '#imgfile' + id, function() {
+					var obj = $(this);
+					document.getElementById("imgfile" + id).onchange = function() {
+						tempUploadimg('imgfile' + id, 'imgpath' + id, 'imgfile_val_' + id, id, obj);
+					}
+				});
+				mui('#imgmodular' + id).on('tap', '#delimg_' + id, function() {
+					deleteimg(id, $(this));
+				});
+			}
+			/*清空图片*/
+			function deleteimg(id, obj) {
+				delUploadimg($('#imgfile_val_' + id).val());
+				$(obj).parent().remove();
+				$('#imgfile_val_' + id).val("");
+				$('#imgfile' + id).val("");
+				$('#imgfile' + id).removeAttr("disabled");
+				$('#imgpath' + id).attr("src", "__IMG__/district_adv_add2x.png");
+				$('#delimg_' + id).css("display", "none");
+			}
+
+			/*推荐宝贝弹窗*/
+			mui('.mui-content').on('tap', '#recommpro-link', function() {
+				recommevent();
+			});
+			mui('.mui-content').on('tap','#recommpro-hover',function(){
+				recommevent();
+			});
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			/*推荐商品*/
+			function recommevent() {
+				$(".recomm-pro-bg").css('display', 'block');
+				$(".recomm-pro-pup").css('display', 'block');
+				$(".recomm-pro-bg").height($(document).height());
+				
+				var rrh = $('.donot-recomm').height();
+				$('.recomm-no-pro').css('line-height', rrh + 'px');
+
+				getscore(pageindex);							
+
+			}
+			$(".recomm-pro-pup").bind('scroll', function() {
+				if(($(".recomm-pro-pup").scrollTop() + $(".recomm-pro-pup").height()) >= ($(".recomm-pro-pup").height() - 60)) {
+					if(ctrls && emptyval) {
+						getscore(pageindex);
+					}
+				}
+			});
+
+			function getscore(page) {
+				if(page == 1) {
+					pageindex = 1;
+				}
+				var _html = "";
+				var strurl = WEB_HOST + "/index.php/Trade/Index/GetProductList?pageindex=" + pageindex;
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: strurl,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#recommpro-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">抱歉，您还没有可推荐的商品</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										_html += '<li>';
+										_html += '<div class="recomm-pro-l fl">';
+										_html += '<input type="radio" name="p_c_code" id="proid_' + datalist[i]['c_pcode'] + '" value="' + datalist[i]['c_pcode'] + '">';
+										_html += '</div>';
+										_html += '<div class="recomm-pro-r fl" id="recomm-' + datalist[i]['c_pcode'] + '">';
+										_html += '<div class="recomm-pro-img fl">';
+										_html += '<img src="' + datalist[i]['c_pimg'] + '" alt="">';
+										_html += '</div>';
+										_html += '<div class="recomm-pro-info fl">';
+										_html += '<div class="recomm-pro-name fs12 c5">' + datalist[i]['c_name'] + '</div>';
+										_html += '<div class="recomm-pro-price fs13 cy">￥' + datalist[i]['c_price'] + '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</li>';
+									}
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#recommpro-list').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						prostyle();
+						ctrls = true;
+					}
+				});
+			}
+
+			/*推荐商品列表样式*/
+			function prostyle() {
+				var proimgh = $('#recommpro-list .recomm-pro-img').width(),
+				    infoh = proimgh*50/100;
+				$('#recommpro-list .recomm-pro-img').height(proimgh);
+				$('#recommpro-list .recomm-pro-info').css('line-height',infoh+'px');
+
+				var reph = $('#recommpro-list .recomm-pro-r').height(),
+					rerah = reph * 28 / 100;
+				$('#recommpro-list .recomm-pro-l').css('padding-top', rerah + 'px');
+			}
+
+			/*选择推荐的商品*/
+			function selrepro(pcode) {
+				if(pcode == "") {
+					$('#recommpro-link').css('display', 'block');
+					$('#recommpro-hover').css('display', 'none');
+					$(".recomm-pro-bg").css('display', 'none');
+					$(".recomm-pro-pup").css('display', 'none');
+
+				} else {
+					$('#pcode').val(pcode);
+					var htmls = $('#recomm-' + pcode + '').html();
+
+					$('#i-recomm-c').html(htmls);
+
+					$('#recommpro-link').css('display', 'none');
+					$('#recommpro-hover').css('display', 'block');
+					$(".recomm-pro-bg").css('display', 'none');
+					$(".recomm-pro-pup").css('display', 'none');
+					
+					var proimgh = $('#i-recomm-c .recomm-pro-img').width(),
+					    infoh = proimgh*50/100;
+					$('#i-recomm-c .recomm-pro-img').height(proimgh);
+					$('#i-recomm-c .recomm-pro-info').css('line-height',infoh+'px');
+			
+					var reph = $('#i-recomm-c').height(),
+						rerah = reph*18/100;
+					$('#i-recomm-le').css('padding-top',rerah+'px');
+					$('#i-recomm-re').css('padding-top',rerah+'px');
+					
+				}
+			}
+			/*不推荐*/
+			mui('.donot-recomm').on('tap', 'input[type="radio"]', function() {
+				selrepro("");
+			});
+			/*推荐宝贝*/
+			mui('#recommpro-list').on('tap', 'input[type="radio"]', function() {
+				var pcode = this.getAttribute('value');
+				selrepro(pcode);
+			});
+
+			var mflag = true;
+			/*提交资源*/
+			mui('.mui-content').on('tap', '.issue-submit', function() {
+				if(mflag) {
+					mflag = false;
+					if(!$('#text-area').val() && $('.productmodular-img').size() == 1) {
+						mui.toast('您还未输入任何发布信息！');
+						mflag = true;
+						return;
+					}
+					var resultli = "";
+					$("input[name^='imglist_']").each(function(){
+						if($(this).val()!=""){
+							resultli+='|'+$(this).val();						
+						}
+					});
+					$('#imglist').val(resultli.slice(1));
+					var attrbul = getFormAttrs("form1");
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SubResource',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.openWindow({url:'__URL__/index',id:"tradeindex"});
+							} else {
+								mui.toast(msg.msg);
+								mflag = true;
+								return;
+							}
+						}
+					});
+				}
+			});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

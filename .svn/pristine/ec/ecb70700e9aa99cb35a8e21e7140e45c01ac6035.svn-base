@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>店铺模板一</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=1.2">
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:16%;">
+			<div class="mui-content">
+				<div class="s-template-top divtab divre">
+					<div class="s-tmp-h-return divab"><img src="__IMG__/index/nav_return.png" alt="" /></div>
+					<div class="s-tmp-top-hinfo divab">
+						<div class="s-tmp-h-img fl">
+							<img src="__IMG__/index/o2store_bg_online.png" alt="" />
+						</div>
+						<div class="s-tmp-h-intro fl">
+							<div class="s-tmp-h-n-icon divtab">
+								<div class="s-tmp-h-nkname fl cf fs14">快乐柠檬</div>
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_pu.png" alt="" />
+								</div>
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_entity.png" alt="" />
+								</div>
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_drill.png" alt="" />
+								</div>
+							</div>
+							<div class="s-tmp-h-num divtab cf fs12">
+								<span>粉丝</span>
+								<span>8888</span>
+								<span>访问量</span>
+								<span>966</span>
+							</div>
+						</div>
+					</div>
+					<div class="block">
+						<div class="s-tmp-photo-li divab">
+							<ul>
+								<li><img src="__IMG__/index/tu11.jpg" alt="" /></li>
+								<li><img src="__IMG__/index/tu12.jpg" alt="" /></li>
+								<li><img src="__IMG__/index/tu13.jpg" alt="" /></li>
+								<li><img src="__IMG__/index/tu14.jpg" alt="" /></li>
+								<li><img src="__IMG__/index/tu15.jpg" alt="" /></li>
+							</ul>
+						</div>
+						<div class="s-tmp-photo-more divab"><img src="__IMG__/index/o2store_icon_next.png" alt="" /></div>
+					</div>
+					<img src="__IMG__/index/o2store_bg_entity3.png" alt="" />
+				</div>
+				<div class="s-template-main bgcolor divtab">
+					<div class="s-tmp-p-1 bborder divtab">
+						<div class="s-tmp-p1-actinfo fl">
+							<div class="s-tmp-p1-actico"><img src="__IMG__/index/o2store_icon_activity.png" alt="" /></div>
+							<div class="s-tmp-p1-acttit c9 fs13 divtab fov">****活动正在火热进行中</div>
+							<div class="s-tmp-p1-time fs14"><span>00</span><em>:</em><span>00</span><em>:</em><span>00</span></div>
+						</div>
+						<div class="s-tmp-p1-actinfo fr">
+							<div class="s-tmp-p1-actimg">								
+								<img src="__IMG__/index/lietu.png" alt="" />
+							</div>
+						</div>
+					</div>
+					<div class="s-tmp-p-1 bborder divtab s-tmp-p-2">
+						<div class="s-tmp-p1-dt fl">
+							<div class="s-tmp-p1-dttit c3 fs14">·商家动态·</div>
+							<div class="s-tmp-p1-dtad c3 fs12">正在火热进行中</div>
+							<div class="s-tmp-p1-dtdesc c5 fs12">
+								在这个“互联网”迅速崛起的年代，互联网的
+							</div>
+						</div>
+						<div class="s-tmp-p1-pro fl">
+							<div class="s-tmp-p1-proli bborder divtab">
+								<div class="s-tmp-p1-prole fl">
+									<p class="fs14 c3">店铺商品</p>
+									<p class="fs12 c9">上架了新宝贝</p>
+								</div>
+								<div class="s-tmp-p1-prori fl">
+									<img src="__IMG__/index/tu11.jpg" alt="" />
+								</div>
+							</div>
+							<div class="s-tmp-p1-proli divtab">
+								<div class="s-tmp-p1-prole fl">
+									<p class="fs14 c3">店铺商品</p>
+									<p class="fs12 c9">上架了新宝贝</p>
+								</div>
+								<div class="s-tmp-p1-prori fl">
+									<img src="__IMG__/index/tu11.jpg" alt="" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="s-tmp-p-1 bborder divtab s-tmp-p-2">
+						<div class="s-tmp-p1-coupon fl">
+							<div class="s-tmp-p1-coutt fl">
+								<p class="fs14 c3">卡券领取</p>
+								<p class="fs12 c9">满1000减500</p>
+							</div>
+							<div class="s-tmp-p1-couimg fl">
+								<img src="__IMG__/index/o2store_icon_ticket.png" alt="" />
+							</div>
+						</div>
+						<div class="s-tmp-p1-coupon fl s-tmp-p1-comment">
+							<div class="s-tmp-p1-coutt fl">
+								<p class="fs14 c3">评论专区</p>
+								<p class="fs12 c9">满1000减500</p>
+							</div>
+							<div class="s-tmp-p1-couimg fl">
+								<img src="__IMG__/index/o2store_icon_evaluate.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="s-tmp-p1-bottom">
+				<ul>
+					<li>
+						<div class="s-tmp-b-ico1">
+							<img src="__IMG__/index/o2store_icon_attention.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c3 fs12">关注</div>
+					</li>
+					<li>
+						<div class="s-tmp-b-ico1">
+							<img src="__IMG__/index/o2store_icon_chat.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c3 fs12">私聊</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+
+				styles();
+			}
+
+			function styles() {
+				var thhh = $('.s-tmp-h-img').width();
+				$('.s-tmp-h-img').height(thhh);
+
+				var phlih = $('.s-tmp-photo-li li').width();
+				$('.s-tmp-photo-li li').height(phlih);
+				
+				var dth = $('.s-tmp-p1-dt').height();
+				$('.s-tmp-p1-dt').height(dth);
+				$('.s-tmp-p1-pro').height(dth);
+				
+				var prohj = $('.s-tmp-p1-prori').height(),prolihj = prohj*50/100;
+				$('.s-tmp-p1-prole').css('line-height',prolihj+'px');
+				
+				var couh = $('.s-tmp-p1-couimg').height(),couhj = couh*50/100;
+				$('.s-tmp-p1-coutt').css('line-height',couhj+'px');
+			}
+
+			/*实体商家相册*/
+			mui('.mui-content').on('tap', '.s-photo-tmp-li', function() {
+				mui.openWindow({
+					url: '__URL__/photo',
+					id: 'photo'
+				});
+			});
+			mui('.mui-content').on('tap', '.s-photo-more', function() {
+				mui.openWindow({
+					url: '__URL__/photo',
+					id: 'photo'
+				});
+			});
+		</script>
+	</body>
+
+</html>

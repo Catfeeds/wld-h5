@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>支付成功</title>
+	<meta content="扫码支付,小蜜扫码支付" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/scanpay/index.css?v=3.0.4">
+</head>
+<body class="bgeb">
+<div class="wrap-page" style="margin-bottom: 48%;">
+	<div class="pay-success-bg bgcolor">
+		<div class="divtab scanheadimg scanheadimg1" id="pay-success-1" style="width: 30%;">
+			<img src="__IMG__/scanpay/wanc_icon.png" alt="">
+		</div>
+		<!--<div class="divtab divab" id="pay-success-5">-->
+			<!--<h3 class="fs18 c3">支付成功</h3>-->
+			<!--<div class="sucess-img">-->
+				<!--<img src="__IMG__/scanpay/wanc_icon.png" alt="">-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="divtab c5 fs14" id="pay-success-2" style="padding: 3% 0 0 0;">
+			<p style="color: #555;"><span>商家名称</span><span>{$userdata['c_nickname']}小店</span></p>
+			<p style="color: #555;"><span>交易时间</span><span>{$data['c_addtime']}</span></p>
+			<p style="color: #555;"><span>交易单号</span><span>{$data['c_ncode']}</span></p>
+			<p style="color: #555;"><span>支付方式</span><span>
+			<if condition="$data['c_pay_rule'] eq 2">微信支付
+			<elseif condition="$data['c_pay_rule'] eq 1"/>支付宝支付
+			<elseif condition="$data['c_pay_rule'] eq 3"/>微信支付
+			<elseif condition="$data['c_pay_rule'] eq 4"/>余额支付
+			<elseif condition="$data['c_pay_rule'] eq 5"/>活动抵扣</if>：￥<em class="c3 fs18">{$data['c_money']}</em></span></p>
+		</div>
+		<!--<img src="__IMG__/scanpay/newscan_4.png" alt="">-->
+	</div>
+
+</div>
+	<?php if (!$ucode) { ?>
+	<div class="pay-cg-main fixed-btn">
+		<div class="pay-cg-img divre">
+			<div class="pay-bindbtn fs18 divab">立即绑定</div>
+			<img src="__IMG__/scanpay/ljbd_img.png" alt="">
+		</div>
+	</div>
+	<!--<div class="fixed-btn pay-cg-main">-->
+		<!--<div class="pay-cg-img divab">-->
+			<!--<div class="pay-cg-btn fs24 divab">立即绑定</div>-->
+			<!--<img src="__IMG__/scanpay/ljbd_img.png" alt="">-->
+		<!--</div>-->
+	<!--</div>-->
+
+
+	<!--<div class="pay-success-bg2 divre divtab">-->
+		<!--<div class="pay-ucode-1 fs14 c9 divab">订单编号：{$data['c_ncode']}</div>-->
+		<!--<div class="pay-ucode-2 fs14 c9 divab">已成功向<span class="fs16 c3">{$userdata['c_nickname']}小店</span>支付</div>-->
+		<!--<div class="pay-ucode-3 fs14 c9 divab">-->
+			<!--<if condition="$data['c_pay_rule'] eq 2">微信支付-->
+				<!--<elseif condition="$data['c_pay_rule'] eq 1"/>支付宝支付-->
+				<!--<elseif condition="$data['c_pay_rule'] eq 3"/>微信支付-->
+				<!--<elseif condition="$data['c_pay_rule'] eq 4"/>余额支付-->
+				<!--<elseif condition="$data['c_pay_rule'] eq 5"/>活动抵扣-->
+			<!--</if>：￥<span class="c3 fs18">{$data['c_money']}</span>-->
+		<!--</div>-->
+		<!--<div class="pay-ucode-4 divab divtab">-->
+			<!--<a href="__URL__/index?acode={$data['c_acode']}"><img src="__IMG__/scanpay/newscan_1.png" alt=""></a>-->
+			<!--<a href="__URL__/bindtel?acode={$data['c_acode']}"><img src="__IMG__/scanpay/newscan_2.png" alt=""></a>-->
+		<!--</div>-->
+		<!--<img src="__IMG__/scanpay/newscan_3.png" alt="">-->
+	<!--</div>-->
+	<?php } else { ?>
+	<!-- <a class="divtab scansub cf fs16" href="https://a.app.qq.com/o/simple.jsp?pkgname=com.wld.net">
+		立即下载小蜜APP
+	</a> -->
+	<?php } ?>
+
+<include file="Base@Public/pubjs" />
+<include file="Base@Public/footer"/>
+</body>
+<script type="text/javascript">
+var pid = "";
+window.onload=function(){
+	var ucode = '<?php echo $ucode ?>';
+//	if(!ucode){
+//		$("body").css("background",'#fef3d7');
+//	}else{
+//		$("body").css("background",'#f4f4f4');
+//	}
+	$('.scanheadimg').height($('.scanheadimg').width());
+
+	$('.pay-cg-img').height($('.pay-cg-img').width()*0.48);
+
+	$('.sucess-img').height($('.sucess-img').width());
+}
+mui('.pay-cg-main').on('tap','.pay-bindbtn',function () {
+	mui.openWindow({url:"__URL__/bindtel?acode=<?php echo $data['c_acode']; ?>",id:"bindtel"});
+});
+</script>
+</html>

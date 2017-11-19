@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>等待审核</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="actid" id="actid" value="{$actid}" />
+				<input type="hidden" name="joinaid" id="joinaid" value="{$data.c_joinaid}" />
+				<div class="mui-content divtab bgcolor">
+					<div class="verify-main">
+						<div class="d-product divtab bborder">
+							<div class="d-pro-img fl">
+								<img src="{$data.c_img}" />
+							</div>
+							<div class="d-pro-info fl">
+								<div class="d-pro-name clamp2 fs13 c3">{$data.c_name}</div>
+								<div class="d-pro-pirce fs14 cy">￥{$data.c_value}</div>
+								<div class="d-pro-stock fs12 c5">投放数量：{$data.c_num}</div>
+							</div>
+						</div>
+						<div class="verify-state divtab">
+							<?php if($data['c_status']==4){ ?>
+							<div class="state-box divtab">
+								<div class="state-left fl">
+									<img src="__IMG__/chests/s4.png" alt="" />
+								</div>
+								<div class="state-right fl">
+									<ul>
+										<li>
+											<p class="c5 fs15">等待审核</p>
+											<p class="c9 fs12">{$data.c_addtime}</p>
+											<p class="c9 fs12"></p>
+										</li>
+										<li>
+											<p class="c5 fs15" style="color: #19cb7d;">审核通过</p>
+											<p class="c9 fs12">{$data.c_updatetime}</p>
+											<p class="c9 fs12">请务必保证参与活动能按时发货</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<?php }else if($data['c_status']==3){ ?>
+							<div class="state-box divtab">
+								<div class="state-left fl">
+									<img src="__IMG__/chests/s3.png" alt="" />
+								</div>
+								<div class="state-right fl">
+									<ul>
+										<li>
+											<p class="c5 fs15">等待审核</p>
+											<p class="c9 fs12">{$data.c_addtime}</p>
+											<p class="c9 fs12">审核时间预计三天</p>
+										</li>
+										<li>
+											<p class="c9 fs15"></p>
+											<p class="c9 fs12"></p>
+											<p class="c9 fs12"></p>
+										</li>
+									</ul>
+								</div>
+							</div>								
+							<?php }else if($data['c_status']==2){ ?>
+							<div class="state-box divtab">
+								<div class="state-left fl">
+									<img src="__IMG__/chests/s2.png" alt="" />
+								</div>
+								<div class="state-right fl">
+									<ul>
+										<li>
+											<p class="c5 fs15">等待审核</p>
+											<p class="c9 fs12">{$data.c_addtime}</p>
+											<p class="c9 fs12"></p>
+										</li>
+										<li>
+											<p class="c5 fs15" style="color: #f5574e;">审核未通过</p>
+											<p class="c9 fs12">{$data.c_updatetime}</p>
+											<p class="c9 fs12">请务必保证参与活动能按时发货</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<?php } ?>
+							<!--<div class="verify-left fl">
+								<?php if($data['c_status']==4){ ?>
+								<div class="verify-waitimg">
+									<img src="__IMG__/chests/audit_icon_waiting.png">
+								</div>
+								<div class="verify-passimg">
+									<img src="__IMG__/chests/audit_icon_tg.png">
+								</div>
+								<?php }else if($data['c_status']==2){ ?>
+								<div class="verify-waitimg">
+									<img src="__IMG__/chests/audit_icon_waiting.png">
+								</div>
+								<div class="verify-failimg">
+									<img src="__IMG__/chests/audit_icon_btg.png">
+								</div>
+								<?php } ?>
+							</div>
+							<div class="verify-right fl">
+								<?php if($data['c_status']==4){ ?>
+								<div class="verify-wait">
+									<p class="c3 fs14">等待审核</p>
+									<span class="c9 fs12">{$data.c_addtime}</span>
+									<p class="c9 fs12" style="margin-bottom: 86%;">审核时间预计三天</p>
+								</div>
+								<div class="verify-pass">
+									<p class="fs14">审核通过</p>
+									<span class="c9 fs12">{$data.c_updatetime}</span>
+									<p class="c9 fs12">请务必保证参与活动能按时发货</p>
+								</div>
+								<?php }else if($data['c_status']==2){ ?>
+								<div class="verify-wait">
+									<p class="c3 fs14">等待审核</p>
+									<span class="c9 fs12">{$data.c_addtime}</span>
+									<p class="c9 fs12" style="margin-bottom: 86%;">审核时间预计三天</p>
+								</div>
+								<div class="verify-fail">
+									<p class="fs14">审核不通过</p>
+									<span class="c9 fs12">{$data.c_updatetime}</span>
+								</div>
+								<?php } ?>
+							</div>-->
+						</div>
+
+						<div class="verify-operate fs14 cf">
+							<?php if($data['c_status']==4){ ?>
+							<div class="verify-opt01 divtab">
+								<font class="oprate-cancel">取消投放</font>
+								<font class="oprate-confirm" id="sure_submit">确认投放</font>
+							</div>
+							<?php }else if($data['c_status']==2){ ?>
+							<div class="oprate-delete">删除</div>
+							<?php }else if($data['c_status']==3){ ?>
+								<div class="verify-opt01 divtab">
+									<font class="oprate-cancel">取消投放</font>
+									<font class="oprate-confirm" style="background: #ccc;">确认投放</font>
+								</div>
+							<?php } ?>
+						</div>
+
+					</div>
+
+				</div>
+				<input type="hidden" name="pid" id="pid" value="{$data['c_id']}">
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				yangshi();
+			}
+
+			//页面加载完js改变样式
+			function yangshi() {
+				var pimgw = $('.d-pro-img').width();
+				$('.d-pro-img').height(pimgw);
+				$('.d-pro-name').css('height', pimgw * 0.5 + 'px');
+				$('.d-pro-name').css('line-height', $('.d-pro-name').height() * 0.5 + 'px');
+				$('.d-pro-pirce').css('line-height', pimgw * 0.25 + 'px');
+				$('.d-pro-stock').css('line-height', pimgw * 0.25 + 'px');
+
+//				$('.verify-left font').css('height', $('.verify-right').height() * 0.57 + 'px');
+//				$('.verify-left font').css('margin-left', $('.verify-left').width() * 0.5 + 'px');
+				
+				$('.state-left').height($('.state-left').width()*7.37);
+				$('.state-right li:nth-of-type(2)').css('margin-top',$('.state-left').height()*0.45+'px');
+
+			}
+
+			var delsign = true;
+
+			function GooddDelete(id) {
+				if(delsign) {
+					delsign = false;
+					$.post("__URL__/GooddDelete", {
+						goodid: id
+					}, function(obj) {
+						delsign = true;
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							mui.toast('撤回成功');
+							setTimeout(function() {
+								mui.openWindow({
+									url: '__URL__/index?joinaid=' + $('#joinaid').val(),
+									id: "index"
+								});
+							}, 500);
+						} else {
+							mui.toast(data['msg']);
+						}
+					});
+				}
+			}
+
+			/*投放商品*/
+			var putclick = true;
+
+			function checkprisze(id) {
+				if(putclick) {
+					putclick = false;
+					$.post("__URL__/ChangePrize", {
+						actid: id
+					}, function(obj) {
+						putclick = true;
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							mui.toast('商品已成功投放');
+							setTimeout(function() {
+								mui.openWindow({
+									url: '__URL__/index?joinaid=' + $('#joinaid').val(),
+									id: "index"
+								});
+							}, 800);
+						} else {
+							mui.toast(data['msg']);
+						}
+					});
+				}
+			}
+
+			//确认投放
+			mui('.verify-operate').on('tap', '#sure_submit', function() {
+				var id = $('#actid').val();
+				mui.confirm('注：该商品需免费提供？', '确认投放？', ['取消', '确认'], function(e) {
+					e.index == 0 ? putclick = true : checkprisze(id);;
+				}, 'div');				
+			});
+
+			//删除
+			mui('.verify-operate').on('tap', '.oprate-delete', function() {
+				var id = $('#actid').val();
+				mui.confirm('确定删除投放商品？', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? delsign = true : GooddDelete(id);
+				}, 'div');
+			});
+			
+
+			//取消投放
+			mui('.verify-operate').on('tap', '.oprate-cancel', function() {
+				var id = $('#actid').val();
+				mui.confirm('确定取消投放商品？', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? delsign = true : GooddDelete(id);
+				}, 'div');
+			});			
+		</script>
+	</body>
+
+</html>

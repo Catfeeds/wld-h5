@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>发放的红包</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/rednewact/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="redrecord-info divtab divre">
+				<div class="redrecord-money fs14 cf divab">￥<span class="fs28 fb400">{$redrecord['all_money']}</span></div>
+				<div class="redrecord-amount fs13 cf divab">共{$redrecord['all_num']}个</div>
+				<img src="__IMG__/rednewact/redpacket_icon_issue_bg.png" alt="" />
+			</div>
+			<!-- 数据列表部分 -->
+			<div class="redrecord-main bgcolor" id="data_list">
+				<!-- 一行数据 -->
+				<!-- <div class="redrecord-con divtab bborder">
+					<div class="redrecord-name-time fl">
+						<div class="record-name fs14 c3"><span class="fov record-n">端午节店铺周年庆红包大派送~</span><span class="red-type type01 fs11 cf">拼</span>
+						</div>
+						<div class="grantdetail-time mbox fs11 c9">
+							<span>2017-05-01</span>
+							<span>12:00-18:00</span>
+						</div>
+					</div>
+					<div class="record-money fr fs16 c3">
+						<div class="divtab">88.06元</div>
+						<div class="divtab fs11 c9">0个</div>
+					</div>
+				</div> -->
+				<!-- 一行数据 -->
+
+			</div>
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.xm-bar-nav-right').hide();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+		var boxw = $('.redrecord-info').width(),
+			boxh = boxw * 0.42;
+		$('.redrecord-info').height(boxh);
+		
+	}
+
+	var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/MyRedCardLog?pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html+='<div class="data-empty divtab">';
+								_html+='<div class="data-empty-img">';
+								_html+='<img src="__IMG__/rednewact/redpacket_icon_guanli_default.png" alt="" />';								
+								_html+='</div>';
+								_html+='<div class="data-empty-font c3 fs13">暂时没有红包记录，马上创建吧</div>';
+								_html+='</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="redrecord-con divtab bborder">';
+										_html+='<div class="redrecord-name-time fl">';
+											_html+='<div class="record-name fs14 c3">';
+											if (dataarr['c_type'] == 2) {
+												_html+='<span class="red-type type01 fs11 cf">拼</span>';	
+											} else {
+												_html+='<span class="red-type type02 fs11 cf">普</span>';
+											}
+											
+											_html+='<span class="fov record-n">'+dataarr['c_name']+'</span>';
+											_html+='</div>';
+											_html+='<div class="grantdetail-time mbox fs11 c9">';
+												_html+='<span>'+dataarr['c_addtime']+'</span>';
+											_html+='</div>';
+										_html+='</div>';
+										_html+='<div class="record-money fr fs16 c3">';
+											_html+='<div class="divtab">'+dataarr['c_money']+'元</div>';
+										    _html+='<div class="divtab fs11 c9">'+dataarr['c_totalnum']+'个</div>';	
+										_html+='</div>';
+									_html+='</div>';	 
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+									
+					}
+				}
+			});
+		}
+
+	
+	var tjsign = true;
+	function createdred() {
+		if (tjsign) {
+			tjsign = false;
+			$.post("",{cid:cid,num:num},function(obj){
+				var data = eval(obj);
+				tjsign = true;
+				if(data['code']==0){							
+					mui.toast(data['msg']);
+					mui.alert(data['msg']);
+					setTimeout(function () {
+						mui.openWindow({
+							url: '__URL__/couponlist',
+							id: 'couponlist'
+						});
+					}, 2000);
+				}else{
+					mui.toast(data['msg']);
+				}
+			});
+		}	
+	}
+
+
+</script>
+
+</html>

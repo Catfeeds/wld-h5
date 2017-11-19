@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$data['c_nickname']}的店铺</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=1.2">
+	</head>
+	<style type="text/css">
+		.s-tmp-photo-li ul li {width: 12%;}		
+		.s-template-main {padding-top: 0px;}
+		.s-tmp-h-intro{width: 70%;}
+	</style>
+
+	<body>
+		<div class="wrap-page" style="margin-bottom:18%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content" style="background: #fff;">
+				<div class="s-template-top divtab divre">
+					<!-- <div class="s-tmp-h-return divab"><img src="__IMG__/index/nav_return.png" alt="" /></div> -->
+					<div class="s-tmp-top-hinfo divab">
+						<div class="s-tmp-h-img fl" style="border: solid 1px #fff;">
+							<if condition="$data['c_headimg'] eq null">
+								<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+								<else />
+								<img id="self-heads" src="{$data['c_headimg']}" alt="">
+							</if>
+						</div>
+						<div class="s-tmp-h-intro fl">
+							<div class="s-tmp-h-n-icon divtab">
+								<div class="s-tmp-h-nkname fl cf fs14 fov" style="width: 80%;">{$data['c_nickname']}</div>
+								<?php if ($data['c_source'] == 2) { ?>
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_entity.png" alt="" />
+								</div>
+								<?php } else { ?>
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_pu.png" alt="" />
+								</div>
+								<?php } ?>
+							</div>
+							<div class="s-tmp-h-num divtab cf fs12">
+								<span>粉丝</span>
+								<span>{$data['c_attention']}</span>
+								<span>访问量</span>
+								<span>{$data['c_pv']}</span>
+							</div>
+						</div>
+					</div>
+					<?php if (count($imglist) > 0) { ?>
+					<div class="block" id="phone_more">
+						<div class="s-tmp-photo-li divab divtab">
+							<ul>
+								<?php foreach ($imglist as $k => $v) { ?>
+								<?php if ($k <= 4) { ?>
+								<li class="child-img photoimg s-photo-more"><img src="{$v['c_thumbnail_img']}" alt="" /></li>
+								<?php } ?>
+								<?php } ?>
+							</ul>
+						</div>
+						<div class="s-tmp-photo-more divab s-photo-more" style="right: 3%;width: 7%;"><img src="__IMG__/index/o2store_icon_next.png" alt="" /></div>
+					</div>
+					<?php } ?>
+					<?php if ($data['c_source'] == 2) { ?>
+					<img src="__IMG__/index/o2store_bg_entity3.png" alt="" />
+					<?php } else { ?>
+					<img src="__IMG__/index/o2store_bg_online2.png" alt="" />
+					<?php } ?>
+
+				</div>
+				<div class="s-template-main divtab divre">
+					<?php if($tplid==2){ ?>
+						<div class="temp_imglist divab">
+							<?php foreach ($tpl as $key => $value) { ?>
+							<div class="fl divtab imgbox" id="imgbox_2_{$key}" title="{$value['c_width']}" onclick="jumpurls('{$value['c_interface_type']}','{$value['c_interface_address']}','{$value['c_weburl']}','{$value['c_id']}');">
+								<img src="{$value['c_img']}" alt="">
+							</div>
+							<?php } ?>
+						</div>
+						<?php if ($data['c_source'] == 2) { ?>
+						<img src="__IMG__/index/store_bg_line.png" alt="" />
+						<?php } else { ?>
+						<img src="__IMG__/index/store_bg_online.png" alt="" />
+						<?php } ?>
+					<?php }else if($tplid==1){ ?>
+						<?php foreach ($tpl as $key => $value) { ?>
+						<div class="fl divtab imgbox" id="imgbox_1_{$key}" dataid="{$value['c_id']}" title="{$value['c_width']}" onclick="jumpurls('{$value['c_interface_type']}','{$value['c_interface_address']}','{$value['c_weburl']}','{$value['c_id']}');">
+							<img src="{$value['c_img']}" alt="">
+						</div>
+						<?php } ?>
+					<?php }else if($tplid==3){ ?>
+						<?php foreach ($tpl as $key => $value) { ?>
+						<div class="fl divtab imgbox" id="imgbox_3_{$key}" dataid="{$value['c_id']}" title="{$value['c_width']}" onclick="jumpurls('{$value['c_interface_type']}','{$value['c_interface_address']}','{$value['c_weburl']}','{$value['c_id']}');">
+							<img src="{$value['c_img']}" alt="">
+						</div>
+						<?php } ?>
+					<?php } ?>
+
+					<?php if (!empty($prizedata)): ?>
+					<!--<div class="s-tem-red divab heartbeat"><img src="__IMG__/index/o2store_icon_red.png" alt="" /></div>-->
+					<div class="s-tem-red divab">
+						<div class="s-tem-line"><img src="__IMG__/index/line.png" alt="" /></div>
+						<div class="s-tem-hong heartbeat" style="margin-top: -45%;">
+							<img src="__IMG__/index/hong.png" alt="" />
+						</div>							
+					</div>
+					<?php endif ?>
+
+				</div>
+			</div>
+			<div class="s-tmp-p1-bottom">
+				<ul>
+
+					<?php if ($data['is_attention'] == 1) { ?>
+					<li style="width:23%;margin-left:6%;" id="is_attention" title="2">
+						<div class="s-tmp-b-ico1 dpicon" style="width: 20%;">
+							<img id="attionimg" src="__IMG__/index/o2store_icon_1attention.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c9 fs12" id="attiontext">已关注</div>
+					</li>
+					<?php } else { ?>
+					<li style="width:23%;margin-left:6%;" id="is_attention" title="1">
+						<div class="s-tmp-b-ico1 dpicon" style="width: 20%;">
+							<img id="attionimg" src="__IMG__/index/o2store_icon_attention.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c3 fs12" id="attiontext">关注</div>
+					</li>
+					<?php } ?>
+
+					<li style="width:23%;" id="chatshop">
+						<div class="s-tmp-b-ico1 dpicon" style="width: 20%;">
+							<img src="__IMG__/index/o2store_icon_chat.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c3 fs12 cb">私聊</div>
+					</li>
+					<li style="width:40%;float:right;">
+						<div class="s-tmp-b-ico1 s-tmp-dl-ico1 bgb cf alignc fs14" id="dailishop">
+							代理专区
+						</div>
+						<!-- <div class="s-tmp-b-txt c3 fs12" id="dailishop">代理中心</div>
+											 -->
+					</li>
+				</ul>
+			</div>
+			<div class="red-get-bg"></div>
+			<div class="red-get-pup">
+				<div class="red-get-con divre">
+					<div class="red-get-money divab divtab">
+						<!--红包已被抢-->
+						<p class="fs18 none" id="rederror">糟糕，手慢了<br>该红包被别人抢了~</p>
+						<div class="block" id="redsuccess">
+							<p><span class="fs28" id="redmoney">0.00</span><span class="fs14">元</span></p>
+							<p><span class="fs16 fb600">现金</span></p>
+						</div>
+					</div>
+					<div class="red-get-font divab divtab fs16" id="redtext">福旺财旺人气旺 山高水长福寿长</div>
+					<div class="red-get-btn divab fs18">确认</div>
+					<!--如果红包为抢光状态则不跳转-->
+					<div class="red-get-balace divab fs14 none">已转入余额，点击查看></div>
+					<img src="__IMG__/index/o2store_bg_hongbao.png" alt="" />
+				</div>
+			</div>
+
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			var ucode = "<?php echo $ucode; ?>";
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+
+			window.onload = function() {
+				var sources = '<?php echo $data["c_source"] ?>';
+				styles();
+				$('.xiaomi-bar').css('background', 'none');
+				$('.mui-content').css('margin-top', '0px');
+				ChRightText("分享");
+				tempstyle();
+				
+				$('.s-tmp-photo-li li').height($('.s-tmp-photo-li li').width());
+				
+				$('.dpicon').width($('.dpicon').width());
+				$('.dpicon').height($('.dpicon').width());
+				$('.s-tmp-h-ico1').height($('.s-tmp-h-ico1').width());
+			}
+
+            $(window).bind('scroll', function() {
+                if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+                    $('.xiaomi-bar').addClass('menu-fixed');
+                    if(sources==1){
+                        $('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+                    }else if(sources==2){
+                        $('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+                    }
+                }
+                if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+                    $('.xiaomi-bar').removeClass('menu-fixed');
+                    $('.xiaomi-bar').css("background", "none");
+                }
+
+            });
+            function imgwidth(){
+				$('.imgbox').each(function(index) {
+					var wdscale = $(this).attr('title');					
+					var tlpid = '<?php echo $tplid ?>';
+					if(tlpid == 2) {
+//						var winkd = $('.temp_imglist').width();		
+//						var kd = parseInt(winkd * wdscale / 640);
+						//$(this).width(kd);		
+						$('.temp_imglist .imgbox').css({"width":kd+"px","height":parseInt(kd*0.93)+"px"});						
+					} else if(tlpid == 1) {
+						$('body').css('background',"#ffff");
+						$('.mui-content').css('background',"#ffff");
+//						var winkd1 = $(document).width();
+//						var kd1= parseInt(winkd1 * wdscale / 640);
+//						$(this).width(kd1);							
+					} else {
+						$('body').css('background',"#ffff");
+						$('.mui-content').css('background',"#ffff");
+//						var winkd3 = $(document).width();
+//						var kd3 = parseInt(winkd3 * wdscale / 640);
+//						$(this).width(kd3);							
+					}					
+				});				
+			}
+			
+			function tempstyle(){
+				var stype = '<?php echo $tplid ?>';				
+				if(stype==1){
+					$('#imgbox_1_0').css("width",$('#imgbox_1_0').width()+"px");
+					$('#imgbox_1_0').css("height",$('#imgbox_1_0').width()*0.38+"px");
+					
+					$('#imgbox_1_1').css("width", $('#imgbox_1_0').width()*0.5+"px");
+					$('#imgbox_1_1').css("height",$('#imgbox_1_1').width()+"px");
+					
+					$('#imgbox_1_2').css("width",$('#imgbox_1_0').width()*0.5+"px");
+					$('#imgbox_1_2').css("height",$('#imgbox_1_1').height()*0.5+"px");
+					
+					$('#imgbox_1_3').css("width",$('#imgbox_1_0').width()*0.5+"px");
+					$('#imgbox_1_3').css("height",$('#imgbox_1_1').height()*0.5+"px");
+					
+					$('#imgbox_1_4').css("width",$('#imgbox_1_0').width()*0.5+"px");
+					$('#imgbox_1_4').css("height",$('#imgbox_1_4').width()*0.56+"px");
+					
+					$('#imgbox_1_5').css("width",$('#imgbox_1_0').width()*0.5+"px");
+					$('#imgbox_1_5').css("height",$('#imgbox_1_4').width()*0.56+"px");
+					
+				}else if(stype==2){
+					$('.temp_imglist .imgbox').css("width",$('.temp_imglist').width()*0.5+"px");
+					$('.temp_imglist .imgbox').css("height",$('.temp_imglist .imgbox').width()*0.93+"px");
+				}else if(stype==3){
+					$('#imgbox_3_0').css("width",$('#imgbox_3_0').width()+"px");
+					$('#imgbox_3_0').css("height",$('#imgbox_3_0').width()*0.42+"px");
+					
+					$('#imgbox_3_1').css("width",$('#imgbox_3_1').width()+"px");
+					$('#imgbox_3_1').css("height",$('#imgbox_3_1').width()*0.33+"px");
+					
+					$('#imgbox_3_2').css("width",parseInt($('#imgbox_3_1').width()*0.5)+"px");
+					$('#imgbox_3_2').css("height",parseInt($('#imgbox_3_2').width()*1.11)+"px");
+					
+					$('#imgbox_3_3').css("width",parseInt($('#imgbox_3_1').width()*0.5)+"px");
+					$('#imgbox_3_3').css("height",parseInt($('#imgbox_3_2').height()*0.5)+"px");
+					
+					$('#imgbox_3_4').css("width", parseInt($('#imgbox_3_3').width()*0.5)+"px");
+					$('#imgbox_3_4').css("height",parseInt($('#imgbox_3_2').height()*0.5)+"px");
+					
+					$('#imgbox_3_5').css("width",parseInt($('#imgbox_3_3').width()*0.5)+"px");
+					$('#imgbox_3_5').css("height",parseInt($('#imgbox_3_2').height()*0.5)+"px");
+				}
+			}
+			
+			function styles() {
+				var thhh = $('.s-tmp-h-img').width();
+				$('.s-tmp-h-img').width(thhh);
+				$('.s-tmp-h-img').height(thhh);
+
+				var phlih = $('.photoimg').width();
+				$('.photoimg').height(phlih);
+
+				var gd = $('.s-tmp-dl-ico1').width() * 0.28;
+				$('.s-tmp-dl-ico1').css('height', gd + 'px');
+				$('.s-tmp-dl-ico1').css('line-height', gd + 'px');
+				$('.s-tmp-dl-ico1').css('border-radius', gd * 0.5 + 'px');
+
+			}
+
+			/*实体商家相册*/
+			mui('.mui-content').on('tap', '#phone_more', function() {
+				jumpurls('3', '34', '<?php echo GetHost(1)."/index.php/Store/Index/photo"; ?>', '34');
+			});
+
+			//私聊
+			mui('.wrap-page').on('tap', '#chatshop', function() {
+				fchat("<?php echo $storeinfo['c_ucode']; ?>", "<?php echo $storeinfo['c_name']; ?>")
+			});
+
+			function jumpurls(ity, iad, weburl, ids) {
+				var apptype = "<?php echo get_app_type(); ?>";
+				if(apptype == 3) {
+					mui.openWindow({
+						url: weburl + '?fromucode=<?php echo $issue_ucode; ?>',
+						id: 'info' + ids
+					});
+				} else {
+					if(ity == 3) {
+						switch(iad) {
+							case '31': //动态
+								if(apptype == 1) {
+									javaScript: resultData.dynamic();
+								}
+								else if(apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({
+										"dynamic": {
+											"ss": "1"
+										}
+									});
+								}
+								break;
+							case '32': //商品
+								if(apptype == 1) {
+									javaScript: resultData.proinfo();
+								}
+								else if(apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({
+										"proinfo": {
+											"ss": "1"
+										}
+									});
+								}
+								break;
+							case '33': //评论
+								if(apptype == 1) {
+									javaScript: resultData.comments();
+								}
+								else if(apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({
+										"comments": {
+											"ss": "1"
+										}
+									});
+								}
+								break;
+							case '34': //相册
+								if(apptype == 1) {
+									javaScript: resultData.photo();
+								}
+								else if(apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({
+										"photo": {
+											"ss": "1"
+										}
+									});
+								}
+								break;
+						}
+
+					} else {
+						mui.openWindow({
+							url: weburl + '?fromucode=<?php echo $issue_ucode; ?>',
+							id: 'info' + ids
+						});
+					}
+				}
+			}
+			/*领取红包*/
+			mui('.mui-content').on('tap', '.s-tem-red', function() {
+				ReceiveRed();
+			});
+
+			var resign = true;
+
+			function ReceiveRed() {				
+				if(resign) {
+					if(!ucode) {
+						mui.confirm('领取红包需登录', '提示', ['取消', '确认'], function(e) {
+							e.index == 0 ? "" : mui.openWindow({
+								url: WEB_HOST + '/index.php/Login/Index/index?url=' + detailurl,
+								id: 'login'
+							});
+						}, 'div');
+						return;
+					}
+					resign = false;
+					$.post("__URL__/ReceiveRed", {
+						awid: "<?php echo $prizedata['c_id']; ?>",
+						sid: "<?php echo $prizedata['sid']; ?>"
+					}, function(obj) {
+						var result = eval(obj);
+						resign = true;
+						if(result['code'] == 0) {
+							var data = result['data'];
+							$('#rederror').hide();
+							$('#redsuccess').show();
+							$('#redmoney').text(data['value']);
+							$('#redtext').text(data['name']);
+							$('.s-tem-red').css('display', "none");
+							$('.red-get-balace').css('display', "block");
+						} else {
+							$('#redsuccess').hide();
+							$('#rederror').show();
+							$('.s-tem-red').css('display', "none");
+							$('.red-get-balace').css('display', "none");
+						}
+
+						$('.red-get-bg').fadeIn(500);
+						$('.red-get-pup').fadeIn(800);
+						$('.red-get-bg').height($(document).height());
+						$('.red-get-con').height($('.red-get-con').width() * 1.28);
+					})
+
+				}
+			}
+			/*查看余额*/
+			mui('.red-get-pup').on('tap', '.red-get-balace', function() {
+				mui.openWindow({
+					url: "__APP__/Balance/Index/index",
+					id: "balace"
+				});
+			});
+			/*关闭弹窗*/
+			mui('.red-get-pup').on('tap', '.red-get-btn', function() {
+				$('.red-get-bg').fadeOut(200);
+				$('.red-get-pup').fadeOut(500);
+			});
+
+			/*代理中心*/
+			mui('.wrap-page').on('tap', '#dailishop', function() {
+				mui.openWindow({
+					url: "__APP__/Agency/Index/agentde?acode=<?php echo $issue_ucode; ?>",
+					id: "dailishop"
+				});
+			});
+
+			/*关注*/
+			var atclick = 1;
+			mui('.wrap-page').on('tap', '#is_attention', function() {
+				atclick = $(this).attr('title');
+				attentionss(this);
+			});
+
+			// 关注操作
+			function attentionss(tg) {
+				if(!ucode) {
+					mui.confirm('关注需登录', '提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : mui.openWindow({
+							url: WEB_HOST + '/index.php/Login/Index/index?url=' + detailurl,
+							id: 'login'
+						});
+					}, 'div');
+					return;
+				}
+
+				if(atclick == 1) {
+					var handle = 1;
+				} else {
+					var handle = 0;
+				}
+				$.post(WEB_HOST + '/index.php/Trade/Index/UserAttention', {
+						handle: handle,
+						issue_ucode: '<?php echo $issue_ucode; ?>'
+					},
+					function(obj) {
+						var msg = eval(obj);
+						if(msg['code'] == 0) {
+							if(atclick == 1) {
+								$('#attiontext').text("已关注");
+								$('#attiontext').removeClass('c3');
+								$('#attiontext').addClass('c9');
+								$('#attionimg').attr('src', '__IMG__/index/o2store_icon_1attention.png');
+								$(tg).attr('title', 2);
+							} else {
+								$('#attiontext').text("关注");
+								$('#attiontext').removeClass('c9');
+								$('#attiontext').addClass('c3');
+								$('#attionimg').attr('src', '__IMG__/index/o2store_icon_attention.png');
+								$(tg).attr('title', 1);
+							}
+							mui.toast(msg['msg']);
+						} else {
+							mui.toast(msg['msg']);
+						}
+					});
+			}
+		</script>
+	</body>
+
+</html>

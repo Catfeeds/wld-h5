@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>代理详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 3%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				
+				<div class="mui-content">
+					<div class="agent-intro divtab bgcolor">
+						<div class="divtab">
+							<div class="ag-head fl"><img src="{$user['c_headimg']}" alt="" /></div>
+							<div class="ag-info fl">
+								<div class="ag-nkname c3 fs14">
+									<em class="fl">{$user['c_nickname']}</em>
+									<?php if ($user['c_shop'] == 1 && $user['c_isfixed'] == 1) { ?>
+									<span>
+										<img src="__COMMON__/img/shi.png" alt="">
+									</span>	
+									<?php } else if ($user['c_shop'] == 1 && $user['c_isfixed'] == 0) { ?>
+									<span>
+										<img src="__COMMON__/img/shang.png" alt="">
+									</span>
+									<?php } ?>
+								</div>
+								<div class="ag-visitnum c5 fs12"><span>粉丝</span><span>{$user['c_attention']}</span><span>访问量</span><span>{$user['c_pv']}</span></div>
+							</div>
+							<?php if ($user['is_attention'] == 1) { ?>
+							<div class="ag-attention c9 fr fs13 ag-atted" title="2">已关注</div>	
+							<?php } else { ?>
+							<div class="ag-attention cb fr fs13" title="1">+关注</div>
+							<?php } ?>	
+						</div>
+
+						<?php if ($info['differ_money'] > 0): ?>
+						<div class="agent-level" title=""><em class="c3 fs14 fl">{$info['c_grade_name']}</em><span class="fl"><img src="__IMG__/index/p{$info['c_grade']}.png" alt="" /></span><em class="fs12 c9 fl">(距离下一级还差{$info['differ_money']}元)</em></div>	
+						<?php endif ?>
+						
+						<div class="ag-contact cb fb600 fs13"><span><img src="__IMG__/index/der_icon_chat.png" alt="" /></span>联系商家</div>
+					</div>
+					
+					<div class="mui-slider bgcolor">
+					  <div class="mui-slider-group">
+					  	<?php foreach ($baglist as $key => $value) { ?>					    
+					    <div class="mui-slider-item">
+					      <div class="brand-box divtab" id="bagid{$key}"  title="{$value['c_bag_code']}">
+					      	<div class="brand-head fl"><img src="{$value['img']}" alt="" /></div>
+					      	<div class="brand-info fl">
+					      		<p class="brand-name c3 fs16">{$value['c_bag_name']}</p>
+					      		<p class="brand-desc c5 fs13">{$value['c_bag_desc']}</p>
+					      	</div>
+					      </div>
+					    </div>
+					    <?php } ?>
+					  </div>
+					  <div class="mui-slider-indicator">
+					  	<?php foreach ($baglist as $key => $value) { ?>	
+					    <div class="mui-indicator <?php if ($key == 0): ?>mui-active<?php endif ?>"></div>
+					    <?php } ?>
+					  </div>
+					</div>
+					<div class="store-pro-main divtab" id="data_list">
+						<!-- <div class="agent-pro-b1">
+							<div class="s-pro-box fl" title="pcode0">
+								<div class="s-pro-img"><img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="s-pro-name c3 fs13">良品铺子麻辣</div>
+								<div class="s-pro-p-n divtab">
+									<div class="s-pro-price cy"><span class="fs12">￥</span><span class="fs14">80</span></div>
+									<div class="ag-price fs12 c5">代理价￥68.00</div>
+								</div>
+							</div>							
+						</div> -->
+					</div>					
+				</div>
+				<div class="agent-shopcart"><div class="ag-cartnum divre"><img src="__IMG__/index/der_icon_cart1.png" alt="" /><span class="cf fs11 divab">{$carcount}</span></div></div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();		
+			
+			var aghw = $('.ag-head').width();
+			$('.ag-head').height(aghw);
+			$('.ag-head').css("border-radius",aghw+"px");
+			$('.ag-info').css("line-height",aghw*0.5+"px");
+			
+			var bghw = $('.brand-head').width();
+			$('.brand-head').height(bghw);
+			$('.brand-name').css('line-height',bghw*0.3+'px');
+			$('.brand-desc').css('line-height',bghw*0.3+'px');			
+			$(".brand-desc").each(function(i) {				
+				while ($(this).height() > bghw*0.6) {
+					$(this).text($(this).text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+				};
+			});
+			
+			$('.ag-cartnum').height($('.ag-cartnum').width());
+			
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var pimgw = $('.s-pro-img').width();
+			$('.s-pro-img').height(pimgw);
+		}
+		
+		/*关注*/
+		var atclick = 1;
+		mui('.mui-content').on('tap','.ag-attention',function(){
+			atclick = $(this).attr('title');
+			attentionss(this);
+		});
+
+		// 关注操作
+		var ucode = $('#ucode').val();
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+		function attentionss(tg) {
+			if(!ucode) {
+				mui.confirm('关注需登录', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : mui.openWindow({
+						url: WEB_HOST + '/index.php/Login/Index/index?url='+detailurl,
+						id: 'login'
+					});
+				}, 'div');
+				return;
+			}
+
+			if (atclick == 1) {
+				var handle = 1;
+			} else {
+				var handle = 0;
+			}
+			$.post(WEB_HOST + '/index.php/Trade/Index/UserAttention', {
+					handle: handle,
+					issue_ucode: '<?php echo $acode; ?>'
+				},
+				function(obj) {
+					var msg = eval(obj);
+					if(msg['code'] == 0) {
+						if(atclick==1){
+							$(tg).addClass('ag-atted');
+							$(tg).removeClass('cb');
+							$(tg).addClass('c9');
+							$(tg).text("已关注");
+							$(tg).attr('title', 2);
+						}else{
+							$(tg).removeClass('ag-atted');
+							$(tg).addClass('cb');
+							$(tg).removeClass('c9');
+							$(tg).text("+关注");
+							$(tg).attr('title', 1);
+						}
+						mui.toast(msg['msg']);
+					} else {
+						mui.toast(msg['msg']);
+					}
+				});
+		}
+		
+		/*店铺跳转*/
+		mui('.mui-content').on('tap','.ag-head',function(){
+			var acode = $(this).attr('title');
+			mui.openWindow({url:"__APP__/Store/Index/index?fromucode=<?php echo $acode; ?>",id:"storeinfo"});
+		});
+		
+		/*联系商家*/
+		mui('.mui-content').on('tap','.ag-contact',function(){
+			fchat("<?php echo $user['c_ucode']; ?>","<?php echo $user['c_nickname']; ?>")
+		});
+		
+		/*查看等级详情*/
+		mui('.mui-content').on('tap','.agent-level',function(){
+			mui.openWindow({url:"__URL__/levelinfo?acode=<?php echo $acode; ?>",id:"level"});
+		});
+		
+		/*品牌详情*/
+		mui('.mui-slider-item').on('tap','.brand-box',function(){
+			var bag_code = $(this).attr('title');
+			mui.openWindow({url:"__URL__/branddesc?acode=<?php echo $acode; ?>&bag_code="+bag_code,id:"brand"});
+		});
+		
+		/*查看购物车*/
+		mui('.wrap-page').on('tap','.agent-shopcart',function(){
+			mui.openWindow({url:"__URL__/agentcart?acode=<?php echo $acode; ?>",id:"agentcart"});
+		});
+	
+	
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;	
+		//监听拉动轮播图
+		var bag_code = "<?php echo $baglist[0]['c_bag_code']; ?>";
+		document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+			bag_code = $('#bagid'+event.detail.slideNumber).attr('title');
+			pageindex = 1;ctrls = true;emptyval = true;getdatalist();
+		});
+	
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/AgencyBagProduct?grade=<?php echo $info['c_grade']; ?>&pcode=<?php echo $pcode; ?>&acode=<?php echo $acode; ?>&bag_code="+bag_code+"&pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="divtab divempty">';
+								_html += '<h3 class="divtab c6 fs14">暂无商品</h3>';
+								_html += '<p class="divtab c9 fs12">联系商家添加代理商品吧！</p>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="agent-pro-b'+pageindex+'">';
+									_html+='<div class="s-pro-box fl" title="'+dataarr['c_pcode']+'">';
+									_html+='<div class="s-pro-img"><img src="'+dataarr['c_pimg']+'" alt="" /></div>';
+									_html+='<div class="s-pro-name c3 fs13">'+dataarr['c_name']+'</div>';
+									_html+='<div class="s-pro-p-n divtab">';
+									_html+='<div class="s-pro-price cy"><span class="fs12">￥</span><span class="fs14">'+dataarr['c_price']+'</span></div>';
+									_html+='<div class="ag-price fs12 c5">代理价￥'+dataarr['dis_price']+'</div>';
+									_html+='</div>';
+									_html+='</div>';							
+									_html+='</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*查看商品详情*/
+						mui('.agent-pro-b'+pageindex).on('tap','.s-pro-box',function(){
+							var pid = $(this).attr('title');
+							mui.openWindow({url:'__URL__/pdetail?pcode='+pid,id:"pdetail"});
+						});
+					}
+				}
+			});
+		}
+
+	mui('.agent-pro-b'+pageindex).on('tap','.s-pro-box',function(){
+		var pid = $(this).attr('title');
+		mui.openWindow({url:'__URL__/pdetail?pcode='+pid,id:"pdetail"});
+	});
+	</script>
+
+</html>

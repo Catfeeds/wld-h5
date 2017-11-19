@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>购物车</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/entitymap/index.css?v=201707011844" />
+	<style type="text/css">
+		.s-pro-buynum{position: absolute;bottom: 10%;right: 3%;}
+	</style>
+</head>
+<body class="bgeb">
+
+<form action="__APP__/Order/Storder/index" method="post" accept-charset="utf-8" id="form1">
+<div class="wrap-page" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+
+<div class="mui-content">
+	<div id="wrap-cart">
+	<volist name="datainfo" id="voc">
+		<div class="store-product-list pro-list-{$i-1}" id="pro-list-{$i-1}">
+			<div class="store-name-tit">
+				<div class="store-chkbox">
+					<input type="checkbox" id="store_{$i-1}_all" name="store_{$i-1}_pro_all" onclick="dosubmit('{$i-1}','store_{$i-1}_all','store_{$i-1}_pro_all')" class="mycart_chkbox" >
+				</div>
+				<div class="store-names fs13" onclick="goShopDetail('{$voc['c_acode']}');" style="width:78%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{$voc['nickname']}</div>
+				<div class="store-arrow" style="float:right;">
+					<a href="javascript:;"><img src="__IMG__/mycart_1.png" alt=""></a>
+				</div>
+			</div>
+			<div class="store-pro-list" id="store-list-1">
+				<ul id="store-ul-0">
+					<?php foreach ($voc['list'] as $key => $val) { ?>
+					<li class="store-li">
+						<div class="pro-chkbox">
+							<input type="checkbox" name="store_{$i-1}_pro" class="mycart_chkbox" onclick="allchk('{$i-1}','store_{$i-1}_pro')" value="<?php echo $val['c_pcode'] ; ?>">
+
+							<input type="hidden" name="pcode[]" value="<?php echo $val['c_pcode'] ; ?>" id="pcode_<?php echo $val['c_pcode'] ; ?>">
+							<input type="hidden" name="mcode[]" value="" id="mcode_<?php echo $val['c_pcode'] ; ?>">
+							<input type="hidden" name="num[]" value="<?php echo $val['c_num'] ; ?>" id="num_<?php echo $val['c_pcode'] ; ?>">
+							<input type="hidden" name="pucode[]" value="<?php echo $val['c_pucode'] ; ?>" id="pucode_<?php echo $val['c_pcode'] ; ?>">
+							<input type="hidden" name="price[]" value="<?php echo $val['c_price'] ; ?>" id="price_<?php echo $val['c_pcode'] ; ?>">
+
+						</div>
+						<div class="pro-right-info">
+							<div class="pro-r-img"><img src="<?php echo $val['c_img'] ; ?>" alt=""></div>
+							<div class="pro-r-info">
+								<div class="pro-r-names fs13"><?php echo $val['c_name'] ; ?></div>
+								<div class="pro-r-state">
+									<div class="state-box fs12">
+										<?php if($val['c_isagent']==0){ ?>
+										<section class="blue-btn">自营</section>
+										<?php }if($val['c_isagent']==1){ ?>
+										<section class="yellow-btn">代理</section>
+										<?php }if(!empty($val['c_pucode'])){ ?>
+										<section class="yellow-btn">佣金</section>
+										<?php }if($val['c_isfree']==1){ ?>
+										<section class="blue-btn">包邮</section>
+										<?php } ?>
+										<section class="yellow-btn" style="display:none;">购买优惠</section>
+									</div>
+								</div>
+								<div class="pro-r-pricenum">
+									<div class="pro-r-price fs16" id="price-{$key}" style="width:30%;">￥<?php echo $val['c_price'] ; ?></div>
+								</div>
+							</div>
+						</div>
+			            <div class="s-pro-buynum" id="s-pro-buynum-{$key}">
+			                <div class="buynum-add fr" id="byadd_{$key}" onclick="addgoods('{$key}','{$val['c_kcnum']}','{$val['c_pcode']}',{$i-1})">
+			                    <img src="__IMG__/index/qdpage-7.png" alt="">
+			                </div>
+			                <div class="buyinput-txt fr" id="bytxt_{$key}">
+			                    <input type="text" name="pronum" id="pronum_{$key}" class="c9 fs12" value="<?php echo $val['c_num'] ; ?>" readonly="readonly">
+			                    <input type="hidden" id="hid_pronum_{$key}" value="<?php echo $val['c_num'] ; ?>">
+			                </div>
+			                <div class="buynum-sub fr" id="bysub_{$key}" onclick="subgoods('{$key}','{$val['c_kcnum']}','{$val['c_pcode']}',{$i-1})">
+			                    <img src="__IMG__/index/qdpage-8.png" alt="">
+			                </div>
+			            </div>
+					</li>
+					<?php } ?>
+				</ul>
+				<div class="store-pro-account">
+					<div class="account-btn fs13" onclick="tijiao()">去结算</div>
+					<!-- <input type="submit" value="去结算" class="account-btn"> -->
+					<div class="account-price fs13">总计（不含运费）：<span>￥</span><span id="countprice-{$i-1}">0</span></div>
+				</div>
+			</div>
+		</div>
+	</volist>
+	</div>
+<input type="hidden" name="confirm-pcode" value="">
+<input type="hidden" name="confirm-pucode" value="">
+<input type="hidden" name="confirm-mcode" value="">
+<input type="hidden" name="confirm-num" value="">
+</div>
+</div>
+</form>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	var cartempty = '';
+	cartempty+='<div class="divtab divempty">';
+		cartempty+='<h3 class="divtab c6 fs14">您的购物车还是空的，赶紧行动吧！</h3>';
+		cartempty+='<p class="divtab c9 fs12">您可以：<a class="empty-gg" target="_self" href="__APP__/Shopping/Index/index">去商城逛逛</a></p>';
+	cartempty+='</div>';
+	window.onload=function(){
+		$('input[type="checkbox"]').prop('checked',false);
+		var plisth = $(".pro-r-img").width();
+		$(".pro-r-img").height(plisth);
+		var pchk = plisth*34/100;
+		var prohh = plisth*33/100;
+		$(".pro-r-info").css("line-height",prohh+"px");
+		$(".pro-chkbox").css('padding-top',pchk+"px");
+
+		var ach = $(".store-pro-account").height();
+		$(".account-price").css("line-height",ach+"px");
+
+		var tith = $(".store-arrow").height();
+		$(".store-names").css("line-height",tith+"px");
+		var tithh = tith*25/100;
+		$(".store-chkbox").css("margin-top",tithh+"px");
+		$(".store-editor").css("margin-top",tithh+"px");
+		$(".store-chkbox").css("margin-bottom",tithh+"px");
+		$(".store-editor").css("margin-bottom",tithh+"px");
+		if ($('li').size()==0) {
+			$('#wrap-cart').html(cartempty);
+		}
+	}
+
+	/*结算公用*/
+	var tagname = '';
+	function account (n,name) {
+		//if (tagname != name) {
+			$('input[name="confirm-pcode"]').val('');
+			$('input[name="confirm-pucode"]').val('');
+			$('input[name="confirm-mcode"]').val('');
+			$('input[name="confirm-num"]').val('');
+		//}
+		tagname = name;
+		var pcode='',num='',mcode='',pucode='',totalprice=0.00,acount=0.00;
+
+		$('input:checkbox[name='+tagname+']:checked').each(function(i) {
+			if (i == 0) {
+				pcode +=  $("#pcode_" + $(this).val()).val();
+				num += $("#num_" + $(this).val()).val();
+				mcode += $("#mcode_" + $(this).val()).val();
+				pucode += $("#pucode_" + $(this).val()).val();
+			} else {
+				pcode += '|' + $("#pcode_" + $(this).val()).val();
+				num += '|' + $("#num_" + $(this).val()).val();
+				mcode += '|' + $("#mcode_" + $(this).val()).val();
+				pucode += '|' + $("#pucode_" + $(this).val()).val();
+			}
+			totalprice = ($('#price_' + $(this).val()).val()*$("#num_" + $(this).val()).val()).toFixed(2);
+			acount = (acount -(-totalprice)).toFixed(2);
+		});
+		$('#countprice-'+n).text(acount);
+		$('input[name="confirm-pcode"]').val(pcode);
+		$('input[name="confirm-pucode"]').val(pucode);
+		$('input[name="confirm-mcode"]').val(mcode);
+		$('input[name="confirm-num"]').val(num);
+	}
+
+	/*单选操作*/
+	function allchk(n,name) {
+		$('input[type="checkbox"]').each(function(i) {
+			if ($(this).prop('name') != name) {
+				$(this).prop('checked', false);
+			}
+		});
+		var chknum = $("#store-ul-" + n + " :checkbox").size(); //选项总个数
+		var chk = 0;
+		$("#store-ul-" + n + " :checkbox").each(function() {
+			if ($(this).prop("checked") == true) {
+				chk++;
+				account(n,name);
+			}
+		});
+		if (chknum == chk) {
+			//全选
+			$("#store_" + n + "_all").prop("checked", true);
+			account(n,name);
+		} else {
+			//不全选
+			$("#store_" + n + "_all").prop("checked", false);
+			account(n,name);
+		}
+	}
+
+	/*全选/不选，操作*/
+	function dosubmit(n,id,name) {
+		var shopname = name.substring(0,name.length-4);
+		if ($('input[name="'+name+'"]').prop('checked')) {
+			$('input[type="checkbox"]').each(function(i) {
+				if ($(this).prop('name') != shopname) {
+					$(this).prop('checked', false);
+				}
+			});
+			$('input[name="'+name+'"]').prop('checked', true);
+		}else{
+			$('input[name="'+name+'"]').prop('checked', false);
+		}
+	    if($("#"+id).prop("checked")){
+	        $("#store-ul-" + n + " :checkbox").prop("checked", true);
+	        account(n,shopname);
+	    }else{
+	        $("#store-ul-" + n + " :checkbox").prop("checked", false);
+	        account(n,shopname);
+	    }
+	}
+
+	var pucode = '';
+	/*购买数量*/
+	var pnum = "";
+	var zongnum = "";
+	/*加*/
+	function addgoods (arg,totaln,pcode,n) {
+		var pcode = pcode;
+	    var pronum = $("#hid_pronum_"+arg).val();
+	    pnum = parseInt(pronum) + 1;
+	    if (pnum<=totaln) {
+	    	$("#hid_pronum_"+arg).val(pnum);
+		    $('#pronum_'+arg).val(pnum);
+		    //$('#bysub_'+obj).css("display","block");
+		    $('#num_'+pcode).val(pnum);
+	    	operate_car(arg,pcode);
+	    	account(n,'store_'+n+'_pro');
+	    }
+	}
+	/*减*/
+	function subgoods (arg,totaln,pcode,n) {
+	    var pronum = $("#hid_pronum_"+arg).val();
+	    pnum = parseInt(pronum);
+	    var nums = pnum;
+	    if (pnum >= 1) {
+	        nums = pnum - 1;
+	        if(nums==0){
+	    		//$('#bysub_'+obj).css("display","none");
+	    		mui.confirm('您确定清除该商品吗？','提示',['取消','确认'],function (e) {
+	    			e.index == 0 ? "" : clearpro(arg,pcode,n,'store_'+n+'_pro');
+	    		},'div');
+	        }else{
+	        	$("#pronum_"+arg).val(nums);
+	    		$("#hid_pronum_"+arg).val(nums);
+	    		$('#num_'+pcode).val(nums);
+	        	operate_car(arg,pcode);
+	        	account(n,'store_'+n+'_pro');
+	        }
+	    }
+	}
+
+	/*购物车*/
+	function operate_car (arg,pcode) {
+		var pcode = pcode;
+	    $.post("__APP__/Shopping/Entitymap/AddCar",{pcode:pcode,pucode:pucode,num:pnum},function(msg){
+	        if(msg['code']==0){
+	            mui.toast(msg['msg']);
+	            $('#ico-num').css("display","block");
+	            $('#ico-num').text(msg['data']['count']);
+	        }
+	        else{
+	            mui.toast(msg['msg']);
+	            return false;
+	        }
+	    });
+	}
+
+
+	/*删除购物车商品*/
+	function clearpro(arg,parg,n,name){
+		$.ajax({
+			type: "get",
+			url: '__APP__/Shopping/Entitymap/Delecar',
+			data: "pcode="+parg,
+			dataType: "json",
+			success: function(obj) {
+				var msg = eval(obj);
+				if(msg['code']==0){
+		    		$("#pronum_"+arg).val("");
+		    		$("#hid_pronum_"+arg).val('0');
+					var lih = document.getElementById("store-ul-"+n).getElementsByTagName("li").length;
+					if(lih<=1){
+						$("#store-ul-"+n+" li").parents("div#pro-list-"+n).remove();
+						account(n,name);
+
+					}else{
+						$("#bysub_"+arg).parent().parent("li.store-li").remove();
+						account(n,name);
+					}
+					if ($('li').size()==0) {
+						$('#wrap-cart').html(cartempty);
+					}
+				}
+				else{
+		            mui.toast(msg['msg']);
+		            return false;
+				}
+			}
+		});
+	}
+
+	/*是否有选商品*/
+	function checkform(){
+		var pcode = $('input[name="confirm-pcode"]').val();
+		if (pcode=="") {
+            mui.toast('请选择要购买的商品');
+            return false;
+		}
+		return true;
+	}
+
+	/*提交*/
+	function tijiao(){
+		if (checkform()) {
+			$('#form1').submit();
+		}
+		$('input[name="confirm-pcode"]').val('');
+		$('input[name="confirm-pucode"]').val('');
+		$('input[name="confirm-mcode"]').val('');
+		$('input[name="confirm-num"]').val('');
+	}
+
+</script>
+
+</body>
+</html>

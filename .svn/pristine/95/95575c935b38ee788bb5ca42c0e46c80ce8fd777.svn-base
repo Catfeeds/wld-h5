@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>修改手机号码</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">	
+</head>
+<body>
+
+<div class="wrap-page" style="padding-bottom:13%;background:#fff;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div id="send-code-main" style="display:block;">
+		<div class="upadte-banner">
+			<div class="old-telephone">原手机号码：{$mobile}</div>
+			<input type="hidden" id="phone" name="phone" value="{$mobile}">
+			<img src="__IMG__/usercenter/bind-tel-banner.png" alt="">
+		</div>
+		<div class="send-checkcode">
+			<div class="send-font fl">校验码</div>
+			<div class="input-code fl">
+				<input type="text" id="verify1" name="verify1" placeholder="短信校验码">
+			</div>
+			<!-- <input id="verify_btn" class="get-code fl" onclick="getverify(2)" value="获取校验码"> -->
+			<button id="verify_btn" class="get-code fl" onclick="getverify(2)">获取校验码</button>
+			<!-- <div class="get-code fl" onclick="getverify(2)" id="verify_btn">获取校验码</div> -->
+		</div>
+		<div class="send-code-desc">
+			<img src="__IMG__/usercenter/bindtel-ico.png" alt="">
+			<p>如果原手机号码已停用或遗失不能收到校验码，请拨打人工客服400-9603-400，由客服协助您修改。</p>
+		</div>
+		<div class="send-code-next" id="nextcode" onclick="nextcode();">下一步</div>
+	</div>
+	
+	<div id="input-telephone" style="display:none;margin-top:6%;">
+		<div class="update-list">
+			<div class="update-font fl">手机号</div>
+			<div class="update-text fl" style="width: 78%;margin-left: 2%;"><input type="text" id="phone" name="phone" placeholder="请输入新手机号码"></div>
+		</div>
+		<div class="send-checkcode">
+			<div class="send-font fl">校验码</div>
+			<div class="input-code fl">
+				<input type="text" id="verify" name="verify" placeholder="短信校验码">
+			</div>
+			<!-- <input id="verify_btn" class="get-code fl" onclick="getverify(1)" value="获取校验码"> -->
+			<button id="verify_btn" class="get-code fl" onclick="getverify(1)">获取校验码</button>
+			<!-- <div class="get-code fl" onclick="getverify(1)" id="verify_btn">获取校验码</div> -->
+		</div>
+		<div class="send-code-next next-hover" onclick="updatephone()">修改</div>
+	</div>
+	
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__JS__/login/login.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		var codeh = $('.send-checkcode').height();
+		$('.send-checkcode').css('line-height',codeh+"px");
+		var lih = $('.update-list').height();
+		$('.update-list').css('line-height',lih+"px");
+		
+	}	
+	/*提交修改电话*/
+	function updatephone() {
+		if ($('#verify').val()=="" || $('#phone').val()=="") {
+			mui.toast('请输入手机号码，校验码！');
+			return false;
+		}else{
+			//$('#form1').submit();
+   			$.ajax({
+            //提交数据的类型 POST GET
+            type:"POST",
+            //提交的网址
+            url:"__URL__/bindtel",
+            //提交的数据
+            data:{phone:$('#phone').val(),verify:$('#verify').val()},
+            //返回数据的格式
+            datatype: "json",
+            //成功返回之后调用的函数            
+            success:function(data){
+           		var obj = eval(data);
+           		if (obj['code']==0) {
+					mui.toast(obj['msg']);
+           			window.location.href="__URL__/index";
+           		}else{
+					mui.toast(obj['msg']);
+					return false;
+           		}
+            }       
+           });				
+		}		
+	}
+
+	/*验证原手机号码*/
+	function nextcode() {
+		if ($('#verify1').val() != "") {
+			$.ajax({
+				//提交数据的类型 POST GET
+				type: "GET",
+				//提交的网址
+				url: "__URL__/checkverify",
+				//提交的数据
+				data: {
+					verify: $('#verify1').val(),phone:$('input[type="hidden"]').val()
+				},
+				//返回数据的格式
+				datatype: "json",
+				//成功返回之后调用的函数            
+				success: function(data) {
+					var obj = eval(data);
+					if (obj['code']==0) {							
+						$('.upadte-banner input[type="hidden"]').remove();
+						$('#send-code-main #verify_btn').remove();							
+						var lih = $('.update-list').height();
+						$('.update-list').css('line-height',lih+"px");
+						$('#send-code-main').hide();
+						$("#input-telephone").show();
+					}else{
+						mui.toast(obj['msg']);							
+						return false;
+					}
+				}
+			});
+		}else{
+			mui.toast('请输入手机短信上的校验码！');
+			return false;
+		}
+	}
+</script>
+</body>
+</html>

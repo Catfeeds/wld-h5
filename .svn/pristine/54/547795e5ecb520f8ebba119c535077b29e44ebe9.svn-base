@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商家后台管理--商家审核</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<link rel="stylesheet" href="__CSS__/viewer.min.css">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<style type="text/css">.pup-bg,.pup-box{ display: block;}</style>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				topstyle(); /*头部样式*/
+
+				$('#page-top-c-t').text("商家审核");
+
+				//弹框高度获取
+	    		$(".pup-bg").height($(document).height());
+
+                var apptype = "<?php echo get_app_type(); ?>";
+                if(apptype==1){
+                    $('.page-top').css("display","none");
+                }else if(apptype==2){
+                    $('.page-top').css("display","none");
+                }else{
+                    $('.page-top').css("display","block");
+                }
+
+			}
+		</script>
+
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="wrap-page bgcolor">
+			<div class="agent-details">
+				<div class="agent-d-info-1">
+					<ul class="agent-d-info fl" >
+						<li class="agent-d-name">商户资料</li>
+					</ul>
+				</div>
+				<div class="agent-d-info-2">
+					<ul>
+						<li>商户名称：{$data['c_merchantname']}</li>
+						<li><?php if($data['c_type'] == 1){ ?>负责人姓名 <?php } else if($data['c_type'] == 2){ ?>法人姓名<?php } else if($data['c_type'] == 3){ ?>经营者姓名 <?php } ?>：{$data['c_name']}</li>
+						<li>身份证号码：{$data['c_idcardinfo']}</li>
+						<li>证件有效期：{$data['c_idcardstarttime']}至{$data['c_idcardendtime']}</li>
+						<li>所属行业：{$data['tradename']}</li>
+						<li>手机号码：{$data['c_phone']}</li>
+						<li>所在省市区：{$data['c_province']}{$data['c_city']}{$data['c_county']}</li>
+						<li>详细地址：{$data['address1']}</li>
+						<?php if ($data['c_type'] == 2 || $data['c_type'] == 3) { ?>
+							<li>营业执照号：{$data['c_charter']}</li>
+						<?php } ?>
+
+					</ul>
+				</div>
+
+				<ul class="ul-certificate">
+					<li>
+						<div class="zjz-list">
+							<div class="pic-front"><img data-original="{$data['c_idcard_img']}" src="{$data['c_idcard_img']}" alt="点击查看大图"></div>
+							<img src="__IMG__/add.png" alt="">
+						</div>
+						<div class="pic-side fl">身份证正面</div>
+					</li>
+					<li>
+						<div class="zjz-list">
+							<div class="pic-front"><img data-original="{$data['c_idcard_img1']}" src="{$data['c_idcard_img1']}" alt="点击查看大图"></div>
+							<img src="__IMG__/add.png" alt="">
+						</div>
+						<div class="pic-side fl">身份证反面</div>
+					</li>
+				</ul>
+
+				<?php if ($data['c_type'] == 2 || $data['c_type'] == 3) { ?>
+					<ul class="ul-certificate">
+						<li>
+							<div class="zjz-list">
+								<div class="pic-front"><img data-original="{$data['c_charter_img']}" src="{$data['c_charter_img']}" alt=""></div>
+								<img src="__IMG__/add.png" alt="">
+							</div>
+							<div class="pic-side fl">营业执照</div>
+						</li>
+					</ul>
+				<?php } ?>
+
+				<?php if ($data['c_type']== 2) { ?>
+					<ul class="ul-certificate">
+						<li>
+							<div class="zjz-list">
+								<div class="pic-front"><img data-original="{$data['c_charterpub_img']}" src="{$data['c_charterpub_img']}" alt=""></div>
+								<img src="__IMG__/add.png" alt="">
+							</div>
+							<div class="pic-side fl">公户开户许可证</div>
+						</li>
+					</ul>
+				<?php } ?>
+
+
+
+
+				<?php if ($data['c_checked'] == 0) { ?>
+				<div class="shop-check">
+					<div class="check-pass fl"><input type="radio" value="1" name="check" checked="checked">&nbsp;通过审核</div>
+					<div class="check-pass fl"><input type="radio" value="0" name="check">&nbsp;资料有误</div>
+				</div>
+				<div class="check-btn-pass sub-blue" onclick="checked();">
+					完成
+				</div>
+
+				<?php } else if ($data['c_checked'] == 3) { ?>
+					<div class="shop-check-font">已通过审核</div>
+				<?php } else if ($data['c_checked'] == 2)  { ?>
+					<div class="shop-check-font">等待区域经理审核</div>
+				<?php } else if ($vo['c_checked'] == 4) { ?>
+					<div class="shop-check-font">等待小蜜平台审核</div>
+				<?php } else { ?>
+					<div class="shop-check-font">未通过审核</div>
+				<?php } ?>
+
+			</div>
+
+
+			<!--提示代理商-->
+			<div class="agent-tip-bg none"></div>
+			<div class="agent-tip-pop newshopinfo none" id="showinfo">
+				<h3>提示</h3>
+				<h3>已完成代理审核！请向上级代理【<span id="qudai"><?php echo !empty($shopinfo['c_name'])?$shopinfo['c_name']:'暂无'; ?></span>】，转账600元审核费用</h3>
+				<div class="newshopli newshopli_top">
+					<div class="shopli_left">
+						联系方式：
+					</div>
+					<div class="shopli_right">
+						<?php echo !empty($shopinfo['c_phone'])?$shopinfo['c_phone']:'暂无'; ?>
+					</div>
+				</div>
+				<div class="newshopli">
+					<div class="shopli_left">
+						开户行：
+					</div>
+					<div class="shopli_right">
+						<?php echo !empty($shopinfo['c_fee_bank'])?$shopinfo['c_fee_bank']:'暂无'; ?>
+					</div>
+				</div>
+				<div class="newshopli">
+					<div class="shopli_left">
+						银行卡号：
+					</div>
+					<div class="shopli_right">
+						<?php echo !empty($shopinfo['c_fee_cardnum'])?$shopinfo['c_fee_cardnum']:'暂无'; ?>
+					</div>
+				</div>
+				<div class="newshopli">
+					<div class="shopli_left">
+						开户名：
+					</div>
+					<div class="shopli_right">
+						<?php echo !empty($shopinfo['c_fee_name'])?$shopinfo['c_fee_name']:'暂无'; ?>
+					</div>
+				</div>
+				<div class="newshopli">
+					<div class="shopli_left">
+						支付宝帐号：
+					</div>
+					<div class="shopli_right">
+						<?php echo !empty($shopinfo['c_fee_alipay'])?$shopinfo['c_fee_alipay']:'暂无'; ?>
+					</div>
+				</div>
+				<div class="newshopli">
+					<div class="shopli_left">
+						微信号：
+					</div>
+					<div class="shopli_right">
+						<?php echo !empty($shopinfo['c_fee_weixin'])?$shopinfo['c_fee_weixin']:'暂无'; ?>
+					</div>
+				</div>
+				<div class="newshopsub" onclick="surebtn();">
+					完成
+				</div>
+			</div>
+
+			<!--审核提示弹窗-->
+			<!-- <div class="pup-bg"></div>
+			<div class="pup-box">
+				<div class="pup-box-img"><img src="__IMG__/dl_icon_mb.png"></div>
+				<p>请前往APP端进行审核</p>
+				<button onclick="cflink()">确认</button>
+			</div> -->
+
+		</div>
+		<script type="text/javascript">
+			// 审核提示确认
+			// function cflink(){
+			// 	window.location.href = '__APP__/Agent/Information/index';
+			// }
+            var apptype = "<?php echo get_app_type(); ?>";
+			function showInfo() {
+				$('.agent-tip-bg').show();
+				$('.agent-tip-bg').height($(document).height());
+				$('#showinfo').show();
+			}
+
+			function surebtn() {
+				$('#showinfo').hide();
+				$('.agent-tip-bg').hide();
+                if (apptype == 1) {		//小蜜安卓软件
+                    javaScript:resultData.proxyCheckShopFinish("1");
+                } else if (apptype == 2) {		//小蜜ios软件
+                    window.webkit.messageHandlers.AppModel.postMessage({
+                        "popSet": ""
+                    });
+                } else {
+                    window.location.href = '';
+                }
+			}
+			var clicksign = true;
+
+			function checked() {
+				if(clicksign) {
+					clicksign = false;
+					var keyUrl = '__APP__/Agent/Information/ReadInfostatu';
+					$.ajax({
+						url: keyUrl,
+						dataType: "json",
+						async: false,
+						success: function(data) {
+							var msg = eval(data);
+							if(msg['code'] == 0) {
+								var checked = $('input[name=check]:checked').val();
+								$.post('__URL__/checked', {
+									checked: checked,
+									sid: '<?php echo $sid ?>'
+								}, function(obj) {
+									var result = eval(obj);
+									if(result['code'] == 0) {
+                                        showInfo();
+									} else {
+										alert(result['msg']);
+									}
+								});
+							} else {
+								$('.check-btn-pass').removeAttr('onclick');
+								alert('您提交的资料还未通过审核，暂不能做微商审核');
+								clicksign = true;
+							}
+						}
+					});
+				}
+
+			}
+		</script>
+		<script src="__JS__/viewer.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.pic-front img').click(function() {
+					$('.ul-certificate').viewer({
+						url: 'data-original',
+						navbar: false,
+						toolbar: true,
+						keyboard: false,
+						movable: false,
+						scalable: false,
+						fullscreen: false
+					});
+					setTimeout("$('.viewer-play').css(\"display\",\"none\");$('.viewer-prev').css(\"display\",\"none\");$('.viewer-next').css(\"display\",\"none\");", 100);
+				});
+			});
+		</script>
+	</body>
+
+</html>

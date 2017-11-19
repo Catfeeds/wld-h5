@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<title>商家后台管理--会员管理</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/agent.css?v=1.3">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('#li-3 a').addClass('hover');
+
+		var imgh = $('.m-img').height();
+		$('.member-c-list').css('line-height',imgh+'px');
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="content-s w_960" style="padding-bottom:40px;">	
+	<div class="page-title">
+		<div class="page-tit-name">我的邀请码</div>
+	</div>
+	<div class="member-check-num">
+		<div class="member-c-num fl">
+			<p style="padding-top:35px;"><?php echo 200 - $userinfo['c_num']; ?></p>
+			<p>已激活人数</p>
+		</div>
+		<div class="member-f-num fl">
+			<p style="padding-top:35px;"><?php echo $userinfo['c_num']; ?></p>
+			<p>剩余免费激活人数</p>				
+		</div>
+	</div>
+	<ul class="member-c-list">	
+		<volist name="data" id="vo">	
+		<li>
+			<div class="m-time fr">邀请时间：{$vo.c_addtime}</div>
+			<div class="m-img fl"><img src="{$vo.c_headimg}"></div>
+			<div class="m-name fl">{$vo.c_nickname}</div>
+			<div class="m-tel fl">{$vo.c_phone}</div>
+		</li>
+		</volist>		
+	</ul>
+	<div class="pages">
+	    <div>
+	     {$page}
+	    </div>      
+	  </div>
+</div>
+
+</body>
+</html>

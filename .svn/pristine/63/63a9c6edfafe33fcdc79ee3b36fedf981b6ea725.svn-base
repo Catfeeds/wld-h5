@@ -1,0 +1,6 @@
+
+<!-- 公用css -->
+<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.min.css?v=1.5">
+<link rel="stylesheet" type="text/css" href="__COMMON__/css/reset.css?v=3.1.8">
+<script type="text/javascript">var WEB_HOST = "<?php echo WEB_HOST ?>";</script>
+<script type="text/javascript">var GET_HOST = "<?php echo GetHost() ?>";</script>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>热气球</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content divtab">
+					<div class="ch-menu-box divtab bgcolor">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_card.png" />
+						</div>
+						<div class="ch-menu-name fl fs14">
+							发布热气球卡券
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<div class="ch-menu-box divtab bgcolor">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_commodity.png" />
+						</div>
+						<div class="ch-menu-name fl fs14">
+							发布热气球商品
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<div class="ch-menu-box divtab bgcolor">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_red.png" />
+						</div>
+						<div class="ch-menu-name fl fs14">
+							发布热气球红包
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<div class="ch-menu-box divtab bgcolor">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_fu.png" />
+						</div>
+						<div class="ch-menu-name fs14 fl">
+							发布热气球祝福语
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<div class="ch-rule bgeb">
+						<div class="fs16 c3">活动细则：</div>
+						<div class="ch-rule-detail fs14 c5">
+							<div>1.仅线上实体商家发起热气球活动，在热气球活动中放置优惠券、商品、祝福语、余额中发放红包、宝箱在首页展示（位置固定），用户在首页发现热气球，点击进入到店方能领取，红包可拆分多个，商品直接到店领取。</div>
+							<div>2.微领地小蜜享有最终解释权</div>
+							<div>3.详情可咨询唯一官方客服400-9603-400</div>
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			$('.ch-menu-img').height($('.ch-menu-img').width());
+			$('.ch-menu-operate').height($('.ch-menu-operate').width());
+			$('.ch-menu-name').css('line-height',$('.ch-menu-img').width()+'px');
+
+		}
+
+	</script>
+
+</html>

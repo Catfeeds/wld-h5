@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>收货地址</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__CSS__/shop/order.css?v=1.2">
+	</head>
+
+	<body>
+		<form action="#" method="post" name="CONSIGNEE_ADDRESS" id="CONSIGNEE_ADDRESS">
+			<div class="wrap-page" style="margin-bottom:18%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<input type="hidden" id="isdefault" name="isdefault" value="">
+					<!-- 填写收货地址 -->
+					<div class="insert_bg"></div>
+					<div class="insert_address">
+						<li>
+							<div class="fl insert_left">新地址</div>
+							<div class="fl insert_right">
+								<img src="__RSC__/Shopping/img/index/delivery-hover.png" alt="" class="fr" id="imgshow_2">
+							</div>
+						</li>
+						<li>
+							<div class="fl insert_left">收货人</div>
+							<div class="fl insert_right">
+								<input type="text" id="consignee" name="consignee" value="" class="login_inpt" placeholder="请输入收货人姓名">
+							</div>
+						</li>
+						<li>
+							<div class="fl insert_left">联系电话</div>
+							<div class="fl insert_right">
+								<input type="text" id="mobile" name="mobile" value="" class="login_inpt" placeholder="请输入收货人电话号码">
+							</div>
+						</li>
+						<li>
+							<div class="fl insert_left">地区</div>
+							<div class="fl insert_right">
+								<select name="province" class="fl selectct" id="province" onchange="loadRegion('province',2,'city','{:U('Address/getRegion')}');">
+									<option value="" id="provincename">选择省</option>
+									<foreach name="province" item="province">
+										<option value="{$province.region_id}">{$province.region_name}</option>
+									</foreach>
+								</select>
+								<select name="city" class="fl selectct" id="city" onchange="loadRegion('city',3,'district','{:U('Address/getRegion')}');">
+									<option value="" id="cityname">选择市</option>
+								</select>
+								<select name="district" class="fl selectct" id="district">
+									<option value="" id="districtname">选择区</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<div class="fl insert_left">详细地址</div>
+							<div class="fl insert_right">
+								<input type="text" id="address" name="address" value="" class="login_inpt" placeholder="请输入详细地址">
+							</div>
+						</li>
+						<li>
+							<input type="hidden" name="id" id="id" value="">
+							<div class="insert_sub" id="insert_sub_address" onclick="insertAddress('CONSIGNEE_ADDRESS')">添加</div>
+						</li>
+					</div>
+
+					<!--收货地址列表-->
+					<div class="address-list-main" style="display:block;" id="myaddress-list">
+						<div id="address-list-li">
+							<volist name="addresslist" id="voa">
+								<div id="address_{$voa.c_id}">
+									<div class="address-list" id="address_{$voa.c_id}">
+										<div class="address-list-box" onclick="checkaddress('{$voa.c_id}','{$voa['c_consignee']}','{$voa['c_mobile']}','{$voa['c_provincename']}{$voa['c_cityname']}{$voa['c_districtname']}{$voa['c_address']}');">
+											<div class="address-name" id="consignee-{$voa['c_id']}">{$voa['c_consignee']}&nbsp;&nbsp;&nbsp;&nbsp;{$voa['c_mobile']}</div>
+											<div class="address-info" id="addressxq-{$voa['c_id']}">{$voa['c_provincename']}{$voa['c_cityname']}{$voa['c_districtname']}{$voa['c_address']}</div>
+										</div>
+										<div class="address-opration">
+											<div class="address-opr-input">
+												<input name="default-addr" <?php if ($voa[ 'c_is_default']==1 ): ?>checked="checked"
+												<?php endif ?> id="default-addr-{$voa['c_id']}" value="{$voa['c_id']}" type="radio" onclick="SetAddress({$voa['c_id']});" style="margin-top:2%;">
+												<div class="default-addr-txt">默认地址</div>
+											</div>
+											<div class="address-opr-btn">
+												<a id="address-del" onclick="deleteAddress({$voa['c_id']})">删除</a>
+												<a id="address-editor" onclick="xinzengdz({$voa['c_id']})">编辑</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</volist>
+						</div>
+						<div class="address-add-btn">
+							<div id="address-btn-add">+ 新增地址</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/region.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*添加地址*/
+				$('#address-btn-add').click(function() {
+					$('#isdefault').val('');
+					$('#id').val('');
+					$('#consignee').val('');
+					$('#mobile').val('');
+					$('#province option:selected').text('选择省');
+					$('#city option:selected').text('请选择');
+					$('#district option:selected').text('请选择');
+					$('#provincename').val('');
+					$('#cityname').val('');
+					$('#districtname').val('');
+
+					$('#address').val('');
+					$('.insert_bg').fadeIn(200);
+					$('.insert_address').fadeIn(200);
+					$('#insert_sub_address').text('添加');
+
+				});
+				$('.insert_bg').click(function() {
+					$('#isdefault').val('');
+					$('#id').val('');
+					$('.insert_bg').fadeOut(200);
+					$('.insert_address').fadeOut(200);
+				});
+
+			}
+			/*添加，编辑地址加载*/
+			function loadaddress(data, id) {
+				var htmls = '';
+				htmls += '<div id="address_' + data['c_id'] + '">';
+				htmls += '<div class="address-list">';
+				htmls += '<div class="address-list-box" onclick="checkaddress(\'' + data['c_id'] + '\',\'' + data['c_consignee'] + '\',\'' + data['c_mobile'] + '\',\'' + data['c_provincename'] + data['c_cityname'] + data['c_districtname'] + data['c_address'] + '\');">';
+				htmls += '<div class="address-name" id="consignee-' + data['c_id'] + '">' + data['c_consignee'] + '&nbsp;&nbsp;&nbsp;&nbsp;' + data['c_mobile'] + '</div>';
+				htmls += '<div class="address-info" id="addressxq-' + data['c_id'] + '">' + data['c_provincename'] + '' + data['c_cityname'] + '' + data['c_districtname'] + '' + data['c_address'] + '</div>';
+				htmls += '</div>';
+				htmls += '<div class="address-opration">';
+				htmls += '<div class="address-opr-input">';
+				var isdefault = data['c_is_default'];
+				if(isdefault == 1) {
+					htmls += '<input name="default-addr" checked="checked" id="default-addr-' + data['c_id'] + '" value="' + data['c_id'] + '" type="radio" onclick="SetAddress(' + data['c_id'] + ');" style="margin-top:2%;">';
+				} else {
+					htmls += '<input name="default-addr" id="default-addr-' + data['c_id'] + '" value="' + data['c_id'] + '" type="radio" onclick="SetAddress(' + data['c_id'] + ');" style="margin-top:2%;">';
+				}
+				htmls += '<div class="default-addr-txt">默认地址</div>';
+				htmls += '</div>';
+				htmls += '<div class="address-opr-btn">';
+				htmls += '<a id="address-del" onclick="deleteAddress(' + data['c_id'] + ')">删除</a>';
+				htmls += '<a id="address-editor" onclick="xinzengdz(' + data['c_id'] + ')">编辑</a>';
+				htmls += '</div>';
+				htmls += '</div>';
+				htmls += '</div>';
+				htmls += '<div class="address-add-btn">';
+				htmls += '<input type="button" name="address-btn-add" id="address-btn-add" value="+ 新增地址">';
+				htmls += '</div>';
+				htmls += '</div>';
+				$('.insert_bg').fadeOut(200);
+				$('.insert_address').hide();
+				$('#id').val('');
+				if(id) {
+					$('#address_' + id).html(htmls);
+				} else {
+					$('#address-list-li').append(htmls);
+				}
+			}
+		</script>
+		<script type="text/javascript">
+			//框架调用选择地址
+			function checkaddress(id, name, tel, ad) {
+				$(window.parent.document).find("#addressid").val(id);
+				$(window.parent.document).find("#showcheck").hide();
+				$(window.parent.document).find("#reshow").show();
+				$(window.parent.document).find("#name").html(name);
+				$(window.parent.document).find("#tel").html(tel);
+				$(window.parent.document).find("#ad").html(ad);
+			}
+		</script>
+	</body>
+
+</html>

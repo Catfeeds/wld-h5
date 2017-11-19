@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>幸运大转盘</title>
+    <meta content="微域领地,微领地小蜜" name="keywords">
+    <meta content="小蜜幸运大转盘" name="description">
+    <include file="Base@Public/header" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/roulette/roulettee.css?v=1.11">
+    <style>
+    .prize-item-img img{width: 100%;height: 100%;}
+    </style>
+  </head>
+
+<body class="bgcolor">
+  <div class="wrap-page">
+  <include file="Base@Public/pubheader" />
+    <form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <div class="mui-content">
+          <!-- 可抽取次数进度提醒 -->
+          <div class="roule-progress divre">
+              <div class="roule-progress-con divab divtab fs12">
+                <div id="progress" class="mui-progressbar roule-bar fl">
+                  <span></span>
+                </div>
+                <div id="pro-contorl" class="contorl-bar fl">
+                    <span>6</span>/<span>10人</span>
+                </div>
+                <div class="total-num fr cf">8次</div>
+              </div>
+              <img src="__IMG__/roulettee/activity_bg_ti_01.png">
+          </div>
+
+          <!-- 内容 -->
+          <div class="roule-con divtab">
+              <div class="roule-title">
+                <img src="__IMG__/roulettee/activity_img_mr.png">
+              </div>
+
+              <!-- 转盘区域 -->
+              <div class="roule-prize-con divre">
+                <div class="roule-prize divab">
+                  <img src="__IMG__/roulettee/activity_bg_zp01.png">
+                </div>
+                <div class="roule_pointer divab">
+                  <img src="__IMG__/roulettee/activity_btn_sssq.png">
+                </div>
+                <img src="__IMG__/roulettee/activity_bg_zp.png">
+              </div>
+
+              <!-- 奖品区 -->
+              <div class="item-title divre">
+                <span class="fs14 divab">奖品</span>
+                <div class="item-title-img"><img src="__IMG__/roulettee/activity_btn_01.png"></div>
+              </div>
+              <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="prize_control">
+                <div class="mui-scroll">
+                  <div class="mui-control-item mui-pro-item" title="1">
+                    <div class="divtab prize-item-info">
+                      <div class="prize-item-img">
+                        <img src="__IMG__/roulettee/mall_sh_03.png" />
+                      </div>
+                      <div class="divtab prize-item-name c3 fs12 fov">小蜜会员在“发现页面”搜索到字的图标，点击进入到小蜜幸运</div>
+                      <div class="prize-item-name cy fs12">￥12000元</div>
+                    </div>
+                  </div>
+                  <div class="mui-control-item mui-pro-item" title="2">
+                    <div class="divtab prize-item-info">
+                      <div class="prize-item-img">
+                        <img src="__IMG__/roulettee/mall_sh_03.png" />
+                      </div>
+                      <div class="divtab prize-item-name c3 fs12 fov">小蜜会员在“发现页面”搜索到字的图标，点击进入到小蜜幸运</div>
+                      <div class="prize-item-name cy fs12">￥12000元</div>
+                    </div>
+                  </div>
+                  <div class="mui-control-item mui-pro-item" title="2">
+                    <div class="divtab prize-item-info">
+                      <div class="prize-item-img">
+                        <img src="__IMG__/roulettee/mall_sh_03.png" />
+                      </div>
+                      <div class="divtab prize-item-name c3 fs12 fov">小蜜会员在“发现页面”搜索到字的图标，点击进入到小蜜幸运</div>
+                      <div class="prize-item-name cy fs12">￥12000元</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mui-slider-indicator">
+                  <div class="mui-indicator mui-active"></div>
+                  <div class="mui-indicator mui-active"></div>
+                  <div class="mui-indicator mui-active"></div>
+                </div>
+              </div>
+
+               <!-- 中奖名单 -->
+              <div class="item-title divre">
+                <span class="fs14 divab">获奖名单</span>
+                <div class="item-title-img"><img src="__IMG__/roulettee/activity_btn_01.png"></div>
+              </div>
+              <div class="prize-list" id="listname">
+                <ul>
+                    <li>
+                         <div class="xm">小蜜用户123456</div>
+                         <div class="jp">现金红包5元</div>
+                         <div class="sj">2017-05-26 12:00</div>
+                    </li>
+                    <li>
+                         <div class="xm">小蜜用户986556</div>
+                         <div class="jp">现金红包5元</div>
+                         <div class="sj">2017-05-26 12:00</div>
+                    </li>
+                    <li>
+                         <div class="xm">小蜜用户5555456</div>
+                         <div class="jp">现金红包5元</div>
+                         <div class="sj">2017-05-26 12:00</div>
+                    </li>
+                </ul>
+              </div>
+
+              <!-- 抽奖规则 -->
+              <div class="item-title divre">
+                <span class="fs14 divab">抽奖规则</span>
+                <div class="item-title-img"><img src="__IMG__/roulettee/activity_btn_01.png"></div>
+              </div>
+              <div class="prize-rule">
+                <div class="rule-title fs14">
+                  <div class="rule-title-img fl"><img src="__IMG__/roulettee/activity_icon_sjzg.png"></div>
+                  <span>抽奖资格</span>
+                </div>
+                <p class="c5 fs12">1、小蜜会员进入蜜儿飞“转”不停，召唤10个好友助力可获得一次抽奖机会。</p>
+                <p class="c5 fs12">2、小蜜会员每日在蜜儿飞“转”不停，抽奖次数不能超过10次。</p>
+
+                <div class="rule-title fs14">
+                  <div class="rule-title-img fl"><img src="__IMG__/roulettee/activity_icon_sjfs.png"></div>
+                  <span>抽奖方式</span>
+                </div>
+                <p class="c5 fs12">小蜜会员搜索进入到小蜜幸运大抽奖页面，点击抽奖，根据大转盘指针最后停留的区域获得相应奖品。</p>
+
+                <div class="rule-title fs14">
+                  <div class="rule-title-img fl"><img src="__IMG__/roulettee/activity_icon_sjjp.png"></div>
+                  <span>抽奖奖品</span>
+                </div>
+                <p class="c5 fs12">1、小蜜会员抽中现金红包，现金红包则立即转入到余额之中，可以用于微领地小蜜平台消费和提现。</p>
+                <p class="c5 fs12">2、小蜜会员抽中实物奖品，实物奖品邮费由小蜜平台负责，除法定节假日外，将会在三天内安排发货。</p>
+              </div>
+              <div class="copyright fs11">微领地小蜜平台享有此次活动的最终解释权归</div>
+            </div>
+
+
+            <!-- 弹框 -->
+            <div class="roule-prompt-con">
+              <div class="divab divtab">
+                <!-- <div class="roule-prompt-img">
+                <img src="__IMG__/roulettee/activity_img_xm03.png">
+                </div> -->
+                <div class="prize-img">
+                  <img src="__IMG__/roulettee/activity_img_hb02.png">
+
+                     <div class="roule-prompt-img">
+                      <img src="__IMG__/roulettee/activity_img_xm01.png">
+                    </div>
+                    <span class="fs14">5元</span>
+                </div>
+                <p>恭喜你!</p>
+                <p>获得“<font>Break BreakBreakBreak</font>”</p>
+              </div>
+              <img src="__IMG__/roulettee/activity_pop_jp.png">
+
+              <div class="fl fs14 roule-operate">查看详情</div>
+              <div class="fr fs14 roule-operate">继续抽奖</div>
+            </div>
+
+
+        </div>
+    </form>
+  </div>
+  <include file="Base@Public/pubjs" />
+  <script type="text/javascript" src="__COMMON__/js/jquery.vticker.js"></script>
+</body>
+<script type="text/javascript">
+    var joinaid = $('#joinaid').val();
+    window.onload = function() {
+      $('#listname').vTicker();
+
+      yangshi();
+
+    }
+
+
+
+    var lih = $("#listname ul li").height();
+    function AutoScroll(obj) {
+        $(obj).find("ul:first").animate({
+            marginTop: "-" + lih + "px"
+        }, 500, function() {
+            $(this).css({
+                marginTop: "0px"
+            }).find("li:first").appendTo(this);
+        });
+    }
+
+
+
+    //页面加载完js改变样式
+    function yangshi() {
+      var tw = window.screen.width;
+      if(tw > 720) {
+        tw = 720;
+      }
+
+      $('.prize-item-info').width(tw / 2);
+      $('.prize-item-img').width($('.prize-item-img').width());
+      $('.prize-item-img').height($('.prize-item-img').width());
+
+      $('.mui-pro-item').width($('.mui-pro-item').width());
+      $('#prize_control').height($('.mui-pro-item').height());
+
+
+
+
+
+      //进度条
+      var proImg = $('.roule-progress img').height();
+      $('.roule-bar').css('height', proImg*0.15 + 'px');
+      $('.roule-bar').css('margin-top', proImg*0.4 + 'px');
+      $('.contorl-bar').css('line-height', proImg + 'px');
+      $('.total-num').css('line-height', proImg + 'px');
+      //标题
+      tImg = $('.item-title-img').width();
+      $('.item-title-img').height(tImg*0.3);
+      $('.item-title span').css('line-height', tImg*0.3 + 'px');
+
+       //弹框
+       $('.prize-img').css('height', $('.prize-img').width());
+
+
+
+
+
+
+
+    }
+
+
+</script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>热气球活动规则</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content divtab bgcolor">
+					<div class="rule-content">
+						<p class="fs16 c3" style="padding-bottom: 4%;">1.什么是小蜜热气球？</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">小蜜热气球活动由小蜜线上商家发起，小蜜用户可在首页进行发现。点击发现到的热气球，即可获得奖品。</p>
+						<p class="fs16 c3" style="padding-bottom: 4%;">2.如何领取热气球奖品？</p>
+						<p class="fs14 c5" style="padding-bottom: 2%;">发现热气球后点击即可获得商品、优惠券、现金红包以及祝福语。</p>
+						<p class="fs14 c5" style="padding-bottom: 2%;">商品：用户需正确填写收货信息进行兑换领取；</p>
+						<p class="fs14 c5" style="padding-bottom: 2%;">优惠券：直接存入小蜜卡券包中，优惠券需在有效期内进行使用（仅限线上订单支付时使用）；</p>
+						<p class="fs14 c5" style="padding-bottom: 2%;">现金红包：红包金额将自动存入您的小蜜余额中。</p>
+						<p class="fs16 c3" style="padding-bottom: 4%;">3.奖品是否需要邮费？</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">奖品邮费由商家自行设置。如商家承担邮费，只需填写收货信息即可完成兑换领取。如商家不承担商品邮费，则需要在线上订单中支付相应的邮费才能完成兑换领取。</p>
+						<p class="fs16 c5">3.该活动小蜜平台有最终解释权，详情可咨询唯一官方客服：400-9603-400</p>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+
+			yangshi();
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {			
+
+		}
+
+		
+	</script>
+
+</html>

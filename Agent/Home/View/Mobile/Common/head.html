@@ -1,0 +1,151 @@
+  <script type="text/javascript" src="__JS__/fastclick.js"></script>
+  <div class="page-top">
+    <div class="page-top-l fl">
+     <a href="javascript:history.go(-1)" id="return-top"> <img src="__IMG__/mobile/m-jt.png" alt=""></a>
+    </div>
+    <div class="page-top-c fl" id="page-top-c-t">
+      公告
+    </div>
+    <div class="page-top-r fr">
+      <a href="javascript:;" id="icolink">
+        <img src="__IMG__/mobile/menu-ico-l.png" alt="">
+      </a>
+      <a href="javascript:;" id="icohover" style="display:none;">
+        <img src="__IMG__/mobile/menu-ico-h.png" alt="">
+      </a>
+    </div>
+  </div>
+
+  <div class="m-menu-bigbg" style="background:rgba(0,0,0,0.3);width: 100%;height:100%;position: absolute;z-index: 99;left:0;top:0;display:none;"></div>
+  <div class="page-menu-bg" style="display:none;">
+    <div class="page-menu-logo">
+      <a href="__APP__/Home/Information"><img src="__IMG__/mobile/m-logo.png" alt=""></a>
+    </div>
+    <div class="page-m-loginname">
+      欢迎您&nbsp;&nbsp;{$Think.session._ADMIN_NAME}
+    </div>
+    <ul class="page-menu-list">
+      <li>
+        <a href="__APP__/Home/Information">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-1.png" alt=""></div>
+        <div class="fl p-m-text">公告</div>
+        <div class="fl p-m-num" id="notice">0</div>
+        </a>
+      </li>
+      <li>
+        <a href="__APP__/Home/Agentntrol">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-2.png" alt=""></div>
+        <div class="fl p-m-text">代理管理</div>
+        </a>
+      </li>
+      <li>
+        <a href="__APP__/Home/Shopcheck">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-3.png" alt=""></div>
+        <div class="fl p-m-text">商家审核</div>
+        </a>
+      </li>
+      <!-- <li>
+        <a href="__APP__/Home/Stringcheck">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/code_icon.png" alt=""></div>
+        <div class="fl p-m-text">串码审核</div>
+        </a>
+      </li> -->
+      <li>
+        <a href="__APP__/Home/Download">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-4.png" alt=""></div>
+        <div class="fl p-m-text">资料下载</div>
+        </a>
+      </li>
+      <li>
+        <a href="__APP__/Home/Personal">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-5.png" alt=""></div>
+        <div class="fl p-m-text">个人中心</div>
+        </a>
+      </li>
+      <li>
+        <a href="__APP__/Home/Login/logout" class="a-loginout">
+          <img src="__IMG__/mobile/loginout.png" alt="">
+        </a>
+      </li>
+    </ul>
+
+  </div>
+<script type="text/javascript">
+
+function topstyle () {
+	// var pth = $('.page-top').height();
+	// $('.page-top-c').css('line-height', pth + 'px');
+  var topr = $('.page-top-r').width();
+  $('.page-top-r').height(topr);
+  var topl = $('.page-top-l').width();
+  $('.page-top-l').height(topr);
+
+}
+
+function menustyle() {
+
+	var pth = $('.page-top').height();
+	$('.page-menu-bg').css('top', pth + 'px');
+
+	var dh = $(document).height();
+	$('.page-menu-bg').css('height', dh + 'px');
+
+	// var icoh = $('.page-menu-list li').height();
+	// $('.p-m-text').css('line-height', icoh + 'px');
+	var numh = $('.p-m-num').height();
+	$('.p-m-num').css('width', numh + 'px');
+	$('.p-m-num').css('line-height', numh + 'px');
+	$('.p-m-num').css('border-radius', numh + 'px');
+}
+$(function() {
+  FastClick.attach(document.body);
+  $('#icolink').click(function () {
+    showmenu(1);
+  });
+  $('#icohover').click(function() {
+    showmenu(2);
+  });
+});
+function showmenu(v) {
+  var v = v;
+  if (v == 1) {
+    $('.page-menu-bg').fadeIn(500);
+    $('#icolink').hide();
+    $('#icohover').show();
+    $('.m-menu-bigbg').css("display","block");
+    $('.m-menu-bigbg').height($(document).height());
+    menustyle();
+  } else {
+    $('.page-menu-bg').fadeOut(300);
+    $('#icolink').show();
+    $('#icohover').hide();
+    $('.m-menu-bigbg').css("display","none");
+  }
+}
+
+$('.m-menu-bigbg').click(function () {
+    $('.page-menu-bg').fadeOut(300);
+    $('#icolink').show();
+    $('#icohover').hide();
+    $('.m-menu-bigbg').css("display","none");
+});
+
+
+getnum();
+
+/*显示数字*/
+function getnum(){
+  var keyUrl = '__APP__/Home/Information/GetStatuMessage';
+  $.ajax({url:keyUrl,dataType:"json",async:false,
+      success:function(data){
+        var msg = eval(data);
+        if (msg['code']==0) {
+          $('#notice').text(msg['data']['publicnum']);
+          $('#checka').text(msg['data']['checknum']);
+        }else{
+          alert(msg['msg']);
+        }
+      }
+  });
+}
+</script>

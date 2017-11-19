@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>拼团列表页</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/collage/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!--  内容     -->
+			<div class="collage-list bgcolor" id="data_list">
+				<!--  一行数据区     -->
+				<!-- <div class="cl-box bgcolor bborder">
+					<div class="cl-box-img fl divre">
+						<div class="box-img divab">
+							<img src="__IMG__/entitymap/dlsc_dlxq_02.jpg" />
+						</div>
+						<img src="__IMG__/collage/spell_hp2.png" />
+					</div>
+					<div class="cl-box-info fl">
+						<div class="cl-box-name fs14 fb400">
+							Jordan Moreno
+						</div>
+						<div class="cl-box-time c5 fs12">
+							剩余时间：04:46:12
+						</div>
+					</div>
+					<div class="cl-box-number fr divre">
+						<span class="divab fs12 ccb">还差1人</span>
+						<span class="divab fs12 cf">去参团</span>
+						<img src="__IMG__/collage/spell_btn_qkt.png" />
+					</div>
+				</div> -->
+				<!--  一行数据区   end  -->
+
+			</div>
+			<!--  内容     -->	
+			<div id="console"></div>	
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		/*参团头像*/
+		var hzw = $('.cl-box-img').width();
+		$('.cl-box-img').height(hzw*1.22);
+		$('.box-img').width(hzw*0.93);
+		$('.box-img').height(hzw*0.93);
+		$('.box-img').css('border-radius',$('.box-img').width()+'px');
+		$('.box-img').css('left',hzw*0.04+"px");
+		$('.box-img').css('top',$('.cl-box-img').height()*0.21+"px");
+		$('.cl-box-info').css('line-height',$('.box-img').width()*0.5+'px');
+		$('.cl-box-number').css('margin-top',$('.box-img').width()*0.5+'px');
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/TjgroupList?act_pcode=<?php echo $act_pcode; ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html += '<div class="data-empty divtab bgeb">';
+							_html += '<div class="data-empty-img">';
+							_html += '<img src="__IMG__/collage/kj_qc_wu.png" alt="" />';
+							_html += '</div>';
+							_html += '<div class="data-empty-font c3 fs13">暂无相关拼团信息</div>';
+							_html += '</div>';	
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html += '<div class="cl-box bgcolor bborder cl-box_'+pageindex+'" title="'+dataarr['c_groupcode']+'">';
+									_html += '<div class="cl-box-img fl divre">';
+										_html += '<div class="box-img divab">';
+											_html += '<img src="'+dataarr['c_headimg']+'" />';
+										_html += '</div>';
+										_html += '<img src="__IMG__/collage/spell_hp2.png" />';
+									_html += '</div>';
+									_html += '<div class="cl-box-info fl">';
+										_html += '<div class="cl-box-name fs14 fb400 fov">'+dataarr['groupname']+'</div>';
+										_html += '<div class="cl-box-time c5 fs12" id="votetime'+dataarr['c_groupcode']+'">剩余时间：<span id="coll_'+dataarr['c_groupcode']+'" style="display:none;"></span><span id="t_'+dataarr['c_groupcode']+'" style="display:none;"></span><span id="h_'+dataarr['c_groupcode']+'">00</span>:<span id="f_'+dataarr['c_groupcode']+'">00</span>:<span id="m_'+dataarr['c_groupcode']+'">00</span></div>';
+									_html += '</div>';
+									_html += '<div class="cl-box-number fr divre" id="boxclick'+dataarr['c_groupcode']+'">';
+										_html += '<span class="divab fs12 ccb">还差'+dataarr['difnum']+'人</span>';
+										_html += '<span class="divab fs12 cf">去参团</span>';
+										_html += '<img src="__IMG__/collage/spell_btn_qkt.png" />';
+									_html += '</div>';
+								_html += '</div>';
+								startcuttimejs(dataarr['stattime'],dataarr['endtime'],dataarr['c_groupcode']);
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					$('.cl-box_'+pageindex).each(function(index) {
+						var groupcode = $(this).attr('title');
+						mui('.mui-content').on('tap', '#boxclick' + groupcode, function() {
+							mui.openWindow({
+								url: "__URL__/pjoin?act_pcode=<?php echo $act_pcode; ?>&groupcode=" + groupcode,
+								id: "myspace"
+							});
+						});
+					});	
+				}		
+			}
+		});
+	}
+
+	function startcuttimejs(startime, endtime, id) {
+		if (startime && endtime) {
+			$('#votetime' + id).ready(function() {
+				$('#votetime' + id).showtime({
+					sign: id,
+					startname: "距开始时",
+					endname: "距结束时",
+					ended: "已结束",
+					starttime: startime,
+					endtime: endtime
+				});
+			});
+		}
+	}
+
+</script>
+
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加活动</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabCon">		
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>平台活动模板：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="aid" id="aid" disabled="disabled">
+							<option value="">--请选择--</option>
+							<volist name="pactivity" id="v">
+					  			<option value="{$v['c_id']}" <if condition="$vo.c_aid eq $v['c_id']">selected="selected"</if>>{$v['c_activityname']}</option>
+					  		</volist>
+						</select>
+					</span>
+					<input type="hidden" name="aid" value="{$vo.c_aid}">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>活动平台：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="sign" disabled="disabled">
+							<option value="1" <if condition="$vo.c_sign eq 1">selected="selected"</if>>平台活动</option>
+							<option value="2" <if condition="$vo.c_sign eq 2">selected="selected"</if>>商家活动</option>
+						</select>
+						<input type="hidden" name="sign" value="{$vo.c_sign}">
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<if condition="$vo['c_acode'] neq null">
+				<div class="row cl" style="display: none;" id="listd1">
+					<label class="form-label col-3"><span class="c-red">*</span>选择商家：</label>
+					<div class="formControls col-6">
+						<span class="select-box">
+							<select name="acode" class="select" onClick="selectucode('请选择用户','Member/member_list?hide=1&shop=1',800);" id="typecheck">
+								<if condition="$data['c_ucode'] neq null">
+								<option value="{$data.c_ucode}">{$data.c_nickname}</option></if>
+								<option value="{$vo.c_acode}">{$vo.c_nickname}</option>
+							</select>
+			        	</span>
+			        </div>
+					<div class="col-4"> </div>
+				</div>
+			</if>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>活动名称：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_activityname}" placeholder="" id="" name="activityname" placeholder="" datatype="*2-100" dragonfly="true" nullmsg="活动名称不能为空！">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+		      <label class="form-label col-3"><span class="c-red">*</span>备注：</label>
+		      <div class="formControls col-6">
+		        <textarea name="remark" cols="" rows="" class="textarea"  placeholder="" onKeyUp="textarealength(this,200)">{$vo.c_remark}</textarea>
+		        <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+		      </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>开始时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="activitystarttime" name="activitystarttime" value="{$vo.c_activitystarttime}" placeholder="活动开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>			
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>结束时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="activityendtime" name="activityendtime" value="{$vo.c_activityendtime}" placeholder="活动结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			  <div class="row cl">
+		      <label class="form-label col-3"><span class="c-red">*</span>活动列表展示图：</label>
+		      <div class="formControls col-6">
+		      	<input type="file" name="listimg">
+		      </div>
+		      <div class="col-4"> </div>
+		    </div>
+			<div class="row cl">
+		      <label class="form-label col-3"><span class="c-red">*</span>首页展示图：</label>
+		      <div class="formControls col-6">
+		      	<input type="file" name="pimg">
+		      </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl" id="listd1">
+		      <label class="form-label col-3"><span class="c-red">*</span>活动底图：</label>
+		      <div class="formControls col-6">
+		      	<input type="file" name="img">
+		      </div>
+		      <div class="col-4"> </div>
+		    </div>
+
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>是否置顶：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="istop">
+							<option value="0" <if condition="$vo.c_istop eq 0">selected="selected"</if>>否</option>
+							<option value="1" <if condition="$vo.c_istop eq 1">selected="selected"</if>>是</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>是否热门：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="ishot">
+							<option value="0" <if condition="$vo.c_ishot eq 0">selected="selected"</if>>否</option>
+							<option value="1" <if condition="$vo.c_ishot eq 1">selected="selected"</if>>是</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>活动状态：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="state">
+							<option value="">--请选择--</option>
+							<option value="1" <if condition="$vo.c_state eq 1">selected="selected"</if>>开始活动</option>
+							<option value="2" <if condition="$vo.c_state eq 2">selected="selected"</if>>停止活动</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>首页是否展示：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="show">
+							<option value="">--请选择--</option>
+							<option value="1" <if condition="$vo.c_show eq 1">selected="selected"</if>>展示</option>
+							<option value="2" <if condition="$vo.c_show eq 2">selected="selected"</if>>不展示</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>活动类型：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="activitytype" disabled="disabled">
+							<option value="">--请选择--</option>
+							<volist name="activity" id="v">
+					  			<option value="{$v['id']}" <if condition="$vo.c_activitytype eq $v['id']">selected="selected"</if>>{$v['name']}</option>
+					  		</volist>
+						</select>
+						<input type="hidden" name="activitytype" value="{$vo.c_activitytype}">
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+			<div class="row cl">
+		      <label class="form-label col-3">店铺所在地址：</label>
+		      <div class="formControls col-5">
+		       <input type="text" class="input-text" value="{$vo.c_address}" id="" name="address" placeholder="">
+		      </div>
+		      <div class="col-4"><span class="c-red">*宝箱等必填</span>&nbsp;&nbsp;&nbsp; <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html"  target="_blank"><font color="#9900FF">网页获取经纬度</font></a></div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">店铺所在经度：</label>
+		      <div class="formControls col-5">
+		       <input type="text" class="input-text" value="{$vo.c_longitude}" id="" name="longitude" placeholder="">
+		      </div>
+		      <div class="col-4"><span class="c-red">*宝箱等必填</span></div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">店铺所在纬度：</label>
+		      <div class="formControls col-5">
+		       <input type="text" class="input-text" value="{$vo.c_latitude}" id="" name="latitude" placeholder="">
+		      </div>
+		      <div class="col-4"><span class="c-red">*宝箱等必填</span></div>
+		    </div>
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<input type="submit" value="提交" class="btn btn-primary radius">
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+</script>
+</body>
+</html>

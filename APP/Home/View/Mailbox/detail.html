@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>老胡信箱</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/mailbox/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<input type="hidden" name="contentid" id="contentid" value="{$data['c_id']}">
+				<div class="mui-content">
+					<div class="mailbox-box">
+						<div class="mailbox-item bgcolor">
+							<div class="mailbox-item-question">
+								<span class="mb-item-time c9 fs13">{$data.c_addtime}</span>
+								<div class="mb-item-con divtab" id="imglist-1-1">
+									<ul>
+										<?php if(!empty($data['imgList'])){ ?>
+										<?php foreach($data['imgList'] as $key=> $value){ ?>
+										<li><img src="{$data['imgList'][$key]}" alt="" /></li>
+										<?php } ?>
+										<?php } ?>
+									</ul>
+								</div>
+								<p class="mb-item-text c3 fs14 clamp2">{$data.c_content}</p>
+							</div>
+							<?php if($statu==2){ ?>
+							<?php if(!empty($data['reply'])) { ?>
+							<div class="mailbox-item-reply">
+								<div class="reply-info">
+									<span class="mb-item-time c9 fs13">{$data['reply'][0]['c_addtime']}</span>
+									<p class="pcolor fs14">回复：</p>
+									<p class="mb-item-text c3 fs12">{$data['reply'][0]['c_content']}</p>
+								</div>
+							</div>
+							<?php } ?>
+							<?php } ?>
+						</div>
+					</div>
+					<?php if($statu==1){ ?>
+					<div class="view-reply">
+						<div class="reply-default">
+							<input value="" name="comtext" placeholder="回复：" class="c9 fs14" />
+						</div>
+					</div>
+					<?php } ?>
+				</div>
+				<div class="send-comm-bg"></div>
+				<div class="send-comm-pup">
+					<div class="send-comm-puptit">回复(500字)</div>
+					<div class="send-comm-txt">
+						<textarea placeholder="输入回复内容" name="feel" id="feel" rows="6" class="fs12" maxlength="500"></textarea>
+					</div>
+					<input type="hidden" name="rid" id="rid" value="{$data['c_id']}">
+					<div class="send-comm-btn" id="send_btn">回复</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var mbImge = $('.mb-item-con ul li img').width();
+			$('.mb-item-con ul li img').height(mbImge);
+		}
+
+		//查看图片
+		$(document).ready(function() {
+			$("#imglist-1-1").viewer({
+				title: false
+			});
+		});
+
+		//回复弹窗
+		mui('.mui-content').on('tap', '.reply-default', function() {
+			var idsign = $('#contentid').val();
+			sendcommt(idsign);
+		});
+
+		function sendcommt(rid) {
+			if(!ucode) {
+				mui.confirm('回复需登录', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : mui.openWindow({
+						url: WEB_HOST + '/index.php/Login/Index/index',
+						id: 'login'
+					});
+				}, 'div');
+				return;
+			}
+			$('#rid').val(rid);
+			$('#feel').val('');
+			$(".send-comm-bg").fadeIn(300);
+			$(".send-comm-pup").fadeIn(300);
+			$(".send-comm-bg").height($(document).height());
+		}
+
+		$(".send-comm-bg").click(function() {
+			$(".send-comm-bg").fadeOut(300);
+			$(".send-comm-pup").fadeOut(300);
+		});
+
+		//回复按钮
+		mui('.send-comm-pup').on('tap', '#send_btn', function() {
+			var contents = document.getElementById('feel');
+			//var feel = $('#feel').val();
+			var rid = $('#rid').val();
+			if(feel == "") {
+				mui.toast('回复内容不能为空！');
+				return;
+			}
+			if(contents.value.length > contents.getAttribute("maxlength")) {
+				contents.value = contents.value.substring(0, contents.getAttribute("maxlength"));
+				return false;
+			}
+			var feel = contents.value;
+			$.post("__URL__/ReplyMessages", {
+				content: feel,
+				Id: rid
+			}, function(obj) {
+				var data = eval(obj);
+				if(data['code'] == 0) {
+					mui.toast('提交成功');
+					$(".send-comm-bg").fadeOut(300);
+					$(".send-comm-pup").fadeOut(300);
+					$('#mailbox-item-' + rid).remove();
+					$('#rid').val("");
+					$('#feel').val("");
+					mui.openWindow({
+						url: "__URL__/detail?cid=" + rid + "&statu=2",
+						id: ""
+					});
+				} else {
+					mui.toast(data['msg']);
+				}
+			});
+		});
+	</script>
+
+</html>

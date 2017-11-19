@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>评论</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="pcode" id="pcode" value="{$pcode}">
+				<input type="hidden" name="acode" id="acode" value="{$acode}">				
+
+				<div class="mui-content">
+					<div class="ag-comment bgcolor">
+						<!--商品评论列表-->
+						<div class="comment-con divtab" id="data_list">
+							<!--<div class="commcode-info divtab commcode-info-1">
+								<div class="comm-head fl" title="ucode0">
+									<img src="__IMG__/index/dlsc_xq_03.jpg" alt="" />
+								</div>
+								<div class="comm-intro fl">
+									<div class="comm-nc-info divtab">
+										<div class="comm-nc-grade fl">
+											<p class="fs14 c3 fov" style="padding: 3% 0;">良品铺子</p>
+											<p><span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span></p>
+										</div>
+										<div class="comm-time fr fs12 c9">2017-05-05</div>
+									</div>
+									<div class="comm-desc c5 fs13">mui中选项卡切换加下拉刷新，动态加载数据左右轮滑无效！ mui中选项卡切换加下拉刷新，动态加载数据左右轮滑无效！ </div>
+									<div class="comm-imglist" id="imglist-1-id0" title="cid0">
+										<ul>
+											<li>
+												<img src="__IMG__/index/dlsc_dlxq_06.jpg" alt="" />
+											</li>
+											<li>
+												<img src="__IMG__/index/dlsc_dlxq_06.jpg" alt="" />
+											</li>
+											<li>
+												<img src="__IMG__/index/dlsc_dlxq_06.jpg" alt="" />
+											</li>
+										</ul>
+									</div>
+									<div class="comm-praise fs12">
+										<div class="comm-send fr">
+											<span><img src="__IMG__/index/sm_icon_2.png" alt="" /></span><em>122</em>
+										</div>
+										<div class="comm-send comm-send2 fr">
+											<span><img src="__IMG__/index/sm_icon_plhf.png" alt="" /></span><em>122</em>
+										</div>
+									</div>
+								</div>
+							</div>-->
+
+						</div>
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		var pcode = '<?php echo $data["c_pcode"] ?>';
+		var ucode = '<?php echo $ucode ?>';
+		var acode = "<?php echo $data['c_ucode']; ?>";
+		var detailurl = '<?php echo urlencode("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI '])?>';
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			/*评论样式*/
+			var headh = $('.comm-head').width(),
+				lihb = headh * 50 / 100;
+			$('.comm-head').height(headh);
+			$('.comm-head').css("border-radius", headh + "px");
+			$(".comm-nc-grade").css("line-height", lihb + "px");
+			$(".comm-time").css("line-height", headh + "px");
+			$('.comm-imglist ul li').height($('.comm-imglist ul li').width());
+			$('.commpro-img').height($('.commpro-img').width());
+			$('.commpro-name').css("line-height", $('.commpro-img').width() + "px");
+			$('.comm-send').css("line-height", $('.comm-send').height() + "px");
+		}
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/GetProductAllScore?acode="+$('#acode').val()+"&pcode="+$('#pcode').val()+"&pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="baoqian">没有相关评论</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+                                $('#self-nav-title').text("评论（"+data.dataCount+"）");
+								for(var i = 0; i < datalist.length; i++) {
+									if(datalist[i]['is_like'] == 0) {
+										var oplike = 1;
+									} else {
+										var oplike = 0;
+									}
+									_html += '<div class="commcode-info divtab commcode-info-' + pageindex + '">';
+									_html += '<input type="hidden" id="prastatu' + datalist[i]['c_id'] + '" value="' + oplike + '" />';
+									_html += '<div class="comm-head fl" title="' + datalist[i]['c_ucode'] + '">';
+									_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+									_html += '</div>';
+									_html += '<div class="comm-intro fl">';
+									_html += '<div class="comm-nc-info divtab">';
+									_html += '<div class="comm-nc-grade fl" style="width:50%;">';
+									_html += '<p class="fs14 c3 fov" style="padding: 3% 0;">' + datalist[i]["c_nickname"] + '</p>';
+									_html += '<p>';
+									if(datalist[i]['c_score'] == 5) {
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+									} else if(datalist[i]['c_score'] == 4) {
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+									} else if(datalist[i]['c_score'] == 3) {
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+									} else if(datalist[i]['c_score'] == 2) {
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+									} else if(datalist[i]['c_score'] == 1) {
+										_html += '<span><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>';
+									}
+									_html += '</p>';
+									_html += '</div>';
+									_html += '<div class="comm-time fr fs12 c9" style="width:50%;">' + datalist[i]["c_addtime"] + '</div>';
+									_html += '</div>';
+									_html += '<div class="comm-desc c5 fs13" title="' + datalist[i]["c_id"] + '">' + datalist[i]["c_content"] + '</div>';
+									var imglist = datalist[i]['imglist'];
+									var imgs = eval(imglist);
+									_html += '<div class="comm-imglist" id="imglist-' + pageindex + '-' + datalist[i]['c_id'] + '" title="' + datalist[i]['c_id'] + '">';
+									_html += '<ul>';
+									for(var k in imgs) {
+										_html += '<li>';
+										_html += '<img src="' + imgs[k].c_img + '" alt="" />';
+										_html += '</li>';
+									}
+									_html += '</ul>';
+									_html += '</div>';									
+
+									_html += '<div class="comm-praise fs12">';
+									if(datalist[i]["is_like"] == 1) {
+										_html += '<div class="comm-send fr comm-send-hover" id="islike' + datalist[i]['c_id'] + '" onclick="addpraise(' + datalist[i]['c_id'] + ',0)">';
+										_html += '<span><img src="__IMG__/index/sm_icon_2_selection.png" alt="" /></span><em id="praisenum-' + datalist[i]['c_id'] + '">' + datalist[i]["c_like"] + '</em>';
+										_html += '</div>';
+									} else {
+										_html += '<div class="comm-send fr" id="islike' + datalist[i]['c_id'] + '" onclick="addpraise(' + datalist[i]['c_id'] + ',1)">';
+										_html += '<span><img src="__IMG__/index/sm_icon_2.png" alt="" /></span><em id="praisenum-' + datalist[i]['c_id'] + '">' + datalist[i]["c_like"] + '</em>';
+										_html += '</div>';
+									}
+									_html += '<div class="comm-send comm-send2 fr" title="' + datalist[i]["c_id"] + '">';
+									_html += '<span><img src="__IMG__/index/sm_icon_plhf.png" alt="" /></span><em>' + datalist[i]["comment_num"] + '</em>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*跳转个人动态*/
+						mui('.commcode-info-' + pageindex).on('tap', '.comm-head', function() {
+//							var ucode = $(this).attr('title');
+//							goUserDetails(ucode);
+						});
+						/*查看评论大图*/
+						$('.comm-imglist').each(function() {
+							var cid = $(this).attr('title');
+							$("#imglist-" + pageindex + "-" + cid).viewer({
+								title: false
+							});
+						});
+						/*评论详情*/
+						mui('.commcode-info-' + pageindex).on('tap', '.comm-send2', function() {
+							var scoreid = $(this).attr('title');
+							mui.openWindow({
+								url: "__APP__/Store/Store/comdetail?scoreid=" + scoreid,
+								id: "comdetail"
+							});
+						});
+						mui('.commcode-info-'+pageindex).on('tap','.comm-desc',function(){
+							var scoreid = $(this).attr('title');
+							mui.openWindow({
+								url: "__APP__/Store/Store/comdetail?scoreid=" + scoreid,
+								id: "comdetail"
+							});
+						});
+					}
+				}
+			});
+		}
+
+		/*评论点赞*/
+		function addpraise(sid) {
+			if(!ucode) {
+				mui.confirm('点赞需登录', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : mui.openWindow({
+						url: WEB_HOST + '/index.php/Login/Index/index',
+						id: 'login'
+					});
+				}, 'div');
+				return;
+			}
+
+			var handle = $('#prastatu' + sid).val();
+			$.post(WEB_HOST + '/index.php/Store/Store/ScoreLike', {
+					handle: handle,
+					scoreid: sid
+				},
+				function(obj) {
+					var msg = eval(obj);
+					if(msg['code'] == 0) {
+						if(handle == 1) {
+							$('#islike').addClass("comm-send-hover");
+							$('#islike img').attr('src',"__IMG__/index/sm_icon_2.png");
+							$("#praisenum-" + rid).text(parseInt($("#praisenum-" + rid).text()) - (-1));
+						} else {
+							$('#islike').removeClass("comm-send-hover");
+							$('#islike img').attr('src',"__IMG__/index/sm_icon_2_selection.png");
+							$("#praisenum-" + rid).text(parseInt($("#praisenum-" + rid).text()) - 1);
+						}
+						mui.toast(msg['msg']);
+					} else {
+						mui.toast(msg['msg']);
+					}
+				});
+		}
+	</script>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商城列表</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/mindex.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<div class="mui-content">
+					<div class="mall-head bgcolor">
+						<div class="search-main divtab bborder bgcolor none">
+							<div class="search-box fl">
+								<div class="searchico fl"><img src="__IMG__/index/der_icon_search.png" alt="" /></div>
+								<div class="serchinput fl fs13"><input type="text" name="keyword" id="keyword" value="" class="c9" /></div>
+							</div>
+							<div class="search-right fr">
+								<div class="search-cancel c9 fs14 fov">取消</div>
+							</div>
+						</div>
+						<div class="search-default bgcolor divtab divre">
+							<p class="c9 fs13 divab">搜索商品</p><img src="__IMG__/index/search_link.jpg" alt="" />
+						</div>
+
+						<div class="mail-menu divre">
+							<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted c3 fs14">
+								<div class="mui-scroll">
+									<a class="mui-control-item mui-active" title="">
+										全部
+									</a>
+									<?php foreach ($category as $k => $v) { ?>
+									<a class="mui-control-item" title="{$v['c_id']}">
+										{$v['c_category_name']}
+									</a>
+									<?php } ?>
+								</div>
+							</div>
+
+							<div class="mail-type-default divab">
+								<img src="__IMG__/index/mall_icon_qb.png">
+							</div>
+
+							<div class="mail-type-main divab bgcolor none">
+								<div class="mail-type-tit divre divtab">
+									<div class="type-all fs14 c9 fl">全部分类</div>
+									<div class="type-cancel fr">
+										<img src="__IMG__/index/mall_icon_gb.png">
+									</div>
+								</div>
+								<div class="type-con divtab fs12 c3">
+									<ul>
+										<li class="menu-bg" title="">全部分类</li>
+										<?php foreach ($category as $k => $v) { ?>
+										<li title="{$v['c_id']}">
+											{$v['c_category_name']}
+										</li>
+										<?php } ?>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 数据列表部分 -->
+					<div id="data_list" class="divtab mall-list" style="margin-top:3px;">
+						<!-- <div class="ma-pro-box fl bgcolor" title="pcode0">
+							<div class="ma-pro-img">
+								<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+							</div>
+							<div class="ma-pro-info">
+								<div class="ma-pro-name c3 fs12 clamp2">良品铺子麻辣/五香灯影牛肉丝重庆特产/良品铺子麻辣良品铺良品铺</div>
+								<div class="ma-pro-price cy fs11">￥<span class="fs16">25.</span>88</div>
+							</div>
+						</div>
+						<div class="ma-pro-box fl bgcolor" title="pcode0">
+							<div class="ma-pro-img">
+								<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+							</div>
+							<div class="ma-pro-info">
+								<div class="ma-pro-name c3 fs12 clamp2">良品铺子麻辣/五香灯影牛肉丝重庆特产/良品铺子麻辣良品铺良品铺</div>
+								<div class="ma-pro-price cy fs11">￥<span class="fs16">25.</span>88</div>
+							</div>
+						</div>
+						<div class="ma-pro-box fl bgcolor" title="pcode0">
+							<div class="ma-pro-img">
+								<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+							</div>
+							<div class="ma-pro-info">
+								<div class="ma-pro-name c3 fs12 clamp2">良品铺子麻辣/五香灯影牛肉丝重庆特产/良品铺子麻辣良品铺良品铺</div>
+								<div class="ma-pro-price cy fs11">￥<span class="fs16">25.</span>88</div>
+							</div>
+						</div> -->
+					</div>
+					<div id="console"></div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var cid = '';
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+
+			
+			yangshi();			
+		}
+
+		selectstatu(cid);
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var pimgw = $('.ma-pro-img').width();
+			$('.ma-pro-img').height(pimgw);
+
+			$('.type-cancel').height($('.type-cancel').width()+'px');
+			$('.type-all').css('line-height',$('.type-cancel').width()+'px');
+			
+			var sdh = $('.search-default').height();
+			$('.search-default p').css('line-height', sdh + 'px');
+
+
+		}
+				
+		/*搜索货源*/
+		/*搜索框*/
+		$('#keyword').blur(function() {
+			pageindex = 1;
+			getdatalist();
+		});
+		$('#keyword').focus(function() {
+			$('#keyword').val('');
+		});
+	
+		mui('.mui-content').on('tap', '.search-default', function() {
+			$('.search-default').hide();
+			$('.search-main').show();
+			$('input[name="keyword"]').focus();
+		});
+		/*取消*/
+		mui('.mui-content').on('tap', '.search-cancel', function() {
+			$('.search-default').show();
+			$('.search-main').hide();
+		});
+		
+		mui('.mui-content').on('tap', '.mui-control-item', function() {
+			var categoryid = $(this).attr('title');
+			selectstatu(categoryid);
+		});
+
+		/*展示全部菜单*/
+		mui('.mui-content').on('tap', '.mail-type-default', function() {
+			$('.mail-type-main').show();
+			$('.mail-type-default').hide();
+			yangshi();
+		});
+
+		//关闭全部菜单
+		mui('.mui-content').on('tap', '.type-cancel', function() {
+			$('.mail-type-default').show();
+			$('.mail-type-main').hide();
+		});
+
+		//点击分类搜索
+		$('.type-con ul li').click(function(){
+			var categoryid = $(this).attr('title');
+			$(this).addClass('menu-bg');
+			$(this).siblings().removeClass('menu-bg');
+			$('.mail-type-default').show();
+			$('.mail-type-main').hide();
+			pageindex = 1;
+			selectstatu(categoryid);
+		});
+		
+		function selectstatu(i) {
+			cid = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			getdatalist();
+		}
+
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var keyword = $('#keyword').val();
+			var url = "__URL__/AllOnlineProductList?pname="+keyword+"&categoryid="+cid+"&pageindex="+pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							$('.agency-list').removeClass('bgcolor');
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="divtab divempty">';
+								_html += '<h3 class="divtab c6 fs14">暂无货源</h3>';
+								_html += '<p class="divtab c9 fs12">试试搜索其他的吧！</p>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							$('.agency-list').addClass('bgcolor');
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="ma-pro-box fl bgcolor pro-box-'+pageindex+'" title="'+dataarr['c_pcode']+'">';
+										_html+='<div class="ma-pro-img">';
+											_html+='<img src="'+dataarr['c_pimg']+'" alt="" />';
+										_html+='</div>';
+										_html+='<div class="ma-pro-info">';
+											_html+='<div class="ma-pro-name c3 fs12 clamp2">'+dataarr['c_name']+'</div>';
+											_html+='<div class="ma-pro-price cy fs11">￥<span class="fs16">'+dataarr['c_price']+'</span>88</div>';
+										_html+='</div>';
+									_html+='</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*查看线上商品详情*/
+						mui('.mui-content').on('tap','.pro-box-'+pageindex,function(){
+							var pcode = $(this).attr('title');
+							mui.openWindow({url:'__URL__/detail?pcode='+pcode,id:"detail"});
+						});
+					}
+				}
+			});
+		}
+		
+		mui('.mui-content').on('tap','.pro-box-'+pageindex,function(){
+			var pcode = $(this).attr('title');
+			mui.openWindow({url:'__URL__/detail?pcode='+pcode,id:"detail"});
+		});
+	</script>
+
+</html>

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<style>.resource-main{ margin-bottom: 16%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="mui-content">
+				<div class="p_info_tit"><span class="fs14 c3">商户资料</span></div>
+				<div class="p_info_con fs14 bgcolor">
+					<div class="resource-main">
+						<div class="resource-list">
+							<div class="resource-l fl">公司名称</div>
+							<div class="resource-r fl">{$data['c_company']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">商户名称</div>
+							<div class="resource-r fl">{$data['c_merchantname']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">商户简称</div>
+							<div class="resource-r fl">{$data['c_merchantshortname']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">商户类型</div>
+							<div class="resource-r fl">
+							<?php if ($data['c_storetype'] == 1) { ?>
+								个人
+						    <?php } else if ($data['c_storetype'] == 2) { ?>
+							   小微商户
+						    <?php } else if ($data['c_storetype'] == 3) { ?>
+							   企事业
+						    <?php } ?>
+						</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">所属行业</div>
+							<div class="resource-r fl">{$data['c_shoptrade']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">商家类型</div>
+							<div class="resource-r fl">{$data['tradename']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">省市区</div>
+							<div class="resource-r fl">{$data['c_email']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">省市区</div>
+							<div class="resource-r fl">{$data['c_province']}{$data['c_city']}{$data['c_region']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">详细地址</div>
+							<div class="resource-r fl">{$data['c_address1']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证照类型</div>
+							<div class="resource-r fl">
+								<?php if ($data['c_chartertype'] == 19) { ?>
+									营业执照
+								<?php } else if ($data['c_chartertype'] == 20) { ?>
+									税务登记证
+							    <?php } ?>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证照号码</div>
+							<div class="resource-r fl">{$data['c_charter']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证照有效期</div>
+							<div class="resource-r fl">{$data['c_charterstarttime']}至{$data['c_charterendtime']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">邮箱</div>
+							<div class="resource-r fl">{$data['c_email']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">客服电话</div>
+							<div class="resource-r fl">{$data['c_home_tel']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">法人姓名</div>
+							<div class="resource-r fl">{$data['c_legalperson']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">性别</div>
+							<div class="resource-r fl">
+								<?php if ($data['c_legalsex'] == 1) { ?>
+								 	  男
+								<?php } else { ?>
+								   		女
+								<?php } ?>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证件国别</div>
+							<div class="resource-r fl">中华人民共和国</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证件类型</div>
+							<div class="resource-r fl">
+								<?php if ($data['c_chartertype'] == 00) { ?>
+									身份证
+								<?php } else if ($data['c_chartertype'] == 01) { ?>
+									中国护照
+								<?php } else if ($data['c_chartertype'] == 02) { ?>
+									军人身份证
+								<?php } else if ($data['c_chartertype'] == 03) { ?>
+									警官证
+								<?php } else if ($data['c_chartertype'] == 04) { ?>
+									户口簿
+							    <?php } ?>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证件号码</div>
+							<div class="resource-r fl">{$data['c_idcardinfo']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">证件有效期</div>
+							<div class="resource-r fl">{$data['c_idcardstarttime']}至{$data['c_idcardendtime']}</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">电话</div>
+							<div class="resource-r fl">{$data['c_legalphone']}</div>
+						</div>
+
+						<ul class="ul-certificate">
+							<li class="zjz-list">
+								<div class="page-tit-name">身份证正面</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_idcard_img']}" alt=""></div>
+							</li>
+							<li class="zjz-list">
+								<div class="page-tit-name">身份证反面</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_idcard_img1']}" alt=""></div>
+							</li>
+						</ul>
+
+						<ul class="ul-certificate">
+							<li class="zjz-list">
+								<div class="page-tit-name">营业执照</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_charter_img']}" alt=""></div>
+							</li>
+							<li class="zjz-list">
+								<div class="page-tit-name">合同照片</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_contractimg']}" alt=""></div>
+							</li>
+						</ul>
+
+						<ul class="ul-certificate">
+							<li class="zjz-list">
+								<div class="page-tit-name">整体门面</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_storeimg']}" alt=""></div>
+							</li>
+							<li class="zjz-list">
+								<div class="page-tit-name">收银台</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_deskimg']}" alt=""></div>
+							</li>
+						</ul>
+
+						<ul class="ul-certificate">
+							<li class="zjz-list">
+								<div class="page-tit-name">店内环境</div>
+								<div class="pic-front"><img id="imgr3" src="{$data['c_storeinsideimg']}" alt=""></div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			window.onload = function() {
+				//页面样式
+				$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+				$('#feetype').css('height', $('.resource-list').height()*0.9 + 'px');
+
+
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

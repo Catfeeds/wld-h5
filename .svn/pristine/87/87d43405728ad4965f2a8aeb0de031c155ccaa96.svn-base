@@ -1,0 +1,214 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+p{margin: 0;}
+
+.ad-site-head{}
+.ad-site-bar{left: 2%;top: 4%;}
+.ad-page-return{width: 7%;}
+.ad-page-bartit{text-align: center;margin-left: 36%;}
+.ad-site-h-num{background: url(../img/promote_home_box.png) no-repeat; background-size:100% 100%;top:25%;left: 0;right: 0;margin: 0 auto;width: 50%;padding: 3% 0;}
+.ad-site-h-num p{text-align: left;padding-left: 4%;}
+
+.ad-site-h-btn{background: #45AAFA;width: 40%;margin: 0 auto;bottom: 6%;left: 0;right: 0;border-radius: 28px;text-align: center;padding: 1% 0 1.5% 0;letter-spacing: 0.15em;}
+
+.ad-site-h-rule{width: 8.5%;right: 4%;bottom: 7%;}
+
+.ad-site-main{padding: 0 4% 4% 4%;}
+.adsite-box{margin: 4% 0 0 0;}
+.ad-kq-money{top: 30%;left: 10%;text-align: center;}
+.ad-kq-info{left: 30%;top: 5%;}
+.ad-kq-info p{padding: 0 0 3% 0;}
+.ad-kq-info p.ad-kq-info2{padding-bottom: 12%;}
+.ad-kq-btn{bottom: 6%;left: 30%;width: 70%;overflow: hidden;}
+.ad-btnli{border-radius: 28px;padding: 1.5% 0;width: 30%;text-align: center;}
+.ad-btnli-r{margin-right: 10%;}
+.btnbg-b{background: #6bd6ff;}
+.btnbg-y{background: #fec957;}
+.btnbg-g{background: #b5b5b5;}
+.ad-kq-state{width: 16%;top: 7%;right: 5%;}
+
+.ad-creat-site{background: #fff; position: fixed;border-top: 1px solid #e5e5e5;left: 0;right: 0; bottom: 0; margin: 0 auto;width: 100%;max-width: 720px;min-width: 320px;padding: 3% 0;text-align: center;z-index: 99;}
+.ad-creat-btn{background: url(../img/signin_btn_bg.png) no-repeat;background-size: 100% 100%;width: 55%;margin: 0 auto;padding: 2% 0 4% 0;}
+
+/*空数据显示*/
+.coupon-empty{margin: 25% 0 0 0;}
+.c-empty-img{width: 25%;margin: 0 auto;}
+.c-empty-font{text-align: center;padding: 1% 0;}
+
+.prompt-rule-pup{ display: none; position: fixed;left: 0;right: 0;width: 80%;margin: 0 auto;top: 15%;z-index: 999;}
+.rule-pup-con{}
+.rule-close{right: 3%;top:3%;width: 7%;}
+
+/*创建推广位*/
+.creatad-box{padding: 4% 2% 4% 4%;}
+.creatad-font{width: 23%;}
+.creatad-txt{width: 77%;}
+.creatad-txt input[type="number"]{width: 100%;border: none;background: #fff;padding:2%;}
+.creatad-txt select{border: none;width: 100%;padding: 2%;}
+.creatad-arrow{width: 6%;}
+
+.creatad-sel-t{}
+.creatad-sel-list{padding: 0 2% 0 0;}
+
+.coupon_main{padding: 0 4%;}
+.coupon-box{margin:4% 0 0 0;width:100%;}
+.coupon-box2{margin:4% 0 0 0;width:100%;}
+.coupon-money{top:35%;left: 1%;width: 25%;text-align: center;z-index: 8;}
+.coupon-tit{top:10%;width: 50%;text-align: center;left: 33%;z-index: 8;}
+.coupon-tit p{margin: 0;padding: 2% 0;}
+.coupon-tit p span{margin: 0 2%;}
+.coupon-use-rang{left:18%;right:0;top: 57%;width: 48%;background: rgba(0,0,0,.2);padding: 1% 2%;margin: 0 auto;text-align: center;}
+.coupon-use-rang span{}
+.coupon-time{width: 50%;text-align: center;left: 34%;bottom: 6%;z-index: 8;}
+.coupon-detail{width: 10%;right: 4%;top: 10%;z-index: 8;letter-spacing: 0.25em;vertical-align: middle;text-align: center;}
+.coupon-detail button{background: none;border: none;color: #fff;width: 100%;text-align: center;outline: none;}
+.coupon-detail button:focus{outline: none;-webkit-appearance: none;appearance: none;}
+.coupon-le-ico{background: #FF7373;text-align: center;border-top-left-radius:3px;border-bottom-right-radius:3px;width: 20%;top:0;left: 0;padding: 1%;}
+.coupon-outdate{width: 24%;right: 5%;top:2%;z-index: 11;}
+.c-le-icogray{background: #7E7E7E;}
+
+
+/*卡券详情页面*/
+.bdashed{border-bottom:dashed 1px #d3d3d3;}
+.coupon-cqd-page{border-radius: 5px;margin: 5% 4% 4% 4%;}
+.coupon-cqd-tit{text-align: center;padding: 5% 0;}
+.coupon-cqd-info{padding: 4% 0;text-align: center;}
+.c-cqd-money{color: #6AD5FF;}
+.c-cqd-con1{padding: 1% 0;}
+.c-cqd-con1 span{margin: 0 2%;}
+.c-cqd-rangt{padding: 3% 0;}
+.c-cqd-rangt span{background: #ccc;padding: 1% 2%;}
+.c-cqd-time{padding: 4% 0;}
+.c-cqd-time span{margin: 0 2%;}
+.c-cqd-splitl{width: 100%;}
+.c-cqd-numinfo{padding: 5% 8%;}
+.c-cqd-dynamic{padding: 2% 4%;}
+.c-cqd-dynamic p{padding: 3% 0 0 0;}
+.c-cqd-dybox{padding: 4% 0;}
+.c-cqd-dyimg{width: 22%;}
+.c-cqd-dyinfo{width: 55%;margin-left: 3%;}
+.c-cqd-dyinfo p{margin: 0;padding: 0;width: 100%;text-align: left;}
+.c-cqd-dyinfo p span{margin-right: 8%;}
+.c-cqd-dyinfo p span.pt_icon{padding: 0.5% 2.5% 1% 2.5%;border-radius: 3px;margin: 0 0 0 4%;}
+.c-cqd-dyinfo p span.pt_shop{background: #46A9FA;}
+.c-cqd-dyinfo p span.pt_order{background: #FEAB3D;}
+.c-cqd-dyinfo p span.putin_btn{border-radius: 28px;padding:2% 10% 3% 10%;background:#FEC957;}
+.c-cqd-dyinfo p span.bblue{background: #6BD7FE;}
+.c-cqd-dystate{width: 20%;text-align: right;}
+.c-cqd-dysing{color: #43d898;}
+.c-cqd-userang{padding-bottom: 3%;}
+
+.c-cqd-useran-tit{text-align: center;}
+.c-cqd-useran-con{}
+.c-cqd-useran-ct{text-align: center;padding-bottom: 4%;}
+.c-cqd-delete{color: #e74514;text-align: center;padding: 3% 0;}
+
+.store-pro-main{}
+.s-pro-box{margin: 2% 0 0 3%;width: 29%;background: #ffffff;overflow: hidden;padding-bottom: 3%;}
+.s-pro-box-2{margin: 2% 0 0 3%;width: 29%;background: #ffffff;overflow: hidden;padding-bottom: 3%;}
+.s-pro-img{width: 100%;}
+.s-pro-name{text-align: left;padding: 3%;}
+.s-pro-p-n{padding: 0 3%;}
+.s-pro-price{width: 55%;}
+.s-pro-number{width:45%;}
+.s-pro-n-subt{}
+.s-pro-n-inputxt{width: 18%;margin:0 2%;}
+.s-pro-n-inputxt input[type="text"]{border: none;background: #fff;width: 98%;text-align: center;line-height: auto;padding: 0;margin: 0;height: auto;outline: none;}
+.s-pro-n-add{}
+.sub_add_ico{width: 26%;}
+.s-pro-lijbuy{border:solid 1px #ffaa3d;color: #ffaa3d;text-align: center;border-radius: 8px;width: 45%;padding: 1% 0;}
+
+
+/*卡券领取*/
+.store-top-hinfo{width: 80%;top: 38%;left: 3%;overflow: hidden;} 
+.store-t-h-img{width: 18%;}
+.store-t-h-intro{width: 79%;margin-left: 3%;}
+.s-t-h-n-icon{}
+.s-t-h-nkname{}
+.s-t-h-ico1{width: 10%;margin-left: 3%;}
+.s-t-h-num{padding: 0 0 0 0;}
+.s-t-h-num span{margin: 0 1%;}
+.store-t-h-btn{text-align: center; top: 46%;right: 0;width: 30%;}
+.store-t-h-btn span{background: #fff;border-radius: 28px;padding: 3% 8%;}
+
+.store-all-tit{text-align: center;padding: 3.5% 0;}
+.store-all-desc{padding: 3%;}
+
+.ad-coupon-site{margin: 4% auto;padding: 4%;}
+.ad-c-sitetit{top: 13%;left: 0;right: 0; margin: 0 auto;text-align: center;}
+.ad-c-sitetime{top: 27%;left: 0;right: 0; margin: 0 auto;text-align: center;}
+.ad-c-sitemoney{top: 40%;left: 9%;}
+.ad-c-sitedesc{top: 60%;left: 9.5%;}
+.ad-c-siterang{top: 72%;left: 9.5%;}
+
+.ad-s-prolist{margin: 4% auto;padding: 0 4% 3% 4%;}
+.ad-s-protit{padding: 3% 0 0 0;width: 35%;margin: 0 auto;}
+
+
+/*选择推广位*/
+.adserving-search{padding: 2.5% 3%;}
+.adserving-s-box{width: 79%;border-radius: 5px;overflow: hidden;padding: 2%;vertical-align: middle;}
+.searchico{width: 7%;}
+.serchinput{width: 80%;margin-left: 3%;}
+.serchinput input[type="text"]{width: 100%;background: #f0f0f0;}
+.serchtype{width: 7%;}
+.adserving-s-addr{width: 18%;overflow: hidden;margin-left: 3%;padding-top: 2%;}
+.addrico{width: 24%;}
+.addrfont{width: 76%;text-align: center;}
+
+.adserving-list{padding: 0 3%;}
+.adserving-box{padding: 3% 0;}
+.ad-s-headimg{width: 15%;}
+.ad-s-intro{width: 82%;margin-left: 3%;}
+.ad-s-intro-le{width: 70%;padding:0 0 5% 0;}
+.ad-s-intro-le p{}
+.ad-s-intro-le p span{margin: 0 2%;}
+.ad-s-intro-ri{width: 30%;border: solid 1px #FFAD73;border-radius: 5px;padding: 2%;margin-top: 3%;}
+
+.ad_store_type{}
+.ad_store_type ul{overflow: hidden;}
+.ad_store_type ul li{border-bottom: solid 1px #ebebeb;padding: 3%;overflow: hidden;}
+.type-name{width: 94%;}
+.type-sel-icon{width: 6%;}
+
+.prompt-box-bg{display:none; background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.prompt-box-pup{ display: none; position: fixed;left: 0;right: 0;width: 100%;margin: 0 auto;bottom: 0;z-index: 999;}
+.prompt-content{}
+.prompt-tit{text-align: right;padding: 3%;}
+.prompt-select{padding: 8% 0;overflow: hidden;}
+.prompt-select select{color: #999;width: 45%;float: left;text-align: center;margin-left: 5%;}
+
+
+.ad-detail-box{padding: 4% 4% 0 4%;}
+.ad-d-c-box{padding: 4% 4% 0 4%;}
+.ad-d-font0{left: 13%;top: 35%;text-align: center;}
+.ad-d-font1{top: 15%;left:33%}
+.ad-d-font2{top: 32%;left:33%}
+.ad-d-font3{top: 56%;left:33%}
+.ad-d-font4{bottom: 7%;left:33%;width: 58%;}
+.ad-d-font4 span{background: #fff;padding:2% 12%;border-radius: 25px;text-align: center;}
+.ad-d-font5{bottom: 7%;left:33%;width: 50%;}
+.ad-d-font5 span{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

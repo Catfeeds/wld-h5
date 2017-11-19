@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>空包祝福语</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<input type="hidden" name="speakid" id="speakid" value="{$beinfo['c_id']}" />
+				<div class="mui-content">
+					<div class="addred-li divtab bgcolor">
+						<div class="addred-msg divtab c3 fs14">
+							<?php if(!empty($beinfo)){ ?>
+							<textarea name="red_remark" rows="2" cols="" placeholder="{$beinfo['c_name']}" maxlength="12" id="blessing">{$beinfo['c_name']}</textarea>
+							<?php }else{ ?>
+							<textarea name="red_remark" rows="2" cols="" placeholder="好运连连！心想事成！" maxlength="12" id="blessing"></textarea>
+							<?php } ?>
+						</div>
+						<div class="addred-fontnum divtab fs13 c9"><span id="min-lenfont">0</span>/<span>12</span>字</div>
+					</div>					
+				</div>
+			</form>
+			<div class="add-blessing fixed-btn bgcolor cb aglinc fs16 divtab">提交</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+									
+		}
+		
+		mui('.wrap-page').on('tap','.add-blessing',function(){
+			tijiao();
+		});
+		var tjsign = true;
+		function tijiao() {
+			if (tjsign) {
+				tjsign = false;
+				var blessing = $('#blessing').val();
+				if(blessing==""){
+					blessing = "好运连连！心想事成！";
+				}else{
+					blessing = $('#blessing').val();
+				}
+				var cid = $('#speakid').val();
+				$.post("__URL__/SpeakEditSubmit",{speakid:cid,blessing:blessing},function(obj){
+					var data = eval(obj);
+					if(data['code']==0){							
+						mui.toast(data['msg']);
+						setTimeout(function () {
+							mui.openWindow({
+								url: '__URL__/index?joinaid='+$('#joinaid').val(),
+								id: "index"
+							});
+						}, 2000);
+					}else{
+						mui.toast(data['msg']);
+						tjsign = true;
+					}
+				});
+			}	
+		}
+		
+		/*提示限制输入12个字符*/
+		$(function() {
+			var len = $("#blessing").val().length;
+			document.getElementById("min-lenfont").innerHTML = len.toString();
+			$("#blessing").keyup(function() {
+				var len_2 = $(this).val().length;
+				document.getElementById("min-lenfont").innerHTML = len_2.toString();
+				if(len_2 >= 12) {
+					$(this).val($(this).val().substring(0, 12));
+				}
+				var num = 12 - len_2;
+				document.getElementById("min-lenfont").innerHTML = num;
+			});
+		});
+		
+		
+	</script>
+
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>发放卡券</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/stores.css" />
+		<style type="text/css">
+		.coupon-time{bottom: 30%;}
+		/*.add-save-btn1{width: 50%;}
+		.add-save-btn2{width: 50%;}*/
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="coupon-tip divtab fs14" style="display: none;">提示：优惠券发放后，店铺中将可直接进行领取</div>
+				<div class="coupon-main" id="coupon_list">
+					<!-- <div class="coupon-box divre">
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs14">代金券</p>
+							<p class="cf fs14"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_0" title="0">取消发放</div>
+						<div class="coupon-get-detail divtab divab c9 fs12">
+							<div class="coupon-num fl">总数量：<span class="">88</span></div>
+							<div class="coupon-num fr coupon-g-de">剩余数量：<span class="">88</span></div>
+						</div>
+						<div class="coupon-le-ico divab fs12 cf">平台补贴</div>
+						<img src="__RSC__/Activity/img/coupon/kqgl_gl_bg_replace.png" alt="" />
+					</div>
+					<div class="coupon-box divre">
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs14">代金券</p>
+							<p class="cf fs14"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1" title="1">取消发放</div>
+						<div class="coupon-get-detail divtab divab c9 fs12">
+							<div class="coupon-num fl">总数量：<span class="">88</span></div>
+							<div class="coupon-num fr coupon-g-de">剩余数量：<span class="">88</span></div>
+						</div>
+						<img src="__RSC__/Activity/img/coupon/kqgl_gl_bg_break.png" alt="" />
+					</div>
+					<div class="coupon-box divre">
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs14">代金券</p>
+							<p class="cf fs14"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_2" title="2">取消发放</div>
+						<div class="coupon-get-detail divtab divab c9 fs12">
+							<div class="coupon-num fl">总数量：<span class="">88</span></div>
+							<div class="coupon-num fr coupon-g-de">剩余数量：<span class="">88</span></div>
+						</div>
+						过期图
+						<div class="coupon-outdate divab">
+							<img src="__RSC__/Activity/img/coupon/kqgl_icon_past.png" alt="" />
+						</div>
+						<div class="coupon-le-ico divab fs12 cf c-le-icogray">平台补贴</div>
+						<img src="__RSC__/Activity/img/coupon/kqgl_hgl_bg_past.png" alt="" />
+					</div> -->
+
+				</div>
+
+				<div class="coupon-empty divtab bgeb none">
+					<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>
+					<div class="c-empty-font c3 fs15">这里什么都没有</div>
+					<div class="c-empty-font c9 fs13">总感觉需要添加点什么</div>
+				</div>
+
+				<div id="console"></div>
+				<div class="add-save-btn fs16 cb">
+					<div class="divtab fl add-save-btn1">发放优惠券</div>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script src="__COMMON__/js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-nav-title').text("发放卡券");
+				ChRightText('记录');
+				styles();			    
+			}
+			/*查看领取记录*/
+			function rightcaozuo() {
+				mui.openWindow({
+					url: "__URL__/getclog",
+					id: "getclog"
+				});
+			}
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.46;
+				$('.coupon-box').height(boxh);
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/ShopCouponList?pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									$('.coupon-tip').fadeIn(300);									
+									_html += '<div class="coupon-empty divtab bgeb">';
+									_html += '<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>';
+
+									_html += '<div class="c-empty-font c3 fs15">这里什么都没有</div>';
+									_html += '<div class="c-empty-font c9 fs13">总感觉需要添加点什么</div>';
+
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {							
+								$('.coupon-tip').fadeOut(300);
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="coupon-box divre" id="coupon-box-'+dataarr['awid']+'">';									
+										if (dataarr['c_type'] == 1) {
+											_html += '<div class="coupon-money divab cf"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">元</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16">代金券</p>';
+											_html += '<p class="cf fs12">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>满'+dataarr['c_limit_money']+'元可用</span></p>';
+										} else if (dataarr['c_type'] == 2) {
+											_html += '<div class="coupon-money divab cf"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">折</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16">折扣劵</p>';
+											_html += '<p class="cf fs12">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>最高折扣'+dataarr['c_limit_money']+'元</span></p>';
+										}
+										_html += '</div>';
+
+										_html += '<div class="coupon-time divab cf fs12">'+dataarr['c_starttime']+'-'+dataarr['c_endtime']+'</div>';
+
+										if (dataarr['snum'] <= 0) {
+											_html += '<div class="coupon-detail divab cf fs13 verticle-mode coupon-detail_'+pageindex+'" title="'+dataarr['awid']+'">已抢光</div>';
+										} else {
+											_html += '<div class="coupon-detail divab cf fs13 verticle-mode coupon-detail_'+pageindex+'" id="cancel_'+dataarr['awid']+'" title="'+dataarr['awid']+'">取消发放</div>';
+										}
+										_html += '<div class="coupon-get-detail divtab divab c9 fs12">';
+										_html += '<div class="coupon-num fl">总数量：<span class="">'+dataarr['tnum']+'</span></div>';
+										_html += '<div class="coupon-num fr coupon-g-de">剩余数量：<span class="">'+dataarr['snum']+'</span></div>';
+										_html += '</div>';
+
+//										_html += '<!--过期图-->';
+//										_html += '<div class="coupon-outdate divab">';
+//										_html += '<img src="__RSC__/Activity/img/coupon/kqgl_icon_past.png" alt="" />';
+//										_html += '</div>';
+//										_html += '<div class="coupon-le-ico divab fs12 cf c-le-icogray">平台补贴</div>';
+//										_html += '<img src="__RSC__/Activity/img/coupon/kqgl_hgl_bg_past.png" alt="" />';
+
+										if (dataarr['c_type'] == 1) {
+												_html += '<img src="__RSC__/Activity/img/coupon/kqgl_gl_bg_replace.png" alt="" />';
+										} else if (dataarr['c_type'] == 2) {
+											_html += '<img src="__RSC__/Activity/img/coupon/kqgl_gl_bg_break.png" alt="" />';
+										}
+										_html += '</div>';
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#coupon_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if (emptyval) {
+							/*取消发放*/
+							$('.coupon-detail_'+pageindex).each(function(index) {
+								var awid = $(this).attr('title');
+								mui('.mui-content').on('tap', '#cancel_'+ awid, function() {
+									mui.confirm('取消发放，卡劵剩余数量将返回卡劵管理库存', '确认取消', ['取消', '确认'], function(e) {
+										e.index == 0 ? "" : cancel_issue(awid);
+									}, 'div');
+								});
+							});
+						}
+					}
+				});
+			}
+
+			/*取消发放请求*/
+			var resign = true;
+			function cancel_issue(awid) {
+				if(resign){
+					resign = false;
+					$.post("__URL__/CancelCouponCard",{awid:awid},function(obj){
+						var data = eval(obj);
+						resign = true;
+						if(data['code']==0){							
+							mui.toast(data['msg']);
+							$('#coupon-box-'+awid).remove();
+						}else{
+							mui.toast(data['msg']);
+						}
+					})
+					
+				}
+			}
+			/*跳转到选择卡劵库存*/
+			mui('.mui-content').on('tap', '.add-save-btn1', function() {
+				mui.openWindow({
+					url: '__URL__/selcoupon',
+					id: 'couponadd'
+				});
+			});
+
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

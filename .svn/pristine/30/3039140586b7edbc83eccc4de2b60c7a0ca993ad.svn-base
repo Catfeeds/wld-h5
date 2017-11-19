@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>代理商管理</title>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeshopinfo');
+		$("#transmit").submit();
+	}
+}
+function refer(){
+	$("#transmit").attr('action','__URL__/shop_list');
+	$("#transmit").submit();
+}
+</script>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 代理商管理 <span class="c-gray en">&gt;</span> 商家列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商家昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商户名称" name="c_merchantname" value="{$post['c_merchantname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入商家注册手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="输入负责人姓名" name="name" value="{$post['name']}">
+		<span class="select-box inline">
+		<select name="c_mchdealtype" class="select">
+			<option value="" selected>经营类型</option>
+     		<option value="1" <if condition="$post['c_mchdealtype'] eq 1">selected="selected"</if>>实体</option>
+     		<option value="2" <if condition="$post['c_mchdealtype'] eq 2">selected="selected"</if>>虚拟</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_isfixed1" class="select">
+			<option value="" selected>商户类型</option>
+     		<option value="1" <if condition="$post['c_isfixed1'] eq 1">selected="selected"</if>>线下</option>
+     		<option value="2" <if condition="$post['c_isfixed1'] eq 2">selected="selected"</if>>线上</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="ismerch" class="select">
+			<option value="">是否可进件</option>
+     		<option value="1" <if condition="$post['ismerch'] eq 1">selected="selected"</if>>可进件</option>
+     		<option value="2" <if condition="$post['ismerch'] eq 2">selected="selected"</if>>不可进件</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="istijiao" class="select">
+			<option value="">是否进件</option>
+     		<option value="1" <if condition="$post['istijiao'] eq 1">selected="selected"</if>>已进件</option>
+     		<option value="2" <if condition="$post['istijiao'] eq 2">selected="selected"</if>>未进件</option>
+		</select>
+		</span>
+		<button type="submit" class="btn btn-success radius" id="" name="" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>	
+			</span>   
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</div>
+	</form>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="100">商家名称</th>
+				<th width="40">头像</th>
+				<th width="90">商户名称</th>
+				<th width="100">经营类型</th>
+				<th width="100">注册手机号</th>
+				<th width="80">法人</th>
+				<th width="100">客服电话</th>
+				<th width="80">负责人</th>
+				<th width="100">负责人手机号</th>
+				<th width="60">提交状态</th>
+				<th width="80">进件次数</th>
+				<th width="120">添加时间</th>
+				<th width="120">更新时间</th>
+				<th width="80">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="" name="usercode"></td>
+				<td>{$i}</td>
+				<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a></font>
+				</td>
+				<td><if condition="$vo['c_headimg'] neq ''" ><a href="{$root_url}{$vo['c_headimg']}" target="_blank"><img src="{$root_url}{$vo['c_headimg']}" style="width:80px;"/></a><else/><img src="__HIMG__/user.png" style="width:80px;"/></if></td>
+				<td>{$vo['c_merchantname']}</td>
+				<td>
+					<if condition="$vo['c_mchdealtype'] eq 1" >
+						<font color="#666600">实体</font>
+					<else/>
+						<font color="#FF44AA">虚拟</font>
+					</if>
+				</td>
+				<td>{$vo['c_phone']}</td>
+				<td>{$vo['c_legalperson']}</td>
+				<td>{$vo['c_customerphone']}</td>
+				<td>{$vo['c_principal']}</td>
+				<td>{$vo['c_principalmobile']}</td>
+				<td>
+					<if condition="$vo['c_status'] eq 1" >
+						<font color="green">可提交</font>
+					<else/>
+						<font color="red">不可提交</font>
+					</if>
+				</td>									
+				<td>
+					<?php if ($vo['c_status'] == 1 && $vo['c_checknum'] == 0) { ?>
+						<a href="javascript:;" onclick="PostAddmerchant('{$vo.c_ucode}');"><font color="blue">进件</font></a>
+					<?php } else { ?>
+					{$vo['c_checknum']}
+					<?php } ?>
+				</td>
+				
+				<td>{$vo['c_addtime']}</td>
+				<td>{$vo['c_updatetime']}</td>
+				<td> 
+					<a style="text-decoration:none" class="ml-5" onClick="shop_info('商家资料编辑','Agent/shop_info?ucode={$vo['c_ucode']}','10001')" href="javascript:;" title="商家资料编辑"><i class="Hui-iconfont">&#xe638;</i></a>
+					<a style="text-decoration:none" class="ml-5" onClick="merchant_info('友收宝资料','Agent/merchant_info?ucode={$vo['c_ucode']}','10001')" href="javascript:;" title="友收宝资料"><i class="Hui-iconfont">&#xe628;</i></a>&nbsp;&nbsp;  
+					<a title="商户费率列表" href="__HHOME__/Agent/merchant_id?ucode={$vo.c_ucode}" style="text-decoration:none"><i class="Hui-iconfont">&#xe6bf;</i></a>&nbsp;&nbsp;  
+				</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">
+	{$page}
+	<div  class="mypages" style="display:inline;position:relative;left:20;">
+		<input class="input-text" type="number" min="1" max="{$count}" name="mypage" id="mypage" placeholder="请输入页码" style="width:130px;height:40px;position:absolute;left:50px;"/>
+	    <input class="btn btn-danger" type="submit" value="确定" style="height:40px;position:absolute;left:200px;" onclick="btnAction()"/>
+	</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  // {"orderable":false,"aTargets":[0,8,8]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+/*商家-编辑*/
+function shop_info(title,url,id,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+/*商家-银行支付信息*/
+function merchant_info(title,url,id,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+/*微信解绑*/
+function AddIdentity(ucode,itype){
+	if(itype == 1){
+		var hint = "确定指定该商家为连锁店总店，操作不可重复，请谨慎操作？";
+	}else{
+		var hint = "确定指定该商家为加盟店总店，操作不可重复，请谨慎操作？";
+	}
+	layer.confirm(hint,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Agent/AddIdentity',{ucode:ucode,itype:itype}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+//商户进件
+function PostAddmerchant(ucode) {
+	layer.confirm('进件前请先仔细审核商户资料！',function(index){
+		tjpost(ucode);
+	});
+}
+
+var kongzhi = true;
+function tjpost(ucode) {
+	if (kongzhi) {
+		kongzhi = false;
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Agent/PostAddmerchant',{ucode:ucode}, function(obj) {
+			var result = eval(obj);					
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});  
+	        	kongzhi = true;	      	      	
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	}
+}
+
+/*页码跳转*/
+function btnAction(){
+	var mypage = $("#mypage").val();
+	if(mypage != ''){
+		var url = window.location.href;
+		if(url.indexOf("/p/") > 0){
+			var webhost = HHOME+'/Agent/index';
+			url = webhost+'/p/'+mypage;
+
+			var phone = $('input[name=phone]').val();
+			if(phone != ''){
+				url = url+'/phone/'+phone;
+			}
+			var nickname = $('input[name=nickname]').val();
+			if(nickname != ''){
+				url = url+'/nickname/'+nickname;
+			}
+			var c_merchantname = $('select[name=c_merchantname]').val();
+			if(c_merchantname != ''){
+				url = url+'/c_merchantname/'+c_merchantname;
+			}
+			var name = $('select[name=name]').val();
+			if(name != ''){
+				url = url+'/name/'+name;
+			}
+			
+			var c_mchdealtype = $('input[name=c_mchdealtype]').val();
+			if(c_mchdealtype != ''){
+				url = url+'/c_mchdealtype/'+c_mchdealtype;
+			}
+			var hide = $('input[name=ismerch]').val();
+			if(ismerch != ''){
+				url = url+'/ismerch/'+ismerch;
+			}
+			
+			var istijiao = $('input[name=istijiao]').val();
+			if(istijiao != ''){
+				url = url+'/ismerch/'+istijiao;
+			}
+		}else{
+			if(url.indexOf("?") > 0){
+				var strs= new Array(); //定义一数组
+				strs=url.split("?");
+				url = strs[0]+'/p/'+mypage+'?'+strs[1];
+			}else{
+				url = url+'/p/'+mypage;
+			}
+		}
+
+		location.href = url;//location.href实现客户端页面的跳转  
+	}	
+}
+</script> 
+</body>
+</html>

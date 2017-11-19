@@ -1,0 +1,193 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+img{width: 100%;height: 100%;}
+
+.sm-header{background: #47abf7;width: 100%;overflow: hidden;}
+.sm-header-left{width: 8%;float: left;text-align: center;overflow: hidden;cursor:pointer;margin-left: 4%;margin-top: 5%;}
+.sm-header-center{width: 38%;padding: 4% 0;float: left;margin-left: 19%;}
+.sm-header-right{width: 8%;float: right;text-align: center;overflow:hidden;margin-right: 4%;margin-top: 4%;}
+.sm-header-right a{width: 100%;position:relative;overflow:hidden;display: block;}
+.sm-header-sign{position:absolute;top:5%;right:8%;color:red;font-weight:bold;z-index:9999;width: 30%;}
+
+.sm-tab-menu{border-radius: 8px;border:1px #fff solid;width: 100%;overflow: hidden;text-align: center;}
+.sm-header-center .hover{background: #fff;color:#47abf7;}
+.sm-header-center a{display: block;}
+.sm-networking{width: 50%;color:#fff;font-size: 14px;float: left;padding: 4% 0;}
+.sm-shop{width: 50%;color:#fff;font-size: 14px;float: left;padding: 4% 0;}
+
+.sm-search{padding: 2% 5%;overflow: hidden;}
+.sm-search-con{ background: #fff; width: 80%;overflow: hidden;border-radius:8px;float: left;}
+.sm-search-ico{float: left;width: 11%;margin-top: 1%;}
+.sm-search-txt{float: left;width: 63%;margin-right: 2%;}
+.sm-search-txt input[type="text"]{border: none;background: #fff;
+outline: none;width: 100%;text-align: left;padding-left: 2%;color: #999;font-size: 14px;}
+.sm-search-btn{width: 24%;float: right;overflow: hidden;}
+#btnsearch{border:none;background: #cccccc;cursor:pointer; outline: none;width: 100%;text-align: center;color: #666;font-size: 14px;}
+/*#btnsearch:hover{background:#47abf7;}*/
+
+.send-info-btn{float: left;width: 16%;margin-left: 4%;overflow: hidden;padding:0 2.5%;cursor:pointer;}
+
+
+.friends-box-list{width: 100%;overflow: hidden;}
+.friends-box{background: #fff;margin-bottom: 4%;width: 100%;overflow: hidden;padding: 3%;padding-right: 0px;}
+.f-head-img{width: 12%;overflow: hidden;display: block;}
+.f-info-right{width: 81%;margin-left: 3%;}
+.f-name-time-jl{width: 100%;overflow: hidden;}
+.f-name-time{width: 78%;}
+.f-nickname{color: #333;font-size: 16px;width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.f-times-juli{width: 100%;overflow: hidden;}
+.f-times,.f-distance{color: #999;font-size:12px; }
+.f-times{width: 30%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.f-distance{margin-left: 5%;width: 65%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+
+.f-attention{cursor:pointer;text-align:center;color:#999;font-size: 12px;
+margin-top: 2%;border-radius: 3px;width: 20%;}
+.f-cancel-att{width: 6%;cursor:pointer;display: none;text-align:right;}
+
+.f-description{color: #555;font-size: 14px;padding: 2% 0px;padding-left: 0px;cursor:pointer;}
+
+.f-img-list{width: 100%;overflow: hidden;}
+.f-img-list li{margin: 3% 0% 0 0;float: left;overflow: hidden;width: 32%;display:block;}
+li.aimgclass{margin: 3% 2% 0 2%;}
+
+a{display:block;}
+.f-product-info{border: solid 1px #d9d9d9;padding: 3%;overflow: hidden;width: 100%;margin-top: 5%;cursor:pointer;}
+.f-product-img{width: 15%;overflow: hidden;}
+.f-pro-names-price{width: 78%;margin-left: 3%;}
+.f-product-name{color: #333;font-size: 12px;width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.f-product-price{color: #f9aa45;font-size: 14px;}
+.f-pro-arrow{width:4%;overflow: hidden;}
+
+.f-comment-all{width: 100%;overflow: hidden;margin-top: 5%;padding-right: 0;}
+.f-comment-tit{color: #333;font-size: 14px;border-bottom: #ebebeb solid 1px;width: 100%;display: block;padding:2% 0px;color:#333;margin-top: 3%;}
+.f-comm-list{width: 100%;padding-top: 2%;}
+.f-comm-box{width: 100%;overflow: hidden;font-size: 12px;}
+.f-comm-send,.f-comm-reply{color: #555;font-size: 12px;padding: 2% 0 0 0;}
+.f-comm-list span{color: #6496d6;}
+.f-comm-send span,.f-comm-reply span{color: #6496d6;}
+.f-comm-list em{color: #999;font-style: normal;}
+.f-comm-send em,.f-comm-reply em{color: #999;font-style: normal;}
+.f-check-all-comm{color: #555;font-size: 14px;padding-top: 3%;width: 100%;overflow: hidden;display: block;}
+.f-com-del{padding:0px 2%;}
+
+
+.f-comm-ico-list{width: 100%;overflow: hidden;margin-top: 5%;padding-bottom: 3%;}
+.f-comm-ico-del{width: 6%;margin-top:1%;overflow: hidden;cursor:pointer;}
+.f-add-praise{width: 10%;margin-left: 4%;border-left: solid 1px #999;padding-left: 3%;cursor: pointer;}
+.f-add-comment{width: 7%;padding-top: 1%;cursor:pointer;}
+.f-add-praise-num{color: #999;font-size: 14px;margin-left: 3%;}
+.praise-num-hover{color: #47abf7;}
+
+
+/*查看所有评论*/
+
+.send-comm-bottom{background: #ebebeb;bottom:0;left:0;right: 0; position:fixed;z-index: 1000;width:100%;margin: auto;max-width: 720px; min-width: 320px; padding: 2% 0;}
+.send-comm-tipimg{width: 75%;margin-left: 3%;cursor: pointer;}
+.sendcomm-praise{width: 7%;margin-left: 3%;cursor:pointer;}
+.sendcomm-praisenum{color: #999;font-size: 14px;margin-left: 3%;}
+
+
+.comment-check-all{width: 100%;background: #fff;overflow: hidden;display: none;}
+.comment-tit-num{color: #333;font-size: 16px;border-bottom:1px solid #f5f5f5;padding:0 0 4% 0;margin-top: 4%;}
+.comment-check-list{width: 100%;overflow: hidden;}
+.comment-check-list li{overflow: hidden;width: 100%;border-bottom:1px solid #f5f5f5;padding:3% 0; }
+.comment-check-list li li{overflow: hidden;width: 100%;border:0px;padding:0px;}
+.comment-chk-img{width: 15%;overflow: hidden;}
+.comment-chk-info{width: 82%;margin-left: 3%;}
+.comment-chk-nkname{color: #333;font-size: 14px;width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.comment-chk-nkname span{color: #999;font-size: 14px;}
+.comment-chk-time{color: #999;font-size: 12px;padding: 1% 3%;}
+.comment-chk-remark{color: #555;font-size: 14px;}
+.comment-del{font-size: 12px;padding: 1% 3%;color:#6496d6;}
+
+
+
+/*发布资源*/
+.issue-submit{border:0px;width: auto;padding:2% 0px;text-align: center;font-size:16px;
+	color:#fff; cursor:pointer; background:#46aafa;border-radius: 8px;margin:8% 4%;}
+
+
+.issue-position{cursor:pointer; border-top: solid 1px #ebebeb;overflow: hidden;padding: 4% 0;}
+.i-position-l{width: 10%;padding: 0 2%;margin-left: 4%;}
+.i-position-c{width: 76%;color: #555;font-size: 14px;overflow: hidden;}
+.i-position-r{width: 7%;padding: 1% 2% 0 2%;}
+
+.recomm-pro-bg{display: none; background-color: black; z-index:9989;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.recomm-pro-pup{ display: none; background: #fff; border-radius: 8px;top:13%;left:0; position:fixed;z-index: 100000;width:90%;margin: auto;right: 0;max-width: 640px;overflow-y: scroll;height: 300px;}
+.recomm-pro-pup ul{overflow: hidden;padding: 1% 0 4% 0;}
+.donot-pro-tit,.recomm-pro-pup ul li{overflow: hidden;width: 100%;border-bottom: solid 1px #d9d9d9;padding: 3% 0;}
+.donot-recomm{width: 10%; margin-left: 4%;}
+.recomm-no-pro{width: 82%;margin-left: 2%;color: #555;font-size:14px; }
+.recomm-pro-l{width: 10%; margin-left: 4%;}
+.recomm-pro-r{width: 82%;margin-left: 2%;overflow: hidden;}
+.recomm-pro-img{width: 20%;overflow: hidden;}
+.recomm-pro-info{width: 78%;margin-left: 2%;}
+.recomm-pro-name{color: #555;font-size:14px;overflow: hidden;width: 100%;white-space: nowrap;text-overflow: ellipsis;}
+.recomm-pro-price{color: #f9aa43;font-size: 16px;}
+
+
+
+/*radio按钮*/
+input[type="radio"]{ cursor:pointer; width: 20px;height: 20px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../../img/shop/delivery-link.png");background-size: 100% 100%;outline: none;}
+input[type="radio"]:checked {width: 20px;height: 20px;border: 0px;background:url("../../img/shop/delivery-hover.png");background-size: 100% 100%;outline: none;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	
+	.sm-networking,.sm-shop,.sm-search-txt input[type="text"],#btnsearch{font-size: 18px;}
+	.f-nickname{font-size: 20px;}
+	.f-times,.f-distance,.f-description,.comment-chk-time{font-size: 16px;}
+	.f-comm-box,.f-comm-send,.f-comm-reply{font-size: 14px;}
+	.f-product-name,.comment-del,.comment-chk-remark,.f-attention,.f-comment-tit,.f-check-all-comm{font-size: 16px;}
+	.f-product-price{font-size: 18px;}
+	.send-comm-puptit,.send-comm-btn,.comment-tit-num{font-size: 20px;}
+	.f-add-praise-num,.sendcomm-praisenum{font-size: 16px;}
+	.send-comm-txt textarea{font-size: 18px;}
+	.issue-submit,.recomm-pro-price{font-size: 20px;}
+	.i-position-c,.recomm-pro-name,.recomm-no-pro,.comment-chk-nkname{font-size: 18px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	
+	.sm-networking,.sm-shop,.sm-search-txt input[type="text"],#btnsearch{font-size: 22px;}
+	.f-nickname{font-size: 24px;}
+	.f-times,.f-distance,.f-description,.comment-chk-time{font-size: 20px;}
+	.f-comm-box,.f-comm-send,.f-comm-reply{font-size: 16px;}
+	.f-product-name,.comment-chk-remark,.comment-del,.f-attention{font-size: 20px;}
+	.f-comment-tit,.f-check-all-comm{font-size: 18px;}
+	.f-product-price{font-size: 22px;}
+	.send-comm-puptit,.send-comm-btn,.comment-tit-num{font-size: 24px;}
+	.f-add-praise-num,.sendcomm-praisenum{font-size: 20px;}
+	.send-comm-txt textarea{font-size: 22px;}
+	.issue-submit,.recomm-pro-price{font-size: 24px;}
+	.i-position-c,.recomm-pro-name,.recomm-no-pro,.comment-chk-nkname{font-size: 22px;}
+
+}
+
+@media (min-width: 621px){	
+
+	.sm-tab-menu{border-radius: 12px;}
+	.sm-networking,.sm-shop,.sm-search-txt input[type="text"],#btnsearch{font-size: 26px;}
+	.f-nickname{font-size: 28px;}
+	.f-times,.f-distance,.f-description,.comment-chk-time{font-size: 22px;}
+	.f-product-name,.comment-chk-remark,.comment-del,.f-attention{font-size: 24px;}
+	.f-comm-box,.f-comm-send,.f-comm-reply{font-size: 18px;}
+	.f-comment-tit,.f-check-all-comm{font-size: 20px;}
+	.f-product-price{font-size: 26px;}
+	.send-comm-puptit,.send-comm-btn,.comment-tit-num{font-size: 28px;}
+	.f-add-praise-num,.sendcomm-praisenum{font-size: 22px;}
+	.f-comm-ico-del{width: 6%;}
+	.f-add-praise{width: 9%;}
+	.f-add-comment{width: 6.5%;padding-top: 0.5%;}
+	.send-comm-txt textarea{font-size: 26px;}
+	.issue-submit,.recomm-pro-price{font-size: 28px;}
+	.i-position-c,.recomm-pro-name,.recomm-no-pro,.comment-chk-nkname{font-size: 26px;}
+	.recomm-pro-pup{height: 500px;}
+	
+}
+
+@media (min-width: 421px){
+	input[type="radio"]{width: 28px;height: 28px;background-size: 100% 100%;outline: none;}
+	input[type="radio"]:checked {width: 28px;height: 28px;background-size: 100% 100%;outline: none;}  
+}

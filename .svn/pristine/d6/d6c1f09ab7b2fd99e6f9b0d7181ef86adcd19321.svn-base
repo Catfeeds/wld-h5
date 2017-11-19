@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>选择卡券</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/stores.css" />
+		<style type="text/css">
+			/*透明度*/
+			
+			.coupon-detail {
+				opacity: 0;
+				filter: alpha(opacity=0);
+				-moz-opacity: 0;
+				-khtml-opacity: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+			}
+			/*取消长按复制*/
+			
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="coupon-main" id="coupon_list">
+					<!-- <div class="coupon-box divre">
+						<input type="hidden" name="ctype" id="ctype_1_0" value="1" />
+						<div class="coupon-money divab cf" id="cmoney_1_0"><span class="fs18">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs13" id="ctit_1_0">代金券</p>
+							<p class="cf fs12" id="cinfo_1_0"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1_0" title="0">选择卡券</div>
+						<div class="coupon-le-ico divab fs12 cf c-le-icogray">平台补贴</div>
+						<img src="__IMG__/store/type_1_default.png" alt="" id="typeimg_1_0" />
+					</div>
+					<div class="coupon-box divre">
+						<input type="hidden" name="ctype" id="ctype_1_1" value="2" />
+						<div class="coupon-money divab cf" id="cmoney_1_1"><span class="fs18">8.8</span><br /><span class="fs12">折</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs13" id="ctit_1_1">折扣券</p>
+							<p class="cf fs12" id="cinfo_1_1"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1_1" title="1">选择卡券</div>
+						<img src="__IMG__/store/type_2_default.png" alt="" id="typeimg_1_1" />
+					</div>
+					<div class="coupon-box divre">
+						<input type="hidden" name="ctype" id="ctype_1_2" value="2" />
+						<div class="coupon-money divab cf" id="cmoney_1_2"><span class="fs18">7.8</span><br /><span class="fs12">折</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs13" id="ctit_1_2">折扣券</p>
+							<p class="cf fs12" id="cinfo_1_2"><span>部分商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cancel_1_2" title="2">选择卡券</div>
+						<img src="__IMG__/store/type_2_default.png" alt="" id="typeimg_1_2" />
+					</div> -->
+
+				</div>
+
+				<div class="coupon-empty divtab bgeb none">
+					<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>
+					<div class="c-empty-font c3 fs13">暂时没有可发放的优惠券</div>
+				</div>
+
+				<div id="console"></div>
+			</div>
+
+			<!--选择卡券，发放弹窗-->
+			<div class="issue-coupon-bg"></div>
+			<div class="issue-coupon-pup">
+				<div class="issue-coupon-con bgcolor divtab divre">
+					<div class="issue-c-tit divtab bborder">
+						<div class="issue-ctype-txt fl c3 fs16">代金券</div>
+					</div>
+					<div class="issue-cmoney divtab fs18 cb">00</div>
+					<div class="issue-cinfo divtab c5 fs13"><span>部分商品</span>|<span>满10元可用</span></div>
+					<div class="issue-c-num divtab c9 fs13">可发放总数量<span id="surenum">0</span>张</div>
+					<div class="issue-c-numtxt divtab c3 fs13 bgeb">
+						<input type="number" value="" name="issue_num" id="issue_num" placeholder="请输入优惠券发放数量" />
+					</div>
+					<div class="issue-c-subbtn cf fs15 divtab">确认发放</div>
+					<input type="hidden" id="coupon_id" name="coupon_id" value="" />
+					<div class="issue-close divab"><img src="__IMG__/store/fakq_icon_close.png" alt="" /></div>
+				</div>
+			</div>
+			<div class="ad-creat-site divtab">
+				<div class="ad-creat-btn cf fs16 add-save-btn2">添加优惠券</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			var resign = true;
+			window.onload = function() {
+				$('.xm-nav-title').text("选择卡券");
+				$('.xm-bar-nav-right').hide();
+				styles();			
+				$('.issue-c-subbtn').removeClass('subbtn-hover');
+				mui('.issue-coupon-pup').off('tap', '.issue-c-subbtn');
+			}
+
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.36;
+				$('.coupon-box').height(boxh);
+
+			}
+			/*跳转到发放优惠券*/
+			mui('.wrap-page').on('tap', '.add-save-btn2', function() {
+				var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+				mui.openWindow({
+					url: '__APP__/Activity/Coupon/addcoupon?joinaid=<?php echo $joinaid ?>&url='+detailurl,
+					id: 'couponadd'
+				});
+			});
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/getCouponList?pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab bgeb">';
+									_html += '<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>';
+
+									_html += '<div class="c-empty-font c3 fs15">暂无可用优惠券</div>';
+									_html += '<div class="c-empty-font c3 fs13">点击下方按钮添加优惠券</div>';
+
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										ctype = dataarr['c_type'];
+										_html+='<div class="coupon-box divre coupon-box-'+pageindex+'">';
+										//_html+='<input type="hidden" name="ctype" id="ctype_'+dataarr['c_id']+'" value="'+dataarr['c_type']+'" />';
+										_html+='<input type="hidden" name="actnum" id="actnum_'+dataarr['c_id']+'" value="'+dataarr['c_actnum']+'" />';
+
+										if(ctype==1) {
+											_html+='<div class="coupon-money divab cf" id="cmoney_'+dataarr['c_id']+'"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">元</span></div>';
+											_html+='<div class="coupon-tit divab">';
+											_html+='<p class="cf fs16" id="ctit_'+dataarr['c_id']+'">代金券</p>';
+											_html+='<p class="cf fs12" id="cinfo_'+dataarr['c_id']+'">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>满'+dataarr['c_limit_money']+'元可用</span></p>';
+										} else {
+											_html+='<div class="coupon-money divab cf" id="cmoney_'+dataarr['c_id']+'"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">折</span></div>';
+											_html+='<div class="coupon-tit divab">';
+											_html+='<p class="cf fs16" id="ctit_'+dataarr['c_id']+'">折扣券</p>';
+											_html+='<p class="cf fs12" id="cinfo_'+dataarr['c_id']+'">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>最高折扣'+dataarr['c_limit_money']+'元</span></p>';
+										}
+										_html+='</div>';	
+										
+										_html+='<div class="coupon-time divab cf fs12">'+dataarr['c_addtime']+'</div>';
+										_html+='<div class="coupon-detail divab cf fs13 verticle-mode  id="cancel_'+dataarr['c_id']+'" title="'+dataarr['c_id']+'" data-ctype="'+dataarr['c_type']+'">选择卡券</div>';
+										if(ctype==1){
+											_html+='<img src="__IMG__/store/type_1_default.png" alt="" id="typeimg_'+dataarr['c_id']+'" />';						
+										}else{						
+											_html+='<img src="__IMG__/store/type_2_default.png" alt="" id="typeimg_'+dataarr['c_id']+'" />';
+										}
+										
+										_html+='</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#coupon_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if (emptyval) {
+							/*选择卡券*/
+							//$('.coupon-detail_'+pageindex).each(function(index) {
+								//var cid = $(this).attr('title');
+								mui('.coupon-box-'+pageindex).on('tap', '.coupon-detail', function() {
+									var cid = $(this).attr('title');
+									var ctype = $(this).attr('data-ctype');//$('#ctype_' + cid).val();
+									issue_coupon(cid, ctype);			
+								});
+							//});	
+						}		
+					}
+				});
+			}
+
+			/*发放弹窗*/
+			function issue_coupon(cid, ctype) {
+				$('#coupon_id').val("");
+				$('.issue-ctype-txt').text("");
+				$('.issue-cmoney').html("");
+				$('.issue-cinfo').html("");
+
+				$('.issue-coupon-bg').fadeIn();
+				$('.issue-coupon-pup').fadeIn();
+				$('.issue-coupon-bg').height($(document).height());
+				$('#coupon_id').val(cid);
+				$('.issue-ctype-txt').text($('#ctit_' + cid).text());
+				$('#surenum').text($('#actnum_' + cid).val());				
+				$('.issue-cmoney').html($('#cmoney_' + cid).html().replace('<br>', ''));
+				$('.issue-cinfo').html($('#cinfo_' + cid).html());
+				if(ctype == 2) {
+					$('.issue-cmoney').css('color', '#FDC858');
+					$('#typeimg_' + cid).attr('src', '__IMG__/store/type_2_selection.png');
+				} else {
+					$('.issue-cmoney').css('color', '#45AAFC');
+					$('#typeimg_' + cid).attr('src', '__IMG__/store/type_1_selection.png');
+				}
+				
+				$('#issue_num').keyup(function(){
+					$('.issue-c-subbtn').addClass('subbtn-hover');
+					mui('.issue-coupon-pup').on('tap', '.issue-c-subbtn', function() {						
+						var cid = $('#coupon_id').val();
+						var issuenum = $('#issue_num').val();
+						sure_issue(cid,issuenum);
+					});					
+				});
+
+				/*关闭弹窗*/
+				mui('.issue-coupon-pup').on('tap', '.issue-close', function() {
+					$('.issue-coupon-bg').fadeOut();
+					$('.issue-coupon-pup').fadeOut();
+					$('#issue_num').val("");
+					$('#coupon_id').val("");
+					$('.issue-ctype-txt').text("");
+					$('.issue-cmoney').html("");
+					$('.issue-cinfo').html("");
+					if(ctype == 2) {
+						$('#typeimg_' + cid).attr('src', '__IMG__/store/type_2_default.png');
+					} else {
+						$('#typeimg_' + cid).attr('src', '__IMG__/store/type_1_default.png');
+					}					
+					$('.issue-c-subbtn').removeClass('subbtn-hover');
+					mui('.issue-coupon-pup').off('tap', '.issue-c-subbtn');
+				});
+			}
+			/*确认发放*/
+			function sure_issue(cid,num){				
+				if(resign){
+					resign = false;
+					var actnum = $('#actnum_' + cid).val();
+					if (parseInt(num)>parseInt(actnum)) {
+						resign = true;
+						mui.toast('发放数量不能大于可发放总数量');
+						return;
+					}	
+					$.post("__URL__/GrantCoupon",{cid:cid,num:num},function(obj){
+						var data = eval(obj);
+						resign = true;
+						if(data['code']==0){							
+							mui.toast(data['msg']);
+							setTimeout(function () {
+								mui.openWindow({
+									url: '__URL__/couponlist',
+									id: 'couponlist'
+								});
+							}, 2000);
+						}else{
+							mui.toast(data['msg']);
+						}
+					})
+					
+				}
+			}
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

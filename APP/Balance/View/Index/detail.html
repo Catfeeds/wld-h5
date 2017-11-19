@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>交易明细详情</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+
+</head>
+
+<body>
+<div class="wrap-page bgeb">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<!-- 头部 -->
+	<div class="detail-top bgcolor divtab bbo">
+		<?php if ($showtype == 1 || $showtype == 2 || $showtype == 3 || $showtype == 4) { //订单类 ?>
+			<div class="state-one template_t_3 divtab">
+				<div class="fl fs13 c9">订单号：<span class="fs13 c3"><?php if ($showtype == 2 || $showtype == 4) { ?>{$data['details']['c_detailid']}<?php } else { ?>{$data['c_orderid']}<?php } ?></span></div>
+				<div class="cy fs13 fr">
+				<?php if ($data['c_pay_state'] == 0 && $data['c_order_state'] == 1) {  ?>已取消<?php }  ?>
+				<?php if ($data['c_pay_state'] == 0 && $data['c_order_state'] == 2) {  ?>待付款<?php }  ?>
+				<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>待发货<?php }  ?>
+				<?php if ($data['c_deliverystate'] == 2 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>待收货<?php }  ?>
+				<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1 && $data['scorestatu'] == 0) {  ?>待评价<?php }  ?>
+				<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1 && $data['scorestatu'] == 1) {  ?>已完成<?php } ?>
+				<?php if ($data['c_pay_state'] == 1 && $data['c_order_state'] == 5) { ?>退款中<?php } ?>
+				<?php if ($data['c_pay_state'] == 1 && $data['c_order_state'] == 6) { ?>退货中<?php } ?>
+				<?php if ($data['c_pay_state'] == 1 && $data['c_order_state'] == 7) { ?>换货中<?php } ?>
+				<?php if ($data['c_pay_state'] == 2) { ?>已退款<?php } ?>
+				</div>
+			</div>
+		<?php } else if ($showtype == 5) { //扫码类 ?>
+			<div class="state-one template_t_3 divtab">
+				<div class="fl fs13 c9">订单号：<span class="fs13 c3">{$data['c_ncode']}</span></div>
+				<div class="cy fs13 fr"><?php if ($data['c_pay_state'] == '-1') { ?>
+				已取消
+				<?php } else {  ?>
+				<?php if ($data['c_evaluate'] == 0) { ?>待评价<?php } else {  ?>已完成<?php }  ?>
+				<?php }  ?>
+				</div>
+			</div>
+		<?php } else if ($showtype == 6) { //提现类 ?>
+			<div class="state-one template_t_3 divtab">
+				<div class="fl fs13 c9">订单号：<span class="fs14 c3">{$data['c_tx_code']}</span></div>
+				<div class="cy fs13 fr"><?php if ($data['c_state'] == 0) { ?>申请中<?php } else if ($data['c_state'] == 1) { ?>已到账<?php } else if ($data['c_state'] == 2) { ?>失败<?php } ?>
+				</div>
+			</div>
+		<?php } else if ($showtype == 7 || $showtype == 8) { //维权类  ?>
+			<div class="state-one template_t_3 divtab">
+				<div class="fl fs13 c9">维权号：<span class="fs13 c3">{$data['c_refundcode']}</span></div>
+				<div class="cy fs13 fr"><?php if ($data['c_refundstate'] == 3) { ?>已完成
+				<?php } else { ?>维权中<?php } ?></div>
+			</div>
+		<?php } else { //其他类  ?>
+			<div class="state-one template_t_2 divtab">
+				<div class="cy fs13">已完成</div>
+			</div>
+		<?php } ?>
+	</div>
+
+	<!-- 内容部分 -->
+	<div class="detail-main">
+		<!-- 活动 -->
+		<?php if ($showtype == 10) { ?>
+		<div class="template_t_6">
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5"><?php if ($budget['c_showtext'] == '红包') { ?>红包金额<?php } else { ?>奖励金额<?php } ?></div>
+				<div class="state-tit-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<li>
+						<div class="state-con-fl fl"><?php if ($budget['c_showtext'] == '红包') { ?>红包类型<?php } else { ?>活动名称<?php } ?></div>
+						<div class="state-con-fr fr"><?php if ($budget['c_showtext'] == '红包') { ?>
+						<?php if ($data['c_activitytype'] == '红包') { ?>商家红包<?php } else { ?>普通红包<?php } ?>
+						<?php } else { ?>{$data['c_activityname']}<?php } ?></div>
+					</li>
+					<li>
+						<div class="state-con-fl fl"><?php if ($budget['c_showtext'] == '红包') { ?>活动创始<?php } else { ?>活动发起<?php } ?></div>
+						<div class="state-con-fr fr">{$data['initiator']}</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">到账时间</div>
+						<div class="state-con-fr fr">{$budget['c_addtime']}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+		<!-- 提现类 -->
+		<?php if ($showtype == 6) { ?>
+		<div class="template_t_3">
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">提现金额</div>
+				<div class="state-tit-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<li class="bbo">
+						<div class="state-con-fl fl">收款账户</div>
+						<div class="state-con-fr fr c9">{$data['c_banksn']}</div>
+						<div class="state-con-img fr">
+							<?php if ($data['c_sign'] == 1) { ?>
+							<img src="__IMG__/newb011.png" alt="">
+							<?php } else if ($data['c_sign'] == 2) { ?>
+							<img src="__IMG__/newb010.png" alt="">
+							<?php } else if ($data['c_sign'] == 3) { ?>
+							<img src="__IMG__/newb012.png" alt="">
+							<?php } ?>
+						</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">创建时间</div>
+						<div class="state-con-fr fr">{$data['c_addtime']}</div>
+					</li>
+					<?php if ($data['c_state'] == 2) { ?>
+					<li>
+						<div class="state-con-fl fl">失败原因</div>
+						<div class="state-con-fr fr">{$data['c_remarks']}</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">欠款去向</div>
+						<div class="state-con-fr fr">提款金额已退到小蜜余额</div>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+		<!-- 扫码类包含扫码跨界佣金 -->
+		<?php if ($showtype == 5) { ?>
+		<div class="template_t_5">
+			<?php if ($source == 9) { ?>
+			<div class="state-tit-list divtab bbo fs14 c5" <?php if($apptype == 2){ ?> onclick="toChats('{$data['c_acode']}','{$data['c_nickname']}')" <?php }else if($apptype == 1){ ?> onclick="contactBuyer('{$data['c_acode']}','{$data['c_nickname']}')" <?php }else{ ?> onclick="fchat();"<?php } ?>>
+				<div class="store-ico fl"><img src="__IMG__/store.png" alt=""></div>
+				<div class="store-name fl">{$data['c_nickname']}的店铺</div>
+				<div class="store-arror fl"><img src="__IMG__/jiantou.png" alt=""></div>
+			</div>
+			<?php } ?>
+			<?php if ($source == 12) { ?>
+			<div class="state-tit-list divtab bbo fs16">
+				<div class="state-tit-fl fl c5">跨界佣金</div>
+				<div class="state-tit-fr fr cy"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+			<?php } else { ?>
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">{$budget['c_showtext']}</div>
+				<div class="state-tit-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+
+			<!-- 跨界支出 -->
+			<?php if ($data['c_commission'] > 0) { ?>
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">跨界支出</div>
+				<div class="state-tit-fr fr cy fs16">-{$data['c_commission']}</div>
+			</div>	
+			<?php } ?>
+
+			<!-- 到账银行卡 -->
+			<?php if ($budget['c_bkmoney'] > 0) { ?>
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">到账银行卡</div>
+				<div class="state-tit-fr fr cy fs16">{$budget['c_bkmoney']}</div>
+			</div>
+			<?php } ?>
+			<!-- 到账小蜜余额 -->
+			<?php if ($budget['c_xmmoney'] > 0) { ?>
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">到账小蜜余额</div>
+				<div class="state-tit-fr fr cy fs16">{$budget['c_xmmoney']}</div>
+			</div>
+			<?php } ?>
+			<?php } ?>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<li>
+						<div class="state-con-fl fl">商家</div>
+						<div class="state-con-fr fr">{$data['c_nickname']}</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">用户</div>
+						<div class="state-con-fr fr">{$data['usernickname']}</div>
+					</li>
+					<?php foreach ($data['paylog'] as $key => $value) { ?>
+					<li>
+						<div class="state-con-fl fl"><?php if ($value['c_payrule'] == 1) { ?>支付宝支付<?php } else if ($value['c_payrule'] == 2 || $value['c_payrule'] == 3) { ?>微信支付<?php } else if ($value['c_payrule'] == 4) { ?>余额支付<?php } ?></div>
+						<div class="state-con-fr fr">{$value['c_money']}</div>
+					</li>
+					<?php } ?>
+					<li>
+						<div class="state-con-fl fl">创建时间</div>
+						<div class="state-con-fr fr">{$data['c_addtime']}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+		<!-- 订单优惠类 -->
+		<?php if ($showtype == 2 || $showtype == 4) { ?>
+		<?php if ($source != 14) { ?>
+		<div class="state-tit-list divtab bbo fs14 c5" <?php if($apptype == 2){ ?> onclick="toChats('{$data['c_acode']}','{$data['c_nickname']}')" <?php }else if($apptype == 1){ ?> onclick="contactBuyer('{$data['c_acode']}','{$data['c_nickname']}')" <?php }else{ ?> onclick="fchat();"<?php } ?>>
+			<div class="store-ico fl"><img src="__IMG__/store.png" alt=""></div>
+			<div class="store-name fl">{$data['c_nickname']}的店铺</div>
+			<div class="store-arror fl"><img src="__IMG__/jiantou.png" alt=""></div>
+		</div>
+		<?php } ?>
+		<div class="template_t_1">
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5"><?php if ($source == 5 || $source == 15) { ?>跨界佣金<?php } else if ($source == 13) { ?>购物优惠<?php } else if ($source == 14) { ?>推广佣金<?php } ?></div>
+				<div class="state-tit-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<?php if ($source == 14) { ?>
+					<li>
+						<div class="state-con-fl fl">买家</div>
+						<div class="state-con-fr fr">{$data['usernickname']}</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">商家</div>
+						<div class="state-con-fr fr">{$data['c_nickname']}</div>
+					</li>
+					<?php } else { ?>
+					<li class="bbo">
+						<div class="buy-list-t divtab">购物清单</div>
+						<div class="buy-list-c divtab">
+							<p class="c9">{$data['details']['c_pname']}&nbsp;&nbsp;&nbsp;&nbsp;{$data['details']['c_pmodel_name']?$data['details']['c_pmodel_name']:''}</p>
+						</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">交易总额</div>
+						<div class="state-con-fr fr">{$data['c_actual_price']}</div>
+					</li>
+					<?php } ?>
+					<li>
+						<div class="state-con-fl fl">创建时间</div>
+						<div class="state-con-fr fr">{$data['c_addtime']}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+		<!-- 退款类 -->
+		<?php if ($showtype == 7 || $showtype == 8) { ?>
+		<div class="template_t_12">
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">卖家：{$data['c_nickname']}</div>
+			</div>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<li class="bbo">
+						<div class="buy-list-t divtab">购物清单</div>
+						<div class="buy-list-c divtab">
+							<p class="c9">{$data['c_pname']}&nbsp;&nbsp;&nbsp;&nbsp;{$data['c_pmname']?$data['c_pmname']:''}</p>
+						</div>
+					</li>
+					<li class="bbo">
+						<div class="state-con-fl fl fs14">退款金额</div>
+						<div class="state-con-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">创建时间</div>
+						<div class="state-con-fr fr">{$data['c_addtime']}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+		<!-- 购物类 -->
+		<?php if ($showtype == 1 || $showtype == 3) { ?>
+		<div class="template_t_4">
+			<div class="state-tit-list divtab bbo fs14 c5" <?php if($apptype == 2){ ?> onclick="toChats('{$data['c_acode']}','{$data['c_nickname']}')" <?php }else if($apptype == 1){ ?> onclick="contactBuyer('{$data['c_acode']}','{$data['c_nickname']}')" <?php }else{ ?> onclick="fchat();"<?php } ?>>
+				<div class="store-ico fl"><img src="__IMG__/store.png" alt=""></div>
+				<div class="store-name fl">{$data['c_nickname']}的店铺</div>
+				<div class="store-arror fl"><img src="__IMG__/jiantou.png" alt=""></div>
+			</div>
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">购物支付</div>
+				<div class="state-tit-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<li class="bbo">
+						<div class="buy-list-t divtab">购物清单</div>
+						<div class="buy-list-c divtab">
+							<?php if (!empty($data['details']['c_pname'])) { ?>
+							<p class="c9">{$data['details']['c_pname']}&nbsp;&nbsp;&nbsp;&nbsp;{$data['details']['c_pmodel_name']?$data['details']['c_pmodel_name']:''}</p>
+							<?php } else { ?>
+							<?php foreach ($data['details'] as $key => $value) { ?>
+							<p class="c9">{$value['c_pname']}&nbsp;&nbsp;&nbsp;&nbsp;{$value['c_pmodel_name']?$value['c_pmodel_name']:''}</p>
+							<?php } ?>
+							<?php } ?>
+						</div>
+					</li>
+					<?php foreach ($data['paylog'] as $key => $value) { ?>
+					<li>
+						<div class="state-con-fl fl"><?php if ($value['c_payrule'] == 1) { ?>支付宝支付<?php } else if ($value['c_payrule'] == 2 || $value['c_payrule'] == 3) { ?>微信支付<?php } else if ($value['c_payrule'] == 4) { ?>余额支付<?php } ?></div>
+						<div class="state-con-fr fr">{$value['c_money']}</div>
+					</li>
+					<?php } ?>
+					<li>
+						<div class="state-con-fl fl">创建时间</div>
+						<div class="state-con-fr fr">{$data['c_addtime']}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+		<!-- 后台操作金额 -->
+		<?php if ($showtype == 9) { ?>
+		<div class="template_t_7">
+			<div class="state-tit-list divtab bbo fs14">
+				<div class="state-tit-fl fl c5">操作金额</div>
+				<div class="state-tit-fr fr cy fs16"><?php if ($budget['c_money'] > 0) { ?>+<?php } ?>{$budget['c_money']}</div>
+			</div>
+			<div class="state-con-list divtab">
+				<ul class="divtab fs14 c5">
+					<li class="bbo">
+						<div class="buy-list-t divtab">操作备注</div>
+						<div class="buy-list-c divtab">
+							<p class="c9">{$budget['c_desc']}</p>
+						</div>
+					</li>
+					<li>
+						<div class="state-con-fl fl">创建时间</div>
+						<div class="state-con-fr fr">{$data['c_addtime']}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
+	</div>
+	<div class="detail-bottom cb fs14 divtab">对此订单有疑问</div>
+	<div class="query-bg"></div>
+	<div class="query-pup">
+		<div class="query-content">
+			<div class="query-title c3 fs13">微领地小蜜联系方式</div>
+			<div class="query-con-li c5 fs12">
+				<p><span class="fl">微领地小蜜客服电话：</span><a href="tel:400-9603-400" class="cb">400-9603-400</a></p>
+				<p><span class="fl">微领地小蜜市场1部电话：</span><a href="tel:0755-2822-7751" class="cb">0755-2822-7751</a></p>
+				<p><span class="fl">微领地小蜜微信订阅号：</span><span class="cb">VIP小蜜</span></p>
+				<p><span class="fl">微领地小蜜微信服务号：</span><span class="cb">微领地小蜜</span></p>
+				<p><span class="fl">微领地小蜜工作人员微信号：</span><span class="cb">VLD007<!--weilingdi3356--></span></p>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+	var mainh = $('.detail-main').height();
+	$('.detail-main').height(mainh);
+	$('.detail-main').css('background-position',"40px "+(mainh-20)+"px");
+
+	$('.query-bg').click(function(){
+		$(".query-bg").fadeOut(300);
+		$(".query-pup").fadeOut(300);
+	});
+}
+mui('.wrap-page').on('tap','.detail-bottom',function(){
+	$(".query-bg").fadeIn(300);
+	$(".query-pup").fadeIn(300);
+	$(".query-bg").height($(document).height());
+});
+
+function toChats (code,nkname) {
+	window.webkit.messageHandlers.AppModel.postMessage({"chat":{ "code": ""+code+"", "nkname": ""+nkname+""}});
+	// toChat(code,nkname)
+}
+/*安卓*/
+function contactBuyer (code,nkname) {
+	javaScript:resultData.contactBuyer(code,nkname);
+}
+
+</script>
+
+<include file="Common/footer"/>
+</body>
+</html>

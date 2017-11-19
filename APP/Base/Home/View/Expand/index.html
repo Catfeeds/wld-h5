@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>推广中心</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/expand/index.css?v=1.2">
+</head>
+<body class="bgeb">
+
+<div class="wrap-page" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="expand-tab-con fs15">
+		<ul>
+			<li id="expandt1" class="expandtab" onclick="selectstatu(1)">推广商品</li>
+			<li class="hover expandtab" id="expandt2" onclick="selectstatu(2)">我的推广</li>
+		</ul>
+	</div>
+	<div class="expand-main">
+		<ul class="list-ul" id="expand-main">
+<!-- 			<li class="expand-list">
+				<div class="product-box">
+					<div class="product-img fl">
+						<img src="__IMG__/expand/tg-img-2.png" alt="">
+					</div>
+					<div class="product-info fl">
+						<div class="product-oprate">
+							<div class="product-name c3 fs14 fl">秘制豆腐干休闲食品</div>
+							<div class="editor-btn fr c5 fs12" id="editor-1" onclick="editor(1,'editor','finish')">编辑</div>
+							<div class="editor-btn fr c5 fs12" id="finish-1" onclick="finished(1,'editor','finish')" style="display:none;">完成</div>
+						</div>
+						<div class="product-state">
+							<ul>
+								<li class="blue-btn">自营</li>
+								<li class="yellow-btn">代理</li>
+								<li class="blue-btn">包邮</li>
+								<li class="yellow-btn">推广佣金</li>
+								<li class="yellow-btn">购物优惠</li>
+							</ul>
+						</div>
+						<div class="product-price">
+							<div class="price-font fs16 fl"><span class="fs12">￥</span>888</div>
+							<div class="rebate-font fr fs16">10%</div>
+						</div>
+					</div>
+				</div>
+				<div class="rebate-box">
+					<div class="expand-button fr">
+						<button type="button" class="fs14 btn-tg">立即推广</button>
+					</div>
+					<div class="expand-button fr none">
+						<button type="button" class="fs14 btn-tg">我要推广</button>
+					</div>
+					<div class="expand-num fl fs12">
+						<div class="ex-n-img fl"><img src="__IMG__/expand/e-06.png" alt=""></div>50次
+					</div>
+					<div class="expand-getr fl c5 fs12">获得佣金：<span>88</span></div>
+				</div>
+				<div class="delete-btn" id="delete-btn-1" onclick="dialogif(arg,1)">
+					<span><img src="__IMG__/expand/e-14.png" alt=""></span>
+					<p class="fs12">删除</p>
+				</div>
+			</li> -->
+
+			<div id="console"></div>
+		</ul>
+	</div>
+</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function(){
+		ChRightText("搜索");
+		styles();
+	}
+	function styles () {
+
+		var proh = $('.product-img').width();
+		$('.product-img').height(proh);
+		//var lih = proh*50/100;
+		//$('.product-info').css('line-height',lih+'px');
+
+		var listh = $('.expand-list').height();
+		$('.expand-list').height(listh);
+		$('.delete-btn').height(listh);
+	}
+
+
+var ctrls = true;
+var emptyval = true;
+var pageindex = 1;
+var statu = '<?php echo $statu ?>';
+if (!statu) {
+	statu = 1;
+}
+
+selectstatu(statu);
+function selectstatu(i){
+	$(window).scrollTop(0);
+	statu = i;pageindex = 1;ctrls = true;emptyval = true;
+	$('.expandtab').removeClass('hover');
+	$('#expandt' + i).addClass('hover');
+	GetExpand(pageindex);
+}
+
+$(window).bind('scroll', function() {
+	if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+		if (ctrls && emptyval) {
+			GetExpand(pageindex);
+		}
+	}
+	if ($(window).scrollTop() >= $('.expand-tab-con').height()) {
+		$('.expand-tab-con').addClass('menu-fixed');
+	}
+	if ($(window).scrollTop() < $('.expand-tab-con').height()) {
+		$('.expand-tab-con').removeClass('menu-fixed');
+	}
+});
+	var sharepar = new Array;
+	var py = 0;
+	/*获取用户推广产品*/
+	function GetExpand(page) {
+		if (page==1) {
+			pageindex = 1;
+		}
+		var _html="";
+		var strurl = "";
+		if(statu==1){
+			strurl+="__URL__/allproduct?pageindex="+pageindex;
+		}else if(statu==2){
+			strurl+="__URL__/my_allproduct?pageindex="+pageindex;
+		}
+		$.ajax({
+			type:'get', dataType:'json', url:strurl, cache:false, beforeSend:function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			}, error:function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},success:function(obj) {
+				if(pageindex==1) {
+					$('#expand-main').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code']==0) {
+					var data = mgs.data;
+					var list = data.list;
+					if(data == null || list ==null){
+						emptyval = false;
+	    			}else{
+						if (pageindex <= data.pageCount) {
+							pageindex++;
+							for (var i = 0;i < list.length;i++) {
+							_html+='<li class="expand-list" id="expand-list-'+i+'">';
+							_html+='<div class="product-box">';
+							_html+='<div class="product-img fl">';
+							_html+='<img src="'+list[i]['c_pimg']+'" alt="">';
+							_html+='</div>';
+							_html+='<div class="product-info fl">';
+							_html+='<div class="product-oprate">';
+							_html+='<div class="product-name c3 fs14 fl">'+list[i]['c_name']+'</div>';
+							if(statu==2){
+								_html+='<div id="editor-'+i+'" onclick="editor('+i+',\'editor\',\'finish\')" class="editor-btn fr c5 fs12">编辑</div>';
+								_html+='<div onclick="finished('+i+',\'editor\',\'finish\')" id="finish-'+i+'" class="editor-btn fr c5 fs12" style="display:none;">完成</div>';
+							}
+							_html+='</div>';
+							_html+='<div class="product-state">';
+							_html+='<ul>';
+							if(list[i]['c_isagent']==0){
+								_html+='<li class="blue-btn fs12">自营</li>';
+							}
+							if(list[i]['c_isagent']==1){
+								_html+='<li class="yellow-btn fs12">代理</li>';
+							}
+							if(list[i]['c_isfree']==1){
+								_html+='<li class="blue-btn fs12">包邮</li>';
+							}
+							if(list[i]['c_isspread']==1){
+								_html+='<li class="yellow-btn fs12">推广</li>';
+							}
+							//_html+='<li class="yellow-btn">购物优惠</li>';
+							_html+='</ul>';
+							_html+='</div>';
+							_html+='<div class="product-price">';
+							_html+='<div class="price-font fs16 fl"><span class="fs12">￥</span>'+list[i]['c_price']+'</div>';
+							_html+='<div class="rebate-font fr fs16">'+list[i]['c_spread_proportion']+'%</div>';
+							_html+='</div>';
+							_html+='</div>';
+							_html+='</div>';
+							_html+='<div class="rebate-box">';
+							if(statu==1){
+								_html+='<div class="expand-button fr">';
+								_html+='<button type="button" class="fs14 btn-tg" onclick="lookproinfo(\''+list[i]['c_ucode']+'\',\''+list[i]['c_pcode']+'\','+list[i]['c_source']+')">我要推广</button>';
+								_html+='</div>';
+							}else if(statu==2){
+								_html+='<div class="expand-button fr">';
+								_html+='<button type="button" class="fs14 btn-tg" onclick="lookproinfo(\''+list[i]['c_ucode']+'\',\''+list[i]['c_pcode']+'\','+list[i]['c_source']+')">立即推广</button>';
+								_html+='</div>';
+								_html+='<div class="expand-num fl fs12 c5">';
+								_html+='<div class="ex-n-img fl"><img src="__IMG__/expand/e-06.png" alt=""></div>'+list[i]['c_tgnum']+'次</div>';
+								_html+='<div class="expand-getr fl c5 fs12">获得佣金：<span>'+(list[i]['c_price']*(list[i]['c_spread_proportion']/100)).toFixed(2)+'</span></div>';
+							}
+							_html+='</div>';
+							_html+='<div class="delete-btn" id="delete-btn-'+i+'" onclick="dialogif(\''+list[i]['c_pcode']+'\','+i+')">';
+							_html+='<span><img src="__IMG__/expand/e-14.png" alt=""></span>';
+							_html+='<p class="fs12">删除</p>';
+							_html+='</div>';
+							_html+='</li>';
+							}
+						}
+						else{
+							emptyval=false;
+						}
+					}
+				}
+				else{
+					emptyval=false;
+				}
+				if (pageindex == 1) {
+					_html += '<div class="data-null"><img src="__IMG__/expand/empty.png" alt=""></div>';
+				}
+				$('#expand-main').append(_html);
+			}, complete:function() {
+	            styles();
+				ctrls = true;
+				$('#console').css('display', 'none');
+			}
+		});
+	}
+
+	var delh = 0;
+	function editor (n,name1,name2) {
+		$("#"+name1+"-"+n).hide();
+		$("#"+name2+"-"+n).show();
+		$('#delete-btn-'+n).animate({right:'0'});
+		delh = $('#delete-btn-'+n).width();
+		$('#delete-btn-'+n).width(delh);
+	}
+	function finished (n,name1,name2) {
+		$("#"+name2+"-"+n).hide();
+		$("#"+name1+"-"+n).show();
+		$('#delete-btn-'+n).animate({right:'-'+delh+'px'});
+	}
+
+
+	/*提示弹窗*/
+    function dialogif (arg,n) {
+        //获取客户端页面宽高
+        var _client_width = document.body.clientWidth;
+        var _client_height = document.documentElement.scrollHeight;
+
+        //create shadow
+        if(typeof($("#jd_shadow")[0]) == "undefined"){
+            //前置
+            $("body").prepend("<div id='jd_shadow'>&nbsp;</div>");
+        }
+
+        //create dialog
+        if(typeof($("#jd_dialog")[0]) != "undefined"){
+            $("#jd_dialog").remove();
+        }
+        var show = '';
+        show +='<div id="jd_dialog" style="position: fixed;">';
+        show +='<div id="jd_dialog_h">提示</div>';
+        show +='<table align="center" id="jd_dialog_c">';
+        show +='<tr>';
+        show +='<td align="center">您确定要清除该商品吗？</td>';
+        show +='</tr>';
+        show +='</table>';
+        show +='<div id="jd_dialog_b">';
+        show +='<div id="jd_dialog_l" onclick="Close_dialog()">否</div>';
+        show +='<div id="jd_dialog_r" onclick="Ok_dialog('+arg+','+n+')">是</div>';
+        show +='</div>';
+        show +='</div>';
+        $("body").prepend(show);
+    }
+    function Close_dialog () {
+        $("#jd_shadow").remove();
+        $("#jd_dialog").remove();
+    }
+    function Ok_dialog (arg,n) {
+    	clearpro(arg,n);
+    }
+
+	/*删除事件*/
+	function clearpro(pcode,n) {
+		var pcode = pcode;
+		$.ajax({
+			type: "get",
+			url: '__URL__/myproduct_del',
+			data: "pcode=" + pcode,
+			dataType: "json",
+			success: function(obj) {
+				var msg = eval(obj);
+				if (msg['code'] == 0) {
+					var lih = document.getElementById("expand-main").getElementsByTagName("li").length;
+						$("#delete-btn-" + n).parent("li#expand-list-"+n).remove();
+				        $("#jd_shadow").remove();
+				        $("#jd_dialog").remove();
+					if ($('li').size() == 0) {
+						$('#expand-main').html('<div class="baoqian">没有相关推广信息</div>');
+					}
+				} else {
+					mui.toast(msg['msg']);
+					return false;
+				}
+			}
+		});
+	}
+
+	/*查看商品*/
+	function lookproinfo (ucode,pcode,source) {
+		if(source==1){
+			window.location.href="__APP__/Shopping/Index/detail?pcode="+pcode+"&pucode="+ucode;
+		}else{
+			window.location.href="__APP__/Shopping/Entitymap/detail?pcode="+pcode+"&pucode="+ucode;
+		}
+	}
+
+	/*查看商家*/
+	function lookstore(ucode){
+		window.location.href="__APP__/Home/Myspace/index?fromucode="+ucode;
+	}
+
+	/*搜索*/
+	function rightcaozuo() {
+		mui.openWindow({
+			url: '__URL__/sousuo',
+			id: 'sousuo'
+		});
+	}
+
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

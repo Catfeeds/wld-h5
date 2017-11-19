@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>上班记录</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+	<style type="text/css">
+	.ca-work-tit{padding: 3% 3% 5% 0px;border-top:1px solid #ebebeb;}
+	.ca-work-time{padding: 2%;}
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+
+			<!-- 上班记录 -->
+			<div class="ca-work-record bgcolor divtab">
+				<ul id="data_list">
+					<!-- <div class="ca-work-tit fb600 c3 fs16">7月8日</div>
+					<div class="ca-work-time divtab c9 fs14">
+						<span class="fl">09:00:00-12:00:00</span>
+						<span class="fr">3小时10分</span>
+					</div>
+					<div class="ca-work-time divtab c9 fs14">
+						<span class="fl">09:00:00-12:00:00</span>
+						<span class="fr">3小时10分</span>
+					</div>
+					<div class="ca-work-tit fb600 c3 fs16">7月8日</div>
+					<div class="ca-work-time divtab c9 fs14">
+						<span class="fl">09:00:00-12:00:00</span>
+						<span class="fr">3小时10分</span>
+					</div>
+					<div class="ca-work-time divtab c9 fs14">
+						<span class="fl">09:00:00-12:00:00</span>
+						<span class="fr">3小时10分</span>
+					</div> -->
+				</ul>
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	var datesign = '';
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/SignLog?cashid=<?php echo $cashinfo['c_id']; ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html+='<div class="baoqian">暂无相关记录</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								if (datesign != dataarr['timetit']) {
+									datesign = dataarr['timetit'];
+									_html+='<div class="ca-work-tit fb600 c3 fs16">'+dataarr['timetit']+'</div>';
+								}
+								
+								_html+='<div class="ca-work-time divtab c9 fs14">';
+									_html+='<span class="fl">'+dataarr['signtime']+'-'+dataarr['leavetime']+'</span>';
+									_html+='<span class="fr">'+dataarr['hours']+'</span>';
+								_html+='</div>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+</script>
+
+</html>

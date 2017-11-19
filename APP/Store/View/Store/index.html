@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>店铺管理</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/stores.css" />
+	</head>
+	
+	<body class="bgcolor">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content" style="background-color: white;"> 
+				
+				<div class=" storeinfo">
+					<div class="storebrowse divre">
+						<img class="storeb" src="{$storeinfo['c_headimg']}" alt="" />
+						<div class="storename c3 fs13">{$storeinfo['c_nickname']}</div>
+						<div class="divab" id="smenu-1">
+							<div style="display: inline-block;">
+								<img class="pic" src="__IMG__/store/dpsy_icon_yl.png" alt="" />
+							</div>
+							<span class="fs12">预览店铺</span>
+						</div>
+					</div>
+				</div>
+				<div class="classify">
+					<div class="fl" id="smenu-2">
+						<img src="__IMG__/store/dpsy_icon_zl.png" alt="" />
+						<div class="fs14">店铺资料</div>
+					</div>
+					<div class="fl" id="smenu-3">
+						<img src="__IMG__/store/dpsy_icon_mb.png" alt="" />
+						<div class="fs14">选择模版</div>
+					</div>
+					<div class="fl" id="smenu-7">
+						<img src="__IMG__/store/dpsy_icon_kq.png" alt="" />
+						<div class="fs14">店铺卡券</div>
+					</div>
+					<div class="fl" id="smenu-8">
+						<img src="__IMG__/store/dpsy_icon_ewm.png" alt="" />
+						<div class="fs14">店铺二维码</div>
+					</div>
+				</div>
+				<div class="divre classify1">
+					<img src="__IMG__/store/dpsy_img_bg.png" alt="" />
+					<!--<div class="divab" style="top: 8rem;left: 24%;">
+						<img src="__IMG__/store/dpsy_icon_ewm.png" alt="" />
+						<div>拼团</div>
+					</div>
+					<div class="divab" style="top: 12rem;left: 54%;">
+						<img src="__IMG__/store/dpsy_icon_ewm.png" alt="" />
+						<div>店铺红包</div>
+					</div>
+					<div class="divab" style="top: 16rem;left: 30%;">
+						<img src="__IMG__/store/dpsy_icon_ewm.png" alt="" />
+						<div>优惠券</div>
+					</div>
+					<div class="divab" style="top: 20rem;left: 60%;">
+						<img src="__IMG__/store/dpsy_icon_ewm.png" alt="" />
+						<div>拼团</div>
+					</div>-->
+				</div>
+				
+				
+				
+				
+				
+				
+				<!--<div class="storeinfo-li bborder divtab bgcolor divre" id="smenu-1">
+					<div class="storebrowse fr fs12 c9">预览店铺</div>
+					<div class="storehead fl"><img src="{$storeinfo['c_headimg']}" alt="" /></div>
+					<div class="storename fl c3 fs13 fov">{$storeinfo['c_nickname']}</div>
+					<div class="arrows divab"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+				</div>
+				<div class="storeinfo-li bborder divtab bgcolor" id="smenu-2">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/sm_icon_bjzl.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">编辑资料</div>
+				</div>
+				<div class="storeinfo-li bborder divtab bgcolor" id="smenu-3">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/sm_icon_xzmb.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">选择模板</div>
+				</div>
+				<div class="storeinfo-li bborder divtab bgcolor" id="smenu-4">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/sm_icon_hdgl.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">活动管理</div>
+				</div>
+				<div class="storeinfo-li bborder divtab bgcolor" id="smenu-5">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/sm_icon_pjgl.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">评价管理</div>
+				</div>-->
+				<!-- <div class="storeinfo-li bborder divtab bgcolor" style="margin-top: 4%;" id="smenu-6">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/sm_icon_ffhb.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">红包管理</div>
+				</div> -->
+				<!--<div class="storeinfo-li bborder divtab bgcolor" style="margin-top: 4%;" id="smenu-7">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/sm_icon_ffkj.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">店铺卡券</div>
+				</div>
+				<div class="storeinfo-li bborder divtab bgcolor" id="smenu-8">
+					<div class="storearrows fr"><img src="__COMMON__/img/arrows.png" alt="" /></div>
+					<div class="storeliico fl"><img src="__IMG__/store/service_icon_qrcode.png" alt="" /></div>
+					<div class="storeliname fl c3 fs13">店铺二维码</div>
+				</div>-->
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+
+		<script type="text/javascript">
+			window.onload=function(){
+				styles();
+			}
+			function styles(){
+				var screenWith = $('.wrap-page').width() / 720;
+				var imgWidth = $('.classify>.fl>img').width()*screenWith
+				$('.classify>.fl>img').css('width',imgWidth);
+				// $('.pic').css('width',$('.pic').width()*screenWith);
+//				$('.classify1>.divab>img').css('width',$('.classify1>.divab>img').width()*screenWith)
+			}
+			
+			
+			/*菜单跳转*/
+			// 预览
+			mui('.mui-content').on('tap','#smenu-1',function(){
+				mui.openWindow({url:'__URL__/viewtemp',id:'preview'});
+			});
+			// 编辑资料
+			mui('.mui-content').on('tap','#smenu-2',function(){
+				var isfixed = '<?php echo $storeinfo["c_isfixed"] ?>';
+				if(isfixed==1){
+					mui.openWindow({url:'__URL__/add',id:'add'});
+				}else {
+					mui.openWindow({url:'__URL__/onlineadd',id:'add'});
+				}
+			});
+			// 选择模板
+			mui('.mui-content').on('tap','#smenu-3',function(){
+				mui.openWindow({url:'__URL__/seltemp',id:'seltemp'});
+			});
+			// 活动管理
+			mui('.mui-content').on('tap','#smenu-4',function(){
+				mui.openWindow({url:'__URL__/activitylist',id:'activitylist'});
+			});
+			// 评论管理
+			mui('.mui-content').on('tap','#smenu-5',function(){
+				mui.openWindow({url:'__URL__/comment',id:'commentlist'});
+			});
+			// 红包管理
+			mui('.mui-content').on('tap','#smenu-6',function(){
+				mui.openWindow({url:'__APP__/Activity/Rednewact/index',id:'rednewact'});
+			});
+			// 发放卡劵
+			mui('.mui-content').on('tap','#smenu-7',function(){
+				mui.openWindow({url:'__URL__/couponlist',id:'couponlist'});
+			});			
+			// 二维码
+			mui('.mui-content').on('tap','#smenu-8',function(){
+				mui.openWindow({url:'__URL__/qrcode',id:'qrcode'});
+			});
+			mui.plusReady(function() {});
+		</script>
+
+	</body>
+
+</html>

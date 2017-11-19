@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>砍价分享</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/myacts/index.css" />
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 16%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="confirm-pcode" value="">
+				<input type="hidden" name="confirm-pucode" value="">
+				<input type="hidden" name="confirm-mcode" value="">
+				<input type="hidden" name="confirm-num" value="">
+				<div class="mui-content">
+					<div class="b-current bgcolor">						
+						<div class="current-head fl">
+							<img src="__IMG__/myacts/dlsc_xq_03.jpg" alt="" />
+						</div>
+						<div class="current-nkname fl fs13 c5 fov">良品铺子</div>
+						<div class="current-arrow fr"><span class="fs13 c9">砍价玩法</span><span><img src="__IMG__/myacts/kqgl_icon_next.png" alt="" /></span></div>
+					</div>
+					<div class="bargain-progress bgcolor divtab divre">
+						<div class="divab cf fs11 progres-float">58%</div>
+						<div id="progres" class="mui-progressbar bargain-jd">
+							<span></span>
+						</div>
+						<div class="bargain-info divtab">
+							<span class="fl fs12 c5">当前价格：2.68元</span>
+							<span class="fr fs12 c5">累计已砍：7.32元</span>
+						</div>
+					</div>
+					
+					<div class="cj-order bgcolor divtab divre" style="margin: 3% auto;padding: 4% 3%;">
+						<div class="cj-order-img fl">
+							<img src="__IMG__/myacts/dlsc_dlxq_02.jpg" />
+						</div>
+						<div class="cj-order-info fl">
+							<div class="cj-order-name fs12 clamp2">良品铺子麻辣/五香灯影牛肉丝重庆特产五香灯影牛肉丝重庆特产五香灯影牛肉丝重庆特产五香灯影牛肉丝重庆特产</div>
+							<div class="cj-old-price fs13 c9">原价：￥50.00</div>
+							<div class="cj-mmin-price"><span class="fs13 cy">￥<em class="fs16">10.00</em></span><span class="fs11 cf" id="min_price">最低价</span></div>
+						</div>
+						<!--结束-->
+						<!--<div class="barg_pro_state divab"><img src="__IMG__/myacts/spell_icon_over.png" alt="" /></div>-->
+					</div>
+
+					<div class="bargain-panel divtab bgcolor">
+						<div class="panel-tit">
+							<span class="fl"><img src="__IMG__/myacts/kj_icon_bd.png" alt="" /></span><span class="c3 fs14 fl">砍价榜单</span>
+						</div>
+						<div class="red-getdetail bgcolor" id="data_list">
+							<div class="red-getdetail-con bborder">
+								<div class="getdetail-img fl">
+									<img src="__IMG__/myacts/dlsc_dlxq_02.jpg" />
+								</div>
+								<div class="getdetail-shop fl">
+									<div class="shop-name fs14 fov">优C柠檬梅溪湖店</div>
+									<div class="shop-red fs12 c9">2017-05-18 12:00:00</div>
+								</div>
+								<div class="getdetail-money fr fs12">
+									已砍200.00元
+								</div>
+							</div>
+							<div class="red-getdetail-con bborder">
+								<div class="getdetail-img fl">
+									<img src="__IMG__/myacts/dlsc_dlxq_02.jpg" />
+								</div>
+								<div class="getdetail-shop fl">
+									<div class="shop-name fs14 fov">优C柠檬梅溪湖店</div>
+									<div class="shop-red fs12 c9">2017-05-18 12:00:00</div>
+								</div>
+								<div class="getdetail-money fr fs12">
+									已砍200.00元
+								</div>
+							</div>
+							<div class="red-getdetail-con bborder">
+								<div class="getdetail-img fl">
+									<img src="__IMG__/myacts/dlsc_dlxq_02.jpg" />
+								</div>
+								<div class="getdetail-shop fl">
+									<div class="shop-name fs14 fov">优C柠檬梅溪湖店</div>
+									<div class="shop-red fs12 c9">2017-05-18 12:00:00</div>
+								</div>
+								<div class="getdetail-money fr fs12">
+									已砍200.00元
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="fixed-btn bargain-b-btn">
+					<div class="bargain-buy fl cf fs14">我也要买</div>
+					<div class="go-bargain fl cf fs14">帮Ta砍价</div>
+				</div>
+
+				<div class="barg-pup-bg pup-bg"></div>
+				<div class="barg-success-pup">
+					<div class="barg-success-con">
+						<div class="barg-suc-img"><img src="__IMG__/myacts/1.gif" alt="" /></div>
+						<div class="barg-suc-state fs14 c3 fb600 alignc">砍价成功</div>
+						<div class="barg-suc-font fs13 c9 alignc">不错哦！你已成功帮你的好友砍价<span id="bared_mon">1.8</span>元</div>
+						<div class="barg-suc-close cf fs16 alignc">确认</div>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var pcode = '<?php echo $data["c_pcode"] ?>';
+		var ucode = '<?php echo $ucode ?>';
+		var acode = "<?php echo $data['c_ucode']; ?>";
+		var detailurl = '<?php echo encodeurl("http://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+
+		window.onload = function() {
+			yangshi();
+			/*进度条*/
+			mui("#progres").progressbar({
+				progress: 58
+			}).show();
+			$('.mui-progressbar').height($('.mui-progressbar').width() * 0.02);
+			var presult = (0.04) + (0.58 * 0.92 * $('.mui-progressbar').width());
+			
+			$('.progres-float').fadeIn(500);
+			$('.progres-float').css('left', presult)
+
+			$('#sure_sub').css('background-color', '#95D2FF');
+			mui('.wrap-page').off('tap', '#sure_sub');
+			
+			$('.barg-pup-bg').fadeIn();
+			$('.barg-success-pup').fadeIn();
+			$('.barg-pup-bg').height($(document).height());
+						
+			/*灰色显示效果*/
+//			$('.progres-float').css('background',"url(__IMG__/myacts/kj_plan_04.png) no-repeat");
+//			$('.progres-float').css('background-size',"100% 100%");
+//			
+//			$('.bargain-jd span').css('background',"url(__IMG__/myacts/kj_plan_03.png) no-repeat");
+//			$('.bargain-jd span').css('background-size',"100% 100%");
+//			
+//			$('#min_price').css('background',"url(__IMG__/myacts/kj_bg_zdj2.png) no-repeat");
+//			$('#min_price').css('background-size',"100% 100%");
+			
+		}
+		mui('.barg-success-pup').on('tap','.barg-suc-close',function(){
+			$('.barg-pup-bg').fadeOut();
+			$('.barg-success-pup').fadeOut();			
+		});
+		//页面加载完js改变样式
+		function yangshi() {
+			
+			$('.current-head').height($('.current-head').width());
+			$('.current-head').css("border-radius",$('.current-head').width()+"px");
+			$('.current-nkname').css('line-height',$('.current-head').width()+'px');
+			$('.current-arrow').css('line-height',$('.current-head').width()+'px');
+
+			/*商品信息样式改变*/
+			$('.cj-order-img').height($('.cj-order-img').width());
+			$('.cj-order-name').height($('.cj-order-img').width() * 0.4);
+			$('.cj-order-name').css('line-height', $('.cj-order-name').height() * 0.5 + 'px');
+			$('.cj-old-price').css('line-height', $('.cj-order-img').height() * 0.3 + 'px');
+			$('.cj-mmin-price').css('height', $('.cj-order-img').height() * 0.3 + 'px');
+
+			$('.getdetail-img').height($('.getdetail-img').width());
+			$('.getdetail-img').css('border-radius', $('.getdetail-img').width() + 'px');
+			$('.getdetail-shop').css('line-height', $('.getdetail-img').width() * 0.5 + 'px');
+			$('.getdetail-money').css('line-height', $('.getdetail-img').width() + 'px');
+			
+			$('.bargain-buy').css("padding","3.5% 0");
+			$('.go-bargain').css("padding","3.5% 0");
+		}
+		/*我也要买*/	
+		mui('.wrap-page').on('tap', '.bargain-buy', function() {	
+		});
+		/*帮忙砍价*/
+		mui('.wrap-page').on('tap','.go-bargain',function(){	
+			
+			/*去随便逛逛*/
+			//$('.go-bargain').text("去随便逛逛");
+			
+			subform();
+		});	
+		
+		/*帮忙砍价*/
+		var gmsign = true;
+		function subform() {
+			if(gmsign) {				
+				var attr = $('input[name="confirm-mcode"]').val();
+				if(attr == "") {
+					mui.toast('请选择型号！');
+					return;
+				}
+				var pnum = $("#txt_pronum").val();
+				if(pnum > parseInt($('#stock_num').text())) {
+					mui.toast('该商品库存不够！');
+					return;
+				}
+				$('input[name="confirm-num"]').val($("#txt_pronum").val());
+				gmsign = false;
+				$('#form1').submit();
+			}
+		}
+		/*分享提醒*/
+		var pucode = '<?php echo $pucode ?>';
+
+		function leadpro() {
+			if(pucode == null || pucode == "") {
+				$(".pro-lead").fadeOut(300);
+			} else {
+				$(".pro-lead").fadeIn(300);
+			}
+		}
+
+		/*玩法*/
+		mui('.mui-content').on('tap', '.current-arrow', function() {
+
+		});
+		
+		
+	
+	
+	</script>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>我的加盟</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/leagshop/myindex.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="js-myinfo divre">
+				<div class="js-myinfo-con divab divtab">
+					<div class="mystore-img">
+						<img src="{$data['headimg']}">
+					</div>
+					<div class="c3 fs16 mystore-name">{$data['pname']}</div>
+					<p class="c9 fs12">加盟热线：{$data['phone']}</p>
+					<p class="c9 fs12">加盟时间：{$data['addtime']}</p>
+					<p class="c9 fs12">地址：{$data['address']}</p>
+				</div>
+				<img src="__IMG__/multshop/group_mygroup_bgimg.png">
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+
+		var sImg = $('.mystore-img').width();
+		$('.mystore-img').height(sImg);
+		$('.mystore-img').css('border-radius', sImg + 'px');
+
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+</script>
+
+</html>

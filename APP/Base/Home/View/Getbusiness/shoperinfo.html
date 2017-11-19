@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商家资料</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/index.css?v=1.2">
+		<style type="text/css">.goldcard-btn{text-align: center}</style>
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:18%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="CONSIGNEE_ADDRESS">
+					<div class="getbusiness-top bgcolor"><img src="__IMG__/getbusiness/fc-09.png" alt=""></div>
+					<div class="business-type" id="con_tab_1">
+						<div class="btype-txt divtab bgcolor borderb fs16 c3">请选择商家类型</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="btype-r-img fl">
+								<input type="radio" name="btype" id="btype_1" value="0" <?php if($vo['c_isfixed']==0 ){ ?> checked="checked"
+								<?php } ?> >
+							</div>
+							<div class="btype-r-t fl">线上商家</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="btype-r-img fl">
+								<input type="radio" name="btype" id="btype_2" value="1" <?php if($vo['c_isfixed']==1 ){ ?> checked="checked"
+								<?php } ?>>
+							</div>
+							<div class="btype-r-t fl">线下实体商家</div>
+						</div>
+						<div class="btype-remarks c9 fs12"><span>*</span>&nbsp;商家类型一旦选定，审核通过后将不可更改，请慎重选择。</div>
+						<input type="hidden" id="isfixed" name="isfixed" value="{$vo['c_isfixed']}">
+						<div class="con-descbtn bgcolor" id="tab-1">
+							<div class="goldcard-btn fs16 btn-blue nextbtn01">确定</div>
+						</div>
+					</div>
+					<div class="business-type none" id="con_tab_2">
+						<div class="btype-txt divtab bgcolor borderb fs16 c3">请选择商家所属行业</div>
+						<?php foreach($industry as $key=>$val){ ?>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<?php foreach ($val as $k => $vol) { ?>
+							<ul>
+								<li>
+									<div class="trade-r-img fl">
+										<input type="radio" value="{$vol['c_id']}" name="trade" id="trade_{$key}_{$k}" <?php if($vo['c_shoptrade']==$vol[ 'c_id']){ ?> checked = "checked"
+										<?php } ?>>
+									</div>
+									<div class="trade-r-t fl">{$vol['c_name']}</div>
+								</li>
+							</ul>
+							<?php } ?>
+						</div>
+						<?php } ?>
+						<div class="btype-remarks c9 fs12"><span>*</span>&nbsp;商家所属行业一旦选定，审核通过后将不可更改，请慎重选择。</div>
+						<input type="hidden" id="tid" name="tid" value="{$vo['c_shoptrade']}">
+						<div class="con-descbtn none bgcolor" id="tab-2">
+							<div class="goldcard-btn fs16 btn-blue nextbtn02">确定</div>
+						</div>
+					</div>
+					<div class="business-type none" id="con_tab_3">
+						<div class="btype-txt divtab bgcolor borderb fs16 c3">请选择商家资质</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="btype-r-img fl">
+								<input type="radio" <?php if($vo['c_type']==1){?> checked="checked"	<?php } ?> name="aptitude" id="aptitude_1" value="1" >
+							</div>
+							<div class="btype-r-t fl">我是个人商家</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="btype-r-img fl">
+								<input type="radio" <?php if($vo['c_type']==2){?> checked="checked" <?php } ?> name="aptitude" id="aptitude_2" value="2">
+							</div>
+							<div class="btype-r-t fl">我是企业商家</div>
+						</div>
+						<div class="btype-remarks c9 fs12"><span>*</span>&nbsp;商家资质一旦选定，审核通过后将不可更改，请慎重选择。</div>
+						<input type="hidden" id="type" name="type" value="{$vo['c_type']}">
+						<div class="con-descbtn none bgcolor" id="tab-3">
+							<div class="goldcard-btn fs16 btn-blue nextbtn03">确定</div>
+						</div>
+					</div>
+					<div class="business-type none" id="con_tab_4">
+						<div class="btype-txt divtab bgcolor borderb fs16 c3">基本资料信息</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">商户名称</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="merchantname" id="merchantname" placeholder="请输入商户名称" value="{$vo['c_merchantname']}" maxlength="20">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">商户简称</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="merchantshortname" id="merchantshortname" placeholder="请输入商户名称" value="{$vo['c_merchantshortname']}" maxlength="20">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">经营类型</div>
+							<div class="info-center fl">
+								<select name="mchdealtype" id="mchdealtype" class="fs14">
+									<option value="{$vo['c_mchdealtype']}">
+									<?php if ($vo['c_mchdealtype'] == 1) { ?>实体
+									<?php } else if ($vo['c_mchdealtype'] == 2) { ?>虚拟
+									<?php } else { ?>请选择
+									<?php } ?>
+									</option>
+									<option value="1">实体</option>
+									<option value="2">虚拟</option>
+								</select>
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">商家类型</div>
+							<div class="info-center fl">
+								<select name="ctype" id="ctype" class="fs14">									
+									<option value="{$vo['c_type']}">
+									<?php if ($vo['c_type'] == 1) { ?>个人
+									<?php } else if ($vo['c_type'] == 2) { ?>企业
+									<?php } else { ?>请选择
+									<?php } ?>
+									</option>
+									<option value="2">企业</option>
+									<option value="1">个人</option>
+								</select>
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="qy">
+							<div class="btype-radio divtab bgcolor borderb fs14 c5">
+								<div class="info-left fl">单位名称</div>
+								<div class="info-center fl">
+									<input type="text" class="input-txt c9 fs14" name="company" id="companyname" placeholder="请输入单位名称" value="{$vo.c_company}" maxlength="30">
+								</div>
+								<div class="info-right fr">*</div>
+							</div>
+							<div class="btype-radio divtab bgcolor borderb fs14 c5">
+								<div class="info-left fl">单位地址</div>
+								<div class="info-center fl">
+									<input type="text" class="input-txt c9 fs14" name="address" id="addressname" placeholder="请输入单位地址" value="{$vo.c_address}" maxlength="35">
+								</div>
+								<div class="info-right fr">*</div>
+							</div>
+							<div class="btype-radio divtab bgcolor borderb fs14 c5">
+								<div class="info-left fl">邮政编码</div>
+								<div class="info-center fl">
+									<input type="text" class="input-txt c9 fs14" name="postcode" id="postcode" placeholder="请输入邮政编码" value="{$vo.c_postcode}" maxlength="10">
+								</div>
+								<div class="info-right fr">*</div>
+							</div>
+							<div class="btype-radio divtab bgcolor borderb fs14 c5">
+								<div class="info-left fl">营业执照</div>
+								<div class="info-center fl">
+									<input type="text" class="input-txt c9 fs14" name="charter" id="chartername" placeholder="请输入营业执照" value="{$vo.c_charter}" maxlength="35">
+								</div>
+								<div class="info-right fr">*</div>
+							</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">负责人</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="name" id="contactname" placeholder="请输入负责人" value="{$vo.c_name}" maxlength="20">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">联系电话</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="phone" id="phonename" placeholder="请输入移动电话" value="{$vo.c_phone}" maxlength="15">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">法人</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="legalperson" id="username" placeholder="请输入法人" value="{$vo['c_legalperson']}" maxlength="20">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">身份证号</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="idcard" id="idcard" placeholder="请输入身份证号" value="{$vo.c_idcard}" maxlength="20">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">币种</div>
+							<div class="info-center fl">
+								<select name="feetype" id="feetype" class="fs14">
+									<option value="">请选择</option>
+									<option value="CNY" <?php if ($vo['c_feetype']=='CNY' ): ?>selected="selected"
+										<?php endif ?>>人民币</option>
+									<option value="USD" <?php if ($vo['c_feetype']=='USD' ): ?>selected="selected"
+										<?php endif ?>>美元</option>
+									<option value="EUR" <?php if ($vo['c_feetype']=='EUR' ): ?>selected="selected"
+										<?php endif ?>>欧元</option>
+									<option value="HKD" <?php if ($vo['c_feetype']=='HKD' ): ?>selected="selected"
+										<?php endif ?>>港币</option>
+								</select>
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">邮箱</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="email" id="emailname" value="{$vo.c_email}" placeholder="请输入邮箱" maxlength="35">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">QQ</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="qq" id="qqname" value="{$vo.c_qq}" placeholder="请输入QQ" maxlength="15">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">客服电话</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="home_tel" id="hometel" value="{$vo.c_home_tel}" maxlength="15">
+							</div>
+							<div class="info-right fr"></div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">省市区</div>
+							<div class="info-center fl c9">
+								<select name="province" id="province" onchange="loadRegion('province',2,'city','{:U('Getbusiness/getRegion')}');" class="fs14 fl">
+									<option value="" id="provincename">选择省</option>
+									<foreach name="province" item="province">
+										<option value="{$province.region_id}" <?php if($prove==$province[ 'region_name']){ ?> selected="selected"
+											<?php } ?> >{$province.region_name}</option>
+									</foreach>
+								</select>
+								<select name="city" id="city" onchange="loadRegion('city',3,'district','{:U('Getbusiness/getRegion')}');" class="fs14 fl">
+									<?php if($citye){ ?>
+									<option value="" id="cityname">{$citye}</option>
+									<?php }else{ ?>
+									<option value="" id="cityname">选择市</option>
+									<?php } ?>
+								</select>
+								<select name="district" id="district" class="fs14 fl">
+									<?php if($newdistrict){ ?>
+									<option value="" id="districtname">{$newdistrict}</option>
+									<?php }else{ ?>
+									<option value="" id="districtname">选择区</option>
+									<?php } ?>
+								</select>
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<div class="btype-radio divtab bgcolor borderb fs14 c5">
+							<div class="info-left fl">详细地址</div>
+							<div class="info-center fl">
+								<input type="text" class="input-txt c9 fs14" name="addrarea" id="addrarea" placeholder="请输入详细地址" value="{$xsaddress}" maxlength="40">
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<input type="hidden" id="address1" name="address1" value="{$vo['address1']}">
+						<input type="hidden" name="lng" id="lng" value="{$vo['c_longitude']}">
+						<input type="hidden" name="lat" id="lat" value="{$vo['c_latitude']}">
+						<div class="con-descbtn none bgcolor" id="tab-4">
+							<div class="goldcard-btn fs16 btn-blue nextbtn04">保存并下一步</div>
+						</div>
+					</div>
+
+				</form>
+				<div id="container"></div>
+			</div>	
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.3"></script>
+		<script type="text/javascript">
+			
+			var map = new BMap.Map("container");
+			var localSearch = new BMap.LocalSearch(map);
+			
+			var dcode = '<?php echo $vo["c_dcode"]; ?>';
+			var checked = '<?php echo $vo["c_checked"]; ?>';
+			var ctype = '<?php echo $vo["c_type"] ?>';
+			var citye = '<?php echo $citye ?>';
+			var newdistrict = '<?php echo $newdistrict ?>';
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			/*页面加载*/
+			window.onload = function() {
+				if(isfixed == 1) {
+					$("#ctype").find("option[value='2']").attr("selected", true);
+					$("#ctype").attr("disabled", "disabled");
+				}
+				if(dcode != null && dcode != "") {
+					$('#con_tab_1').css("display", "none");
+					$('#tab-1').css("display", "none");
+					$('#con_tab_2').css("display", "none");
+					$('#tab-2').css("display", "none");
+					$('#con_tab_3').css("display", "none");
+					$('#tab-3').css("display", "none");
+					$('#con_tab_4').css("display", "block");
+					$('#tab-4').css("display", "block");
+				}
+				if(ctype == 1) {
+					$('.gr').show();
+					$('.qy').hide();
+				} else if(ctype == 2) {
+					$('.gr').hide();
+					$('.qy').show();
+				}
+				
+			}
+			
+			mui('.mui-content').on('tap','.nextbtn01',function(){
+				NextCK(2,6);
+			});
+
+			mui('.mui-content').on('tap','.nextbtn02',function(){
+				NextCK(3,6);
+			});
+
+			mui('.mui-content').on('tap','.nextbtn03',function(){
+				NextCK(4,6);
+			});
+
+			mui('.mui-content').on('tap','.nextbtn04',function(){
+				NextCK(5,6);
+			});
+
+			
+			/*选项卡切换*/
+			function settab(n, total) {
+				for(var i = 1; i <= total; i++) {
+					if(i == n) {
+						$('#con_tab_' + i).css("display", "block");
+						$('#tab-' + i).css("display", "block");
+					} else {
+						$('#con_tab_' + i).css("display", "none");
+						$('#tab-' + i).css("display", "none");
+					}
+				}
+			}
+			/*上一步*/
+			function PreviousCK(k, z) {
+				settab(k, z);
+			}
+			/*下一步*/
+			function NextCK(g, h) {
+				if(g == 2) { /*商家类型*/
+					if(checkisstore()) {
+						settab(g, h);
+					} else {
+						mui.toast("请选择商家类型");
+					}
+				} else if(g == 3) { /*所属行业*/
+					checktrade(g, h);
+				} else if(g == 4) {
+					checkiszizhi(g, h);
+				}else if(g == 5){
+					validateForm(g,h);
+				}
+			}
+
+			/*判断是否选择商家类型*/
+			function checkisstore() {
+				var flag = true;
+				var chkRadio = $('input:radio[name="btype"]:checked').val();
+				if(chkRadio == null) {
+					flag = false;
+				} else {
+					flag = true;
+					$('#isfixed').val(chkRadio);
+				}
+				return flag;
+			}
+
+			/*判断行业选择*/
+			function checktrade(g, h) {
+				var chkRadio = $('input:radio[name="trade"]:checked').val();
+				if(chkRadio == null) {
+					mui.toast("请选择商家类型！");
+				} else {
+					$('#tid').val(chkRadio);
+					$.post('__URL__/SaveAgentInfo2', {
+						tid: $('#tid').val()
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							/*线下实体只有企业资质*/
+							var chkbtype = $('input:radio[name="btype"]:checked').val();
+							if(chkbtype == 1) {
+								checkiszizhi(g, h);
+							} else {
+								settab(g, h);
+							}
+						} else {
+							mui.toast(data['msg']);
+							return;
+						}
+					});
+				}
+			}
+
+			/*判断资质选择*/
+			function checkiszizhi(g, h) {
+				var isfixed = $('#isfixed').val();
+				var istype;
+				if(isfixed == 1) {
+					istype = 2;
+					$('#type').val("2");
+				} else {
+					istype = $('input:radio[name="aptitude"]:checked').val();
+					if(istype == null) {
+						mui.toast("请选择商家资质！");
+						return;
+					} else {
+						$('#type').val(istype);
+					}
+				}
+				$.post('__URL__/SaveAgentInfo1', {
+					isfixed: isfixed,
+					type: $('#type').val()
+				}, function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						if(isfixed == 1) {
+							$('.qy').show();
+							$('.gr').hide();
+							settab(4, 6);
+						} else {
+							if(istype == 1) {
+								$('.gr').show();
+								$('.qy').hide();
+							} else if(istype == 2) {
+								$('.qy').show();
+								$('.gr').hide();
+							}
+							settab(g, h);
+						}
+					} else {
+						mui.toast(data['msg']);
+						return;
+					}
+				});
+			}
+
+			var inputreg = /^[\s]*$/;
+			/*判断地址信息,提交资料*/
+			var pcdaddress = "";
+			// 资料信息验证
+			function validateForm(g, h) {
+				var selectedvalue = $("#type").val();
+				if(selectedvalue == 2) {
+					if(inputreg.test($('input[name="company"]').val())) {
+						mui.toast('请输入申请单位名称');
+						$('#companyname').focus();
+						return false;
+					}
+					if(inputreg.test($('input[name="address"]').val())) {
+						mui.toast('请输入申请单位地址');
+						$('#addressname').focus();
+						return false;
+					}					
+					if(inputreg.test($('input[name="postcode"]').val())) {
+						mui.toast('请输入邮政编码！');
+						$('#postcode').focus();
+						return false;
+					} else {
+						var postreg = /^\d{6}$/;
+						if(!postreg.test($('input[name="postcode"]').val())) {
+							mui.toast('请输入正确的邮政编码');
+							$('#postcode').focus();
+							return false;
+						}
+					}
+					if(inputreg.test($('input[name="charter"]').val())) {
+						mui.toast('请输入企业营业执照号！');
+						$('#chartername').focus();
+						return false;
+					}
+				}
+				if($('input[name="merchantname"]').val() == '') {
+					mui.toast('请输入商户名称');
+					$('input[name="merchantname"]').focus();
+					return false;
+				}
+				if($('input[name="merchantshortname"]').val() == '') {
+					mui.toast('请输入商户简称');
+					$('input[name="merchantshortname"]').focus();
+					return false;
+				}
+				if($('input[name="name"]').val() == '') {
+					mui.toast('请输入负责人信息');
+					$('input[name="name"]').focus();
+					return false;
+				}
+				if($('input[name="legalperson"]').val() == '') {
+					mui.toast('请输入法人信息');
+					$('input[name="legalperson"]').focus();
+					return false;
+				}
+				if($("#mchdealtype").find("option:selected").val() == '请选择') {
+					mui.toast('请选择经营类型');
+					$('#mchdealtype').focus();
+					return false;
+				}
+				if($("#ctype").find("option:selected").val() == '请选择') {
+					mui.toast('请选择商家类型');
+					$('#ctype').focus();
+					return false;
+				}
+				if(inputreg.test($('input[name="phone"]').val())) {
+					mui.toast('请输入手机号码！');
+					$('#phonename').focus();
+					return false;
+				}
+				if(inputreg.test($('input[name="qq"]').val())) {
+					mui.toast('请输入QQ号！');
+					$('#qqname').focus();
+					return false;
+				}
+
+				var homeval = /^[0-9]*$/;
+				if (!homeval.test($('input[name="home_tel"]').val()) || $('input[name="home_tel"]').val() == '') {
+					mui.toast('请输入正确的客服电话！');
+					$('#hometel').focus();
+					return false;
+				}
+				
+				if(inputreg.test($('input[name="idcard"]').val())) {
+					mui.toast('请输入身份证号！');
+					$('#idcard').focus();
+					return false;
+				} else {
+					if(!checkIdcard($('input[name="idcard"]').val())) {
+						mui.toast('请输入正确的身份证号码！');
+						$('#idcard').focus();
+						return false;
+					}
+				}
+
+				if($("#feetype").find("option:selected").val() == '') {
+					alert('请选择币种');
+					$('select[name="feetype"]').focus();
+					return false;
+				}
+
+				if(inputreg.test($('input[name="email"]').val())) {
+					mui.toast('请输入邮箱号！');
+					$('#emailname').focus();
+					return false;
+				}else {
+					var emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+					if(!emailreg.test($('input[name="email"]').val())) {
+						mui.toast('请输入正确的电子邮箱');
+						$('input[name="email"]').focus();
+						return false;
+					}
+				}
+				
+				var province = $("#province option:selected").text();
+				var city = $("#city option:selected").text();
+				var district = $("#district option:selected").text();
+				var addrarea = document.getElementById('addrarea').value;
+				var voaddr = '<?php echo $vo["address1"] ?>';
+				//if(voaddr){
+				if(province == "选择省" || city == "请选择" || district == "请选择" || inputreg.test(addrarea)) {
+					mui.toast("请完善地址信息！");
+					$('#addrarea').focus();
+					return false;
+				} else if(province == "选择省" || city == "选择市" || district == "选择区" || inputreg.test(addrarea)) {
+					mui.toast("请完善地址信息！");
+					$('#addrarea').focus();
+					return false;
+				}
+				//}else{
+				$('#address1').val(province + "省" + city + "市" + district + addrarea);
+				pcdaddress = province + city + district; /*获取经纬度地址*/
+				//}
+				searchByStationName(g,h);		
+			}
+
+			/*根据地址获取经纬度*/
+			function searchByStationName(g,h) {
+				var keyword = pcdaddress;
+				localSearch.search(keyword);
+				localSearch.setSearchCompleteCallback(function(searchResult) {
+					var poi = searchResult.getPoi(0);
+					if(typeof(poi) == "undefined") {
+						mui.toast('地址错误');
+						return;
+					} else {
+						$('#lng').val(poi.point.lng);
+						$('#lat').val(poi.point.lat);
+					}							
+					var attrbul = getFormAttrs("CONSIGNEE_ADDRESS");
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SaveAgentInfo3',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.toast("保存成功！");
+								setTimeout(function() {
+									mui.openWindow({url:"__URL__/step_2?isfixed="+$("#isfixed").val()+"&ctype="+$("#type").val(),id:"step_2"});									
+								}, 1500);
+							} else {
+								mui.toast(msg.msg);
+								return;
+							}
+						}
+					});
+				});
+			}			
+
+			/*身份证验证*/
+			function checkIdcard(idcard) {
+				var idreg = /^[0-9a-zA-Z]*$/g;				
+				if(!idreg.test($('input[name="idcard"]').val())) {
+					return false;
+				}
+				return true;
+			}
+			/*获取省市区信息*/
+			function loadRegion(sel, type_id, selName, url) {
+				jQuery("#" + selName + " option").each(function() {
+					jQuery(this).remove();
+				});
+				//jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#"+selName));
+				if(jQuery("#" + sel).val() == 0) {
+					return;
+				}
+				jQuery.getJSON(url, {
+						parentid: jQuery("#" + sel).val(),
+						regiontype: type_id
+					},
+					function(data) {
+						//$("#district").html('<option value="" selected="selected">请选择</option>');
+						if(data) {
+							jQuery.each(data, function(idx, item) {
+								if(item.region_name == citye && selName == "city") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else if(item.region_name == newdistrict && selName == "district") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else {
+									jQuery("<option value=" + item.region_id + ">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								}
+
+							});
+							if(selName == "city") {
+								loadRegion('city', 3, 'district', "<?php echo U('Getbusiness/getRegion');?>");
+							}
+						} else {
+
+							jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#" + selName));
+
+						}
+					}
+				);
+			}			
+		
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

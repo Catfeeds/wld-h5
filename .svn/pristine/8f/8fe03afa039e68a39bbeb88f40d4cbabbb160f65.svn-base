@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>推广位</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 18%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+
+			<include file="Base@Public/pubheader" />
+
+			<div class="mui-content">
+				<div class="adserving-search divtab bborder bgcolor">
+					<div class="adserving-s-box fl bgeb">
+						<div class="searchico fl"><img src="__IMG__/search_link.png" alt="" /></div>
+						<div class="serchinput fl fs13"><input type="text" name="keyword" id="keyword" value="" placeholder="搜索商家" class="c9" /></div>
+						<div class="serchtype fl"><img src="__IMG__/promote_icon_search_dropdown.png" alt="" /></div>
+					</div>
+					<div class="adserving-s-addr fr">
+						<div class="addrico fl"><img src="__IMG__/promote_home_position.png" alt="" /></div>
+						<div class="addrfont fl c3 fs13 fov">全国</div>
+					</div>
+					<input type="hidden" id="provinceval" value="" />
+					<input type="hidden" id="cityval" value="" />
+					<input type="hidden" id="strval" value="" />
+				</div>
+				<div id="page_1">
+					<div id="adsite_list" class="adserving-list bgcolor">
+						<!--<div class="adserving-box divtab">
+							<div class="ad-s-headimg fl"><img src="__IMG__/tu15.jpg" alt="" /></div>
+							<div class="ad-s-intro fl bborder">
+								<div class="ad-s-intro-le fl">
+									<p class="fs14 c3">快乐柠檬店~~</p>
+									<p class="fs12 c9"><span>关注量</span><span>888</span><span>访问量</span><span>13256</span></p>
+								</div>
+								<div class="ad-s-intro-ri fl cy fs13"><span>8</span>个推广位</div>
+							</div>
+						</div>
+						<div class="adserving-box divtab">
+							<div class="ad-s-headimg fl"><img src="__IMG__/tu15.jpg" alt="" /></div>
+							<div class="ad-s-intro fl bborder">
+								<div class="ad-s-intro-le fl">
+									<p class="fs14 c3">快乐柠檬店~~</p>
+									<p class="fs12 c9"><span>关注量</span><span>888</span><span>访问量</span><span>13256</span></p>
+								</div>
+								<div class="ad-s-intro-ri fl cy fs13"><span>8</span>个推广位</div>
+							</div>
+						</div>
+						<div class="adserving-box divtab">
+							<div class="ad-s-headimg fl"><img src="__IMG__/tu15.jpg" alt="" /></div>
+							<div class="ad-s-intro fl bborder">
+								<div class="ad-s-intro-le fl">
+									<p class="fs14 c3">快乐柠檬店~~</p>
+									<p class="fs12 c9"><span>关注量</span><span>888</span><span>访问量</span><span>13256</span></p>
+								</div>
+								<div class="ad-s-intro-ri fl cy fs13"><span>8</span>个推广位</div>
+							</div>
+						</div>
+						<div class="adserving-box divtab">
+							<div class="ad-s-headimg fl"><img src="__IMG__/tu15.jpg" alt="" /></div>
+							<div class="ad-s-intro fl bborder">
+								<div class="ad-s-intro-le fl">
+									<p class="fs14 c3">快乐柠檬店~~</p>
+									<p class="fs12 c9"><span>关注量</span><span>888</span><span>访问量</span><span>13256</span></p>
+								</div>
+								<div class="ad-s-intro-ri fl cy fs13 none"><span>8</span>个推广位</div>
+							</div>
+						</div>-->
+					</div>
+					<div id="console"></div>
+				</div>
+
+				<div id="page_2" style="display: none;">
+					<div class="ad_store_type bgcolor divtab">
+						<ul>
+							<li id="seltype_all" class="selectval" title="">
+								<div class="type-name fl fs13 c9">全部</div>
+								<div class="type-sel-icon fr"><img src="__IMG__/promote_icon_serach_check.png" alt="" /></div>
+							</li>
+						</ul>
+						<ul id="type_list">
+							<volist name="industy" id="vo">
+							<li class="selectval" title="{$vo.c_id}">
+								<div class="type-name fl fs13 c9">{$vo.c_name}</div>
+								<div class="type-sel-icon fr none"><img src="__IMG__/promote_icon_serach_check.png" alt="" /></div>
+							</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div class="prompt-box-bg"></div>
+			<div class="prompt-box-pup">
+				<div class="prompt-content bgcolor">
+					<div class="prompt-tit cb divtab bborder fs14">完成</div>
+					<div class="prompt-select divtab">
+						<select name="province" id="province" class="fs13" onchange="loadcity('province',2,'city','__APP__/Home/Address/getRegion');">
+							<option value="" id="provincename" selected>选择省</option>
+							<foreach name="province" item="province">
+								<option id="{$province.region_id}" value="{$province.region_name}" <if condition="$province.region_name eq $storeinfo['c_provice']"> selected</if> >{$province.region_name}</option>
+							</foreach>
+						</select>
+						<select name="city" id="city" class="fs13">
+							<if condition="$storeinfo['c_city'] neq null">
+								<option value="{$storeinfo['c_city']}" id="cityname" selected>{$storeinfo['c_city']}</option>
+								<else />
+								<option value="" id="cityname">选择市</option>
+							</if>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/region.js"></script>
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-bar-nav-right').hide();
+				styles();
+				/*搜索框样式*/
+				$('#keyword').blur(function() {
+					$('.searchico img').attr("src", '__IMG__/search_link.png');
+					$('.serchinput input[type="text"]').css('color', '#999999');
+					getdatainfo();
+				});
+				$('#keyword').focus(function() {
+					$('.searchico img').attr("src", '__IMG__/search_hover.png');
+					$('.serchinput input[type="text"]').css('color', '#333333');
+					$('#keyword').val('');
+				});
+				sel_search();
+			}
+			$(document).ready(function() {
+				/*关闭地址弹层*/
+//				$('.prompt-box-bg').click(function() {
+//					$('.prompt-box-bg').fadeOut(300);
+//					$('.prompt-box-pup').fadeOut(600);
+//				});
+			});
+			/*样式*/
+			function styles() {
+				var headw = $('.ad-s-headimg').width(),
+					relh = headw * 50 / 100;
+				$('.ad-s-headimg').height(headw);
+				$('.ad-s-intro-le p').css('line-height', relh + 'px');
+			}
+
+			/*下拉箭头商家类型*/
+			var aclick = 1;
+			mui('.mui-content').on('tap', '.serchtype', function() {
+				if(aclick == 1) {
+					$('#page_1').hide();
+					$('#page_2').slideDown();
+					$('.serchtype img').attr('src', '__IMG__/promote_icon_search_dropup.png');
+					aclick = 2;
+				} else {
+					$('#page_2').hide();
+					$('#page_1').slideDown();
+					$('.serchtype img').attr('src', '__IMG__/promote_icon_search_dropdown.png');
+					aclick = 1;
+				}
+
+			});
+
+			/*地址查询*/
+			mui('.mui-content').on('tap', '.adserving-s-addr', function() {
+				$('#page_2').hide();
+				$('#page_1').slideDown();
+				$('.serchtype img').attr('src', '__IMG__/promote_icon_search_dropdown.png');
+				$('.prompt-box-bg').fadeIn(300);
+				$('.prompt-box-pup').fadeIn(600);
+				$('.prompt-box-bg').height($(document).height());
+			});			
+			/*选择省市*/
+			mui('.prompt-box-pup').on('tap', '.prompt-tit', function() {
+				var province = $("#province option:selected").text();
+				var city = $("#city option:selected").text();
+				if(province == "选择省" || city == "请选择" || city == "选择市") {
+					$('.addrfont').text('全国');
+					$('#provinceval').val('');
+					$('#cityval').val('');
+					getdatainfo();
+					$('.prompt-box-bg').fadeOut(300);
+					$('.prompt-box-pup').fadeOut(600);
+					return;
+				}
+				$('.addrfont').text(city);
+				$('#provinceval').val(province);
+				$('#cityval').val(city);
+				getdatainfo();
+				$('.prompt-box-bg').fadeOut(300);
+				$('.prompt-box-pup').fadeOut(600);
+			});
+
+			/*类型搜索*/
+			function sel_search() {
+				mui('.ad_store_type').on('tap', '.selectval', function() {
+					var id = $(this).attr('title');
+					$('.type-sel-icon').hide();
+					$(this).find('.type-sel-icon').show();
+					$('#strval').val(id);
+					getdatainfo();
+					$('#page_2').hide();
+					$('#page_1').slideDown();
+					$('.serchtype img').attr('src', '__IMG__/promote_icon_search_dropdown.png');
+					aclick = 1;
+				});
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			//筛选
+			function getdatainfo () {
+				pageindex = 1;ctrls = true;emptyval = true;
+				getdatalist();
+			}
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据列表加载*/
+			function getdatalist() {
+				var keyword = $('#keyword').val();
+				var provinceval = $('#provinceval').val();
+				var cityval = $('#cityval').val();
+				var strval = $('#strval').val();
+				var url = "__URL__/AdvertSite?shoptrade="+strval+"&condition="+keyword+"&province="+provinceval+"&city="+cityval+"&pageindex="+pageindex;
+				
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#adsite_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab bgeb">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">没有找到相关信息</div>';
+									_html += '</div>';	
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="adserving-box divtab detail_' + pageindex + '" title="' + dataarr['c_id'] + '">';
+										_html += '<div class="ad-s-headimg fl"><img src="'+dataarr['c_headimg']+'" alt="" /></div>';
+										_html += '<div class="ad-s-intro fl bborder">';
+										_html += '<div class="ad-s-intro-le fl">';
+										_html += '<p class="fs14 c3 fov">'+dataarr['c_nickname']+'</p>';
+										_html += '<p class="fs12 c9"><span>关注量</span><span>'+dataarr['c_attention']+'</span><span>访问量</span><span>'+dataarr['c_pv']+'</span></p>';
+										_html += '</div>';
+										if (parseInt(dataarr['num']) > 0) {
+											_html += '<div class="ad-s-intro-ri fl cy fs13" title="'+dataarr['c_ucode']+'"><span>'+dataarr['num']+'</span>个推广位</div>';
+										}
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#adsite_list').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						/*详情*/
+						if(emptyval) {
+							click_detail();
+						}
+					}
+				});
+			}
+			/*详情*/
+			function click_detail() {
+				mui('.detail_' + pageindex).on('tap', '.ad-s-intro-ri', function() {
+					var acode = $(this).attr('title');
+					mui.openWindow({
+						url: "__URL__/addetail?acode="+acode,
+						id: "detail"
+					});
+				});
+			}
+
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

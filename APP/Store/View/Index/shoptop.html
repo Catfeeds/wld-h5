@@ -1,0 +1,204 @@
+
+<div class="header">
+    <include file="Base@Public/pubheader"/>
+    <div class="header_b" style="z-index: 99;">
+        <img class="trademark" src="{$data['c_headimg']}" alt=""/>
+        <div class="ming cf fs17">
+            {$data['c_nickname']}
+            <?php if ($data['c_source'] == 2) { ?>
+            <span><img src="__IMG__/index/o2store_icon_entity.png" alt=""/></span>
+            <?php } else { ?>
+            <span><img src="__IMG__/index/o2store_icon_pu.png" alt=""/></span>
+            <?php } ?>
+        </div>
+        <div class="flow">
+            <span class="fs14 cf">粉丝&nbsp;&nbsp; {$data['c_attention']}</span>
+            <span class="fs14 cf">浏览量&nbsp;&nbsp; {$data['c_pv']}</span>
+        </div>
+    </div>
+    
+    <?php if ($data['c_source'] == 2) { ?>
+    <div class="address fs12 cf" style="z-index: 100;">
+        <div class="address1 cf">
+            <div class="fl fov fs11" style="width: 90%;text-align: left;">
+                <img src="__IMG__/store/dpsy_icon_wz.png" alt=""/>
+                {$data['c_provice']}{$data['c_city']}{$data['c_district']}{$data['c_address']}
+            </div>
+            <img class="fr" src="__IMG__/store/dpsy_icon_lh.png" alt=""/>
+        </div>
+    </div>
+	<?php } ?>
+	
+    <?php if (count($topimg) > 0) { ?>
+    <?php foreach ($topimg as $key => $value) { ?>
+    <img src="{$value}" class="top_pic" alt="">
+    <?php } ?>
+    <?php } else { ?>
+    <img src="__IMG__/store/dpgl_defaultHead1.png" alt="" class="top_pic"/>
+    <?php } ?>
+</div>
+
+
+<?php if(!empty($storeinfo['c_desc'])) { ?>
+<div class="clearfix details divre">
+	<div class="sketch">
+		<div class="hint fs13">
+			{$storeinfo['c_desc']}
+		</div>
+	</div>
+    <div class="fs13 c3 message" style="display: none;">
+        <p class="c3 fs14">商家信息</p>
+        <div class="hint">
+            {$storeinfo['c_desc']}
+        </div>
+
+        <?php if ($data['c_source'] == 2) { ?>
+        <div class="hint1">
+            <?php if (count($storeinfo['imglist']) > 0) { ?>
+                <ul class="picture" onclick="picture()">
+                    <?php if (count($storeinfo['imglist']) > 0) { ?>
+                    <?php foreach ($storeinfo['imglist'] as $k => $v) { ?>
+                    	<?php if($k<6){ ?>
+                    <li>
+                        <img src={$v.c_img} alt=""/>
+                    </li>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                </ul>
+            <?php } ?>
+            <?php if(!empty($storeinfo['c_opentime'])) { ?>
+            <div>
+                营业时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$storeinfo['c_opentime']}
+            </div>
+            <?php } ?>
+            	
+            <?php if(!empty($storeinfo['c_remind'])) { ?>
+            <div>
+                商家提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$storeinfo['c_remind']}
+            </div>
+            <?php } ?>
+            <?php if (count($storeinfo['service']) > 0) { ?>
+            <ul class="provide fs11">
+                <?php foreach ($storeinfo['service'] as $k => $v) { ?>
+                <li class="fl">
+                    <div class="serImg fl"><img src={$v.c_imgpath} alt="" /></div>
+					<div class="sertxt fl fs12">{$v.c_name}</div>
+                </li>
+                <?php } ?>
+            </ul>
+            <?php } ?>
+        </div>
+        <?php } ?>
+    </div>
+    <a href="javascript:void(0)" id="details" class="fr c9 fs11" onclick="showContext()">
+        <span>查看全部商家信息 </span><img src="__IMG__/store/icon_next-b.png" alt=""/>
+    </a>
+    <?php if (!empty($prizedata)): ?>
+    <div class="s-tem-red divab">
+        <div class="s-tem-line"><img src="__IMG__/index/line.png" alt=""/></div>
+        <div class="s-tem-hong heartbeat" style="margin-top: -45%;">
+            <img src="__IMG__/index/hong.png" alt=""/>
+        </div>
+    </div>
+    <?php endif ?>
+</div>
+<?php } ?>
+
+
+<div class="nav fs14">
+    <?php if($compareid==3){ ?>
+    <a href="javascript:void(0)" class="alignc" onclick="tmp_menu_04()">
+        <img src="__IMG__/store/dpsy_icon_sjdt.png" alt=""/>
+
+        <div class="c3">商家商品</div>
+    </a>
+    <?php }else{ ?>
+    <a href="javascript:void(0)" class="alignc" onclick="tmp_menu_01()">
+        <img src="__IMG__/store/dpsy_icon_sjdt.png" alt=""/>
+
+        <div class="c3">商家动态</div>
+    </a>
+    <?php } ?>
+    <a href="javascript:void(0)" class="alignc" onclick="tmp_menu_02()">
+        <img src="__IMG__/store/dpsy_icon_hdzq.png" alt=""/>
+
+        <div class="c3">活动专区</div>
+    </a>
+    <a href="javascript:void(0)" class="alignc" onclick="tmp_menu_03()">
+        <img src="__IMG__/store/dpsy_icon_kqlq.png" alt=""/>
+
+        <div class="c3">卡券领取</div>
+    </a>
+</div>
+
+<div class="red-get-pup">
+    <div class="red-get-con divre">
+        <div class="red-get-money divab divtab">
+            <!--红包已被抢-->
+            <p class="fs14 none" id="rederror">糟糕&nbsp;&nbsp;手慢无</p>
+            <div class="block" id="redsuccess">
+                <p><span class="fs14">现金</span></p>
+                <p><span class="fs28" id="redmoney">0.00</span><span class="fs14">元</span></p>
+            </div>
+        </div>
+        <div class="red-get-font divab divtab fs14" id="redtext">福旺财旺人气旺 山高水长福寿长</div>
+        <div class="red-get-btn divab fs18">确认</div>
+        <!--如果红包为抢光状态则不跳转-->
+        <div class="red-get-balace divab fs14 none">已转入余额，点击查看></div>
+        <img src="__IMG__/index/o2store_bg_hongbao.png" alt=""/>
+    </div>
+</div>
+<input type="hidden" name="cc_id" id="cc_id" value="{$prizedata['c_id']}"/>
+<input type="hidden" name="sid" id="sid" value="{$prizedata['sid']}"/>
+
+<script type="text/javascript">
+
+    function showContext() {
+       if($('.message').css('display')=='block'){
+			$('.sketch').css('display', 'block');
+			$('.message').css('display', 'none');
+			$('#details>span').html('查看全部商家信息');
+			$('#details>img').attr("src", "__IMG__/store/icon_next-b.png");
+			$('.serImg>img').css('width', 33 * $('.wrap-page').width() / 720);
+
+		}else{
+			$('.sketch').css('display', 'none');
+			$('.message').css('display', 'block');
+			$('#details>span').html('收起');
+			
+			$('#details>img').attr("src", "__IMG__/store/icon_next-a.png");
+		}
+        $('.serImg>img').css('width', 33 * $('.wrap-page').width() / 720);
+		$('.picture>li').css('height',$('.picture>li').width());
+		$('.picture').css('height',$('.picture>li').height());
+    }
+
+    /*商家动态*/
+    function tmp_menu_01() {
+        mui.openWindow({url: "__APP__/Store/Index/source?fromucode=<?php echo $issue_ucode; ?>", id: "source"});
+    };
+
+    /*商家商品*/
+    function tmp_menu_04() {
+        mui.openWindow({url: "__APP__/Store/Index/productlist?fromucode=<?php echo $issue_ucode; ?>", id: "source"});
+    };
+
+    /*活动专区*/
+    function tmp_menu_02() {
+        mui.openWindow({
+            url: "__APP__/Store/Index/activitylist?fromucode=<?php echo $issue_ucode; ?>",
+            id: "activitylist"
+        });
+    };
+
+    /*卡券领取*/
+    function tmp_menu_03() {
+        mui.openWindow({url: "__APP__/Store/Index/couponlist?fromucode=<?php echo $issue_ucode; ?>", id: "couponlist"});
+    };
+
+    function picture() {
+        mui.openWindow({url: "__APP__/Store/Index/photo?fromucode=<?php echo $issue_ucode; ?>", id: "photo"});
+    }
+
+</script>

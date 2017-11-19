@@ -1,0 +1,2682 @@
+[ 2017-05-20T08:33:53+08:00 ] ::1 /wldApp/agent.php/Agent/Information/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='wld280996be9d8cc125'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0060s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='wld280996be9d8cc125'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0220s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.002000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.047003s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.049003s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T08:33:53+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0110s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'wld280996be9d8cc125' LIMIT 1   [ RunTime:0.0080s ]
+
+[ 2017-05-20T08:33:56+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 239 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.012001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-20T08:34:14+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 332 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T08:34:15+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0120s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0080s ]
+
+[ 2017-05-20T08:34:58+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 332 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T08:34:59+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-20T08:35:11+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 332 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.015001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T08:35:11+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0110s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0140s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0060s ]
+
+[ 2017-05-20T09:28:51+08:00 ] ::1 /wldApp/agent.php/Agent/Information/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0110s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='wld280996be9d8cc125'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0050s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='wld280996be9d8cc125'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.2320s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.083004s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.084004s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002001s ]
+
+[ 2017-05-20T09:28:51+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0110s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'wld280996be9d8cc125' LIMIT 1   [ RunTime:0.0050s ]
+
+[ 2017-05-20T13:59:48+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.023002s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.008001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.009001s ]
+
+[ 2017-05-20T14:00:42+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0200s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'wld280996be9d8cc125' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0240s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 336 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.080004s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.080004s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.005000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.012001s ]
+INFO: [ app_end ] --END-- [ RunTime:0.013001s ]
+
+[ 2017-05-20T14:00:42+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0160s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0120s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0110s ]
+
+[ 2017-05-20T14:01:03+08:00 ] ::1 /wldApp/agent.php/Agent/Personal
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0130s ]
+SQL: SELECT a.*,b.c_headimg,b.c_shoptrade,c.c_address as address1,c.c_longitude,c.c_latitude,c.c_isfixed,f.c_name as tradename,f.c_pid as tradepid FROM t_check_shopinfo as a left join t_users as b on a.c_ucode = b.c_ucode left join t_user_local as c on b.c_ucode = c.c_ucode left join t_shop_industry as f on f.c_id=b.c_shoptrade  WHERE a.c_ucode = 'wld280996be9d8cc125' LIMIT 1   [ RunTime:0.0200s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.038002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.038002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:01:03+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0100s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0110s ]
+
+[ 2017-05-20T14:01:06+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'wld280996be9d8cc125' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0080s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 336 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:01:06+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0150s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0380s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='wld280996be9d8cc125' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0140s ]
+
+[ 2017-05-20T14:03:14+08:00 ] ::1 /wldApp/agent.php/Agent/Login/logout
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:03:25+08:00 ] ::1 /wldApp/agent.php/Agent/Information/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0210s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0200s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0330s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.075005s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.076005s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-05-20T14:03:25+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0170s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0350s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0190s ]
+
+[ 2017-05-20T14:03:25+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0130s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0130s ]
+
+[ 2017-05-20T14:03:38+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0200s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 336 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.037002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.037002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:03:39+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0150s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0290s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:03:56+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0210s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0080s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 242 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 250 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.045002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.045002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.003000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-05-20T14:03:58+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0250s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0130s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 242 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 250 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.026001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001001s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001001s ]
+
+[ 2017-05-20T14:04:08+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0160s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0150s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 336 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.012001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-20T14:04:08+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0160s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0410s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:12:21+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0120s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001001s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:12:21+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0240s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0390s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:12:49+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0170s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0150s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:12:49+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0200s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0350s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0190s ]
+
+[ 2017-05-20T14:13:02+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GrantCode
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0210s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0200s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0270s ]
+SQL: SELECT * FROM `t_check_codelist` WHERE `c_code` = 'TEY9QGYADZ8R' LIMIT 1   [ RunTime:0.0120s ]
+SQL: INSERT INTO `t_check_codelist` (`c_code`,`c_acode`,`c_state`,`c_addtime`) VALUES ('TEY9QGYADZ8R','xms901d0079a06d0057','2','2017-05-20 14:13:02') [ RunTime:0.0390s ]
+SQL: UPDATE `t_invite_code` SET `c_usenum`='1',`c_codenum`='99' WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 [ RunTime:0.0080s ]
+
+[ 2017-05-20T14:13:52+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0290s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0820s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:13:52+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0250s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0330s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0240s ]
+
+[ 2017-05-20T14:13:58+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GrantCode
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0320s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0170s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0200s ]
+SQL: SELECT * FROM `t_check_codelist` WHERE `c_code` = '76U2P7M4N9SC' LIMIT 1   [ RunTime:0.0120s ]
+SQL: INSERT INTO `t_check_codelist` (`c_code`,`c_acode`,`c_state`,`c_addtime`) VALUES ('76U2P7M4N9SC','xms901d0079a06d0057','2','2017-05-20 14:13:57') [ RunTime:0.0410s ]
+SQL: UPDATE `t_invite_code` SET `c_usenum`='2',`c_codenum`='98' WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 [ RunTime:0.0130s ]
+
+[ 2017-05-20T14:14:05+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0250s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0180s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:14:05+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0310s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0350s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0240s ]
+
+[ 2017-05-20T14:14:07+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0290s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0400s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 258 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 266 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.004000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004000s ]
+
+[ 2017-05-20T14:14:11+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GrantCode
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0200s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0190s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0310s ]
+SQL: SELECT * FROM `t_check_codelist` WHERE `c_code` = 'UQAF3ZL2DTDO' LIMIT 1   [ RunTime:0.0110s ]
+SQL: INSERT INTO `t_check_codelist` (`c_code`,`c_acode`,`c_state`,`c_addtime`) VALUES ('UQAF3ZL2DTDO','xms901d0079a06d0057','2','2017-05-20 14:14:11') [ RunTime:0.0380s ]
+SQL: UPDATE `t_invite_code` SET `c_usenum`='3',`c_codenum`='97' WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 [ RunTime:0.0100s ]
+
+[ 2017-05-20T14:14:13+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0210s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 258 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 266 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.018001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:14:17+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0270s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0160s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.022001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001001s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001001s ]
+
+[ 2017-05-20T14:14:17+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0120s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0350s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0180s ]
+
+[ 2017-05-20T14:14:21+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/ApplyCode
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0120s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0390s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0260s ]
+SQL: SHOW COLUMNS FROM `t_users` [ RunTime:0.0220s ]
+SQL: SELECT `c_acode` FROM `t_users` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0210s ]
+SQL: SELECT * FROM `t_users` WHERE `c_isagent` = 1 AND `c_ucode` = 'xmsb91d4c7dec53babb' LIMIT 1   [ RunTime:0.0830s ]
+SQL: SHOW COLUMNS FROM `t_check_codeinfo` [ RunTime:0.0540s ]
+SQL: INSERT INTO `t_check_codeinfo` (`c_ucode`,`c_acode`,`c_num`,`c_state`,`c_addtime`) VALUES ('xms901d0079a06d0057','xmsb91d4c7dec53babb','1','2','2017-05-20 14:14:20') [ RunTime:0.0180s ]
+NOTIC: [2] Missing argument 1 for GetHost(), called in D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php on line 249 and defined D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 17 行.
+NOTIC: [8] Undefined variable: type D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 18 行.
+NOTIC: [8] Undefined variable: type D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 20 行.
+NOTIC: [8] Undefined index: title D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 15 行.
+NOTIC: [8] Undefined index: origin D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 16 行.
+NOTIC: [8] Undefined index: content D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 17 行.
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0170s ]
+SQL: INSERT INTO `t_check_info` (`c_ucode`,`c_ptitle`,`c_url`,`c_addtime`) VALUES ('xmsb91d4c7dec53babb','您有代理提交商家激活串码申请，可以前往串码中心审核~','http://localhost/wldApp/agent.php/Home/Stringcheck/index','2017-05-20 14:14:20') [ RunTime:0.0600s ]
+
+[ 2017-05-20T14:14:24+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0240s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0120s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:14:24+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0220s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0300s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-20T14:17:13+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0220s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0300s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:17:13+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0280s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0400s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:17:15+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0500s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0290s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 258 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 266 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:17:18+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/ApplyCode
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0240s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0370s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0190s ]
+SQL: SHOW COLUMNS FROM `t_users` [ RunTime:0.0360s ]
+SQL: SELECT `c_acode` FROM `t_users` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0090s ]
+SQL: SELECT * FROM `t_users` WHERE `c_isagent` = 1 AND `c_ucode` = 'xmsb91d4c7dec53babb' LIMIT 1   [ RunTime:0.0290s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0160s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0130s ]
+SQL: SHOW COLUMNS FROM `t_check_codeinfo` [ RunTime:0.0360s ]
+SQL: INSERT INTO `t_check_codeinfo` (`c_ucode`,`c_acode`,`c_num`,`c_state`,`c_addtime`) VALUES ('xms901d0079a06d0057','xmsb91d4c7dec53babb','2','2','2017-05-20 14:17:18') [ RunTime:0.0170s ]
+SQL: UPDATE `t_invite_code` SET `c_checknum`='2' WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 [ RunTime:0.0080s ]
+NOTIC: [2] Missing argument 1 for GetHost(), called in D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php on line 265 and defined D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 17 行.
+NOTIC: [8] Undefined variable: type D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 18 行.
+NOTIC: [8] Undefined variable: type D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 20 行.
+NOTIC: [8] Undefined index: title D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 15 行.
+NOTIC: [8] Undefined index: origin D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 16 行.
+NOTIC: [8] Undefined index: content D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 17 行.
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0240s ]
+SQL: INSERT INTO `t_check_info` (`c_ucode`,`c_ptitle`,`c_url`,`c_addtime`) VALUES ('xmsb91d4c7dec53babb','您有代理提交商家激活串码申请，可以前往串码中心审核~','http://localhost/wldApp/agent.php/Home/Stringcheck/index','2017-05-20 14:17:18') [ RunTime:0.0190s ]
+
+[ 2017-05-20T14:17:20+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0120s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0150s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: page D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 177 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 258 行.
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\3d83b2c0556b2edbaecf72dfd91b4cc6.php 第 266 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.035002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.036002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:17:48+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0180s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0090s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 360 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:17:48+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0160s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0360s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0180s ]
+
+[ 2017-05-20T14:18:29+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0630s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0160s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 358 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.032002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.003000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-05-20T14:18:30+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0180s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0360s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0220s ]
+
+[ 2017-05-20T14:18:35+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/ApplyCode
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0340s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0390s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0260s ]
+SQL: SHOW COLUMNS FROM `t_users` [ RunTime:0.0490s ]
+SQL: SELECT `c_acode` FROM `t_users` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0250s ]
+SQL: SELECT * FROM `t_users` WHERE `c_isagent` = 1 AND `c_ucode` = 'xmsb91d4c7dec53babb' LIMIT 1   [ RunTime:0.0590s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0260s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0430s ]
+SQL: SHOW COLUMNS FROM `t_check_codeinfo` [ RunTime:0.0200s ]
+SQL: INSERT INTO `t_check_codeinfo` (`c_ucode`,`c_acode`,`c_num`,`c_state`,`c_addtime`) VALUES ('xms901d0079a06d0057','xmsb91d4c7dec53babb','2','2','2017-05-20 14:18:35') [ RunTime:0.0220s ]
+SQL: UPDATE `t_invite_code` SET `c_checknum`='5' WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 [ RunTime:0.0080s ]
+NOTIC: [2] Missing argument 1 for GetHost(), called in D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php on line 265 and defined D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 17 行.
+NOTIC: [8] Undefined variable: type D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 18 行.
+NOTIC: [8] Undefined variable: type D:\wamp\www\wldApp\Agent\Common\Common\function.php 第 20 行.
+NOTIC: [8] Undefined index: title D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 15 行.
+NOTIC: [8] Undefined index: origin D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 16 行.
+NOTIC: [8] Undefined index: content D:\wamp\www\wldApp\Agent\Common\Service\InfomationService.class.php 第 17 行.
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0170s ]
+SQL: INSERT INTO `t_check_info` (`c_ucode`,`c_ptitle`,`c_url`,`c_addtime`) VALUES ('xmsb91d4c7dec53babb','您有代理提交商家激活串码申请，可以前往串码中心审核~','http://localhost/wldApp/agent.php/Home/Stringcheck/index','2017-05-20 14:18:35') [ RunTime:0.0230s ]
+
+[ 2017-05-20T14:18:37+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0240s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0630s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 358 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:18:37+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0330s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0450s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0840s ]
+
+[ 2017-05-20T14:37:21+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0190s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0230s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 358 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:37:22+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0210s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0630s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0520s ]
+
+[ 2017-05-20T14:37:24+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262242012
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0330s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0460s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.1290s ]
+
+[ 2017-05-20T14:37:24+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262242013
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0180s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0170s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0400s ]
+
+[ 2017-05-20T14:37:25+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262242014
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0280s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0250s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0140s ]
+
+[ 2017-05-20T14:37:25+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0850s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.1200s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 358 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:37:26+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0590s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0380s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0270s ]
+
+[ 2017-05-20T14:37:26+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262245863
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0620s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0600s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0770s ]
+
+[ 2017-05-20T14:37:29+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.1360s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0750s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001001s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 358 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.034002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.034002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:37:30+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0910s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0440s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0660s ]
+
+[ 2017-05-20T14:37:31+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262249800
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.1250s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0250s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0530s ]
+
+[ 2017-05-20T14:37:33+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0970s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0820s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 358 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-05-20T14:37:34+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.1590s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.1690s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.1000s ]
+
+[ 2017-05-20T14:37:35+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262253861
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0210s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0170s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0310s ]
+
+[ 2017-05-20T14:39:13+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0200s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0480s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.030002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-05-20T14:39:13+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0190s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0370s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0410s ]
+
+[ 2017-05-20T14:39:13+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262353513
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0230s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0190s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0430s ]
+
+[ 2017-05-20T14:39:15+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0360s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0390s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-20T14:39:15+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0530s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0390s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:39:16+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262355739
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0530s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0990s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0120s ]
+
+[ 2017-05-20T14:39:17+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262355740
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0170s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0140s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0680s ]
+
+[ 2017-05-20T14:40:09+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0200s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0160s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:40:09+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0150s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0320s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0160s ]
+
+[ 2017-05-20T14:40:10+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262409741
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0160s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0160s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0660s ]
+
+[ 2017-05-20T14:40:12+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262409742
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0100s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0090s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:40:15+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0130s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0090s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:40:15+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0330s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0200s ]
+
+[ 2017-05-20T14:40:16+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262415813
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0200s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0090s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0110s ]
+
+[ 2017-05-20T14:40:17+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262415814
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0150s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0180s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0130s ]
+
+[ 2017-05-20T14:40:18+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262415815
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0170s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0090s ]
+
+[ 2017-05-20T14:40:19+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262415816
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0140s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0100s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-20T14:40:44+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262415817
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0630s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.1540s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0510s ]
+
+[ 2017-05-20T14:40:45+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262415818
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0200s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0170s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0460s ]
+
+[ 2017-05-20T14:40:48+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262415819
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0200s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0230s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0120s ]
+
+[ 2017-05-20T14:40:48+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262415820
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0160s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0090s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0190s ]
+
+[ 2017-05-20T14:40:54+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262415821
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0560s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0210s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0450s ]
+
+[ 2017-05-20T14:40:55+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262415822
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0180s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0360s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:41:13+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0150s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0090s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:41:14+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0180s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0160s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.040002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.041002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:41:14+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0140s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.021001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:41:14+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0360s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:41:14+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262474377
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0340s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0610s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-20T14:41:15+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262474378
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0150s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0090s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0180s ]
+
+[ 2017-05-20T14:41:46+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262474379
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0130s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0090s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:41:47+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262474380
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0110s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0160s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:41:49+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262474381
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0110s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0150s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0080s ]
+
+[ 2017-05-20T14:41:50+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262474382
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0110s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0140s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:41:50+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262474383
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0130s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0090s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:41:51+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262474384
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0080s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0130s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:41:51+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262474385
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0150s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-20T14:41:52+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262474386
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0110s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0100s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-20T14:41:53+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0120s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0160s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:41:53+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0140s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0350s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0190s ]
+
+[ 2017-05-20T14:41:54+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262513806
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0360s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0080s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0280s ]
+
+[ 2017-05-20T14:41:56+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262513807
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0190s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0190s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0110s ]
+
+[ 2017-05-20T14:42:00+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262513808
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0320s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0200s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0080s ]
+
+[ 2017-05-20T14:42:00+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262513809
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0140s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0100s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:42:20+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262513810
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0150s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0100s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-20T14:42:21+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262513811
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0130s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0130s ]
+
+[ 2017-05-20T14:42:22+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262513812
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0590s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0180s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0140s ]
+
+[ 2017-05-20T14:42:23+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262513813
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0210s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0440s ]
+
+[ 2017-05-20T14:42:24+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262513814
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0180s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0140s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0110s ]
+
+[ 2017-05-20T14:42:25+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262513815
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0110s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0160s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0150s ]
+
+[ 2017-05-20T14:42:28+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262513816
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0150s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0070s ]
+
+[ 2017-05-20T14:42:28+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262513817
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0180s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0080s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-20T14:43:08+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.2060s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0450s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002001s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-05-20T14:43:12+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.7500s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.1960s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0420s ]
+
+[ 2017-05-20T14:43:14+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262588258
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:1.8981s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.1170s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0280s ]
+
+[ 2017-05-20T14:43:22+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495262588259
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0510s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0210s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0350s ]
+
+[ 2017-05-20T14:43:23+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262588260
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0290s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0380s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-20T14:47:27+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0130s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0080s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:47:27+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0350s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0150s ]
+
+[ 2017-05-20T14:47:30+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0100s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0110s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:47:31+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0380s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T14:47:35+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0190s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0080s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:47:35+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0150s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0280s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0220s ]
+
+[ 2017-05-20T14:47:36+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0120s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0080s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:47:36+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0140s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0270s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0180s ]
+
+[ 2017-05-20T14:47:42+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262856817
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0320s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0080s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0320s ]
+
+[ 2017-05-20T14:47:42+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0230s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0090s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.030002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T14:47:42+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0230s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0290s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0250s ]
+
+[ 2017-05-20T14:47:47+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495262862499
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0130s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0090s ]
+
+[ 2017-05-20T14:51:47+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0130s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0140s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T14:51:47+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0150s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0330s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0570s ]
+
+[ 2017-05-20T14:51:52+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495263107568
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0230s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0100s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-20T15:26:32+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0380s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0130s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.036002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.036002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T15:26:32+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0190s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0280s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0200s ]
+
+[ 2017-05-20T15:26:32+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265192168
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0970s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0150s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0900s ]
+
+[ 2017-05-20T15:26:52+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0080s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T15:26:53+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0420s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0210s ]
+
+[ 2017-05-20T15:26:53+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265213057
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0140s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0070s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0290s ]
+
+[ 2017-05-20T15:27:35+08:00 ] ::1 /wldApp/agent.php/Agent/Information
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0160s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0620s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.045003s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.047003s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T15:27:36+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0170s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0390s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-20T15:27:36+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0130s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0180s ]
+
+[ 2017-05-20T15:27:37+08:00 ] ::1 /wldApp/agent.php/Agent/Information/readinfo
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_infolog` [ RunTime:0.0120s ]
+SQL: SELECT `c_id` FROM `t_check_infolog` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_infoid` = 1612 LIMIT 1   [ RunTime:0.0070s ]
+SQL: INSERT INTO `t_check_infolog` (`c_ucode`,`c_infoid`,`c_addtime`) VALUES ('xms901d0079a06d0057','1612','2017-05-20 15:27:37') [ RunTime:0.0610s ]
+
+[ 2017-05-20T15:27:37+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0150s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0100s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-20T15:27:38+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0180s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0260s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-20T15:27:38+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265257842
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0180s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0220s ]
+
+[ 2017-05-20T15:27:39+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0210s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0300s ]
+
+[ 2017-05-20T15:27:40+08:00 ] ::1 /wldApp/agent.php/Agent/Information/readinfo
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_infolog` [ RunTime:0.0130s ]
+SQL: SELECT `c_id` FROM `t_check_infolog` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_infoid` = 1611 LIMIT 1   [ RunTime:0.0070s ]
+SQL: INSERT INTO `t_check_infolog` (`c_ucode`,`c_infoid`,`c_addtime`) VALUES ('xms901d0079a06d0057','1611','2017-05-20 15:27:40') [ RunTime:0.0460s ]
+
+[ 2017-05-20T15:27:40+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0130s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0090s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-20T15:27:40+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0360s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0150s ]
+
+[ 2017-05-20T15:27:40+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265260593
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0130s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0110s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0260s ]
+
+[ 2017-05-20T15:27:43+08:00 ] ::1 /wldApp/agent.php/Agent/Information
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0140s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0100s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0320s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.030001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T15:27:44+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0140s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0260s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0200s ]
+
+[ 2017-05-20T15:27:44+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0200s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0160s ]
+
+[ 2017-05-20T15:27:53+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0160s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0100s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.030002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T15:27:54+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0140s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0380s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0270s ]
+
+[ 2017-05-20T15:27:54+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265274110
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0110s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0130s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0360s ]
+
+[ 2017-05-20T15:32:32+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495265274111
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0210s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0140s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0110s ]
+
+[ 2017-05-20T15:33:20+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_invite_code` [ RunTime:0.0250s ]
+SQL: SELECT * FROM `t_invite_code` WHERE `c_ucode` = 'xms901d0079a06d0057' AND `c_rule` = 2 LIMIT 1   [ RunTime:0.0260s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: statu D:\wamp\www\wldApp\Agent\Runtime\Cache\Agent\707e9eb7568eebdbee7076880e46e506.php 第 361 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-05-20T15:33:20+08:00 ] ::1 /wldApp/agent.php/Agent/Information/GetStatuMessage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0160s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0520s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on b.c_infoid=a.c_id  WHERE (  (  a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  b.c_infoid is null ) ) LIMIT 1   [ RunTime:0.0270s ]
+
+[ 2017-05-20T15:33:20+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265600187
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0170s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0670s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0180s ]
+
+[ 2017-05-20T15:33:51+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495265600188
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0420s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0650s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0300s ]
+
+[ 2017-05-20T15:33:51+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=1pageindex=1&_=1495265600189
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.0240s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 2 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.0140s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.0190s ]
+
+[ 2017-05-20T15:33:54+08:00 ] ::1 /wldApp/agent.php/Agent/Codecheck/GetCodeInfoList?statu=0pageindex=1&_=1495265600190
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `t_check_codelist` [ RunTime:0.1310s ]
+SQL: SELECT a.*,b.c_nickname,b.c_headimg FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_state = 1 ORDER BY a.c_id desc LIMIT 0,20   [ RunTime:0.2350s ]
+NOTIC: [8] Undefined variable: whereinfo D:\wamp\www\wldApp\Agent\Common\Service\CodecheckService.class.php 第 187 行.
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_codelist as a left join t_users as b on b.c_ucode=a.c_ucode  LIMIT 1   [ RunTime:0.1020s ]
+

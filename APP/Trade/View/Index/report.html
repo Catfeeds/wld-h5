@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>举报</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<input type="hidden" name="content_id" value="{$content_id}">
+				<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}" />
+				<input type="hidden" name="citycode" id="citycode" value="{$citycode}" />
+				<div class="mui-content divtab">
+					<!-- 数据列表部分 -->
+					<div class="report-con bgcolor fs14 c3" id="data_list">
+						<ul>
+							<volist name='tiplist' id='vo'>
+								<li>
+									<div class="radio-box fl"><input type="radio" name="tip_id" value="{$vo['c_tid']}" data-flag="{$vo['c_flag']}" /></div>
+									<font>{$vo['c_content']}</font>
+								</li>
+							</volist>
+						</ul>
+						<div class="report-text none divtab">
+							<textarea name="content" rows="2" cols="20" class="c9" placeholder="举报详情说明" maxlength="200" id="content"></textarea>
+							<div class="report-fontnum fr fs13 c9"><span id="min-lenfont">0</span>/<span>200</span>字</div>
+						</div>
+					</div>
+					<div class="report-submit cf fs16 bg02">举报</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+		}
+
+		function yangshi() {
+			var ptradio = $('.radio-box').width();
+			$('.report-con ul li font').css('line-height', ptradio + 'px');
+
+		}
+
+		/*勾选中单选框js*/
+		mui('.mui-content').on('tap','.report-con input[type="radio"]',function(){
+			var flag = $(this).attr('data-flag');
+			$("#content").val("");
+			document.getElementById("min-lenfont").innerHTML = $("#content").val().length;
+			if(flag==1){
+				$('.report-text').css('display','block');
+			}else{
+				$('.report-text').css('display','none');
+			}
+		});
+		
+		/*提示限制输入30个字符*/
+		$(function() {
+			var len = $("#content").val().length;
+			document.getElementById("min-lenfont").innerHTML = len.toString();
+			$("#content").keyup(function() {
+				var len_2 = $(this).val().length;
+				document.getElementById("min-lenfont").innerHTML = len_2.toString();
+				if(len_2 >= 200) {
+					$(this).val($(this).val().substring(0, 200));
+				}
+				var num = 200 - len_2;
+				document.getElementById("min-lenfont").innerHTML = num;
+			});
+		});
+
+		/*提交举报内容*/
+		mui('.mui-content').on('tap', '.report-submit', function() {
+			putform();
+		})
+
+		var resign = true;
+
+		function putform() {
+			if(resign) {
+				resign = false;
+				var attrbul = getFormAttrs('form1');
+				$.ajax({
+					type: "POST",
+					url: '__URL__/PutTipInfos',
+					data: "attrbul=" + JSON.stringify(attrbul),
+					dataType: "json",
+					success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if(msg.code == 0) {
+							mui.toast('举报成功');
+							setTimeout(function() {
+								mui.openWindow({
+									url: '__URL__/index?provincecode=' + $('#provincecode').val() + '&citycode='+$('#citycode').val(),
+									id: "rindex"
+								});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);
+						}
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

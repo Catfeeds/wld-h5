@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<title>商家后台管理--商家审核</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('#li-3 a').addClass('hover');
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="content-s w_960">
+	<div class="page-title">
+		<div class="page-tit-name">全部商家</div>
+	</div>
+	<form id="form1" action="" method="get">
+		<div id="search">
+			<input type="text" name="keys" placeholder="输入搜索关键字">
+			<input class="button" type="submit" value="搜索">
+		</div>
+	</form>
+	<volist name="data" id="vo" empty="$baoqian">
+	<div class="agent-list-box" onclick="window.location.href='__URL__/details?Id={$vo.c_id}'">
+		<div class="agent-list-l fl">
+			<a href="javascript:;">
+				<img src="<?php echo GetHost(); ?>/{$vo.c_headimg}" alt="" class="agentimgs">
+				<img src="__IMG__/eye.png" alt="">
+			</a>
+		</div>
+		<div class="agent-list-r fl">
+			<div class="agent-n-s">
+				<div class="agent-names">{$vo.c_name}</div>
+				<?php if ($vo['c_checked'] == 3) { ?>
+				<div class="agent-state state1">已激活</div>
+				<?php }else{ ?>
+				<div class="agent-state state2">未激活</div>
+				<?php } ?>
+			</div>
+			<div class="agent-types types1">
+				<?php if ($vo['c_type'] == 1) { ?>
+					个人
+				<?php } else if($vo['c_type'] == 2) { ?>
+					企业
+				<?php } else if($vo['c_type'] == 3) { ?>
+					个体户
+				<?php } ?>
+			</div>
+
+			<?php if ($vo['c_checked'] == 3) { ?>
+			<div class="agent-company" style="color:#46aafa;font-size:18px;">已通过审核</div>
+			<?php }else if ($vo['c_checked'] == 2){ ?>
+			<div class="agent-company" style="color:#ff7112;font-size:18px;">等待区域经理审核</div>
+			<?php }else if ($vo['c_checked'] == 0){ ?>
+			<div class="agent-company" style="color:#ff7112;font-size:18px;">等待代理审核</div>
+			<?php }else{ ?>
+			<div class="agent-company" style="color:#ff7112;font-size:18px;">未通过审核</div>
+			<?php } ?>
+
+			<div class="agent-company">商户名称：{$vo.c_merchantname}</div>
+
+		</div>
+	</div>
+	</volist>
+	<div class="pages">
+		<div>
+		 {$page}
+		</div>
+	</div>
+
+</div>
+
+
+</body>
+</html>

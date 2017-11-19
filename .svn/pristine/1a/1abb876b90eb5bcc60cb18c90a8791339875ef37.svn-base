@@ -1,0 +1,107 @@
+*{font-weight:400;}
+img{width: 100%;height: auto;vertical-align:bottom;}
+.wrap-page{background: #f3d7cc;}
+.roule_relative{position: relative;width: 100%;overflow: hidden;z-index:99;}
+.rotate-big-bg{position: absolute;width: 84%;top:26.5%;left:7%;overflow: hidden;z-index:99;}
+.roule_prize{position:absolute;width:73%;top:31.2%;left:12.5%;overflow: hidden;z-index:999;}
+.roule_pointer{position:absolute;width:25%;top:46.5%;left:36.5%;overflow: hidden;z-index:999;outline: none;}
+.roule_pointer img{border: none;outline: none;}
+.roule_time{position:absolute;width:100%;top:13%;overflow: hidden;z-index:999;text-align:center;
+    font-size:14px;}
+.roule_num{ color:#f95d61;font-size:16px;position:absolute;top:26.5%;left:9%;overflow: hidden;z-index:9999; padding:2%;width: auto;}
+.roule_num span{font-size:30px;}
+.roule-theme{position: absolute;width: 18%;right: 4%;bottom: 6.5%;}
+.roule-lantern{position: absolute;width: 100%;top: 0;left: 0;margin: 0 auto;}
+
+
+
+
+.prize_list{width: 100%;overflow: hidden;padding-bottom: 8%;padding-top: 5%;}
+.prize_body{width: 28%;margin-left: 4%; margin-bottom: 3%; overflow: hidden;}
+.prize_top{width: 100%;overflow: hidden;}
+.prize_content{position: relative;width: 100%;overflow: hidden;background:#fff;border-radius:12px;}
+.prize_name{width: 90%;margin:8% 5%;overflow: hidden;text-align: center;padding:2% 0px;font-size:12px;
+word-break: break-all;word-wrap:break-word;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.prize_num{position:absolute;width:auto;top:24%;right:5%;overflow: hidden;z-index:9999;
+    background:#f54784;color:#fff;padding:1%;font-size: 12px;}
+
+.prize_img{width: 70%;overflow: hidden;margin:auto;margin:10% 15%;}
+.prize_img img{width: 100%;height:100%;}
+.prize_value{width: 90%;margin:auto;overflow: hidden;text-align: center;padding:4% 0 8% 0px;font-size:12px;color: #f95d61;}
+
+
+.winname-list{width: 92%;margin: 0 auto;padding: 6% 0 0 4%;}
+.list_content{width: 92%;overflow: hidden;margin:0 auto;margin-bottom: 8%;}
+.title_img{width: 100%;overflow: hidden;margin:auto;}
+.list_content ul{width: 97%;overflow: hidden;padding-right: 3%;}
+.list_body{width: 100%;overflow: hidden;}
+.list_body li{overflow: hidden;}
+.xm,.jp,.sj{float: left;word-break: break-all;word-wrap:break-word;padding: 2% 0;
+overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size: 12px;}
+.xm{ width: 25%;}
+.jp {width: 40%;}
+.sj{ width: 35%;text-align: right;}
+
+
+
+.list_rule{width: 100%;overflow: hidden;padding:4%;}
+.list_rule h3{width: 100%;overflow: hidden;font-weight: 400;font-size:14px;padding:2% 0px;}
+.list_rule p{width: 100%;overflow: hidden;font-size:12px;padding:1% 0px;line-height: 1.5em;}
+
+.rule-tit{width: 100%;overflow: hidden;font-weight: 400;padding:3% 0px;overflow: hidden;color: #f95d61;}
+.rule-tit span{display: block;width: 5%;float: left;margin-right: 3%;}
+.rule-tit span img{vertical-align:middle;}
+
+.roulette-bottom{padding-top: 4%;}
+
+
+.receive-fuceng{position: fixed;z-index: 99999;top:0px;bottom:0px;display:none;width: 100%;margin: auto;z-index: 9999;max-width: 720px;min-width: 320px;}
+
+.winning-bg{display: none;background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.winning-pup{display: none; top:10%;left:0; position:fixed;z-index: 999;width:100%;margin: 0 auto;right: 0;max-width: 720px;min-width: 320px;}
+.winning-pup-con{position: relative;width: 70%;margin: 0 auto;left: 0;right: 0;}
+.winning-pup-con img{width: 100%;height: 100%;}
+.winning-proimg{background: #fff;border: solid 1px #ccc;width: 42%;margin: 0 auto;position: absolute;top: 30%;left: 0;margin: 0 auto;right: 0;overflow: hidden;}
+.winning-proimg img{width: 100%;height: 100%;}
+/*.winning-font{color:#ff4e2f; position: absolute;top:44%;width: 62%;margin: 0 auto;left: 0;right: 0;text-align: center;}
+.winning-btn{position: absolute;bottom: 23%;width: 40%;margin: 0 auto;text-align: center;left: 0;right: 0;}
+*/
+.winning-moneyimg{background: url(../../img/activity/roulette/03_07.jpg); background-size: 100% 100%;width: 48%;text-align: center;color: #f3de4d;
+    position: absolute;top: 30%;left: 0;margin: 0 auto;right: 0;padding: 8% 4%;}
+.winning-moneyimg span{font-weight: bold;}
+.winning-remark{text-align: center;position: absolute;top: 65%;width:80%;left: 0;right: 0;margin: 0 auto;}
+.winning-descri{text-align: center;position: absolute;top: 72%;width: 100%;}
+.winning-sure{color: #46aafa;text-align: center;border-top: solid 1px #e2e2e2;position: absolute;bottom: 0;width: 92%;padding: 4% 0;letter-spacing: 2px;left: 4%;right: 4%;}
+.winning-close{width: 10%;position: absolute;bottom: -13%;left: 0;right: 0;margin: 0 auto;}
+
+
+.winning-bg-num{display: none;background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.winning-pup-num{display: none; top:28%;left:0; position:fixed;z-index: 999;width:100%;margin: auto;right: 0;max-width: 720px;min-width: 320px;padding: 0 8%;}
+.pup-num-con{background: #fff;border-radius: 8px;}
+.pup-num-tip{text-align: center;width: 100%;padding: 5% 0;}
+.pup-num-sure{border-top: solid 1px #e2e2e2;width: 100%;padding: 4% 0;color: #46aafa;text-align: center;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+    .prize_name,.prize_num,.prize_value,.xm,.jp,.sj{font-size: 15px;}  
+    .list_rule p{font-size: 14px;}  
+    .roule_time,.list_rule h3{font-size: 17px;}     
+    .roule_num{font-size: 19px;}
+    .roule_num span{font-size:34px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+    .prize_name,.prize_num,.prize_value,.xm,.jp,.sj{font-size: 18px;}  
+    .list_rule p{font-size: 18px;} 
+    .roule_time,.list_rule h3{font-size: 20px;}     
+    .roule_num{font-size: 22px;}
+    .roule_num span{font-size:38px;}
+}
+
+@media (min-width: 621px){  
+    .prize_name,.prize_num,.prize_value,.xm,.jp,.sj{font-size: 21px;}  
+    .list_rule p{font-size: 22px;} 
+    .roule_time,.list_rule h3{font-size: 23px;}     
+    .roule_num{font-size: 25px;}
+    .roule_num span{font-size:42px;}
+}

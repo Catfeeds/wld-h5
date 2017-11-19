@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>快速反馈</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/about/index.css?v=1.2">
+	</head>
+
+	<body>
+
+		<div class="wrap-page bgcolor">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="form1">
+					<div class="feedback-text">
+						<textarea name="feedback" id="feedback-txt" placeholder="输入您的宝贵意见如发现BUG，可截图告知我们，我们会第一时间进行修复" rows="8" style="resize:none;"></textarea>
+					</div>
+					<div class="productmodular">
+						<div class="productmodular-top">
+							<div class="producttitle fs13">
+								上传图片
+							</div>
+						</div>
+						<!--<div class="productmodular-bottom">-->
+							<!--<div class="productmodular-img" onclick="dianji(this,'img');" id="imgbox">-->
+								<!--<img src="__IMG__/about/nullimg.png">-->
+							<!--</div>-->
+						<!--</div>-->
+						<div class="productmodular-bottom">
+							<div class="productmodular-img" id="imgmodular0">
+								<div style="display:none;" class="productmodular-position" id="delimg_0">
+									<img src="__COMMON__/img/ca.png" alt=""/>
+								</div>
+								<img src="__RSC__/Trade/img/district_adv_add2x.png" id="imgpath0">
+								<input type="file" name="imgfile0" value="" id="imgfile0">
+								<input type="hidden" name="imglist_0" value="" id="imgfile_val_0">
+							</div>
+						</div>
+					</div>
+					<input type="hidden" name="imglist" value="" id="imglist"/>
+					<div class="resource-sub sub-blue" id="addfeedback">提交</div>
+				</form>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript">
+            /*上传图片*/
+            mui('.productmodular').on('tap', '#imgfile0', function () {
+                var obj = $(this);
+                document.getElementById("imgfile0").onchange = function () {
+                    tempUploadimg('imgfile0', 'imgpath0', 'imgfile_val_0', 0, obj);
+                    $('#imgfile0').attr('disabled','disabled');
+                }
+            });
+            mui('.productmodular').on('tap', '#delimg_0', function () {
+                deleteimg(0, $(this));
+            });
+            var valid = 0;
+
+            /*上传图片*/
+            function dianji(obj) {
+                var html = '';
+                var idd = $(obj).parent().parent().find('.productmodular-img').size();
+                if (idd > 3) {
+                    mui.toast('最多上传3张图片！');
+                    return;
+                }
+                valid++;
+                html += '<div class="productmodular-img"  id="imgmodular' + valid + '">';
+                html += '<div style="display:none;" class="productmodular-position" id="delimg_' + valid + '">';
+                html += '<img src="__COMMON__/img/ca.png" alt="" />';
+                html += '</div>';
+                html += '<img src="__RSC__/Trade/img/district_adv_add2x.png" id="imgpath' + valid + '">';
+                html += '<input type="file" name="imgfile' + valid + '" value="" id="imgfile' + valid + '">';
+                html += '<input type="hidden" name="imglist_' + valid + '" value="" id="imgfile_val_' + valid + '">';
+                html += '</div>';
+
+                $('.productmodular-bottom').append(html);
+                $('#imgmodular' + valid).show();
+                styles();
+
+                eventupload(valid);
+            }
+
+            function eventupload(id) {
+                mui('#imgmodular' + id).on('tap', '#imgfile' + id, function () {
+                    var obj = $(this);
+                    document.getElementById("imgfile" + id).onchange = function () {
+                        tempUploadimg('imgfile' + id, 'imgpath' + id, 'imgfile_val_' + id, id, obj);
+                        $('#imgfile' + id).attr('disabled','disabled');
+                    }
+                });
+                mui('#imgmodular' + id).on('tap', '#delimg_' + id, function () {
+                    deleteimg(id, $(this));
+                });
+            }
+
+            /*清空图片*/
+            function deleteimg(id, obj) {
+                delUploadimg($('#imgfile_val_' + id).val());
+                $(obj).parent().remove();
+                $('#imgfile_val_' + id).val("");
+                $('#imgfile' + id).val("");
+                $('#imgfile' + id).removeAttr("disabled");
+                $('#imgpath' + id).attr("src", "__RSC__/Trade/img/district_adv_add2x.png");
+                $('#delimg_' + id).css("display", "none");
+            }
+            //提交表单
+            var tjflag = true;
+            mui('.mui-content').on('tap', '#addfeedback', function () {
+                if(tjflag = true){
+					if($('#feedback-txt').val() == '') {
+						mui.toast('请填写反馈的内容！');
+						return false;
+					}
+                    tjflag = false;
+                    var resultli = "";
+                    $("input[name^='imglist_']").each(function () {
+                        if ($(this).val() != "") {
+                            resultli += '|' + $(this).val();
+                        }
+                    });
+                    $('#imglist').val(resultli.slice(1));
+                    var attrbul = getFormAttrs("form1");
+                    $.ajax({
+                        type: "POST",
+                        url: '__URL__/AddFeedback',
+                        data: "attrbul=" + JSON.stringify(attrbul),
+                        dataType: "json",
+                        success: function (json) {
+                            var msg = eval(json);
+                            if (msg.code == 0) {
+                                mui.toast('反馈提交成功');
+                                setTimeout(function () {
+                                    returnset();
+                                }, 1000);
+                            } else {
+                                mui.toast(msg.msg);
+                                tjflag = true;
+                            }
+                        }
+                    });
+                }
+            });
+			/*上传图片*/
+//			function dianji(tg, sg) {
+//				var html = '';
+//				var n = $(tg).parent().find('.productmodular-img').size();
+//				if(n > 3) {
+//					mui.toast('最多上传3张图片');
+//					return;
+//				}
+//				html += '<div style="display:none;" class="productmodular-img" id="' + sg + 'modular' + n + '" onmousemove="moveing(this);" onmouseout="outimg(this);">';
+//				html += '<div class="productmodular-position" onclick="delimg(this);">';
+//				html += '<img src="__IMG__/about/delete.png" alt=""> ';
+//				html += '</div>';
+//				html += '<img src="" id="' + sg + 'path' + n + '">';
+//				html += '<input style="display:none;" type="file" name="' + sg + n + '" value="" id="' + sg + 'file1' + n + '" accept="image/*">';
+//				html += '</div>';
+//
+//				$('#' + sg + 'box').before(html);
+//				$("#" + sg + 'file1' + n).uploadPreview({
+//					Img: sg + 'path' + n,
+//					Width: 188,
+//					Height: 149
+//				});
+//
+//				var gg = document.getElementById(sg + 'file1' + n);
+//				gg.click();
+//				$('#' + sg + 'modular' + n).show();
+//				var pimg = $('.productmodular-img').width();
+//				$('.productmodular-img').width(pimg);
+//				$('.productmodular-img').height(pimg);
+//
+//			}
+//			// 鼠标移上图片
+//			function moveing(tg) {
+//				$(tg).find('.productmodular-position').show();
+//			}
+//
+//			// 鼠标移开图片
+//			function outimg(tg) {
+//				$(tg).find('.productmodular-position').hide();
+//			}
+//
+//			// 删除图片
+//			function delimg(tg) {
+//				$(tg).parent().remove();
+//			}
+
+//			// 表单提交验证
+//			function validateForm() {
+//				if($('#feedback-txt').val() == '') {
+//					mui.toast('请填写反馈的内容！');
+//					return false;
+//				}
+//				$('#form1').submit();
+//			}
+			window.onload = function() {
+                styles();
+//				var pimg = $('.productmodular-img').width();
+//				$('.productmodular-img').width(pimg);
+//				$('.productmodular-img').height(pimg);
+			}
+            function styles() {
+                $('.productmodular-img').height($('.productmodular-img').width());
+                $('.productmodular-position').height($('.productmodular-position').width());
+                $('.productmodular-img input[type="file"]').width($('.productmodular-img').width());
+                $('.productmodular-img input[type="file"]').height($('.productmodular-img').width());
+            }
+			function returnset() {
+				var apptype = '<?php echo $apptype ?>';
+				//alert(apptype);
+				if(apptype == 1) {
+					javaScript: resultData.goSetting();
+				}
+				else if(apptype == 2) {
+					//alert("ios");
+					window.webkit.messageHandlers.AppModel.postMessage({
+						"popSet": ""
+					});
+				} else {
+				    mui.openWindow({url:"__APP__/Home/Index/index"});
+				}
+			}
+		</script>
+	</body>
+
+</html>

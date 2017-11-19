@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+/***活动****/
+/*框架特殊样式处理*/
+.mui-segmented-control.mui-segmented-control-inverted{height: auto;}
+.mui-segmented-control.mui-scroll-wrapper .mui-scroll{height: auto;overflow-x:auto;}
+.mui-segmented-control{font-size: none;}
+.mui-segmented-control.mui-scroll-wrapper .mui-control-item{padding: 0;}
+.mui-segmented-control .mui-control-item{line-height: normal;}
+
+.act-scroll-con{padding: 3%;width: 100%;}
+.act-img-item{padding:0 3%;}
+
+
+.t-s-activity-list{padding: 4%;}
+.t-s-activity-li{background: #fff;border-radius: 8px;margin-bottom: 4%;}
+.t-s-acti-con{padding: 0 0 3% 0;}
+.t-s-acti-img{width:19%;overflow: hidden;margin: 5% 3% 0 3%;}
+.t-s-acti-type{left: 0;top: 0;width: 14%;z-index: 999;}
+.t-s-acti-info{width: 75%;}
+.t-s-acti-name{padding: 6% 0 2% 0;}
+.t-s-acti-desc{}
+.t-s-acti-desc span{color: #45aafa;}
+.t-s-acti-timenum{padding: 3%;}
+.t-s-acti-time{width: 70%;}
+.t-s-acti-sharenum{width: 30%;}
+.t-s-acti-shareico{width:24%;}
+
+
+

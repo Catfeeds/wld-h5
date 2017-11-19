@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<title>用户点击量统计</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 统计报表 <span class="c-gray en">&gt;</span> 用户点击量 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="text-c">
+        搜索：
+        <input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+    -
+    <input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+        <button type="submit" class="btn btn-success radius" id="" name="" onclick="chaxun()"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+      <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+    </div>
+  <div class="mt-20">
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+      <thead>
+        <tr class="text-c">
+          <th width="25"><input type="checkbox" name="" value=""></th>
+          <th width="60">用户昵称</th>
+          <th width="60">点击次数</th>
+          <th width="100">出现红包点击次数</th>
+          <th width="100">出现宝箱点击次数</th>
+          <th width="100">出现气球点击次数</th>
+          <th width="60">日期</th>
+          <th width="60">生成时间</th>
+          <th width="60">更新时间</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+  $('.table-sort').dataTable({
+    "aaSorting": [[ 1, "asc" ]],//默认第几个排序
+    "bStateSave": false,//状态保存
+    "aoColumnDefs": [
+      //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+      {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+    ]
+  });
+  $('.table-sort tbody').on( 'click', 'tr', function () {
+    if ( $(this).hasClass('selected') ) {
+      $(this).removeClass('selected');
+    }
+    else {
+      table.$('tr.selected').removeClass('selected');
+      $(this).addClass('selected');
+    }
+  });
+
+});
+
+    function timetype(n){
+        myChart.showLoading();
+        getChaxun(n);
+    }
+     function chaxun(){
+      var EntTime1 = $("#EntTime1").val();//季度时间
+      var EntTime2 = $("#EntTime2").val();//季度时间
+      if(EntTime1 != '' && EntTime2 != ''){
+          var year = EntTime1.substr(0,4);
+          var year1 = EntTime2.substr(0,4);//年
+          var month = EntTime1.substr(5,3);
+          var month1 = EntTime2.substr(5,3);//月
+
+          var ydiff = year1 - year;
+          if(ydiff < 0){
+            alert('查询条件输入有误');
+            return false;    
+          }
+
+          if(year == year1){
+                sum = month1 - month;
+                if(sum < 0){
+                    alert('查询条件输入有误');
+                    return false;    
+                }else if(sum > 12){
+                    alert('查询条件区间最大不能超过一年');
+                    return false;
+                }else if(sum == 0){
+                    myChart.showLoading();
+                    getChaxun(1,EntTime1,EntTime2);
+                    return true;
+                }else{
+                  myChart.showLoading();
+                  getChaxun(2,EntTime1,EntTime2);
+                  return true;
+                }
+          }else{
+              if(ydiff == 1){
+                  sum1 = 12 - month +1;
+                  sum = parseInt(sum1) + parseInt(month1);
+                  if(sum > 12){
+                      alert('查询条件区间最大不能超过一年');
+                      return false;
+                  }else{
+                      myChart.showLoading();
+                      getChaxun(2,EntTime1,EntTime2);
+                      return true;
+                  }
+              }else{
+                  alert('查询区间最大不能超过一年');
+                  return false;
+              }
+          } 
+      }
+    }
+</script> 
+</body>
+</html>

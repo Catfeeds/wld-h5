@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>账单</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">		
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<?php if($type==1){ ?>
+				<div class="account-box bgcolor divtab" style="margin: 0;">
+					<div class="account-img fl" style="margin: 0 0 0 3%;">
+						<img src="__IMG__/cashier_icon_xm.png" alt="">
+					</div>
+					<div class="account-type fl">
+						<p class="c3 fs14">到账小蜜</p>
+						<p class="c9 fs12">余额</p>
+					</div>
+					<div class="account-mon fr c3 fs14">{$money}元</div>
+				</div>
+				<?php }else{ ?>
+				<div class="account-box bgcolor divtab" style="margin: 0;">
+					<div class="account-img fl" style="margin: 0 0 0 3%;">
+						<img src="__IMG__/jszx_icon_yhk.png" alt="">
+					</div>
+					<div class="account-type fl">
+						<p class="c3 fs14">到账银行卡</p>
+						<p class="c9 fs12">储蓄卡</p>
+					</div>
+					<div class="account-mon fr c3 fs14">{$money}元</div>
+				</div>
+				<?php } ?>
+				<div class="billtime divtab c3 fs15 bgcolor">{$time}</div>
+				<div class="billbook-list divtab bgcolor" id="data_list">
+					<ul id="data_list">
+						<!-- <li>
+							<div class="bill-li-le fl">
+								<p class="fs14 c3">扫码支付</p>
+								<p class="fs12 c9">12:55:00</p>
+							</div>
+							<div class="bill-li-ri fr c3 fs14">88.00元</div>
+						</li>
+						<li>
+							<div class="bill-li-le fl">
+								<p class="fs14 c3">扫码支付</p>
+								<p class="fs12 c9">12:55:00</p>
+							</div>
+							<div class="bill-li-ri fr c3 fs14">88.00元</div>
+						</li>
+						<li>
+							<div class="bill-li-le fl">
+								<p class="fs14 c3">扫码支付</p>
+								<p class="fs12 c9">12:55:00</p>
+							</div>
+							<div class="bill-li-ri fr c3 fs14">88.00元</div>
+						</li>
+						<li>
+							<div class="bill-li-le fl">
+								<p class="fs14 c3">扫码支付</p>
+								<p class="fs12 c9">12:55:00</p>
+							</div>
+							<div class="bill-li-ri fr c3 fs14">88.00元</div>
+						</li>
+						<li>
+							<div class="bill-li-le fl">
+								<p class="fs14 c3">扫码支付</p>
+								<p class="fs12 c9">12:55:00</p>
+							</div>
+							<div class="bill-li-ri fr c3 fs14">88.00元</div>
+						</li> -->
+					</ul>
+				</div>
+				<div id="console"></div>
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				yangshi();
+				styles();
+			}
+
+			function yangshi() {
+				$('.account-img').height($('.account-img').width());
+				$('.account-img').css('border-radius', $('.account-img').width() + "px");
+				$('.account-type').css('line-height', $('.account-img').width() * 0.5 + "px");
+				$('.account-mon').css('line-height', $('.account-img').width() + "px");
+
+			}
+
+			function styles() {
+				$('.bill-li-ri').css("line-height",$('.billbook-list li').height()+'px');
+			}
+			/*列表信息*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+		
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			var gtype = "<?php echo $type; ?>";
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/GetdateLog?time=<?php echo $time; ?>&type=<?php echo $type; ?>&pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(!data || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html += '<div class="baoqian">抱歉！没有相关记录</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										var detailurl = WEB_HOST + '/index.php/Balance/Index/detail?id=' + dataarr['c_id'];
+										_html+='<li class="bdetail-'+pageindex+'" id="bdetail-box'+dataarr['c_id']+'" title="'+dataarr['c_id']+'" data-url="' + detailurl + '">';
+										_html+='<div class="bill-li-le fl">';
+										_html+='<p class="fs14 c3">扫码支付</p>';
+										_html+='<p class="fs12 c9">' + dataarr['time'] + '</p>';
+										_html+='</div>';
+										if (gtype == 1) {
+											_html+='<div class="bill-li-ri fr c3 fs14">'+dataarr['c_xmmoney']+'元</div>';
+										} else {
+											_html+='<div class="bill-li-ri fr c3 fs14">'+dataarr['c_bkmoney']+'元</div>';	
+										}
+										_html+='</li>';										
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							$('.bdetail-' + pageindex).each(function() {
+								var cid = $(this).attr('title');
+								mui('.mui-content').on('tap', '#bdetail-box' + cid, function() {
+									var hrefurl = $(this).attr('data-url');
+									mui.openWindow({
+										url: "" + hrefurl + "",
+										id: "detail"
+									});
+								});
+							});
+						}
+					}
+				});
+			}
+
+		</script>
+
+		<include file="Common/foot" />
+	</body>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>红包详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/rednewact/index.css" />
+		<style type="text/css">
+			.red-getdetail{padding-bottom: 0px;}
+			.shop-red span{margin-right: 0px;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="red-info divtab divre">
+						<div class="red-surplus-money fs13 cf divab alignc divtab">剩余￥<span class="fs28 fb400">{$redinfo['c_remain_money']}</span>元</div>
+						<div class="red-total-money fs13 cf divab alignc divtab">总金额：￥{$redinfo['c_money']}元</div>
+						<div class="red-name fs11 cf divab alignc fov">{$redinfo['c_name']}</div>
+						<div class="red-amount divtab cf divab">
+							<div class="fl fs11">全部数量：{$redinfo['c_totalnum']}个</div>
+							<div class="fr fs11">剩余数量：{$redinfo['c_num']}个</div>
+						</div>
+						<img src="__IMG__/rednewact/redpacket_icon_details_bg.png" alt="" />
+					</div>
+
+					<div class="comm-nav-tab bgcolor divtab fs14">
+						<ul>
+							<li class="hover comm-nav-tli" id="c-nav-t1">领取详情</li>
+							<li class="comm-nav-tli" id="c-nav-t2">发放详情</li>
+						</ul>
+					</div>
+
+					<!-- 数据列表部分 -->
+					<div class="red-main">
+						<div id="page_1">
+							<!-- 领取详情-->
+							<div class="red-getdetail bgcolor" id="data_list_1">
+								
+								<!-- <div class="red-getdetail-con divtab bborder">
+									<div class="getdetail-info fl fs14 divtab">
+										<div class="getdetail-img fl">
+											<img src="__IMG__/coupon/tu14.jpg" />
+										</div>
+										<div class="getdetail-shop fl">
+											<div class="shop-name fs14">优C柠檬梅溪湖店</div>
+											<div class="shop-red fs11 c9">12:00:00<span>店铺红包</span></div>
+										</div>
+									</div>
+									<div class="getdetail-money fr fs16">
+										200.00元
+									</div>
+								</div> -->								
+	
+							</div>
+							<div id="console_1"></div>
+						</div>
+						<div id="page_2" style="display: none;">
+							<!-- 活动动态 -->
+							<div class="red-activity bgcolor">
+								<div class="red-img-title">
+									<img src="__IMG__/rednewact/redpacket_title_activity.png" />
+								</div>
+								
+								<?php foreach ($actdata as $key => $value) { ?>
+								<div class="activity-con divtab bborder">
+									<div class="activity-img fl"><img src="{$value['actimg']}" /></div>
+									<div class="activity-info fr">
+										<div class="activity-name fs13 c3 clamp2">{$value['c_activityname']}</div>
+										<div class="activity-amount divtab">
+											<div class="fl fs11 c9">已领取：{$value['ydq_num']}个</div>
+											<div class="fr fs11 c9">剩余：{$value['c_num']}个</div>
+										</div>
+
+										<?php if ($value['progress'] == 0) { ?>
+										<div class="activity-status fs12 cb">未开始</div>
+										<?php } else if ($value['progress'] == 1) { ?>
+										<div class="activity-status fs12 cb">进行中</div>
+										<?php } else if ($value['progress'] == 2) { ?>
+										<div class="activity-status fs12 cb">已结束</div>
+										<?php } ?>
+									</div>
+								</div>	
+								<?php } ?>
+	
+							</div>
+	
+							<!-- 发放详情-->
+							<div class="red-grantdetail divtab bgcolor" id="data_list_2">								
+								<div class="red-img-title">
+									<img src="__IMG__/rednewact/redpacket_title_details.png" />
+								</div>
+								<?php foreach ($actdata as $key => $value) { ?>
+								<div class="red-grantdetail-con divtab bborder">
+									<div class="grantdetail-info fl">
+										<p class="fs14 c3">{$value['c_activityname']}</p>
+										<p class="grantdetail-time fs11 c9">
+											{$value['c_addtime']}
+										</p>
+									</div>
+									<div class="grantdetail-money fr">
+										<p class="fs16 c3">{$value['c_money']}元</p>
+										<p class="fs11 c9">{$value['c_totalnum']}个</p>
+									</div>
+								</div>
+								<?php } ?>
+								
+								
+							</div>
+							<div id="console_2"></div>
+						</div>
+					</div>
+					 
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+
+			var boxw = $('.red-info').width(),
+				boxh = boxw * 0.35;
+			$('.red-info').height(boxh);
+
+			yangshi();
+		}
+
+		//tab切换
+
+		//页面加载完js改变样式
+		function yangshi() {
+			
+			$('.getdetail-img').height($('.getdetail-img').width());
+			$('.getdetail-shop').css('line-height',$('.getdetail-img').width()*0.5+'px');
+			$('.getdetail-money').css('line-height',$('.getdetail-img').width()+'px');
+			
+			$('.activity-img').height($('.activity-img').width());
+			$('.activity-name').css('height',$('.activity-img').width()*0.5+'px');			
+			$('.activity-name').css('line-height',$('.activity-img').width()*0.25+'px');
+			
+			$('.activity-amount').css('line-height',$('.activity-img').width()*0.25+'px');
+			$('.activity-status').css('line-height',$('.activity-img').width()*0.25+'px');
+		}
+
+		/*评论列表*/
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var statu = '<?php echo $statu ?>';
+		if(!statu) {
+			statu = 1;
+		}
+		selectstatu(statu);
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			selectstatu(1);
+			$('#page_2').hide();
+			$('#page_1').show();
+			yangshi();
+		});
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			selectstatu(2);
+			$('#page_1').hide();
+			$('#page_2').show();
+			yangshi();
+		});
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			$('.comm-nav-tli').removeClass('hover');
+			$('#c-nav-t' + i).addClass('hover');
+			if (statu == 1) {
+				getdatalist();
+			}			
+		}
+		
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					if (statu == 1) {
+						getdatalist();
+					}
+				}
+			}
+			if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').addClass('menu-fixed');
+			}
+			if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').removeClass('menu-fixed');
+			}
+		});
+
+		function getdatalist() {
+			var _html = "";
+			var strurl = "__URL__/getreddetail?rid=<?php echo $rid; ?>&statu="+statu+"&pageindex="+pageindex;
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list_'+statu).empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list == null) {
+							if(pageindex == 1) {								
+								_html+='<div class="data-empty divtab bgeb">';
+								_html+='<div class="data-empty-img">';
+								_html+='<img src="__IMG__/rednewact/redpacket_icon_guanli_details.png" alt="" />';								
+								_html+='</div>';
+								_html+='<div class="data-empty-font c3 fs13">';
+								if(statu==1){
+									_html+='还没人领取，分享可以增加领取量。';									
+								}else if(statu==2){
+									_html+='还没有参与活动，快去活动中心参与吧。';
+								}
+								_html+='</div>';
+								_html+='</div>'; 
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="red-getdetail-con divtab bborder">';
+										_html+='<div class="getdetail-info fl fs14 divtab">';
+											_html+='<div class="getdetail-img fl">';
+												_html+='<img src="'+dataarr['c_headimg']+'" />';
+											_html+='</div>';
+											_html+='<div class="getdetail-shop fl">';
+												_html+='<div class="shop-name fs14">'+dataarr['c_nickname']+'</div>';
+												_html+='<div class="shop-red fs11 c9">'+dataarr['newtime']+'<span>'+dataarr['c_marks']+'</span></div>';
+											_html+='</div>';
+										_html+='</div>';
+										_html+='<div class="getdetail-money fr fs16">'+dataarr['c_value']+'元</div>';
+									_html+='</div>';
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list_'+statu).append(_html);
+
+				},
+				complete: function() {
+					yangshi();
+					$('#console_'+statu).css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+
+					}
+				}
+			});
+		}
+	</script>
+
+</html>

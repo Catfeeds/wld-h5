@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>砍价玩法</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bargain/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="mui-content">
+					<div class="help-con fs14 divre bgcolor">
+						<div class="rule-step divtab fb600 c3">
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/bargain/spell_icon_wf01.png">
+								</div>
+								<font>1</font>
+								<span class="fs11 ">选择商品</span>
+							</div>
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/bargain/spell_icon_wf02.png">
+								</div>
+								<font>2</font>
+								<span class="fs11 ">自己进行砍价</span>
+							</div>
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/bargain/spell_icon_wf03.png">
+								</div>
+								<font>3</font>
+								<span class="four fs11 ">邀请好友帮忙砍价</span>
+							</div>
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/bargain/spell_icon_wf04.png">
+								</div>
+								<font>4</font>
+								<span class="four fs11">砍价完成，购买支付</span>
+							</div>
+						</div>
+						<div class="help-title c3 fb600">1.如何快速砍价？</div>
+						<div class="help-introduce c5">
+							可以将砍价活动分享给微信好友或者分享至朋友圈，召唤好友帮忙砍价。
+						</div>
+						<div class="help-title c3 fb600">2.如何查看我的砍价？</div>
+						<div class="help-introduce c5">
+							进行砍价后，在“<font class="cy">服务中心</font>”的“<font class="cy">我的活动</font>”中查看我的砍价详情。
+						</div>
+						<div class="help-title c3 fb600">3.如何才算砍价成功？</div>
+						<div class="help-introduce c5">
+							在商家规定时间内，完成砍价商品的支付，即砍价成功。
+						</div>
+						<div class="help-title c3 fb600">4.其他说明</div>
+						<div class="help-introduce c5">
+							<span>•一个微信好友可帮忙砍价一次。</span>
+							<span>•砍价活动不能使用优惠券。</span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		
+		window.onload = function() {
+			
+			$('.r-step-img').height($('.r-step-img').width()*0.8+'px');
+			$('.r-step-on font ').height($('.r-step-on font ').width()+'px');
+			$('.r-step-on font ').css('border-radius',$('.r-step-on font ').width()+'px');
+			$('.r-step-on font ').css('line-height',$('.r-step-on font ').width()+'px');
+
+			/*yangshi();*/
+		}
+
+	</script>
+
+</html>

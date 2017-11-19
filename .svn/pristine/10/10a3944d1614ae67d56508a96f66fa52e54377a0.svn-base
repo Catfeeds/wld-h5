@@ -1,0 +1,75 @@
+
+.wrap-page{padding-bottom: 12%;}
+img{width: 100%;height: auto;}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+color: #999;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+color: #999;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+color: #999;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+color: #999;
+}  
+
+
+.rebate-list{width: 100%;overflow: hidden;margin-bottom: 3%;}
+.rebate-pro-info{width: 100%;border-bottom: solid 1px #e5e5e5;padding: 4%;overflow: hidden;}
+.pro-info-img{width: 25%;position: relative;}
+.pro-img-type{position: absolute;left: 0;top: 0;z-index: 98;width: 40%;}
+.pro-information{width: 72%;margin-left: 3%;position: relative;}
+.pro-info-name{padding-top: 1%;}
+.pro-info-price{color: #f79f21;position: absolute;bottom: 4%;left: 0;font-weight: bold;}
+.pro-post,.pro-putaway{position: absolute;font-size: 12px;right: 0;z-index: 98;}
+.pro-post{bottom: 4%;}
+.pro-putaway{top: 35%;}
+
+.rebate-input{}
+.re-input-font{}
+.re-input-text{width: 22%;margin:0 3%;}
+.re-txt{width: 100%;background: #fff;border: solid 1px #e5e5e5;border-radius:5px;outline: none;padding: 10% 6%;color: #555;}
+.re-txt-link{background: #e5e5e5;}
+
+.re-input-checkbox{}
+.re-input-checkbox input[type="checkbox"]{cursor:pointer; width: 44px;height: 24px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../../img/rebate/off.png");background-size: 100% 100%; outline:none;margin-right: 24%;margin-top: 15%;}
+.re-input-checkbox input[type="checkbox"]:checked{width: 44px;height: 24px;border: 0px;background:url("../../img/rebate/on.png");background-size: 100% 100%; outline:none;}
+
+.rebate-agree-bg{ display: none; background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.rebate-agree{ display: none; top:10%;left:0; position:fixed;z-index: 100000;width:100%;margin: auto;right: 0;max-width: 720px;min-width: 320px;padding: 0 5%;}
+.rebate-agree-con{ background: #fff;border-radius: 5px; position: relative;padding: 4%;}
+.rebate-tit{color: #46aafa;text-align: center;width: 100%;}
+.rebate-font{padding: 4% 0;}
+.rebate-close{position: absolute;width: 9%;right: -3%;top: -3%;cursor: pointer;}
+.rebate-equation{text-align: center;padding: 4% 0;}
+.rebate-agree-btn{background: #46aafa;color: #fff; cursor:pointer; text-align: center;border-radius: 5px;width: 85%;margin: 4% auto;padding: 2% 0;letter-spacing: 3px;}
+
+
+
+.re-pro-modellist{width: 100%;overflow: hidden;padding: 0 4%;}
+.model-list{border-bottom: solid 1px #e5e5e5;padding: 2% 0;}
+.model-name{color: #46aafa;}
+.pricelist{padding-top: 2%;color: #555;}
+.pricelist li{line-height: 1.75em;overflow: hidden;width: 100%;}
+.pricelist li span{display: block;text-align: left;margin-left: 1.5%;float: left;}
+.re-update-btn{color: #fff; cursor:pointer; background: #46aafa;text-align: center;border-radius: 5px;margin: 12% auto;width: 80%;padding: 2% 0;}
+
+.re-update-tip{}
+
+
+.ladder-1{width: 30%;}
+.ladder-2{width: 25%;}
+.ladder-3{width: 40%;}
+
+
+@media (min-width: 421px){
+	.pro-post,.pro-putaway{font-size: 14px;}
+    .re-input-checkbox input[type="checkbox"]{width: 84px;height: 44px;background-size: 100% 100%; outline:none;}
+    .re-input-checkbox input[type="checkbox"]:checked{width: 84px;height: 44px;background-size: 100% 100%; outline:none;}  
+}
+
+@media(min-width: 621px){
+	
+}

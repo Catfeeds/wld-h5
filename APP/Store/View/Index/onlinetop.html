@@ -1,0 +1,127 @@
+<!--头部信息-->
+<div class="s-offline-top divtab divre">
+	<!-- <div class="head-return divab"><img src="__IMG__/index/nav_return.png" alt="" /></div>
+	<div class="head-shares divab"><img src="__IMG__/index/nav_share.png" alt="" /></div> -->
+	<div class="store-top-hinfo divab" style="top:28%">
+		<div class="store-t-h-img fl">
+			<if condition="$data['c_headimg'] eq null">
+				<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+				<else />
+				<img id="self-heads" src="{$data['c_headimg']}" alt="">
+			</if>
+		</div>
+		<div class="store-t-h-intro fl">
+			<div class="s-t-h-n-icon divtab">
+				<div class="s-t-h-nkname fl cf fs14">{$data['c_nickname']}</div>
+				<div class="s-t-h-ico1 fl">
+					<img src="__IMG__/index/o2store_icon_pu.png" alt="" />
+				</div>
+				<div class="s-t-h-ico1 fl none">
+					<img src="__IMG__/index/o2store_icon_drill.png" alt="" />
+				</div>
+			</div>
+			<div class="s-t-h-num divtab cf fs12">
+				<span>粉丝</span>
+				<span>{$data['c_attention']}</span>
+				<span>访问量</span>
+				<span>{$data['c_pv']}</span>
+			</div>
+		</div>
+	</div>
+
+	<?php if (!empty($data['circle_name'])) { ?>
+	<div class="s-t-h-circle fs12 divab" style="top:59%">
+		<span style="background: rgba(0,0,0,.3);color: #fff;"><img src="__IMG__/index/o2store_icon_szsq_xs.png" alt="" />{$data['circle_name']}</span>
+	</div>
+	<?php } ?>
+
+	<!-- 店铺靓号 -->
+	<?php if (!empty($data['shopnum_img'])) { ?>
+	<div class="s-t-h-goodnum divab" style="top:77%">
+		<img src="{$data['shopnum_img']}" alt="" />
+	</div>
+	<?php } ?>
+
+	<?php if ($data['is_attention'] == 0) { ?>
+	<input type="hidden" id="attentatu" value="1">
+	<div class="s-t-h-attention divab" style="top:28%" onclick="attentionuser();">
+		<div class="s-t-h-atten-txt fs12 cb" style="color: #47abf7;" id="attentionuser">+关注</div>
+	</div>
+	<?php } else { ?>
+	<input type="hidden" id="attentatu" value="1">
+	<div class="s-t-h-attention s-t-h-c-att divab none" style="background: url(__IMG__/index/o2store_bg_1follow_x.png) no-repeat;background-size: 100% 100%;top:28%" onclick="attentionuser();">
+		<div class="s-t-h-atten-txt fs12 cb" style="color: #47abf7;" id="attentionuser">取消</div>
+	</div>
+	<?php } ?>
+
+	<img src="__IMG__/index/o2store_bg_online2.png" alt="" />
+</div>
+
+<!--店铺信息-->
+<div class="store-introduce divtab bgcolor">
+	<div class="store-all-tit c9 fs13 divtab bborder">商家信息</div>
+	<?php if(!empty($storeinfo['c_desc'])) { ?>
+	<div id="slideup">
+		<div class="store-desc-info fs12 c5">{$storeinfo['c_desc']}</div>
+		<div class="store-more divtab">
+			<div class="store-more-img fr"><img src="__IMG__/index/o2store_icon_open.png" alt="" /></div>
+			<div class="store-more-txt fr fs13 c9">查看全部商家信息</div>
+		</div>
+	</div>
+	<?php } ?>
+	<div id="slidedown" class="none">
+		<div class="store-all-desc fs12 c5 bborder">{$storeinfo['c_desc']}</div>
+		<div class="store-info-slidup divtab">
+			<div class="slidup-ico fr"><img src="__IMG__/index/o2store_icon_stop.png" alt="" /></div>
+			<div class="slidup-txt fr fs13 c9">收起</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function yangshit() {
+		var thhh = $('.store-t-h-img').width();
+		$('.store-t-h-img').height(thhh);
+
+		var sch = $('.s-t-h-circle').height();
+		$('.s-t-h-circle').css('line-height', sch + 'px');
+
+		var stth = $('.s-offline-top').height();
+		$('.s-offline-top').height(stth);
+	}
+
+	// 关注操作
+	function attentionuser() {
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+		var ucode = '<?php echo $ucode ?>';
+		if(!ucode) {
+			mui.confirm('关注需登录', '提示', ['取消', '确认'], function(e) {
+				e.index == 0 ? "" : mui.openWindow({
+					url: WEB_HOST + '/index.php/Login/Index/index?url=' + detailurl,
+					id: 'login'
+				});
+			}, 'div');
+			return;
+		}
+		var handle = $('#attentatu').val();
+		$.post(WEB_HOST + '/index.php/Trade/Index/UserAttention', {
+				handle: handle,
+				issue_ucode: '<?php echo $issue_ucode; ?>'
+			},
+			function(obj) {
+				var msg = eval(obj);
+				if(msg['code'] == 0) {
+					if(handle == 1) {
+						$('#attentatu').val(0);
+						$('#attentionuser').text('已关注');
+					} else {
+						$('#attentatu').val(1);
+						$('#attentionuser').text('+关注');
+					}
+					mui.toast(msg['msg']);
+				} else {
+					mui.toast(msg['msg']);
+				}
+			});
+	}
+</script>

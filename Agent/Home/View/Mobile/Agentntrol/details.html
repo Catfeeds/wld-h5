@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>商家后台管理--代理管理</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<link rel="stylesheet" href="__CSS__/viewer.min.css">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+
+	    topstyle();/*头部样式*/
+
+	    $('#page-top-c-t').text("代理管理");
+
+	    var imgh = $('.agent-d-img').height();
+	    var lineh = imgh*35/100;
+	    $('.agent-d-info').css('line-height',lineh+'px');
+
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="wrap-page bgcolor">
+	<div class="agent-details">
+		<div class="agent-d-info-1">
+			<div class="agent-d-img fl">
+				<img src="__ROOT__/{$data['c_headimg']}" alt="">
+			</div>
+			<ul class="agent-d-info fl">
+				<li class="agent-d-name">姓名：{$data['c_name']}</li>
+				<li>状态：<span><?php if ($data['c_checked'] == 3){ ?>已激活<?php } else { ?>未激活<?php } ?></span></li>
+				<li>商家类型：<?php if ($data['c_type'] == 1) { ?>个人<?php } else { ?>企业<?php } ?></li>
+				<li>手机号码：{$data['c_phone']}</li>
+			</ul>
+		</div>
+		<div class="agent-d-info-2">
+			<ul>
+				<li>固定电话：{$data['c_home_tel']}</li>
+				<li>QQ：{$data['c_qq']}</li>
+				<li>邮箱：{$data['c_email']}</li>
+				<li>个人证件：{$data['c_idcard']}</li>
+				<li>代理编号：{$data['c_dcode']}</li>
+				<?php if ($data['c_type'] == 2) { ?>
+				<li>营业执照：{$data['c_charter']}</li>
+				<li>公司地址：{$data['c_address']}</li>
+				<li>邮编：{$data['c_postcode']}</li>
+				<li>公司名称：{$data['c_company']}</li>
+				<?php } else { ?>
+
+				<?php } ?>
+			</ul>
+		</div>
+
+		<?php if ($data['c_type'] == 2) { ?>
+		<ul class="ul-certificate">
+			<li>
+				<div class="zjz-list">
+					<img src="__IMG__/add.png" alt="">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_charter_img']}" src="__ROOT__/{$data['c_charter_img']}" alt=""></div>
+				</div>
+				<div class="pic-side fl">营业执照</div>
+			</li>
+			<li>
+				<div class="zjz-list">
+					<img src="__IMG__/add.png" alt="">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_company_sign']}" src="__ROOT__/{$data['c_company_sign']}" alt=""></div>
+				</div>
+				<div class="pic-side fl">企业标志</div>
+			</li>
+		</ul>
+		<?php } else { ?>
+		<ul class="ul-certificate">
+			<li>
+				<div class="zjz-list">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_idcard_img']}" src="__ROOT__/{$data['c_idcard_img']}" alt=""></div>
+					<img src="__IMG__/add.png" alt="">
+				</div>
+				<div class="pic-side fl">正面</div>
+			</li>
+			<li>
+				<div class="zjz-list">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_idcard_img1']}" src="__ROOT__/{$data['c_idcard_img1']}" alt=""></div>
+					<img src="__IMG__/add.png" alt="">
+				</div>
+				<div class="pic-side fl">反面</div>
+			</li>
+		</ul>
+		<?php } ?>
+		<?php if ($data['c_checked'] == 2) { ?>
+		<div class="shop-check">
+			<div class="check-pass fl"><input type="radio" value="1" name="check">&nbsp;通过审核</div>
+			<div class="check-pass fl"><input type="radio" value="0" name="check">&nbsp;资料有误</div>
+		</div>
+		<div class="check-btn-pass sub-blue">
+			完成
+		</div>
+		<?php } else if ($data['c_checked'] == 3) { ?>
+		<div class="shop-check-font">已通过审核</div>
+		<?php } else if ($data['c_checked'] == 0) { ?>
+		<div class="shop-check-font">等待代理审核</div>
+		<?php } else { ?>
+		<div class="shop-check-font">未通过审核</div>
+		<?php } ?>
+
+	</div>
+</div>
+
+<script src="__JS__/viewer.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.pic-front img').click(function(){
+		$('.ul-certificate').viewer({url:'data-original',navbar: false,toolbar:true,keyboard:false,movable:false,scalable:false,fullscreen:false});
+	setTimeout("$('.viewer-play').css(\"display\",\"none\");$('.viewer-prev').css(\"display\",\"none\");$('.viewer-next').css(\"display\",\"none\");",100);
+	});
+});
+</script>
+</body>
+</html>

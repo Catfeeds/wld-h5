@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script charset="utf-8" src="__ROOT__/editor/kindeditor.js"></script>
+<script charset="utf-8" src="__ROOT__/editor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<!-- 上传图片控件 -->
+<link rel="stylesheet" type="text/css" href="__HJS__/uploadify/uploadify.css">
+<script type="text/javascript" src="__HJS__/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+KindEditor.ready(function(K){
+	K.create('#editor_id', {
+		afterBlur: function(){this.sync();}
+	});
+});
+</script>
+
+<title>新增文章</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" id="form-article-add">
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>文章标题：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$vo.c_title}" placeholder="" id="" name="title">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>文章类型：</label>
+			<div class="formControls col-2"> <span class="select-box">
+				<select name="type" class="select">
+					<option value="">--选择分类--</option>
+					<volist name="typelist" id="v">
+						<?php if ($v['c_id'] == $vo['c_type']) { ?>
+						<option value="<?php echo $v['c_id']; ?>" selected="selected"><?php echo $v['c_name']; ?></option>	
+						<?php } else { ?>
+						<option value="<?php echo $v['c_id']; ?>"><?php echo $v['c_name']; ?></option>
+						<?php } ?>
+					</volist>
+				</select>
+				</span> </div>
+			<label class="form-label col-2"><span class="c-red">*</span>是否发布：</label>
+			<div class="formControls col-2"> <span class="select-box">
+				<select name="isshow" class="select">
+					<option value="0" <if condition="$vo.c_isshow eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="$vo.c_isshow eq 1">selected="selected"</if>>是</option>
+				</select>
+				</span> </div>
+						<label class="form-label col-2"><span class="c-red">*</span>是否置顶：</label>
+			<div class="formControls col-2"> <span class="select-box">
+				<select name="istop" class="select">
+					<option value="0" <if condition="$vo.c_istop eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="$vo.c_istop eq 1">selected="selected"</if>>是</option>
+				</select>
+				</span> </div>						
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">关键词：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$vo.c_meta_key}" placeholder="" id="" name="meta_key">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">文章描述：</label>
+			<div class="formControls col-10">
+				<textarea name="desc" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$vo.c_desc}</textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">文章作者：</label>
+			<div class="formControls col-2">
+				<input type="text" class="input-text" value="{$vo.c_anthor}" placeholder="" id="" name="anthor">
+			</div>
+			<label class="form-label col-2">文章点击量：</label>
+			<div class="formControls col-2">
+				<input type="text" class="input-text" value="{$vo.c_click}" placeholder="" id="" name="click">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">缩略图：</label>
+			<div class="formControls col-10">
+				<div class="uploader-thum-container">
+						<input id="file_upload" name="file_upload" type="file" multiple="true">
+						<div id="image" style="width:80%;" class="image">
+							<?php if (!empty($vo['c_img'])): ?>
+							<div id="n" class="photo">
+								<a href="{$root_url}{$vo.c_img}"  target="_blank"><img src="{$root_url}{$vo.c_img}"  height=100 width=100 />
+								</a>
+								<div class="del">
+									<a href="javascript:;" onclick=del('n',"{$vo.c_img}");>删除</a>
+								</div>
+								<input type="hidden" name="img[]" value="{$vo.c_img}">
+							</div>
+							<?php endif ?>							
+						</div>
+				</div>							
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">文章内容：</label>
+			<div class="formControls col-10">
+			<textarea id="editor_id" name="content" style="width:100%;height:400px;">{$vo.c_content}</textarea>				
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<input type="hidden" name="Id" value="{$vo.c_id}" />
+				<div onClick="article_save_submit();" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</div>
+				<div onClick="layer_close();" class="btn btn-default radius">&nbsp;&nbsp;取消&nbsp;&nbsp;</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+function del(delName, delId) { //点击删除链接，ajax		
+	var d = '#' + delName;
+	var url = "__HHOME__/Common/del"; //删除图片的路径
+	$.get(url, {
+		'name': delId
+	}, function(data) { //ajax后台
+		$(d).html(data.msg); //输出后台返回信息
+		$(d).hide(3000); //自动隐藏
+	}); //josn格式
+}
+$(function() {
+	$('#file_upload').uploadify({
+		'formData': {
+			'timestamp': '{$time}', //时间
+			'token': '{$time | md5}', //加密字段
+			'Id': '{$Id}',
+			'url': '__ROOT__/Uploads/', //url
+			'imageUrl': '__ROOT__' //root
+		},
+
+		'fileTypeDesc': 'Image Files', //类型描述
+		//'removeCompleted' : false,    //是否自动消失
+		'fileTypeExts': '*.gif; *.jpg; *.png', //允许类型
+		'fileSizeLimit': '3MB', //允许上传最大值
+		'swf': '__HJS__/uploadify/uploadify.swf', //加载swf
+		'uploader': '__HHOME__/Common/uploadify', //上传路径
+		'buttonText': '文件上传', //按钮的文字
+
+		'onUploadSuccess': function(file, data, response) { //成功上传返回
+			var n = parseInt(Math.random() * 100); //100以内的随机数
+			//插入到image标签内，显示图片的缩略图
+			$('#image').append('<div id="' + n + '" class="photo"><a href="__ROOT__/' + data + '"  target="_blank"><img src="__ROOT__/' + data + '"  height=100 width=100 /></a><div class="del"><a href="javascript:;" onclick=del("' + n + '","' + data + '");return false;>删除</a></div><input type="hidden" name="img[]" value="'+data+'"></div>');
+		}
+	});
+});
+
+// 保存并提交
+function article_save_submit() {
+	$('input[name=isshow]').val(1);
+	if (!viladateimg_length(1)) {
+		layer.msg('请上传一张图',{icon:10,time:2000});
+		return;
+	}
+	$('#form-article-add').submit();
+}
+
+// 验证上传图片个数
+function viladateimg_length (leng) {
+	var l = 0;	
+	$('input[name="img[]"]').each(function(i) {
+		if ($(this).val()) {
+			l++;
+		}
+	});
+	if (l != leng) {
+		return false;
+	} 
+	return true;
+}
+</script>
+</body>
+</html>

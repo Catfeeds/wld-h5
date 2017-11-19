@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function clickups(ts){
+	var star = $(ts).attr('alt');
+	var gid = $(ts).attr('id'); 
+	var obj = $(ts);
+
+	if(star == 1){
+		var message = "确认进行启用操作？";
+	}else{
+		var message = "确认进行禁止操作？";
+	}
+	layer.confirm(message,function(index){
+		$.post(HHOME+'/Funds/transaction_state',{active:star,gid:gid}, function(data){
+			if(data == ""){
+				if(star == 0){
+					var id = 1;
+					var src = '__HIMG__/no.gif';
+				}else{
+					var id = 2;
+					var src = '__HIMG__/yes.gif';
+				}
+				obj.attr('src',src);
+				obj.attr('alt',id);
+				layer.msg('操作成功',{icon:10,time:2000}); 
+			}else{
+				alert(data);
+			}
+		});
+	});
+}
+</script>
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<title>交易风控</title>
+</head>
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 
+	<span class="c-gray en">&gt;</span> 资金风控 
+	<span class="c-gray en">&gt;</span> 交易风控 
+		<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+			<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+<div class="pd-20">
+	<form action="" method="get" >
+		<div class="text-c">
+			条件搜索：
+			<input type="text" class="input-text" style="width:200px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}">
+			<input type="text" class="input-text" style="width:200px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+			<input type="hidden" name="ucode"  value="{$post['ucode']}">
+			<input type="hidden" name="hide"  value="{$hide}">
+			<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜数据</button>
+			<!-- <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+					<span class="l">
+						<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+						&nbsp;&nbsp;页至&nbsp;&nbsp;
+			    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+			    		&nbsp;
+						<a href="javascript:;" onclick="derive();" class="btn btn-danger radius">
+							<i class="Hui-iconfont">&#xe644;</i> 批量导出
+						</a>
+					</span>	
+			</div> -->
+		</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+				<a class="btn btn-primary radius" onclick="system_transaction_add('添加风控规则','Funds/transaction_add')" 
+					href="javascript:;"> 	
+					<i class="Hui-iconfont">&#xe600;</i> 添加风控规则
+				</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	        </span>	
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span>
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25" class="{$hide}"><input type="checkbox" name="" value=""></th>
+					<th width="60">ID</th>
+					<th>用户昵称</th>
+					<!-- <th>用户手机</th> -->				
+					<th>单笔交易金额阀值</th>
+					<th>单日交易金额阀值</th>
+					<th>单笔提款金额阀值</th>
+					<th>单日提款金额阀值</th>
+					<th>是否启用</th>
+					<th>添加时间</th>
+					<th>更新时间</th>
+					<th width="50">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c" onclick="pushucode('{$vo['c_ucode']}','{$vo['c_nickname']}');">
+					<td class="{$hide}"><input type="checkbox" value="{$vo['c_ucode']}" name="usercode"></td>
+					<td>{$i}</td>
+					<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a>
+					</td>
+					<!-- <td>{$vo['c_phone']}</td> -->
+					<td><font color="green">{$vo['c_spenoney']}</font></td>		
+					<td><font color="green">{$vo['c_sdaymoney']}</font></td>		
+					<td><font color="green">{$vo['c_spenextract']}</font></td>		
+					<td><font color="green">{$vo['c_sdayextract']}</font></td>						
+					<td>
+						<if condition="$vo['c_state'] eq 1" >
+							<img src="__HIMG__/yes.gif" alt="0" class="activeop" id="{$vo['c_id']}" onclick="clickups(this);" />
+						<else/>
+							<img src="__HIMG__/no.gif" alt="1" class="activeop" id="{$vo['c_id']}"   onclick="clickups(this);"/>
+						</if>
+					</td>
+					<td>{$vo['c_addtime']}</td>
+					<td>{$vo['c_updatetime']}</td>
+					<td class="f-14">
+							<a title="编辑" href="javascript:;" onclick="system_category_edit('编辑','Funds/transaction_info?Id={$vo['c_id']}')" style="text-decoration:none">
+								<i class="Hui-iconfont">&#xe6df;</i>
+							</a>
+							<a title="删除" href="javascript:;" onclick="admin_transaction_del(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none">
+							    <i class="Hui-iconfont">&#xe6e2;</i>
+							</a>
+					</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- <form action="" method="get"> -->
+<div class="pages">{$page}</div>
+<!-- </form> -->
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  // {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+/*系统-栏目-编辑*/
+function system_category_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-删除*/
+function admin_transaction_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=typeid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Funds/transaction_delete',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+/*页码跳转*/
+function btnAction(){
+	var mypage = $("#mypage").val();
+	if(mypage != ''){
+		var url = window.location.href;
+		if(url.indexOf("/p/") > 0){
+			var webhost = "<?php echo WEB_HOST.'/admin.php/Home/Funds/transaction';?>";
+			url = webhost+'/p/'+mypage;
+
+			var c_phone = $('input[name=c_phone]').val();
+			if(c_phone != ''){
+				url = url+'/c_phone/'+c_phone;
+			}
+			var c_nickname = $('input[name=c_nickname]').val();
+			if(c_nickname != ''){
+				url = url+'/c_nickname/'+c_nickname;
+			}
+			var isshop = $('select[name=isshop]').val();
+			if(isshop != ''){
+				url = url+'/isshop/'+isshop;
+			}
+			var isagent = $('select[name=isagent]').val();
+			if(isagent != ''){
+				url = url+'/isagent/'+isagent;
+			}
+			
+			var acode = $('input[name=acode]').val();
+			if(acode != ''){
+				url = url+'/acode/'+acode;
+			}
+			var hide = $('input[name=hide]').val();
+			if(hide != ''){
+				url = url+'/hide/'+hide;
+			}
+		}else{
+			if(url.indexOf("?") > 0){
+				var strs= new Array(); //定义一数组
+				strs=url.split("?");
+				url = strs[0]+'/p/'+mypage+'?'+strs[1];
+			}else{
+				url = url+'/p/'+mypage;
+			}
+		}
+
+		location.href = url;//location.href实现客户端页面的跳转  
+	}	
+}
+/*系统-栏目-添加*/
+function system_transaction_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

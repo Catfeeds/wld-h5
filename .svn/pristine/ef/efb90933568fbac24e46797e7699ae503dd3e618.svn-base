@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>发放红包</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/rednewact/index.css" />
+		<style type="text/css">
+			.ad-creat-btn{width: 45%;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom:20%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<!-- 红包管理  begin -->
+					<div class="red-list divtab" id="data_list">
+						<!-- 一行数据   begin -->
+						<!-- <div class="red-list-item divre" title="0" id="red-item-0">
+							<div class="red-con divab">
+								<div class="redname fs12 cf">月到中秋分外明，又是一年团聚时，店铺一周年庆祝，红包大派送
+									<span class="red-type type01 fs11 cf">拼</span>
+								</div>
+								<div class="red-money-operate divtab">
+									<div class="red-money fs24 cf fl">￥3000.00</div>
+								</div>
+							</div>
+							<div class="red-time-number divab divtab">
+								<div class="red-release-time c9 fs11 fl">发起时间：2017-05-02 12:00:00</div>
+								<div class="red-number c9 fs11 fr">
+									已领取<span>18</span>/<span>20</span>个
+								</div>
+							</div>
+							<div class="red-status status01 divab cf fs11">
+								正在疯抢
+							</div>
+							<img src="__IMG__/rednewact/redpacket_icon_home.png" alt="" />
+						</div> -->
+						<!-- 一行数据  end -->
+
+						<!-- 重复可删除 （删除时请查看普、拼、撤回、疯抢状态） end -->
+						<!-- <div class="red-list-item divre" title="1" id="red-item-1">
+							<div class="red-con divab">
+								<div class="redname fs12 cf">月到中秋分外明，又是一年团聚时，店铺一周年庆祝，红包大派送
+									<span class="red-type type01 fs11 cf">拼</span>
+								</div>
+								<div class="red-money-operate divtab">
+									<div class="red-money fs24 cf fl">￥3000.00</div>
+								</div>
+							</div>
+							<div class="red-time-number divab divtab">
+								<div class="red-release-time c9 fs11 fl">发起时间：2017-05-02 12:00:00</div>
+								<div class="red-number c9 fs11 fr">
+									已领取<span>18</span>/<span>20</span>个
+								</div>
+							</div>
+							<div class="red-status status01 divab cf fs11">正在疯抢</div>
+							<img src="__IMG__/rednewact/redpacket_icon_home.png" alt="" />
+						</div>
+						<div class="red-list-item divre" title="2" id="red-item-2">
+							<div class="red-con divab">
+								<div class="redname fs12 cf">月到中秋分外明，又是一年团聚时，店铺一周年庆祝，红包大派送
+									<span class="red-type type01 fs11 cf">拼</span>
+								</div>
+								<div class="red-money-operate divtab">
+									<div class="red-money fs24 cf fl">￥3000.00</div>
+								</div>
+							</div>
+							<div class="red-time-number divab divtab">
+								<div class="red-release-time c9 fs11 fl">发起时间：2017-05-02 12:00:00</div>
+								<div class="red-number c9 fs11 fr">
+									已领取<span>18</span>/<span>20</span>个
+								</div>
+							</div>
+							<div class="red-status status02 divab cf fs11">已抢光</div>
+							<img src="__IMG__/rednewact/redpacket_icon_home.png" alt="" />
+						</div> -->
+						<!-- 重复可删除  end -->
+
+					</div>
+					<!-- 红包管理  end-->
+
+					<div id="console"></div>
+
+				</div>
+				<div class="ad-creat-site">
+					<div class="ad-creat-btn cf fs16 fl ad-creat-btn1 none">选择库存红包</div>
+					<div class="ad-creat-btn cf fs16 ad-creat-btn2" style="margin: 0 auto;">添加新红包</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			ChRightText("记录");
+			styles();		
+			var smbh = $('.ad-creat-site').height();
+			$('.t-s-publish-pup').css('bottom', smbh+30 + 'px');			
+		}
+
+		/*样式*/
+		function styles() {
+			var boxw = $('.red-list-item').width(),
+				boxh = boxw * 0.4;
+			$('.red-list-item').height(boxh);
+		}
+		
+		/*记录*/
+		function rightcaozuo(){
+			mui.openWindow({url:"__URL__/redrecord",id:"record"});
+		}
+		/*发放红包*/
+		mui('.wrap-page').on('tap','.ad-creat-btn',function(){
+			mui.openWindow({url:"__URL__/sendred",id:"addred"});
+		})
+
+		/*跳转到选择红包库存*/
+		mui('.wrap-page').on('tap', '.ad-creat-btn1', function() {
+			mui.openWindow({url:"__URL__/sendred",id:"addred"});
+		});
+		/*跳转添加新红包*/
+		mui('.wrap-page').on('tap', '.ad-creat-btn2', function() {
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+			mui.openWindow({
+				url: '__APP__/Activity/Rednewact/addred?joinaid=<?php echo $joinaid ?>&url='+detailurl,
+				id: 'addred'
+			});
+		});
+
+		/*按钮*/
+		mui('.t-s-publish-pup').on('tap', '#publish_img', function() {
+			$('.t-s-publish-pup').fadeOut(500);
+			$('.rednewact-bg').fadeIn(800);
+			$('.t-s-publish-content').fadeIn(800);			
+			$(".rednewact-bg").height($(document).height());
+			var smbh = $('.ad-creat-site').height();
+			$('.t-s-publish-content').css('bottom', smbh + 'px');
+		});
+		mui('.t-s-publish-imgtxt').on('tap', '.t-s-publish-close', function() {
+			$('.rednewact-bg').fadeOut(500);
+			$('.t-s-publish-content').fadeOut(500);			
+			$('.t-s-publish-pup').fadeIn(800);
+			var smbh = $('.ad-creat-site').height();
+			$('.t-s-publish-pup').css('bottom', smbh + 'px');
+		});
+		
+		/*跳转店铺*/
+		mui('.t-s-publish-imgtxt').on('tap', '.t-s-publish-sub', function() {
+			mui.openWindow({url:"",id:""});
+		});
+		
+		/*跳转活动*/
+		mui('.t-s-publish-imgtxt').on('tap', '.t-s-publish-sub2', function() {
+			mui.openWindow({url:"",id:""});
+		});
+		
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/ShopRedList?pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html+='<div class="data-empty divtab">';
+								_html+='<div class="data-empty-img">';
+								_html+='<img src="__IMG__/rednewact/redpacket_icon_guanli_default.png" alt="" />';								
+								_html+='</div>';
+								_html+='<div class="data-empty-font c3 fs13">暂时没有红包，马上发放吧</div>';
+								_html+='</div>'; 							
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="red-list-item divre red-list-item'+pageindex+'" id="red-item-'+dataarr['c_id']+'" title="'+dataarr['c_id']+'">';
+										_html+='<div class="red-con divab">';
+											_html+='<div class="redname fs12 cf">'+dataarr['c_name']+'';
+												if (dataarr['c_type'] == 2) {
+													_html+='<span class="red-type type01 fs11 cf">拼</span>';
+												} else {
+													_html+='<span class="red-type type02 fs11 cf">普</span>';
+												}
+												
+											_html+='</div>';
+											_html+='<div class="red-money-operate divtab">';
+												_html+='<div class="red-money fs24 cf fl">￥'+dataarr['c_money']+'</div>';
+											_html+='</div>';
+										_html+='</div>';
+										_html+='<div class="red-time-number divab divtab">';
+											_html+='<div class="red-release-time c9 fs11 fl">发放时间：'+dataarr['c_addtime']+'</div>';
+											_html+='<div class="red-number c9 fs11 fr">已领取<span>'+dataarr['ydq_num']+'</span>/<span>'+dataarr['c_totalnum']+'</span>个</div>';
+										_html+='</div>';
+
+										if (dataarr['c_delete'] == 1) {
+											_html+='<div class="red-status status02 divab cf fs11">已撤回</div>';
+										} else {
+											if (dataarr['c_num'] > 0) {
+												_html+='<div class="red-status status01 divab cf fs11">正在疯抢</div>';
+											} else {
+												_html+='<div class="red-status status02 divab cf fs11">已抢光</div>';
+											}
+										}
+
+										_html+='<img src="__IMG__/rednewact/redpacket_icon_home.png" alt="" />';
+									_html+='</div>';	
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					styles();
+					$('.data-empty-img').width($('.data-empty-img').width());
+					$('.data-empty-img').height($('.data-empty-img').width()*0.63);
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						loadclick();
+					}
+				}
+			});
+		}
+		
+		/*红包详情*/
+		function loadclick() {
+			$('.red-list-item'+pageindex).each(function(index) {
+				var rid = $(this).attr('title');
+				mui('.mui-content').on('tap', '#red-item-' + rid, function() {
+					mui.openWindow({url:"__URL__/reddetail?awid="+rid,id:"detail"})
+				});
+			});
+		}
+		
+		
+	</script>
+
+</html>

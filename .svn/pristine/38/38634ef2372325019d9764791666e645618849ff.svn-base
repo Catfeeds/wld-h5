@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/profitIndex');
+		$("#transmit").submit();
+	}
+}
+
+function profit(){
+	$("#transmit").attr('action','__URL__/profit');
+	$("#transmit").submit();
+}
+</script>
+<title>每日利润</title>
+</head>
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 
+	<span class="c-gray en">&gt;</span> 资金风控 
+	<span class="c-gray en">&gt;</span> 每日利润 
+		<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+			<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+		<div class="text-c">
+			按日期搜索：
+			<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD'})" class="laydate-icon"/>
+			-
+			<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD'})" class="laydate-icon"/>&nbsp;
+
+			<button type="submit" class="btn btn-success radius" onclick="profit()"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+				<span class="l">
+					<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+					&nbsp;&nbsp;页至&nbsp;&nbsp;
+		    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+		    		&nbsp;
+					<a href="javascript:;" onclick="derive();" class="btn btn-danger radius">
+						<i class="Hui-iconfont">&#xe644;</i> 批量导出
+					</a>
+				</span>	
+		</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="60">ID</th>
+					<th>平台总抽成<br/><font color="blue">平台总利润</font></th>
+					<th>线上总抽成<br/><font color="blue">线下总抽成</font></th>				
+					<th>线上扫码抽成<br/><font color="blue">线下扫码抽成</font></th>
+					<th>线上订单抽成<br/><font color="blue">线下订单抽成</font></th>
+					<th>线上商家提成<br/><font color="blue">线下商家提成</font></th>
+					<th>线上代理提成<br/><font color="blue">线下代理提成</font></th>
+					<th>线上经理提成<br/><font color="blue">线下经理提成</font></th>
+					<th>线上红包抽成<br/><font color="blue">线下红包抽成</font></th>
+					<th>线上平台利润<br/><font color="blue">线下平台利润</font></th>
+					<th  width="100">日期</th>
+					<th  width="100">记录更新时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c" >
+					<td><input type="checkbox" value="" name=""></td>
+					<td>{$i}</td>
+					<td>{$vo['c_total_rake']}<br/><font color="blue">{$vo['c_total_profit']}</font></td>					
+					<td>{$vo['c_online_rake']}<br/><font color="blue">{$vo['c_offline_rake']}</font></td>
+					<td>{$vo['c_onsp_rake']}<br/><font color="blue">{$vo['c_offsp_rake']}</font></td>
+					<td>{$vo['c_onod_rake']}<br/><font color="blue">{$vo['c_offod_rake']}</font></td>
+					<td>{$vo['c_onshop_rake']}<br/><font color="blue">{$vo['c_offshop_rake']}</font></td>
+					<td>{$vo['c_onagent_rake']}<br/><font color="blue">{$vo['c_offagent_rake']}</font></td>
+					<td>{$vo['c_onarea_rake']}<br/><font color="blue">{$vo['c_offarea_rake']}</font></td>
+					<td>{$vo['c_onred_rake']}<br/><font color="blue">{$vo['c_offred_rake']}</font></td>
+					<td>{$vo['c_onsys_rake']}<br/><font color="blue">{$vo['c_offsys_rake']}</font></td>
+					<td>{$vo['c_datetime']}</td>
+					<td>{$vo['c_updatetime']}</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  // {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+</script> 
+</body>
+</html>

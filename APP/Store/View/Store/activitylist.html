@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>活动管理</title>
+		<meta content="微域领地,微域领地系统,小蜜系统店铺评论" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom:18%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="activity-main" id="activity-list">
+					<!--<div class="activity-box bgcolor">
+						<div class="activity-info divtab bborder">
+							<div class="act-headimg fl divre">
+								<img src="__IMG__/store/pro3.jpg" alt="" />
+								<div class="act-ztop divab"><img src="__IMG__/index/o2store_icon_up.png" alt="" /></div>
+							</div>
+							<div class="act-info fl">
+								<div class="act-title fs14 c3 fov">快乐柠檬</div>
+								<div class="act-description fs12 c5"> I loved that beautiful girl.</div>
+								<div class="act-static divtab">
+									<div class="act-static-btn fs12 act-btn-b">进行中</div>
+								</div>
+							</div>
+						</div>
+						<div class="activity-oprate divtab">
+							<div class="act-oprate-log fs13 c9">参与记录</div>
+							<div class="act-oprate-editor fs13 c9">编辑</div>
+							<div class="act-oprate-view fs13 c9">预览</div>
+						</div>
+					</div>
+					<div class="activity-box bgcolor">
+						<div class="activity-info divtab bborder">
+							<div class="act-headimg fl">
+								<img src="__IMG__/store/pro3.jpg" alt="" />
+							</div>
+							<div class="act-info fl">
+								<div class="act-title fs14 c3 fov">快乐柠檬</div>
+								<div class="act-description fs12 c5"> I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.</div>
+								<div class="act-static divtab">
+									<div class="act-static-btn fs12 act-btn-b">进行中</div>
+								</div>
+							</div>
+						</div>
+						<div class="activity-oprate divtab">
+							<div class="act-oprate-log fs13 c9">参与记录</div>
+							<div class="act-oprate-editor fs13 c9">编辑</div>
+							<div class="act-oprate-view fs13 c9">预览</div>
+						</div>
+					</div>
+					<div class="activity-box bgcolor">
+						<div class="activity-info divtab bborder">
+							<div class="act-headimg fl">
+								<img src="__IMG__/store/pro3.jpg" alt="" />
+							</div>
+							<div class="act-info fl">
+								<div class="act-title fs14 c3 fov">快乐柠檬</div>
+								<div class="act-description fs12 c5"> I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.</div>
+								<div class="act-static divtab">
+									<div class="act-static-btn fs12 act-btn-g">已结束</div>
+								</div>
+							</div>
+						</div>
+						<div class="activity-oprate divtab">
+							<div class="act-oprate-log fs13 c9">参与记录</div>
+							<div class="act-oprate-editor fs13 c9">编辑</div>
+							<div class="act-oprate-view fs13 c9">预览</div>
+						</div>
+					</div>
+					<div class="activity-box bgcolor">
+						<div class="activity-info divtab bborder">
+							<div class="act-headimg fl">
+								<img src="__IMG__/store/pro3.jpg" alt="" />
+							</div>
+							<div class="act-info fl">
+								<div class="act-title fs14 c3 fov">快乐柠檬</div>
+								<div class="act-description fs12 c5"> I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.</div>
+								<div class="act-static divtab">
+									<div class="act-static-btn fs12 act-btn-g">已结束</div>
+								</div>
+							</div>
+						</div>
+						<div class="activity-oprate divtab">
+							<div class="act-oprate-log fs13 c9">参与记录</div>
+							<div class="act-oprate-editor fs13 c9">编辑</div>
+							<div class="act-oprate-view fs13 c9">预览</div>
+						</div>
+					</div>-->
+
+					<div class="data-empty divtab">
+						<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>
+						<div class="data-empty-font c3 fs14">暂无相关活动</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="activity-subbtn">
+				<button type="button" class="fs15 cf act-button">发布</button>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+
+			}
+
+			function styles() {
+				var headw = $('.act-headimg').width();
+				$('.act-headimg').height(headw);
+				$('.act-headimg').css('border-radius', headw + 'px');
+
+			}
+
+			/*获取列表*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			//			getactivity(pageindex);
+			//			$(window).bind('scroll', function() {
+			//				if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			//					if (ctrls && emptyval) {
+			//						getactivity(pageindex);
+			//					}
+			//				}
+			//			});
+			function getactivity(page) {
+				if(page == 1) {
+					pageindex = 1;
+				}
+				var _html = "";
+				var pcode = '<?php echo $pcode ?>';
+				var strurl = WEB_HOST + "?pageindex=" + pageindex;
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: strurl,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#activity-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14"> 暂无相关活动</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										_html += '<div class="activity-box bgcolor">';
+										_html += '<div class="activity-info divtab bborder">';
+										_html += '<div class="act-headimg fl">';
+										_html += '<img src="__IMG__/store/pro3.jpg" alt="" />';
+										_html += '</div>';
+										_html += '<div class="act-info fl">';
+										_html += '<div class="act-title fs14 c3 fov">快乐柠檬</div>';
+										_html += '<div class="act-description fs12 c5"> I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.</div>';
+										_html += '<div class="act-static divtab">';
+										_html += '<div class="act-static-btn fs12 act-btn-g">已结束</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+
+									}
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#activity-list').append(_html);
+
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+			/*查看参与记录*/
+			function checklog() {
+
+			}
+			/*编辑*/
+			function oprate_editor() {
+
+			}
+			/*预览*/
+			function act_view() {
+
+			}
+			/*发布*/
+			mui('.wrap-page').on('tap', '.act-button', function() {
+				mui.toast('亲，相关活动还暂未开放哦！');
+				//mui.openWindow({url:"",id:""});
+			});
+		</script>
+		<include file="Common/foot" />
+	</body>
+
+</html>

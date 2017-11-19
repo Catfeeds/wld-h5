@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>精选商品</title>
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <include file="Base@Public/header"/>
+	<link rel="stylesheet" href="__CSS__/store/homepage.css?v=1.2" />
+	<link rel="stylesheet" href="__CSS__/store/cropper.min.css" />
+
+</head>
+<style>
+	.nav_l {
+		height: 100%;
+	}
+	
+	.nav_r {
+		height: 100%;
+	}
+	
+	.modular .divClass img {
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+<body class="bgeb">
+	<div class="wrap-page">
+		<!--<include file="Base@Public/pubheader" />-->
+		<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="<?php echo encodeurl(" https:// " . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>" />
+			<input type="hidden" name="c_ucode" id="c_ucode" value="{$storeinfo['c_ucode']}">
+			<input type="hidden" name="c_name" id="c_name" value="{$storeinfo['c_name']}">
+			<input type="hidden" name="c_ishow" id="c_ishow" value="{$storeinfo['c_ishow']}">
+			<input type="hidden" name="tempid" id="tempid" value="{$tempid}" />
+			<input type="hidden" name="tempid" id="tplid" value="{$tplid}" />
+			<div id="tophead">
+				<include file="Store@Index/shoptop" />
+			</div>
+			<div class="mui-content">
+				<!-- 数据列表部分 -->
+				<div class="wrap">
+					<div class="modular">
+						<a href="javascript:void(0)" class="banner1">
+							<div class="jia alignc">
+								<img src="__IMG__/store/dpsy_icon_add.png" alt="" />
+							</div>
+						</a>
+						<a href="javascript:void(0)" class="banner2">
+							<div class="jia alignc">
+								<img src="__IMG__/store/dpsy_icon_add.png" alt="" />
+							</div>
+						</a>
+						<a href="javascript:void(0)" class="banner3">
+							<div class="jia alignc">
+								<img src="__IMG__/store/dpsy_icon_add.png" alt="" />
+							</div>
+						</a>
+						<a href="javascript:void(0)" class="banner4">
+							<div class="jia alignc">
+								<img src="__IMG__/store/dpsy_icon_add.png" alt="" />
+							</div>
+						</a>
+					</div>
+				</div>
+				<!--banner预览(线上)-->
+				<?php if ($data['c_source'] == 2) { ?>
+				<div class="commodity fs15">
+					<div class="fl">
+						<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+						<div>快乐柠檬-脉动</div>
+						<div style="color: #FFAA3D;">
+							<span class="fs11">￥</span>50.00
+						</div>
+					</div>
+					<div class="fr">
+						<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+						<div>快乐柠檬-伊利</div>
+						<div style="color: #FFAA3D;">
+							<span class="fs11">￥</span>50.00
+						</div>
+					</div>
+				</div>
+				<?php } ?>
+				<!--banner预览(线下)-->
+				<?php if ($data['c_source'] == 1) { ?>
+				<div class="offline">
+					<div class="fl nav_l">
+						<ul class="fs14">
+
+						</ul>
+					</div>
+					<div class="fr nav_r">
+						<ul class="fs11">
+
+						</ul>
+					</div>
+				</div>
+				<?php } ?>
+				<nav class="mui-bar mui-bar-tab fs15">
+					<a class="mui-tab-item mui-tab-preview">
+						<img src="__IMG__/store/dpgl_icon_yl01.png" alt="" />
+						<div class="mui-tab-label c3">预览效果</div>
+					</a>
+					<a class="mui-tab-item mui-tab-user">
+						<!--<img src="__IMG__/Store/dpgl_icon_dlsp.png" alt="" />-->
+						<div class="mui-tab-label cf">应用到店铺</div>
+					</a>
+				</nav>
+			</div>
+		</form>
+	</div>
+	<div class="send-bg" style="position: absolute;top: 0;left: 0; height: 100%;width: 100%;z-index: 9999999;background: rgba(0,0,0,0.5);display: none;" onclick="close()"></div>
+	<div class="send-pup" style="position: fixed;top: 10%;left: 0; height: 70%;width: 100%;z-index: 99999999;background-color: white;display: none;">
+
+		<div class="container js-container" style="height: 80%; width: 80%;margin: 0 auto;">
+			<!--<img class="js-image" src="" style="height: 100%;width: 100%;">-->
+		</div>
+		<input type="file" class="js-uploadfile">
+		<input type="button" class="js-ok" value="裁剪">
+
+	</div>
+
+	<include file="Base@Public/pubjs" />
+	<include file="Base@Public/appshare" />
+	<include file="Base@Public/wxshare" />
+
+</body>
+<script type="text/javascript" src="__COMMON__/js/cropper.min.js"></script>
+<script type="text/javascript" src="__JS__/storepub.js?v=20171102"></script>
+<script type="text/javascript" src="__JS__/indexpub.js?v=20171102"></script>
+
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		/*var screenWith = $('.wrap-page').width() / 720;
+		$('.header').css('width', $('.wrap-page').width());
+		$('.header').height($('.header').width() * 0.65);
+		$('.jia').css('width', $('.wrap-page').width());
+		$('.mui-bar').css('width', $('.mui-content').width());
+		$('.offline').css('height', $(window).height() - 200 + 'px');
+		$('.mui-tab-preview>img').css('width', $('.mui-tab-preview>img').width() * screenWith);
+		$('.send-bg').height($('.bgeb').height());
+		window.onresize = function() {
+			$('.header').css('width', $('.wrap-page').width());
+			$('.jia').css('width', $('.wrap-page').width());
+		};*/
+		/*$('#details').on('tap', function() {
+			if($(".details>.details1").css("display") == 'block') {
+				$('.details>.details1').css('display', '-webkit-box');
+				$('#details>span').html('查看全部商家信息');
+				$('#details>img').attr("src", "__IMG__/store/icon_next-b.png");
+			} else {
+				$('.details>.details1').css('display', 'block');
+				$('#details>span').html('收起');
+				$('#details>img').attr("src", "__IMG__/store/icon_next-a.png");
+			}
+		});*/
+		$('.nav_l>ul>li').each(function() {
+			$(this).click(function() {
+				$('.nav_l>ul>li').each(function() {
+					$(this).removeClass('active');
+				})
+				$(this).addClass('active');
+			})
+		})
+
+		$('.send-bg').click(function() {
+			$('.send-bg').css('display', 'none');
+			$('.send-pup').css('display', 'none');
+		})
+	}
+
+	var obj;
+	var preview = false;
+	/*$('.modular>a').each(function() {
+		$(this).click(function() {
+			$('.send-bg').css('display', 'block');
+			$('.send-pup').css('display', 'block');
+			preview = true;
+			obj = $(this);
+		})
+	});*/
+	mui('.modular').on('tap', 'a', function() {
+		$('.send-bg').css('display', 'block');
+		$('.send-pup').css('display', 'block');
+		preview = true;
+		obj = $(this);
+	})
+	$('#redact').click(function() {
+		$('.send-bg').css('display', 'block');
+		$('.send-pup').css('display', 'block');
+		obj = $('.js-result');
+	});
+	var cropper;
+	$(".js-uploadfile").on("change", function() {
+		$('.js-container').html('<img class="js-image" src="" style="height: 100%;width: 100%;">');
+		var fr = new FileReader();
+
+		var file = this.files[0];
+
+		if(!/image\/\w+/.test(file.type)) {
+			showTips(file.name + "不是图片文件！");
+			$(".js-uploadfile").val('');
+			return false;
+		} else if(file.size > 2 * 1024 * 1024) {
+			alert('图片大小不能超过2M');
+			$(".js-uploadfile").val('');
+			return false;
+		}
+
+		fr.readAsDataURL(file);
+		fr.onload = function() {
+			console.log($(obj).attr('class'));
+			//这里初始化cropper
+			$('.js-image').attr('src', fr.result);
+			if($(obj).hasClass('banner1')) {
+				iniCropper(32 / 9);
+			}
+			if($(obj).hasClass('banner2')) {
+				iniCropper(8 / 3);
+			}
+			if($(obj).hasClass('banner3')) {
+				iniCropper(16 / 9);
+			}
+			if($(obj).hasClass('banner4')) {
+				iniCropper(4 / 3);
+			}
+		};
+	});
+
+	var croppable = false;
+
+	function iniCropper(i) {
+		var $image = $('.js-image');
+		image = $image[0];
+		cropper = new Cropper(image, {
+			dragMode: 'move',
+			aspectRatio: i, //裁剪区域图片长宽比 16/9
+			autoCropArea: 1, //类型：Number，默认值0.8（图片的80%）。0-1之间的数值，定义自动剪裁区域的大小。
+			restore: false,
+			viewMode: 1,
+			guides: false, //类型：Boolean，默认值true。是否在剪裁框上显示虚线。
+			center: false,
+			highlight: false, //类型：Boolean，默认值true。是否在剪裁框上显示白色的模态窗口。
+			cropBoxMovable: false,
+			cropBoxResizable: false, //是否允许裁剪大小的缩放,false为不能缩放
+			toggleDragModeOnDblclick: false,
+			ready: function() {
+				croppable = true;
+			}
+		});
+	}
+
+	var croppedCanvas;
+	var rectCanvas;
+	var rectImage;
+	$('.js-ok').on('click', function() {
+
+		if(!croppable) {
+			return false;
+		}
+		// Crop 裁剪后的图片的宽高
+		croppedCanvas = cropper.getCroppedCanvas();
+		//Rect 
+		rectCanvas = getRectCanvas(croppedCanvas);
+
+		// Show
+		rectImage = document.createElement('img');
+		rectImage.src = rectCanvas.toDataURL();
+		var str = '<div class="address fs12 line-top cf"><div>删除</div><div>编辑封面</div></div>'
+		obj.html('').append(rectImage);
+		if(preview) {
+			obj.append(str);
+			obj.addClass('divClass');
+			preview = false;
+		}
+
+		//var form=document.forms[0];
+		var formData = new FormData(); //这里连带form里的其他参数也一起提交了,如果不需要提交其他参数可以直接FormData无参数的构造函数  
+
+		//convertBase64UrlToBlob函数是将base64编码转换为Blob  
+		formData.append("filename", convertBase64UrlToBlob(rectCanvas.toDataURL())); //append函数的第一个参数是后台获取数据的参数名,和html标签的input的name属性功能相同
+		//ajax 提交form 
+		$('.send-bg').css('display', 'none');
+		$('.send-pup').css('display', 'none');
+		return false; //不提交 
+		$.ajax({
+			url: '',
+			type: "POST",
+			data: formData,
+			dataType: "text",
+			processData: false, // 告诉jQuery不要去处理发送的数据  
+			contentType: false, // 告诉jQuery不要去设置Content-Type请求头  
+
+			success: function(res) {
+				var data = JSON.parse(res);
+				if(data.status) {
+					hideLoading();
+					showTips(data.msg);
+					setTimeout(function() {
+						location.href = 'url?t=' + (new Date()).getTime();
+					}, 200);
+				} else {
+					console.log(data);
+				}
+			},
+			xhr: function() { //在jquery函数中直接使用ajax的XMLHttpRequest对象  
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(evt) {
+					if(evt.lengthComputable) {
+						var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+						console.log("正在提交..." + percentComplete.toString() + '%'); //在控制台打印上传进度  
+					}
+				}, false);
+
+				return xhr;
+			}
+
+		});
+
+	});
+	//		}
+	//绘制矩形canvas
+	function getRectCanvas(sourceCanvas) {
+		var canvas = document.createElement('canvas');
+		var context = canvas.getContext('2d');
+		var width = sourceCanvas.width;
+		var height = sourceCanvas.height;
+
+		canvas.width = width;
+		canvas.height = height;
+
+		context.imageSmoothingEnabled = true;
+		context.drawImage(sourceCanvas, 0, 0, width, height);
+		context.globalCompositeOperation = 'destination-in';
+		context.beginPath();
+		context.rect(0, 0, width, height);
+		context.fill();
+
+		return canvas;
+	}
+
+	/**  
+	 * 将以base64的图片url数据转换为Blob  
+	 * @param urlData  
+	 * 用url方式表示的base64图片数据  
+	 */
+	function convertBase64UrlToBlob(urlData) {
+		var bytes = window.atob(urlData.split(',')[1]); //去掉url的头，并转换为byte 
+		//处理异常,将ascii码小于0的转换为大于0  
+		var ab = new ArrayBuffer(bytes.length);
+		var ia = new Uint8Array(ab);
+		for(var i = 0; i < bytes.length; i++) {
+			ia[i] = bytes.charCodeAt(i);
+		}
+		return new Blob([ab], {
+			type: 'image/png'
+		});
+	}
+
+	var ctrls = true;
+	var emptyval = true;
+	var pageindex = 1;
+	var pageindex2 = 1;
+	var keyword = '';
+	var isfixed = "<?php echo $data['c_isfixed']; ?>";
+	//		getProductlist();
+	getProductlist();
+	getdatacate();
+	/*$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getProductlist();
+			}
+		}
+	});*/
+</script>
+
+</html>

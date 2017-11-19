@@ -1,0 +1,82 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+
+/* 搜索*/
+.search-default{padding: 3%;}
+.search-default p{text-align: center;width: 94%;left: 6%;right: 0;top: 22%;}
+.search-main{ padding: 3%;}
+.search-box{ background: #f4f4f4;width: 82%;border-radius: 28px;overflow: hidden;padding: 1.5% 3%;}
+.searchico{width: 6%;}
+.serchinput{width: 82%;margin-left: 3%;}
+.serchinput input[type="text"]{width: 100%;background: #f4f4f4;}
+.search-right{width: 15%;overflow: hidden;margin-left: 3%;padding-top: 2%;text-align: center;}
+.search-cancel{width: 100%;}
+
+
+/* 菜单分类*/
+.mail-type-default{ top: 0; z-index: 99;width: 13%;right: 0;}
+.mail-type-main{ width: 100%; top: 0; z-index: 99; padding-bottom: 3%;}
+.mail-type-tit{ padding: 2% 0 2% 3%;}
+.type-cancel{ width: 12%;}
+.type-con ul li{ width: 29%; margin:0 auto 4% 3%; border: 1px solid #999; text-align: center;padding: 2%;border-radius: 8px; float: left;}
+.type-con ul li.menu-bg{ color: #fff; background: #45aafa;border: 1px solid #45aafa; }
+
+/* 商城列表页*/
+.ma-pro-box:nth-child(odd){margin-right: 0.5%}
+.ma-pro-box:nth-child(even){ margin-left: 0.5%}
+.ma-pro-box{ width: 49.5%; margin-bottom: 1%;}
+.ma-pro-info{ padding: 4% 8% 6% 4%;}
+.ma-pro-price{ padding-top:3%;}
+
+/* 搜索结果*/
+.ma-nearby-box{ padding: 3%;border-bottom: solid 1px #ebebeb;}
+.ma-nearby-img{ width: 25%; margin-right: 3%;border: solid 1px #f0f0f0;}
+.ma-nearby-info{ width:72%;}
+
+/* 附近*/
+.brand-img{ width: 10%;}
+.brand-name{padding: 0 3%;border: 1px solid #45aafa;width: 35%;}
+
+.ma-pro-name{padding-top: 2%;}
+
+/* 猜你喜欢*/
+.ma-guess-box{ margin: 3%; border-radius: 6px;}
+.ma-guess-info{ padding: 1.5% 4% 3% 4%;}
+.ma-guess-price{padding: 5% 0 4% 0;}
+.ma-guess-img img{ border-top-left-radius: 6px; border-top-right-radius: 6px;}
+.shop-img{ width: 7%;}
+.shop-name{letter-spacing: 2px;background: #f0f0f0; padding: 0 3%; line-height: 1.8;}
+
+
+/* 商城首页*/
+.header-shop{background: #47ABF7;max-width: 720px;margin: 0 auto;padding:2% 3%;position:fixed;z-index:2014;left: 0;right: 0;}
+.header-search{width: 65%;margin-left: 12%;}
+.header-search input{background: #fff;text-align: center;width: 94%;border-radius: 25px;padding: 1.5% 4%;}
+.header-search span{display: block;width: 6%;left: 25%;top: 25%;}
+.header-msg{width: 7%;}
+
+
+.mui-slider-indicator .mui-active.mui-indicator {width: 12px; border-radius: 10px;}
+.m-menu-con{ padding: 4% 0; margin-bottom: 3%;}
+.m-menu-item{ width: 20%; text-align: center;margin-left: 4%;}
+.m-menu-img { width: 60%; margin: 0 auto 10% auto;}
+.m-title-img{ width: 25%; }
+
+.m-pbox{padding: 2% 3% 5% 3%;}
+.m-title{padding: 4% 3% 2% 3%;}
+.m-time { width: 50%; margin-left: 1%;}
+.m-more{ width: 23%;}
+.m-time-img{ width: 11.5%;}
+.m-time-img02{ width: 15%}
+.m-time span{ width: 100%; text-align: center;}
+.m-time-img02 span{ width: 78%;}
+.m-more-img{ width: 20%;}
+.h-phone{ margin-top: 1%;}
+
+.m-bargain-con,.m-sports-con{ margin-bottom: 3%;}
+.m-bargain-pro01,.m-bargain-pro02{ width:50%;}
+
+.m-sports-pro01{width: 33.3%;}
+.m-sports-pro02{ width: 50%;}

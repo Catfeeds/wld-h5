@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />   
+<title>{$title}</title>
+<meta content="微域领地,微域领地系统" name="keywords">
+<meta content="{$description}" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/news/index.css?v=1.2">  
+<style type="text/css">
+    .xm-nav-title{width: 70%;}
+</style>
+</head>
+<body>
+<div class="wrap-page bgcolor">
+<include file="Base@Public/pubheader" />
+<div class="mui-content bgcolor">
+    <div class="news_details">
+        <!--标题-->
+        <h2 class="fs18">{$list['c_title']}</h2>
+        <!--时间-->
+        <div class="n_time">
+            <span class="fl fs13">{$list['c_anthor']}</span>
+            <span class="fl fs13" style="margin-left:2%;">{$list['c_addtime']|substr=0,10}</span>
+            <div class="clear"></div>
+        </div>
+        <!--正文-->
+        <div class="article_con fs14">
+            {$list['c_content']}
+        </div>
+    </div>
+
+</div>
+</div>
+<include file="Base@Public/pubjs" /> 
+<!-- 引入分享 -->
+<include file="Base@Public/appshare" />
+<include file="Base@Public/wxshare" />
+<script type="text/javascript">
+window.onload = function () {
+   ChRightText("分享");
+}
+
+
+</script>
+<!-- 页面统计、任务弹出 -->
+<include file="Base@Public/footer" /> 
+</body>
+</html>

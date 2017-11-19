@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收银管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content divtab">
+			<div class="cashier-card">
+				<div class="addstaff-info bgcolor showinfo">
+					<div class="addstaff-img">
+						<img id="headimg"  src="__IMG__/usercenter/index5.png">
+					</div>
+					<span class="c3 fs16 fov" id="nickname">王仙森</span>
+					<div class="c3 fs13 bborder divtab" id="signinfo">不断创新互联网商业模式破茧未来营销时代</div>
+					<p class="c9 fs13" id="telephone">加盟热线：18670262270</p>
+					<p class="c9 fs13" id="trade">所属行业：18670262270</p>
+					<p class="c9 fs13" id="address">详细地址：18670262270</p>
+				</div>	
+			</div>
+			<div class="cashier-agree-btn cf fs16">同意</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.addstaff-img').height($('.addstaff-img').width());
+		$('.addstaff-img').css("border-radius",$('.addstaff-img').width());
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+
+
+	
+</script>
+
+</html>

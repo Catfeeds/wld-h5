@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<!-- 上传图片控件 -->
+<script type="text/javascript" src="__HJS__/tuo.js"></script> 
+<title>商家信息编辑</title>
+</head>
+<body>
+<div class="pd-20">
+  <form action="" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+    <!-- <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>商家昵称</label>
+      <div class="formControls col-10">
+        <input type="text" class="input-text" value="{$vo.c_nickname}" placeholder="" id="" name="c_nickname" disabled="disabled">
+      </div>
+    </div> -->
+    <!-- <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>注册类型：</label>
+      <div class="formControls col-10"> 
+          <div class="radio-box">
+            <input type="radio" id="sex-1" name="c_type" <if condition="$vo['c_type'] eq 1">checked="checked"</if> value="1">
+            <label for="sex-1">个人注册</label>
+          </div>
+          <div class="radio-box">
+            <input type="radio" id="sex-2" name="c_type" <if condition="$vo['c_type'] eq 2">checked="checked"</if> value="2">
+            <label for="sex-2">企业注册</label>
+          </div>
+      </div>  
+    </div> -->
+
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>商家昵称</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_nickname}" placeholder="个人、企业代理填写" id="" name="c_nickname">
+      </div>  
+      <label class="form-label col-2"><span class="c-red">*</span>联系人邮箱：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_email}" placeholder="个人、企业代理填写" id="" name="c_email">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>联系人QQ：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_qq}" placeholder="个人、企业代理填写" id="" name="c_qq">
+      </div>  
+      <label class="form-label col-2">客服电话：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_hometel}" placeholder="个人、企业代理填写" id="" name="c_hometel">
+      </div>  
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-2">公司名称：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_company}" placeholder="企业代理填写" id="" name="c_company">
+      </div>  
+      <label class="form-label col-2">企业所在省</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_province}" placeholder="企业代理填写" id="" name="c_province">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">企业所在市</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_city}" placeholder="企业代理填写" id="" name="c_city">
+      </div>  
+      <label class="form-label col-2">企业详细地址</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_address}" placeholder="企业代理填写" id="" name="c_address">
+      </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-2">证照类型</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_chartertype">
+            <option value="19" <if condition="$vo.c_chartertype eq 19">selected="selected"</if>>营业执照</option>
+            <option value="20" <if condition="$vo.c_chartertype eq 20">selected="selected"</if>>税务登记证</option>
+          </select>
+        </span>
+      </div>  
+      <label class="form-label col-2">营业执照号：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_charterno}" placeholder="企业代理填写" id="" name="c_charterno">
+      </div>  
+    </div>
+    <div class="row cl">
+
+      <label class="form-label col-2">营业执照图片：</label>
+      <div class="formControls col-2">
+        <div id="file_1" class="file_1 cla">
+          <a href="javascript:;" id="tdd_1"  calss="span_1" <if condition="$vo['c_charter_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(1)">X</a>
+              <div class="show" id="show_1" >  
+               <if condition="$vo['c_charter_img'] neq ''">
+                <img src="{$root_url}{$vo['c_charter_img']}" width="100" height="100"/>
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_1" class="fileList1 tdaa" onclick="dianji(1)"  <if condition="$vo['c_charter_img'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_charter_img" id="fileElem_1" class="fileElem" style="display:none" onchange="handleFiles(this,1)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_1"  value="{$vo['c_charter_img']}" />
+         </div>
+      </div>
+       <label class="form-label col-2">公户开户许可证</label>
+      <div class="formControls col-2">
+        <div id="file_2" class="file_2 cla">
+          <a href="javascript:;" id="tdd_2"  calss="span_2" <if condition="$vo['c_charterpub_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(2)">X</a>
+              <div class="show" id="show_2" >  
+               <if condition="$vo['c_charterpub_img'] neq ''">
+                <img src="{$root_url}{$vo['c_charterpub_img']}" width="100" height="100"/>
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_2" class="fileList1 tdaa" onclick="dianji(2)"  <if condition="$vo['c_charterpub_img'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_charterpub_img" id="fileElem_2" class="fileElem" style="display:none" onchange="handleFiles(this,2)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_2"  value="{$vo['c_charterpub_img']}" />
+         </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">执照有效期</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_charterendtime}" placeholder="企业代理填写" id="" name="c_charterendtime">
+      </div>  
+      <label class="form-label col-2"><span class="c-red">*</span>负责人姓名</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_person}"  id="" name="c_person">
+      </div>
+    </div>
+    <div class="row cl">
+     <label class="form-label col-2"><span class="c-red">*</span>负责人手机号</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_personphone}"  id="" name="c_personphone">
+      </div>  
+      <label class="form-label col-2"><span class="c-red">*</span>负责人身份证号</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_personidcard}"  id="" name="c_personidcard">
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>身份证正面照：</label>
+      <div class="formControls col-2">
+        <div id="file_3" class="file_3 cla">
+          <a href="javascript:;" id="tdd_3"  calss="span_3" <if condition="$vo['c_idcard_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(3)">X</a>
+              <div class="show" id="show_3" >  
+               <if condition="$vo['c_idcard_img'] neq ''">
+                <img src="{$root_url}{$vo['c_idcard_img']}" width="100" height="100"/>
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_3" class="fileList3 tdaa" onclick="dianji(3)"  <if condition="$vo['c_idcard_img'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_idcard_img" id="fileElem_3" class="fileElem" style="display:none" onchange="handleFiles(this,3)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_3"  value="{$vo['c_idcard_img']}" />
+         </div>
+      </div>
+
+      <label class="form-label col-2"><span class="c-red">*</span>身份证反面照：</label>
+      <div class="formControls col-2">
+        <div id="file_4" class="file_4 cla">
+          <a href="javascript:;" id="tdd_4"  calss="span_4" <if condition="$vo['c_idcard_img1'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(4)">X</a>
+              <div class="show" id="show_4" >  
+               <if condition="$vo['c_idcard_img1'] neq ''">
+                <img src="{$root_url}{$vo['c_idcard_img1']}" width="100" height="100" />
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_4" class="fileList4 tdaa" onclick="dianji(4)"  <if condition="$vo['c_idcard_img1'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_idcard_img1" id="fileElem_4" class="fileElem" style="display:none" onchange="handleFiles(this,4)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_4"  value="{$vo['c_idcard_img1']}" />
+         </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>银行卡正面照：</label>
+      <div class="formControls col-2">
+        <div id="file_5" class="file_5 cla">
+          <a href="javascript:;" id="tdd_5"  calss="span_5" <if condition="$vo['c_bankcard_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(5)">X</a>
+              <div class="show" id="show_5" >  
+               <if condition="$vo['c_bankcard_img'] neq ''">
+                <img src="{$root_url}{$vo['c_bankcard_img']}" width="100" height="100"/>
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_5" class="fileList5 tdaa" onclick="dianji(5)"  <if condition="$vo['c_bankcard_img'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_bankcard_img" id="fileElem_5" class="fileElem" style="display:none" onchange="handleFiles(this,5)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_5"  value="{$vo['c_bankcard_img']}" />
+         </div>
+      </div>
+
+      <label class="form-label col-2"><span class="c-red">*</span>银行卡反面照：</label>
+      <div class="formControls col-2">
+        <div id="file_6" class="file_6 cla">
+          <a href="javascript:;" id="tdd_6"  calss="span_4" <if condition="$vo['c_bankcard_img1'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(6)">X</a>
+              <div class="show" id="show_6" >  
+               <if condition="$vo['c_bankcard_img1'] neq ''">
+                <img src="{$root_url}{$vo['c_bankcard_img1']}" width="100" height="100" />
+               </if>
+              </div> 
+        </div>
+        <div  id="fileList_6" class="fileList4 tdaa" onclick="dianji(6)"  <if condition="$vo['c_bankcard_img1'] neq ''">  style="display:none;"<else/>style="display:block;"</if>>
+          <img src="__HIMG__/jian1.png" />
+          <input type="file" name="c_bankcard_img1" id="fileElem_6" class="fileElem" style="display:none" onchange="handleFiles(this,6)"  multiple accept="image/* ">
+          <input type="hidden" name="tmimg" id="tmimg_6"  value="{$vo['c_bankcard_img1']}" />
+        </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">负责人身份证截止时间</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_personidcardendtime}" placeholder="" id="" name="c_personidcardendtime">
+      </div> 
+      <label class="form-label col-2"><span class="c-red">*</span>账户名：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_bankuser}" placeholder="" id="" name="c_bankuser">
+      </div>  
+       
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>银行名称：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_bankname}" placeholder="" id="" name="c_bankname">
+      </div> 
+      <label class="form-label col-2"><span class="c-red">*</span>银行账号</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_bankno}" placeholder="" id="" name="c_bankno">
+      </div> 
+      
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>银行所在地</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_bankcity}" placeholder="" id="" name="c_bankcity">
+      </div>
+      <label class="form-label col-2"><span class="c-red">*</span>开户行名称</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_bankallname}" placeholder="" id="" name="c_bankallname">
+      </div>  
+      
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">所属机构号</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_organino}" placeholder="" id="" name="c_organino">
+      </div>
+      <label class="form-label col-2"><span class="c-red">*</span>支行名称</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_bankbranch}" placeholder="" id="" name="c_bankbranch">
+      </div>  
+    </div>
+    <div class="row cl">
+       <label class="form-label col-2">行别</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_industry}" placeholder="" id="" name="c_industry">
+      </div>
+        <label class="form-label col-2"><span class="c-red">*</span>银行账户类型</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_banktype}" placeholder="" id="" name="c_banktype">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>订单支付</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_cashorder" disabled="disabled">
+            <option value="0" <if condition="$vo.c_cashorder eq 0">selected="selected"</if>>不允许</option>
+            <option value="1" <if condition="$vo.c_cashorder eq 1">selected="selected"</if>>允许</option>
+          </select>
+        </span>
+      </div>  
+      <label class="form-label col-2"><span class="c-red">*</span>转出</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_cashout">
+            <option value="0" <if condition="$vo.c_cashout eq 0">selected="selected"</if>>不允许</option>
+            <option value="1" <if condition="$vo.c_cashout eq 1">selected="selected"</if>>允许</option>
+          </select>
+        </span>
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>代付付款</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_cashpay">
+            <option value="0" <if condition="$vo.c_cashpay eq 0">selected="selected"</if>>不允许</option>
+            <option value="1" <if condition="$vo.c_cashpay eq 1">selected="selected"</if>>允许</option>
+          </select>
+        </span>
+      </div>
+      <label class="form-label col-2"><span class="c-red">*</span>代收付款</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_cashcollect">
+            <option value="0" <if condition="$vo.c_cashcollect eq 0">selected="selected"</if>>不允许</option>
+            <option value="1" <if condition="$vo.c_cashcollect eq 1">selected="selected"</if>>允许</option>
+          </select>
+        </span>
+      </div>  
+    </div>
+    <div class="row cl">
+     <label class="form-label col-2">授信额度</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_creditlimit}" placeholder="" id="" name="c_creditlimit">
+      </div>
+    <label class="form-label col-2"><span class="c-red">*</span>支付宝号：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_alipay}" placeholder="" id="" name="c_alipay">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>微信帐号：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_weixin}" placeholder="" id="" name="c_weixin">
+      </div>
+      <label class="form-label col-2"><span class="c-red">*</span>商户名称：</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_merchant}" placeholder="" id="" name="c_merchant">
+      </div>   
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>商户简称：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_merchantshort}" placeholder="" id="" name="c_merchantshort">
+      </div>  
+   
+     <label class="form-label col-2">商户资质</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_storetials">
+            <option value="1" <if condition="$vo.c_storetials eq 1">selected="selected"</if>>个人</option>
+            <option value="2" <if condition="$vo.c_storetials eq 2">selected="selected"</if>>企业</option>
+            <option value="3" <if condition="$vo.c_storetials eq 3">selected="selected"</if>>个体户</option>
+          </select>
+        </span>
+      </div> 
+     </div>
+    <div class="row cl">
+       <label class="form-label col-2"><span class="c-red">*</span>提现</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_cashin">
+            <option value="0" <if condition="$vo.c_cashin eq 0">selected="selected"</if>>不允许</option>
+            <option value="1" <if condition="$vo.c_cashin eq 1">selected="selected"</if>>允许</option>
+          </select>
+        </span>
+      </div>
+      <label class="form-label col-2"><span class="c-red">*</span>经营币种：</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_feeltype">
+            <option value="CNY" <if condition="$vo.c_feeltype eq CNY">selected="selected"</if>>人民币</option>
+            <option value="USD" <if condition="$vo.c_feeltype eq USD">selected="selected"</if>>美元</option>
+            <option value="EUR" <if condition="$vo.c_feeltype eq EUR">selected="selected"</if>>欧元</option>
+            <option value="HKD" <if condition="$vo.c_feeltype eq HKD">selected="selected"</if>>港币</option>
+          </select>
+        </span>
+      </div>  
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>商户类型</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_storetype">
+            <option value="0" <if condition="$vo.c_storetype eq 0">selected="selected"</if>>线上商家(商家资质为个人或企业)</option>
+            <option value="1" <if condition="$vo.c_storetype eq 1">selected="selected"</if>>线下实体商家(只能为企业资质)</option>
+          </select>
+        </span>
+      </div>
+      <label class="form-label col-2"></span>企业法人：</label>
+      <div class="formControls col-2">
+        <input type="text" class="input-text" value="{$vo.c_legalname}" placeholder="" id="" name="c_legalname">
+      </div>
+    </div>
+    <div class="row cl">
+     <label class="form-label col-2">证件类型：</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_cardtype">
+            <option value="1" <if condition="$vo.c_cardtype eq 01">selected="selected"</if>>中国护照</option>
+            <option value="0" <if condition="$vo.c_cardtype eq 00">selected="selected"</if>>身份证</option>
+            <option value="2" <if condition="$vo.c_cardtype eq 02">selected="selected"</if>>军人身份证</option>
+            <option value="3" <if condition="$vo.c_cardtype eq 03">selected="selected"</if>>警官证</option>
+          </select>
+        </span>
+      </div>
+       <label class="form-label col-2">法人证件有效期</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_legalcardendtime}" placeholder="" id="" name="c_legalcardendtime">
+      </div> 
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">法人证件号码</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_legalcardno}" placeholder="" id="" name="c_legalcardno">
+      </div> 
+       <label class="form-label col-2">用户名</label>
+      <div class="formControls col-2"> 
+        <input type="text" class="input-text" value="{$vo.c_username}" placeholder="" id="" name="c_legalcardno" disabled="disabled">
+      </div> 
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>是否是代理</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_isagent"  disabled="disabled">
+            <option value="0" <if condition="$vo.c_isagent eq 0">selected="selected"</if>>不是</option>
+            <option value="1" <if condition="$vo.c_isagent eq 1">selected="selected"</if>>是</option>
+          </select>
+        </span>
+      </div>
+       <label class="form-label col-2"><span class="c-red">*</span>是否资料齐全</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_isdataall" disabled="disabled">
+            <option value="0" <if condition="$vo.c_isdataall eq 0">selected="selected"</if>>不是</option>
+            <option value="1" <if condition="$vo.c_isdataall eq 1">selected="selected"</if>>是</option>
+          </select>
+        </span>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2"><span class="c-red">*</span>是否是商家</label>
+      <div class="formControls col-2">
+        <span class="select-box">
+          <select class="select" id="sel_Sub" name="c_isshop" disabled="disabled">
+            <option value="0" <if condition="$vo.c_isshop eq 0">selected="selected"</if>>不是</option>
+            <option value="1" <if condition="$vo.c_isshop eq 1">selected="selected"</if>>是</option>
+          </select>
+        </span> 
+    </div>
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <input name="ucode" type="hidden" value="{$vo['c_ucode']}">
+        <input type="submit" value="提交" class="btn btn-primary radius">
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

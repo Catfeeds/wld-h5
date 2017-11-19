@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加设计板块</title>
+<script type="text/javascript">
+	function changiscountdown(obj){
+	   	var id=$(obj).val();
+	    if(id == 1){
+	    	$(".listd1").show();
+	    }else{
+	        $(".listd1").hide();
+	    }
+	}
+</script>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>主题：</label>
+			<div class="formControls col-6">
+				<input type="text" class="input-text" value="{$vo.c_theme}" placeholder="" id="" name="theme" placeholder="">
+			</div>
+			<div class="col-3"> </div>
+		</div>
+		<div class="row cl">
+	      <label class="form-label col-3"><span class="c-red">*</span>主题图片：</label>
+	      <div class="formControls col-6">
+	      	<input type="file" name="themeimg">
+	      </div>
+	      <div class="col-4"> </div>
+	    </div>
+	    <div class="row cl">
+	    	<label class="form-label col-3"><span class="c-red">*</span>更多备注：</label>
+	    	<div class="formControls col-6">
+	    		<input type="text" class="input-text" value="{$vo.c_remarks}" placeholder="" id="" name="remarks" placeholder="">
+	    	</div>
+	    	<div class="col-3"> </div>
+	    </div>
+	    <div class="row cl">
+	      <label class="form-label col-3"><span class="c-red">*</span>更多图片：</label>
+	      <div class="formControls col-6">
+	      	<input type="file" name="subimg">
+	      </div>
+	      <div class="col-4"> </div>
+	    </div>
+	    <div class="row cl">
+	      <label class="form-label col-3"><span class="c-red">*</span>发送类型：</label>
+	      <div class="formControls col-6">
+	        <select class="select" id="sel_Sub" name="tag">
+	        	<option value="1" <if condition="$vo.c_tag eq 1">selected="selected"</if>>url</option>
+	            <option value="2" <if condition="$vo.c_tag eq 2">selected="selected"</if>>url加密</option>
+	            <option value="3" <if condition="$vo.c_tag eq 3">selected="selected"</if>>订单详情</option>
+	            <option value="4" <if condition="$vo.c_tag eq 4">selected="selected"</if>>商品详情</option>
+	            <option value="5" <if condition="$vo.c_tag eq 5">selected="selected"</if>>个人空间</option>
+	            <option value="6" <if condition="$vo.c_tag eq 6">selected="selected"</if>>个人资料</option>
+	            <option value="7" <if condition="$vo.c_tag eq 7">selected="selected"</if>>商家商品列表</option>
+	            <option value="9" <if condition="$vo.c_tag eq 9">selected="selected"</if>>资源列表</option>
+	            <option value="10" <if condition="$vo.c_tag eq 10">selected="selected"</if>>资源详情</option>
+	            <option value="11" <if condition="$vo.c_tag eq 11">selected="selected"</if>>粉丝列表</option>
+	            <option value="12" <if condition="$vo.c_tag eq 12">selected="selected"</if>>营销中心</option>
+	            <option value="13" <if condition="$vo.c_tag eq 13">selected="selected"</if>>实体店铺</option>
+	            <option value="14" <if condition="$vo.c_tag eq 14">selected="selected"</if>>扫码支付页面</option>
+	            <option value="15" <if condition="$vo.c_tag eq 15">selected="selected"</if>>线下商家商品详情</option>
+	            <option value="16" <if condition="$vo.c_tag eq 16">selected="selected"</if>>线上订单</option>
+	            <option value="17" <if condition="$vo.c_tag eq 17">selected="selected"</if>>线下订单</option>
+	            <option value="18" <if condition="$vo.c_tag eq 18">selected="selected"</if>>购物车</option>
+	            <option value="19" <if condition="$vo.c_tag eq 19">selected="selected"</if>>资讯中心</option>
+	            <option value="20" <if condition="$vo.c_tag eq 20">selected="selected"</if>>线上店商品管理</option>
+	            <option value="21" <if condition="$vo.c_tag eq 21">selected="selected"</if>>线下店商品管理</option>
+	            <option value="22" <if condition="$vo.c_tag eq 22">selected="selected"</if>>店铺管理</option>
+	            <option value="23" <if condition="$vo.c_tag eq 23">selected="selected"</if>>店铺二维码</option>
+	            <option value="24" <if condition="$vo.c_tag eq 24">selected="selected"</if>>推广中心</option>
+	            <option value="25" <if condition="$vo.c_tag eq 25">selected="selected"</if>>分享返利</option>
+	            <option value="26" <if condition="$vo.c_tag eq 26">selected="selected"</if>>购买返利</option>
+	            <option value="27" <if condition="$vo.c_tag eq 27">selected="selected"</if>>卡劵包</option>
+	            <option value="28" <if condition="$vo.c_tag eq 28">selected="selected"</if>></option>
+	            <option value="29" <if condition="$vo.c_tag eq 29">selected="selected"</if>>关注列表</option>
+	            <option value="30" <if condition="$vo.c_tag eq 30">selected="selected"</if>>兑换中心</option>
+	            <option value="31" <if condition="$vo.c_tag eq 31">selected="selected"</if>>商家动态</option>
+	            <option value="32" <if condition="$vo.c_tag eq 32">selected="selected"</if>>店铺商品列表</option>
+	            <option value="33" <if condition="$vo.c_tag eq 33">selected="selected"</if>>评论列表</option>
+	            <option value="34" <if condition="$vo.c_tag eq 34">selected="selected"</if>>店铺相册</option>
+	            <option value="35" <if condition="$vo.c_tag eq 35">selected="selected"</if>>到店兑换</option>
+	            <option value="36" <if condition="$vo.c_tag eq 36">selected="selected"</if>>商城商品列表</option>
+	            <option value="10000" <if condition="$vo.c_tag eq 10000">selected="selected"</if>>平台首页</option>
+	        </select>
+	      </div>
+	      <div class="col-4"> </div>
+	    </div>
+	    <div class="row cl">
+	      <label class="form-label col-3"><span class="c-red">*</span>附加值：</label>
+	      <div class="formControls col-6">
+	        <input type="text" class="input-text" value="{$vo.c_tagvalue}" placeholder="" id="" name="tagvalue">
+	      </div>
+	      <div class="col-4"> </div>
+	    </div>
+	    <div class="row cl">
+	      <label class="form-label col-3">网页链接：</label>
+	      <div class="formControls col-6">
+	        <input type="text" class="input-text" value="{$vo.c_weburl}" placeholder="" id="" name="weburl">
+	      </div>
+	      <div class="col-4"> </div>
+	    </div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>相关活动：</label>
+			<div class="formControls col-6">
+				<span class="select-box">
+					<select class="select" id="" name="isactivity">
+						<option value="0" <if condition="$vo.c_isactivity eq 0">selected="selected"</if>>无</option>
+						<option value="1" <if condition="$vo.c_isactivity eq 1">selected="selected"</if>>砍价活动</option>
+						<option value="2" <if condition="$vo.c_isactivity eq 2">selected="selected"</if>>秒杀活动</option>
+						<option value="3" <if condition="$vo.c_isactivity eq 3">selected="selected"</if>>抢购活动</option>
+						<option value="4" <if condition="$vo.c_isactivity eq 4">selected="selected"</if>>拼团活动</option>
+					</select>
+				</span>
+			</div>
+			<div class="col-3"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>有无定时器：</label>
+			<div class="formControls col-6">
+				<span class="select-box">
+					<select class="select" id="iscountdown" name="iscountdown" onchange="changiscountdown(this);">
+						<option value="0" <if condition="$vo.c_iscountdown eq 0">selected="selected"</if>>无</option>
+						<option value="1" <if condition="$vo.c_iscountdown eq 1">selected="selected"</if>>有</option>
+					</select>
+				</span>
+			</div>
+			<div class="col-3"> </div>
+		</div>		
+		<if condition="$vo['c_iscountdown']==1">
+			<div class="row cl listd1">
+				<label class="form-label col-3"><span class="c-red">*</span>倒计时开始时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="begintime" name="begintime" value="{$vo.c_begintime}" placeholder="倒计时开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>			
+			<div class="row cl listd1">
+				<label class="form-label col-3"><span class="c-red">*</span>倒计时结束时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="endtime" name="endtime" value="{$vo.c_endtime}" placeholder="倒计时结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+		<else/>
+			<div class="row cl listd1" style="display: none;">
+				<label class="form-label col-3"><span class="c-red">*</span>倒计时开始时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="begintime" name="begintime" value="{$vo.c_begintime}" placeholder="倒计时开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>			
+			<div class="row cl listd1" style="display: none;">
+				<label class="form-label col-3"><span class="c-red">*</span>倒计时结束时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="endtime" name="endtime" value="{$vo.c_endtime}" placeholder="倒计时结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+		</if>
+		<div class="row cl">
+	      <label class="form-label col-3"><span class="c-red">*</span>排序：</label>
+	      <div class="formControls col-6">
+	        <input type="text" class="input-text" value="{$vo.c_sort}" placeholder="" id="" name="sort">
+	      </div>
+	      <div class="col-4"> </div>
+	    </div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>发布状态：</label>
+			<div class="formControls col-6">
+				<span class="select-box">
+					<select class="select" id="sel_Sub" name="state">
+						<option value="1" <if condition="$vo.c_state eq 1">selected="selected"</if>>不发布</option>
+						<option value="2" <if condition="$vo.c_state eq 2">selected="selected"</if>>预览</option>
+						<option value="3" <if condition="$vo.c_state eq 3">selected="selected"</if>>发布</option>
+					</select>
+				</span>
+			</div>
+			<div class="col-3"> </div>
+		</div>			
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<input type="hidden" name="type" value="{$type}">
+				<input type="submit" value="提交" class="btn btn-primary radius">
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+</script>
+</body>
+</html>

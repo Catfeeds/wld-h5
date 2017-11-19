@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>等级详情</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/user/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<div class="mui-content">			
+			<li class="divtab level_li c6 fs14 bgcolor">
+				<div class="fl level_left">等级名称</div>
+				<div class="fl level_mid">等级</div>
+				<div class="fr level_right">消费金额</div>
+			</li>
+			<?php for ($i=0; $i < 5; $i++) { ?>
+			<li class="divtab level_li c9 fs16 bgcolor">
+				<div class="fl level_left c3 fov">{$data[$i]['c_grade_name']}</div>
+				<div class="fl level_sign">
+					<img src="__IMG__/shop/p{$data[$i]['c_grade']}.png" alt="">
+				</div>
+				<?php if ($data[$i]['level'] == $data[$i]['c_grade']) { ?>
+				<div class="fl selflevel c9 fs12">
+					ta的等级
+				</div>
+				<?php } ?>
+				
+				<div class="fr levelmoney c3">
+					{$data[$i]['c_jy_money']}元
+				</div>
+				<div class="divtab leveldesc c9 fs14">
+					{$data[$i]['c_desc']}
+				</div>
+			</li>
+			<?php } ?>
+			<!-- <li class="divtab level_li c9 fs16 bgcolor">
+				<div class="fl level_left c3 fov">青铜代理</div>
+				<div class="fl level_sign">
+					<img src="__IMG__/shop/p1.png" alt="">
+				</div>
+				<div class="fl selflevel c9 fs12">
+					ta的等级
+				</div>
+				<div class="fr levelmoney c3">
+					1000元
+				</div>
+				<div class="divtab leveldesc c9 fs14">
+					青铜代理可享受青铜代理可享受青铜代理可享受青铜代理可享受
+				</div>
+			</li> -->
+		</div>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+</script>
+
+</html>

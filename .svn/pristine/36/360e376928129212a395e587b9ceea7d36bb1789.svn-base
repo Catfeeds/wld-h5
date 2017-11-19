@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<title>商家后台管理--资料下载</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('#li-5 a').addClass('hover');
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="content-s w_960">
+	<div class="material">
+		<volist name="data" id="vo">
+		<div class="material_top">
+			<div class="material_title">{$vo.c_name}</div>
+		</div>
+		<div class="material_mid none">
+			<div class="fl"><input type="checkbox" id="checkall-{$i-1}">&nbsp;全选</div>
+			<div class="material_del fl" id="download">批量下载</div>
+		</div>
+		<div class="material_list">				
+			<table id="tab-{$i-1}">	
+			<?php foreach ($vo['chidren'] as $key => $value) { ?>				
+				<tr>
+					<td width="30"><input type="checkbox" name="Id-{$i-1}" id="checkall-s-{$key}" value="<?php echo $value['c_id'] ?>"></td>
+					<td><?php echo $value['c_name'] ?></td>
+					<td><?php echo $value['c_addtime'] ?></td>
+					<td>
+						<a href="__URL__/downfile?Id=<?php echo $value['c_id'] ?>" title="下载" class="td-download-{$i-1}">
+							<img src="__IMG__/index/down.png" alt="">
+						</a>
+					</td>
+				</tr>
+			<?php } ?>
+			</table>				
+		</div>
+		</volist>
+	</div>
+
+    <script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="__LIB__/layer/1.9.3/layer.js"></script>
+    <script type="text/javascript"> 		
+		function selectAll(num,key) {
+			var obj = document.getElementsByName("Id-"+num);
+			if(document.getElementById("checkall-"+num).checked == false) {
+				for (var i = 0; i < obj.length; i++) {
+					obj[i].checked = false;
+				}
+			} else {
+				for (var i = 0; i < obj.length; i++) {
+					obj[i].checked = true;
+				}
+			}
+
+		}
+		// function setSelectAll(n) {
+		// 	var selAll = document.getElementById("checkall-"+n);
+		// 	var obj = document.getElementsByName("Id-"+n);
+		// 	var count = obj.length;
+		// 	var selectCount = 0;
+		// 	for (var i = 0; i < count; i++) {
+		// 		if (obj[i].checked == true) {
+		// 			selectCount++;
+		// 		}
+		// 	}
+		// 	if (count == selectCount) {
+		// 		selAll.checked = true;
+		// 	} else {
+		// 		selAll.checked = false;
+		// 	}
+		// }
+
+
+    	// 图片批量打包下载
+    	function dwonall(tg) {
+    		var downloadUrl = new Array();
+    		var urlstr = '';
+    		var checkall = document.getElementById("checkall-"+tg).checked;
+    		if(checkall){
+     			$('.td-download-'+tg).each(function (index) {
+     				urlstr += $(this).attr("href")+",";
+     			});    			
+    		}
+    		var strs= new Array(); //定义一数组
+			strs = urlstr.split(","); //字符分割
+			for (var i = 0; i < strs.length; i++) {
+				downloadUrl[i] = strs[i];
+			}
+			
+    	}
+    </script>
+ 
+
+</div>
+
+</body>
+</html>

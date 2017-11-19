@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>维权详情</title>
+</head>
+<body>
+<div class="pd-20">
+  <form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+    <div class="row cl">
+      <label class="form-label col-2">原因：</label>
+      <div class="formControls col-10">
+        <input type="text" class="input-text" value="{$data['c_reason']}" placeholder=""  name="reason" readonly="readonly">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">买家图片：</label>
+      <div class="formControls col-10">
+        <div class="uploader-thum-container">
+            <div id="image" style="width:80%;" class="image">
+              <?php if (!empty($data['c_img'])) { ?>
+              <?php foreach ($data['c_img'] as $key => $value) { ?>
+              <div id="n" class="photo" style="float:left;">
+                <a href="<?php echo WEB_HOST.'/'.$value; ?>"  target="_blank">
+                  <img src="<?php echo WEB_HOST.'/'.$value; ?>"  height=100 width=100 />
+                </a>
+              </div>
+              <?php } ?>
+              <?php } else{ ?>
+              <font color="#000079">买家未上传图片！</font>
+              <?php } ?>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-2">备注：</label>
+      <div class="formControls col-10">
+        <textarea name="remarks" cols="" rows="" class="textarea"  placeholder="" readonly="readonly">{$data.c_remarks}</textarea>
+      </div>      
+    </div>
+    
+  <if condition="$data['c_type'] eq 2">
+    <if condition="$data['c_refundstate'] eq 1">
+      <div class="row cl">
+      <label class="form-label col-3">快递公司：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$data['c_transcompany']}" placeholder=""  name="transcompany" disabled="disabled">
+      </div>
+      <div class="col-4"> </div>
+      </div>
+
+      <div class="row cl">
+      <label class="form-label col-3">快递单号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$data['c_transno']}" placeholder=""  name="transno" disabled="disabled">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    </if>
+  </if>
+
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <input  type="hidden" name="refundcode" id="cids" value="{$data['c_refundcode']}" />
+        {$refund_action}
+      </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			// parent.$('.btn-refresh').click();
+			// parent.layer.close(index);
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+  function refund_action(refundaction,id){
+    var refundcode = $('input[name="refundcode"]').val();
+    $.post('__URL__/ajax_op_refund',{refundaction:refundaction,id:id,refundcode:refundcode},function(data){
+      var result = eval(data);
+      if(result['code'] != 0){
+        layer.msg(result['msg'],{icon:10,time:2000});
+      }else{
+        layer.msg(result['msg'],{icon:1,time:2000});
+        window.location.reload(); 
+      }
+    });
+  }
+</script>
+</body>
+</html>

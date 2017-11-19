@@ -1,0 +1,812 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+/**
+ * 提现模块功能
+ */
+class ApplyforController extends BaseController{
+	//用户申请提款记录
+	public function applyFor(){
+	    $db = M('users_drawing as d');
+	    //条件
+	    $flag = 0;
+	    $sign = trim(I('sign'));
+	    if (!empty($sign)) {
+	        $w['d.c_sign'] = $sign;
+	        $w['d.c_state'] = 0;
+	        $this->sign = $sign;
+	        $flag = 1;
+	    }
+	    $this->flag = $flag;
+
+	    $c_ucode = trim(I('ucode'));
+	    if (!empty($c_ucode)) {
+	        $w['u.c_ucode'] = $c_ucode;
+	        $this->ucode = $c_ucode;
+	    }
+
+	    $phone = trim(I('c_phone'));
+	    if (!empty($phone)) {
+	        $w['u.c_phone'] = $phone;
+	    }
+	    $uname = trim(I('c_uname'));
+	    if (!empty($uname)) {
+	        $w['d.c_uname'] = $uname;
+	    }
+	    $c_username = trim(I('c_nickname'));
+	    if (!empty($c_username)) {
+	        $w['u.c_nickname'] = array('like', "%{$c_username}%");
+	    }
+
+	    $c_remarks = trim(I('c_remarks'));
+	    if (!empty($c_remarks)) {
+	        $w['d.c_remarks'] = array('like', "%{$c_remarks}%");
+	    }
+
+	    $c_tx_code = trim(I('c_tx_code'));
+	    if (!empty($c_tx_code)) {
+	        $w['d.c_tx_code'] = array('like', "%{$c_tx_code}%");
+	    }
+
+	    $begintime = I('EntTime1');
+	    $endtime = I('EntTime2');
+	    if(isset($begintime)&&!empty($begintime) && isset($endtime)&&!empty($endtime)){
+	        $w[] = "d.c_addtime between '".$begintime."' and '".$endtime."'";
+	    }
+
+	    $begintime = I('begintime');
+	    $endtime = I('endtime');
+	    if(isset($begintime)&&!empty($begintime) && isset($endtime)&&!empty($endtime)){
+	        $w[] = "d.c_updatetime between '".$begintime."' and '".$endtime."'";
+	        $w['d.c_state'] = 1;
+	    }
+
+	    $c_state = trim(I('c_state'));
+	    if (!empty($c_state)) {
+	        if($c_state == 'sqz'){
+	           $w['d.c_state'] = 0;
+	        }else{
+	            $w['d.c_state'] = $c_state;
+	        }
+	    }
+
+	    $sign1 = trim(I('sign1'));
+	    if (!empty($sign1)) {
+	        $w['d.c_sign'] = $sign1;
+	    }
+
+	    $w['c_issupplier'] = 0;
+	    $panrn['where'] = $w;
+	    $parent = I('param.');
+	    $panrn['order'] = 'd.c_id desc';//排序
+	    $panrn['limit'] = 25;//分页数
+
+	    //分页显示数据
+	    $panrn['field'] = 'd.*,u.c_nickname,u.c_ucode,u.c_phone,u.c_headimg';
+
+	    $panrn['join'] = 'left join t_users as u on u.c_ucode=d.c_ucode';
+	    $list=D('Db','Behind');
+	    $date=$list->mate_select_pages($db,$panrn);
+	    $data_list = $date['list'];
+	    foreach ($data_list as $k => $v) {
+	        switch ($data_list[$k]['c_state']) {
+	            case 0:
+	                $data_list[$k]['mystate'] = "<font color='#808080'>申请中</font>";
+	                break;
+	            case 1:
+	                $data_list[$k]['mystate'] = "<font color='#00FF00'>申请成功</font>";
+	                break;
+	            default:
+	                $data_list[$k]['mystate'] = "<font color='#FF0000'>申请失败</font>";
+	                break;
+	        }
+	    }
+
+	    //计算需要提现总数
+	    $mw[] = 'c_state = 0 ';
+	    if(!empty($sign)){
+	    	$mw[] = "c_sign = $sign ";
+	    }
+		$w1 = ' WHERE '.@implode('AND ',$mw);
+
+		$sql="select sum(c_money) as sum_money from t_users_drawing  $w1 ";
+
+		$model = M('');
+		$mdata = $model->query($sql);
+
+	    $this->list = $data_list;
+	    $this->count = $date['count'];//分页\
+	    $this->page = $date['Page'];//分页
+	    $this->root_url = GetHost()."/";
+	    $this->post = $parent;
+	    $this->sum_money = empty($mdata[0]['sum_money']) ? "0.00" : $mdata[0]['sum_money'];
+	    $this->display();
+	}
+
+	//修改提现账户信息
+	public function bank_edit(){
+		$txcode = I('tx_code');
+		$this->sign = I('sign');
+
+		$w['c_tx_code'] = $txcode;
+		$this->vo = M('users_drawing')->where($w)->find();
+
+		if(IS_POST){
+			$db = M('users_drawing');
+
+			if (empty($_POST['uname'])) {
+	    	$this->error("账户姓名不能为空");
+			}
+			if (empty($_POST['banksn'])) {
+		    	$this->error("账户账号不能为空");
+			}
+
+			$data['c_uname'] = $_POST['uname'];
+		    $data['c_banksn'] = $_POST['banksn'];
+
+		    $w2['c_tx_code'] = $_POST['txcode'];
+		    $result = $db->where($w2)->save($data);
+		    if($result){
+		      $back_url = C('TMPL_PARSE_STRING.__HHOME__').'/Applyfor/applyFor?sign='.$_POST['sign'];
+	          echo '<script language="javascript">alert("编辑成功");</script>';
+	          echo '<script language="javascript">window.parent.location.href="'.$back_url.'";</script>';die();
+	        }else{
+	          $this->error('编辑失败！');
+	        }
+		}
+
+		$this->display();
+	}
+
+	//Excel导出提款申请数据
+	public function educeIndex(){
+	    $Order = D('Applyfor','Behind');
+	    $Order -> sheetIndexnt();
+	}
+	
+	//Excel导出提款申请数据
+	public function chIndex(){
+	    $Order = D('Applyfor','Behind');
+	    $Order -> cheetIndexnt();
+	}
+	//通联批量代付
+	public function apply_pldf(){
+		
+		$id = trim(I('val'));
+		if (empty($id)) {
+			$this->ajaxReturn(Message(1001,"提现信息错误"));
+		}
+		$w['c_id'] = array('in',$id);
+		$drawing_info = M('Users_drawing')->where($w)->select();
+		$chenggong = 0;$shibai = 0;$zongshu = 0;
+		foreach ($drawing_info as $key => $value) {
+			$result = $this->apply_tldf_pl($value['c_tx_code']);
+
+			if ($result['code'] == 0) {
+				$chenggong++;
+			} else {
+				$shibai++;
+			}
+			$zongshu++;
+		}
+
+		$msg = '总计代付：'.$zongshu.'笔，成功：'.$chenggong.'笔，失败：'.$shibai.'笔';
+		$this->ajaxReturn(Message(0,$msg));
+	}
+
+	//通连代付
+	public function apply_tldf_pl($txcode){
+		$w['c_tx_code'] = $txcode;
+		$w['c_state'] = 0;
+		$drawing_info = M('Users_drawing')->where($w)->find();
+	    $ucode = $drawing_info['c_ucode'];
+	    $money = $drawing_info['c_money']*100;
+	    if(empty($ucode) || $money <= 0 || !$drawing_info['c_sub_bankname'] || !$drawing_info['c_city'] || !$drawing_info['c_banksn'] || !$drawing_info['c_uname']){
+	    	return Message(1001,"提现信息错误");
+	    }
+
+	    //风控交易状态
+        $ufparr['ucode'] = $ucode;
+        $ufparr['sign'] = 2;
+        $result = IGD('Funds','Info')->GetUseFunds($ufparr);
+        if ($result['code'] != 0) {
+            $this->ajaxReturn($result);
+        }
+
+        $bankcode = '';
+		$Applyfor = D('Applyfor','Behind');
+		$data = $Applyfor->bankCode();
+		foreach ($data as $key => $value) {
+			if ($key ==  $drawing_info['c_bankname']) {
+				$bankcode = $value;
+				$len = strlen($bankcode);
+				if ($len = 3 || $len=7) {
+					$bankcode = '0'.$bankcode;
+				}
+			}
+
+		}
+
+		vendor('TongLianPay.libs.ArrayXml');
+		vendor('TongLianPay.libs.cURL');
+		vendor('TongLianPay.libs.PhpTools');
+		$mchid = '200551000014254';//微领地商户
+  		// $mchid = '200551000014294';//湖南腾茂商商户
+        // $mchid = '200551000014296';//湖南腾十月商户
+        // $mchid = '200551000014314';//长沙三月三百货贸易商户
+         // $mchid = '200551000014354';// 深圳新领地游艇服务有限公司
+        // $mchid = '200551000014334';// 湖南松乔生命科技有限责任公司
+		$tools = new \PhpTools($mchid);
+		$times = time();
+		$str = $txcode;
+		$subtime = preg_replace('/\-*\:*\s*/', '', date('Y-m-d H:i:s'));
+		$len = mb_strlen($drawing_info['c_uname'],'UTF8');
+		if ($len>4) {
+			$account_prop = 1;
+		}else{
+			$account_prop = 0;
+		}
+		// 源数组
+		$params = array(
+            'INFO' => array(
+                'TRX_CODE' => '100002',
+                'VERSION' => '03',
+                'DATA_TYPE' => '2',
+                'LEVEL' => '5',
+                'USER_NAME' => $mchid.'04',
+                'USER_PASS' => '111111',
+                'REQ_SN' => $mchid.'-'.$str,
+            ),
+            'BODY' => array(
+                'TRANS_SUM' => array(
+                    'BUSINESS_CODE' => '09900',
+                    'MERCHANT_ID' => $mchid,
+                    'SUBMIT_TIME' => $subtime,
+                    'TOTAL_ITEM' => '1',
+                    'TOTAL_SUM' => $money,
+                    'SETTDAY' => '',
+                 ),
+                'TRANS_DETAILS'=> array(
+                      'TRANS_DETAIL'=> array(
+                            'SN' => $str,
+                            'E_USER_CODE'=> $drawing_info['c_ucode'],
+                            'BANK_CODE'=> $bankcode,
+                            'ACCOUNT_TYPE'=> '00',
+                            'ACCOUNT_NO'=> $drawing_info['c_banksn'],
+                            'ACCOUNT_NAME'=> $drawing_info['c_uname'],	
+                            'PROVINCE'=> $drawing_info['c_province'],
+                            'CITY'=> $drawing_info['c_city'],
+                            'BANK_NAME'=> $drawing_info['c_bankname'],
+                            'ACCOUNT_PROP'=> $account_prop,
+                            'AMOUNT'=> $money,
+                            'CURRENCY'=> 'CNY',
+                            'PROTOCOL'=> '',
+                            'PROTOCOL_USERID'=> '',
+                            'ID_TYPE'=> '',
+                            'ID'=> '',
+                            'TEL'=> '',
+                            'CUST_USERID'=> '',
+                            'REMARK'=> '小蜜送钱到家',
+                            'SETTACCT'=> '',
+                            'SETTGROUPFLAG'=> '',
+                            'SUMMARY'=> '银联代付',
+                            'UNION_BANK'=> '010538987654',
+                        )
+                 )
+            ),
+        );
+
+		//发起请求
+		$result = $tools->send($params);
+		// print_r($result);die();
+		if ($result['AIPG']['INFO']['RET_CODE'] != '0000') {
+			$save_data['c_thirdparty_code'] = $result['AIPG']['INFO']['ERR_MSG'];
+	        $save_data['c_state'] = 0;
+	        $save_data['c_updatetime'] = gdtime();
+	        $save_data['c_remarks'] = 'tlpay';
+	   		$result = M('Users_drawing')->where($w)->save($save_data);
+	       	return Message(1008,"操作失败");	
+		} else {
+			$save_data['c_thirdparty_code'] = $result['AIPG']['INFO']['REQ_SN'];
+	        $save_data['c_state'] = 1;
+	        $save_data['c_updatetime'] = gdtime();
+	        $save_data['c_remarks'] = 'tlpay';
+	   		$result = M('Users_drawing')->where($w)->save($save_data);
+	   		return Message(0,"操作成功");
+		}
+
+	}
+	//通连代付
+	public function apply_tldf(){
+		$txcode = trim(I('txcode'));
+		$w['c_tx_code'] = $txcode;
+		$w['c_state'] = 0;
+		$drawing_info = M('Users_drawing')->where($w)->find();
+	    $ucode = $drawing_info['c_ucode'];
+	    $money = $drawing_info['c_money']*100;
+	    if(empty($ucode) || $money <= 0 || !$drawing_info['c_sub_bankname'] || !$drawing_info['c_city'] || !$drawing_info['c_banksn'] || !$drawing_info['c_uname']){
+	    	$this->ajaxReturn(Message(1001,"提现信息错误"));
+	    }
+
+	    //风控交易状态
+        $ufparr['ucode'] = $ucode;
+        $ufparr['sign'] = 2;
+        $result = IGD('Funds','Info')->GetUseFunds($ufparr);
+        if ($result['code'] != 0) {
+            $this->ajaxReturn($result);
+        }
+        $len = mb_strlen($drawing_info['c_uname'],'UTF8');
+		if ($len>4) {
+			$account_prop = 1;
+		}else{
+			$account_prop = 0;
+		}
+
+		$bankcode = '';
+		$Applyfor = D('Applyfor','Behind');
+		$data = $Applyfor->bankCode();
+		foreach ($data as $key => $value) {
+			if ( $key ==  $drawing_info['c_bankname'] ) {
+				$bankcode = $value;
+				$len = strlen($bankcode);
+				if ($len = 3 || $len=7) {
+					$bankcode = '0'.$bankcode;
+				}
+			}
+
+		}
+
+
+		vendor('TongLianPay.libs.ArrayXml');
+		vendor('TongLianPay.libs.cURL');
+		vendor('TongLianPay.libs.PhpTools');
+		$mchid = '200551000014254';//微领地商户
+  		// $mchid = '200551000014294';//湖南腾茂商商户
+        // $mchid = '200551000014296';//湖南腾十月商户
+        // $mchid = '200551000014314';//长沙三月三百货贸易商户
+        // $mchid = '200551000014354';// 深圳新领地游艇服务有限公司
+        // $mchid = '200551000014334';// 湖南松乔生命科技有限责任公司
+		$tools = new \PhpTools($mchid);
+		$times = time();
+		$str = $txcode;
+		$subtime = preg_replace('/\-*\:*\s*/', '', date('Y-m-d H:i:s'));
+		// 源数组
+		$params = array(
+            'INFO' => array(
+                'TRX_CODE' => '100002',
+                'VERSION' => '03',
+                'DATA_TYPE' => '2',
+                'LEVEL' => '5',
+                'USER_NAME' => $mchid.'04',
+                'USER_PASS' => '111111',
+                'REQ_SN' => $mchid.'-'.$str,
+            ),
+            'BODY' => array(
+                'TRANS_SUM' => array(
+                    'BUSINESS_CODE' => '09900',
+                    'MERCHANT_ID' => $mchid,
+                    'SUBMIT_TIME' => $subtime,
+                    'TOTAL_ITEM' => '1',
+                    'TOTAL_SUM' => $money,
+                    'SETTDAY' => '',
+                 ),
+                'TRANS_DETAILS'=> array(
+                      'TRANS_DETAIL'=> array(
+                            'SN' => $str,
+                            'E_USER_CODE'=> $drawing_info['c_ucode'],
+                            'BANK_CODE'=> $bankcode,
+                            'ACCOUNT_TYPE'=> '00',
+                            'ACCOUNT_NO'=> $drawing_info['c_banksn'],
+                            'ACCOUNT_NAME'=> $drawing_info['c_uname'],	
+                            'PROVINCE'=> $drawing_info['c_province'],
+                            'CITY'=> $drawing_info['c_city'],
+                            'BANK_NAME'=> $drawing_info['c_bankname'],
+                            'ACCOUNT_PROP'=> $account_prop,
+                            'AMOUNT'=> $money,
+                            'CURRENCY'=> 'CNY',
+                            'PROTOCOL'=> '',
+                            'PROTOCOL_USERID'=> '',
+                            'ID_TYPE'=> '',
+                            'ID'=> '',
+                            'TEL'=> '',
+                            'CUST_USERID'=> '',
+                            'REMARK'=> '小蜜送钱到家',
+                            'SETTACCT'=> '',
+                            'SETTGROUPFLAG'=> '',
+                            'SUMMARY'=> '银联代付',
+                            'UNION_BANK'=> '010538987654',
+                        )
+                 )
+            ),
+        );
+
+		//发起请求
+		$result = $tools->send($params);
+		print_r($result);die();
+		if ($result['AIPG']['INFO']['RET_CODE'] != '0000') {
+			$save_data['c_thirdparty_code'] = $result['AIPG']['INFO']['ERR_MSG'];
+	        $save_data['c_state'] = 0;
+	        $save_data['c_updatetime'] = gdtime();
+	        $save_data['c_remarks'] = 'tlpay';
+	   		$result = M('Users_drawing')->where($w)->save($save_data);
+	       	$this->ajaxReturn(Message(1008,"操作失败"));	
+		} else {
+			$save_data['c_thirdparty_code'] = $result['AIPG']['INFO']['REQ_SN'];
+	        $save_data['c_state'] = 1;
+	        $save_data['c_updatetime'] = gdtime();
+	        $save_data['c_remarks'] = 'tlpay';
+	   		$result = M('Users_drawing')->where($w)->save($save_data);
+	   		$this->ajaxReturn(Message(0,"操作成功"));
+		}
+
+	}
+
+	//定时器查询受理结果
+	public function CheckDrawing()
+	{
+		vendor('TongLianPay.libs.ArrayXml');
+		vendor('TongLianPay.libs.cURL');
+		vendor('TongLianPay.libs.PhpTools');
+		// $mchid = '200551000014254';//微领地商户
+        $mchid = '200551000014294';//湖南腾茂商商户
+        // $mchid = '200551000014296';//湖南腾十月商户
+        // $mchid = '200551000014314';//长沙三月三百货贸易商户
+		$tools = new \PhpTools($mchid);
+
+		$where['c_state'] = 1;
+		$where['c_remarks'] = 'tlpay';
+		$where['c_addtime'] = array('LT',date('Y-m-d H:i:s',strtotime('-120 seconds')));
+		$drawinglist = M('Users_drawing')->where($where)->limit(100)->order('c_id asc')->select();
+		$num = 0;$pnum = 0;
+		foreach ($drawinglist as $key => $value) {
+			if (!empty($value['c_thirdparty_code'])) {
+				$thirdparty_code = $value['c_thirdparty_code'];
+				//查询受理结果
+				$params = array(
+				    'INFO' => array(
+				        'TRX_CODE' => '200004',
+				        'VERSION' => '03',
+				        'DATA_TYPE' => '2',
+				        'LEVEL' => '5',
+	                	'USER_NAME' => $mchid.'04',
+		            	'USER_PASS' => '111111',
+				        'REQ_SN' => $thirdparty_code,
+				    ),
+				    'QTRANSREQ' => array(
+				        'QUERY_SN' => $thirdparty_code,
+	                    'MERCHANT_ID' => $mchid,
+				        'STATUS' => '2',
+				        'TYPE' => '1',
+				        'START_DAY' => '',
+				        'END_DAY' => ''
+				    ), 
+				); 
+				$result = $tools->send($params);
+				$data = $result['AIPG']['QTRANSRSP']['QTDETAIL'];
+				if (!empty($data)) {
+					if ($data['RET_CODE'] != '0000') {  //交易失败
+						$w['c_tx_code'] = $value['c_tx_code'];
+		                $save_data['c_state'] = 0;
+		                $save_data['c_thirdparty_code'] = subtext($data['ERR_MSG'],100);
+		                // $save_data['c_updatetime'] = gdtime();
+		                $save_data['c_remarks'] = 'tlpay-error';
+		                $result = M('Users_drawing')->where($w)->save($save_data);
+		                if ($result) {
+		                	$num++;
+		                }
+					} else {
+						$w['c_tx_code'] = $value['c_tx_code'];
+		                // $save_data['c_updatetime'] = gdtime();
+		                $save_data['c_remarks'] = 'tlpay-success';
+		                $result = M('Users_drawing')->where($w)->save($save_data);
+		                if ($result) {
+		                	$pnum++;
+		                }
+					}
+				}
+			}
+		}
+
+		$this->ajaxReturn(MessageInfo(0,'查询成功','成功笔数:'.$pnum.',失败笔数:'.$num));
+	}
+
+	//银盛单笔代付
+	public function apply_df(){
+		vendor('Ysepay.Yse_pay');
+
+		$txcode = trim(I('txcode'));
+		$w['c_tx_code'] = $txcode;
+		$w['c_state'] = 0;
+		$drawing_info = M('Users_drawing')->where($w)->find();
+	    $ucode = $drawing_info['c_ucode'];
+	    $money = $drawing_info['c_money'];
+
+	    if(empty($ucode) || $money <= 0 || !$drawing_info['c_sub_bankname'] || !$drawing_info['c_city'] || !$drawing_info['c_banksn'] || !$drawing_info['c_uname']){
+	    	$this->ajaxReturn(Message(1001,"提现信息错误"));
+	    }	    
+		
+		//风控交易状态
+        $ufparr['ucode'] = $ucode;
+        $ufparr['sign'] = 2;
+        $result = IGD('Funds','Info')->GetUseFunds($ufparr);
+        if ($result['code'] != 0) {
+            $this->ajaxReturn($result);
+        }
+
+    	$pay = new \Yse_pay();
+        $parr['notify_url'] = GetHost(1)."/index.php/Balance/Applyfor/respond_notify";
+        $parr['out_trade_no'] = $txcode;
+        $parr['total_amount'] = $money;
+        $parr['subject'] = "小蜜送钱到家";
+        $parr['bank_name'] = $drawing_info['c_sub_bankname'];
+        $parr['bank_city'] = $drawing_info['c_city'];
+        $parr['bank_account_no'] = $drawing_info['c_banksn'];
+        $parr['bank_account_name'] = $drawing_info['c_uname'];
+        $parr['bank_account_type'] = "personal"; //corporate :对公账户; personal :对私账户
+        $parr['bank_card_type'] = "debit"; //  debit:借记卡;credit:信用卡 unit:单位结算卡
+        $data = $pay->get_dfjj($parr);
+        $result = $pay->curl_https_df($data);
+        $response = $result['ysepay_df_single_quick_accept_response'];
+        if ($response['trade_status'] == 'TRADE_ACCEPT_SUCCESS') {
+        	// $save_data['c_thirdparty_code'] = $result['trade_no'];
+        	$save_data['c_remarks'] = "小蜜送钱到家";
+        	$save_data['c_state'] = 1;
+        	$save_data['c_updatetime'] = date('Y-m-d H:i:s');
+   			$result = M('Users_drawing')->where($w)->save($save_data);
+   			if (!$result) {
+   				$this->ajaxReturn(Message(3000,"操作失败"));
+   			}
+   			$this->ajaxReturn(Message(0,"操作成功"));
+        } else {
+        	$this->ajaxReturn(Message(3000,$response['sub_msg']));
+        }
+	}
+
+	//提现结果处理
+	public function ajax_apply_handle(){
+	    $db = M('users_drawing');
+	    $db -> startTrans();
+
+	    $txcode = trim(I('txcode'));
+	    $handle = intval(I('handle'));
+
+	    $w['c_tx_code'] = $txcode;
+
+	    $drawing_info = $db->where($w)->find();
+	    $ucode = $drawing_info['c_ucode'];
+	    $money = $drawing_info['c_money'];
+
+	    if(empty($ucode) || $money <= 0){
+	    	$this->ajaxReturn(Message(1001,"提现信息错误"));
+	    }
+
+	    //风控交易状态
+        $ufparr['ucode'] = $ucode;
+        $ufparr['sign'] = 2;
+        $result = IGD('Funds','Info')->GetUseFunds($ufparr);
+        if ($result['code'] != 0) {
+            $this->ajaxReturn($result);
+        }
+
+	    $save_data['c_updatetime'] = date('Y-m-d H:i:s');
+
+	    $w['c_state'] = 0;
+	    if($handle == 1){//同意提款，只改变状态
+	        $save_data['c_state'] = 1;
+	        $r = $db->where($w)->save($save_data);
+	        $content = '您提现余额￥'.$money.'申请，系统已同意，系统将进行转账处理';
+	        $weburl = GetHost(1).'/index.php/Home/Balance/drawinglog';
+	    }else{//不同意提款，退还余额
+	        $parr['ucode'] = $ucode;
+	        $parr['money'] = $money;
+	        $parr['source'] = 6;
+	        $parr['key'] = $txcode;
+	        $parr['desc'] = "提现失败，余额退回";
+	        $parr['state'] = 1;
+	        $parr['isagent'] = 0;
+	        $parr['type'] = 1;
+	        $parr['showimg'] = 'Uploads/settlementshow/tis.png';
+        	$parr['showtext'] = '提现失败';
+
+	        $result = IGD('Money','User')->OptionMoney($parr);
+
+	        if($result['code'] !== 0){
+	        	$db -> rollback();
+	            $this->ajaxReturn($result);
+	        }
+
+	        $save_data['c_state'] = 2;
+	        $r = $db->where($w)->save($save_data);
+	        $content = '您提现余额￥'.$money.'申请，系统不同意，如有疑问请跟我们联系';
+	        $weburl = GetHost(1).'/index.php/Home/News/details?id=120';
+	    }
+
+	    //给用户发送相关消息
+	    $Msgcentre = IGD('Msgcentre', 'Message');
+	    $msgdata['ucode'] = $ucode;
+	    $msgdata['type'] = 0;
+	    $msgdata['platform'] = 1;
+	    $msgdata['sendnum'] = 1;
+	    $msgdata['title'] = '系统消息';
+	    $msgdata['content'] =  $content;
+	    $msgdata['tag'] = 2;
+	    $msgdata['tagvalue'] = $weburl;
+	    $msgdata['weburl'] = $weburl;
+	    $Msgcentre->CreateMessege($msgdata);
+
+	    if(!$r){
+	    	$db->rollback();
+	        $this->ajaxReturn(Message(1001,"操作失败"));
+	    }
+
+	    $db->commit();
+	    $this->ajaxReturn(Message(0,"操作成功"));
+	}
+
+	//保存提现第三方单号
+	public function save_thirdparty(){
+	    $txcode = I('txcode');
+	    $thirdparty_code = I('thirdparty');
+	    if(empty($txcode) || empty($thirdparty_code)){
+	      $this->ajaxReturn(Message(1001,"参数错误，不允许操作"));
+	    }
+	    $uu = "";
+	    $model = M('users_drawing');
+	    $where['c_tx_code'] = $txcode;
+	    $date['c_thirdparty_code'] = $thirdparty_code;
+	    $result = $model->where($where)->save($date);
+	    if($result){
+	        $this->ajaxReturn(Message(0,"操作成功"));
+	    }
+	    echo $uu;
+	}
+
+	//企业自动打款
+	public function wxpay(){
+		$txcode = I('txcode');
+		if(empty($txcode)){
+			$this->ajaxReturn(Message(1011,'参数错误！'));
+		}
+
+		$w['c_tx_code'] = $txcode;
+		$w['c_state'] = 0;
+		$loginfo = M('Users_drawing')->field('c_ucode,c_money,c_uname')->where($w)->find();
+
+		if(!$loginfo){
+			$this->ajaxReturn(Message(1012,'提现信息有误或已经提现！'));
+		}
+
+		$username = $loginfo['c_uname'];
+		$amount = $loginfo['c_money'];
+
+		//查询微信openid
+		$w1['c_type'] = 1;
+		$w1['c_ucode'] = $loginfo['c_ucode'];
+		$userinfo = M('Users_auth')->where($w1)->field('c_openid,c_name')->find();
+		$openid = $userinfo['c_openid'];
+
+		if(empty($openid) || empty($username)  || empty($amount)){
+			$this->ajaxReturn(Message(1013,'获取用户信息有误！'));
+		}
+
+		$trade_no = $txcode;
+		$check_name = "FORCE_CHECK";
+
+		//微信企业打款
+		$result = IGD('WxEnterprisepay','Weixin')->Pay($trade_no,$openid,$amount,$username,$check_name);
+
+		//未成功处理
+	    if($result['code'] != 0){
+	    	$save['c_paycode'] = $trade_no;
+	    	$save['c_remarks'] = $result['msg'];
+	    	$save['c_updatetime'] =  Date('Y-m-d H:i:s');
+	    	$result1 = M('Users_drawing')->where($w)->save($save);
+
+	    	$this->ajaxReturn($result);
+	    }
+
+	    $thirdparty_code = $result['data']['payment_no'];
+
+	    $w1['c_tx_code'] = $txcode;
+
+	    $save1['c_state'] = 1;
+	    $save1['c_paycode'] = $trade_no;
+	    $save1['c_thirdparty_code'] = $thirdparty_code;
+	    $save1['c_updatetime'] =  Date('Y-m-d H:i:s');
+	    $result1 = M('Users_drawing')->where($w1)->save($save1);
+
+	    //给用户发送相关消息
+	    $Msgcentre = IGD('Msgcentre', 'Message');
+	    $msgdata['ucode'] = $loginfo['c_ucode'];
+	    $msgdata['type'] = 0;
+	    $msgdata['platform'] = 1;
+	    $msgdata['sendnum'] = 1;
+	    $msgdata['title'] = '系统消息';
+	    $msgdata['content'] =  "您微信快捷提现".$loginfo['c_money']."元,系统已处理,请在微信中进行查收!如有疑问请跟我们联系!";
+	    $msgdata['tag'] = 2;
+	    $msgdata['tagvalue'] = GetHost(1).'/index.php/Home/Balance/drawinglog';
+	    $msgdata['weburl'] = GetHost(1).'/index.php/Home/Balance/drawinglog';
+	    $Msgcentre->CreateMessege($msgdata);
+
+	    $this->ajaxReturn($result);
+	}
+
+	//撤回提现操作
+	public function ajax_back_handle()
+	{
+		$db = M('users_drawing');
+	    $db -> startTrans();
+
+	    $txcode = trim(I('txcode'));
+
+	    $w['c_tx_code'] = $txcode;
+	    $drawing_info = $db->where($w)->find();
+
+	    $ucode = $drawing_info['c_ucode'];
+	    $money = $drawing_info['c_money'];
+
+	    if(empty($ucode) || $money <= 0){
+	    	$this->ajaxReturn(Message(1001,"提现信息错误"));
+	    }
+
+	    //修改提现状态
+	    $save_data['c_updatetime'] = date('Y-m-d H:i:s');
+	    $save_data['c_state'] = 0;
+	    $w['c_state'] = 1;
+	    $result = $db->where($w)->save($save_data);
+        if(!$result){
+        	$db -> rollback();
+            $this->ajaxReturn(Message(1000,'改变状态失败'));
+        }
+
+        $content = '您提现余额￥'.$money.'申请，系统正在紧急手工处理中，如有疑问请跟我们联系';
+        $weburl = GetHost(1).'/index.php/Home/News/details?id=120';
+
+	    //给用户发送相关消息
+	    $Msgcentre = IGD('Msgcentre', 'Message');
+	    $msgdata['ucode'] = $ucode;
+	    $msgdata['type'] = 0;
+	    $msgdata['platform'] = 1;
+	    $msgdata['sendnum'] = 1;
+	    $msgdata['title'] = '系统消息';
+	    $msgdata['content'] =  $content;
+	    $msgdata['tag'] = 2;
+	    $msgdata['tagvalue'] = $weburl;
+	    $msgdata['weburl'] = $weburl;
+	    $Msgcentre->CreateMessege($msgdata);
+
+	    $db->commit();
+	    $this->ajaxReturn(Message(0,"操作成功"));
+	}
+
+	//批量同意操作方法
+	public function OptionApply()
+	{
+		if (!empty($_FILES['file_stu']['name'])){
+			$tmp_file = $_FILES['file_stu']['tmp_name'];
+			$file_types = explode( ".",$_FILES['file_stu']['name'] );
+			$file_type = $file_types[count($file_types)- 1];
+
+			/*判别是不是.xls文件，判别是不是excel文件*/
+			if (strtolower ($file_type) != "xls"){
+				$this->error('不是Excel文件，重新上传');
+			}
+
+			$fileresult = uploadfile('merchant');
+			if ($fileresult['code'] != 0) {
+			 	$this->error($fileresult['msg']);
+			}
+			$filepath = $fileresult['data']['file_stu'];
+
+			$Applyfor = D('Applyfor','Behind');
+
+			$result = $Applyfor->OptionApply($filepath);
+			if($result['code'] != 0){
+				$this->error($result['msg']);
+			}
+			$this->success('操作成功数量：'.$result['data'],'applyFor?sign=1');
+	    } else {
+			$this->error('请选择上传文件');
+		}
+	}
+}

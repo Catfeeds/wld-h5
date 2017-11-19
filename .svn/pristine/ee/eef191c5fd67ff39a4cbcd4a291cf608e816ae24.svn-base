@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$data['c_nickname']}的店铺</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom:15%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="tem-p-top divre">
+					<div class="temp-sj-info divab">
+						<div class="sj-head">
+							<if condition="$data['c_headimg'] eq null">
+								<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+								<else />
+								<img id="self-heads" src="{$data['c_headimg']}" alt="">
+							</if>
+						</div>
+						<div class="sj-name">
+							<span class="cf fs15 fov">{$data['c_nickname']}</span>
+							<?php if ($data['c_source'] == 2) { ?>
+							<span><img src="__IMG__/index/o2store_icon_entity.png" alt="" /></span>
+							<?php } else { ?>
+							<span><img src="__IMG__/index/o2store_icon_pu.png" alt="" /></span>
+							<?php } ?>
+						</div>
+						<div class="sj-click-att">
+							<div class="sj-attnum fl fs13 cf">粉丝&nbsp;&nbsp;{$data['c_attention']}</div>
+							<div class="sj-clicknum fl fs13 cf">浏览量&nbsp;&nbsp;{$data['c_pv']}</div>
+						</div>
+					</div>
+					<?php if ($data['c_source'] == 2) { ?>
+					<div class="temp-sj-address divab">
+						<span><img src="__IMG__/index/dpsy_icon_wz.png" alt="" /></span>
+						<span class="fs12 cf fov">
+							<?php if ($storeinfo['c_provice'] && $storeinfo['c_city'] && $storeinfo['c_district']): ?>
+								{$storeinfo['c_provice']}{$storeinfo['c_city']}{$storeinfo['c_district']}{$storeinfo['c_address']}	
+							<?php endif ?>							
+						</span>
+						<span><img src="__IMG__/index/o2store_icon_next.png" alt="" /></span>
+					</div>
+					<?php } ?>
+					<?php if ($data['c_source'] == 1) { ?>
+					<img src="__IMG__/index/o2store_bg_online2.png" alt="" />
+					<?php }else{ ?>
+					<img src="__IMG__/index/o2store_bg_entity.png" alt="" />
+					<?php } ?>
+				</div>
+				<div class="divre">
+					<?php if ($data['c_source'] == 1) { ?>
+					<!--店铺信息-->
+					<div class="store-introduce divtab bgcolor">
+						<div class="store-all-tit c9 fs13 divtab bborder">商家信息</div>
+						<?php if(!empty($storeinfo['c_desc'])) { ?>
+						<div id="slideup">
+							<div class="store-desc-info fs12 c5">{$storeinfo['c_desc']}</div>
+							<div class="store-more divtab">
+								<div class="store-more-img fr"><img src="__IMG__/index/o2store_icon_open.png" alt="" /></div>
+								<div class="store-more-txt fr fs13 c9">查看全部商家信息</div>
+							</div>
+						</div>
+						<?php } ?>
+						<div id="slidedown" class="none">
+							<div class="store-all-desc fs12 c5 bborder">{$storeinfo['c_desc']}</div>
+							<div class="store-info-slidup divtab">
+								<div class="slidup-ico fr"><img src="__IMG__/index/o2store_icon_stop.png" alt="" /></div>
+								<div class="slidup-txt fr fs13 c9">收起</div>
+							</div>
+						</div>
+					</div>
+					<?php }else{ ?>
+					<!--店铺信息-->
+					<div class="store-introduce divtab bgcolor">
+						<div class="store-all-tit c9 fs13 divtab bborder">商家信息</div>
+						<?php if(!empty($storeinfo['c_desc'])) { ?>
+						<div id="slideup">
+							<div class="store-desc-info fs12 c5">{$storeinfo['c_desc']}</div>
+							<div class="store-more divtab">
+								<div class="store-more-img fr"><img src="__IMG__/index/o2store_icon_open.png" alt="" /></div>
+								<div class="store-more-txt fr fs13 c9">查看全部商家信息</div>
+							</div>
+						</div>
+						<?php } ?>
+						<div id="slidedown" class="none">
+							<div class="store-all-desc fs12 c5 bborder">{$storeinfo['c_desc']}</div>
+							<div class="store-all-li bborder divtab">
+								<div class="store-all-lile fl fs12 c9">营业时间</div>
+								<div class="store-all-liri fl fs12 c5">{$storeinfo['c_opentime']}</div>
+							</div>
+							<div class="store-all-li bborder divtab">
+								<div class="store-all-lile fl fs12 c9">商家提示</div>
+								<div class="store-all-liri fl fs12 c5">{$storeinfo['c_remind']}~~~~</div>
+							</div>
+							<?php if (count($storeinfo['service']) > 0) { ?>
+							<div class="store-all-server divtab">
+								<ul>
+									<?php foreach ($storeinfo['service'] as $k => $v) { ?>
+									<li>
+										<div class="service-ico fl">
+											<img src="{$v['c_imgpath']}" alt="" />
+										</div>
+										<div class="service-text fl fs12 cb">{$v['c_name']}</div>
+									</li>
+									<?php } ?>
+								</ul>
+							</div>
+							<?php } ?>
+							<div class="store-info-slidup divtab">
+								<div class="slidup-ico fr"><img src="__IMG__/index/o2store_icon_stop.png" alt="" /></div>
+								<div class="slidup-txt fr fs13 c9">收起</div>
+							</div>
+						</div>
+					</div>
+
+					<?php } ?>
+					<div class="tem-p-menu bgcolor divre">
+						<ul>
+							<li id="tmp_menu_01">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_yhzq.png" /></div>
+								<div class="tp-mfont c5 fs13">优惠专区</div>
+							</li>
+							<li id="tmp_menu_02">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_sjdt.png" /></div>
+								<div class="tp-mfont c5 fs13">商家动态</div>
+							</li>
+							<li id="tmp_menu_03">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_hdzq.png" /></div>
+								<div class="tp-mfont c5 fs13">活动专区</div>
+							</li>
+							<li id="tmp_menu_04">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_kqlq.png" /></div>
+								<div class="tp-mfont c5 fs13">卡券领取</div>
+							</li>
+						</ul>
+					</div>			
+				</div>
+
+				<div class="store-pro-main divtab" id="product-list">
+				</div>
+			</div>
+			
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__JS__/publics.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			var ucode = "<?php echo $ucode; ?>";
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+			var sources = '<?php echo $data["c_source"] ?>';
+			var apptype = "<?php echo get_app_type(); ?>";
+			window.onload = function() {
+				styles();
+				$('.xiaomi-bar').css('background', 'none');
+				$('.mui-content').css('margin-top', '0px');
+				ChRightText("分享");
+
+				$(window).bind('scroll', function() {
+					if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').addClass('menu-fixed');
+						if(sources == 1) {
+							$('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+						} else if(sources == 2) {
+							$('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+						}
+					}
+					if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').removeClass('menu-fixed');
+						$('.xiaomi-bar').css("background", "none");
+					}
+				});
+			}
+
+			function styles() {
+				$('.s-tmp-photo-li li').height($('.s-tmp-photo-li li').width());
+				if(sources == 1) {
+					$('.tem-p-top').height($('.tem-p-top').width() * 0.47);
+				} else if(sources == 2) {
+					$('.tem-p-top').height($('.tem-p-top').width() * 0.53);
+				}
+
+				$('.sj-head').width($('.sj-head').width());
+				$('.sj-head').height($('.sj-head').width());
+				$('.sj-head').css('border-radius', $('.sj-head').width() + 'px');
+
+				$('.temp-sj-address span:nth-of-type(2)').css('line-height', $('.temp-sj-address span:nth-of-type(2)').height() + 'px');
+
+				var pimgw = $('.s-pro-img').width();
+				$('.s-pro-img').height(pimgw);
+				/*5.27 新增 */
+				$('.s-pro-lijbuy').height($('.s-pro-lijbuy').width() * 0.3 + 'px');
+
+				var thhh = $('.s-tmp-h-img').width();
+				$('.s-tmp-h-img').width(thhh);
+				$('.s-tmp-h-img').height(thhh);
+
+				var gd = $('.s-tmp-dl-ico1').width() * 0.28;
+				$('.s-tmp-dl-ico1').css('height', gd + 'px');
+				$('.s-tmp-dl-ico1').css('line-height', gd + 'px');
+				$('.s-tmp-dl-ico1').css('border-radius', gd * 0.5 + 'px');
+				
+				$('.tp-mico').height($('.tp-mico').width());
+
+			}
+			/*优惠专区*/
+			mui('.mui-content').on('tap','#tmp_menu_01',function(){	
+				mui.toast('预览不可跳转');return;
+				mui.openWindow({url:"__APP__/Store/Index/profit?fromucode=<?php echo $issue_ucode; ?>",id:"source"});								
+			});
+			/*商家动态*/
+			mui('.mui-content').on('tap','#tmp_menu_02',function(){
+				mui.toast('预览不可跳转');return;
+				if(apptype==3){					
+					mui.openWindow({url:"__APP__/Store/Index/source",id:"source"});
+				}else{
+					if(apptype == 1) {
+						javaScript: resultData.dynamic();
+					}
+					else if(apptype == 2) {
+						window.webkit.messageHandlers.AppModel.postMessage({
+							"dynamic": {
+								"ss": "1"
+							}
+						});
+					}					
+				}
+			});
+			/*活动专区*/
+			mui('.mui-content').on('tap','#tmp_menu_03',function(){
+				mui.toast('预览不可跳转');return;
+				mui.openWindow({url:"__APP__/Store/Index/activitylist?fromucode=<?php echo $issue_ucode; ?>",id:"activitylist"});
+			});
+			/*卡券领取*/
+			mui('.mui-content').on('tap','#tmp_menu_04',function(){
+				mui.toast('预览不可跳转');return;
+				mui.openWindow({url:"__APP__/Store/Index/couponlist?fromucode=<?php echo $issue_ucode; ?>",id:"couponlist"});
+			});
+
+
+			/*商品资源数据加载*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			var keyword = '';
+			var isfixed = "<?php echo $data['c_isfixed']; ?>";
+			getProductlist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getProductlist();
+					}
+				}
+			});
+
+			function getProductlist() {
+				var url = "__APP__/Store/Index/GetProduceList?acode=<?php echo $issue_ucode; ?>&pageindex=" + pageindex + "&isfixed=" + isfixed;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#product-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">该商家还没有添加产品</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="s-pro-box fl">';
+										_html += '<div class="s-pro-img" title="' + dataarr['c_pcode'] + '" data-source="' + dataarr['c_source'] + '"><img src="' + dataarr['c_pimg'] + '" alt="" /></div>';
+										_html += '<div class="s-pro-name c3 fs13 fov" style="width:100%;">' + dataarr['c_name'] + '</div>';
+										_html += '<div class="s-pro-p-n divtab">';
+										_html += '<div class="s-pro-price fl cy" style="width:90%;"><span class="fs12">￥</span><span class="fs14">' + dataarr['c_price'] + '</span></div>';
+
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#product-list').append(_html);
+					},
+					complete: function() {
+						var pimgw = $('.s-pro-img').width();
+						$('.s-pro-img').height(pimgw);
+						/*5.27 新增 */
+						$('.s-pro-lijbuy').height($('.s-pro-lijbuy').width() * 0.3 + 'px');
+
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							mui('.s-pro-box').on('tap', '.s-pro-img', function() {
+								mui.toast('预览不可跳转');return;
+							});
+						}
+					}
+				});
+			}	
+		</script>
+	</body>
+
+</html>

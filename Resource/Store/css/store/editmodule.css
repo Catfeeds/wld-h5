@@ -1,0 +1,74 @@
+.mui-content .page {
+	width: 47%;
+	display: inline-block;
+	margin-top: 1rem;
+	background-color: white;
+	border-radius: 5% 5% 5% 5%;
+	overflow: hidden;
+}
+
+.mui-content .page:nth-child(2n) {
+	margin-left: 4%;
+}
+
+.mui-content .page img {
+	width: 100%;
+	height: 100%;
+}
+
+.explain {
+	text-align: center;
+	padding: 1rem 0;
+}
+
+.elect {
+	/*padding: 0.5rem 0;*/
+	line-height: 2rem;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5% 5% 0 0;
+	z-index: 999;
+}
+
+.explain span {
+	font-weight: bolder;
+	padding-bottom: 0.5rem;
+	border-bottom: 4px solid #EEF0F5;
+}
+
+.explain .active {
+	border-bottom: 4px solid #B896FF;
+}
+
+.preview {
+	text-align: center;
+	padding-bottom: 1rem;
+}
+
+.page .explain div {
+	color: #333;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.page .explain div img {
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	vertical-align: bottom;
+	margin-bottom: 0;
+	/*background-image: url(../../img/store/sm_icon_userdata_quan.png);*/
+	/*	background-size: contain;
+	margin-left: 1rem;*/
+}
+
+.active .page_top .divab{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+/*.page:nth-child(1) .active1 .explain .alignc{
+	border-bottom: 4px solid red;
+}
+*/

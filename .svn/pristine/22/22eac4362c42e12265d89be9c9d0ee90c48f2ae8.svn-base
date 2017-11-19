@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>藏宝记录</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+		
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content">
+					<div class="comm-nav-tab bgcolor divtab fs13">
+						<ul>
+							<li class="c-nav-tli" id="c-nav-t1">商品</li>
+							<li class="c-nav-tli" id="c-nav-t2">卡券</li>
+							<li class="hover c-nav-tli" id="c-nav-t3">红包</li>
+						</ul>
+					</div>
+
+					<!--藏宝记录 红包  -->
+					<div class="red-main">
+						<div class="red-money-status ch-status divtab  bgcolor bborder">
+							<div class="fl">
+								<p class="cy fs14">￥
+									<?php if(!empty($redtj['tfze'])){ ?>{$redtj['tfze']}
+									<?php }else{ ?>0
+									<?php } ?>
+									<font class="fs11">元</font>
+								</p>
+								<span class="fs12 c3">投放总额</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">￥
+									<?php if(!empty($redtj['syje'])){ ?>{$redtj['syje']}
+									<?php }else{ ?>0
+									<?php } ?>
+									<font class="fs11">元</font>
+								</p>
+								<span class="fs12 c3">剩余金额</span>
+							</div>
+						</div>
+
+						<div class="rrecord-list bgcolor" id="rrecord-list">
+							<!-- <div class="rrecord-item divtab">
+								<div class="red-item-img fl child-img">
+									<img src="__IMG__/chests/tu14.jpg" />
+								</div>
+								<div class="red-item-info fl">
+									<div class="divtab">
+										<div class="fs14 fov c3"><font class="rtype02 fs11 cf">普</font>蜜儿红包转不停卡卡卡卡卡卡卡卡</div>
+									</div>
+									<span class="fs14 c9">今日</span><font class="fs14 c9">/</font><span class="fs11 c9">18:00</span>
+								</div>
+								<div class="red-price fr fs14 c3">200元</div>
+							</div> -->
+						</div>
+
+					<!-- 红包  -->
+					</div>
+					<div id="console"></div>
+					<input type="hidden" value="" id="datetime" />
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+			yangshi();
+
+			ChRightText("筛选");
+		}
+
+		/*红包筛选*/
+		function rightcaozuo() {
+			var optionsJson = '{"type":"date"}';
+			var options = JSON.parse(optionsJson);
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				$('#datetime').val(rs.text);
+				pageindex = 1;
+				getdatalist();
+				picker.dispose();
+			});
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+
+			$('.red-item-img').width($('.red-item-img').width());
+			$('.red-item-img').height($('.red-item-img').width());
+			$('.red-item-img').css('border-radius', $('.red-item-img').width() + 'px');
+			$('.red-item-info').css('line-height', $('.red-item-img').width() * 0.5 + 'px');
+			$('.red-item-time').css('height', $('.red-item-img').width() + 'px');
+			$('.red-price').css('line-height', $('.red-item-img').width() + 'px');
+
+		}
+
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			 mui.openWindow({
+				url: "__URL__/precord?joinaid=" + joinaid,
+				id: "precord"
+			});
+		});
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			 mui.openWindow({
+				url: "__URL__/crecord?joinaid=" + joinaid,
+				id: "rrecord"
+			});
+		});
+		mui('.mui-content').on('tap', '#c-nav-t3', function() {
+			getdatalist();
+		});
+
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		getdatalist();
+		/*数据加载*/
+		function getdatalist() {
+			var url = '__URL__/CoupondLog?joinaid=' + joinaid + '&pageindex=' + pageindex +'&month=' + $('#datetime').val();
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						emptyval = true;
+						$('#rrecord-list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty bgeb divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">暂无相关记录</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="rrecord-item divtab">';
+									_html += '<div class="red-item-img fl child-img">';
+									_html += '<img src="' + dataarr['headimg'] + '" />';
+									_html += '</div>';
+									_html += '<div class="red-item-info fl">';
+									_html += '<div class="divtab">';
+									_html += '<div class="fs14 fov c3">';
+									if(dataarr['c_type'] == 1) {
+											_html += '<font class="rtype02 fs11 cf">普</font>';
+										}
+									if(dataarr['c_type'] == 2) {
+										_html += '<font class="rtype01 fs11 cf">随</font>';
+									}
+									_html += '<sapn>' + dataarr['c_name'] + '</span>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '<span class="fs11 c9">'+ dataarr['date'] +'</span>';
+									_html += '<font class="fs14 c9">/</font>';
+									_html += '<span class="fs11 c9">'+ dataarr['time'] +'</span>';
+									_html += '</div>';
+									_html += '<div class="red-price fr fs14 c3">'+ dataarr['c_value'] +'元</div>';
+									_html += '</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#rrecord-list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+				}
+			});
+		}
+
+	</script>
+
+</html>

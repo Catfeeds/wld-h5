@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>输入激活码</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="getbusiness-top bgcolor"><img src="__IMG__/getbusiness/fc-07.png" alt=""></div>
+				<div class="goldcard-box bgcolor borderb">
+					<div class="goldcard-txt fl fs14 c5">商家激活码</div>
+					<div class="goldcard-input fl fs14 c9">
+						<input type="text" class="input-txt fs14 c9" name="incode" id="incode" placeholder="请输入商家激活码">
+					</div>
+					<div class="goldcard-true fl none" id="correct"><img src="__IMG__/getbusiness/fc-12.png" alt=""></div>
+				</div>
+				<div class="inputli inputli1">
+					<div class="fl agree_left login-remember">
+						<input type="checkbox" id="chk_agree" checked="checked" name="chk_agree">
+					</div>
+					<div class="fl agree_right fs14 c5">
+						<a class="c5" href="__URL__/read">阅读并同意《微领地小蜜商户服务协议》</a>
+					</div>
+				</div>
+				<div class="goldcard-name fs14 c9 none" id="agent_name">代理商名称：******</div>
+				<button class="goldcard-btn fs16 btn-blue" onclick="subcard()">确定</button>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				//styles();
+			}
+
+			function styles() {
+				var boxh = $('.goldcard-box').height();
+				$('.goldcard-box').height(boxh);
+				$('.goldcard-box').css("line-height", boxh + "px");
+			}
+			var clicksign = true;
+
+			function subcard() {
+				if(clicksign) {
+					clicksign = false;
+					var incode = $('#incode').val();
+					if(incode == '') {
+						mui.toast('请输入商家激活码');
+						clicksign = true;
+						return false;
+					}
+					if(checkincode(incode)) {
+						mui.toast('激活码错误或已失效');
+						clicksign = true;
+						return false;
+					}
+					if(!$("#chk_agree").is(":checked")) {
+						mui.toast('您还未阅读《微领地小蜜商户服务协议》');
+						clicksign = true;
+						return false;
+					}
+					$.post('__URL__/BingIncode', {
+							incode: incode
+						},
+						function(obj) {
+							var msg = eval(obj);
+							if(msg['code'] == 0) {
+								mui.toast(msg['msg']);
+								window.location.href = '__URL__/shoperinfo';
+							} else {
+								mui.toast(msg['msg']);
+								clicksign = true;
+								return false;
+							}
+						});
+				}
+			}
+
+			/*验证incode*/
+			function checkincode(incode) {
+				$.ajax({
+					type: "GET",
+					url: '__URL__/IncodeUserinfo',
+					data: {
+						incode: incode
+					},
+					datatype: "json",
+					success: function(data) {
+						var obj = eval(data);
+						if(obj) {
+							$('#agent_name').show();
+							$('#agent_name').html("代理商名称：" + obj['c_name'] + "");
+							$('#correct').show();
+							styles();
+							return true;
+						} else {
+							return false;
+						}
+					}
+				});
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

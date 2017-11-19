@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content bgcolor">
+				<div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_srjhm.png" alt=""></div>
+				<div class="active-code">
+					<p class="c3 fs14">激活码</p>
+					<input class="fs14" id="incode" name="incode" type="text" placeholder="请输入商家激活码" >
+				</div>
+				<div class="agree-protocol divtab fs14">
+					<span><input type="checkbox" id="ckagree" name="ckagree" checked="checked" ></span>
+					<a class="c3" id="readpage">阅读并同意《微领地小蜜商户服务协议》</a>
+				</div>
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li style=" background:#45aafa; color:#fff; width: 100%;" onclick="savestep()">立即激活</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				//styles();
+			}
+
+			//跳转服务协议页面
+			mui('.mui-content').on('tap', '#readpage', function() {
+				mui.openWindow({
+					url: '__APP__/Home/News/read',
+					id: 'read'
+				});
+			});
+
+			//下一步提示效果
+			// mui('.mui-content').on('tap', '#ckagree', function() {
+			// 	ck = $('input[name="ckagree"]:checked').val();
+			// 	if(!ck){
+			// 		$('.info_sub_btn ul li').css({
+			// 			background: '#45aafa',
+			// 		});
+			// 	}else{
+			// 		$('.info_sub_btn ul li').css({
+			// 			background: '#ccc',
+			// 		});
+			// 	}
+			// });
+
+
+			//激活验证
+			var clicksign = true;
+
+			function savestep() {
+				if(clicksign) {
+					clicksign = false;
+					var incode = $('#incode').val();
+					if(incode == '') {
+						mui.toast('请输入商家激活码');
+						clicksign = true;
+						return false;
+					}
+					if(checkincode(incode)) {
+						mui.toast('激活码错误或已失效');
+						clicksign = true;
+						return false;
+					}
+					if(!$("#ckagree").is(":checked")) {
+						mui.toast('您还未阅读《微领地小蜜商户服务协议》');
+						clicksign = true;
+						return false;
+					}
+					$.post('__URL__/BingIncode', {
+							incode: incode
+						},
+						function(obj) {
+							var msg = eval(obj);
+							if(msg['code'] == 0) {
+								mui.toast(msg['msg']);
+								setTimeout(function() {
+									mui.openWindow({url: '__URL__/info_1',id: 'info_1'});
+								}, 1000);
+							} else {
+								mui.toast(msg['msg']);
+								clicksign = true;
+								return false;
+							}
+						});
+				}
+			}
+
+			/*验证incode*/
+			function checkincode(incode) {
+				$.ajax({
+					type: "GET",
+					url: '__URL__/IncodeUserinfo',
+					data: {
+						incode: incode
+					},
+					datatype: "json",
+					success: function(data) {
+						var obj = eval(data);
+						if(obj) {
+							$('#agent_name').show();
+							$('#agent_name').html("代理商名称：" + obj['c_name'] + "");
+							$('#correct').show();
+							// styles();
+							return true;
+						} else {
+							return false;
+						}
+					}
+				});
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

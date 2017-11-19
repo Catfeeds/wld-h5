@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>代理等级管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/shop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<form action="" id="formdata" method="post" accept-charset="utf-8">
+		<input type="hidden" name="levelid" value="{$level}">
+		<div class="mui-content">
+			<div class="divtab">
+				<img src="__IMG__/shop/der_bg_dj0{$level}.png" alt="">
+			</div>
+			<div class="divtab addli bgcolor">
+				<div class="divtab fl addleft c3 fs14">等级名称</div>
+				<input type="text" name="name" value="{$data['c_grade_name']}" placeholder="请输入当前等级名称" class="divtab fl addright c3 fs14">
+			</div>
+			<div class="divtab addli bgcolor">
+				<div class="divtab fl addleft c3 fs14">消费金额</div>
+				<input type="text" name="money" value="{$data['c_jy_money']}" placeholder="请输入所需消费金额" class="divtab fl addright c3 fs14">
+			</div>
+			<div class="divtab addli bgcolor">
+				<div class="divtab fl addleft c3 fs14">等级说明</div>
+				<textarea name="desc" rows="6" maxlength="120" placeholder="请输入等级说明（选填）(限120字)" class="divtab addtxarea c3 fs14">{$data['c_desc']}</textarea>
+			</div>
+			<div class="divtab addsub cf fs16" id="addsave_btn">保存</div>
+		</div>
+		</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+
+	//提交表单
+	mui('.mui-content').on('tap', '#addsave_btn', function() {
+		putform();
+		
+	});
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/saveLevel',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/level',id:"level"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);					
+						}
+					}
+			});
+		}	
+	}
+
+</script>
+
+</html>

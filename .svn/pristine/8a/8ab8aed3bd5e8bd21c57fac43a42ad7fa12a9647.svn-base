@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>代理商添加</title>
+</head>
+<body>
+<div class="pd-20">
+  <form action="{$action}" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>登录帐号：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_username" value="{$vo['c_username']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <if condition="$vo['c_password'] eq null">
+      <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>登录密码：</label>
+        <div class="formControls col-8">
+          <input type="password" class="input-text" placeholder="" id="" name="pwd">
+        </div>
+        <div class="col-4"> </div>
+      </div>
+    </if>
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>供货商名称：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_person_name" value="{$vo['c_person_name']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>负责人姓名：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder=""  name="c_name" value="{$vo['c_name']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>负责人手机号：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder=""  name="c_phone" value="{$vo['c_phone']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>审核状态：</label>
+        <div class="formControls col-8">
+          <span class="select-box">
+            <select class="select" id="sel_Sub" name="c_checked">
+              <option value="0" <if condition="$vo.c_checked eq 0">selected="selected"</if>>不通过</option>
+              <option value="1" <if condition="$vo.c_checked eq 1">selected="selected"</if>>通过</option>
+            </select>
+          </span>
+        </div>
+        <div class="col-3"> </div>
+    </div>
+    
+    <div class="row cl">
+      <label class="form-label col-3">申请单位名称：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_company" value="{$vo['c_company']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">企业代码证号：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_charter_code" value="{$vo['c_charter_code']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">营业执照号：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_charter" value="{$vo['c_charter']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">申请单位地址：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_address" value="{$vo['c_address']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">单位邮编：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text"  placeholder="" id="" name="c_postcode" value="{$vo['c_postcode']}">
+      </div>
+    <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">固定电话：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_tel" value="{$vo['c_tel']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    
+    <div class="row cl">
+      <label class="form-label col-3">负责人身份证号：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_idcard" value="{$vo['c_idcard']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">负责人QQ：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_qq" value="{$vo['c_qq']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">负责人邮箱：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_email" value="{$vo['c_email']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">负责人微信帐号：</label>
+      <div class="formControls col-8">
+        <input type="text" class="input-text" placeholder="" id="" name="c_person_wx" value="{$vo['c_person_wx']}">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <input type="hidden" name="ucode" value="{$vo.c_ucode}">
+        <input type="submit" value="提交" class="btn btn-primary radius">
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			// parent.$('.btn-refresh').click();
+			// parent.layer.close(index);
+		}
+	});
+});
+</script>
+</body>
+</html>

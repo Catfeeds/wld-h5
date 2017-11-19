@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>我的粉丝</title>
+	<meta content="小蜜我的粉丝" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/myspace/index.css?v=1.2">
+</head>
+<style type="text/css">
+	a{display: block;}
+</style>
+<body class="bgcolor">
+
+<div class="wrap-page bgcolor" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content bgcolor">
+	<div class="fans-top c3">
+		全部粉丝（<span id="pagecount">00</span>）
+	</div>
+	<div class="fans-list" id="fans-list">			
+		<!-- <a href="" class="fans-box">
+			<div class="fl fans-left">
+				<img src="__IMG__/logo.png" alt="">
+			</div>
+			<div class="fl fans-mid">
+				<h3 class="c3">小燕子</h3>
+				<p class="c9">11分钟前</p>
+			</div>
+			<input type="hidden" id="fans1" value="1">
+			<div class="fr fans-right">
+				<img src="__IMG__/myspace/yiguanzhu.png" alt="">
+			</div>
+		</a> -->
+		<div id="console"></div>
+	</div>
+
+</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+function yangshi() {
+	var hwd = $('.fans-left').width();
+	$('.fans-left').height(hwd);
+	$('.fans-left').css('border-radius',hwd + 'px');
+}
+
+var ctrls = true;
+var emptyval = true;
+var pageindex = 1;
+
+getfanslist();
+$(window).bind('scroll', function() {
+  if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {   
+    if (ctrls && emptyval) {      
+      getfanslist();
+    }
+  }
+});
+
+function getfanslist() {
+	var url = WEB_HOST + "/index.php/Home/Myspace/myfans?pageindex=" + pageindex;
+	var _html = "";
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: url,
+		cache: false,
+		beforeSend: function() {
+			$('#console').css('display', 'block');
+			$('#console').html('加载中...');
+			ctrls = false;
+		},
+		error: function() {
+			$('#console').css('display', 'block');
+			$('#console').html('加载失败');
+			ctrls = true;
+		},
+		success: function(obj) {
+			if (pageindex == 1) {
+				$('#fans-list').empty();
+			}
+			var mgs = eval(obj);
+			if (mgs['code'] == 0) {
+				var data = mgs.data;
+				if (data == null || data.list == null) {
+					if (pageindex == 1) {
+						_html += '<div class="baoqian">没有找到相关信息</div>';
+					}
+					emptyval = false;
+				} else {
+					$('#pagecount').html(data.dataCount);
+					if (pageindex <= data.pageCount) {
+						pageindex++;
+						var datalist = data.list;
+						for (var i = 0; i < datalist.length; i++) {var url;
+							if(datalist[i]['jumptype']==1){								
+								url = WEB_HOST + '/index.php/Store/Index/index?fromucode='+datalist[i]['c_ucode'];
+							}else if(datalist[i]['jumptype']==0){
+								
+								url = WEB_HOST + '/index.php/Home/Myspace/index?fromucode='+datalist[i]['c_ucode'];
+							}
+							_html += '<div class="fans-box">';
+							_html += '	<a href="'+url+'" class="fl fans-left">';
+							_html += '		<img src="'+datalist[i]['c_headimg']+'" alt="">';
+							_html += '	</a>';
+							_html += '	<div class="fl fans-mid">';
+							_html += '		<h3 class="c3">'+datalist[i]['c_nickname']+'</h3>';
+							_html += '		<p class="c9">'+datalist[i]['c_addtime']+'</p>';
+							_html += '	</div>';
+							if (datalist[i]['is_attention'] == 0) {
+								var opatten = 1;
+							} else {
+								var opatten = 0;
+							}
+							_html +='<input type="hidden" id="fans'+datalist[i]['c_id']+'" value="'+opatten+'">';	
+							
+							_html += '<div class="fr fans-right" onclick="attentionss(\''+datalist[i]['c_id']+'\',\''+datalist[i]['c_ucode']+'\',1)">';
+							if (datalist[i]['is_attention'] == 0) {
+								_html += '<img id="fansimg'+datalist[i]['c_id']+'" src="__IMG__/myspace/jiaguanzhu.png" alt="">';
+							} else {
+								_html += '<img id="fansimg'+datalist[i]['c_id']+'" src="__IMG__/myspace/quxiao.png" alt="">';
+							}
+							_html += '</div>';		
+							_html += '</div>';
+						};
+					} else {
+						emptyval = false;
+					}
+				}
+
+			} else {
+				emptyval = false;
+			}
+			$("#fans-list").append(_html);		
+		},
+		complete: function() {
+			yangshi();
+			$('#console').css('display', 'none');
+			ctrls = true;
+		}
+	});
+}
+
+// 关注操作
+function attentionss(rid,issue_ucode,hid) {
+	var handle = $('#fans'+rid).val();	
+	$.post(WEB_HOST + '/index.php/Trade/Index/UserAttention', {
+			handle: handle,
+			issue_ucode: issue_ucode
+		},
+		function(obj) {
+			var msg = eval(obj);
+			if (msg['code'] == 0) {
+				if (handle == 1) {					
+					if (hid == 1) {
+						$('#fans'+rid).val(0);	
+						$('#fansimg'+rid).attr('src','__IMG__/myspace/quxiao.png');
+					} 	
+				} else {
+					if (hid == 1) {
+						$('#fans'+rid).val(1);	
+						$('#fansimg'+rid).attr('src','__IMG__/myspace/jiaguanzhu.png');
+					} else {
+						$('#fans'+rid).parent().remove();
+					}
+				}
+				
+				mui.toast(msg['msg']);
+			} else {
+				mui.toast(msg['msg']);
+			}
+		});
+}
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

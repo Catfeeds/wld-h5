@@ -1,0 +1,25 @@
+
+[ 2016-04-23T20:12:08+08:00 ] 127.0.0.1 /wldApp/Agent.php/Home/Check/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+SQL: SHOW COLUMNS FROM `t_agent` [ RunTime:0.0060s ]
+SQL: SELECT `c_ucode` FROM `t_agent` WHERE `c_parent_acode` = 'wlddbdf98d54f3e51ef'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `t_check_shop` [ RunTime:0.0060s ]
+SQL: SELECT a.*,b.c_headimg,b.c_nickname,b.c_username FROM t_check_shop as a left join t_users as b on a.c_ucode=b.c_ucode  WHERE a.c_acode IN ('wldef741b0179bb3952','wld0dc49d07c6e4da2e','wldc15890a47df42c09') ORDER BY a.c_addtime desc  [ RunTime:0.1420s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+

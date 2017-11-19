@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>商品管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/gmanage/index.css" />
+	<style type="text/css">
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page" style="margin-bottom: 15%;">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!-- 搜索区域 -->
+			<div class="mgoods-search divtab">
+				<div class="search-default fl divre">
+					<input type="search" id="shopGoods1" name="shopGoods" class="c9 fs14 aglinc" required="" placeholder="搜索本店商品名称" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="zh-CN">
+					<span class="divab"><img src="__IMG__/gmanage/search_icon.png" alt="" /></span>
+					<div class="search-button fr c9 fs14">搜索</div>
+				</div>
+			</div>
+
+			<!-- 数据列表部分 -->
+			<div id="data_list">
+				<ul id="data_list_ul">
+					<!--<li class="mgoods-item">-->
+						<!--<div class="mgoods-item-top">-->
+							<!--<div class="mgoods-img fl divre">-->
+								<!--<div class="pro-img"><img src="__IMG__/index/tu14.jpg"></div>-->
+								 <!--<p class="hot-con hot-bg02 fs12 divab">店长推荐</p>-->
+								<!--<div class="under-shelf divab fs16">已下架</div>-->
+							<!--</div>-->
+							<!--<div class="mgoods-info fl">-->
+								<!--<div class="pro-text fs14 clamp2 c3">是根据打火锅就打发哈结果回调非结构化地方就换个地方结核杆菌的返回给的非结构化</div>-->
+								<!--<p class="pro-price fs14">￥10.00</p>-->
+								<!--<div class="sale-stock c3 fs11 divtab">-->
+									<!--<span class="fl">销量<font>235</font></span>-->
+									<!--<span class="fr">库存<font>88</font></span>-->
+								<!--</div>-->
+								<!--<p class="pro-time c3 fs11">添加<font>2017/02/09</font></p>-->
+							<!--</div>-->
+							<!--<div class="mgoods-next fl"><img src="__IMG__/gmanage/icon_next.png"></div>-->
+						<!--</div>-->
+						<!--<div class="mgoods-item-middle">-->
+							<!--<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>-->
+							<!--<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>-->
+							<!--<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>-->
+							<!--<div class="buyer-num fl fs12">3人买过</div>-->
+						<!--</div>-->
+						<!--<div class="mgoods-item-bottom">-->
+							<!--<ul>-->
+								<!--<li>-->
+									<!--<div class="menu-img" id=""><img src="__IMG__/gmanage/spgl_icon_yl.png"></div>-->
+									<!--<span class="fs14">预览</span>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<div class="menu-img"><img src="__IMG__/gmanage/spgl_icon_sc.png"></div>-->
+									<!--<span class="fs14">删除</span>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<div class="menu-img" onclick="underGoods()"><img src="__IMG__/gmanage/spgl_icon_xj.png"></div>-->
+									<!--<span class="fs14">下架</span>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<div class="menu-img"><img src="__IMG__/gmanage/spgl_icon_fx.png"></div>-->
+									<!--<span class="fs14">分享</span>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</div>-->
+					<!--</li>-->
+					<!--<li class="mgoods-item">-->
+						<!--<div class="mgoods-item-top">-->
+							<!--<div class="mgoods-img fl divre">-->
+								<!--<div class="pro-img"><img src="__IMG__/index/tu14.jpg"></div>-->
+								<!--&lt;!&ndash; <p class="hot-con hot-bg01 fs12 divab">秒杀</p> &ndash;&gt;-->
+								<!--<p class="hot-con hot-bg02 fs12 divab">店长推荐</p>-->
+							<!--</div>-->
+							<!--<div class="mgoods-info fl">-->
+								<!--<div class="pro-text fs14 clamp2 c3">是根据打火锅就打发哈结果回调非结构化地方就换个地方结核杆菌的返回给的非结构化</div>-->
+								<!--<p class="pro-price fs14">￥10.00</p>-->
+								<!--<div class="sale-stock c3 fs11 divtab">-->
+									<!--<span class="fl">销量<font>235</font></span>-->
+									<!--<span class="fr">库存<font>88</font></span>-->
+								<!--</div>-->
+								<!--<p class="pro-time c3 fs11">添加<font>2017/02/09</font></p>-->
+							<!--</div>-->
+							<!--<div class="mgoods-next fl"><img src="__IMG__/gmanage/icon_next.png"></div>-->
+						<!--</div>-->
+						<!--<div class="mgoods-item-middle">-->
+							<!--<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>-->
+							<!--<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>-->
+							<!--<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>-->
+							<!--<div class="buyer-num fl fs12">3人买过</div>-->
+						<!--</div>-->
+						<!--<div class="mgoods-item-bottom under-item">-->
+							<!--<ul>-->
+								<!--<li>-->
+									<!--<div class="menu-img" id=""><img src="__IMG__/gmanage/spgl_icon_yl.png"></div>-->
+									<!--<span class="fs14">预览</span>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<div class="menu-img"><img src="__IMG__/gmanage/spgl_icon_sc.png"></div>-->
+									<!--<span class="fs14">删除</span>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<div class="menu-img" onclick="underGoods()"><img src="__IMG__/gmanage/spgl_icon_xj.png"></div>-->
+									<!--<span class="fs14">下架</span>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<div class="menu-img"><img src="__IMG__/gmanage/spgl_icon_fx.png"></div>-->
+									<!--<span class="fs14">分享</span>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</div>-->
+					<!--</li>-->
+				</ul>
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//js改变样式
+	function yangshi() {
+		$('.search-button').css('line-height',$('.search-default').height() + 'px');
+
+		//商品
+		var pImg = $('.pro-img').width();
+		$('.pro-img').height(pImg);
+		$('.pro-text').css('height', pImg*0.4 +'px');
+		$('.pro-text').css('line-height', $('.pro-text').height()* 0.5 +'px');
+		$('.pro-price').css('line-height', pImg*0.3 +'px');
+		$('.sale-stock').css('line-height', pImg*0.15 +'px');
+		$('.pro-time').css('line-height', pImg*0.15 +'px');
+		$('.mgoods-next').css('padding-top', pImg*0.5 + 'px');
+		//人数
+		var bImg = $('.buyer-img').width();
+		$('.buyer-img').height(bImg);
+		$('.buyer-num').css('line-height', bImg +'px');
+		//单项菜单
+		var mImg = $('.menu-img').width();
+        $('.menu-img').height(mImg);
+        $('.mgoods-item-bottom ul li span').css('line-height', mImg+'px');
+
+	}
+
+	mui('.mui-content').on('tap', '.search-button', function() {
+		pageindex = 1;
+		getdatalist();
+	});
+
+    //键盘搜索
+    $("#shopGoods1").on('keypress', function(e) {
+        var keycode = e.keyCode;
+        if (keycode == '13') {
+            e.preventDefault();
+            //请求搜索接口
+            pageindex = 1;
+            getdatalist();
+        }
+    });
+
+    var pageindex = 1;
+    var ctrls = true;
+    var emptyval = true;
+
+    var statu = '<?php echo $statu ?>';
+    getdatalist();
+    $(window).bind('scroll', function() {
+        if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+            if(ctrls && emptyval) {
+                getdatalist();
+            }
+        }
+    });
+    /*数据加载*/
+    function getdatalist() {
+        var url = "__URL__/getProList?isshow="+statu+"&order=&key="+$('#shopGoods1').val().trim()+"&pageindex=" + pageindex;
+        var _html = "";
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: url,
+            cache: false,
+            beforeSend: function() {
+                $('#console').css('display', 'block');
+                $('#console').html('加载中...');
+                ctrls = false;
+            },
+            error: function() {
+                $('#console').css('display', 'block');
+                $('#console').html('加载失败');
+                ctrls = true;
+            },
+            success: function(obj) {
+                if(pageindex == 1) {
+                    $('#data_list_ul').empty();
+                }
+                var mgs = eval(obj);
+                if(mgs['code'] == 0) {
+                    var data = mgs.data;
+                    if(!data ||  data.list.length <= 0) {
+                        if(pageindex == 1) {
+                            //数据为空展示
+                            _html += '<div class="data-empty">';
+                            _html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+                            _html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+                            _html += '</div>';
+                        }
+                        emptyval = false;
+                    } else {
+                        if(pageindex <= data.pageCount) {
+                            pageindex++;
+                            var datalist = data.list;
+                            for(var i = 0; i < datalist.length; i++) {
+                                var dataarr = datalist[i];
+                                _html+='<li class="mgoods-item">';
+                                _html+='<div class="mgoods-item-top divtab" data-pcode="'+dataarr["c_pcode"]+'" data-source="'+dataarr["c_source"]+'">';
+                                _html+='<div class="mgoods-img fl divre">';
+                                _html+='<div class="pro-img"><img src="'+dataarr["c_pimg"]+'"></div>';
+                                if(dataarr["c_isshoptuijian"]==1){
+                                    _html+='<p class="hot-con hot-bg02 fs12 divab">店长推荐</p>';
+                                }
+                                if(dataarr["c_ishow"]==2){
+                                    _html+='<div class="under-shelf divab fs16">已下架</div>';
+                                }
+                                _html+='</div>';
+                                _html+='<div class="mgoods-info fl">';
+                                _html+='<div class="pro-text fs14 clamp2 c3">'+dataarr["c_name"]+'</div>';
+                                _html+='<p class="pro-price fs14">￥'+dataarr["c_price"]+'</p>';
+                                _html+='<div class="sale-stock c3 fs11 divtab">';
+                                _html+='<span class="fl">销量<font>'+dataarr["c_salesnum"]+'</font></span>';
+                                _html+='<span class="fr">库存<font>'+dataarr["c_num"]+'</font></span>';
+                                _html+='</div>';
+                                _html+='<p class="pro-time c3 fs11">添加<font>'+dataarr["c_addtime"]+'</font></p>';
+                                _html+='</div>';
+                                _html+='<div class="mgoods-next fl"><img src="__IMG__/gmanage/icon_next.png"></div>';
+                                _html+='</div>';
+                                var buylist = dataarr["buyUserList"];
+                                if( dataarr["buyTotal"]>0){
+                                    _html+='<div class="mgoods-item-middle" data-pcode="'+dataarr["c_pcode"]+'">';
+                                    for (var x in buylist) {
+                                        if (x < 6) {
+                                            _html += '<div class="buyer-img divre"><img src="' + buylist[x]['headimg'] + '"></div>';
+                                        }
+
+                                    }
+                                 _html+='<div class="buyer-num fl fs12">'+dataarr["buyTotal"]+'人买过</div>';
+                                 _html+='</div>';
+                                }
+                                _html+='<div class="mgoods-item-bottom divtab">';
+                                _html+='<ul>';
+                                _html+='<li class="good-preview" data-source="'+dataarr["c_source"]+'" data-pcode="'+dataarr["c_pcode"]+'">';
+                                _html+='<div class="menu-img fl"><img src="__IMG__/gmanage/spgl_icon_yl.png"></div>';
+                                _html+='<span class="fs14 fl">预览</span>';
+                                _html+='</li>';
+                                _html+='<li class="good-activing" data-pcode="'+dataarr["c_pcode"]+'">';
+                                _html+='<div class="menu-img fl"><img src="__IMG__/gmanage/spgl_icon_sc.png"></div>';
+                                _html+='<span class="fs14 fl">删除</span>';
+                                _html+='</li>';
+                                if(dataarr["c_ishow"]==2){
+                                    _html+='<li onclick="updownGoods(1,\''+dataarr["c_pcode"]+'\',\''+dataarr["c_num"]+'\')">';
+                                    _html+='<div class="menu-img fl"><img src="__IMG__/gmanage/spgl_icon_sj.png"></div>';
+                                    _html+='<span class="fs14 fl">上架</span>';
+                                    _html+='</li>';
+                                }else{
+                                    _html+='<li onclick="updownGoods(2,\''+dataarr["c_pcode"]+'\')">';
+                                    _html+='<div class="menu-img fl"><img src="__IMG__/gmanage/spgl_icon_xj.png"></div>';
+                                    _html+='<span class="fs14 fl">下架</span>';
+                                    _html+='</li>';
+                                }
+                                _html+='<li class="good-shares">';
+                                _html+='<div class="menu-img fl"><img src="__IMG__/gmanage/spgl_icon_fx.png"></div>';
+                                _html+='<span class="fs14 fl">分享</span>';
+                                _html+='</li>';
+
+                                _html+='</ul>';
+                                _html+='</div>';
+                                _html+='</li>';
+                            };
+                        } else {
+                            emptyval = false;
+                        }
+                    }
+                } else {
+                    emptyval = false;
+                }
+                $('#data_list_ul').append(_html);
+            },
+            complete: function() {
+                yangshi();
+                $('#console').css('display', 'none');
+                ctrls = true;
+                if (emptyval) {
+                    //买过的客户
+                    mui('.mgoods-item').on('tap', '.mgoods-item-middle', function() {
+                        var pcode = $(this).attr('data-pcode');
+                        mui.openWindow({url:'__URL__/gcustomer?pcode='+pcode,id:"gcustomer"});
+                    });
+                    //预览
+                    mui('.mgoods-item').on('tap','.good-preview',function () {
+                        var source = $(this).attr("data-source");
+                        var pcode = $(this).attr('data-pcode');
+                        if(source==1){
+                            mui.openWindow({url:"__APP__/Store/Product/pdetail?pcode="+pcode,id:"pdetail"});
+                        }else{
+                            mui.openWindow({url:"__APP__/Store/Entitymap/pdetail?pcode="+pcode,id:"pdetail"});
+                        }
+                    });
+                    //删除
+                    mui('.mgoods-item').on('tap','.good-activing',function () {
+                        var pcode = $(this).attr('data-pcode');
+                        var tg = $(this);
+                        mui.confirm('删除后将无法恢复，确认删除？', '提示', ['取消', '确认'], function(e) {
+                            e.index == 0 ? "" : removeGoods(tg,pcode);
+                        }, 'div');
+                    });
+                    //分享
+                    mui('.mgoods-item').on('tap','.good-shares',function () {
+                        var pcode = $(this).attr('data-pcode');
+                    });
+                    //编辑
+                    mui('.mgoods-item').on('tap','.mgoods-item-top',function () {
+                        /*1,线上2,线下*/
+                        var source = $(this).attr("data-source");
+                        var pcode = $(this).attr('data-pcode');
+                        if(source==1){
+                            mui.openWindow({url:"__APP__/Store/Product/goods_edit?pcode="+pcode,id:"edit"});
+                        }else{
+                            mui.openWindow({url:"__APP__/Store/Entitymap/goods_edit?pcode="+pcode,id:"edit"});
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //上下架
+    var clickshow = true;
+    function updownGoods(isshow,pcode,numb) {
+        if(clickshow){
+            if(numb<=0){
+                mui.confirm('库存为0，去添加库存？', '提示', ['取消', '确认'], function(e) {
+                    e.index == 0 ? "" : addnumb();
+                }, 'div');
+                clickshow = true;
+            }
+            clickshow = false;
+            $.post("__APP__/Store/Product/goods_out",{ishow:isshow,pcode:pcode},function(obj){
+                var data = eval(obj);
+                tjsign = true;
+                if(data['code']==0){
+                    if(isshow==1){
+                        mui.toast("商品已上架");
+                    }else{
+                        mui.toast("商品已下架");
+                    }
+                    setTimeout(function () {
+                        mui.openWindow({
+                            url: '__URL__/index?statu=1',
+                            id: ''
+                        });
+                    }, 1000);
+                }else{
+                    mui.toast(data['msg']);
+                    clickshow = true;
+                }
+            });
+        }
+    }
+
+    function addnumb() {
+        if(source==0){
+            mui.openWindow({url:"__APP__/Store/Product/addproduct"});
+        }else{
+            mui.openWindow({url:"__APP__/Store/Entity/addproduct"});
+        }
+    }
+    //商品删除
+    var clickdel = true;
+    function removeGoods(tg,pcode) {
+        if(clickdel){
+            console.log(tg);
+            clickdel = false;
+            $.post("__APP__/Store/Product/goods_delete",{pcode:pcode},function(obj){
+                var _html = '';
+                var data = eval(obj);
+                if (data.code == 0) {
+                    mui.toast(data.msg);
+                    $(tg).parents('li.mgoods-item').remove();
+                    if ($('.mgoods-item').size() == 0) {
+                        _html += '<div class="data-empty">';
+                        _html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+                        _html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+                        _html += '</div>';
+                        $('#data_list_ul').append(_html);
+                    };
+                } else {
+                    mui.toast(data.msg);
+                }
+            });
+        }
+    }
+
+
+</script>
+
+</html>

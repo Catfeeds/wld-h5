@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+ 	<title>小蜜商圈分享</title>
+ 	<include file="Base@Public/header" />
+ 	<link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+ 	<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+ 	<style type="text/css">
+ 		.comment-chk-img{ border-radius: 50%;}
+ 		.send-comm-tipimg{ width: 94%; margin-top: 1%;}
+ 	</style>
+ </head>
+ <body class="bgcolor">
+ 	<div class="wrap-page" style="margin-bottom: 13%;">
+ 	<include file="Base@Public/pubheader" />
+ 		<input type="hidden" id="resurl" value="<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])?>">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<?php if ($data['is_like'] == 0) { ?>
+		<input type="hidden" id="prastatu{$data.c_id}" value="1">
+		<?php } else { ?>
+		<input type="hidden" id="prastatu{$data.c_id}" value="0">
+		<?php } ?>
+	
+		<?php if ($data['is_attention'] == 0) { ?>
+		<input type="hidden" id="attentatu{$data.c_id}" value="1">
+		<?php } else { ?>
+		<input type="hidden" id="attentatu{$data.c_id}" value="0">
+		<?php } ?>		
+			
+		<div class="mui-content">
+			<!--  商圈  -->
+			<div class="t-s-trade divtab bgcolor">
+				<div class="t-s-td-name fl fs14">{$circlename}<span class="cb fs13"><font class="cb fs16"><</font>进入</span></div>
+				<div class="t-s-td-img fr"><img src="__IMG__/share_icon_dkxm.png"></div>
+			</div>
+			<!--  商圈  -->
+			<div class="t-s-details divtab bgcolor">
+				<input type="hidden" id="issue_ucode" value="{$data.c_ucode}" />
+				<div class="t-s-de-left fl">
+					<img src="{$data.c_headimg}" alt="" />
+				</div>
+				<div class="t-s-de-right fl">
+					<div class="t-s-de-headinfo divtab">
+						<div class="t-s-de-ncname fl">
+							<div class="c3 fs13 fov divtab">{$data.c_nickname}</div>
+							<div class="c9 fs12">{$data.switch_addtime}&nbsp;&nbsp;{$data.c_address}</div>
+						</div>
+						<?php if($data['is_attention'] == 0) {	 ?>	
+							<div class="t-s-de-attention fl fs11 c9" id="attention-{$data['c_id']}" onclick="attentionss('{$data['c_id']} ','{$data['c_ucode']}',1,1)">+关注</div>
+						<?php } else { ?>
+							<div class="t-s-de-attention fl fs11 c9" id="attention-{$data['c_id']}" onclick="attentionss('{$data['c_id']}','{$data['c_ucode']}',1,0)">取消关注</div>
+						<?php } ?>
+					</div>
+					<?php if($data['c_type']==1){ ?>
+						<?php if(!empty($data['c_content'])){ ?>
+						<div class="t-s-de-description fs13 c3">{$data.c_content}</div>
+						<?php } ?>
+							
+						<?php if (count($data['imglist']) > 0) { ?>
+						<div class="t-s-de-imglist divtab" id="imglist-1-1">						
+							<ul>
+								<?php foreach ($data['imglist'] as $k1 => $v1) { ?>
+									<li><img src="{$v1.c_thumbnail_img}" alt=""></li>
+								<?php } ?>
+							</ul>						
+						</div>
+						<?php } ?>
+					<?php }else if($data['c_type']==2){ ?>
+						<div class="t-s-video-li">											
+							<video controls autobuffer class="video_w" poster="{$data['imglist'][0]['c_img']}" loop="loop" x-webkit-airplay="true" webkit-playsinline="true">
+								<source src="{$data['c_videourl']}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+							</video>
+						</div>							
+						<?php } ?>				
+					<?php if (count($data['tj_product']) > 0) { ?>
+						<?php foreach ($data['tj_product'] as $k2 => $v2) { ?>
+							<input type="hidden" id="cscource" value="{$v2['c_source']}" />
+							<input type="hidden" id="curl" value="{$v2.url}" />
+							<input type="hidden" id="pcode" value="{$v2['c_pcode']}" />	
+							<div class="t-s-de-product divtab">
+								<div class="t-s-de-arrow fr">
+									<img src="__IMG__/district_icon_continue2x.png" alt="" />
+								</div>
+								<div class="t-s-de-proimg fl">
+									<img src="__IMG__/{$v2.c_pimg}" alt="" />
+								</div>
+								<div class="t-s-de-proname fl">
+									<div class="c3 fs13 fov divtab">{$v2.c_name}</div>
+									<div class="cy fs14">￥{$v2.c_price}</div>
+								</div>
+							</div>
+						<?php } ?>
+					<?php } ?>
+					<div class="s-circlename c9 fs12">
+						<span><img src="__IMG__/district_icon_distance2x.png" alt="" />{$circlename}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="bgcolor">
+				<div class="t-s-trade-logo"><img src="__IMG__/share_erweima.png"></div>
+				<!--点赞-->
+				<div class="t-s-praise">
+					<div class="t-s-praise-img">
+					<?php if ($data['is_like'] == 1) { ?>
+						<img src="__IMG__/share_icon_after.png" alt="" id="praiseimg-{$data.c_id}" onclick="addpraise('{$data.c_id}',0,'share')">
+					<?php } else { ?>
+						<img src="__IMG__/share_icon_before.png" alt="" id="praiseimg-{$data.c_id}" onclick="addpraise('{$data.c_id}',1,'share')">
+					<?php } ?>	
+					</div>
+					<?php if ($data['is_like'] == 1) { ?>
+					<div class="t-s-praise-num fs14 c3" id="praisenum-{$data.c_id}">10</div>
+					<?php } else { ?>
+					<div class="t-s-praise-num fs14 c3" id="praisenum-{$data.c_id}">10</div>
+					<?php } ?>
+				</div>
+			</div>
+
+			<div class="t-s-de-all-comm divtab bgcolor">
+				<div class="t-s-de-allc-tit c3 fs14">全部评论({$data.c_comment})</div>
+				<div class="t-s-de-commlist divtab">
+					<ul class="comment-check-list" id="comment-{$data['c_id']}">
+						<?php foreach ($data['comment_list'] as $k3 => $v3) { ?>
+						<?php if (!$v3['upucode']) { ?>
+						<li id="comdel-{$v3.c_id}" onclick="sendcommt('{$data['c_id']}','回复：{$v3.c_nickname}','{$v3.c_ucode}','{$v3.c_id}')"  <?php if ($ucode == $v3['c_ucode']) { ?>style="border:0px;"<?php } ?>>
+							<div class="comment-chk-img fl"><img src="{$v3.c_headimg}" alt=""></div>
+							<div class="comment-chk-info fl">
+								<div class="comment-chk-nkname fs13 c3">{$v3.c_nickname}</div>
+								<div class="comment-chk-remark fs11 c9">{$v3.switch_addtime}</div>
+							</div>
+						</li>
+						<?php if ($ucode == $v3['c_ucode']) { ?>
+						<li style="padding-top: 0px;">
+							<div class="fl comment-chk-time c5 fs12">{$v3.c_content}</div>
+							<div class="fr comment-del fs12" onclick="DeleteComment(this,'{$v3.c_id}');">删除</div>
+						</li>
+						<?php } ?>
+						<?php } else { ?>
+						<li id="comdel-{$v3.c_id}" onclick="sendcommt('{$data['c_id']}','回复：{$v3.c_nickname}','{$v3.c_ucode}','{$v3.c_id}')" <?php if ($ucode == $v3['c_ucode']) { ?>style="border:0px;"<?php } ?>>
+							<div class="comment-chk-img fl"><img src="{$v3.c_headimg}" alt=""></div>
+							<div class="comment-chk-info fl">
+								<div class="comment-chk-nkname fs13 c3">{$v3.c_nickname}<span>&nbsp;回复&nbsp;</span>{$v3.upnickname}</div>
+								<div class="comment-chk-time fs12 c9">{$v3.switch_addtime}</div>
+								<div class="comment-chk-remark fs12 c5">{$v3.c_content}</div>
+							</div>
+						</li>
+						<?php if ($ucode == $v3['c_ucode']) { ?>
+						<li style="padding-top: 0px;">
+							<div class="fl comment-chk-time fs11 c9">{$v3.switch_addtime}</div>
+							<div class="fr comment-del fs12" onclick="DeleteComment(this,'{$v3.c_id}');">删除</div>
+						</li>
+						<?php } ?>
+						<?php } ?>
+						<?php } ?>
+
+					</ul>
+				</div>
+			</div>
+
+
+			<!--评论-->
+			<div class="send-comm-bottom" style="padding: 0;">
+				<div class="send-comm-tipimg fl" style="margin: 0;width: 100%;"><img src="__IMG__/plbg.png" alt=""></div>
+			</div>
+
+			<!-- 加入圈子-->
+			<div class="t-s-jointrade bgcolor c3">
+				<div class="t-s-jt-title fs14 divre"><span class="divab">喜欢TA就加入TA的圈子</span></div>
+				<div class="t-s-jt-detail divtab ">
+					<div class="t-s-jt-img fl"><img src="__IMG__/shopimg.png"></div>
+					<div class="t-s-jt-info fl">
+						<span class="fs16">广州商圈</span>
+						<span class="fs12">已有5618名成员</span>
+						<p class="fs12 c3 clamp2">广州商圈广州商圈广州商圈广州商圈广州商圈广州商圈广州商圈广州商圈广州商圈</p>
+					</div>
+					<div class="t-s-jt-enter fr fs14 cb">进入</div>
+				</div>
+			</div>
+
+
+		</div>
+</div>
+
+<!-- 评论弹出框 -->
+<div class="send-comm-bg"></div>
+<div class="send-comm-pup">
+	<div class="send-comm-puptit">评论</div>
+	<div class="send-comm-txt">
+		<textarea placeholder="输入评论内容" name="feel" id="feel" rows="6" class="fs12"></textarea>
+	</div>
+	<input type="hidden" name="rid" id="rid" value="">
+	<input type="hidden" name="bid" id="bid" value="">
+	<div class="send-comm-btn" onclick="subcomment(1);">发表</div>
+</div>
+ <include file="Base@Public/pubjs" /> 
+ <script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+ <script type="text/javascript" src="__JS__/option.js"></script>
+ <script type="text/javascript">
+ 	var ucode = $('#ucode').val();
+ 	window.onload=function(){
+ 		styles(); 	
+ 	}
+ 	$(document).ready(function(){
+ 		/*查看图片*/
+		$("#imglist-1-1").viewer({title:false});
+	});
+	/*样式*/
+ 	function styles(){
+ 		var tsd = $('.t-s-de-left').width(),lihd = tsd*50/100;
+ 		$('.t-s-de-left').height(tsd);
+ 		$('.t-s-de-left').css("border-radius",tsd+'px');
+ 		$('.t-s-de-ncname').css('line-height',lihd+'px');
+ 		
+ 		var imglisw = $('.t-s-de-imglist li').width();
+ 		$('.t-s-de-imglist li').height(imglisw);
+ 		
+ 		var proimg = $('.t-s-de-proimg').width(),lihh = proimg*50/100;
+ 		$('.t-s-de-proimg').height(proimg);
+ 		$('.t-s-de-proname').css('line-height',lihh+'px');
+ 		
+ 		//$('.t-s-de-address').width($('.t-s-de-address').width());
+ 		
+ 		var addh = $('.t-s-de-addr-img').height();
+ 		$('.t-s-de-addr-img').css('line-height',addh+'px');
+
+ 		var jtImg = $('.t-s-jt-img').width();
+ 		$('.t-s-jt-img').height(jtImg);
+ 		$('.t-s-jt-enter').css('margin-top', jtImg*0.32 +'px');
+ 		
+ 		$('.t-s-td-name').css('line-height',$('.t-s-td-img').height()+'px');
+ 	}
+		
+//	var aclick = 1;
+	/*关注*/
+//	mui('.t-s-details').on('tap','.t-s-de-attention',function(){
+//		if(!ucode){
+//	       mui.confirm('关注需登录','提示',['取消','确认'],function (e) {
+//	       		e.index == 0 ? "" : mui.openWindow({url:WEB_HOST+'/index.php/Login/Index/index',id:'login'});
+//	       },'div');
+//	       return;
+//	   	}
+//		if(aclick==1){
+//			mui.alert('关注');
+//			$('.t-s-de-attention').text('取消关注');	
+//			aclick=2;
+//		}else{
+//			mui.alert('取消关注');
+//			$('.t-s-de-attention').text('关注');	
+//			aclick=1;
+//		}
+//	});	
+
+	/*查看个人空间*/
+	mui('.t-s-details').on('tap','.t-s-de-left',function(){
+		var cscource = $('#cscource').val();
+		mui.openWindow({
+		    url: '', 
+		    id:'myspace'
+		});
+	}); 
+	/*商品详情*/
+	mui('.t-s-details').on('tap','.t-s-de-product',function(){		
+		var cscource = $('#cscource').val();
+		var pcode = $('#pcode').val();
+		var curl = $('#curl').val();
+		if(cscource==1){
+			mui.openWindow({
+			    url: '__APP__/Shopping/Index/detail?pcode='+pcode,
+			    id:'product'
+			});
+		}else if(cscource==2){
+			mui.openWindow({
+			    url: '__APP__/Shopping/Entitymap/detail?pcode='+pcode, 
+			    id:'product'
+			});	
+		}
+	});
+
+	/*评论*/
+	mui('.send-comm-bottom').on('tap','.send-comm-tipimg',function(){
+		var rid = '<?php echo $data["c_id"] ?>';
+		sendcommt(rid,'评论');
+	});
+	/*打开小蜜app*/
+	mui('.mui-content').on('tap','.t-s-td-img',function(){
+		fchat();
+	});
+
+ 	mui.plusReady(function(){
+	});
+	/*举报*/
+	mui('.t-s-button-ico').on('tap', '.t-s-btn-ico-0', function() {
+		var tip = $(this).attr('data-tip');
+		if (tip == 1) {
+			mui.toast('您已举报过该条动态！');
+		} else {
+			var rcid = $(this).attr('title');
+			mui.openWindow({
+				url: '__URL__/report?content_id=' + rcid,
+				id: 'report'
+			});
+		}
+	});
+
+	/*点赞*/
+	function sharepraise(rid) {
+		if(!ucode) {
+			mui.confirm('点赞需登录', '提示', ['取消', '确认'], function(e) {
+				e.index == 0 ? "" : mui.openWindow({
+					url: WEB_HOST + '/index.php/Login/Index/index',
+					id: 'login'
+				});
+			}, 'div');
+			return;
+		}
+
+		var handle = $('#prastatu' + rid).val();
+		$.post(WEB_HOST + '/index.php/Trade/Index/ResourceLike', {
+				handle: handle,
+				resourceid: rid
+			},
+			function(obj) {
+				var msg = eval(obj);
+				var com = '';
+				if(msg['code'] == 0) {
+					if(handle == 1) {
+						$('#prastatu' + rid).val(0);
+						$("#praiseimg-" + rid).attr('src', GET_HOST + '/Resource/Trade/img/share_icon_after.png');
+						$("#praisenum-" + rid).text(parseInt($("#praisenum-" + rid).text()) - (-1));
+					} else {
+						$('#prastatu' + rid).val(1);
+						$("#praiseimg-" + rid).attr('src', GET_HOST + '/Resource/Trade/img/share_icon_dianzanbefore.png');
+						$("#praisenum-" + rid).text(parseInt($("#praisenum-" + rid).text()) - 1);
+					}
+					mui.toast(msg['msg']);
+				} else {
+					mui.toast(msg['msg']);
+				}
+			});
+	}
+ </script>
+
+ <include file="Base@Public/footer" />
+ </body>
+ </html>

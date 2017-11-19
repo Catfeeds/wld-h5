@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+
+.mbox-nav-tab ul li{ float: left;width: 50%;border-bottom: solid 2px #ebebeb;padding: 3% 0;text-align: center;color: #999;}
+.mbox-nav-tab ul li.hover{ border-bottom: solid 2px #47ABF7; color: #47ABF7;}
+
+.mailbox-item{ margin-bottom: 2%; padding-bottom: 4%;}
+.mb-item-time{ padding: 1% 0 2% 0; display: block;}
+.mb-item-text{ line-height: 1.5em;}
+.mailbox-item-question{ padding: 3%;}
+.mb-item-con ul li{ float: left; width: 31%; margin: 1%;}
+.mb-item-con ul li:nth-of-type(1){ margin-left: 1.5%;}
+
+
+.mailbox-item-question p{ -webkit-line-clamp: 3; margin: 2% 0;}
+.mailbox-item-question font{ display: block;text-align: right;padding-right: 3%;}
+.reply-info{ padding: 3%; background: #f9f9f9;}
+.pcolor{ color:#F62930; padding-bottom: 2%;}
+.reply-default{ padding: 0 3%;}
+.reply-default .divinput{width: 100%; width: 100%; padding: 2% 3%; border-radius: 3px; background: #47ABF7; text-align: center;}
+.reply-now{ padding: 0 3%;}
+.reply-now textarea{ background: #fff; width: 100%; font-size: 14px; padding: 2%; resize: none; outline: none; border: 1px solid #c8c8c8; padding: 2% 3%; border-radius: 5px;}
+
+
+.view-reply{ width: 100%; position: fixed; bottom: 0; max-width: 720px; min-width: 320px; background: #fff; padding: 2.5% 0; border-top: 1px solid #e5e5e5;}
+.view-reply input{ width: 98%; margin: 0 auto 0 1%; background: #f0f0f0; padding: 2% 3%; border-radius: 5px; border: none;}
+.send-btn{ width: 25%; text-align: center; float: right; background: #47ABF7; color: #fff; border-radius: 5px; padding: 1.5%; margin-top:2%;}

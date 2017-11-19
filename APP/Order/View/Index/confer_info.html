@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>协商详情</title>
+<meta content="微域领地" name="keywords">
+<meta content="微域领地协商详情" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=1.2"> 
+<script type="text/javascript">var WEB_HOST = "<?php echo WEB_HOST ?>";</script>
+</head>
+<body class="bgcolor">
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<volist name="data" id="vo">
+	<?php if (($i % 2) == 1) { ?>
+	<div class="confer_info bgeb c6">
+		<h3 class="fs13">{$vo.c_addtime}</h3>
+		<p class="fs13">{$vo.c_remarks}</p>
+	</div>
+	<?php } else { ?>
+	<div class="confer_info bgcolor c6">
+		<h3 class="fs13">{$vo.c_addtime}</h3>
+		<p class="fs13">{$vo.c_remarks}</p>
+	</div>
+	<?php } ?>
+	</volist>
+	<!-- <div class="confer_info bgcolor c6">
+		<h3>2016-04-12 15:00:00</h3>
+		<p>货物已退回</p>
+		<p>物流信息：顺丰快递&nbsp;&nbsp;&nbsp;&nbsp;1454564646</p>
+	</div>
+	<div class="confer_info bgeb c6">
+		<h3>2016-04-12 15:00:00</h3>
+		<p>卖家已同意退款退货</p>
+		<p>退货人：张飞&nbsp;&nbsp;&nbsp;&nbsp;12247563584</p>
+		<p>退货地址：湖南省长沙市岳麓区麓谷锦园58-6</p>
+	</div> -->
+	</div>
+</div>
+<include file="Base@Public/pubjs" />
+</body>
+</html>

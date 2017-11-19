@@ -1,0 +1,233 @@
+<?php
+
+/**
+ * 拼手气活动接口
+ */
+class PinshouqiActivity {
+
+	function PinRun($parr){
+		$ucode = $parr['ucode'];
+		if (empty($ucode)) {
+			return Message(1009,'请登录后再操作');
+		}
+
+		//获取剩余的参与次数
+		$lotterywhere['c_ucode'] = $parr['ucode'];
+		$lotterywhere['c_rule'] = 6;
+		$chance = M('Activity_lotterynum')->where($lotterywhere)->getField('c_num');
+		if ($chance <= 0) {
+			return Message(3001,'您的抽奖机会已经用完！');
+		}
+
+		//查询拼手气活动
+        $result = IGD('Index','Newact')->GetPlatActInfo(31);
+        if ($result['code'] != 0) {
+			return Message(3000,'活动还没有开始');
+		}
+		$activitydata = $result['data'];
+
+		$db = M('');
+		$db->startTrans();
+
+		//判断是否中奖
+		$resultprize = $this->ClickWinPrize($parr);
+		//查询奖项
+		$prizewhere['c_joinaid'] = $activitydata['c_id'];
+		$prizewhere['c_today_prize'] = 1;
+		$prizewhere['c_status'] = 1;
+		$prizewhere['c_delete'] = 2;
+		$prizewhere['c_num'] = array('GT',0);
+		$prizewhere['c_today_prize'] = 1;
+		$prizewhere['c_marks'] = $resultprize['data'];
+		$prizedata = M('A_actprize')->where($prizewhere)->find();
+		if (!$prizedata) {
+			$prizewhere['c_marks'] = 3;
+			$prizedata = M('A_actprize')->where($prizewhere)->find();
+		}
+		if ($prizedata['c_type'] == 2) {  //中现金
+			//随机金额
+			$movalue = rand($prizedata['c_value']*100,$prizedata['c_maxvalue']*100)/100;
+			$prizedataresult = $this->Winmoney($activitydata,$ucode,$prizedata,$movalue);
+			if ($prizedataresult['code'] != 0) {
+				$db->rollback(); //不成功，则回滚
+				return $prizedataresult;
+			}
+			$prizedata['c_value'] = $movalue;
+		} else if ($prizedata['c_type'] == 4) { //中实物
+	        $prizedataresult = $this->WinMatter($activitydata,$ucode,$prizedata);
+			if ($prizedataresult['code'] != 0) {
+				$db->rollback(); //不成功，则回滚
+				return $prizedataresult;
+			}
+			$prizedata = $prizedataresult['data'];
+		}
+ 
+		if (!$prizedata) {
+			$db->rollback(); //不成功，则回滚
+			return Message(3004,'活动奖品已派完');
+		}
+
+        //写入领取记录
+        $log['c_ucode'] = $parr['ucode'];
+        $log['c_pid'] = $prizedata['c_pid'];
+        $log['c_joinaid'] = $prizedata['c_joinaid'];
+        $log['c_awid'] = $prizedata['c_id'];
+        $log['c_acode'] = $prizedata['c_acode'];
+        $log['c_name'] = $prizedata['c_name'];
+        $log['c_img'] = $prizedata['c_img'];
+        $log['c_value'] = $prizedata['c_value'];
+        $log['c_marks'] = $prizedata['c_marks'];
+        $log['c_type'] = $prizedata['c_type'];
+        $log['c_state'] = 0;
+        $log['c_addtime'] = gdtime();
+        $result = M('A_actlog')->add($log);
+        if (!$result) {
+            $db->rollback(); //不成功，则回滚
+            return Message(1033, '记录写入失败');
+        }
+
+        //扣除奖品数量
+        $decwhere['c_id'] = $prizedata['c_id'];
+        $result =  M('A_actprize')->where($decwhere)->setDec('c_num',1);
+        if ($result['code'] != 0) {
+            $db->rollback(); //不成功，则回滚
+            return Message(1034, '扣除奖品数量失败');
+        }
+
+		//次数减一
+		$result = M('Activity_lotterynum')->where($lotterywhere)->setDec('c_num',1);
+		if (!$result) {
+            $db->rollback(); //不成功，则回滚
+            return Message(1035, '扣除用户抽奖次数失败');
+        }		
+
+		$prizearr['Id'] = $prizedata['c_id'];
+		if ($prizedata['c_type'] == 2) {
+			$prizearr['name'] = '获得'.$prizedata['c_name'].'￥'.$movalue.'已存入余额';
+		} else if ($prizedata['c_type'] == 4) {
+			$prizearr['name'] = '获得'.$prizedata['c_name'].'已存入订单等待发货';
+		} else {
+			$prizearr['name'] = $prizedata['c_name'];
+		}
+		$prizearr['num'] = $chance - 1;
+		//查询角度
+		$sign = 'prize'.$prizedata['c_marks'];
+		$anglearr = explode(',',$rouletteconf[$sign]);
+		$prizearr['angle'] = rand($anglearr[0]+10,$anglearr[1]-10);
+		// 写入消息中心
+        $Msgcentre = IGD('Msgcentre', 'Message');
+        $msgdata['ucode'] = $parr['ucode'];
+        $msgdata['platform'] = 1;
+        $msgdata['sendnum'] = 1;
+        if ($prizedata['c_type'] == 2) {
+       	 	$msgdata['title'] = '系统消息';
+        	$msgdata['type'] = 0;
+        	$msgdata['tag'] = 2;
+            $msgdata['content'] = '您在'.$activitydata['c_activityname'].'活动中获得红包金额为￥' . $movalue . '，领取成功已转入余额';
+            $msgdata['tagvalue'] = GetHost(1) . '/index.php/Balance/Index/budget';
+            $msgdata['weburl'] = GetHost(1) . '/index.php/Balance/Index/budget';
+            $msgresult = $Msgcentre->CreateMessegeInfo($msgdata);
+        } else if ($prizedata['c_type'] == 4) {
+        	$msgdata['type'] = 1;
+            $msgdata['title'] = '订单消息';
+            $msgdata['tag'] = 3;
+            $msgdata['tagvalue'] = $prizedata['orderid'];
+            $msgdata['content'] = '您在'.$activitydata['c_activityname'].'活动中获得一个奖品：' . $prizedata['c_name'] . '，已转入订单';
+            $msgdata['weburl'] = GetHost(1) . '/index.php/Order/Index/detail?orderid=' . $prizedata['orderid'];
+       		$msgresult = $Msgcentre->CreateMessegeInfo($msgdata);
+        }
+		// $prizearr['c_type'] = $prizedata['c_type'];
+  //       $prizearr['c_name'] = $prizedata['c_name'];
+		// $prizearr['c_value'] = $prizedata['c_value'];
+		// $prizearr['c_img'] = GetHost().'/'.$prizedata['c_img'];
+
+		$w['c_joinaid'] = $activitydata['c_id'];
+		$w['c_today_prize'] = 1;
+		$w['c_status'] = 1;
+		$w['c_delete'] = 2;
+		$w['c_num'] = array('GT',0);
+		$w['c_today_prize'] = 1;
+		$prizedata = M('A_actprize')->where($w)->select();
+		foreach ($prizedata as $key => $value) {
+			$prizedata[$key]['c_sign'] = 0;
+			if ($resultprize['data'] == $value['c_marks']) {
+				$prizedata[$key]['c_sign'] = 1;
+			}
+			$prizedata[$key]['c_type'] = $value['c_type'];
+			$prizedata[$key]['c_name'] = $value['c_name'];
+			$prizedata[$key]['c_value'] = $value['c_value'];
+			$prizedata[$key]['c_img'] = GetHost().'/'.$value['c_img'];
+		}
+
+		$num = rand(1,100);
+		if ($num > 0 && $num <= 30) {
+			$w['c_marks'] = 1;
+		}else if($num > 30 && $num <= 60){
+			$w['c_marks'] = 2;
+		}else if($num > 60 && $num <= 100){
+			$w['c_marks'] = 3;
+		}
+		$prizedata[4] =  M('A_actprize')->where($w)->find();
+		$prizearr[4]['c_img'] = GetHost().'/'.$prizedata[4]['c_img'];
+		$prizedata[4]['c_sign'] = 0;
+		$prizearr['data'] = $prizedata;
+		$db->commit();
+		dump($prizearr);
+		return MessageInfo(0,'获取成功',$prizearr);
+
+	}
+
+	/**
+     *  随机中奖项
+     *  @param count
+     *  @return type:3三等奖,2二等奖,1一等奖
+     */
+    function ClickWinPrize($parr) {
+        $type = 3;
+        $rom = rand(1,1000);
+        if ($rom > 0 && $rom <= 333) {
+            $type = 1;
+        } else if ($rom > 333 && $rom <= 666) {
+            $type = 2;
+        }
+		
+        return MessageInfo(0,'参与成功',$type);
+    }
+
+    //中现金操作
+	function Winmoney($activitydata,$ucode,$prizedata,$movalue)
+	{
+		// 写入用户余额
+        $rebatemoney = IGD('Money', 'User');
+        $moneyparr['ucode'] = $ucode;
+        $moneyparr['money'] = $movalue;
+        $moneyparr['source'] = 31;
+        $moneyparr['key'] = $activitydata['c_activityname'];
+        $moneyparr['desc'] = "您在".$activitydata['c_activityname']."中活动中奖金额";
+        $moneyparr['state'] = 1;  //完成状态
+        $moneyparr['type'] = 1;
+        $moneyparr['isagent'] = 0;
+        $moneyparr['joinaid'] = $activitydata['c_id'];
+        $moneyparr['showimg'] = 'Uploads/settlementshow/huo.png';
+        $moneyparr['showtext'] = '活动';
+        $result = $rebatemoney->OptionMoney($moneyparr);
+        if ($result['code'] != 0) {
+            return Message(1033, '修改用户余额失败！');
+        }
+        return MessageInfo(0, '查询成功',$prizedata);
+	}
+
+	//中实物奖操作
+	function WinMatter($activitydata,$ucode,$prizedata)
+	{
+		//进行转化订单操作
+		$result = IGD('Actoder','Order')->CreataOrderInfo($ucode,$activitydata,$prizedata);
+		if ($result['code'] != 0) {
+			return $result;
+		}
+		$prizedata['orderid'] = $result['data'];
+        return MessageInfo(0, '查询成功',$prizedata);
+	}
+
+
+}

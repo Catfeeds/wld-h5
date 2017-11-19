@@ -1,0 +1,199 @@
+<link href="__CSS__/jquery_dialog.css" rel="stylesheet" type="text/css" />
+<div class="page-top">
+	<div class="page-top-l fl">
+		<a href="javascript:history.go(-1)" id="return-top"> <img src="__IMG__/mobile/m-jt.png" alt=""></a>
+	</div>
+	<div class="page-top-c fl" id="page-top-c-t">
+		
+	</div>
+	<div class="page-top-r fr">
+		<a href="javascript:;" onclick="showmenu(1)" id="icolink">
+			<img src="__IMG__/mobile/menu-ico-l.png" alt="">
+		</a>
+		<a href="javascript:;" onclick="showmenu(2)" id="icohover" style="display:none;">
+			<img src="__IMG__/mobile/menu-ico-h.png" alt="">
+		</a>
+	</div>
+</div>
+
+<div class="m-menu-bigbg" style="background:rgba(0,0,0,.3);width: 100%;height:100%;position: absolute;z-index: 99;left:0;top:0; display:none;"></div>
+<div class="page-menu-bg" style=" display:none;">
+	<div class="page-menu-logo" style="padding: 5% 20% 0 20%;">
+		<a href="__APP__/Shop/Information"><img src="__IMG__/mobile/m-logo.png" alt=""></a>
+	</div>
+	<div class="page-m-loginname">
+		欢迎您&nbsp;&nbsp;{$Think.session._SHOP_NAME}
+	</div>
+	<ul class="page-menu-list">
+		<li>
+			<a href="__APP__/Shop/Information">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-1.png" alt=""></div>
+				<div class="fl p-m-text">公告</div>
+				<div class="fl p-m-num" id="notice">0</div>
+			</a>
+		</li>
+		<!-- <li>
+        <a href="__APP__/Shop/shop/producelist">
+        <div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-2.png" alt=""></div>
+        <div class="fl p-m-text">我的商品</div>
+        </a>
+      </li> -->
+		<li>
+			<a href="__APP__/Shop/Member">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-5.png" alt=""></div>
+				<div class="fl p-m-text">会员管理</div>
+			</a>
+		</li>
+		<li>
+			<a href="__APP__/Shop/Download">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-4.png" alt=""></div>
+				<div class="fl p-m-text">资料下载</div>
+			</a>
+		</li>
+		<li>
+			<a href="__APP__/Shop/Personal/shopinfo">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-5.png" alt=""></div>
+				<div class="fl p-m-text">所属区域</div>
+			</a>
+		</li>
+		<?php if ($infoshop['c_role'] == 1) { ?>
+		<li>
+			<a href="__APP__/Shop/Multshop/index">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/icon_dldgl.png" alt=""></div>
+				<div class="fl p-m-text">连锁店管理</div>
+			</a>
+		</li>
+		<?php } else if ($infoshop['c_role'] == 2) { ?>
+		<li>
+			<a href="__APP__/Shop/Leagshop/index">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/join_icon.png" alt=""></div>
+				<div class="fl p-m-text">加盟店管理</div>
+			</a>
+		</li>
+		<?php } ?>
+		<li>
+			<a onclick="personal_url()" href="javascript:;">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/m-ico-5.png" alt=""></div>
+				<div class="fl p-m-text">个人中心</div>
+			</a>
+		</li>
+		<li>
+			<a href="__APP__/Shop/Personal/updatepwd">
+				<div class="p-m-ico fl"><img src="__IMG__/mobile/sjjh_icon_xgmm.png" alt=""></div>
+				<div class="fl p-m-text">修改密码</div>
+			</a>
+		</li>
+		<li>
+			<a href="__APP__/Shop/Login/logout" class="a-loginout">
+				<img src="__IMG__/mobile/loginout.png" alt="">
+			</a>
+		</li>
+	</ul>
+
+</div>
+
+<script type="text/javascript" src="__JS__/fastclick.js"></script>
+<script type="text/javascript" src="__JS__/jquery_dialog.js"></script>
+<script type="text/javascript">
+	function topstyle() {
+		// var pth = $('.page-top').height();
+		// $('.page-top-c').css('line-height', pth + 'px');
+		var topr = $('.page-top-r').width();
+		$('.page-top-r').height(topr);
+		var topl = $('.page-top-l').width();
+		$('.page-top-l').height(topr);
+	}
+
+	function menustyle() {
+
+		var pth = $('.page-top').height();
+		$('.page-menu-bg').css('top', pth + 'px');
+
+		var dh = $(document).height();
+		$('.page-menu-bg').css('height', dh + 'px');
+
+		// var icoh = $('.page-menu-list li').height();
+		// $('.p-m-text').css('line-height', icoh + 'px');
+		var numh = $('.p-m-num').height();
+		$('.p-m-num').css('width', numh + 'px');
+		$('.p-m-num').css('line-height', numh + 'px');
+		$('.p-m-num').css('border-radius', numh + 'px');
+	}
+
+	function showmenu(v) {
+		var v = v;
+		if(v == 1) {
+			$('.page-menu-bg').fadeIn(500);
+			$('#icolink').hide();
+			$('#icohover').show();
+			$('.m-menu-bigbg').css("display", "block");
+			$('.m-menu-bigbg').height($(document).height());
+			menustyle();
+		} else {
+			$('.page-menu-bg').fadeOut(300);
+			$('#icolink').show();
+			$('#icohover').hide();
+			$('.m-menu-bigbg').css("display", "none");
+		}
+	}
+
+	$('.m-menu-bigbg').click(function() {
+		$('.page-menu-bg').fadeOut(300);
+		$('#icolink').show();
+		$('#icohover').hide();
+		$('.m-menu-bigbg').css("display", "none");
+	});
+
+	getnum();
+
+	/*显示数字*/
+	function getnum() {
+		var keyUrl = '__APP__/Shop/Information/GetStatuMessage';
+		$.ajax({
+			url: keyUrl,
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				var msg = eval(data);
+				if(msg['code'] == 0) {
+					$('#notice').text(msg['data']['publicnum'])
+				} else {
+					JqueryDialog.Show(msg['msg']);
+				}
+			}
+		});
+	}
+
+	$(function() {
+		$('#page-top-c-t').text($(document).attr("title"));
+	});
+
+	var checked = '<?php echo $infoshop["c_checked"] ?>';
+	var cid = '<?php echo $infoshop["c_id"] ?>';
+	var dcode = '<?php echo $infoshop["c_dcode"] ?>';
+    var cshop = '<?php echo $userdata["c_shop"]; ?>';
+    var oldinfo = '<?php echo $oldinfo; ?>';
+
+	function personal_url() {
+        if(cshop==1 && oldinfo==1){
+            window.location.href = "__APP__/Shop/Personal/sub4_1";
+        }else{
+            if(dcode != "" && dcode != null && typeof(dcode) != "undefined" && checked != "" && checked != null && checked != -1) {
+                window.location.href = "__APP__/Shop/Personal/checkinfo";
+            } else {
+                if(!dcode && cid) {
+                    window.location.href = "__APP__/Shop/Personal/sub4_1";
+                }else if(dcode && cid){
+                    window.location.href = "__APP__/Shop/Personal/sub4_3?isfixed=<?php echo $infoshop['c_isfixed'] ?>&ctype=<?php echo $infoshop['c_type'] ?>";
+                }
+            }
+            if(checked==3){
+                window.location.href = "__APP__/Shop/Personal/info_9?isfixed=<?php echo $infoshop['c_isfixed'] ?>&ctype=<?php echo $infoshop['c_type'] ?>";
+            }
+        }
+	}
+
+	$(function() {
+		FastClick.attach(document.body);
+	});
+</script>

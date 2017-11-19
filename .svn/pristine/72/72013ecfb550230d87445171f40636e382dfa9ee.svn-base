@@ -1,0 +1,59 @@
+	<div id="top-bg">
+		<div class="top-main-w">
+			<div class="top-operate">
+				<ul>
+					<li>欢迎您：{$Think.session._AGENT_NAME}</li>
+					<li><a href="javascript:;" style="border-right:solid 1px #999;padding-right:12px;">提取账号</a></li>
+					<li><a href="">刷新</a></li>
+					<li><a href="__APP__/Agent/Login/logout">退出</a></li>
+				</ul>
+			</div>
+			<div class="top-logo-menu">
+				<div class="top-logo-m fl"><img src="__IMG__/admin-logo.png" alt=""></div>
+				<div class="top-agent-menu fr">
+					<ul class="agent-channel">
+						<li id="li-1"><a href="__APP__/Agent/Information/index">公告</a></li>
+						<li id="li-2"><a href="__APP__/Agent/Personal/shopinfo">上级代理</a></li>
+						<li id="li-3"><a href="__APP__/Agent/Shopcheck/index">商家审核</a></li>
+						<li id="li-4"><a href="__APP__/Agent/Codecheck/index">商家激活码</a></li>
+						<li id="li-5"><a href="__APP__/Agent/Download/index">资料下载</a></li>
+						<li id="li-6">
+							<a href="__APP__/Agent/Personal/index">个人中心</a>
+						</li>
+					</ul>
+				    <div id="menubox-6" class="hidden-box">
+						<ul id="son-menu">
+							<li><a href="__APP__/Agent/Personal/index">资料设置</a></li>
+							<li><a href="__APP__/Agent/Personal/updatepwd">密码修改</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#li-6').hover(function(){
+        $('#menubox-6').slideDown(300);
+    },function(){
+        $('#menubox-6').hide();
+    });
+    $('.hidden-box').hover(function(){
+    	$("#li-6 a").addClass("hover");
+        $(this).show();
+    },function(){
+        $(this).slideUp(200);
+    	$("#li-6 a").removeClass("hover");
+    });
+});
+
+function exitLogin()
+{
+	parent.window.location.href="{:U('Index/index')}";
+	window.opener.location.reload();
+}
+
+</script>

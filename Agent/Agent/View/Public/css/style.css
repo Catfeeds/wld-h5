@@ -1,0 +1,141 @@
+/*登录页面样式*/
+body{min-width: 960px;font-family: '微软雅黑';font-weight: 400;background:#f0f3fa;}
+.login_top{width: 100%;height: 180px;background:#46bad6;}
+.login_img{width: 302px;margin: auto;padding-top:37px;overflow: hidden;}
+.login_img img{width: 302px;height: auto;}
+.login_body{width: 100%;height: 100%;background:#f0f0f0;overflow: hidden;}
+.login_box{ width: 650px; height: 350px;margin:auto;margin-top:4%;overflow: hidden;}
+.box_img{width: auto;height: 60px;overflow: hidden;}
+.box_img img{max-width: 100%;height: auto;}
+.box_content{width: 100%;margin:auto;overflow: hidden;position: relative;height: 300px;background:#fff; }
+.login_row{ width: 100%; margin-top: 40px;}
+.login_row span{color: #555; font-size: 20px; float: left; margin-right: 25px;}
+.login_row_2 span{ letter-spacing: 5px;}
+.login_row span img{margin: 0 25px;vertical-align: middle;}
+.txt_name{border: solid 1px #bdbdbd; border-radius: 5px; float: left; font-size: 14px; line-height: 40px;height:40px; width: 300px; padding-left: 5px;}
+.txt_pwd{width: 290px;}
+.txt_yzm{ width: 150px;}
+#yzm_Img{ width: 150px; text-align: center;}
+#yzm_Img a{ font-size: 18px; color: #555;}
+#login_c_bg_Img{ position: absolute; z-index: 8; top: 87px;}
+.login_btn{ position: absolute; right: 50px; top: 100px;}
+.login_btn .seller-login-btn{border: none; background: url(../images/sellerIndex/seller_login_link.png) no-repeat; cursor:pointer; height: 95px; width: 51px;}
+.seller-login-btn:hover{background: url(../images/sellerIndex/seller_login_hover.png) no-repeat;}
+
+
+/*公告管理样式*/
+.information{width: 90%;margin:2%;background:#fff;padding:3%;background:#fff;}
+.information_li{width: 80%;overflow:hidden;padding:1% 0px;cursor:pointer;
+	border-bottom: 1px solid #ebebeb;color:#999;}
+.information_left{width: 70%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
+font-size: 16px;}
+.information_right{width: 30%;overflow:hidden;font-size: 16px;}
+
+.detail_head{width: 100%;overflow: hidden;text-align: center;
+	font-size: 18px;color:#555;padding:2% 0px;}
+.detail_mid{width: 96%;overflow: hidden;border-bottom: 1px dashed #ebebeb;
+	padding:1% 2%;font-size: 14px;color:#999;}
+.detail_content{width: 96%;padding:2%;overflow: hidden;font-size: 16px;color:#666;}
+.detail_content p{text-indent:2em;}
+
+/*信息管理样式*/
+.member{width: 90%;margin:2%;background:#fff;padding:3%;}
+.member_top{width: 80%;overflow: hidden;border-bottom: 1px solid #ebebeb;}
+.member_title{width: 150px;padding:1% 0px;border-bottom: 1px solid #58c3f0;
+	overflow: hidden;text-align: center;font-size: 18px;font-weight: 600;color:#666;}
+.member_mid{width: 80%;overflow: hidden;border-bottom: 1px solid #ebebeb;padding:1% 0px;font-size: 14px;}
+.member_del{width: 100px;text-align: center;margin-left: 30px;color:#fff;font-size: 14px;
+border-radius: 5px;background:#58c3f0;padding:2px 0px;}
+.member_list{width: 80%;overflow: hidden;}
+.member_list table{width: 100%;overflow: hidden;color:#555;font-size: 14px;}
+.member_list table tr td{border-bottom: 1px solid #ebebeb;padding:1% 0px;font-size: 14px;}
+.member_list table tr td a:hover{text-decoration: none;}
+
+/*资料管理*/
+.material{width: 90%;margin:2%;background:#fff;padding:3%;}
+.material_top{width: 80%;overflow: hidden;border-bottom: 1px solid #ebebeb;}
+.material_title{width: 150px;padding:1% 0px;border-bottom: 1px solid #58c3f0;
+	overflow: hidden;text-align: center;font-size: 18px;font-weight: 600;color:#666;}
+.material_mid{width: 80%;overflow: hidden;border-bottom: 1px solid #ebebeb;padding:1% 0px;font-size: 14px;}
+.material_del{width: 100px;text-align: center;margin-left: 30px;color:#fff;font-size: 14px;
+border-radius: 5px;background:#58c3f0;padding:2px 0px;}
+.material_list{width: 80%;overflow: hidden;}
+.material_list table{width: 100%;overflow: hidden;color:#555;font-size: 14px;}
+.material_list table tr{padding: 1% 0;}
+.material_list table tr td{border-bottom: 1px solid #ebebeb;padding:2% 0px;font-size: 14px;}
+.material_list table tr td a:hover{text-decoration: none;}
+
+/*激活码管理*/
+.activation{width: 90%;margin:2%;background:#fbf8f8;padding:3%;}
+.activation_top{width: 80%;overflow: hidden;border-bottom: 1px solid #ebebeb;}
+.activation_title{width: 150px;padding:1% 0px;border-bottom: 1px solid #58c3f0;
+overflow: hidden;text-align: center;font-size: 18px;font-weight: 400;color:#666;}
+.activation_content{width: 60%;overflow: hidden;}
+.activation_list{padding:2% 1%;width: 46%;overflow: hidden;position:relative;}
+.activation_list img,.activation_abimg img{width: 100%;height: auto;border: 1px solid #ebebeb;}
+.activation_abimg{width: 96%;overflow: hidden;position:absolute;z-index: 222;
+top:5%;left:2%;}
+.activation_text{width: 96%;overflow: hidden;position:absolute;z-index: 22;color:#fff;
+font-size: 22px;top:40%;left:2%;text-align: center;font-weight: 600;}
+.activation_nobel{width: 92%;overflow: hidden;position:absolute;z-index: 22;color:#fff;
+font-size: 14px;top:75%;left:2%;text-align: right;font-weight: 600;}
+.activation_form{width: 72%;position:absolute;z-index: 22;color:#333;overflow: hidden;
+font-size: 14px;top:25%;left:13%;display:none;}
+.activation_redio{width: 100%;overflow: hidden;padding:2% 4%;}
+.activation_but{width: 40%;margin-left: 30%;text-align: center;border-radius: 5px;color:#fff;
+font-size: 14px;background:#58c3f0;margin-top: 5%;padding: 2% 0px;cursor:pointer;}
+
+/*企业代理申请样式*/
+.business{width: 90%;margin:2%;background:#fff;padding:3%;}
+.business_top{width: 80%;overflow: hidden;border-bottom: 1px solid #ebebeb;}
+.business_title{width: 150px;padding:1% 0px;border-bottom: 1px solid #58c3f0;
+overflow: hidden;text-align: center;font-size: 18px;font-weight: 400;color:#666;}
+.business_mid{width: 60%;overflow: hidden;padding:2% 0px;}
+.business_mid img{width: 100%;height: auto;}
+.business_sign{width: 120px;padding:1% 0px;overflow: hidden;font-size: 16px;color:#666;
+color:#666;}
+.business_content{width: 80%;overflow: hidden;}
+.inpu_info{width: 74.5%;overflow: hidden;font-size: 14px;color:#666;border:1px solid #ebebeb;
+margin: 1% 0px;}
+.inpu_name{width: 20%;overflow: hidden;padding:1.5%;}
+.inpu_text{width: 74%;overflow: hidden;padding:1.5%;border:0px;font-size: 14px;font-size: 14px;}
+.inpu_length{width: 36%;}
+.inpu_lgname{width: 35%;padding:2%;}
+.inpu_lgtxet{width: 55%;padding:2%;}
+.business_content label{font-size: 12px;color:#58c3f0;padding:2%;}
+.business_img{width: 20%;overflow: hidden;margin: 3%;}
+.business_img img{width: 100%;height:auto;}
+.business_sub{width: 15%;padding:1% 0px;border-radius: 3px;color:#fff;
+font-size: 16px;background:#58c3f0;border:0px;margin: 3%;}
+.business_tit{width: 80%;height: 25px;line-height: 25px;border-left:3px solid #58c3f0;overflow: hidden;
+padding-left: 15px;font-size: 16px;color:#555;}
+.business_desc{width: 80%;padding:1% 0px;margin-left: 2%;font-size: 12px;color:#58c3f0;}
+.business_coun{width: 60%;overflow: hidden;padding:2%;font-size: 18px;color:#555;
+font-weight: 400;}
+
+/*微商审核样式*/
+.productmodular-bottom{
+	overflow: hidden;
+	margin-top: 28px;
+}
+
+.productmodular-img{
+	position: relative;
+	float:left;
+	width: 188px;
+	height: 149px;
+	margin-right: 10px;
+	margin-top:10px;	
+}
+.productmodular-position{
+	position: absolute;
+	display:none;
+	width: 53px;
+	height: 52px;
+	top:49px;
+	left:68px;
+}
+.productmodular-img img{
+	width: 100%;
+	height: 100%;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>连锁店管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/multshop/index.css" />
+</head>
+<body class="bgcolor">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="mulshop-ma-top divtab">
+				<p class="fs12 cf">今日营业额</p>
+				<p class="fs22 fb600 cf">{$count['today']}元</p>
+				<p class="fs14">昨日<span>{$count['yesterday']}</span>元</p>
+			</div>
+
+			<div class="mulshop-ma-entrance divtab bgcolor">
+				<ul>
+					<li id="datacount">
+						<div class="mulshop-menu-icon">
+							<img src="__IMG__/multshop/lsdgl_icon_sj.png">
+						</div>
+						<div class="mulshop-menu-name c3 fs14">数据统计</div>
+					</li>
+					<li id="incomedetail">
+						<div class="mulshop-menu-icon">
+							<img src="__IMG__/multshop/lsdgl_icon_ys.png">
+						</div>
+						<div class="mulshop-menu-name c3 fs14">营收明细</div>
+					</li>
+					<li id="shopmember">
+						<div class="mulshop-menu-icon">
+							<img src="__IMG__/multshop/lsdgl_icon_hy.png">
+						</div>
+						<div class="mulshop-menu-name c3 fs14">店铺会员</div>
+					</li>
+					<li id="mcrossincome">
+						<div class="mulshop-menu-icon">
+							<img src="__IMG__/multshop/lsdgl_icon_sy.png">
+						</div>
+						<div class="mulshop-menu-name c3 fs14">跨界收益</div>
+					</li>
+					<li id="branchshop">
+						<div class="mulshop-menu-icon">
+							<img src="__IMG__/multshop/lsdgl_icon_fd.png">
+						</div>
+						<div class="mulshop-menu-name c3 fs14">分店信息</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		/*$('.xm-bar-nav-right').text("添加");*/
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		// body...
+	}
+
+
+	//跳转数据统计
+	mui('.mui-content').on('tap', '#datacount', function() {
+		mui.openWindow({url:"__URL__/datacount",id:"datacount"});
+	});
+	//跳转营收明细
+	mui('.mui-content').on('tap', '#incomedetail', function() {
+		mui.openWindow({url:"__URL__/incomedetail",id:"incomedetail"});
+	});
+	//跳转店铺会员
+	mui('.mui-content').on('tap', '#shopmember', function() {
+		mui.openWindow({url:"__URL__/shopmember",id:"shopmember"});
+	});
+	//跳转跨界收益
+	mui('.mui-content').on('tap', '#mcrossincome', function() {
+		mui.openWindow({url:"__URL__/crossincome",id:"crossincome"});
+	});
+	//跳转分店信息
+	mui('.mui-content').on('tap', '#branchshop', function() {
+		mui.openWindow({url:"__URL__/branchshop",id:"branchshop"});
+	});
+</script>
+
+</html>

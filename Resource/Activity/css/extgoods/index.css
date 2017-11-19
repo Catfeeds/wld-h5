@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+.extgoods-main {
+    padding: 10%;
+    background: url("../../img/extgoods/jh_bg.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.extgoods-actdetails .extgoods-actimage {
+    padding: 0 10%;
+}
+
+.extgoods-actdetails .extgoods-actrule {
+    right: 0;
+    bottom: 10%;
+    text-align: right;
+}
+
+.extgoods-actdetails .extgoods-actrule img {
+    width: 50%;
+    height: 50%;
+}
+
+.extgoods-prizes li {
+    width: 46%;
+    margin: 1%;
+    text-align: center;
+}
+
+.extgoods-prizes li img {
+    height: 100%;
+}
+
+.extgoods-prizes li img:last-child {
+    display: none;
+    width: 0;
+}
+
+.show-prize {
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.show-prize-content {
+    background: url("../../img/extgoods/tc_bg.gif") center center no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+}
+
+.show-rule {
+    display: none;
+    width: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5%;
+    padding: 4%;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.show-rule h3 {
+    text-align: center;
+}
+
+.show-rule .extgoods-actrule-introduction p {
+    padding: 1rem 1.2rem 0 1.5rem;
+}
+
+.show-rule .extgoods-actrule-introduction p em {
+    width: 1rem;
+    height: 1rem;
+    top: 1.2rem;
+    left: 0;
+    border-radius: 50%;
+    background: url("./../../img/extgoods/tc_jb.png") center center no-repeat;
+}

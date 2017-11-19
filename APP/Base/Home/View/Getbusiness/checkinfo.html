@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>审核商家信息</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/index.css?v=1.2">
+</head>
+<body>
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="getbusiness-top bgcolor"><img src="__IMG__/getbusiness/fc-08.png" alt=""></div>
+	<?php if ($data['c_checked'] == 1) { ?>
+	<div class="state-no-info bgcolor divtab">
+		<div class="state-no-img"><img src="__IMG__/getbusiness/fc-18.png" alt=""></div>
+		<div class="state-no-tip fs14 c5">您的资料填写有误，请重新填写。</div>
+		<button class="goldcard-btn fs16 btn-blue" onclick="return_state()">确定</button>
+	</div>
+	<?php }else if($data['c_checked'] == 2){ ?>
+	<div class="state-info bgcolor">
+		<div class="state-img fl">
+			<img src="__IMG__/getbusiness/fc-15.png" alt="">
+		</div>
+		<div class="state-font fl">
+			<ul>
+				<li><h3 class="c3 fs14">代理已审核</h3><p class="c9 fs12">审核时间1-3个工作日</p></li>
+				<li class="qdstate"><h3 class="c3 fs14">区代审核</h3><p class="c9 fs12">审核时间1-3个工作日</p></li>
+			</ul>
+		</div>
+	</div>
+	<?php }else if($data['c_checked'] == 0){ ?>
+	<div class="state-info bgcolor">
+		<div class="state-img fl">
+			<img src="__IMG__/getbusiness/fc-14.png" alt="">
+		</div>
+		<div class="state-font fl">
+			<ul>
+				<li><h3 class="c3 fs14">等待代理商审核</h3><p class="c9 fs12">审核时间1-3个工作日</p></li>
+				<li class="qdstate"><h3 class="c3 fs14">区代审核</h3><p class="c9 fs12">审核时间1-3个工作日</p></li>
+			</ul>
+		</div>
+	</div>
+	<?php } ?>
+	<div class="state-erweima divtab bgcolor">
+		<div class="erweima"><img src="__IMG__/getbusiness/fc-06.png" alt=""></div>
+		<p class="fs12 c9">想获取更多微领地小蜜资料</p>
+		<p class="fs12 c9">扫一扫添加公众号<span style="color:#46a9fa;">VIP小蜜</span></p>
+		<p class="fs12 c9">如有疑问请联系您的代理商</p>
+		<p class="fs12 c9">或者致电小蜜客服热线<a href="tel:400-9603-400" style="color:#46a9fa;">400-9603-400</a></p>
+	</div>
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function () {
+		styles();
+	}
+	function styles () {
+		var stateh = $('.state-img').height();
+		$('.state-img').height(stateh);
+		var qdh = stateh*35/100;
+		$('.qdstate').css("margin-top",qdh+"px");
+	}
+
+	function return_state () {
+		window.location.href="__URL__/shoperinfo";
+	}
+
+</script>
+<include file="Base@Public/foot"/>
+</body>
+</html>

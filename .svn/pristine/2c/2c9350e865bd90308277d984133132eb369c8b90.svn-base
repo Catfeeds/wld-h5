@@ -1,0 +1,29 @@
+<?php
+/**
+ * 	微商扫码产品管理
+ *
+ */
+class NewStore {
+
+    /**创建分类
+     * ucode 商家用户编码
+     * categoryname  分类名称
+    */
+    //获取买过的产品的用户信息 add by james
+    function getBuyInfo($pcode){
+        $w['c.c_pcode']=$pcode;
+        $w['b.c_pay_state']=1;
+        $field ="a.c_headimg,a.c_ucode";
+        $join1 ="t_order as b on b.c_ucode=a.c_ucode";
+        $join2 ="t_order_details as c on c.c_orderid =b.c_orderid";
+        $list =M('Users as a')->distinct('a.c_ucode')->join($join1)->join($join2)->field($field)->where($w)->select();
+        $count =count($list);
+        foreach($list as $key=> $value){
+            $data['list'][$key]['headimg'] =GetHost() . '/' .$value['c_headimg'];
+            $data['list'][$key]['ucode'] =$value['c_ucode'];
+        }
+        $data['total'] =$count;
+        return $data;
+    }
+
+}

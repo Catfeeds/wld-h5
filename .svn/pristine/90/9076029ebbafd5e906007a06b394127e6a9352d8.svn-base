@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>店铺资料设置</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/entity/add.css?v=1.2">
+	</head>
+
+	<body>
+
+		<div class="wrap-page marb3">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+
+				<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+					<input type="hidden" name="storeid" value="{$storeinfo.c_id}">
+					<div id="con-tabctrl-1" class="block marb3">
+						<div class="setinfo-box">
+							<div class="setinfo-left fl c3 fs13">店铺名称</div>
+							<div class="setinfo-right fl fs14 c9">
+								<input type="text" placeholder="请输入店铺名称" id="sname" name="c_name" value="{$storeinfo.c_name}" maxlength="20" class="fs12">
+							</div>
+						</div>
+						<div class="setinfo-rem c9 fs12">*店铺名称与用户昵称同步，请确保唯一性</div>
+						<div class="setinfo-box">
+							<div class="setinfo-intr c3 fs13">店铺介绍&nbsp;<span class="c9 fs12" id="min-lenfont">0</span><span class="c9 fs12">/</span><span class="c9 fs12" id="max-lenfont">200</span></div>
+							<div class="setinfo-intr-area fs13 c9">
+								<?php if(empty($storeinfo['c_desc'])){?>
+								<textarea name="c_desc" id="scesc" rows="8" placeholder="请输入店铺介绍信息" maxlength="200" class="fs12"></textarea>
+								<?php }else{ ?>
+								<textarea name="c_desc" id="scesc" rows="8" placeholder="请输入店铺介绍信息" maxlength="200" class="fs12 c9">{$storeinfo['c_desc']}</textarea>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="product-main-img bgcolor" style="margin-top: 4%;">
+							<div class="product-imgtxt" style="margin-left:4%;"><span class="c3 fs13">店铺图片</span><span class="cc fs12" style="margin-left:3%;">(建议尺寸720*400)</span>
+							</div>
+						</div>
+						<!-- <div class="product-imgdesc cc fs12">说明：</div> -->
+						<div class="product-main-imglist bgcolor">
+							<ul class="pro-main-ul">
+								<?php if($storeinfo['imglist']){ ?>
+								<li>
+									<div class="pro-main-imgbox">
+										<div class="pro-m-upload">
+											<img id="simr1" src="{$storeinfo['imglist'][0]['c_thumbnail_img']}" alt="" class="hidds">
+										</div>
+										<input type="hidden" name="online_sub_img1" value="{$storeinfo['imglist'][0]['c_thumbnail_img']}" id="sub_img_val_1">
+										<input type="file" name="online_sub_img1" id="sub_file1" placeholder="" onclick="click_img(1);">
+										<img src="__IMG__/store/304_03.jpg" alt="">
+									</div>
+									<div class="pro-m-delete" onclick="deleteimg(1,'simr',this)" id="sub-delete-1">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+								<?php }else{ ?>
+								<li>
+									<div class="pro-main-imgbox">
+										<div class="pro-m-upload">
+											<img id="simr1" src="__IMG__/store/304_03.jpg" alt="" class="hidds">
+										</div>
+										<input type="hidden" name="online_sub_img1" value="" id="sub_img_val_1">
+										<input type="file" name="online_sub_img1" id="sub_file1" placeholder="" onclick="click_img(1);">
+										<img src="__IMG__/store/304_03.jpg" alt="">
+									</div>
+									<div class="pro-m-delete none" onclick="deleteimg(1,'simr',this)" id="sub-delete-1">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+								<?php } ?>
+							</ul>
+						</div>
+						<div class="con-descbtn block" id="btn-tabctrl-1">
+							<button type="button" class="con-descbtn-r fl fs16" id="save_btn" style="width:100%;">保存</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+		<div id="container"></div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				styles();
+			}
+
+			function styles() {
+				var icoh = $('.setmap-ico').height();
+				$('.setmap-font').css('line-height', icoh + 'px');
+
+				var lichk = $('input[type="checkbox"]').height();
+				$('.setserve-li ul li').css('line-height', lichk + 'px');
+
+				var uploadw = $('.pro-main-imgbox').width();
+				$('.pro-main-imgbox').width(uploadw);
+				$('.pro-main-imgbox').height(uploadw);
+				$('.pro-main-imgbox input[type="file"]').width(uploadw);
+				$('.pro-main-imgbox input[type="file"]').height(uploadw);
+			}
+
+			//点击上传店铺图
+			function click_img(id) {
+				$("input[name=online_sub_img" + id + "]").val("");
+				document.getElementById("sub_file" + id).onchange = function() {
+					tempUploadimgStatic('sub_file' + id, 'simr' + id, 'sub_img_val_' + id, id, 'sub-delete-' + id);
+				}
+				$('#sub-delete-' + id).show();
+			}
+
+			/*删除图片*/
+			function deleteimg(j, m, obj, obj2) {
+				delUploadimg($('#sub_img_val_' + j).val());
+				$('#' + m + '' + j).attr("src", "__IMG__/store/304_03.jpg");
+				$('#sub_file' + j).attr("disabled", false);
+				$('#sub_file' + j).val("");
+				$('#sub_img_val_' + j).val("");
+				$(obj).css('display', 'none');
+			}
+			/*提示限制输入200个字符*/
+			$(function() {
+				var len = $("#scesc").val().length;
+				document.getElementById("min-lenfont").innerHTML = len.toString();
+				$("#scesc").keyup(function() {
+					var len_2 = $(this).val().length;
+					document.getElementById("min-lenfont").innerHTML = len_2.toString();
+					if(len_2 >= 200) {
+						$(this).val($(this).val().substring(0, 200));
+					}
+					var num = 200 - len_2;
+					document.getElementById("min-lenfont").innerHTML = num;
+				});
+			});
+			var mflag = true;
+			mui('.mui-content').on('tap', '#save_btn', function() {
+				if(mflag) {
+					mflag = false;
+					var ssname = $("#sname").val();
+					var ssdesc = $('#scesc').val();
+					if(ssname == "" || ssdesc == "") {
+						mui.toast('请完善店铺基本信息！');
+						return;
+					}
+					var attrbul = getFormAttrs("form1");
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetOnlineStore',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.openWindow({
+									url: '__URL__/index',
+									id: "storeindex"
+								});
+							} else {
+								mui.toast(msg.msg);
+								mflag = true;
+								return;
+							}
+						}
+					});
+				}
+
+			});
+		</script>
+		<include file="Common/foot" />
+	</body>
+
+</html>

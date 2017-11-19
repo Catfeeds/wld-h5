@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>账单详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+		<style type="text/css">
+			.ledger-info{width: 40%;}
+			.ledger-money{width: 35%;text-align: right;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="tally-top bgcolor divtab">
+					<div class="tally-t-tit divtab">
+						<span class="c9 fs14 fl tally-t-fl"><em id="monthval">{$showtime}</em>收款总额</span>
+					</div>
+					<div class="tally-t-money fs22">{$money}</div>
+					<div class="tally-t-count c9 fs12">共{$num}笔</div>
+				</div>
+				<div class="coupon-nav-tab bgcolor divtab fs15">
+					<ul>
+						<li class="hover c-nav-tli" id="c-nav-t1">明细</li>
+						<li class="c-nav-tli" id="c-nav-t2">账户</li>
+					</ul>
+				</div>
+				<div id="page_1">
+					<div class="account-list divtab bgcolor" id="data_list">
+						<!-- <div class="account-box">
+							<div class="account-img fl"><img src="__IMG__/balance/jszx_icon_wechat.png" alt=""></div>
+							<div class="account-type fl">
+								<p class="c3 fs14">微信支付</p>
+								<p class="c9 fs12">2017-05-11 14:37:55</p>
+							</div>
+							<div class="account-mon fr c3 fs14">88.88元</div>
+						</div>
+						<div class="account-box">
+							<div class="account-img fl"><img src="__IMG__/balance/jszx_icon_zfb.png" alt=""></div>
+							<div class="account-type fl">
+								<p class="c3 fs14">支付宝支付</p>
+								<p class="c9 fs12">2017-05-11 14:37:55</p>
+							</div>
+							<div class="account-mon fr c3 fs14">88.88元</div>
+						</div> -->
+					</div>
+					<div id="console"></div>
+					
+				</div>
+				<div id="page_2" style="display: none;">
+					<div class="ledger-type divtab">
+						<ul>
+							<li class="ledger_tab_1">
+								<div class="ledger-icon fl"><img src="__IMG__/cashier_icon_xm.png" alt="" /></div>
+								<div class="ledger-info fl">
+									<p class="fs14 c3">到账小蜜</p>
+									<p class="fs12 c9">余额</p>
+								</div>
+								<div class="ledger-money fl c3 fs14">
+									￥<span>{$bookinfo['xmmoney']}</span>元
+								</div>
+							</li>
+							<li class="ledger_tab_2">
+								<div class="ledger-icon fl"><img src="__IMG__/jszx_icon_yhk.png" alt="" /></div>
+								<div class="ledger-info fl">
+									<p class="fs14 c3">到账银行卡</p>
+									<p class="fs12 c9"><!--尾号<span>8888</span>--><span>储蓄卡</span></p>
+								</div>
+								<div class="ledger-money fl c3 fs14">
+									￥<span>{$bookinfo['bkmoney']}</span>元
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+//				yangshi();
+//				styles();
+			}
+
+			function yangshi() {
+				$('.account-img').height($('.account-img').width());
+				$('.account-img').css('border-radius', $('.account-img').width() + "px");
+				$('.account-type').css('line-height', $('.account-img').width() * 0.5 + "px");
+				$('.account-mon').css('line-height', $('.account-img').width() + "px");
+				
+			}
+			function styles(){		
+				$('.ledger-icon').height($('.ledger-icon').width());
+				$('.ledger-icon').css('border-radius', $('.ledger-icon').width() + "px");
+				$('.ledger-info').css('line-height', $('.ledger-icon').width() * 0.5 + "px");
+				$('.ledger-money').css('line-height', $('.ledger-icon').width() + "px");
+			}
+			/*列表信息*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var statu = '<?php echo $statu ?>';
+			if(!statu) {
+				statu = 1;
+			}
+			selectstatu(statu);
+
+			function selectstatu(i) {
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				$('.c-nav-tli').removeClass('hover');
+				$('#c-nav-t' + i).addClass('hover');
+				if (i == 1) {getdatalist();} else {$('#data_list').empty();}							
+			}
+			mui('.mui-content').on('tap', '#c-nav-t1', function() {
+				selectstatu(1);
+				$('#page_1').css({"display":"block"});
+				$('#page_2').css({"display":"none"});
+			});
+			mui('.mui-content').on('tap', '#c-nav-t2', function() {
+				selectstatu(2);
+				$('#page_2').css({"display":"block"});
+				$('#page_1').css({"display":"none"});
+				styles();
+			});
+			
+			//getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/GetdateLog?time=<?php echo $time; ?>&pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(!data || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html += '<div class="baoqian">抱歉！没有相关记录</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										var detailurl = WEB_HOST + '/index.php/Balance/Index/detail?id=' + dataarr['c_id'];
+										_html += '<div class="account-box-' + pageindex + '">';
+										_html += '<div class="account-box" data-url="' + detailurl + '">';
+										_html += '<div class="account-img fl"><img src="' + dataarr['img'] + '" alt=""></div>';
+										_html += '<div class="account-type fl">';
+										_html += '<p class="c3 fs14">' + dataarr['text'] + '</p>';
+										_html += '<p class="c9 fs12">' + dataarr['time'] + '</p>';
+										_html += '</div>';
+										_html += '<div class="account-mon fr c3 fs14">' + dataarr['c_money'] + '元</div>';
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						yangshi();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							mui('.account-box-' + pageindex).on('tap', '.account-box', function() {
+								var hrefurl = $(this).attr('data-url');
+								mui.openWindow({
+									url: "" + hrefurl + "",
+									id: "detail"
+								});
+							});
+						}
+					}
+				});
+			}
+			
+			/*小蜜到账*/
+			mui('.mui-content').on('tap','.ledger_tab_1',function(){
+				mui.openWindow({url:"__URL__/ledgerdetail?time=<?php echo $time; ?>&type=1&money=<?php echo $bookinfo['xmmoney']; ?>",id:"gdetail"});
+			});
+			
+			/*银行卡到账*/
+			mui('.mui-content').on('tap','.ledger_tab_2',function(){
+				mui.openWindow({url:"__URL__/ledgerdetail?time=<?php echo $time; ?>&type=2&money=<?php echo $bookinfo['bkmoney']; ?>",id:"gdetail"});
+			});
+			
+		</script>
+
+		<include file="Common/foot" />
+	</body>
+
+</html>

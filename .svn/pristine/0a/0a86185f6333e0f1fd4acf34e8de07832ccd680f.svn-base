@@ -1,0 +1,4 @@
+/*精品商品*/
+.scang-top{}
+.scang-empty{width: 30%;top: 50%;left: 50%;}
+.scang-sjinfo{bottom:20%;right:5%;width: 10%;}

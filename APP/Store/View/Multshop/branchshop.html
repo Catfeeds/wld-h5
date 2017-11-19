@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>分店信息</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/multshop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="bshop-list divtab bgcolor">
+				<ul>
+					<?php foreach ($data as $key => $value) { ?>
+					<li>
+						<div class="bshop-top-info divtab">
+							<div class="bshop-img fl">
+								<img src="{$value['c_headimg']}">
+							</div>
+							<div class="bshop-text fl">
+								<div class="bshop-name" style="padding: 2% 0px;">
+									<p class="c3 fs14 divtab fov" style="padding:2% 0px;">{$value['c_nickname']}</p>
+									<span class="c9 fs12">{$value['c_name']}</span>
+								</div>
+								<font class="c3 fs12" style="padding:2% 0px;">{$value['c_phone']}</font>
+							</div>
+						</div>
+						<div class="bshop-bottom-info">
+							<span class="c3 fs14 fb600">累计营业额￥{$value['money']}</span>
+							<p class="c9 fs12">添加时间
+								<font>{$value['c_addtime']}</font>
+							</p>
+
+							<?php if ($value['localtion']) { ?>
+							<div class="bshop-address" style="width: 95%;overflow: hidden;padding: 1%;">
+								<div class="bshop-posImg fl" style="width: 5%;">
+									<img src="__IMG__/multshop/lsdgl_icon_dz.png">
+								</div>
+								<span class="fs13 c9 fov fl" style="width: 90%;display: block;margin-left: 2%;">{$value['localtion']}</span>
+							</div>
+							<?php } ?>
+						</div>
+					</li>
+					<?php } ?>
+					<!-- <li>
+						<div class="bshop-top-info divtab">
+							<div class="bshop-img fl">
+								<img src="__IMG__/rednewact/tu14.jpg">
+							</div>
+							<div class="bshop-text fl">
+								<div class="bshop-name">
+									<p class="c3 cf14">良品铺子</p>
+									<span class="c9 cf12">NO.1234</span>
+								</div>
+								<font class="c3 cf12">13718488807</font>
+							</div>
+						</div>
+						<div class="bshop-bottom-info">
+							<span class="c3 fs14 fb600">累计营业额￥12321.00</span>
+							<p class="c9 fs12">添加时间
+								<font>2017-11-12-12</font><font>11:11</font>
+							</p>
+							<div class="bshop-address divtab">
+								<div class="bshop-posImg fl">
+									<img src="__IMG__/multshop/lsdgl_icon_dz.png">
+								</div>
+								<span class="fs12 c9 fov">长沙市岳麓区咸嘉湖西路123号</span>
+							</div>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var  bsImg = $('.bshop-img').width();
+		$('.bshop-img').css('height',bsImg + 'px');
+		$('.bshop-text').css('line-height',bsImg*0.3 + 'px');
+		
+		$('.bshop-posImg').height($('.bshop-posImg').width());
+		$('.bshop-address').css('line-height',$('.bshop-posImg').height() + 'px');
+	}
+
+</script>
+
+</html>

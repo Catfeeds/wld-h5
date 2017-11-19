@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style type="text/css">
+			.resource-l {
+				padding: 0 0 0 3%;
+			}
+
+			.resource-list span {
+				margin: 3% 0 0 0;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<form action="" id="CONSIGNEE_ADDRESS" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<include file="Common/head" />
+
+			<div class="wrap-page bgcolor" style="margin-bottom: 15%;">
+				<div class="p_info_tit"><span class="fs14 c3">商家资料3/<?php if($isfixed==1){ ?>8<?php }else{ ?>7<?php } ?></span></div>
+				<div class="p_info_con">
+					<div class="resource-main">
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>公司名称</div>
+							<div class="resource-r fl"><input type="text" id="companey-name" value="{$vo['c_company']}" name="company" class="resource-text" placeholder="请输入公司名称" maxlength="64"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商户名称</div>
+							<div class="resource-r fl"><input type="text" id="merchantname" value="{$vo['c_merchantname']}" name="merchantname" class="resource-text" placeholder="请输入商户名称" maxlength="64"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商户简称</div>
+							<div class="resource-r fl"><input type="text" id="short-name" value="{$vo['c_merchantshortname']}" name="merchantshortname" class="resource-text" placeholder="请输入商户简称" maxlength="35"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商户类型</div>
+							<div class="resource-r fl">
+								<select class="fs14 c3" name="storetype" id="storetype">
+									<option value="1" <?php if ($vo['c_storetype'] == 1) { ?> selected="selected" <?php } ?>>个人</option>
+									<option value="2" <?php if ($vo['c_storetype'] == 2) { ?> selected="selected" <?php } ?>>小微商户</option>
+									<option value="3" <?php if ($vo['c_storetype'] == 3) { ?> selected="selected" <?php } ?>>企事业</option>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">
+								<span>*&nbsp;</span>省
+							</div>
+							<div class="resource-r fl">
+								<select name="province" id="province" class="c3 fs14" onchange="loadRegion('province',2,'city','{:U('Personal/getRegion')}');">
+									<option value="" id="provincename">选择省</option>
+									<foreach name="province" item="province">
+										<option value="{$province.region_id}" <?php if($vo['c_province']==$province['region_name']){ ?> selected="selected"
+											<?php } ?> >{$province.region_name}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">
+								<span>*&nbsp;</span>市
+							</div>
+							<div class="resource-r fl">
+								<select name="city" id="city" class="c3 fs14" onchange="loadRegion('city',3,'district','{:U('Personal/getRegion')}');">
+									<?php if($vo['c_city']){ ?>
+									<option value="" id="cityname">{$vo['c_city']}</option>
+									<?php }else{ ?>
+									<option value="" id="cityname">选择市</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">
+								<span>*&nbsp;</span>区
+							</div>
+							<div class="resource-r fl">
+								<select name="district" id="district" class="c3 fs14">
+									<?php if($vo['c_county']){ ?>
+									<option value="" id="districtname">{$vo['c_county']}</option>
+									<?php }else{ ?>
+									<option value="" id="districtname">选择区</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>详细地址：</div>
+							<div class="resource-r fl"><input type="text" id="addrarea" value="{$vo['address1']}" name="addrarea" class="resource-text" placeholder="请输入详细地址" maxlength="80"></div>
+						</div>
+					</div>
+
+					<!--经纬度-->
+					<input type="hidden" id="address1" name="address" value="{$vo['address1']}">
+					<input type="hidden" name="lng" id="lng" value="{$vo['c_longitude']}">
+					<input type="hidden" name="lat" id="lat" value="{$vo['c_latitude']}">
+
+			</div>
+
+			<div class="info_sub_btn fixed-btn fs16">
+				<ul>
+					<li onclick="PreviousCK()">上一步</li>
+					<li onclick="savestep()">保存并下一步</li>
+				</ul>
+				<!--<ul>-->
+					<!--<li style="background: #45AAFA; color: #fff;width:100% ;" onclick="savestep()">保存并下一步</li>-->
+				<!--</ul>-->
+			</div>
+
+		</form>
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var prov = '<?php echo $vo["c_province"]?>';
+			var citye =  '<?php echo $vo["c_city"] ?>';
+			var newdistrict = '<?php echo $vo["c_county"] ?>';
+
+			window.onload = function() {
+
+				$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+
+				loadRegion('province', 2, 'city', "<?php echo U('Personal/getRegion');?>");
+
+			}
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/info_2?isfixed="+isfixed;
+			}
+
+			/*save*/
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					if(emptyval($('input[name="company"]').val())) {
+						JqueryDialog.Show('请输入公司名称');
+						$('input[name="company"]').focus();
+						resign = true;
+						return false;
+					}
+					if(emptyval($('input[name="merchantname"]').val())) {
+						JqueryDialog.Show('请输入商户名称');
+						$('input[name="merchantname"]').focus();
+						resign = true;
+						return false;
+					}
+					if(emptyval($('input[name="merchantshortname"]').val())) {
+						JqueryDialog.Show('请输入商户简称');
+						$('input[name="merchantshortname"]').focus();
+						resign = true;
+						return false;
+					}
+					if($("#storetype option:selected").val() == '请选择') {
+						JqueryDialog.Show('请选择商户类型');
+						$('#storetype').focus();
+						resign = true;
+						return false;
+					}
+
+					var province = $("#province option:selected").text();
+					var city = $("#city option:selected").text();
+					var district = $("#district option:selected").text();
+					var addrarea = document.getElementById('addrarea').value;
+
+					if(province == "选择省" || city == "请选择" || district == "请选择" || addrarea == "") {
+						JqueryDialog.Show("请完善地址信息！");
+						$('#addrarea').focus();
+						resign = true;
+						return false;
+					} else if(province == "选择省" || city == "选择市" || district == "选择区" || addrarea == "") {
+						JqueryDialog.Show("请完善地址信息！");
+						$('#addrarea').focus();
+						resign = true;
+						return false;
+					}
+					$('#address1').val(province + "省" + city + "市" + district + addrarea);
+
+					searchByStationName();
+				}
+			}
+			/*根据地址获取经纬度*/
+			function searchByStationName() {
+				var attrbul = getFormAttrs('CONSIGNEE_ADDRESS');
+				$.ajax({
+					type: "POST",
+					url: '__URL__/SetInfo3',
+					data: "attrbul=" + JSON.stringify(attrbul),
+					dataType: "json",
+					success: function(json) {
+						var msg = eval(json);
+						if(msg.code == 0) {
+							JqueryDialog.Show("保存成功！");
+							setTimeout(function() {
+								window.location.href = "__URL__/info_4?isfixed=<?php echo $isfixed; ?>&ctype=<?php echo $ctype; ?>";
+							}, 1000);
+						} else {
+							JqueryDialog.Show(msg.msg);
+							resign = true;
+						}
+					}
+				});
+			}
+
+			/*获取省市区信息*/
+			function loadRegion(sel, type_id, selName, url) {
+				jQuery("#" + selName + " option").each(function() {
+					jQuery(this).remove();
+				});
+				//jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#"+selName));
+				if (jQuery("#" + sel).val() == 0) {
+					return;
+				}
+				jQuery.getJSON(url, {
+						parentid: jQuery("#" + sel).val(),
+						regiontype: type_id
+					},
+					function(data) {
+						//$("#district").html('<option value="" selected="selected">请选择</option>');
+						if (data) {
+							jQuery.each(data, function(idx, item) {
+								if (item.region_name == citye && selName == "city") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else if (item.region_name == newdistrict && selName == "district") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else {
+									jQuery("<option value=" + item.region_id + ">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								}
+
+							});
+							if (selName == "city") {
+								loadRegion('city', 3, 'district', "<?php echo U('Personal/getRegion');?>");
+							}
+						} else {
+
+							jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#" + selName));
+
+						}
+					}
+				);
+			}
+
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收银台二维码</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content divtab">
+			<div class="ca-ewcode divre">
+				<!--<div class="ca-ewcode-con divab">
+					<div class="ca-ewcode-img"><img src="__IMG__/index/tu14.jpg" /></div>
+					<p class="cf fs14">优C柠檬集团</p>
+					<p class="cf fs12">优C柠檬梅溪湖店<span>编号01</span></p>
+
+					<div class="ca-ewcode-operate cb fs16">保存至相册</div>
+				</div>-->
+				<div class="save_camer divab"><img src="__IMG__/cashier/cashier_btn_save.png" alt="" /></div>
+				<?php if(!empty($deskdata['c_qcode'])){ ?>
+				<img src="{$deskdata['c_qcode']}" />
+				<?php }else { ?>
+				<img src="__IMG__/cashier/erweima_bg.png" alt="" />
+				<?php } ?>
+			</div>
+			<div id="console"></div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		$('.ca-ewcode').height($('.ca-ewcode').height());
+//		var ewImg= $('.ca-ewcode-img').width();
+//	 	$('.ca-ewcode-img').height(ewImg);
+//	 	$('.ca-ewcode-img').css('border-radius',ewImg*0.05 + 'px');
+		$('.save_camer').height($('.save_camer').width()*0.26);
+	}
+
+	mui('.mui-content').on('tap','.save_camer',function(){
+		var saveqcode = "<?php echo $deskdata['c_qcode']; ?>";
+		var apptype = "<?php echo get_app_type(); ?>";
+		if (apptype == 1) {		//小蜜安卓软件
+			var saveqcode = "<?php echo explode('?',$deskdata['c_qcode'])[0]; ?>";
+		}
+		saveFilesLocal(saveqcode);
+	})
+	
+</script>
+
+</html>

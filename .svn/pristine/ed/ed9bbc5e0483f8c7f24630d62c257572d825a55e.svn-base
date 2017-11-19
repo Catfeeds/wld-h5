@@ -1,0 +1,226 @@
+
+<!-- 公用js -->
+<script type="text/javascript" src="__COMMON__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__COMMON__/js/mui.min.js"></script>
+<script type="text/javascript" src="__COMMON__/js/common.js"></script>
+<script type="text/javascript">
+mui.init({
+	gestureConfig: {
+		tap: true, //默认为true
+		doubletap: true, //默认为false
+		longtap: true, //默认为false
+		swipe: true, //默认为true
+		drag: true, //默认为true
+		hold: false, //默认为false，不监听
+		release: false //默认为false，不监听
+
+	},
+	pullRefresh: {
+		container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+		down: {
+			height: 30, //可选.默认50.触发上拉加载拖动距离
+			auto: true, //可选,默认false.自动上拉加载一次
+			contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+			contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+			contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+			callback: function() { //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				pulldownfresh();
+			}
+		},
+		up: {
+			height: 30, //可选.默认50.触发上拉加载拖动距离
+			auto: true, //可选,默认false.自动上拉加载一次
+			contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+			contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+			callback: function() { //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				pullupfresh();
+			}
+		}
+	}
+});
+
+var apptype = "<?php echo get_app_type(); ?>";
+if (apptype == 1) {		//小蜜安卓软件
+	$('.xiaomi-bar').hide();
+} else if (apptype == 2) {		//小蜜ios软件
+	$('.xiaomi-bar').hide();
+} else {
+	headstyle();
+}
+
+//右边导航点击事件
+mui('.xiaomi-bar').on('tap', '.xm-bar-nav-right', function() {
+	var namesign = $(this).text();
+	if (namesign == '分享' || namesign == '推广' || namesign == '召唤') {
+		sharepro();
+	} else {
+		rightcaozuo();
+	}
+});
+
+
+//右边菜单回调操作方法
+function rightoption() {
+	var namesign = $('.xm-bar-nav-right').text();
+	if (namesign == '分享' || namesign == '推广' || namesign == '召唤') {
+		sharepro();
+	} else {
+		rightcaozuo();
+	}
+}
+
+//供app返回调用刷新右侧按钮
+function reloadRightText() {
+	var namesign = $('.xm-bar-nav-right').text();
+	if (namesign) {
+		ChRightText(namesign);
+	} else {
+		ChRightText('');
+	}
+}
+
+ChRightText('');
+//改变导航栏右边文字与改变app导航调用
+function ChRightText(tx) {
+	$('.xm-bar-nav-right').text(tx);
+	var act = 'rightoption';
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.RightBarOption(tx,act);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"RightBarOption":{"text":""+tx+"","action":""+act+""}});
+	}
+}
+/*导航头部*/
+function headstyle() {
+	var muibarw = $('.xiaomi-bar-nav').width(),muibarh = muibarw*0.12;
+	$('.xiaomi-bar-nav').css("height", muibarh + 'px');
+	$('.xiaomi-bar-nav').css("line-height", muibarh + 'px');
+	$('.mui-content').css('margin-top', muibarh + 'px');	
+}
+
+/*通用调用app聊天*/
+function fchat(code,nkname) {
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.contactBuyer(code,nkname);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"chat":{ "code": ""+code+"", "nkname": ""+nkname+""}});
+	} else {
+		mui.toast('请到官方网站下载APP');
+        setTimeout(function() {
+            mui.openWindow({
+                url: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.wld.net',
+                id: 'index'
+            });
+        }, 2000);
+	}
+}
+
+//跳转app空间
+function goUserDetails(ucode) {
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.goUserDetails(ucode);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"space":{"ucode":""+ucode+""}});
+	} else {
+		mui.openWindow({
+			url: "__APP__/Home/Myspace/index?fromucode=" + ucode,
+			id: "myspace"
+		});
+	}
+}
+
+//跳转app店铺
+function goShopDetail(ucode) {
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.goShopDetail(ucode);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"goShopDetail":{"ucode":""+ucode+""}});
+	} else {
+		mui.openWindow({
+			url: "__APP__/Store/Index/index?fromucode="+ucode,
+			id: "storeindex"
+		})
+	}
+}
+
+//跳转全部商品评论
+function goGoodsAllComment(pcode,acode) {
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.goGoodsAllComment(pcode,acode);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"goGoodsAllComment":{"pcode":""+pcode+"","acode":""+acode+""}});
+	} else {
+		mui.openWindow({
+			url: "__APP__/Shopping/Index/comment?pcode=" + pcode +"&acode="+acode,
+			id: "comment"
+		});
+	}
+}
+
+//跳转商品管理
+function goodsmManagement(source) {
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.goodsmManagement(source);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"goodsmManagement":{"source":""+source+""}});
+	} else {
+		if (source == 2) {   //线下
+			var url = '__APP__/Store/Entitymap/index';
+		} else {		//线上
+			var url = '__APP__/Store/Product/index';
+		}
+		mui.openWindow({
+			url: url,
+			id: "Product"
+		});
+	}
+}
+
+//跳转店铺管理
+function storeManagement(){
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.storeManagement();
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"storeManagement":{}});
+	} else {		
+		var url = '__APP__/Store/Store/index';		
+		mui.openWindow({
+			url: url,
+			id: "store"
+		});
+	}	
+}
+
+//保存文件到本地
+function saveFilesLocal(ljsrc) {
+	console.log(ljsrc);
+	if (apptype == 1) {		//小蜜安卓软件
+		javaScript:resultData.saveFilesLocal(ljsrc);
+	} else if (apptype == 2) {		//小蜜ios软件
+		window.webkit.messageHandlers.AppModel.postMessage({"saveFilesLocal":{"ljsrc":""+ljsrc+""}});
+	} else {
+		
+	}
+
+}
+
+/*查看商品详情*/
+function shopGoodsDetails(pcode,source,pucode) {
+	if(apptype==1){		//source 1线上商家,2线下
+		javaScript:resultData.shopGoodsDetails(pcode,source);
+	}else if(apptype==2){
+		window.webkit.messageHandlers.AppModel.postMessage({"shopGoodsDetails":{"c_pcode":""+pcode+"","c_source":""+source+""}});
+	}else{
+		if (source == 1) {   //线上
+			var url = "__APP__/Shopping/Index/detail?pcode="+pcode+"&pucode="+pucode;
+		} else {		//线下
+			var url = "__APP__/Shopping/Entitymap/detail?pcode="+pcode+"&pucode="+pucode;
+		}
+		mui.openWindow({
+			url: url,
+			id: "productinfo"
+		});
+	}
+}
+
+</script>

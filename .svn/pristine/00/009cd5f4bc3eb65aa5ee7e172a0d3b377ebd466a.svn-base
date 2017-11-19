@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<style>.resource-main{ margin-bottom: 16%;}.state-reback{ text-align: center; padding: 3%;}</style>
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content bgcolor">
+				<?php if($data['c_checked']==1){?>
+				<div class="stateing">
+					<div class="stateing-img"><img src="__IMG__/getbusiness/sjjh_icon_wtg.png" alt="" /></div>
+					<div class="stateing-font fs16" style="color: #F6292E;">抱歉，审核不通过</div>
+					<div class="stateing-font fs14" style="color: #555555;">请重新提交商家资料</div>
+					<div class="stateing-btn fs16" onclick="return_state()">重新提交</div>
+				</div>
+				<?php } else if($data['c_checked'] == 2){ ?>
+				<div class="stateing">
+					<div class="stateing-img"><img src="__IMG__/getbusiness/sjjh_icon_shz.png" alt="" /></div>
+					<div class="stateing-font fs16">资料正在审核中</div>
+				</div>
+				<div class="state-info bgcolor">
+					<div class="state-img fl">
+						<img src="__IMG__/getbusiness/fc-15.png" alt="">
+					</div>
+					<div class="state-font fl">
+						<ul>
+							<li>
+								<h3 class="c3 fs14">代理已审核</h3>
+								<p class="c9 fs12">审核时间1-3个工作日</p>
+							</li>
+							<li class="qdstate">
+								<h3 class="c3 fs14">区代审核</h3>
+								<p class="c9 fs12">审核时间1-3个工作日</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<?php }else if($data['c_checked'] == 0){ ?>
+				<div class="stateing">
+					<div class="stateing-img"><img src="__IMG__/getbusiness/sjjh_icon_shz.png" alt="" /></div>
+					<div class="stateing-font fs16">资料正在审核中</div>
+				</div>
+
+				<div class="state-info bgcolor">
+					<div class="state-img fl">
+						<img src="__IMG__/getbusiness/fc-14.png" alt="">
+					</div>
+					<div class="state-font fl">
+						<ul>
+							<li>
+								<h3 class="c3 fs14">等待代理商审核</h3>
+								<p class="c9 fs12">审核时间1-3个工作日</p>
+							</li>
+							<li class="qdstate">
+								<h3 class="c3 fs14">区代审核</h3>
+								<p class="c9 fs12">审核时间1-3个工作日</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<?php } ?>
+
+				<?php if($data['c_checked']==0){?>
+					<div class="state-reback fs14 c9">资料审核中，去别处看看吧</div>
+				<?php } ?>
+
+				<div class="state-bottom">
+					<p class="fs14 c9">如果有疑问请联系您的代理商</p>
+					<p class="fs14 c9">或者致电小蜜客服热线<span class="cb fs14">400-9603-400</span></p>
+				</div>
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				//styles();
+			}
+
+			function return_state() {
+				mui.openWindow({url:"__URL__/info_1?isfixed=<?php echo $data['c_isfixed'] ?>&ctype=<?php echo $data['c_type'] ?>",id:"info_1"});		
+			}
+
+
+			//返回首页操作
+
+			mui('.mui-content').on('tap', '.state-reback', function() {
+				mui.openWindow({
+					url: "__APP__/Home/Index/index",
+					id: "index"
+				});
+			});
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

@@ -1,0 +1,165 @@
+
+.redborder{
+	border: 1px solid red;
+}
+
+/*
+.wrap{
+	background-color: #f0f3fa;
+}*/
+
+.productmodular{
+	background-color: #fff;
+	/*padding: 3% 0;*/
+	margin: 3% 0;
+}
+
+.businesslist-bgcolor{
+	background-color: #ffffff;
+}
+
+.productmodular-top{
+	padding: 3% 0 0 0;
+	border-bottom: 2px solid #f7f7f7;
+	color: #b8b8b8;
+	font-size: 14px;
+	margin:0 4%;
+}
+
+.producttitle{
+	margin-bottom: -0.5%;
+	width: 30%;
+	font-size: 16px;	
+	border-bottom: 2px solid #94d7f3;
+	color: #000;
+}
+
+.productmodular-bottom{
+	margin-left: 4%;
+	margin-top: 3%;
+	overflow: hidden;
+}
+
+
+.text-box{
+	margin-bottom: 13px;
+	width: 96%;
+	padding: 3% 2%;
+	border: 1px solid #dbdbdb;
+	overflow: hidden;
+	font-size: 14px;
+}
+
+.text-box:hover{
+	border: 1px solid #b6e5f8;
+}
+
+.productmodular-img{
+	position: relative;
+	float:left;
+	width: 31%;
+	height: 20%;
+	margin-right: 2%;
+	margin-top:2%;	
+}
+.productmodular-position{
+	position: absolute;
+	display:none;
+	width: 20%;
+	height: 20%;
+	top:40%;
+	left:43%;
+}
+.productmodular-img img{
+	width: 100%;
+	height: 100%;
+}
+.text-font{
+	float: left;
+	width: 35%;	
+	padding: 3% 0;
+	color: #cccccc;	
+}
+
+.text-data{
+	width: 65%;
+	float: left;
+}
+
+.text-data input[type="text"]{
+	width: 100%;
+	padding: 3% 0;
+	border: none;
+	outline: none;
+}
+
+.productfeature{
+	width: 96%;
+	height: 35%;
+	padding: 2%;
+	border: 1px solid #dedede;
+	font-size: 14px;
+}
+
+.submit{
+	width: 75%;
+	margin: 6% auto;
+
+}
+
+.notcomplete{
+	width: 100%;
+	padding: 4% 0;
+	text-align: center;
+	background-color: #cccccc;
+	border-radius: 6px;
+	color: #fff;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	border: none;
+}
+
+.completed{
+	width: 100%;
+	padding: 4% 0;
+	text-align: center;
+	background-color: #47abf7;
+	border-radius: 6px;
+	color: #fff;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	border: none;
+}
+
+
+.productimgclass{
+	position: relative;
+	margin-right: 2%;
+}
+
+.deleteimg{
+	position: absolute; 
+	top: 35%;
+	left: 35%;
+}
+
+
+
+
+/*响应式代码*/
+@media (min-width: 421px) and (max-width: 520px) {
+	.completed,.notcomplete,.producttitle{font-size: 20px;}
+	.productfeature,.text-box,.productmodular-top{font-size: 18px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	.completed,.notcomplete,.producttitle{font-size: 24px;}
+	.productfeature,.text-box,.productmodular-top{font-size: 22px;}
+}
+
+@media (min-width: 621px){	
+	.completed,.notcomplete,.producttitle{font-size: 28px;}
+	.productfeature,.text-box,.productmodular-top{font-size: 26px;}
+}
+
+

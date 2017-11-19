@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>立即查看</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/leagshop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<input type="hidden" name="pid" id="pid" value="{$data['c_data']['pid']}">
+	<input type="hidden" name="name" id="name" value="{$data['c_data']['name']}">
+	<input type="hidden" name="shopcode" id="shopcode" value="{$data['c_data']['shopcode']}">
+	<input type="hidden" name="acode" id="acode" value="{$data['c_data']['acode']}">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="js-myinfo divtab">
+				<div class="js-myinfo-con bgcolor">
+					<div class="mystore-img">
+						<img src="{$data['shopinfo']['c_headimg']}">
+					</div>
+					<div class="c3 fs16 mystore-name">
+						<span>{$data['shopinfo']['c_nickname']}</span>
+						<p class="fs12 c3">{$data['shopinfo']['c_signature']}</p>
+					</div>
+					<p class="c9 fs12">加盟热线：{$data['shopinfo']['c_phone']}</p>
+					<p class="c9 fs12">所属行业：{$data['shopinfo']['tradename']}</p>
+					<p class="c9 fs12">地址：{$data['shopinfo']['c_address1']}</p>
+				</div>
+
+				<div class="cf fs14 js-invited-submit">同意</div>
+
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+		//我的加盟店
+		var sImg = $('.store-img').width();
+		$('.store-img').height(sImg + 'px');
+		$('.store-img').css('border-radius', sImg + 'px');
+		
+	}
+
+
+	//提交表单
+	$('.js-invited-submit').click(function() {
+		putform();
+	});
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('form1');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/AgreeInvita',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('加入成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/myindex',id:"level"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);					
+						}
+					}
+			});
+		}	
+	}
+</script>
+
+</html>

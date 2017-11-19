@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+ 	<title>服务中心</title>
+ 	<include file="Base@Public/header" />
+ 	<link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+ 	
+ </head>
+ <body class="bgeb">
+ <div class="wrap-page" style="margin-bottom: 15%;">
+	<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+	<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+	<div class="mui-content">
+		<?php if(!empty($ucode)){ ?>
+		<div class="server-banner divre divtab">
+			<div class="server-setting divab"><img src="__COMMON__/img/usercenter_icon_setup.png" alt="" /></div>
+			<div class="server-mesg divab"><div class="divre divtab server-mesg-s"><img src="__COMMON__/img/nav_message2x.png" alt="" /><span class="t-msg-unread divab" <?php if ($msgtag==1 ) {?>style="display:block;"<?php } else { ?>style="display:none;"<?php } ?>></span></div></div>
+			<div class="server-headinfo divab">
+				<div class="server-headers fl divre">
+					<div class="server-head divre">						
+						<?php if(!empty($userdata['c_headimg'])){ ?>
+							<img src="{$userdata['c_headimg']}" alt="" />
+						<?php }else{ ?>
+							<img src="__COMMON__/img/logo.png" alt="" />
+						<?php } ?>		
+					</div>
+					<!--是商家还是会员图标显示-->					
+					<div class="server-membpro divab">
+						<?php if ($userdata['c_shop'] == 1){ ?>
+						<img src="__IMG__/serverc/service_icon_sj12x.png" alt="" />
+						<?php }else{ ?>
+						<img src="__IMG__/serverc/service_icon_vip22x.png" alt="" />
+						<?php } ?>
+					</div>
+				</div>
+				<div class="server-hinfo fl">
+					<div class="server-nickname fs16 cf fov">{$userdata['c_nickname']}</div>
+					<div class="server-membtype">
+						<div class="membtype-ico fl" id="tuijian">
+							<?php if ($userdata['tuijian'] == 1) { ?>
+							<img src="__IMG__/serverc/service_ico_nlink_selection.png" alt="" />
+							<?php }else{ ?>
+							<img src="__IMG__/serverc/service_ico_nlink_default.png" alt="" />
+							<?php } ?>
+						</div>
+						<div class="membtype-ico fl">
+							<?php if ($userdata['weixin'] == 1) { ?>
+							<img src="__IMG__/serverc/service_icon_wechat_selection.png" alt="" />
+							<?php }else{ ?>
+							<img src="__IMG__/serverc/service_icon_wechat_default.png" alt="" />	
+							<?php } ?>
+						</div>
+						<div class="membtype-ico fl">
+							<?php if ($userdata['alipay'] == 1) { ?>
+							<img src="__IMG__/serverc/service_icon_zhifubao_selection.png" alt="" />
+							<?php }else{ ?>
+							<img src="__IMG__/serverc/service_icon_zhifubao_default.png" alt="" />
+							<?php } ?>
+						</div>
+					</div>
+					<?php if ($userdata['c_shop'] == 1){ ?>	
+						<?php if(!empty($userdata['circle_name'])){ ?>
+							<div class="s-circlename cf fs13">
+								<span><img src="__IMG__/serverc/service_icon_sq2x.png" alt="" />{$userdata['circle_name']}</span>
+							</div>
+						<?php } ?>
+					<?php } ?>
+				</div>
+			</div>
+			<?php if ($userdata['c_shop'] == 0 && $userdata["c_isagent"]==0){ ?>
+			<div class="server-applysj divab" id="new_allinfo">
+				<div class="server-apply-ico divre">
+					<div class="apply-font fs13 divtab divab">成为商家  ></div>
+					<img src="__IMG__/serverc/service_bg_cwsj2x.png" alt="" />	
+				</div>
+			</div>
+			<?php }?>
+			<?php if($userdata['c_shop'] == 1 && $oldinfo==1 && $userdata["c_isagent"]==0){ ?>
+			<div class="server-applysj divab" id="old_allinfo">
+				<div class="server-apply-ico divre">
+					<div class="apply-font fs13 divtab divab">补全资料  ></div>
+					<img src="__IMG__/serverc/service_bg_cwsj2x.png" alt="" />
+				</div>
+			</div>
+			<?php } ?>
+			<div class="server-dynamic divtab divab">
+				<?php foreach ($menu as $k => $v) { ?>
+				<div class="dynamic-li dynamic-li-{$k+1} fl">
+					<p class="cf fs13">{$v['num']}</p>
+					<p class="cf fs13">{$v['name']}</p>
+				</div>
+				<?php } ?>
+			</div>
+			<?php if($userdata['c_shop'] == 0 || empty($ucode)){ ?>
+			<img src="__IMG__/serverc/service_bg_12x.png" alt="" />
+			<?php }else{ ?>
+				<img src="__IMG__/serverc/service_bg_22x.png" alt="" />
+			<?php } ?>
+		</div>			
+		<?php }else{ ?>
+		<div class="server-banner divre divtab">
+			<div class="server-setting divab"><img src="__COMMON__/img/usercenter_icon_setup.png" alt="" /></div>
+			<div class="server-mesg divab"><img src="__COMMON__/img/nav_message2x.png" alt="" /></div>
+			<div class="server-headinfo divab">
+				<div class="server-headers fl divre">
+					<div class="server-head divre">						
+						<img src="__IMG__/serverc/icon_booth.jpg" alt="" />		
+					</div>
+				</div>
+				<div class="server-hinfo fl">
+					<div class="server-nickname fs16 cf" style="padding: 8% 0 0 0;">点击登录</div>					
+				</div>
+			</div>			
+			<div class="server-dynamic divtab divab">
+				<div class="dynamic-li dynamic-li-1 fl">
+					<p class="cf fs13">0</p>
+					<p class="cf fs13">关注</p>
+				</div>
+				<div class="dynamic-li dynamic-li-2 fl">					
+					<p class="cf fs13">0</p>
+					<p class="cf fs13">我的动态</p>
+				</div>
+				<div class="dynamic-li dynamic-li-3 fl">
+					<p class="cf fs13">0</p>
+					<p class="cf fs13">足迹</p>
+				</div>
+			</div>
+			<img src="__IMG__/serverc/service_bg_12x.png" alt="" />			
+		</div>			
+		<?php } ?>
+
+		<div class="server-menu-main divtab">	
+			<!--<div class="server-menu-list bgcolor divtab">
+				<div class="server-menu-tit fs14 c3 none">商家必备</div>
+				<div class="server-menu-con divtab">
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_scenter2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">结算中心</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_onorder2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">线上订单</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_scanorder2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">扫码订单</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_shoppingcart2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">购物车</div>
+					</div>
+				</div>
+			</div>			
+			<div class="server-menu-list bgcolor divtab">
+				<div class="server-menu-tit fs14 c3">必备工具</div>
+				<div class="server-menu-con divtab">
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_scenter2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">结算中心</div>						
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_onorder2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">线上订单</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_scanorder2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">扫码订单</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_shoppingcart2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">购物车</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_scenter2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">结算中心</div>						
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_onorder2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">线上订单</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_scanorder2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">扫码订单</div>
+					</div>
+					<div class="menu-con-box">
+						<div class="s-menu-ico"><img src="__IMG__/serverc/service_icon_shoppingcart2x.png" alt="" /></div>
+						<div class="s-menu-txt c5 fs12">购物车</div>
+					</div>
+				</div>
+			</div>	-->
+		</div>
+		<div id="console"></div>
+	</div>
+
+	<!-- 底部菜单浮层 -->
+	<div class="sm-bottom" style="z-index: 90;">
+		<div class="sm-bottom-main">
+			<div class="sm-bottom-menu">
+				<a href="__APP__/Trade/Index/index" class="sm-bottom-a">
+					<img src="__COMMON__/img/sm_img_d1_link.png" alt="">
+				</a>
+			</div>
+			<div class="sm-bottom-menu">
+				<a href="__APP__/Shopping/index" class="sm-bottom-a">
+					<img src="__COMMON__/img/sm_img_d2.png" alt="">
+				</a>
+			</div>
+			<div class="sm-bottom-menu">
+				<a href="{:U('Index/index')}" class="sm-bottom-a">
+					<img src="__COMMON__/img/sm_img_d3_hover.png" alt="">
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+ <include file="Base@Public/pubjs" /> 
+ <script type="text/javascript">
+ 	var ucode = '<?php echo $ucode ?>';
+ 	window.onload=function(){
+ 		GetServerMenu();
+ 		styles(); 		
+   		
+ 	}
+ 	$(document).ready(function(){
+ 	    if(ucode){
+ 	        var isshop = '<?php echo $userdata["c_shop"] ?>';
+            var old_all = '<?php echo $oldinfo ?>';
+            if(isshop==1){
+                if(old_all==1){
+                    mui.confirm('为了加强您的账户安全，请尽快完成商家信息认证','提示',['稍后再去','马上认证'],function (e) {
+                        e.index == 0 ? "" : mui.openWindow({url:"__APP__/Home/Getbusiness/index?type=1",id:"index"});
+                    },'div');
+                }
+			}
+		}
+	});
+	/*样式*/
+ 	function styles(){
+ 		var bah = $('.server-banner').height();
+ 		$('.server-banner').height(bah);
+ 		
+ 		var hah = $('.server-head').width();
+ 		$('.server-head').width(hah);
+ 		$('.server-head').height(hah);
+ 		$('.server-head').css("border-radius",hah+'px'); 
+ 		$('.server-headers').height(hah);
+ 		
+ 		var apph = $('.server-apply-ico').height();
+ 		$('.server-apply-ico').height(apph);
+ 		$('.server-applysj').css('line-height',apph+'px');
+ 		
+ 		var csh = $('.server-circleico').height();
+ 		$('.server-circlename').css('line-height',csh+'px');
+ 		
+ 		$('.server-mesg').height($('.server-mesg').width());
+ 		$('.server-mesg-s').height($('.server-mesg').width());
+ 	}
+ 	/*个人中心*/
+ 	mui('.mui-content').on('tap','.server-head',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			mui.openWindow({url:'__APP__/Home/Users/index',id:'userinfo'});
+ 		}
+ 	});
+ 	mui('.mui-content').on('tap','.server-nickname',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			mui.openWindow({url:'__APP__/Home/Users/index',id:'userinfo'});
+ 		}server-nickname
+ 	});
+ 	/*设置跳转*/
+ 	mui('.mui-content').on('tap','.server-setting',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			mui.openWindow({url:'__APP__/Home/About/index',id:'systemset'});
+ 		}
+ 	}); 	
+ 	/*消息跳转*/
+ 	mui('.mui-content').on('tap','.server-mesg',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			mui.openWindow({url:'__APP__/Home/Message/index',id:'mesg'});
+ 		}
+ 		
+ 	});
+ 	/*关注*/
+ 	mui('.mui-content').on('tap','.dynamic-li-1',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			mui.openWindow({url:'__APP__/Home/Myspace/myattention',id:'attention'});
+ 		}
+ 		
+ 	});
+ 	/*我的动态*/
+ 	mui('.mui-content').on('tap','.dynamic-li-2',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			var isshop = "<?php echo $userdata['c_shop']; ?>"
+ 			if (isshop == 1) {
+ 				mui.openWindow({url:'__APP__/Store/Index/index',id:'storeinfo'});	
+ 			} else {
+ 				/*mui.openWindow({url:'__APP__/Home/Myspace/index',id:'dynamic'});*/
+ 				mui.openWindow({url:'__APP__/Home/Myspace/index',id:'dynamic'});
+ 			}
+ 		} 		
+ 	});
+ 	/**足迹*/
+ 	mui('.mui-content').on('tap','.dynamic-li-3',function(){
+ 		if(!ucode){
+ 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+ 		}else{
+ 			mui.openWindow({url:'__APP__/Home/Myspace/myfans',id:'footmark'});
+ 		} 		
+ 	});
+ 	
+ 	/*跳转会员*/
+ 	mui('.mui-content').on('tap','#tuijian',function(){
+ 		mui.openWindow({url:'__APP__/Home/Users/sjmember',id:'sjmember'});
+ 	});
+
+    var checked = '<?php echo $data["c_checked"] ?>';
+    var cid = '<?php echo $data["c_id"] ?>';
+    var dcode = '<?php echo $data["c_dcode"] ?>';
+
+ 	/*成为商家*/
+ 	mui('.mui-content').on('tap','#new_allinfo',function(){
+ 		//mui.openWindow({url:'__APP__/Home/Getbusiness/index',id:'index'});
+//        if(dcode && checked != "" && checked != null && checked != -1) {
+//            mui.openWindow({url:"__APP__/Home/Getbusiness/checkstate",id:"checkstate"});
+//        } else {
+//            if(!dcode && cid) {
+                mui.openWindow({url:"__APP__/Home/Getbusiness/index?type=2",id:"index"});
+//            } else {
+//                mui.openWindow({url:"__APP__/Home/Getbusiness/entryactive",id:"entryactive"});
+//            }
+//        }
+ 	});
+
+ 	/*补全资料*/
+ 	mui('.mui-content').on('tap','#old_allinfo',function (){
+        mui.openWindow({url:"__APP__/Home/Getbusiness/index?type=1",id:"index"});
+    });
+
+ 	var ctrls = true;
+	var emptyval = true;
+	/*获取菜单列表*/
+	function GetServerMenu(){
+		var _html="";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: '__URL__/GetServerMenu',
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				console.log(obj)
+				var msg = eval(obj);
+				if(msg['code'] == 0) {
+					var data = msg.data;
+					if(data == null) {
+						_html += '<div class="baoqian">没有找到相关信息</div>';
+						emptyval = false;
+					} else {
+						for(var i = 0;i<data.length;i++){
+							_html+='<div class="server-menu-list bgcolor divtab">';
+							if(data[i]['name']){						
+								_html+='<div class="server-menu-tit fs15 c3">'+data[i]['name']+'</div>';
+							}else{
+								_html+='<div class="server-menu-tit fs15 c3 none"></div>';
+							}
+							_html+='<div class="server-menu-con divtab">';
+							var datalist = data[i]['menu'];
+							for(var k = 0; k<datalist.length;k++){
+								_html+='<div class="menu-con-box" onclick="tiaozhuan(\''+datalist[k]['c_interface_type']+'\',\''+datalist[k]['c_interface_address']+'\',\''+datalist[k]['c_alias']+'\')">';
+								_html+='	<div class="s-menu-ico"><img src="'+datalist[k]["c_img"]+'" alt="" /></div>';
+								_html+='	<div class="s-menu-txt c5 fs12">'+datalist[k]["c_name"]+'</div>';
+								_html+='</div>';						
+							}
+							_html+='</div>';
+							_html+='</div>';
+						}						
+					}
+				} else {
+					emptyval = false;
+				}
+				$('.server-menu-main').append(_html);
+			},
+			complete: function() {
+				styles();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});	
+	}
+	/*菜单跳转*/
+	function tiaozhuan(type,url,alias){
+		if (type == 1) {
+			mui.openWindow({url:url,id:alias});
+		} else {
+			if(!ucode){
+	 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'}); 			
+	 		}else{
+	 			mui.openWindow({url:url,id:alias});
+	 		}
+		}
+	}
+	
+ 	mui.plusReady(function(){
+	});
+ </script> 
+ 
+ <include file="Base@Public/footer" />
+ </body>
+ </html>

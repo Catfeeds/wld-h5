@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+/*每日签到首页*/
+.sign-info{width: 55%;left: 0;right: 0;margin: 0 auto;text-align: center;padding: 0 4%;top: 60%;}
+.sg-in{padding: 2%;}
+.sg-details{padding-top: 4%;margin: 0 auto;width:50%;overflow: hidden;}
+.sg-dt-logo{width: 15.5%;}
+.sg-dt-text{width: 84%;color: #fa923d;}
+.sign-date{bottom: 2%;left: 0;right: 0;margin: 0 auto;width: 88%;overflow: hidden;padding: 2% 0;}
+.sign-date li{width: 12%;margin: 0 1%;}
+.chou-prize{width: 13.5%;right: 6%;bottom: 11.5%;}
+/*签到消息列表*/
+.sign-main{margin-top: 10%;padding: 3%;}
+.sign-main-top{width: 48%;margin: 0 auto;padding: 5% 0 8%;}
+.sign-main-content{padding: 3%;background: #fdfae7;margin: 3% 0;overflow: hidden;}
+.smc-left{width: 9%;padding-top: 2%;}
+.smc-right{width: 87%;}
+.smc-right-text{color: #f85165;padding: 0.2% 0;}
+.smcrt-details{padding-left: 5%;}
+.smc-right-time{padding:1% 0;}
+.sign-main-bottom{padding-top: 10%;margin: 0 auto;width: 50%;}
+/*点击签到 红包弹出框*/
+.red-packet{width: 56%;left: 0;right: 0;margin:auto;z-index: 1000;top: 25%;}
+.money-number{text-align: center;color: #f52f46;top: 12%;left: 0;}
+.money-unit{color: #f33e51;}
+.money-cash{color: #f33e51;text-align:center;top: 24%;left: 0;}
+.rp-text1{color: #f9d853;text-align: center;top: 48%;}
+.rp-text2{text-align: center;top: 60%;padding: 0 9%;color: #960012;}
+.rp-affirm{top: 80%;width: 65%;left: 0;right: 0;margin: 0 auto;}
+.rp-cancel{top: 119%;width: 15%;left: 0;right: 0;margin: 0 auto;b}
+/*点击签到 抽奖弹出框*/
+.none{display: none;}
+.choujiang{left: 0;right: 0;margin:auto;width: 63%;z-index: 1000;top: 26.5%;}
+.cj-text1{color: #f9d853;text-align: center;top: 23%;}
+.cj-text2{color: #960012;text-align: center;top: 50%;}
+.cj-text3{text-align: center;top: 59%;}
+.cj-next{top: 75%;width: 65%;left: 0;right: 0;margin: 0 auto;}
+.cj-cancel{top: 117.5%;width: 12%;left: 0;right: 0;margin: 0 auto;}
+/*点击规则 规则弹出框*/
+.sign-rule{left: 0;right: 0;margin:auto;width: 75%;z-index: 1000;top: 23%;padding: 3%;background: #f6f7e9;}
+.sign-rule-top{margin: 0 auto;width: 70%;padding: 6% 0 8%;}
+.sign-rule-content{padding: 1% 0 4%;}
+.sign-rule-content li{padding: 2% 0;}
+.sign-rule-bottom{padding-top: 6%;text-align: center;}
+.rule-cancel{top: 122%;width: 12%;left: 0;right: 0;margin: 0 auto;}

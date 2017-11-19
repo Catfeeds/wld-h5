@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>会员注册</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back_pre"></a>
+				<h1 class="mui-title">注册</h1>
+			</header>
+			<div class="mui-content">
+				<!--
+            	作者：1415801689@qq.com
+            	时间：2017-03-23
+            	描述：注册信息
+            -->
+				<div class="login-main" id="page-1">
+					<div class="register-info divtab">
+						<input type="text" placeholder="请输入手机号码" class="fs14 c5" id="phonenum" />
+					</div>
+					<div class="register-info divtab">
+						<div class="register-verify fl">
+							<input type="text" placeholder="请输入手机短信验证码" class="fs14 c5" id="verify" />
+						</div>
+						<div class="verify-btn fl">
+							<button type="button" class="fs14 cb" id="secondbtn">获取验证码</button>
+						</div>
+					</div>
+					<div class="register-info divtab" id="sel_incode" style="display: none;">
+						<input type="text" placeholder="推荐人邀请码（选填）" class="fs14 c5" id="incode" />
+					</div>
+					<div class="mui-input-row mui-checkbox mui-left c5 fs12 register-deal">
+						<label class="c5 fs12 deal-label" style="padding-left: 35px;">我已阅读并同意《微领地服务协议》</label>
+						<input name="read" value="1" type="checkbox" style="left: 0;" id="chk_agree">
+					</div>
+					<div class="send-code-next fs16" id="next_sub">下一步</div>
+				</div>
+				<!--
+            	作者：1415801689@qq.com
+            	时间：2017-03-23
+            	描述：设置密码
+            -->
+				<div class="login-main none" id="page-2">
+					<div class="register-info divtab">
+						<input type="password" placeholder="请输入密码" class="fs14 c5" id="pwd" />
+					</div>
+					<div class="register-info divtab">
+						<input type="password" placeholder="请输入确认密码" class="fs14 c5" id="pwd2" />
+					</div>
+					<div class="login-button register-button">
+						<button type="button" class="fs16 fb600 cf" id="finish_sub">完成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/sendcode.js"></script>
+		<script type="text/javascript">
+			var action = '<?php echo $action ?>';
+			var ctrls = true;
+			var ctrls_2 = true;
+			window.onload = function() {				
+				//$.cookie("secondcode",null);
+				$('input[name="read"]').attr('checked', true);
+				styles();
+				if(action == "pwd") {
+					//$('#sel_incode').hide();
+					$('.mui-title').text("忘记密码");
+				} else {
+					$('.mui-title').text("注册");
+					//$('#sel_incode').show();
+				}
+				$('#topcontrol').hide();
+			}
+			$(document).ready(function() {
+				v = $.cookie("secondcode"); //获取cookie值
+				if(v > 0) {
+					settimep($("#secondbtn"), 'secondcode'); //开始倒计时
+				}
+			});
+			$('#phonenum').keyup(function(){
+				if($(this).val() && $('#verify').val()) {
+					$('#next_sub').addClass('next-hover');
+					mui('.mui-content').on('tap', '#next_sub', function() {
+						nextcode();
+					});
+				} else {
+					$('#next_sub').removeClass('next-hover');
+					mui('.mui-content').off('tap', '#next_sub');
+				}
+				
+			});
+			$('#verify').keyup(function(){
+				if($(this).val() && $('#phonenum').val()) {
+					$('#next_sub').addClass('next-hover');
+					mui('.mui-content').on('tap', '#next_sub', function() {
+						nextcode();
+					});
+				} else {
+					$('#next_sub').removeClass('next-hover');
+					mui('.mui-content').off('tap', '#next_sub');
+				}
+				
+			});
+			/*样式*/
+			function styles() {}
+			/*验证手机校验码*/
+			mui('.verify-btn').on('tap', '#secondbtn', function() {
+				if(action == "pwd") {
+					sendCode($("#secondbtn"), 2, 'secondcode', $('#phonenum'));					
+				} else if (action == "reg"){
+					sendCode($("#secondbtn"), 1, 'secondcode', $('#phonenum'));					
+				}
+			});
+			/*阅读协议*/
+			mui('.register-deal').on('tap', '.deal-label', function() {
+				mui.openWindow({
+					url: '__URL__/read',
+					id: 'deal'
+				});
+			});
+			var nextclick = true;
+			/*下一步*/
+			//mui('.mui-content').on('tap', '#next_sub', function() {
+			function nextcode() {
+				if(nextclick) {
+					nextclick = false;
+					var phone = document.getElementById('phonenum').value;
+					var verify = document.getElementById('verify').value;
+					//var incode = document.getElementById('incode').value;
+					if(emptyval(phone) || emptyval(verify)) {
+						mui.toast('请完善注册信息！');
+						nextclick = true;
+						return false;
+					} else if(!isPhoneNum($('#phonenum'))) {
+						nextclick = true;
+						return false;
+					} else if(!($('#chk_agree').attr('checked'))) {
+						nextclick = true;
+						mui.toast('您还未阅读《微领地服务协议》');
+						return false;
+					} 
+//					else if(!emptyval(incode)) {
+//						/*验证邀请码*/
+//						$.ajax({
+//							type: "POST",
+//							url: "__URL__/checkIncode",
+//							data: {
+//								code: incode
+//							},
+//							datatype: "json",
+//							success: function(data) {
+//								var msg = eval(data);
+//								if(msg.code == 0) {
+//									$('#page-1').hide();
+//									$('#page-2').show();
+//									$('.mui-title').text("设置密码");
+//									$('#back_pre').removeClass('mui-action-back');
+//									$('#back_pre').on('tap', function() {
+//										backprev();
+//									});
+//								} else {
+//									mui.toast(msg.msg);
+//									nextclick = true;
+//									return false;
+//								}
+//							}
+//						});
+//					}
+					else {
+						$('#page-1').hide();
+						$('#page-2').show();
+						$('.mui-title').text("设置密码");
+						$('#back_pre').removeClass('mui-action-back');
+						$('#back_pre').on('tap', function() {
+							backprev();
+						});
+					}
+				}
+
+			}
+
+			//});
+			/*完成注册*/
+			mui('.mui-content').on('tap', '#finish_sub', function() {
+				if(action == "pwd") {
+					forgetpwd();
+				} else {
+					subregister();
+				}
+			});
+			mui.plusReady(function() {});
+			var tzregister = true;
+			/*提交注册信息*/
+			var tzurl = '<?php echo $url ?>';
+
+			function subregister() {
+				var phone = document.getElementById('phonenum').value;
+				var verify = document.getElementById('verify').value;
+				var pwd = document.getElementById('pwd').value;
+				var pwd2 = document.getElementById('pwd2').value;
+				var incode = document.getElementById('incode').value;
+				if(ctrls) {
+					ctrls = false;
+					if(emptyval(phone) || emptyval(pwd) || emptyval(verify) || emptyval(tzurl)) {
+						mui.toast('请完善注册信息！');
+						ctrls = true;
+						return false;
+					}
+					if(pwd != pwd2) {
+						mui.toast('两次密码输入不一致');
+						ctrls = true;
+						return false;
+					}
+					$.ajax({
+						type: "POST",
+						url: "__URL__/registerApi",
+						data: {
+							phone: phone,
+							pwd: pwd,
+							url: tzurl,
+							verify: verify,
+							incode: incode
+						},
+						datatype: "json",
+						success: function(data) {
+							var msg = eval(data);
+							if(msg.code == 0) {
+								mui.toast('注册成功！', {
+									duration: 'long',
+									type: 'div'
+								});
+								window.location.href = msg['data']['url'];
+							} else {
+								mui.toast(msg.msg);
+								ctrls = true;
+							}
+						}
+					});
+				}
+			}
+			/*忘记密码*/
+			function forgetpwd() {
+				var phone = document.getElementById('phonenum').value;
+				var verify = document.getElementById('verify').value;
+				var pwd = document.getElementById('pwd').value;
+				var pwd2 = document.getElementById('pwd2').value;
+				if(ctrls_2) {
+					ctrls_2 = false;
+					if(emptyval(phone) || emptyval(pwd) || emptyval(verify)) {
+						mui.toast('请输入手机验证信息！');
+						ctrls_2 = true;
+						return false;
+					}
+					if(pwd != pwd2) {
+						mui.toast('两次密码输入不一致');
+						ctrls_2 = true;
+						return false;
+					}
+					$.ajax({
+						type: "POST",
+						url: "__URL__/forgetpwdApi",
+						data: {
+							phone: phone,
+							pwd: pwd,
+							verify: verify
+						},
+						datatype: "json",
+						success: function(data) {
+							var msg = eval(data);
+							if(msg.code == 0) {
+								mui.toast('设置成功！', {
+									duration: 'long',
+									type: 'div'
+								});
+								window.location.href = ' __URL__/index';
+							} else {
+								mui.toast(msg.msg);
+								ctrls_2 = true;
+							}
+						}
+					});
+				}
+			}
+			/*返回注册手机号码信息页*/
+			function backprev() {
+				$('#page-1').show();
+				$('#page-2').hide();
+				if(action == "pwd") {
+					$('.mui-title').text("忘记密码");
+				} else {
+					$('.mui-title').text("注册");
+				}
+				$('#back_pre').addClass('mui-action-back');
+			}
+		</script>
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

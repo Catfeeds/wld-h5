@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<link rel="stylesheet" href="__CSS__/viewer.min.css">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript" src="__JS__/jquery.cookie.js"></script>
+		<style type="text/css">
+			select {
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="pup-bg success-bg"></div>
+		<div class="success-tip">
+			<div class="success-tip-con">
+				<div class="success-icon"><img src="__IMG__/sjjh_icon_pop.png" alt="" /></div>
+				<div class="success-font fs16" style="color: #01C12D;">恭喜你，审核已通过</div>
+				<div class="success-sure cf fs16" onclick="sure_close()">确认</div>
+			</div>
+		</div>		
+		<div class="content-s w_960">
+			<div class="page-title">
+				<div class="page-tit-name fweight">基本资料</div>
+			</div>
+			<div class="resource-main">
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">商户名称：</div>
+						<div class="data-r fl">{$data['c_merchantname']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl"><?php if($data['c_type'] == 1){ ?>负责人姓名 <?php } else if($data['c_type'] == 2){ ?>法人姓名<?php } else if($data['c_type'] == 3){ ?>经营者姓名 <?php } ?>：</div>
+						<div class="data-r fl">{$data['c_name']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">身份证号码：</div>
+						<div class="data-r fl">{$data['c_idcardinfo']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">证件有效期：</div>
+						<div class="data-r fl">{$data['c_idcardstarttime']}至{$data['c_idcardendtime']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">手机号码：</div>
+						<div class="data-r fl">{$data['c_phone']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">所在省市区：</div>
+						<div class="data-r fl">{$data['c_province']}{$data['c_city']}{$data['c_county']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">详细地址：</div>
+						<div class="data-r fl">{$data['address1']}</div>
+					</div>
+				</div>
+
+				<?php if ($data['c_type'] == 2 || $data['c_type'] == 3) { ?>
+					<div class="data-li-box">
+						<div class="data-list fl">
+							<div class="data-l fl">营业执照号：</div>
+							<div class="data-r fl">{$data['c_charter']}</div>
+						</div>
+					</div>
+				<?php } ?>
+
+				<div class="page-title">
+					<div class="page-tit-name fweight">结算信息</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl"><?php if($ctype==2){ ?>银行公户名<?php } else { ?>银行开户名<?php } ?>：</div>
+						<div class="data-r fl">{$data['c_fee_name']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl"><?php if($ctype==2){ ?>银行公户号：<?php } else { ?>银行卡号：<?php } ?></div>
+						<div class="data-r fl">{$data['c_fee_cardnum']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl"><?php if($ctype==2){ ?>公户开户行：<?php } else { ?>开户银行：<?php } ?></div>
+						<div class="data-r fl">{$data['c_fee_bank']}</div>
+					</div>
+				</div>
+				<div class="data-li-box">
+					<div class="data-list fl">
+						<div class="data-l fl">开户支行：</div>
+						<div class="data-r fl">{$data['c_bankname']}</div>
+					</div>
+				</div>
+
+				<div class="data-li-box" style="margin-top:50px">
+					<div class="dataimg-list">
+						<ul>
+							<li>
+								<div class="imgtit">身份证正面</div>
+								<div class="data-idImg"><img data-original="{$data['c_idcard_img']}" src="{$data['c_idcard_img']}"></div>
+							</li>
+							<li>
+								<div class="imgtit">身份证反面</div>
+								<div class="data-idImg"><img data-original="{$data['c_idcard_img1']}" src="{$data['c_idcard_img1']}"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<?php if ($data['c_type'] == 1 || $data['c_type']==3) { ?>
+					<div class="data-li-box">
+						<div class="dataimg-list">
+							<ul>
+								<li>
+									<div class="imgtit">银行卡正面</div>
+									<div class="data-idImg"><img data-original="{$data['c_bankcardimg']}" src="{$data['c_bankcardimg']}"></div>
+								</li>
+								<li>
+									<div class="imgtit">银行卡反面</div>
+									<div class="data-idImg"><img data-original="{$data['c_bankcardimg1']}" src="{$data['c_bankcardimg1']}"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				<?php } ?>
+
+				<?php if ($data['c_type'] == 2 || $data['c_type']==3) { ?>
+					<div class="data-li-box">
+						<div class="dataimg-list">
+							<ul>
+								<li>
+									<div class="imgtit">营业执照</div>
+									<div class="data-idImg"><img data-original="{$data['c_charter_img']}" src="{$data['c_charter_img']}"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				<?php } ?>
+
+				<?php if ($data['c_type'] == 2 ) { ?>
+					<div class="data-li-box">
+						<div class="dataimg-list">
+							<ul>
+								<li>
+									<div class="imgtit">公户开户许可证</div>
+									<div class="data-idImg"><img data-original="{$data['c_idcard_img']}" src="{$data['c_charterpub_img']}"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				<?php } ?>
+
+			</div>
+
+		</div>
+		<div class="mar30"></div>
+		
+		<script type="text/javascript">
+			var cchecked = '<?php echo $vo["c_checked"] ?>';
+			window.onload = function() {
+//				$('.dataimg-list ul li').height(integer)
+
+				// $('.data-idImg').height($('.data-idImg').width()*0.64 + 'px');
+				$('.data-licImg').height($('.data-licImg').width()*0.75 + 'px');
+				if(cchecked==3){
+					$('.success-bg').fadeIn();
+					$('.success-tip').fadeIn();
+					$('.success-bg').height($(document).height());
+					$.cookie('prolead', '1', {
+					    expires: 1
+					});					
+				}
+	            if ($.cookie('prolead') == 1) {
+					$('.success-bg').fadeOut();
+					$('.success-tip').fadeOut();       
+	            }	
+			}
+			function sure_close(){
+				$('.success-bg').fadeOut();
+				$('.success-tip').fadeOut();
+			}			
+
+		</script>
+		<script src="__JS__/viewer.min.js"></script>
+		<script>
+			$(function() {
+				$('.data-idImg img').click(function() {
+					$('.dataimg-list').viewer({
+						url: 'data-original',
+						navbar: false,
+						toolbar: true,
+						keyboard: false,
+						movable: false,
+						scalable: false,
+						fullscreen: false
+					});
+					setTimeout("$('.viewer-play').css(\"display\",\"none\");$('.viewer-prev').css(\"display\",\"none\");$('.viewer-next').css(\"display\",\"none\");", 100);
+				});
+			});
+		</script>
+	</body>
+
+</html>

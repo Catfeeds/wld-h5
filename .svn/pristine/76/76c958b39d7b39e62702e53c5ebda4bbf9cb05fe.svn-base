@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$data['c_nickname']}的店铺</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom:15%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="tem-p-top divre">
+					<div class="temp-sj-info divab">
+						<div class="sj-head">
+							<if condition="$data['c_headimg'] eq null">
+								<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+								<else />
+								<img id="self-heads" src="{$data['c_headimg']}" alt="">
+							</if>
+						</div>
+						<div class="sj-name">
+							<span class="cf fs15 fov">{$data['c_nickname']}</span>
+							<?php if ($data['c_source'] == 2) { ?>
+							<span><img src="__IMG__/index/o2store_icon_entity.png" alt="" /></span>
+							<?php } else { ?>
+							<span><img src="__IMG__/index/o2store_icon_pu.png" alt="" /></span>
+							<?php } ?>
+						</div>
+						<div class="sj-click-att">
+							<div class="sj-attnum fl fs13 cf">粉丝&nbsp;&nbsp;{$data['c_attention']}</div>
+							<div class="sj-clicknum fl fs13 cf">浏览量&nbsp;&nbsp;{$data['c_pv']}</div>
+						</div>
+					</div>
+					<?php if ($data['c_source'] == 2) { ?>
+					<div class="temp-sj-address divab">
+						<span><img src="__IMG__/index/dpsy_icon_wz.png" alt="" /></span>
+						<span class="fs12 cf fov">
+							<?php if ($storeinfo['c_provice'] && $storeinfo['c_city'] && $storeinfo['c_district']): ?>
+								{$storeinfo['c_provice']}{$storeinfo['c_city']}{$storeinfo['c_district']}{$storeinfo['c_address']}	
+							<?php endif ?>							
+						</span>
+						<span><img src="__IMG__/index/o2store_icon_next.png" alt="" /></span>
+					</div>
+					<?php } ?>
+					<?php if ($data['c_source'] == 1) { ?>
+					<img src="__IMG__/index/o2store_bg_online2.png" alt="" />
+					<?php }else{ ?>
+					<img src="__IMG__/index/o2store_bg_entity.png" alt="" />
+					<?php } ?>
+				</div>
+				<div class="divre">
+					<?php if ($data['c_source'] == 1) { ?>
+					<!--店铺信息-->
+					<div class="store-introduce divtab bgcolor">
+						<div class="store-all-tit c9 fs13 divtab bborder">商家信息</div>
+						<?php if(!empty($storeinfo['c_desc'])) { ?>
+						<div id="slideup">
+							<div class="store-desc-info fs12 c5 clamp2">{$storeinfo['c_desc']}</div>
+							<div class="store-more divtab">
+								<div class="store-more-img fr"><img src="__IMG__/index/o2store_icon_open.png" alt="" /></div>
+								<div class="store-more-txt fr fs13 c9">查看全部商家信息</div>
+							</div>
+						</div>
+						<?php } ?>
+						<div id="slidedown" class="none">
+							<div class="store-all-desc fs12 c5 bborder">{$storeinfo['c_desc']}</div>
+							<div class="store-info-slidup divtab">
+								<div class="slidup-ico fr"><img src="__IMG__/index/o2store_icon_stop.png" alt="" /></div>
+								<div class="slidup-txt fr fs13 c9">收起</div>
+							</div>
+						</div>
+					</div>
+					<?php }else{ ?>
+					<!--店铺信息-->
+					<div class="store-introduce divtab bgcolor">
+						<div class="store-all-tit c9 fs13 divtab bborder">商家信息</div>
+						<?php if(!empty($storeinfo['c_desc'])) { ?>
+						<div id="slideup">
+							<div class="store-desc-info fs12 c5">{$storeinfo['c_desc']}</div>
+							<div class="store-more divtab">
+								<div class="store-more-img fr"><img src="__IMG__/index/o2store_icon_open.png" alt="" /></div>
+								<div class="store-more-txt fr fs13 c9">查看全部商家信息</div>
+							</div>
+						</div>
+						<?php } ?>
+						<div id="slidedown" class="none">
+							<div class="store-all-desc fs12 c5 bborder">{$storeinfo['c_desc']}</div>
+							<div class="store-all-li bborder divtab">
+								<div class="store-all-lile fl fs12 c9">营业时间</div>
+								<div class="store-all-liri fl fs12 c5">{$storeinfo['c_opentime']}</div>
+							</div>
+							<div class="store-all-li bborder divtab">
+								<div class="store-all-lile fl fs12 c9">商家提示</div>
+								<div class="store-all-liri fl fs12 c5">{$storeinfo['c_remind']}~~~~</div>
+							</div>
+							<?php if (count($storeinfo['service']) > 0) { ?>
+							<div class="store-all-server divtab">
+								<ul>
+									<?php foreach ($storeinfo['service'] as $k => $v) { ?>
+									<li>
+										<div class="service-ico fl">
+											<img src="{$v['c_imgpath']}" alt="" />
+										</div>
+										<div class="service-text fl fs12 cb">{$v['c_name']}</div>
+									</li>
+									<?php } ?>
+								</ul>
+							</div>
+							<?php } ?>
+							<div class="store-info-slidup divtab">
+								<div class="slidup-ico fr"><img src="__IMG__/index/o2store_icon_stop.png" alt="" /></div>
+								<div class="slidup-txt fr fs13 c9">收起</div>
+							</div>
+						</div>
+					</div>
+
+					<?php } ?>
+					<div class="tem-p-menu bgcolor divre">
+						<ul>
+							<li id="tmp_menu_01">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_yhzq.png" /></div>
+								<div class="tp-mfont c5 fs13">优惠专区</div>
+							</li>
+							<li id="tmp_menu_02">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_sjdt.png" /></div>
+								<div class="tp-mfont c5 fs13">商家动态</div>
+							</li>
+							<li id="tmp_menu_03">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_hdzq.png" /></div>
+								<div class="tp-mfont c5 fs13">活动专区</div>
+							</li>
+							<li id="tmp_menu_04">
+								<div class="tp-mico"><img src="__IMG__/index/dpsy_icon_kqlq.png" /></div>
+								<div class="tp-mfont c5 fs13">卡券领取</div>
+							</li>
+						</ul>
+					</div>					
+					<?php if (!empty($prizedata)): ?>
+						<div class="s-tem-red divab">
+							<div class="s-tem-line"><img src="__IMG__/index/line.png" alt="" /></div>
+							<div class="s-tem-hong heartbeat" style="margin-top: -45%;">
+								<img src="__IMG__/index/hong.png" alt="" />
+							</div>							
+						</div>
+					<?php endif ?>
+				</div>
+
+				<div class="store-pro-main divtab" id="product-list">
+				</div>
+			</div>
+			<div class="s-tmp-p1-bottom">
+				<ul>
+					<?php if ($data['is_attention'] == 1) { ?>
+					<li style="width:23%;margin-left:6%;" id="is_attention" title="2">
+						<div class="s-tmp-b-ico1 dpicon" style="width: 20%;">
+							<img id="attionimg" src="__IMG__/index/o2store_icon_1attention.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c9 fs12" id="attiontext">已关注</div>
+					</li>
+					<?php } else { ?>
+					<li style="width:23%;margin-left:6%;" id="is_attention" title="1">
+						<div class="s-tmp-b-ico1 dpicon" style="width: 20%;">
+							<img id="attionimg" src="__IMG__/index/o2store_icon_attention.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c3 fs12" id="attiontext">关注</div>
+					</li>
+					<?php } ?>
+
+					<li style="width:23%;" id="chatshop">
+						<div class="s-tmp-b-ico1 dpicon" style="width: 20%;">
+							<img src="__IMG__/index/o2store_icon_chat.png" alt="" />
+						</div>
+						<div class="s-tmp-b-txt c3 fs12 cb">私聊</div>
+					</li>
+					<li style="width:40%;float:right;">
+						<div class="s-tmp-b-ico1 s-tmp-dl-ico1 bgb cf alignc fs14" id="dailishop">
+							代理专区
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="red-get-bg"></div>
+			<div class="red-get-pup">
+				<div class="red-get-con divre">
+					<div class="red-get-money divab divtab">
+						<!--红包已被抢-->
+						<p class="fs18 none" id="rederror">糟糕，手慢了<br>红包已被抢~</p>
+						<div class="block" id="redsuccess">
+							<p><span class="fs28" id="redmoney">0.00</span><span class="fs14">元</span></p>
+							<p><span class="fs16 fb600">现金</span></p>
+						</div>
+					</div>
+					<div class="red-get-font divab divtab fs16" id="redtext">福旺财旺人气旺 山高水长福寿长</div>
+					<div class="red-get-btn divab fs18">确认</div>
+					<!--如果红包为抢光状态则不跳转-->
+					<div class="red-get-balace divab fs14 none">已转入余额，点击查看></div>
+					<img src="__IMG__/index/o2store_bg_hongbao.png" alt="" />
+				</div>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__JS__/publics.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			var ucode = "<?php echo $ucode; ?>";
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+			var sources = '<?php echo $data["c_source"] ?>';
+			var apptype = "<?php echo get_app_type(); ?>";
+			window.onload = function() {
+				styles();
+				$('.xiaomi-bar').css('background', 'none');
+				$('.mui-content').css('margin-top', '0px');
+				ChRightText("分享");
+
+				$(window).bind('scroll', function() {
+					if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').addClass('menu-fixed');
+						if(sources == 1) {
+							$('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+						} else if(sources == 2) {
+							$('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+						}
+					}
+					if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').removeClass('menu-fixed');
+						$('.xiaomi-bar').css("background", "none");
+					}
+
+				});
+				/*地址跳转*/
+				var address = "<?php echo $storeinfo['c_provice'].$storeinfo['c_city'].$storeinfo['c_district'].$storeinfo['c_address']; ?>"
+				mui('.mui-content').on('tap', '.temp-sj-address', function() {					
+					if(apptype == 1) { //跳转安卓导航
+						javaScript: resultData.routeNavigation("<?php echo $storeinfo['c_longitude']; ?>", "<?php echo $storeinfo['c_latitude']; ?>", "<?php echo $storeinfo['c_gd_longitude']; ?>", "<?php echo $storeinfo['c_gd_latitude']; ?>", address);
+					}
+					else if(apptype == 2) { //跳转IOS导航
+						window.webkit.messageHandlers.AppModel.postMessage({
+							"routeNavigation": {
+								"longitude": "<?php echo $storeinfo['c_longitude']; ?>",
+								"latitude": "<?php echo $storeinfo['c_latitude']; ?>",
+								"gd_longitude": "<?php echo $storeinfo['c_gd_longitude']; ?>",
+								"gd_latitude": "<?php echo $storeinfo['c_gd_latitude']; ?>",
+								"address": "" + address + ""
+							}
+						});
+					}
+				});
+			}
+
+			function styles() {
+
+				$('.s-tmp-photo-li li').height($('.s-tmp-photo-li li').width());
+				if(sources == 1) {
+					$('.tem-p-top').height($('.tem-p-top').width() * 0.47);
+				} else if(sources == 2) {
+					$('.tem-p-top').height($('.tem-p-top').width() * 0.53);
+				}
+
+				$('.sj-head').width($('.sj-head').width());
+				$('.sj-head').height($('.sj-head').width());
+				$('.sj-head').css('border-radius', $('.sj-head').width() + 'px');
+
+				$('.temp-sj-address span:nth-of-type(2)').css('line-height', $('.temp-sj-address span:nth-of-type(2)').height() + 'px');
+
+				var pimgw = $('.s-pro-img').width();
+				$('.s-pro-img').height(pimgw);
+				/*5.27 新增 */
+				$('.s-pro-lijbuy').height($('.s-pro-lijbuy').width() * 0.3 + 'px');
+
+				var thhh = $('.s-tmp-h-img').width();
+				$('.s-tmp-h-img').width(thhh);
+				$('.s-tmp-h-img').height(thhh);
+
+				var gd = $('.s-tmp-dl-ico1').width() * 0.28;
+				$('.s-tmp-dl-ico1').css('height', gd + 'px');
+				$('.s-tmp-dl-ico1').css('line-height', gd + 'px');
+				$('.s-tmp-dl-ico1').css('border-radius', gd * 0.5 + 'px');
+				
+				$('.tp-mico').height($('.tp-mico').width());
+
+			}
+			/*优惠专区*/
+			mui('.mui-content').on('tap','#tmp_menu_01',function(){							
+				mui.openWindow({url:"__APP__/Store/Index/profit?fromucode=<?php echo $issue_ucode; ?>",id:"profit"});								
+			});
+			/*商家动态*/
+			mui('.mui-content').on('tap','#tmp_menu_02',function(){
+				if(apptype==3){					
+					mui.openWindow({url:"__APP__/Store/Index/source?fromucode=<?php echo $issue_ucode; ?>",id:"source"});
+				}else{
+					if(apptype == 1) {
+						javaScript: resultData.dynamic();
+					}
+					else if(apptype == 2) {
+						window.webkit.messageHandlers.AppModel.postMessage({
+							"dynamic": {
+								"ss": "1"
+							}
+						});
+					}					
+				}
+			});
+			/*活动专区*/
+			mui('.mui-content').on('tap','#tmp_menu_03',function(){
+				mui.openWindow({url:"__APP__/Store/Index/activitylist?fromucode=<?php echo $issue_ucode; ?>",id:"activitylist"});
+			});
+			/*卡券领取*/
+			mui('.mui-content').on('tap','#tmp_menu_04',function(){
+				mui.openWindow({url:"__APP__/Store/Index/couponlist?fromucode=<?php echo $issue_ucode; ?>",id:"couponlist"});
+			});
+
+			/*领取红包*/
+			mui('.mui-content').on('tap', '.s-tem-red', function() {
+				ReceiveRed();
+			});
+
+			var resign = true;
+
+			function ReceiveRed() {
+				if(resign) {
+					if(!ucode) {
+						mui.confirm('领取红包需登录', '提示', ['取消', '确认'], function(e) {
+							e.index == 0 ? "" : mui.openWindow({
+								url: WEB_HOST + '/index.php/Login/Index/index?url=' + detailurl,
+								id: 'login'
+							});
+						}, 'div');
+						return;
+					}
+					resign = false;
+					$.post("__URL__/ReceiveRed", {
+						awid: "<?php echo $prizedata['c_id']; ?>",
+						sid: "<?php echo $prizedata['sid']; ?>"
+					}, function(obj) {
+						var result = eval(obj);
+						resign = true;
+						if(result['code'] == 0) {
+							var data = result['data'];
+							$('#rederror').hide();
+							$('#redsuccess').show();
+							$('#redmoney').text(data['value']);
+							$('#redtext').text(data['name']);
+							$('.s-tem-red').css('display', "none");
+							$('.red-get-balace').css('display', "block");
+						} else {
+							$('#redsuccess').hide();
+							$('#rederror').show();
+							$('.s-tem-red').css('display', "none");
+							$('.red-get-balace').css('display', "none");
+						}
+
+						$('.red-get-bg').fadeIn(500);
+						$('.red-get-pup').fadeIn(800);
+						$('.red-get-bg').height($(document).height());
+						$('.red-get-con').height($('.red-get-con').width() * 1.28);
+					})
+
+				}
+			}
+			/*查看余额*/
+			mui('.red-get-pup').on('tap', '.red-get-balace', function() {
+				mui.openWindow({
+					url: "__APP__/Balance/Index/index",
+					id: "balace"
+				});
+			});
+			/*关闭弹窗*/
+			mui('.red-get-pup').on('tap', '.red-get-btn', function() {
+				$('.red-get-bg').fadeOut(200);
+				$('.red-get-pup').fadeOut(500);
+			});
+
+			//私聊
+			mui('.wrap-page').on('tap', '#chatshop', function() {
+				fchat("<?php echo $storeinfo['c_ucode']; ?>", "<?php echo $storeinfo['c_name']; ?>")
+			});
+
+			/*代理中心*/
+			mui('.wrap-page').on('tap', '#dailishop', function() {
+				mui.openWindow({
+					url: "__APP__/Agency/Index/agentde?acode=<?php echo $issue_ucode; ?>",
+					id: "dailishop"
+				});
+			});
+
+			/*关注*/
+			var atclick = 1;
+			mui('.wrap-page').on('tap', '#is_attention', function() {
+				atclick = $(this).attr('title');
+				attentionss(this);
+			});
+
+			// 关注操作
+			function attentionss(tg) {
+				if(!ucode) {
+					mui.confirm('关注需登录', '提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : mui.openWindow({
+							url: WEB_HOST + '/index.php/Login/Index/index?url=' + detailurl,
+							id: 'login'
+						});
+					}, 'div');
+					return;
+				}
+
+				if(atclick == 1) {
+					var handle = 1;
+				} else {
+					var handle = 0;
+				}
+				$.post(WEB_HOST + '/index.php/Trade/Index/UserAttention', {
+						handle: handle,
+						issue_ucode: '<?php echo $issue_ucode; ?>'
+					},
+					function(obj) {
+						var msg = eval(obj);
+						if(msg['code'] == 0) {
+							if(atclick == 1) {
+								$('#attiontext').text("已关注");
+								$('#attiontext').removeClass('c3');
+								$('#attiontext').addClass('c9');
+								$('#attionimg').attr('src', '__IMG__/index/o2store_icon_1attention.png');
+								$(tg).attr('title', 2);
+							} else {
+								$('#attiontext').text("关注");
+								$('#attiontext').removeClass('c9');
+								$('#attiontext').addClass('c3');
+								$('#attionimg').attr('src', '__IMG__/index/o2store_icon_attention.png');
+								$(tg).attr('title', 1);
+							}
+							mui.toast(msg['msg']);
+						} else {
+							mui.toast(msg['msg']);
+						}
+					});
+			}
+			/*商品资源数据加载*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			var keyword = '';
+			var isfixed = "<?php echo $data['c_isfixed']; ?>";
+			getProductlist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getProductlist();
+					}
+				}
+			});
+
+			function getProductlist() {
+				var url = "__URL__/GetProduceList?acode=<?php echo $issue_ucode; ?>&pageindex=" + pageindex + "&isfixed=" + isfixed;
+				console.log(url)
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#product-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">该商家还没有添加产品</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="s-pro-box fl" onclick="clickpro(\''+dataarr['c_pcode']+'\','+dataarr['c_source']+');">';
+										_html += '<div class="s-pro-img" title="' + dataarr['c_pcode'] + '" data-source="' + dataarr['c_source'] + '"><img src="' + dataarr['c_pimg'] + '" alt="" /></div>';
+										_html += '<div class="s-pro-name c3 fs13 fov" style="width:100%;">' + dataarr['c_name'] + '</div>';
+										_html += '<div class="s-pro-p-n divtab">';
+										_html += '<div class="s-pro-price fl cy" style="width:90%;"><span class="fs12">￥</span><span class="fs14">' + dataarr['c_price'] + '</span></div>';
+
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#product-list').append(_html);
+					},
+					complete: function() {
+						var pimgw = $('.s-pro-img').width();
+						$('.s-pro-img').height(pimgw);
+						/*5.27 新增 */
+						$('.s-pro-lijbuy').height($('.s-pro-lijbuy').width() * 0.3 + 'px');
+
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+//							mui('.s-pro-box').on('tap', '.s-pro-img', function() {
+//								var pcode = $(this).attr('title');
+//								var source = $(this).attr('data-source');
+//								clickpro(pcode,source);
+//								console.log(pcode);
+//							});
+						}
+					}
+				});
+			}
+			/*查看商品*/
+			function clickpro (pcode,source) {
+				shopGoodsDetails(pcode,source,"<?php echo $ucode ?>");
+			}			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>搜索</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/index/index.css?v=3.0.4" />
+	</head>
+
+	<body style="background-color: #f0f0f0;">
+		<div class="wrap-page">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+				<input type="hidden" name="cateid" id="cateid" value="{$cateid}" />
+
+				<div class="search-bar">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs28 search-j" id="muinav_return"></a>
+					<div class="xiaomi-search">
+						<div class="xm-search-con divre">
+							<div class="mui-input-row">
+								<input type="search" id="keyname" name="keyname" class="fs13" placeholder="搜索商品名称" style="width: 100%;padding:3% 0 3% 10%;background-color: white;text-align: left;" />
+							</div>
+						</div>
+					</div>
+					<div class="xm-search-btn cf fs14" id="xm_ssbtn">搜索</div>
+				</div>
+				<div class="mui-content" style="background-color: white;margin: 0 1.3rem;">
+					<!--<div id="hot" style="display: none;">
+						<div class="fs13 hot">
+							热门推荐
+						</div>
+
+						<ul class="fs12 more">
+							<li>
+								柔情坚果
+							</li>
+							<li>面包</li>
+							<li>泰国产地芒果干</li>
+							<li>每日坚果组合装</li>
+							<li>手撕面包</li>
+							<li>麻辣味猪肉铺</li>
+							<li>中秋月饼</li>
+							<li>清香海味</li>
+						</ul>
+					</div>-->
+
+				</div>
+				<div class="category">
+					<ul class="nav fs13">
+						<li class="active">
+							<div class="nav_n">
+								<span>综合</span>
+							</div>
+						</li>
+						<li>
+							<div class="nav_n">
+								<span>新品</span>
+							</div>
+						</li>
+						<li>
+							<div class="nav_n">
+								<span>价格</span>
+								<img src="__IMG__/index/store_icon_default.png" alt="" />
+							</div>
+						</li>
+						<li>
+							<div class="nav_n">
+								<span>销量</span>
+								<img src="__IMG__/index/store_icon_default.png" alt="" />
+							</div>
+						</li>
+					</ul>
+
+					<ul class="shops divtab">
+						<!--<li class="fs12">
+							<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+
+							<div>快乐柠檬-脉动</div>
+							<div style="color: #FFAA3D;">
+								<span>￥</span>50.00
+							</div>
+						</li>-->
+					</ul>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+
+        /*商品资源数据加载*/
+        var ctrls = true;
+        var emptyval = true;
+        var pageindex = 1;
+		var order = 1;
+		var screenWith = $('.wrap-page').width() / 720;
+		console.log($('.without>img').width());
+		$('.without>img').css('width', 320 * screenWith);
+		$('.without>img').css('height', 240 * screenWith);
+		$('.without').css('margin-top', 240 * screenWith);
+
+		var times;
+		$('.mui-content').css('padding-top', $('.search-bar').height());
+		$('.nav').height($($('.nav:first').children('li').get(0)).height());
+
+		$('.nav>li').each(function(i) {
+			var num = 0;
+			if(i == 2) {
+				$(this).click(function() {
+					eachs();
+					$(this).addClass("active");
+					if(num == 0) {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_jiang.png');
+						order = 3;
+						num = 1;
+						pageindex = 1;
+						getdatalist();
+					} else {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_sheng.png');
+						order = 4;
+						num = 0;
+						pageindex = 1;
+						getdatalist();
+					}
+				});
+			} else if(i == 3) {
+				$(this).click(function() {
+					eachs()
+					$(this).addClass("active");
+					if(num == 0) {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_jiang.png');
+						order = 5;
+						num = 1;
+						pageindex = 1;
+						getdatalist();
+					} else {
+						$(this).find('img').attr('src', '__IMG__/index/store_icon_sheng.png');
+						order = 6;
+						num = 0;
+						pageindex = 1;
+						getdatalist();
+					}
+				});
+			} else if(i == 1) {
+				$(this).click(function() {
+					order = 2;
+					pageindex = 1;
+					getdatalist();
+					eachs();
+					$(this).addClass("active");
+				});
+			} else if(i == 0) {
+				$(this).click(function() {
+					order = 1;
+					pageindex = 1;
+					getdatalist();
+					eachs();
+					$(this).addClass("active");
+				});
+			}
+		});
+
+		function eachs() {
+			$('.nav>li').each(function(i) {
+				$(this).removeClass("active");
+				$(this).find('img').attr('src', '__IMG__/index/store_icon_default.png');
+			});
+		}
+
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+
+        getdatalist();
+		/*数据加载*/
+		function getdatalist() {
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: "__APP__/Store/Gcategory/getCateData?&order=" + order + "&fromucode=" + $('#issue_ucode').val() + "&key=" + $('#keyname').val() + "&cateid=" + $('#cateid').val() + "&pageindex=" + pageindex,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('.shops').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty">';
+								_html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+								_html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<li class="fs12" onclick="clickpro(\'' + dataarr['c_pcode'] + '\',' + dataarr['c_source'] + ');"><div style="width: 100%;text-align: center;margin: 0;" class="s_pro_img"><img src=' + dataarr["c_pimg"] + ' alt="" /></div>';
+									_html += '<p class="divtab c3 fs14 fov" style="padding:3% 4%;">' + dataarr["c_name"] + '</p><p class="fs14 cy divtab" style="padding: 2% 4%;"><span class="fs12 cy">￥</span>' + dataarr["c_price"] + '</p></li>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('.shops').append(_html);
+                    $('.s_pro_img').height($('.s_pro_img').width());
+				},
+				complete: function() {
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+
+					}
+				}
+			});
+		}
+		/*查看商品*/
+		function clickpro(pcode, source) {
+			shopGoodsDetails(pcode, source, $('#ucode').val());
+		}
+
+        mui('.wrap-page').on('tap','#xm_ssbtn',function () {
+            pageindex = 1;
+            getdatalist();
+        });
+
+        $("#keyname").on('keypress',function(e) {
+            var keycode = e.keyCode;
+            if(keycode=='13') {
+                e.preventDefault();
+                //请求搜索接口
+                pageindex = 1;
+                getdatalist();
+            }
+        });
+	</script>
+
+</html>

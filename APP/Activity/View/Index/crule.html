@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>宝箱活动规则</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content divtab bgcolor">
+					<div class="rule-content">
+						<p class="fs16 c3" style="padding-bottom: 4%;">1.什么是小蜜宝箱？</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">小蜜宝箱活动由小蜜实体商家发起，小蜜用户可在该小蜜商家所在地的50米范围内发现小蜜宝箱。点击发现到的宝箱，即可获得奖品。</p>
+						<p class="fs16 c3" style="padding-bottom: 4%;">2.如何领取宝箱奖品？</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">发现宝箱后点击即可获得商品、优惠券、现金红包以及祝福语。</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">商品：用户需到店进行兑换领取；</p>	
+						<p class="fs14 c5" style="padding-bottom: 4%;">优惠券：直接存入小蜜卡券包中，优惠券需在有效期内进行使用（仅限线上订单支付时使用）；</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">现金红包：红包金额将自动存入您的小蜜余额中。</p>
+						<p class="fs16 c5">3.该活动小蜜平台有最终解释权，详情可咨询唯一官方客服：400-9603-400</p>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+
+			yangshi();
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {			
+
+		}
+
+		
+	</script>
+
+</html>

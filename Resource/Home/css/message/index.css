@@ -1,0 +1,94 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+
+/*消息中心*/
+.message-tit{width: 100%;overflow: hidden;padding-top: 3%;}
+.message-tit a{display: block;overflow: hidden;}
+.message-menu{color: #555;font-size: 14px;width: 25%;border-bottom: solid 1px #d8d8d8; text-align: center;padding-bottom: 2%; }
+.menu-hover{color: #0594fd;border-bottom: solid 1px #0594fd;}
+.information{margin-left: 4%;}
+.contact{margin-right: 4%;}
+.message-type-li{width: 100%;overflow: hidden;padding: 3% 0;position: relative;}
+.message-type-li img{width: 100%;height: 100%;}
+.msg-type-ico{width: 10%;margin-left: 4%;}
+.msg-type-font{color: #555;font-size: 14px;margin-left: 3%;}
+.msg-type-tip{color: #999;font-size: 12px;margin-right: 5%;}
+.msg-type-arrow{width: 10%;}
+.msg-tip-num{background: #ffc83c;border-radius: 50%;text-align: center;color: #fff;position: absolute;font-size: 12px;width: 17px;height: 17px;line-height: 17px;right: 8%;top: 36%;}
+
+/*联系人*/
+.contact-list{overflow: hidden;padding-top: 3%;}
+.contact-list li{padding: 3% 0;overflow: hidden;}
+.contact-himg{width: 15%;margin-left: 4%;position: relative;z-index: 555;}
+.is_head_img{position: absolute;left: 0;top: 0;z-index: 555;width: 100%;overflow: hidden;}
+.is_head_img img{width: 100%;height: 100%;}
+.is_shop_img{position: absolute;right: -6%;bottom: -6%;z-index: 666;width:40%;height: 40%;}
+.contact-info{width: 77%;overflow: hidden;margin-left: 4%;}
+.contact-name-time{width: 100%;overflow: hidden;}
+.contact-name{color: #1f284e;font-size: 14px;}
+.contact-time{color: #999;font-size: 12px;margin-right: 4%;}
+.contact-gxqm-xx{position: relative;width: 100%;overflow: hidden}
+.contact-gxqm{color: #5d5d5d;font-size: 12px;width: 80%;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;}
+.contact-xx{background: #ffc83c;border-radius: 50%;text-align: center;color: #fff;position: absolute;font-size: 12px;width: 17px;height: 17px;line-height: 17px;right: 8%;top: 30%;}
+.store-type{background: #46aafa;color: #fff;font-size: 12px;padding: 1% 2%;text-align: center;overflow: hidden;border-radius: 5px;margin-left: 1%;}
+
+/*订单消息*/
+.ordermsg-list-main{width: 100%;padding: 3% 0;}
+.ordermsg-list{width: 100%;overflow: hidden;padding: 3%;}
+.ordermsg-left{width: 12%;margin-right: 3%;}
+.ordermsg-right{background: url(../../img/message/ordermsg.png); background-size:100% 100%;width: 85%;position: relative;overflow: hidden;padding: 2%;}
+.ordermsg-r-ico{width: 5%;position: absolute;left: -20px;top: 5%;overflow: hidden;}
+.ordermsg-r-img{width: 15%;margin-left: 6%;}
+.ordermsg-r-text{width: 76%;margin-left: 3%;padding-right: 2%;}
+.ordermsg-r-details{color: #555;font-size: 14px;}
+.ordermsg-r-href{ display: block; color: #2185f4;font-size: 14px;}
+.sysmsg-r-info{color: #555;font-size: 14px;padding: 2% 3% 2% 7%;}
+
+/*我的小助手*/
+.box{padding: 0% 3%;}
+.list-time{text-align: center;padding-top: 4%;padding-bottom:1%;}
+.message-list-left{width: 13%;padding-top: 1%;}
+.message-list-right{width: 82%;background: url(../../img/message/ordermsg1.png);
+	background-size: 100% 100%;padding: 2% 0 2% 5%;margin-right: 4%;}
+.list-info-next a,.list-info-next1 a{color: #3896fe;}
+.list-info-text,.list-info-next,.list-info-text1,.list-info-next1{padding:0.5% 2%;}
+.list-info-left{width: 15%;}
+.list-info-right{width: 83%;}
+
+@media (min-width: 421px) and (max-width: 520px) {
+.message-menu{font-size: 18px;}
+.msg-type-font{font-size: 18px;}
+.msg-type-tip{font-size: 16px;}
+.contact-name{font-size: 18px;}
+.contact-time,.contact-gxqm,.store-type{font-size: 16px;}
+.ordermsg-r-href,.ordermsg-r-details,.sysmsg-r-info{font-size: 18px;}
+
+
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+.message-menu{font-size: 22px;}
+.msg-type-font{font-size: 22px;}
+.msg-type-tip{font-size: 20px;}
+.msg-tip-num{font-size: 14px;width: 22px;height: 22px;line-height: 22px;top: 40%;}
+.contact-xx{font-size: 14px;width: 22px;height: 22px;line-height: 22px;}
+.contact-name{font-size: 22px;}
+.contact-time,.contact-gxqm,.store-type{font-size: 20px;}
+.ordermsg-r-href,.ordermsg-r-details,.sysmsg-r-info{font-size: 22px;}
+
+}
+
+@media (min-width: 621px){	
+.message-menu{font-size: 26px;}
+.msg-type-font{font-size: 26px;}
+.msg-type-tip{font-size: 24px;}
+.msg-tip-num{font-size: 14px;width: 22px;height: 22px;line-height: 22px;top: 40%;}
+.contact-xx{font-size: 14px;width: 22px;height: 22px;line-height: 22px;}
+.contact-name{font-size: 26px;}
+.contact-time,.contact-gxqm,.store-type{font-size: 24px;}
+.ordermsg-r-href,.ordermsg-r-details,.sysmsg-r-info{font-size: 26px;}
+
+}
+
+

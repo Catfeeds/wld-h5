@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>我是<?php echo $data['c_nickname'] ?>,邀请你加入小蜜</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/impower/index.css?v=1.3">
+		<style>input[type=email],input[type=password],input[type=text]{background: none;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" id="regress" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="regress-top invite-top">
+					<div class="invite-headimg">
+						<img src="{$data.c_headimg}" alt="">
+					</div>
+					<div class="invite-name">
+						<p class="fs14 cf">我是{$data.c_nickname}</p>
+						<p class="fs13 cf">邀请您加入小蜜</p>
+					</div>
+					<img src="__IMG__/impower/invite.png" alt="">
+				</div>
+				<div class="invite_reason fs13">
+					我是小蜜用户：{$data.c_nickname}，诚挚地邀请您注册并加入小蜜，在这里，每天有上万名微商等您临幸，数十万爆款商品任您挑选，百万红包等您领取。请根据提示完成注册流程，让我们共同开启神奇小蜜之旅吧！
+				</div>
+				<div class="regress-register">
+					<div class="regress-reg-tit"><img src="__IMG__/impower/regress-3.png" alt=""></div>
+					<div class="regress-reg-con">
+						<div class="regress-reg-box">
+							<input type="text" name="phone" id="phone" class="regress-txt fs13" placeholder="请输入手机号">
+						</div>
+						<div class="regress-reg-box">
+							<input type="text" id="verify" name="verify" class="regress-txt fl fs13" placeholder="请输入短信校验码">
+							<button class="regress-duanx fl fs13" id="secondbtn">获取校验码</button>
+						</div>
+						<div class="regress-reg-box">
+							<input type="password" id="pwd" name="pwd" class="regress-txt fs13" placeholder="请输入登陆密码">
+						</div>
+						<div class="regress-reg-box">
+							<input type="password" id="repwd" name="repwd" class="regress-txt fs13" placeholder="请输入确认密码">
+						</div>
+						<div class="regress-reg-box">
+							<div class="agree_left agree_new_left agree_size">
+								<input type="checkbox" id="chk_agree" name="chk_agree" checked="checked">
+							</div>
+							<div class="agree_right agree_new_right agree_size fs13">
+								<a href="__APP__/Login/Index/read">我已阅读并同意《微领地服务协议》</a>
+							</div>
+						</div>
+						<div class="regress-reg-box reg_box" style="display: none;">
+							<div class="invite fs13">
+								邀请码：{$incode}
+							</div>
+						</div>
+						<div id="registerbtn" style="margin: 5% auto;"><img src="__IMG__/impower/regress-6.png" alt=""></div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/sendcode.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				var aleft = $('.agree_left').height();
+				$('.agree_right').css('line-height', aleft + 'px');
+				$('.invite-headimg').outerHeight($('.invite-headimg').outerWidth());
+				$('.invite-headimg').css('border-radius', $('.invite-headimg').outerWidth() + 'px');
+			}
+
+			$(document).ready(function() {
+				v = $.cookie("secondcode"); //获取cookie值
+				if(v > 0) {
+					settimep($("#secondbtn"), 'secondcode'); //开始倒计时
+				}
+			});
+			/*验证手机校验码*/
+			mui('.mui-content').on('tap', '#secondbtn', function() {
+				sendCode($("#secondbtn"), 1, 'secondcode', $('#phone'));
+			});
+
+			mui('.mui-content').on('tap', '#registerbtn', function() {
+				subinfo('<?php echo $url?>');
+			});
+			var clicktag = true;
+
+			function subinfo(url) {
+				if(clicktag) {
+					clicktag = false;
+					var verify = $('#verify').val();
+					var pwd = $('#pwd').val();
+					var repwd = $('#repwd').val();
+					var agree = $('#chk_agree');
+					if(phone == '' || verify == '' || pwd == '' || repwd == '') {
+						mui.toast('请输入完整的信息');
+						clicktag = true;
+						return false;
+					}
+					if(pwd != repwd) {
+						mui.toast('两次密码输入不一致');
+						clicktag = true;
+						return false;
+					}
+					if(!agree.attr('checked')) {
+						mui.toast('您还未阅读《微领地服务协议》');
+						clicktag = true;
+						return false;
+					}
+					var phone = $('input[name=phone]').val();
+					if(phone != "") {
+						if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))) {
+							mui.toast("手机号码格式错误！");
+							clicktag = true;
+							return false;
+						}
+					} else {
+						mui.toast("请输入手机号码！");
+						clicktag = true;
+						return false;
+					}
+
+					var incode = "<?php echo $incode ?>";
+					$.post(WEB_HOST + '/index.php/Home/Impower/invite', {
+							phone: phone,
+							pwd: pwd,
+							verify: verify,
+							url: url,
+							incode: incode
+						},
+						function(obj) {
+							var msg = eval(obj);
+							if(msg['code'] == 0) {
+								mui.toast('注册成功');
+								window.location.href = msg['data']['url'];
+							} else {
+								mui.toast(msg['msg']);
+								clicktag = true;
+								return false;
+							}
+						});
+				}
+			}
+
+			function Appshare() {
+				var description = '诚挚地邀请您注册并加入小蜜，在这里，每天有上万名微商等您临幸，数十万爆款商品任您挑选，百万红包等您领取。请根据提示完成注册流程，让我们共同开启神奇小蜜之旅吧！';
+				var url = '<?php echo $cururl ?>';
+				var imgurl = '__COMMON__/img/logo.png';
+				var title = '我是<?php echo $data["c_nickname"] ?>,邀请您加入小蜜';
+				var s = imgurl + ',' + url + ',' + title + ',' + description;
+				return s;
+				// window.resultData.getResultData(title,url,imgurl,description);
+			}
+
+			function Appshare1() {
+				var description = '诚挚地邀请您注册并加入小蜜，在这里，每天有上万名微商等您临幸，数十万爆款商品任您挑选，百万红包等您领取。请根据提示完成注册流程，让我们共同开启神奇小蜜之旅吧！';
+				var url = '<?php echo $cururl ?>';
+				var imgurl = '__COMMON__/img/logo.png';
+				var title = '我是<?php echo $data["c_nickname"] ?>,邀请您加入小蜜';
+				window.resultData.getResultData(title, url, description, imgurl);
+			}
+		</script>
+
+	</body>
+
+</html>

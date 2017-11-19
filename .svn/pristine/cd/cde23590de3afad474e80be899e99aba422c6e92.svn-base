@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>店铺资料设置</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/entity/add.css?v=1.2">
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.3"></script>
+	</head>
+
+	<body>
+		<div class="wrap-page marb3">
+		<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+
+				<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+					<input type="hidden" name="storeid" value="{$storeinfo.c_id}">
+					<div id="con-tabctrl-1" class="block marb3">
+						<div class="setinfo-box">
+							<div class="setinfo-left fl c3 fs13">店铺名称</div>
+							<div class="setinfo-right fl fs12 c9">
+								<input type="text" placeholder="请输入店铺名称" id="sname" name="c_name" value="{$storeinfo.c_name}" maxlength="20" class="fs12">
+							</div>
+						</div>
+						<div class="setinfo-rem c9 fs12">*店铺名称与用户昵称同步，请确保唯一性</div>
+						<div class="setinfo-box">
+							<div class="setinfo-intr c3 fs13">店铺介绍</div>
+							<div class="setinfo-intr-area fs12 c9">
+								<?php if(empty($storeinfo['c_desc'])){?>
+								<textarea name="c_desc" id="scesc" rows="8" placeholder="请输入店铺介绍信息" maxlength="200" class="fs12"></textarea>
+								<?php }else{ ?>
+								<textarea name="c_desc" id="scesc" rows="8" placeholder="请输入店铺介绍信息" maxlength="200" class="fs12 c9">{$storeinfo['c_desc']}</textarea>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="setinfo-box">
+							<div class="setinfo-left fl c3 fs13 selcity">省&nbsp;市&nbsp;区</div>
+							<div class="setinfo-right fl c9">
+								<select name="province" id="province" class="fs12" onchange="loadcity('province',2,'city','{:U('Home/Address/getRegion')}');">
+									<option value="" id="provincename" selected>选择省</option>
+									<foreach name="province" item="province">
+										<option id="{$province.region_id}" value="{$province.region_name}" <if condition="$province.region_name eq $storeinfo['c_provice']"> selected</if> >{$province.region_name}</option>
+									</foreach>
+								</select>
+								<select name="city" id="city" class="fs12" onchange="loadcity('city',3,'district','{:U('Home/Address/getRegion')}');">
+									<if condition="$storeinfo['c_city'] neq null">
+										<option value="{$storeinfo['c_city']}" id="cityname" selected>{$storeinfo['c_city']}</option>
+										<else />
+										<option value="" id="cityname">选择市</option>
+									</if>
+								</select>
+								<select name="region" id="district" class="fs12">
+									<if condition="$storeinfo['c_district'] neq null">
+										<option value="{$storeinfo['c_district']}" id="districtname" selected>{$storeinfo['c_district']}</option>
+										<else />
+										<option value="" id="districtname" selected>选择区</option>
+									</if>
+								</select>
+							</div>
+						</div>
+						<div class="setinfo-box" style="margin-top:0;">
+							<div class="setinfo-left fl c3 fs12">详细地址</div>
+							<div class="setinfo-right fl fs12 c9">
+								<input type="text" placeholder="请输入店铺详细地址" name="address1" id="address1" value="{$storeinfo['c_address']}" maxlength="35" class="fs12">
+								<input type="hidden" name="c_address" id="c_address" value="{$storeinfo['c_address']}">
+							</div>
+						</div>
+						<div class="setinfo-box setmap-box none">
+							<div class="setmap-ico fl"><img src="__IMG__/store/map_03.jpg" alt=""></div>
+							<div class="setmap-font fl c3 fs13">添加地图位置</div>
+							<div class="setmap-ico-r fr"><img src="__IMG__/store/jt_05.jpg" alt=""></div>
+						</div>
+						<div class="con-descbtn block" id="btn-tabctrl-1">
+							<button type="button" class="con-descbtn-r fl fs16" onclick="NextCK(2,3,'tabctrl')" style="width:100%;">保存并下一步</button>
+						</div>
+					</div>
+					<div id="con-tabctrl-2" class="none marb3" style="background:#fff;">
+						<div class="product-main-img">
+							<div class="product-imgtxt" style="margin-left:4%;"><span class="c3 fs13">店铺图片</span><span class="cc fs12" style="margin-left:3%;"><span id="subunum">0</span>/12(建议尺寸720*400)</span>
+							</div>
+						</div>
+						<!-- <div class="product-imgdesc cc fs12">说明：</div> -->
+						<div class="product-main-imglist">
+							<ul class="pro-main-ul">
+								<?php for ($i=0; $i <12 ; $i++) { ?>
+								<?php if ($subarr[$i]){  ?>
+								<li>
+									<div class="pro-main-imgbox">
+										<div class="pro-m-upload">
+											<?php if($subarr[$i]['c_thumbnail_img']!=null){ ?>
+											<img id="simr{$i+1}" src="{$subarr[$i]['c_thumbnail_img']}" alt="" class="hidds">
+											<input type="hidden" name="sub_img_{$i+1}" value="{$subarr[$i]['c_thumbnail_img']}" id="sub_img_val_{$i+1}">
+											<?php }else{ ?>
+											<img id="simr{$i+1}" src="__IMG__/store/304_03.jpg" alt="" class="hidds">
+											<?php } ?>
+										</div>
+										<input type="file" name="sub_img_{$i+1}" value="" id="sub_file{$i+1}" placeholder="" onclick="click_img({$i+1});">
+										<img src="__IMG__/store/304_03.jpg" alt="">
+									</div>
+
+									<div class="pro-m-delete" onclick="deleteimg({$i+1},'simr',this)" id="sub-delete-{$i+1}">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+								<?php }else{ ?>
+								<li>
+									<div class="pro-main-imgbox">
+										<div class="pro-m-upload">
+											<img id="simr{$i+1}" src="__IMG__/store/304_03.jpg" alt="" class="hidds">
+										</div>
+										<input type="hidden" name="sub_img_{$i+1}" value="" id="sub_img_val_{$i+1}">
+										<input type="file" name="sub_img_{$i+1}" id="sub_file{$i+1}" placeholder="" onclick="click_img({$i+1});">
+										<img src="__IMG__/store/304_03.jpg" alt="">
+									</div>
+
+									<div class="pro-m-delete none" onclick="deleteimg({$i+1},'simr',this)" id="sub-delete-{$i+1}">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+								<?php } ?>
+								<?php } ?>
+							</ul>
+						</div>
+						<div class="con-descbtn none" id="btn-tabctrl-2">
+							<button type="button" class="con-descbtn-l fl fs16" onclick="PreviousCK(1,3,'tabctrl')">上一步</button>
+							<button type="button" class="con-descbtn-r fl fs16" onclick="NextCK(3,3,'tabctrl')">保存并下一步</button>
+						</div>
+					</div>
+					<div id="con-tabctrl-3" class="none marb3">
+						<div class="setserve-item bgcolor">
+							<div class="setserve-font c3 fs13">额外服务</div>
+							<div class="setserve-li c3 fs12">
+								<ul>
+									<?php foreach ($service as $k => $vos) { ?>
+									<li><input type="checkbox" id="service_{$k+1}" name="service_obj" value="{$vos['c_id']}" <?php if($vos['checked'] == 1){ ?> checked="checked"
+										<?php } ?> >
+										<span>{$vos["c_name"]}</span></li>
+									<?php } ?>
+									<input type="hidden" name="sourcearr" id="sourcearr" value="">
+								</ul>
+							</div>
+						</div>
+						<div class="setinfo-box" style="padding: 0;">
+							<div class="setbusi-time">
+								<div class="setserve-font c3 fs13">营业时间</div>
+								<div class="setserve-li">
+									<input type="hidden" value="{$storeinfo['c_opentime']}" name="c_opentime" id="c_opentime">
+									<div class="settime-item-1">
+										<input type="radio" class="fl" name="settime" onclick="opratetime(1)" value="1" id="opentr1">
+										<input type="time" value="8:00" class="c9 fs12" id="opentime" placeholder="8:00">
+										<span class="c3 fs12">至</span>
+										<input type="time" class="c9 fs12" value="20:00" id="closetime" placeholder="20:00">
+									</div>
+									<div class="settime-item-2">
+										<input type="radio" name="settime" onclick="opratetime(2)" value="2" id="opentr2"><span class="c3 fs12">24小时</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="setinfo-box">
+							<div class="setinfo-intr c3 fs13">店铺提示&nbsp;<span class="c9 fs12" id="min-lenfont">0</span><span class="c9 fs12">/</span><span class="c9 fs12" id="max-lenfont">200</span></div>
+							<div class="setinfo-intr-area fs13 c9">
+
+								<?php if(empty($storeinfo['c_remind'])){?>
+								<textarea name="c_remind" id="c_remind" rows="8" placeholder="请输入店铺提示备注" maxlength="200" class="fs12"></textarea>
+								<?php }else{ ?>
+								<textarea name="c_remind" id="c_remind" rows="8" placeholder="请输入店铺提示备注" maxlength="200" class="fs12">{$storeinfo['c_remind']}</textarea>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="con-descbtn none" id="btn-tabctrl-3">
+							<button type="button" class="con-descbtn-l fl fs16" onclick="PreviousCK(2,3,'tabctrl')">上一步</button>
+							<button type="button" class="con-descbtn-r fl fs16" id="save_btn">保存</button>
+							<input type="hidden" name="time" value="{$time}">
+						</div>
+						<div id="datePlugin"></div>
+
+						<input type="hidden" name="lng" id="lng" value="{$vo['c_longitude']}">
+						<input type="hidden" name="lat" id="lat" value="{$vo['c_latitude']}">
+						<input type="hidden" name="imglist" id="imglist" value="">
+					</div>
+				</form>
+
+			</div>
+
+		</div>
+		<div id="container"></div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/user.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/region.js"></script>
+		<script type="text/javascript">
+			var opte = 1;
+			window.onload = function() {
+				/*编辑时处理营业时间*/
+				var optime = '<?php echo $storeinfo["c_opentime"] ?>';
+				if(optime == "24小时") {
+					opte = 2;
+					$('#opentr1').attr("checked", false);
+					$('#opentime').attr("disabled", "disabled");
+					$('#closetime').attr("disabled", "disabled");
+					$("#opentime").val("");
+					$("#closetime").val("");
+					$('#opentr2').attr("checked", "checked");
+				} else {
+					opte = 1;
+					$('#opentr2').attr("checked", false);
+					$('#opentime').removeAttr("disabled");
+					$('#closetime').removeAttr("disabled");
+					$('#opentr1').attr("checked", "checked");
+					var strs = new Array();
+					strs = optime.split("~");
+					$("#opentime").val(strs[0]);
+					$("#closetime").val(strs[1]);
+				}
+
+				styles();
+			}
+
+			var map = new BMap.Map("container");
+			var localSearch = new BMap.LocalSearch(map);
+
+			function styles() {
+				var icoh = $('.setmap-ico').height();
+				$('.setmap-font').css('line-height', icoh + 'px');
+
+				var lichk = $('input[type="checkbox"]').height();
+				$('.setserve-li ul li').css('height', lichk*1.6 + 'px');
+				$('.setserve-li ul li span').css('line-height', lichk + 'px');
+
+				//	var sh = $('.setinfo-left').height();
+				//	$('.setinfo-right').css('line-height',sh+'px');
+				var uploadw = $('.pro-main-imgbox').width();
+				$('.pro-main-imgbox').width(uploadw);
+				$('.pro-main-imgbox').height(uploadw);
+				$('.pro-main-imgbox input[type="file"]').width(uploadw);
+				$('.pro-main-imgbox input[type="file"]').height(uploadw);
+
+				//营业时间
+				var timeh = $('#opentr1').height();
+				$('input[type="time"]').height(timeh*1.4);
+				$('.settime-item-1 span').css('line-height', timeh*1.4 +'px');
+				
+				
+			}
+			/*选项卡切换*/
+			function settab(n, total, name) {
+				for(var i = 1; i <= total; i++) {
+					if(i <= n) {
+						$('#' + name + '-hover-' + i).css("display", "block");
+						$('#' + name + '-txt-' + i).removeClass("tabctrl-txt");
+						$('#' + name + '-txt-' + i).addClass("tabctrl-txt-hover");
+						if(i == n) {
+							$('#con-' + name + '-' + i).css("display", "block");
+							$('#btn-' + name + '-' + i).css("display", "block");
+							styles();
+						} else {
+							$('#con-' + name + '-' + i).css("display", "none");
+							$('#btn-' + name + '-' + i).css("display", "none");
+						}
+					} else {
+						$('#' + name + '-hover-' + i).css("display", "none");
+						$('#' + name + '-txt-' + i).removeClass("tabctrl-txt-hover");
+						$('#' + name + '-txt-' + i).addClass("tabctrl-txt");
+						if(i < n) {
+							$('#con-' + name + '-' + i).css("display", "block");
+							$('#btn-' + name + '-' + i).css("display", "block");
+							styles();
+						} else {
+							$('#con-' + name + '-' + i).css("display", "none");
+							$('#btn-' + name + '-' + i).css("display", "none");
+						}
+					}
+				}
+			}
+
+			getnums(12, 'simr', 'subunum', 'sub_img_');
+			//点击上传店铺图
+			function click_img(id) {
+				//$('#sub_file'+id).removeAttr("disabled");
+				$("input[name=sub_img_" + id + "]").val("");
+				var simr = "__IMG__/store/304_03.jpg";
+				var diffr = id - 1;
+				var simrr = $('#simr' + diffr).attr("src");
+				for(var i = 1; i <= id; i++) {
+					if(i == id) {
+						document.getElementById("sub_file" + id).onchange = function() {
+							tempUploadimgStatic('sub_file' + id, 'simr' + id, 'sub_img_val_' + id, id, 'sub-delete-' + id);
+						}
+						getnums(12, 'simr', 'subunum', 'sub_img_');
+						$('#sub-delete-' + id).show();
+					} else {
+						var beforem = $('#simr' + i).attr("src");
+						if(beforem == simr) {
+							//$('#sub_file'+id).attr("disabled","disabled");
+							mui.toast('请按顺序上传商品图片！');
+							break;
+						}
+					}
+				}
+			}
+
+			/*删除图片*/
+			function deleteimg(j, m, obj, obj2) {
+				delUploadimg($('#sub_img_val_' + j).val());
+				$('#' + m + '' + j).attr("src", "__IMG__/store/304_03.jpg");
+				$('#sub_file' + j).attr("disabled", false);
+				$('#sub_file' + j).val("");
+				$('#sub_img_val_' + j).val("");
+				$(obj).css('display', 'none');
+				getnums(12, 'simr', 'subunum', 'sub_img_');
+			}
+
+			/*获取上传图片个数*/
+			function getnums(obj, names, names2, names3) {
+				var nums = 0;
+				for(var i = 1; i <= obj; i++) {
+					var simr = "__IMG__/store/304_03.jpg";
+					var simrr = $('#' + names + i).attr("src");
+					if(simr != simrr || $("input[name=" + names3 + i + "]").val() != "") {
+						nums++;
+					}
+				};
+
+				$('#' + names2).text(nums);
+			}
+
+			/*验证信息*/
+			function checkinfo() {
+				var flag = true;
+				var ssname = $("#sname").val();
+				var ssdesc = $('#scesc').val();
+				var province = $('#province option:selected').val();
+				var city = $('#city option:selected').val();
+				var district = $('#district option:selected').val();
+				var address1 = $('#address1').val();
+				if(ssname == "" || ssdesc == "" || province == "选择省" || city == "请选择" || district == "请选择" || address1 == "") {
+					mui.toast('请完善店铺基本信息！');
+					flag = false;
+				}
+				return flag;
+			}
+			// 验证上传图片个数
+			function checkimg(names, total) {
+				var trr = true;
+				var imr = "__IMG__/store/304_03.jpg";
+				for(var i = 1; i <= total; i++) {
+					if(i == 1) {
+						beforei = $('#' + names + i).attr("src");
+						if(beforei == imr) {
+							mui.toast('店铺图片至少需要上传一个！');
+							trr = false;
+							break;
+						}
+					}
+				};
+				return trr;
+			}
+			opratetime(opte);
+			/*营业时间处理*/
+			function opratetime(arg) {
+				if(arg == 1) {
+					opte = 1;
+					$('#opentime').removeAttr("disabled");
+					$('#closetime').removeAttr("disabled");
+					$('#c_opentime').val($('#opentime').val() + '~' + $('#closetime').val());
+
+				} else if(arg == 2) {
+					opte = 2;
+					$('#closetime').val("");
+					$('#opentime').val("");
+					$('#opentime').attr("disabled", "disabled");
+					$('#closetime').attr("disabled", "disabled");
+					$('#c_opentime').val("24小时");
+				}
+			}
+			/*上一步*/
+			function PreviousCK(k, z, ms) {
+				settab(k, z, '' + ms + '');
+				styles();
+			}
+			/*下一步*/
+			function NextCK(g, h, ns) {
+				if(g == 2) {
+					if(checkinfo()) {
+						settab(g, h, '' + ns + '');
+					}
+				} else if(g == 3) {
+					if(checkimg('simr', 12)) {
+						settab(g, h, '' + ns + '');
+					}
+				}
+			}
+
+			/*提示限制输入200个字符*/
+			$(function() {
+				var len = $("#c_remind").val().length;
+				document.getElementById("min-lenfont").innerHTML = len.toString();
+				$("#c_remind").keyup(function() {
+					var len_2 = $(this).val().length;
+					document.getElementById("min-lenfont").innerHTML = len_2.toString();
+					if(len_2 >= 200) {
+						$(this).val($(this).val().substring(0, 200));
+					}
+					var num = 200 - len_2;
+					document.getElementById("min-lenfont").innerHTML = num;
+				});
+			});
+			var mflag = true;
+			var pcdaddress = "";
+			mui('.mui-content').on('tap', '#save_btn', function() {
+				var valtime = $('input:radio[name="settime"]:checked').val();
+				if(valtime == null || valtime == "") {
+					mui.toast('请选择营业时间！');
+					return false;
+				} else {
+					if(valtime == 1) {
+					    if($("#opentime").val()=="" || $("#closetime").val()==""){
+                            mui.toast('请完善营业时间！');
+                            return false;
+						}
+						var opent = $("#opentime").val();
+						var closet = $("#closetime").val();
+					}
+				}
+
+				/*获取营业时间*/
+				opratetime(opte);
+				/*获取店铺服务*/
+				var str = document.getElementsByName("service_obj");
+				var objarray = str.length;
+				var chestr = "";
+				for(i = 0; i < objarray; i++) {
+					if(str[i].checked == true) {
+						if(i == 0) {
+							chestr += str[i].value;
+						} else {
+							chestr += '|' + str[i].value;
+						}
+					}
+				}
+				$('#sourcearr').val(chestr);
+				/*获取图片列表*/
+				var resultli = "";
+				$("input[id^='sub_img_val_']").each(function() {
+					
+					if($(this).val() != "") {
+						resultli += '|' + $(this).val();
+					}
+				});
+				$('#imglist').val(resultli.slice(1));
+				var province = $("#province option:selected").text();
+				var city = $("#city option:selected").text();
+				var district = $("#district option:selected").text();
+				pcdaddress = province + city + district; /*获取经纬度地址*/
+				searchByStationName();
+			});
+			/*根据地址获取经纬度*/
+			function searchByStationName() {
+				var keyword = pcdaddress;
+				localSearch.search(keyword);
+				localSearch.setSearchCompleteCallback(function(searchResult) {
+					var poi = searchResult.getPoi(0);
+					if(typeof(poi) == "undefined") {
+						mui.toast('地址错误');
+						return false;
+					} else {
+						$('#lng').val(poi.point.lng);
+						$('#lat').val(poi.point.lat);
+					}
+					var attrbul = getFormAttrs("form1");
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetStoreInfo',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mflag = false;
+                                mui.toast(msg.msg);
+                                setTimeout(
+								function() {
+									mui.openWindow({
+										url: '__URL__/index',
+										id: 'storeindex'
+									});
+								}, 1500);
+							} else {
+								mui.toast(msg.msg);
+								mflag = true;
+								return;
+							}
+						}
+					});
+				});
+			}
+		</script>
+		<include file="Common/foot" />
+	</body>
+
+</html>

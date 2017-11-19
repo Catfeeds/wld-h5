@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>邀请收银员</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="formdata" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content divtab">
+			<div class="addstaff-con divre">
+				<div class="addstaff-phone divtab c9 fs14 bgcolor bborder" style="margin-bottom:0px;">
+					<span class="c3 fl">编号：</span>
+					<input type="text" class="c3 fl" name="name" id="name" placeholder="请输入收银员编号" >
+				</div>
+
+				<div class="addstaff-phone divtab c9 fs14 bgcolor" style="margin-bottom:2%;">
+					<span class="c3 fl">手机号：</span>
+					<input type="text" class="c3 fl" name="phone" id="phone" placeholder="请输入收银员手机号" >
+				</div>
+
+				<div class="addstaff-verify fs12 divtab none" style="text-align:left;padding:2%;">*<span id="remindinfo"></span></div>
+
+				<div class="addstaff-info bgcolor showinfo none">
+					<div class="addstaff-img">
+						<img id="headimg"  src="__IMG__/member/hy8.png">
+					</div>
+					<span class="c3 fs14 fov" id="nickname">王仙森</span>
+					<span class="c3 fs11" style="display: none;" id="telephone"></span>
+					<span class="c9 fs12 clamp2" id="signinfo">不断创新互联网商业模式破茧未来营销时代</span>
+				</div>
+				<p class="fs11 cb showinfo none">*请仔细核对信息，一致再添加</p>
+
+				<div class="add-submit fs16 cf none">确认添加</div>
+			</div>
+
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+
+	$('#phone').blur(function() {
+		tijiao();		
+	});
+
+	//获取用户信息
+	function tijiao() {
+		$.post("__URL__/UserInfo", {
+			phone: $('#phone').val(),
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				var data = result['data'];
+				$('.addstaff-verify').hide();
+				$('#headimg').attr('src', data['c_headimg']);
+				$('#nickname').text(data['c_nickname']);
+				//$('#telephone').text(data['c_phone']);
+				$('#signinfo').text(data['c_signature']);
+				$('.showinfo').show();
+				$('.add-submit').show();
+				yangshi();
+			} else {
+				$('.add-submit').hide();
+				$('.showinfo').hide();
+				$('#remindinfo').text(result['msg']);
+				$('.addstaff-verify').show();
+			}
+		});
+	}
+
+	//提交表单
+	$('.add-submit').click(function() {
+		putform();
+	});
+
+	var resign = true;
+	function putform() {
+		var name = $('#name').val();
+		var reg = /^[0-9a-zA-Z]+$/;
+		if (!reg.test(name)) {
+			mui.toast('请输入数字与英文编号');return;	
+		}
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/InviteCashier',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('发送邀请成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"level"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);	
+							resign = true;				
+						}
+					}
+			});
+		}	
+	}
+</script>
+
+</html>

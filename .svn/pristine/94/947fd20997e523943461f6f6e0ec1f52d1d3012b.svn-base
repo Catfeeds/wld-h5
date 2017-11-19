@@ -1,0 +1,113 @@
+/*.mui-content{
+	background-color: white;
+}*/
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.clearfix {
+	zoom: 1;
+}
+
+a {
+	display: block;
+}
+
+.contents {
+	background-color: white;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.top-img{ width: 12%; margin: 2% auto;}
+
+.incom-bottom {
+	text-align: center;
+	padding: 12% 0;
+}
+.incom-bottom div{
+	padding: 1% 0;
+}
+.payImg{ width: 5%; margin-left: 1%; display: inline-block;}
+
+.state-tit-fl {
+	margin-left: 4%;
+	line-height: 2rem;
+}
+
+.state-tit-fr {
+	margin-right: 4%;
+}
+
+.state-con-list ul li {
+	padding: 3% 4%;
+	overflow: hidden;
+}
+
+.state-con-list .bbo .state-con-fr::before {
+	display: inline-block;
+	height: 1.4rem;
+	width: 1.4rem;
+	background-image: url(../img/b1.png);
+	background-size: 100% 100%;
+}
+
+.state-con-fl {
+	text-align: left;
+}
+
+.state-con-fr {
+	text-align: right;
+	width: 65%;
+}
+
+.state-con-list .state-con-ls {
+	border-top: 1px solid #f0f0f0;
+	padding: 3% 0;
+	margin: 0 4%;
+}
+
+.state-con-img {
+	width: 10%;
+	margin-right: 4%;
+}
+
+.state-tit-list {
+	margin-top: 1rem;
+	background-color: white;
+	    border-top: 1rem solid #f0f0f0;
+}
+.state-tit {
+	padding: 1rem 0;
+	border-bottom: 1px solid #f0f0f0;
+}
+.state-tit img{
+	display: block;
+	width: 2rem;
+	height: 2rem;
+}
+.show-state{ width: 12%; margin: 0 auto;}
+.state-progress { padding: 3% 4%; }
+.state-progress-con{ width: 50%;}
+.state-progress-text{ width: 88%}
+.state-progress-img{ width: 10%;}
+.state-progress-text ul li{ padding: 0; }
+.state-progress-text ul li span{ display: block; text-align: right;}
+.pay-person{ width: 12%; margin-right: 2%; overflow: hidden; border-radius: 50%;}
+.saler-person{ width: 8%; margin-right: 2%;}
+.cd{color: #fd494a;}
+.query-bg{ display: none; background-color: black; z-index:9989; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.query-pup{ display: none;top:16%;left:0; position:fixed;z-index: 100000;width:80%;margin:0 auto;right: 0;left:0;/*max-width: 720px;min-width: 320px;*/}
+.query-content{background: #fff;border-radius: 8px;}
+.query-title{text-align: center;padding:4% 0 0 0;}
+.query-con-li{padding: 4%;overflow: hidden;}
+.query-con-li p{padding: 2% 0;text-align: left;overflow: hidden;}
+.query-con-li p span{display: block;}

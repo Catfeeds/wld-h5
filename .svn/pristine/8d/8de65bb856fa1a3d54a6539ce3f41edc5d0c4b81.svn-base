@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+img{width: 100%;height: 100%;}
+
+/*弹窗样式，申请商家提示*/
+.dialog-bg{ display: none; z-index:99999;position:fixed;background-color:#333;filter:alpha(opacity=30);width: 100%;
+	height: 100%;-moz-opacity:0.30;opacity:0.30; left:0; top:0;bottom: 0px;}
+.dialog-big-c{padding: 0 6%; display: none; z-index:100000;position:absolute; left:0; right: 0; top:35%;margin:0 auto;width: 100%;max-width: 720px;min-width: 320px;}
+.dialog-con{background: #ffffff;border-radius: 10px;-moz-border-radius:10px;-webkit-border-radius:10px;padding:0 4% 15% 4%;}
+.dialog-con-tit{width: 100%;overflow: hidden;text-align: center;color: #333;padding: 4% 0;}
+.dialog-con-desc{width: 100%;overflow: hidden;color: #555555; vertical-align: middle;text-align: center;padding: 4% 0;}
+.dialog-con-btn{width: 100%;padding: 4% 0;}
+
+.dialog-left,.dialog-right{width: 45%;text-align: center;padding: 2.5% 0;}
+.dialog-left{ margin-left: 3%;}
+.dialog-right{ margin-right: 3%;}
+
+
+/*带投影的button样式*/
+.btn-gray{border-radius: 20px;background:#fff;border:solid 1px #ebebeb; -webkit-box-shadow:0 0 10px rgba(153, 153, 153, .5);
+  -moz-box-shadow:0 0 10px rgba(153, 153, 153, .5); box-shadow:0 0 10px rgba(153, 153, 153, .5); }
+.btn-blue{border-radius: 20px;background: #46a9fa; color: #fff;border:solid 1px #46a9fa; -webkit-box-shadow:0 0 15px rgba(70, 169, 250, .6);
+  -moz-box-shadow:0 0 15px rgba(70, 169, 250, .6); box-shadow:0 0 15px rgba(70, 169, 250, .6);}
+
+
+/*非弹框，申请提示*/
+.tooltip-con{padding: 8% 4% 12% 4%;}
+.tooltip-desc{text-align: center;padding: 8% 0;}
+.tooltip-con-btn{width: 100%;overflow: hidden;padding: 5% 0;}
+.step-intro{/*margin-top: 4%;*/width: 100%;}
+
+
+/*头部导航样式*/
+.getbusiness-top{overflow: hidden;width: 100%;}
+
+
+/*输入框样式*/
+.input-txt{background: #fff;border:none;width: 100%;outline: none;}
+
+/*底边框*/
+.borderb{border-bottom: solid 1px #ebebeb;}
+
+/*金卡号页面*/
+.goldcard-box{overflow: hidden;width: 100%;padding: 4%;margin-top: 5%;}
+.goldcard-txt{width: 25%;}
+.goldcard-input{width: 65%;}
+.goldcard-true{width: 10%;padding: 2%;}
+.goldcard-name{padding: 4% 2%;}
+.goldcard-btn{width: 50%;padding: 2.5%;margin:3% auto; display: block;outline: none;}
+
+.inputli{width: 100%;overflow: hidden;border-bottom: 1px solid #ebebeb;padding: 3% 0;}
+.inputli1{border:0px;margin-left: 4%;}
+.agree_left{padding:2% 0px;}
+.agree_right{padding:2% 0px;margin-left:5px;}
+.agree_right a{color: #555;}
+
+
+/*商家资料*/
+/*1商家类型*/
+.business-type{width: 100%;margin-top: 4%;}
+.btype-txt{padding: 3%;}
+.btype-radio{padding:4% 3%;}
+.btype-r-img{width: 8%;}
+.btype-r-t{margin-left: 1%;}
+.btype-remarks{padding: 3%;}
+
+.btype-radio ul li{float: left;overflow: hidden;width: 33%;}
+.trade-r-img{width: 20%;}
+.trade-r-t{margin-left: 3%;}
+
+
+.info-left{width: 25%;}
+.info-center{margin-left: 2%;width: 68%;overflow: hidden;}
+.info-right{color: #ffaa3f;}
+
+.idcard-img{padding: 4%;}
+.idcard-img-t{}
+.idcard-img-t span{}
+
+ul.user_idcard{overflow: hidden;width: 100%;padding: 3% 0;}
+ul.user_idcard li{float: left;width: 40%;position: relative;margin:4% 5% 0 0;}
+.idcard-box{position: relative;}
+.idcard-box input[type="file"]{ position: absolute;left: 0;top: 0;bottom: 0; right: 0; z-index: 10;opacity: 0; filter:alpha(opacity=0);}
+.preview{position: absolute;left: 0;top: 0;width: 100%;right: 0;bottom: 0;}
+.preview img{width: 100%;height: 100%;}
+.box-delete{position: absolute;right: -4%;top: -6%;width: 17%;z-index: 12;}
+
+
+.step_btn{padding: 3% 0;}
+.step_btn .goldcard-btn{margin: 0 3%;width: 44%;}
+
+.info-center select{border:none;width: 31%;padding: 0;}
+
+
+/*审核状态*/
+.state-info{margin-top: 4%;padding: 4%;overflow: hidden;}
+.state-img{width: 7%;}
+.state-font{margin-left: 3%;}
+/*.state-font ul li{}
+.state-font ul li h3{}
+.state-font ul li p{}*/
+
+.state-erweima{padding: 6% 0;}
+.state-erweima p{text-align: center;padding: 1% 0;}
+.erweima{width: 60%;margin: 0 auto;}
+
+
+.state-no-info{padding: 5% 0;margin-bottom: 4%;}
+.state-no-img{width: 40%;margin: 0 auto;}
+.state-no-tip{padding: 3% 0;text-align: center;}
+
+
+
+/*上一步，下一步按钮*/
+.con-descbtn{ border-top: solid 1px #75c0fa;position: fixed;bottom: 0;left: 0;right: 0;margin: 0 auto;max-width: 720px;min-width: 320px;z-index: 8888;}
+.con-descbtn a{display: block;text-align: center;}
+.con-descbtn-l,.con-descbtn-r{ border: none;width: 50%;text-align: center;padding: 3.5% 0;cursor:pointer;outline: none;}
+.con-descbtn-l{color: #47abf7;background: #fff;border-left: solid 1px #75c0fa;}
+.con-descbtn-r{background: #47abf7;color: #fff;}
+
+.binfo-name{overflow: hidden;}
+.binfo-name span{color: #999;float: left;width: 50%;padding: 1.5% 0;}
+.binfo-name span:nth-of-type(2){display: block;width: 8%;margin-left: 10%;}
+.binfo-name img{vertical-align: middle;width: 100%;height: 100%;}
+
+/*银行信息弹窗*/
+.bank-name-bg{}
+.bank-name-pup{background: #fff;display: none;width:100%;margin: auto;right: 0;max-width: 720px;}
+.bank-name-con{padding: 4%;overflow: auto;}
+.bank-search{width: 100%;overflow: hidden;padding: 2% 0;}
+.bank-s-input{width: 72%;margin-right: 3%;}
+.bank-s-input input[type="text"]{border: solid 1px #ccc;width: 96%;padding: 2%;border-radius: 8px;outline: none;}
+.bank-s-input input[type="text"]:focus{border: solid 1px #46aafa;;border-radius: 8px;}
+.bank-s-btn{width: 25%;}
+.bank-s-btn input[type="button"]{background: #46aafa;color: #fff;text-align: center;border: none;outline: none;border-radius: 8px;padding: 7% 0;width: 100%;cursor: pointer;}
+.bank-con-list{padding: 0 3%;}
+
+.bank-tit{width: 100%; overflow: hidden;padding-top: 4%;}
+.bank-list{padding: 2% 0 3% 0;overflow: hidden;}
+.bank-list li{overflow: hidden;width: 100%;padding: 2.5% 0;border-bottom: solid 1px #ccc;}
+.bank-tit .bankcell:nth-of-type(1),.bank-list .bankcell:nth-of-type(1){width: 35%;float: left;}
+.bank-tit .bankcell:nth-of-type(2),.bank-list .bankcell:nth-of-type(2){width: 65%;float: left;}
+.bank-tit .bankcell{color: #333;font-weight: 600;}
+.bank-list .bankcell{color: #555;}
+
+.returnbtn{border-top: solid 1px #75c0fa; background: #46aafa; color: #fff; position: fixed;bottom: 0;left: 0;right: 0;margin: 0 auto;max-width: 720px;min-width: 320px;z-index: 8888;text-align: center;padding: 3% 0;}
+
+
+
+
+
+/*radio按钮*/
+input[type="radio"]{ cursor:pointer; width: 18px;height: 18px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../../img/getbusiness/delivery-link.png");background-size: 100% 100%;outline: none;}
+input[type="radio"]:checked {width: 18px;height: 18px;border: 0px;background:url("../../img/getbusiness/delivery-hover.png");background-size: 100% 100%;outline: none;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+
+}
+
+@media (min-width: 621px){
+
+}
+
+@media (min-width: 421px){
+	input[type="radio"]{width: 28px;height: 28px;background-size: 100% 100%;outline: none;}
+	input[type="radio"]:checked {width: 28px;height: 28px;background-size: 100% 100%;outline: none;}
+}

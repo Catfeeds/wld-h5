@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>砍价分享</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bargain/index.css" />
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 16%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="confirm-pcode" value="">
+				<input type="hidden" name="confirm-pucode" value="">
+				<input type="hidden" name="confirm-mcode" value="">
+				<input type="hidden" name="confirm-num" value="">
+				<div class="mui-content">
+					<div class="b-current bgcolor">						
+						<div class="current-head fl">
+							<img src="{$groupinfo['c_headimg']}" alt="" />
+						</div>
+						<div class="current-nkname fl fs13 c5 fov">{$groupinfo['c_nickname']}</div>
+						<div class="current-arrow fr"><span class="fs13 c9">砍价玩法</span><span><img src="__IMG__/bargain/kqgl_icon_next.png" alt="" /></span></div>
+					</div>
+					<div class="bargain-progress bgcolor divtab divre">
+						<div class="divab cf fs11 progres-float"><span id="barpc">{$groupinfo['baifenbi']}</span>%</div>
+						<div id="progres" class="mui-progressbar bargain-jd">
+							<span></span>
+						</div>
+						<div class="bargain-info divtab">
+							<span class="fl fs12 c5">当前价格：<span id="actprice" class="ccd">{$groupinfo['c_actual_price']}</span><font class="ccd">元</font></span>
+							<span class="fr fs12 c5">累计已砍：<span id="ljkanjia">{$groupinfo['ljkj']}</span>元</span>
+						</div>
+					</div>
+					
+					<div class="cj-order bgcolor divtab divre" style="margin: 3% auto;padding: 4% 3%;">
+						<div class="cj-order-img fl">
+							<img src="{$groupinfo['c_imgpath']}" />
+						</div>
+						<div class="cj-order-info fl">
+							<div class="cj-order-name fs12 clamp2">{$groupinfo['c_pname']}</div>
+							<div class="cj-old-price fs13 c9">原价：￥{$groupinfo['c_value']}</div>
+							<div class="cj-mmin-price"><span class="fs13 cy">￥<em class="fs16">{$groupinfo['c_total_price']}</em></span><span class="fs11 cf" id="min_price">最低价</span></div>
+						</div>
+
+						<?php if ($groupinfo['c_state'] == 1 || strtotime($groupinfo['c_endtime']) < time()) { ?>
+						<!--结束-->
+						<div class="barg_pro_state divab"><img src="__IMG__/bargain/spell_icon_over.png" alt="" /></div>	
+						<?php } ?>
+						
+					</div>
+
+					<div class="bargain-panel divtab bgcolor">
+						<div class="panel-tit">
+							<span class="fl"><img src="__IMG__/bargain/kj_icon_bd.png" alt="" /></span><span class="c3 fs14 fl">砍价榜单</span>
+						</div>
+						<div class="red-getdetail bgcolor" id="data_list">
+							<!-- <div class="red-getdetail-con bborder">
+								<div class="getdetail-img fl">
+									<img src="__IMG__/bargain/dlsc_dlxq_02.jpg" />
+								</div>
+								<div class="getdetail-shop fl">
+									<div class="shop-name fs14 fov">优C柠檬梅溪湖店</div>
+									<div class="shop-red fs12 c9">2017-05-18 12:00:00</div>
+								</div>
+								<div class="getdetail-money fr fs12">
+									已砍200.00元
+								</div>
+							</div> -->
+						</div>
+						<div id="console"></div>	
+					</div>
+				</div>
+				<div class="fixed-btn bargain-b-btn">
+					<?php if ($groupinfo['c_ucode'] == $ucode) { ?>
+						<div class="bargain-buy fl cf fs14" <?php if ($groupinfo['c_state'] == 2 || strtotime($groupinfo['c_endtime']) < time()) { ?>style="background:#cccccc;"<?php } ?>>现价购买</div>
+					<?php } else { ?>
+						<div class="bargain-buy fl cf fs14">我也要买</div>
+					<?php } ?>
+
+					<?php if ($groupinfo['bgstate'] == 1) { ?>
+						<?php if ($groupinfo['c_ucode'] == $ucode) { ?>
+						<div class="go-bargain fl cf fs14">找人砍价</div>	
+						<?php } else { ?>
+						<div class="go-bargain fl cf fs14">随便逛逛</div>
+						<?php } ?>
+					<?php } else { ?>
+						<div class="go-bargain fl cf fs14">帮Ta砍价</div>
+					<?php } ?>
+				</div>
+
+				<div class="barg-pup-bg pup-bg"></div>
+				<div class="barg-success-pup">
+					<div class="barg-success-con">
+						<div class="barg-suc-img"><img src="__IMG__/bargain/1.gif" alt="" /></div>
+						<div class="barg-suc-state fs14 c3 fb600 alignc">砍价成功</div>
+						<div class="barg-suc-font fs13 c9 alignc">不错哦！你已成功帮你的好友砍价<span id="bared_mon">0.00</span>元</div>
+						<div class="barg-suc-close cf fs16 alignc">确认</div>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		var pcode = '<?php echo $groupinfo["c_pcode"] ?>';
+		var ucode = '<?php echo $ucode ?>';
+		var acode = "<?php echo $groupinfo['c_acode']; ?>";
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+
+		window.onload = function() {
+			yangshi();
+			barchange();
+		}
+
+		function barchange() {
+			/*进度条*/
+			mui("#progres").progressbar({
+				progress: parseFloat($('#barpc').text())
+			}).show();
+			$('.mui-progressbar').height($('.mui-progressbar').width() * 0.02);
+			var presult = (0.04) + (0.58 * 0.92 * $('.mui-progressbar').width());
+			if(parseFloat($('#barpc').text())>0){
+				$('.progres-float').fadeIn(500);
+				$('.progres-float').css('left', presult);				
+			}
+		}
+
+		mui('.barg-success-pup').on('tap','.barg-suc-close',function(){
+			$('.barg-pup-bg').fadeOut();
+			$('.barg-success-pup').fadeOut();			
+		});
+		//页面加载完js改变样式
+		function yangshi() {
+			
+			$('.current-head').height($('.current-head').width());
+			$('.current-head').css("border-radius",$('.current-head').width()+"px");
+			$('.current-nkname').css('line-height',$('.current-head').width()+'px');
+			$('.current-arrow').css('line-height',$('.current-head').width()+'px');
+
+			/*商品信息样式改变*/
+			$('.cj-order-img').height($('.cj-order-img').width());
+			$('.cj-order-name').height($('.cj-order-img').width() * 0.4);
+			$('.cj-order-name').css('line-height', $('.cj-order-name').height() * 0.5 + 'px');
+			$('.cj-old-price').css('line-height', $('.cj-order-img').height() * 0.3 + 'px');
+			$('.cj-mmin-price').css('height', $('.cj-order-img').height() * 0.3 + 'px');
+
+			$('.getdetail-img').height($('.getdetail-img').width());
+			$('.getdetail-img').css('border-radius', $('.getdetail-img').width() + 'px');
+			$('.getdetail-shop').css('line-height', $('.getdetail-img').width() * 0.5 + 'px');
+			$('.getdetail-money').css('line-height', $('.getdetail-img').width() + 'px');
+			
+			$('.bargain-buy').css("padding","3.5% 0");
+			$('.go-bargain').css("padding","3.5% 0");
+		}
+		/*我也要买*/	
+		mui('.wrap-page').on('tap', '.bargain-buy', function() {	
+			if (ucode == "<?php echo $groupinfo['c_ucode']; ?>") {
+				var zstate = "<?php echo $groupinfo['c_state']; ?>";
+				var ztime = "<?php echo (strtotime($groupinfo['c_endtime']) - time()); ?>";
+				if (zstate == 2 || ztime < 0) {
+					return;
+				}
+				mui.openWindow({
+					url: '__APP__/Order/Bargorder/index?groupcode=<?php echo $groupcode; ?>',
+					id: 'bargorder'
+				});
+			} else {
+				mui.openWindow({
+					url: '__URL__/pdetail?act_pcode=<?php echo $groupinfo["c_act_pcode"]; ?>',
+					id: 'bargorder'
+				});	
+			}
+		});
+		
+		/*帮忙砍价*/
+		var bgstate = "<?php echo $groupinfo['bgstate']; ?>";
+		mui('.wrap-page').on('tap','.go-bargain',function(){	
+			/*去随便逛逛*/
+			if (!ucode) {
+				if (bgstate == 1) {
+					mui.openWindow({
+						url: "__APP__/Shopping/Actarea/index",
+						id: "actareaindex"
+					});
+					return;
+				}
+			} else {
+				if (bgstate == 1) {
+					if (ucode == "<?php echo $groupinfo['c_ucode']; ?>") {
+						sharepro();
+					} else {
+						mui.openWindow({
+							url: "__APP__/Shopping/Actarea/index",
+							id: "actareaindex"
+						});	
+					}
+					return;
+				}
+			}
+			tijiao();
+		});	
+		
+		/*帮忙砍价*/
+		var tjsign = true;
+		function tijiao() {
+			if (tjsign) {
+				var _html = "";
+				tjsign = false;
+				$.post("__URL__/Bargin", {
+					groupcode: "<?php echo $groupcode; ?>"
+				}, function(obj) {
+					var data = eval(obj);
+					tjsign = true;
+					if (data['code'] == 0) {
+						bgstate = 1;
+						var info = data['data'];
+						if (ucode == "<?php echo $groupinfo['c_ucode']; ?>") {
+							$('.go-bargain').text('找人砍价');
+						} else {
+							$('.go-bargain').text('随便看看');
+						}
+						$('#bared_mon').text(info['c_barginprice']);
+
+						//改变价格，改变进度条
+						var actprice = $('#actprice').text();
+						var xianzj = parseFloat(actprice)-parseFloat(info['c_barginprice']);
+						$('#actprice').text((xianzj).toFixed(2));
+						var ljkanjia = $('#ljkanjia').text();
+						var leijine = parseFloat(ljkanjia)-(-parseFloat(info['c_barginprice']));
+						$('#ljkanjia').text((leijine).toFixed(2));
+						var jiage = "<?php echo ($groupinfo['c_value'] - $groupinfo['c_total_price']); ?>";
+						$('#barpc').text((100*leijine/jiage).toFixed(2));
+						barchange();
+
+						//砍价成功弹出
+						$('.barg-pup-bg').fadeIn();
+						$('.barg-success-pup').fadeIn();
+						$('.barg-pup-bg').height($(document).height());
+
+						_html+='<div class="red-getdetail-con bborder">';
+							_html+='<div class="getdetail-img fl">';
+								_html+='<img src="'+info['c_headerimg']+'" />';
+							_html+='</div>';
+							_html+='<div class="getdetail-shop fl">';
+								_html+='<div class="shop-name fs14 fov">'+info['c_wxname']+'</div>';
+								_html+='<div class="shop-red fs12 c9">'+info['c_bargintime']+'</div>';
+							_html+='</div>';
+							_html+='<div class="getdetail-money fr fs12">已砍'+info['c_barginprice']+'元</div>';
+						_html+='</div>	';
+						$('#data_list').prepend(_html);
+						yangshi();
+					} else {
+						mui.toast(data['msg']);
+					}
+				});
+			}
+		}
+		/*玩法*/
+		mui('.mui-content').on('tap', '.current-arrow', function() {
+
+		});
+		
+		
+	//加载砍价列表
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/BarginLog?groupcode=<?php echo $groupcode; ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html+='<div class="baoqian">';
+								_html+='暂未有相关记录</br>赶紧邀请好友帮忙砍价吧~';
+							_html+='</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<div class="red-getdetail-con bborder">';
+									_html+='<div class="getdetail-img fl">';
+										_html+='<img src="'+dataarr['c_headerimg']+'" />';
+									_html+='</div>';
+									_html+='<div class="getdetail-shop fl">';
+										_html+='<div class="shop-name fs14 fov">'+dataarr['c_wxname']+'</div>';
+										_html+='<div class="shop-red fs12 c9">'+dataarr['c_bargintime']+'</div>';
+									_html+='</div>';
+									_html+='<div class="getdetail-money fr fs12">已砍'+dataarr['c_barginprice']+'元</div>';
+								_html+='</div>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+	
+	</script>
+
+</html>

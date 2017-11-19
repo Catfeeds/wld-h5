@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="content-s w_960">
+			<form action="" id="CONSIGNEE_ADDRESS" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="page-title">
+					<div class="page-tit-name">商家资料1/<?php if($oldinfo==1 && $userdata['c_shop']==1){ ?>4<?php }else{ ?>5<?php } ?></span></div>
+				</div>
+				<div class="sel_sj_obj"<?php if($oldinfo==1 && $userdata['c_shop']==1){ ?>style="display:none;"<?php }else{ ?> style="display:block;" <?php } ?>>
+					<p>请选择商家类型</p>
+					<ul>
+						<li onclick="selobj(0)" id="isfixed_0" <?php if($vo['c_isfixed']==0 ){ ?> class="hover" <?php } ?> >线上微商</li>
+						<li onclick="selobj(1,2)" id="isfixed_1" <?php if($vo['c_isfixed']==1 ){ ?> class="hover" <?php } ?> >线下实体商家</li>
+					</ul>
+				</div>
+				<div class="sel_sj_type" id="ctype_sel">
+					<p>请选择商家资质</p>
+					<ul>
+						
+						<li class="divre">
+							<input type="radio" name="rtype" id="ctype_3" value="3" onclick="sjremind(3)" <?php if($vo['c_type']==3){?> checked="checked" <?php } ?>/>
+							<label for="">个体户</label>
+							<div class="divab hint-info3 tipinfo" style="top: 64px;left: 0;">
+								<img src="__IMG__/sjjj_icon_sjiao.png" alt="" />
+							</div>
+						</li>
+						<li class="divre">
+							<input type="radio" name="rtype" id="ctype_2" value="2" onclick="sjremind(2)" <?php if($vo['c_type']==2){?> checked="checked" <?php } ?>/>
+							<label for="">企业</label>
+							<div class="divab hint-info2 tipinfo" style="top: 64px;left: 0;">
+								<img src="__IMG__/sjjj_icon_sjiao.png" alt="" />
+							</div>
+						</li>
+						<li class="divre">
+							<input type="radio" name="rtype" id="ctype_1" value="1" onclick="sjremind(1)" <?php if($vo['c_type']==1){?> checked="checked" <?php } ?>/>
+							<label for="">个人</label>
+							<div class="divab hint-info1 tipinfo" style="top: 64px;left: 0;">
+								<img src="__IMG__/sjjj_icon_sjiao.png" alt="" />
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="hint-info1 divre none tipinfo" id="hint-info1">
+					<!--<div class="info_zxcon info_zxcon1 divab"><img src="__IMG__/sjjj_icon_sjiao.png" alt="" /></div>-->
+					<div class="info_tfont fs12">无相关营业执照，从事线上经营的个人商家</div>
+				</div>
+				<div class="hint-info2 divre info1_tip none tipinfo" id="hint-info2">
+					<!--<div class="info_zxcon info_zxcon2 divab"><img src="__IMG__/sjjj_icon_sjiao.png" alt="" /></div>-->
+					<div class="info_tfont fs12">拥有营业执照、法人代表、银行公户，从事线上或线下经营企业商家  </div>
+				</div>
+				<div class="hint-info3 divre info1_tip none tipinfo" id="hint-info3">
+					<!--<div class="info_zxcon info_zxcon3 divab"><img src="__IMG__/sjjj_icon_sjiao.png" alt="" /></div>-->
+					<div class="info_tfont fs12">拥有个体工商户营业执照，从事线上或线下经营的个人商户</div>
+				</div>
+
+
+				<div class="tip-info"><img src="__IMG__/sjjh_icon_msg.png" alt="" />审核通过后将不可修改，请慎重选择</div>
+				<div class="tip-info"><img src="__IMG__/sjjh_icon_msg.png" alt="" />个体户与企业商户需上传相关营业执照</div>
+				<div class="step-btn">
+					<input type="hidden" name="isfixed" id="isfixed" value="{$vo['c_isfixed']}" />
+					<input type="hidden" name="ctype" id="ctype" value="{$vo['c_type']}" />
+					<span id="prev_btn" style="display:none;">上一步</span>
+					<span id="next_btn" onclick="savestep()">保存并下一步</span>
+				</div>
+			</form>
+		</div>
+		<div class="mar30"></div>
+
+		<script type="text/javascript">
+			
+			var isfixed = '<?php echo $vo["c_isfixed"]; ?>';
+            var ctype = '<?php echo $vo["c_type"]; ?>';
+            var oldinfo = '<?php echo $oldinfo; ?>';
+			var dcode = '<?php echo $vo["c_dcode"]; ?>';
+			var vostate = '<?php echo $vo["c_checked"]; ?>';
+			window.onload = function() {
+				
+				if(isfixed != "" || isfixed != null) {
+					selobj(isfixed);
+                    if(ctype){
+                        sjremind(ctype);
+                    }else{
+                        sjremind($('input[name="rtype"] :checked').val());
+                    }
+				}
+			}
+
+			function selobj(id,flag) {
+                $('.tipinfo').css('display','none');
+				if(id == 1) {
+					$('#isfixed_'+id).addClass("hover");
+					$('#isfixed').val(id);
+					$('#isfixed_0').removeClass("hover");
+					$('#ctype_sel ul li:nth-child(3)').css('display', "none");
+                    //$('#ctype').val($('input[name="rtype"] :checked').val());
+					//$('input[name="rtype"]').attr("checked",false);
+                    
+				} else if(id == 0) {
+					$('#ctype_sel ul li:nth-child(3)').css('display', "block");
+					$('#isfixed_'+id).addClass("hover");
+					$('#isfixed').val(id);
+					// $('.tip-info').css('height',$('.tip-info img').height()+'px');
+					$('.tip-info').css('line-height',$('.tip-info').height()+'px');
+					$('#isfixed_1').removeClass("hover");
+                    $('#isfixed_sta').text("7");
+                    //$('#ctype').val($('input[name="rtype"] :checked').val());
+                    //$('input[name="rtype"]').attr("checked",false);
+				}
+			}
+
+			function sjremind(id) {
+                if(id == 1){
+                    $('.hint-info1').css('display', "block");
+                    $('.hint-info2').css('display', "none");
+                    $('.hint-info3').css('display', "none");
+                }else if( id == 2) {
+                    $('.hint-info2').css('display', "block");
+                    $('.hint-info1').css('display', "none");
+                    $('.hint-info3').css('display', "none");
+                }else if( id == 3) {
+                    $('.hint-info3').css('display', "block");
+                    $('.hint-info1').css('display', "none");
+                    $('.hint-info2').css('display', "none");
+                }
+			}
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					var isfixed = $('#isfixed').val();
+                    var ctype = $('input[name="rtype"]:checked').val();
+					if(isfixed=="0") {
+					    if(ctype.toString()==""){
+                            JqueryDialog.Show("请完善相关信息！");
+                            return;
+						}
+					}else if(isfixed=="1" ){
+					    if(ctype.toString()=="" || ctype==1){
+                            JqueryDialog.Show("请完善相关信息！");
+                            return;
+						}
+					}
+                    resign = false;
+					$.post("__APP__/Shop/Personal/SetInfo1", {
+						isfixed: isfixed,
+						type:ctype
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							JqueryDialog.Show("保存成功！");
+							 if(oldinfo==1 && dcode && vostate !=1){
+                                setTimeout(function() {
+                                    window.location.href = '__URL__/sub4_3?isfixed='+ isfixed +'&ctype='+ctype;
+                                }, 1000);
+							}else{
+                                setTimeout(function() {
+                                    window.location.href = '__URL__/sub4_2?isfixed='+ isfixed +'&ctype='+ctype;
+                                }, 1000);
+							}
+						}else {
+							JqueryDialog.Show(data['msg']);
+							resign = true;
+							return;
+						}
+					});	
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收银员</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+</head>
+<body class="bgcolor">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<!-- 上班 页面 -->
+			<div class="start-work-page">
+				<!-- 店铺信息 -->
+				<div class="ca-store-info">
+					<div class="ca-store-img"><img src="__IMG__/cashier/store.png"></div>
+					<p class="c3 fs14 fb600 clamp2" style="width: 60%;margin-left:20%;">{$cashinfo['shopname']}</p>
+				</div>
+				<!-- 上班按键区 -->
+				<div class="ca-work-con">
+					<div class="ca-work-img ca-onwork-img divre">
+						<img src="__IMG__/cashier/cashier_icon_01.png">
+						<div class="divab ca-start-work fs18 cf">上班</div>
+					</div>
+					<p class="c9 fs12">长按开始上班</p>
+				</div>
+				<!-- 选择收银台编号 -->
+				<!-- <div class="ca-number_con none">
+					<div class="ca-tit divtab">
+						<div class="fs14 fl ca-tit-cancel c9">取消</div>
+						<p class="fs14 fl">请选择收银台编号</p>
+						<div class="fs14 fr ca-tit-confirm cb">确认</div>
+					</div>
+					<ul>
+						<volist name="deskinfo" id="vo">
+						<li class="fs14 fb600" title="{$vo['c_id']}">{$vo['c_name']}</li>
+						</volist>
+					</ul>
+				</div> -->
+			</div>
+
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		ChRightText("我的");
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var numImg = $('.ca-num-img').width()*3;
+		$('.ca-num-img').height(numImg);
+		$('.ca-num-img').css('border-radius',numImg +'px');
+		$('.ca-num-info').css('line-height',numImg*0.5 +'px');
+		$('.ca-num-price').css('line-height',numImg +'px');
+		$('.ca-num-remark span').css('line-height',numImg +'px');
+		$('.ca-remark-img').css('padding-top',numImg*0.3 +'px');
+	}
+
+	var deskinfo = '<?php echo json_encode($deskinfo); ?>';
+
+	//长按上班
+	mui('.mui-content').on('longtap', '.ca-onwork-img', function() {
+		// $('.ca-number_con').fadeIn(400);
+		var picker = new mui.PopPicker();	
+		var sdata = new Array();
+		var descarr = eval(deskinfo);
+		for (var i = 0; i < descarr.length; i++) {
+			sdata[i] = new Array(); 
+			sdata[i]['value'] = descarr[i]['c_id'];
+			sdata[i]['text'] = descarr[i]['c_name'];
+		};
+
+		picker.setData(sdata);
+		picker.show(function(selectItems) {
+			tijiao(selectItems[0].value,selectItems[0].text);
+		})
+	});
+
+	//跳转我的收银员资料
+	function rightcaozuo() {
+		mui.openWindow({
+			url: '__URL__/mycashier',
+			id: 'mycashier'
+		});
+	}
+
+	var tjsign = true;
+	function tijiao(deskid,diskname) {
+		if (tjsign) {
+			tjsign = false;
+			$.post("__URL__/CheckCashierDesk",{deskid:deskid},function(obj){
+				var data = eval(obj);
+				tjsign = true;
+				if(data['code']==0){							
+					mui.toast('选择成功');
+					setTimeout(function () {
+						mui.openWindow({
+							url: '__URL__/offcashier',
+							id: 'offcashier'
+						});
+					}, 2000);
+				}else{
+					mui.toast(data['msg']);
+				}
+			});
+		}	
+	}
+
+	
+</script>
+
+</html>

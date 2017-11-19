@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>数据库管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 数据库管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<form name="form1" action="back" method="post" id="from1">
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<input type='hidden' name='tablearr' value='' />
+			<a class="btn btn-primary radius" onclick="checkSubmit();" href="javascript:;"><i class="Hui-iconfont">&#xe642;</i> 立即备份</a>
+			<a class="btn btn-primary radius" href="__URL__/filelist"><i class="Hui-iconfont">&#xe681;</i> 备份列表</a>
+	    </span> 
+	    <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th>编号</th>
+					<th>表名</th>
+		            <th>记录数</th>
+		            <th>引擎类型</th>
+		            <th>编码</th>		           
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="data" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="tables" value="{$vo.name}"></td>
+					<td>{$i}</td>
+					<td>{$vo.name}</td>
+		            <td>{$vo.rows}</td>
+		            <td>{$vo.engine}</td>
+		            <td>{$vo.collation}</td>		      
+					<td class="f-14">						
+						<a title="优化" href="javascript:;" onClick="LoadUrl('optimize&{$vo.name}');" style="text-decoration:none"><i class="Hui-iconfont">&#xe62e;</i></a>					
+						<a title="修复" href="javascript:;" onClick="LoadUrl('repair&{$vo.name}');" style="text-decoration:none"><i class="Hui-iconfont">&#xe63c;</i></a>
+						<a title="结构" href="javascript:;" onClick="LoadUrl('viewinfo&{$vo.name}');" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe695;</i></a>						
+					</td>	
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>
+</div>
+</form>
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"bStateSave": true,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+// 数据库操作
+function LoadUrl(surl) {
+    $.get('__URL__/click', {
+        'zhi': surl
+    }, function(obj) {
+    	var result = eval(obj);
+        if (result['code'] != 0) {
+        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+        } else {
+        	layer.msg(result['msg'],{icon:1,time:2000});
+        }   
+    });
+}
+
+// 提交表单备份数据库
+function checkSubmit() {
+    var myform = document.form1;
+    myform.tablearr.value = getCheckboxItem();
+    $('#from1').submit();
+}
+
+//获得选中文件的数据表
+function getCheckboxItem() {
+    var myform = document.form1;
+    var allSel = "";
+    if (myform.tables.value) return myform.tables.value;
+    for (i = 0; i < myform.tables.length; i++) {
+        if (myform.tables[i].checked) {
+            if (allSel == "")
+                allSel = myform.tables[i].value;
+            else
+                allSel = allSel + "," + myform.tables[i].value;
+        }
+    }
+    return allSel;
+}
+</script>
+</body>
+</html>

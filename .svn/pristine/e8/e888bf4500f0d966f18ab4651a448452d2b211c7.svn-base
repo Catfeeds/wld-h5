@@ -1,0 +1,82 @@
+img{width: 100%;height: auto;vertical-align:center;}
+a{display:block;}
+.goods_list{width: 100%;overflow: hidden;}
+#store_id1{margin-bottom: 22%;}
+.store_tit{background:#fff;width: 94%;overflow: hidden;padding:2% 0px;color:#49abf7;
+border:1px dashed #49abf7;position: fixed;left: 0;right: 0;margin: 0 auto;bottom: 0;max-width: 720px;min-width: 320px;}
+.store_tit p{width:15%;overflow: hidden;margin: auto;}
+.store_null{position: fixed;width: 35%;overflow: hidden;left:0;top:30%;right:0;margin: 0 auto;}
+.orderlist-body{width: 100%;overflow: hidden;padding:2%;
+	border-bottom: 1px solid #ebebeb;color:#666;}
+.listbody-left{width: 23%;overflow: hidden;border:dotted 1px #d9d9d9;}
+.listbody-left img{width: 100%;height: 100%;}
+.listbody-center{width: 71%;overflow: hidden;margin: 0px 2%;}
+.listbody-center h3{width: 100%;padding:1% 0px;font-size: 16px;color:#666;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;}
+.listbody-center h3 span{color:#49abf7;}
+.store_mid{width: 100%;font-size: 16px;color:#ffad3f;overflow: hidden;}
+.price_left{padding:2% 0px;}
+.price_img{width: 8%;overflow: hidden;}
+.listbody-bot{width: 100%;font-size: 14px;color:#666;overflow: hidden;color:#333;}
+.order-num{margin-right: 2%;padding:2% 0px;margin-left:5%;}
+.order-price{padding:2% 0px;font-weight: 400;}
+.store_menu{width: 100%;overflow: hidden;padding:2% 0px;margin-bottom:3%;font-size:12px;}
+.menu_list{width: 15%;overflow: hidden;text-align:center;}
+.menu_img{width: 50%;margin:auto;overflow: hidden;}
+
+/*商品编辑样式*/
+.goods,.model_del{width: 100%;overflow: hidden;font-size: 14px;border-bottom:1px solid #ebebeb;padding:1% 0px;}
+.goods_name{width: 25%;overflow: hidden;padding:3% 0px 3% 3%;}
+.goods_con{width: 75%;overflow: hidden;border:0px;padding:3% 0px;}
+.productmodular-bottom{width: 100%;overflow: hidden;padding:2% 3%;}
+.productmodular-img{position: relative;float:left;width: 30%;margin-right: 2%;margin-top:3%;}
+.productmodular-position{position: absolute;width: 25%;top:35%;left:35%;overflow: hidden;
+	}
+.productmodular-img img,.productmodular-position img,.productmodular-position img
+{width: 100%;height: 100%;}
+.upload-text{width: 100%;padding:3%;overflow: hidden;font-size: 14px;color:#999;}
+
+.goods_model{width: 100%;overflow: hidden;margin-top: 3%;}
+.model_price{width: 100%;overflow: hidden;font-size: 12px;padding:2% 3%;}
+
+.model_text{padding:3% 2%;overflow: hidden;}
+.model_span{width: 15%;background:#ebebeb;text-align:center;border:1px solid #ebebeb;
+border-radius: 3px;}
+.model_write{width: 15%;padding:3% 0px;overflow: hidden;border:1px solid #ebebeb;
+border-radius: 3px;text-align:center;}
+.model_del img{width: 10%;overflow: hidden;margin:2% 45%;}
+.model_add{width: 80%;margin:3% 10%;overflow: hidden;}
+.profi{width: 60%;}
+.profi_sign{width: 5%;text-align:center;padding:3% 0px;}
+.shelves_text{width: 30%;padding:2% 3%;font-size: 14px;}
+.shelves_box{margin-left: 3%;padding:2% 0px;}
+input[type="checkbox"]{width: 20px;height: 20px;border: 0px;-webkit-appearance: none;
+	-webkit-mask-repeat: none;-webkit-mask-position: right;
+	background: url("../../img/store/select.png");
+	background-size: 100% 100%;vertical-align: middle;}
+input[type="checkbox"]:checked {width: 20px;
+	height: 20px;border: 0px;background:url("../../img/store/selected.png");
+	background-size: 100% 100%;vertical-align: middle;}
+.payment-btn{padding: 10% 0;overflow: hidden;margin: 0 10%;}
+.paym-btn{background: #ffad3f;color: #fff;font-size: 16px;text-align: center;padding: 4% 0;
+	border: none;border-radius: 5px;width: 100%;}
+
+
+select{font-size:14px;}
+/*响应式*/
+@media (min-width: 421px) and (max-width: 520px) {
+	.store_menu,.model_price{font-size: 15px;}
+	.listbody-bot,.goods,.upload-text,select,.shelves_text{font-size: 17px;}
+	.listbody-center h3,.store_mid,.paym-btn{font-size: 19px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	.store_menu,.model_price{font-size: 18px;}
+	.listbody-bot,.goods,.upload-text,select,.shelves_text{font-size: 20px;}
+	.listbody-center h3,.store_mid,.paym-btn{font-size: 22px;}
+}	
+
+@media (min-width: 621px){
+	.store_menu,.model_price{font-size: 21px;}
+	.listbody-bot,.goods,.upload-text,select,.shelves_text{font-size: 23px;}
+	.listbody-center h3,.store_mid,.paym-btn{font-size: 25px;}
+}

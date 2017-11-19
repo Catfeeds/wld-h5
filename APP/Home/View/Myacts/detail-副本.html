@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>拼团详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/myacts/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="confirm-pcode" value="{$pcode}">
+				<input type="hidden" name="confirm-pucode" value="{$pucode}">
+				<input type="hidden" name="confirm-mcode" value="">
+				<input type="hidden" name="confirm-num" value="">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="cj-pw-time divre bgcolor">
+
+						<?php if ($groupinfo['state'] == 1) { ?>
+						<div class="fb600 fs16">拼团成功</div>
+						<div class="fs12 c9 cj-pw-djs">点击下方按钮查看订单详情吧！</div>
+						<?php } else if ($groupinfo['state'] == 0) { ?>
+						<div class="fb600 fs16">距离成团还差<span>{$groupinfo['difnum']}</span>人</div>
+						<?php } else { ?>
+						<div class="fb600 fs16">拼团失败</div>
+						<div class="fs12 c9 cj-pw-djs">很遗憾！此次拼团失败，系统自动退款到小蜜余额</div>
+						<?php } ?>
+
+						<div class="fs12 cfe cj-pw-djs  <?php if ($groupinfo['difnum'] <= 0 || $groupinfo['endtime'] <= 0){ ?>none<?php } ?>" id="votetime1">剩余<span id="coll_1" style="display:none;"></span><span id="t_1" style="display:none;"></span><span id="h_1">11</span>:<span id="f_1">12</span>:<span id="m_1">13</span>结束</div>
+
+						<?php if ($groupinfo['state'] == 0) { ?>
+						<div class="visit-btn cf fs14 alignc" id="fixed-btn2" title="">邀请好友参团</div>
+						<?php } else if ($groupinfo['state'] == 1) { ?>
+						<div class="visit-btn cf fs14 alignc" id="fixed-btn1" title="{$orderid}">查看订单</div>
+						<?php } ?>
+					</div>
+					<div class="collage-join divtab">
+						<div class="cj-playways bgcolor divtab">
+							<div class="cj-order bgcolor divtab">
+								<div class="cj-order-img fl">
+									<img src="{$pinfo['c_imgpath']}" />
+								</div>
+								<div class="cj-order-info fl">
+									<div class="cj-order-name fs13 clamp2">{$data['c_name']}</div>
+									<div class="cj-order-number fs12 c5">{$pinfo['c_targetnum']}人团</div>
+									<div class="cj-order-price divtab">
+										<div class="fl divtab">
+											<span class="cy fs14">￥{$pinfo['c_actprice']}</span>
+											<span class="fs12 c9">原价：￥{$pinfo['c_value']}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="cj-pw-mebbox divre divtab">
+								<div class="cj-pw-font fl c3 fs14">参团人数</div>
+								<div class="cj-width fl">
+									<?php foreach ($groupinfo['memeber_list'] as $key => $value) { ?>
+									<?php if ($key <= 3){ ?>
+									<?php if ($key == 0) { ?>
+									<div class="cj-pw-member divtab divre">
+										<div class="cj-member-img divab">
+											<img src="{$value['c_headimg']}" />
+										</div>
+										<img src="__IMG__/myacts/spell_hp2.png" />
+									</div>
+									<?php } else { ?>
+									<!-- 不带皇冠背景-->
+									<div class="cj-pw-member">
+										<div class="cj-member-img">
+											<img src="{$value['c_headimg']}" />
+										</div>
+									</div>
+									<?php } ?>
+									<?php } ?>
+									<?php } ?>
+
+									<?php if (count($groupinfo['memeber_list']) > 4): ?>
+									<!-- 提示  省略   -->
+									<div class="cj-pw-member">
+										<div class="cj-member-img">
+											<img src="__IMG__/myacts/spell_icon_more.png" />
+										</div>
+									</div>
+									<?php endif ?>
+
+									<div class="cj-prompt-number fs13 c5 fl">
+										{$groupinfo['memeber_num']}人参团
+									</div>
+								</div>
+							</div>
+							<div class="group-by-t c3 fs14">
+								<span>开团时间</span>
+								<span>{$groupinfo['c_starttime']}</span>
+							</div>
+							<div class="cj-pw-explain divtab">
+								<div class="divtab">
+									<div class="cj-explain-title fl fs14">拼团玩法</div>
+									<div class="cj-explain-view fr fs13 c9">
+										查看详情 >
+									</div>
+								</div>
+								<div class="cj-explain-step">
+									<img src="__IMG__/myacts/spell_icon_wf.png" />
+								</div>
+								<div class="cj-explain-info">
+									<div class="cj-exp-step divtab">
+										<div class="fs11 fl c5">
+											选择商品<br />完成支付，参团/开团
+										</div>
+										<div class="fs11 fl c5">
+											邀请好友<br />等待他人参团
+										</div>
+										<div class="fs11 fl c5">
+											人满成团<br />商家单独发货
+										</div>
+									</div>
+									<div class="cj-hint fs13 c5">
+										开团并完成支付后，须在24小时内完成邀请指定数量的好友进行拼团，否则拼团失败，自动退款。
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+		}
+
+		/*查看订单*/
+		mui('.wrap-page').on('tap', '#fixed-btn1', function() {
+			var orderid = $(this).attr('title');
+			mui.openWindow({
+				url: "__APP__/Order/Index/detail?orderid="+orderid,
+				id: "detail"
+			});
+		});
+
+		//邀请好友
+		mui('.wrap-page').on('tap', '#fixed-btn2', function() {
+			var apptype = "<?php echo get_app_type(); ?>";
+			if(apptype == 3) {
+				mui.openWindow({
+					url: "<?php echo $signPackage['url'];?>",
+					id: "pdetail"
+				});
+			} else {
+				sharepro();
+			}
+		});
+
+		//页面加载完js改变样式
+		function yangshi() {
+			/*商品信息样式改变*/
+			$('.cj-order-img').height($('.cj-order-img').width());
+			$('.cj-order-name').height($('.cj-order-img').width() * 0.4);
+			$('.cj-order-name').css('line-height', $('.cj-order-name').height() * 0.5 + 'px');
+			$('.cj-order-number').css('line-height', $('.cj-order-img').height() * 0.3 + 'px');
+			$('.cj-order-price').css('line-height', $('.cj-order-img').height() * 0.3 + 'px');
+
+			/*拼团人头像样式处理*/
+
+			var totalw = $('.cj-pw-mebbox').width();
+			$('.cj-pw-mebbox').height(totalw * 0.12);
+
+			var hzw = $('.cj-pw-member').width();
+			$('.cj-pw-member').width(hzw);
+			$('.cj-pw-member').height(hzw * 1.22);
+			$('.cj-member-img').width(hzw * 0.93);
+			$('.cj-member-img').height(hzw * 0.93);
+			$('.cj-member-img').css('border-radius', $('.cj-member-img').width() + 'px');
+			$('.cj-member-img').css('left', hzw * 0.04 + "px");
+			$('.cj-member-img').css('margin-top', hzw * 0.25 + "px");
+			$('.cj-prompt-number').css('margin-top', hzw * 0.25 + 'px');
+			$('.cj-prompt-number').css('line-height', hzw + 'px');
+			$('.cj-pw-font').css('line-height', $('.cj-pw-mebbox').height() + 'px');
+
+			startcuttime();
+
+		}
+
+		function startcuttime() {
+			var startime = "<?php echo $groupinfo['stattime']; ?>";
+			var endtime = "<?php echo $groupinfo['endtime']; ?>";
+			if(startime && endtime) {
+				$('#votetime1').showtime({
+					sign: 1,
+					startname: "距开始时",
+					endname: "距结束时",
+					ended: "活动结束",
+					starttime: startime,
+					endtime: endtime
+				});
+			}
+		}
+		/*邀请好友，查看订单*/
+		mui('.mui-content').on('tap', '.visit-btn', function() {
+
+		});
+
+		/*邀请好友*/
+		function visitfriend() {
+
+		}
+		/*查看拼团玩法详情*/
+		mui('.mui-content').on('tap','.cj-explain-view',function(){
+			mui.openWindow({
+				url: "__APP__/Shopping/Collage/rule"
+			});
+		});		
+	</script>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>选择标签</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+  <link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+</head>
+<body class="bgcolor">
+<form name="formEdit" action="" method="post" enctype="multipart/form-data" id="form1">
+<div class="wrap-page" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<ul>
+	<li>
+	<div class="selected-tag" id="set-tag">
+		<!-- 赶紧添加属于自己的标签吧~~ -->
+		<input type="hidden" name="label" id="label" value="{$data['c_tab']}">
+    <input type="hidden" name="tag_num" id="tag_num" value="">
+    <foreach name='mylabel' item="vo">                 
+      <div class="select_tag" id="settags_{$key}">
+        <div class="tag_left">{$vo}</div>
+        <div class="tag_right" onclick="cleartags('{$key}')">
+          <!-- <img src="__IMG__/usercenter/cleartag.png"> -->x
+        </div> 
+      </div>
+    </foreach>   
+		<!-- <div class="select_tag" id="settags_11">
+			<div class="tag_left">男生</div>
+			<div class="tag_right"><img src="__IMG__/usercenter/cleartag.png"></div>
+		</div> -->
+	</div>
+	</li>
+	<li>
+	<div class="select-tag-list">
+		<div class="tag-list-tit">
+			<div class="tag-li-font fl">常用标签</div>
+			<div class="tag-li-change fr" onclick="changetags()">换一组</div>
+		</div>
+		<div class="label-list" id="label-list">
+			<!-- <div class="tag_list_fr" id="tags_1">技术宅</div>
+            <div class="tag_list_fr" id="tags_2">萝莉</div>
+            <div class="tag_list_fr" id="tags_3">常常正正</div>
+            <div class="tag_list_fr" id="tags_4">女博士</div>
+            <div class="tag_list_fr" id="tags_5">女博士</div>
+            <div class="tag_list_fr" id="tags_6">女博士</div>
+            <div class="tag_list_fr" id="tags_7">女博士</div> 
+            <div class="tag_list_fr" id="tags_8">有为青年</div>
+            <div class="tag_list_fr" id="tags_8">有为青年</div>  -->  
+		</div>
+
+		<div class="editor-btn" onclick="savelabel()">保存</div>
+
+	</div>
+	</li>
+	</ul>
+</div>
+</div>
+</form>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+  function savelabel () {
+  	if ($('#label').val()!="") {
+  		$('#form1').submit();
+  	}
+  }
+
+  window.onload = function() {
+    yangshi();
+  }
+
+  var tagpage = 1;
+  changetags();
+  /*换一组标签*/
+  function changetags() {
+    $('#label-list').empty();
+    var url = '__URL__/getLabel';
+    $.getJSON(url, {
+      page: tagpage
+    }, function(obj) {
+      var mgs = eval(obj);      
+      var _data = mgs['data'];
+      var data = _data['list'];
+      var _html = '';
+      if (data.length > 0) {
+        tagpage++;
+      } else {
+        tagpage = 1;
+        changetags();
+        return;
+      }
+      for (var i = 0; i < data.length; i++) {
+        var jk = (parseInt(i + 1) - 1) % 4;
+        if (jk == 0) {
+          _html += '<div class="tag_list_fr" id="tags_' + data[i]['c_id'] + '" onclick="tagchecked(' + data[i]['c_id'] + ');">' + data[i]['c_name'] + '</div>';
+
+        } else {
+          _html += '<div class="tag_list_fr" id="tags_' + data[i]['c_id'] + '" onclick="tagchecked(' + data[i]['c_id'] + ');">' + data[i]['c_name'] + '</div>';
+        }        
+      };
+      $('#label-list').html(_html);
+      $(".tag_list_fr").each(function() {
+        var tagphpecho = "<?php echo $data['c_tab'] ?>";
+        if (tagphpecho.indexOf($(this).text()) > -1) {
+          $(this).css('background', '#ebebeb');
+        }
+      });
+    });
+
+  }
+
+  function yangshi() {    
+      $('.tag_right').css('height',$('.tag_left').outerHeight(true)+'px');
+      $('.tag_left').css('height',$('.tag_left').outerHeight(true)+'px');
+  }
+
+  var topMenus = getClass('li', 'select_tag');
+  var num = topMenus.length;
+  var tag_num = '(' + num + '/3)';
+  $('#tag_num').val(tag_num);
+  /*选择标签*/
+  function tagchecked(id) {
+
+    var tagval = $('#tags_' + id).text();
+    var _html = '';
+    _html += '<div class="select_tag" id="settags_' + id + '">';
+    _html += '<div class="tag_left">' + tagval + '</div>';
+    _html += '<div class="tag_right" onclick="cleartags(' + id + ')">x</div>';
+    _html += '</div>';
+    //判断是否已选   
+    for (var i = 0; i < topMenus.length; i++) {
+      if (topMenus[i].innerHTML.indexOf(tagval) > -1) {
+        mui.toast('您已经选择了该标签！');        
+        return;
+      }
+    }
+    num++;
+    //判断是否选是否选满三个
+    if (num > 3) {
+      mui.toast('最多只能选择3个标签喔！');      
+      return;
+    }
+
+    var labelvaule = $('#label').val();
+    if (document.getElementById('settags_' + id)) {      
+      mui.toast('您已经选择了该标签！');
+      return;
+    }
+    if (labelvaule == '') {
+      labelvaule += tagval;
+    } else {
+      labelvaule += '|' + tagval;
+    }
+    $('#set-tag').append(_html);
+    var tag_num = '(' + num + '/3)';    
+    $('#tags_' + id).css('background','#ebebeb');
+    yangshi();
+    $('#tag_num').val(tag_num);
+    $('#label').val(labelvaule);
+
+  }
+  /*清除标签*/
+  function cleartags(id) {
+    var str2 = $('#settags_' + id).find('.tag_left').text();
+    $(".tag_list_fr").each(function() {
+      if (str2.indexOf($(this).text()) > -1) {
+        $(this).css('background', '#ffffff');
+      }
+    });
+    
+    str2 = str2.replace(/^\s+|\s+$/g, "");
+    var labelvaule = $('#label').val();
+
+    var strnum = labelvaule.indexOf(str2);
+    if (strnum == 0) {
+      var str_2 = str2 + '|';
+    } else {
+      var str_2 = '|' + str2;
+    }
+    if (num == 1) {
+      str_2 = str2;
+    }
+    labelvaule = labelvaule.replace(str_2, '');
+    if (num == 4) {
+      num = 3;
+    }
+    num--;
+    var tag_num = '(' + num + '/3)';
+    $('#settags_' + id).remove();
+    $('#tag_num').val(tag_num);
+    $('#label').val(labelvaule);
+  }
+
+  function getClass(tagName, className) //获得标签名为tagName,类名className的元素
+  {
+    if (document.getElementsByClassName) //支持这个函数
+    {
+      return document.getElementsByClassName(className);
+    } else {
+      var tags = document.getElementsByTagName(tagName); //获取标签
+      var tagArr = []; //用于返回类名为className的元素
+      for (var i = 0; i < tags.length; i++) {
+        if (tags[i].class == className) {
+          tagArr[tagArr.length] = tags[i]; //保存满足条件的元素
+        }
+      }
+      return tagArr;
+    }
+
+  }	
+</script>
+
+</body>
+</html>

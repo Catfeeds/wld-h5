@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>{$data['c_nickname']}的个人空间</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=3.0">
+	<link rel="stylesheet" type="text/css" href="__CSS__/myspace/index.css?v=3.0">
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+</head>
+<body>
+<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+<input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+<input type="hidden" id="resurl" value="<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])?>">
+<div class="self-space-bg"></div>
+<div class="self-space-view">
+	<div class="self-space-info">
+		<div class="self-head">
+			<if condition="$myspace['c_headimg'] eq null">
+			<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+			<else />
+			<img id="self-heads" src="{$myspace['c_headimg']}" alt="">
+			</if>
+		</div>
+		<div class="self-nkname">{$myspace['c_nickname']}</div>
+		<div class="self-signature">{$myspace['c_signature']}</div>
+		<div class="self-job">行业：{$myspace['c_trade']}</div>
+		<div class="self-area">地区：{$myspace['c_province']}-{$myspace['c_city']}</div>
+		<div class="self-tags">
+			<ul>
+				<volist name="mylabel" id="vo">
+				<li>{$vo}&nbsp;×</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="wrap-page" style="margin-bottom:5%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<?php if ($ucode != $issue_ucode) { ?>
+	<div class="myspace-s-banner">
+		<div class="myspace-s-head">
+			<div class="myspace-head-main">
+				<div class="myspace-head">
+					<img src="{$data['c_headimg']}" alt="">
+				</div>
+				<if condition="$data['c_shop'] eq 1">
+				<div class="myspace-sj-hy"><img src="__IMG__/myspace/sj.png" alt=""></div>
+				<else />
+				<div class="myspace-sj-hy"><img src="__IMG__/myspace/hy.png" alt=""></div>
+				</if>
+
+			</div>
+		</div>
+		<div class="myspace-s-name">{$data['c_nickname']}</div>
+		<div class="myspace-s-desc">
+		关注{$data['c_attention']}&nbsp;|&nbsp;访问量{$data['c_pv']}</div>
+		<div class="myspace-s-log">{$data['c_signature']}</div>
+		<div class="myspace-s-friend">
+			<div class="fl tip-download"><img src="__IMG__/myspace/myspace-friend1.png" alt="" onclick="fchat()"></div>
+			<?php if ($data['is_attention'] == 0) { ?>
+			<input type="hidden" id="attentatu{$data.c_id}" value="1">
+			<div class="fl tip-download"><img id="attention" src="__IMG__/myspace/myspace-friend3.png" alt="" onclick="attentionss('','{$data['c_ucode']}',1)"></div>
+			<?php } else { ?>
+			<input type="hidden" id="attentatu{$data.c_id}" value="0">
+			<div class="fl tip-download"><img id="attention" src="__IMG__/myspace/myspace-friend4.png" alt="" onclick="attentionss('','{$data['c_ucode']}',0)"></div>
+			<?php } ?>
+		</div>
+		<?php if ($data['c_shop'] == 0) { ?>
+		<img src="__IMG__/myspace/myspace_banner.jpg" alt="" id="mybanner1" style="display:block;">
+		<?php }else{ ?>
+		<img src="__IMG__/myspace/myspace_banner-1.jpg" alt="" id="mybanner2" style="display:block;">
+		<?php } ?>
+	</div>
+	<?php } else { ?>
+	<div class="myspace-s-banner">
+		<div class="myspace-s-head self-head">
+			<div class="myspace-head-main">
+				<div class="myspace-head">
+					<img src="{$data['c_headimg']}" alt="">
+				</div>
+				<if condition="$data['c_shop'] eq 1">
+				<div class="myspace-sj-hy"><img src="__IMG__/myspace/sj.png" alt=""></div>
+				<else />
+				<div class="myspace-sj-hy"><img src="__IMG__/myspace/hy.png" alt=""></div>
+				</if>
+
+			</div>
+		</div>
+		<div class="myspace-s-name self-name">{$data['c_nickname']}</div>
+		<div class="myspace-s-log self-log">{$data['c_signature']}</div>
+
+		<div class="myspacelv">
+			<img src="__IMG__/myspace/smb.png" alt="">
+		</div>
+		<div class="myspacelvlog">
+			<div class="fl myspacelvlogff" onclick="location.href='__URL__/myattention'">
+				<h3>{$data['my_attention']}</h3>
+				<p>我的关注</p>
+			</div>
+			<div class="fl myspacelvlogff">
+				<h3>{$data['c_pv']}</h3>
+				<p>访问量</p>
+			</div>
+			<div class="fl myspacelvlogff" onclick="location.href='__URL__/myfans'">
+				<h3>{$data['c_attention']}</h3>
+				<p>我的粉丝</p>
+			</div>
+		</div>
+		<img src="__IMG__/myspace/myspace_banner-1.jpg" alt="" id="mybanner1" style="display:block;">
+	</div>
+	<?php } ?>
+
+	<!-- 资源信息 -->
+	<div class="source" id="rm-list" <?php if ($ucode == $issue_ucode) { ?>style="margin-top:0px;"<?php } ?>>
+		<!-- <div class="source-list">
+			<div class="fl source-left">
+				<span class="c3">07/12</span><br/><span class="c9">10:54</span>
+			</div>
+			<div class="fl source-right">
+				<div class="source-top">
+					<img src="__IMG__/myspace/sbg.png" alt="">
+				</div>
+				<div class="source-cotent">
+					<div class="source-body">
+						<div class="f-description new-desc">尝试最适合你的发型，你永远不知道自己有多美！！夏天最热门的发型在这里
+						</div>
+
+						<ul class="f-img-list">
+							<li><img src="__IMG__/index/founder1.jpg" alt=""></li>
+							<li><img src="__IMG__/index/founder1.jpg" alt=""></li>
+							<li><img src="__IMG__/index/founder1.jpg" alt=""></li>
+							<li><img src="__IMG__/index/founder1.jpg" alt=""></li>
+							<li><img src="__IMG__/index/founder1.jpg" alt=""></li>
+							<li><img src="__IMG__/index/founder1.jpg" alt=""></li>
+						</ul>
+
+						<a class="f-product-info" href="">
+							<div class="f-product-img fl">
+								<img src="__IMG__/index/founder1.jpg" alt="">
+							</div>
+							<div class="f-pro-names-price fl">
+								<div class="f-product-name">正品赛丝之秀伉美沅补水神器</div>
+								<div class="f-product-price">￥45.00</div>
+							</div>
+							<div class="f-pro-arrow fr">
+								<img src="__IMG__/index/s_15.png" alt="">
+							</div>
+						</a>
+
+						<div class="f-comment-all">
+							<div class="f-comm-list">
+								<div class="f-comm-send"><span>就爱小丸子啦啦啦</span>：<em>国子脸适合什么发型？</em></div>
+								<div class="f-comm-reply"><span>夏天酱的资源屋</span>回复<span>就爱小丸子啦啦啦</span>：<em>真实魔鬼游戏。</em></div>
+								<div class="f-comm-send"><span>就爱小丸子啦啦啦</span>：<em>国子脸适合什么发型？</em></div>
+							</div>
+							<a href="__URL__/comment" class="f-check-all-comm">查看所有评论</a>
+							<div class="f-comm-ico-list">
+								<div class="send-comm-tipimg fl" onclick="sendcommt('{$data.c_id}','评论')"><img src="__IMG__/index/s-04_03.png" alt=""></div>
+								<div class="sendcomm-praise fl">
+								<?php if ($data['is_like'] == 1) { ?>
+									<img src="__IMG__/index/s_34.png" alt="" id="imgid-{$data.c_id}" onclick="addpraise('{$data.c_id}',0)">
+								<?php } else { ?>
+									<img src="__IMG__/index/s_22.png" alt="" id="imgid-{$data.c_id}" onclick="addpraise('{$data.c_id}',1)">
+								<?php } ?>
+								</div>
+								<div class="sendcomm-praisenum fl" id="num-{$data.c_id}">{$data.c_like}</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>		 -->
+
+	</div>
+
+</div>
+</div>
+<!-- 评论弹出框 -->
+<div class="send-comm-bg"></div>
+<div class="send-comm-pup">
+	<div class="send-comm-puptit">评论</div>
+	<div class="send-comm-txt">
+		<textarea placeholder="输入评论内容" name="feel" id="feel" rows="6" class="fs12"></textarea>
+	</div>
+	<input type="hidden" name="rid" id="rid" value="">
+	<input type="hidden" name="bid" id="bid" value="">
+	<div class="send-comm-btn" onclick="subcomment();">发表</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+<script type="text/javascript" src="__JS__/myspace/index.js"></script>
+<script type="text/javascript" src="__RSC__/Trade/js/option.js"></script>
+
+</body>
+</html>

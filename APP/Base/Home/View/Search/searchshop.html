@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>搜索</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/search/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}" />
+				<input type="hidden" name="citycode" id="citycode" value="{$citycode}" />
+				<input type="hidden" name="localtitle" id="localtitle" value="{$circlename}" />
+				<div class="mui-content">
+					<!-- 搜索区域 -->
+					<div class="seach-head">
+						<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs22"></a>
+						<div class="search-default divre">
+							<div class="search-default-con fl bgcolor">
+								<div class="select-box divre fs13">
+									<div class="select-value">
+										<span>商品</span>
+										<div class="select-pullImg fr"><img src="__IMG__/search/searchbox_icon_cbb.png" alt="" / ></div>
+									</div>
+									<!-- 下拉选择区 -->
+									<div class="select-option" style="display: none;">
+										<ul>	
+											<div class="select-opImg divab"><img src="__IMG__/search/searchbox_icon_cbbarrow.png" alt="" /></div>
+											<li>
+												<div class="select-typeImg"><img src="__IMG__/search/screening_icon_good_default.png" alt="" / ></div>
+												<font>商品</font>
+											</li>
+											<li>
+												<div class="select-typeImg"><img src="__IMG__/search/screening_icon_dynamic_default.png" alt="" / ></div>
+												<font>动态</font>
+											</li>
+											<li>
+												<div class="select-typeImg"><img src="__IMG__/search/screening_icon_shangjia_default.png.png" alt="" / ></div>
+												<font>商家</font>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<input type="search" id="search" name="search" class="c9 fs14 aglinc bgcolor" required="" placeholder="搜索" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="zh-CN">
+								<div class="search-img divab"><img src="__IMG__/search/searchbox_icon.png" alt="" /></div>
+							</div>
+							<div class="search-botton cf fs14 fr">搜索</div>
+						</div>
+					</div>
+					<!-- 搜索区域 -->
+
+					<!-- 数据列表部分 -->
+					<div class="divtab search-list">
+						<!-- 商城排序条件 -->
+						<div class="filter-box divre bgcolor fs14 c3">
+							<ul>
+								<li class="filter-type">
+									<span class="cy">综合排序</span>
+									<div class="filter-pullImg fr"><img src="__IMG__/search/search_icon_sorting_cbb.png" alt="" /></div>
+								</li>
+								<li>销量优先</li>
+								<li>
+									<div class="filter-typeImg fr"><img src="__IMG__/search/search_icon_sorting_default.png" alt="" /></div>
+								</li>
+							</ul>
+							<div class="filter-option divab">
+								<p>综合排序</p>
+								<p>信用</p>
+								<p>价格由高到低</p>
+								<p>价格由低到高</p>
+							</div>
+						</div>
+						<!-- 商城排序条件 -->
+
+
+						<div class="t-s-dynamic-main divtab" id="data_list">
+							<!-- 商城 -->
+							<!-- 商城 排版一 -->
+							<div class="t-s-shopping divtab">
+								<ul>
+									<li>
+										<div class="t-s-shopping-img"><img src="__IMG__/about/bee-boy.png" alt="" /></div>
+										<div class="t-s-shopping-info">
+											<div class="t-s-shopping-name c3 fs12 clamp2">justmode太阳伞女防晒伞超轻小五折伞迷你遮阳</div>
+											<div class="t-s-shopping-postage divtab">
+												<div class="t-s-shopping-psImg fl"><img src="__IMG__/search/search_icon_baoyou.png" alt="" /></div>
+												<div class="fr fs12 c9">上海</div>
+											</div>
+											<div class="t-s-shopping-price fs11 c9"><font class="fs16 ">￥50.00</font>126人付款</div>
+										</div>
+									</li>
+									<li>
+										<div class="t-s-shopping-img"><img src="__IMG__/about/bee-boy.png" alt="" /></div>
+										<div class="t-s-shopping-info">
+											<div class="t-s-shopping-name c3 fs12 clamp2">justmode太阳伞女防晒伞超轻小五折伞迷你遮阳</div>
+											<div class="t-s-shopping-postage divtab">
+												<div class="t-s-shopping-psImg fl"><img src="__IMG__/search/search_icon_baoyou.png" alt="" /></div>
+												<div class="fr fs12 c9">上海</div>
+											</div>
+											<div class="t-s-shopping-price fs11 c9"><font class="fs16 ">￥50.00</font>126人付款</div>
+										</div>
+									</li>
+									<li>
+										<div class="t-s-shopping-img"><img src="__IMG__/about/bee-boy.png" alt="" /></div>
+										<div class="t-s-shopping-info">
+											<div class="t-s-shopping-name c3 fs12 clamp2">justmode太阳伞女防晒伞超轻小五折伞迷你遮阳</div>
+											<div class="t-s-shopping-postage divtab">
+												<div class="t-s-shopping-psImg fl"><img src="__IMG__/search/search_icon_baoyou.png" alt="" /></div>
+												<div class="fr fs12 c9">上海</div>
+											</div>
+											<div class="t-s-shopping-price fs11 c9"><font class="fs16 ">￥50.00</font>126人付款</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+
+							<!-- 商城 排版二-->
+							<div class="t-s-pro-box divtab bgcolor">
+								<div class="t-s-pro-img fl"><img src="__IMG__/myspace/founder1.jpg" alt="" /></div>
+								<div class="t-s-pro-info fl">
+									<div class="t-s-pro-name c3 fs12 clamp2">justmode太阳伞女防晒伞超轻小五折伞迷你遮阳</div>
+									<p class="fs12 c9">上海</p>
+									<div class="t-s-pro-psImg"><img src="__IMG__/search/search_icon_baoyou.png" alt="" /></div>
+									<div class="t-s-shopping-price fs11 c9"><font class="fs16 ">￥50.00</font>126人付款</div>
+								</div>
+							</div>
+							<div class="t-s-pro-box divtab bgcolor">
+								<div class="t-s-pro-img fl"><img src="__IMG__/myspace/founder1.jpg" alt="" /></div>
+								<div class="t-s-pro-info fl">
+									<div class="t-s-pro-name c3 fs12 clamp2">justmode太阳伞女防晒伞超轻小五折伞迷你遮阳</div>
+									<p class="fs12 c9">上海</p>
+									<div class="t-s-pro-psImg"><img src="__IMG__/search/search_icon_baoyou.png" alt="" /></div>
+									<div class="t-s-shopping-price fs11 c9"><font class="fs16 ">￥50.00</font>126人付款</div>
+								</div>
+							</div>
+							<!-- 商城 -->
+						</div>
+
+						<div id="console"></div>
+
+					</div>
+
+					<!-- 搜索详情 -->
+				</div>
+			</form>
+		
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xiaomi-bar').css('display', 'none');
+			$('.mui-content').css('margin-top', '0');
+			yangshi();
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			/*商城*/
+			var imgshp = $('.t-s-shopping-img').width();
+			$('.t-s-shopping-img').height(imgshp);
+
+			var imgpro = $('.t-s-pro-img').width();
+			$('.t-s-pro-img').height(imgpro);
+			$('.t-s-pro-info').height(imgpro);
+
+			/*商城筛选*/
+			var imgflr = $('.filter-typeImg').width();
+			$('.filter-typeImg').height(imgflr);
+			$('.filter-box ul li').css('line-height', imgflr + 'px');
+			
+			var sth = $('.select-typeImg').width();
+			$('.select-typeImg').height(sth);
+			$('.select-option li').css('line-height',sth+'px');
+
+		}
+
+		/*搜索框*/
+		$('#search').blur(function() {
+			$('.search-img').show();
+		});
+		$('#search').focus(function() {
+			$('.search-img').hide();
+		});
+		
+		var selstr = 0;
+		/*搜索类型选择*/
+		mui('.mui-content').on('tap','.select-value',function(){
+			if(selstr==0){
+				$('.select-option').slideDown();
+				selstr = 1;
+			}else{
+				$('.select-option').slideUp();
+				selstr = 0;
+			}
+		});
+		
+	</script>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,user-scalable=no" name="viewport">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="format-detection" content="telephone=yes" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<include file="Base@Public/header"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/order.css?v=3.0.0">
+		<title>支付结果</title>
+		<style type="text/css">
+			.mui-slider {
+				padding-bottom: 3%;
+			}
+			
+			.mui-slider-item {
+				padding: 0 4% 4% 4%;
+			}
+			.coupon-detail{top: 0;bottom: 0;padding-top: 0;right: 4.5%;}
+		</style>		
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="achieve-top divtab bgcolor">
+					<div class="achieve-t-le fl">
+						<div class="achieve-stu-success divtab">
+							<span><img src="__IMG__/xszf_icon_wanc.png" alt="" /></span><span class="fs14 c3 fb600">支付成功</span>
+						</div>
+						<div class="achieve-stu-font fs14 c9 divtab fs13">主人，您的包裹正整装待发</div>
+					</div>
+					<div class="achieve-t-ri fr"><img src="__IMG__/xszf_img.png" alt="" /></div>
+				</div>
+				
+				<?php if($orderdata['c_delivery']==3){ ?>
+				<div id="actorder_2" class="bgcolor bborder divtab" style="margin-top: 3%;">
+					<ul class="actorder-header">
+						<li style="overflow: hidden;width: 100%;"><span><img src="__IMG__/dd_icon_shagjia.png"/></span><span class="fs16">商家信息</span></li>
+						<li class="c5 fs15">{$orderdata['acodeinfo']['c_name']}</li>
+						<li class="c9 fs13">{$orderdata['acodeinfo']['c_phone']}</li>
+						<li class="c9 fs13">{$orderdata['acodeinfo']['c_provice']}{$orderdata['acodeinfo']['c_city']}{$orderdata['acodeinfo']['c_district']}{$orderdata['acodeinfo']['c_address']}</li>
+					</ul>
+				</div>				
+				<?php }else{ ?>
+				<div class="achieve-address divtab bgcolor bborder">
+					<p class="fs13 c5">收货人：{$orderdata['address']['c_consignee']}（{$orderdata['address']['c_telphone']}）</p>
+					<p class="fs13 c5">收货地址：{$orderdata['address']['c_provincename']}{$orderdata['address']['c_cityname']}{$orderdata['address']['c_districtname']}{$orderdata['address']['c_address']}</p>
+				</div>					
+				<?php } ?>
+				<div class="achieve-money divtab bgcolor">
+					<div class="actval_money fs13 divtab">
+						<ul>
+							<li class="c9">订单总价</li>
+							<li class="cy">￥{$orderdata['c_actual_price']}</li>
+						</ul>
+					</div>
+					<div class="actval_money divtab fs13">
+						<ul>
+							<li class="c9">支付方式</li>
+							<li class="c3">
+									
+								<?php if($orderdata['banlace']>0){ ?>
+									<p class="fs13 c3">余额支付：￥{$orderdata['banlace']}</p>	
+								<?php } ?>								
+								<?php if($orderdata['c_bmoney']>0){ ?>
+									<p class="fs13 c3">活动抵扣：￥{$orderdata['c_bmoney']}</p>	
+								<?php } ?>								
+									
+								<?php if($payth>0){ ?>
+									<?php if($orderdata['c_pay_rule']==1){ ?>
+									
+									<p class="fs13 c3">支付宝支付：￥{$payth}</p>
+									
+									<?php }else if($orderdata['c_pay_rule']==2 || $orderdata['c_pay_rule']==3){ ?>
+									
+									<p class="fs13 c3">微信支付：￥{$payth}</p>
+									
+									<?php } ?>
+										
+								<?php } ?>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="achieve-btn divtab bgcolor">
+					<div class="achieve-btn-l c3 fs16 fl">查看订单</div>
+					<div class="achieve-btn-r c3 fs16 fl">继续逛逛</div>
+				</div>
+				<div class="achieve-like divtab">
+					<?php if($couponlist){ ?>
+					<div class="ach-like-t"><img src="__IMG__/xszf_nknxh.png" alt="" /></div>
+					<div class="ach-like-c">
+						<!--轮播效果-->
+						<div class="mui-slider bborder">
+							<div class="mui-slider-group">
+								<?php foreach ($couponlist as $k => $v) { ?>
+								<?php if ($v['c_type'] == 1) { ?>
+								<div class="mui-slider-item">
+									<div class="coupon-box divre">
+										<div class="coupon-money divab cf"><span class="fs16">{$v['c_money']}</span><br /><span class="fs12">元</span></div>
+										<div class="coupon-tit divab">
+											<p class="cf fs13">代金券</p>
+											<p class="cf fs12">
+												<span>满{$v['c_limit_money']}元可用</span>
+											</p>
+										</div>
+
+										<?php if ($v['c_sign'] == 1) { ?>
+										<div class="coupon-use-rang divab cf fs12">全平台通用</div>
+										<?php } else { ?>
+										<div class="coupon-use-rang divab cf fs12 fov" onclick="viewshop('{$v['c_ucode']}')">商家「<span>{$v['c_nickname']}</span>」</div>
+										<?php } ?>
+
+										<div class="coupon-time divab cf fs12">{$v['c_starttime']}~{$v['c_endtime']}</span>
+										</div>
+										<div class="coupon-detail divab cf fs13 verticle-mode" onclick="usecoupon('{$v['cardid']}','{$v['vid']}')">
+											立即领取
+										</div>
+										<!--左上角标注图-->
+										<div class="coupon-le-ico divab fs12 cf" style="background: #343D7E;">广告位</div>
+										<!--不同类型底图-->
+										<img src="__IMG__/coupon_1_default.png" alt="" />
+									</div>
+								</div>
+								<?php } else if ($v['c_type'] == 2) { ?>
+								<div class="mui-slider-item">
+									<div class="coupon-box divre">
+										<div class="coupon-money divab cf"><span class="fs16">{$v['c_money']}</span><br /><span class="fs12">折</span></div>
+										<div class="coupon-tit divab">
+											<p class="cf fs13">折扣劵</p>
+											<p class="cf fs12">
+												<span>最高折扣{$v['c_limit_money']}元</span>
+											</p>
+										</div>
+
+										<?php if ($v['c_sign'] == 1) { ?>
+										<div class="coupon-use-rang divab cf fs12">全平台通用</div>
+										<?php } else { ?>
+										<div class="coupon-use-rang divab cf fs12 fov" onclick="viewshop('{$v['c_ucode']}')">商家「<span>{$v['c_nickname']}</span>」</div>
+										<?php } ?>
+
+										<div class="coupon-time divab cf fs12">{$v['c_starttime']}~{$v['c_endtime']}</div>
+										<div class="coupon-detail divab cf fs13 verticle-mode" onclick="usecoupon('{$v['cardid']}','{$v['vid']}')">
+											立即领取
+										</div>
+										<!--左上角标注图-->
+										<div class="coupon-le-ico divab fs12 cf" style="background: #343D7E;">广告位</div>
+										<!--不同类型底图-->
+										<img src="__IMG__/coupon_2_default.png" alt="" />
+									</div>
+								</div>
+								<?php } ?>
+								<?php } ?>
+							</div>
+							<div class="mui-slider-indicator" style="bottom: 0;">
+								<?php foreach ($couponlist as $k => $v) { ?>
+								<div class="mui-indicator <?php if ($k == 0) { ?>mui-active<?php } ?>"></div>
+								<?php } ?>
+							</div>
+						</div>
+
+					</div>
+					<?php } ?>
+				</div>				
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				var prh = $('.paysuccess-top-l').width(),
+					lrh = prh * 50 / 100;
+				$('.paysuccess-top-r').css('line-height', lrh + "px");
+				
+				styles();
+			}
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.36;
+				$('.coupon-box').height(boxh);
+			}
+			//查看商家
+			function viewshop(ucode) {
+				mui.openWindow({
+					url: '__APP__/Store/Index/index?fromucode=' + ucode,
+					id: 'veiwshop'
+				});
+			}
+			/*立即使用链接跳转*/
+			function usecoupon(cardid,vid){
+				var url = "__APP__/Adposition/Index/getcoupon?type=2&acode=<?php echo $issue_ucode; ?>&cardid="+cardid+"&vid="+vid;
+				mui.openWindow({
+					url: url,
+					id: 'getcoupon'
+				});
+			}
+			var pturl = '<?php echo $orderdata["pturl"]?>';
+			/*查看订单*/
+			mui('.mui-content').on('tap','.achieve-btn-l',function(){
+				if(pturl){
+					mui.openWindow({url:pturl,id:"detail"});	
+				}else{
+					mui.openWindow({url:"__APP__/Order/Index/detail?orderid=<?php echo $orderdata['c_orderid']; ?>",id:"detail"});
+				}
+				
+			});
+			/*继续逛逛*/
+			mui('.mui-content').on('tap','.achieve-btn-r',function(){
+				mui.openWindow({url:"__APP__/Shopping/Index/index",id:"index"});
+			});
+			
+			mui.plusReady(function() {});			
+		</script>
+	</body>
+
+</html>

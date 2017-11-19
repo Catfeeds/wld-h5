@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>猜你喜欢</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/mindex.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<div class="mui-content">
+
+					<!-- 数据列表部分 -->
+					<div id="data_list" class="divtab guess-list">
+						<div class="ma-guess-box bgcolor" title="pcode0">
+							<div class="ma-guess-img">
+								<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+							</div>
+							<div class="ma-guess-info">
+								<div class="ma-pro-name c3 fs12 fov">良品铺子麻辣/五香灯影牛肉丝重庆特产/良品铺子麻辣良品铺良品铺</div>
+								<div class="ma-guess-price cy fs12">￥25</div>
+								<div class="ma-shop-name divtab">
+									<div class="shop-img fl">
+										<img src="__IMG__/index/dlsc_dlxq_02.jpg">
+									</div>
+									<div class="shop-name fl fs11 c9">良品铺子</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div id="console"></div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var cid = '';
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+
+			var sdh = $('.search-default').height();
+			$('.search-default p').css('line-height', sdh + 'px');
+			
+			yangshi();
+
+			/*搜索框*/
+			$('#keyword').blur(function() {
+				pageindex = 1;
+				getdatalist();
+			});
+			$('#keyword').focus(function() {
+				$('#keyword').val('');
+			});
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var pimgw = $('.ma-guess-img').width();
+			$('.ma-guess-img').height(pimgw);
+			$('.shop-img').height($('.shop-img').width());
+			$('.shop-name').css('line-height',$('.shop-img').width()+'px');
+			
+
+
+		}
+				
+		/*搜索货源*/
+		mui('.mui-content').on('tap', '.search-default', function() {
+			$('.search-default').hide();
+			$('.search-main').show();
+			$('input[name="keyword"]').focus();
+		});
+		/*取消*/
+		mui('.mui-content').on('tap', '.search-cancel', function() {
+			$('.search-default').show();
+			$('.search-main').hide();
+		});
+		
+		mui('.mui-content').on('tap', '.mui-control-item', function() {
+			var categoryid = $(this).attr('title');
+			selectstatu(categoryid);
+		});
+
+		selectstatu(cid);
+		function selectstatu(i) {
+			cid = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			getdatalist();
+		}
+
+		// getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var keyword = $('#keyword').val();
+			var url = "__URL__/MallProducts?pname="+keyword+"&categoryid="+cid+"&pageindex="+pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							$('.agency-list').removeClass('bgcolor');
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="divtab divempty">';
+								_html += '<h3 class="divtab c6 fs14">暂无货源</h3>';
+								_html += '<p class="divtab c9 fs12">试试搜索其他的吧！</p>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							$('.agency-list').addClass('bgcolor');
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="ag-probox-'+pageindex+'">';
+									_html+='<div class="agency-pro-box bborder" title="'+dataarr['c_pcode']+'">';
+									_html+='<div class="a-pro-img fl">';
+									_html+='<img src="'+dataarr['c_pimg']+'" alt="" />';
+									_html+='</div>';
+									_html+='<div class="a-pro-info fl">';
+									_html+='<div class="a-pro-name c3 fs14">'+dataarr['c_name']+'</div>';
+									_html+='<div class="a-pro-price cy fs16">￥'+dataarr['c_price']+'</div>';
+									_html+='<div class="a-agentprice c5 fs13">￥'+dataarr['agent_price']+'代理级（'+dataarr['c_grade']+'级）</div>';
+									_html+='</div>';
+									_html+='</div>';
+									_html+='</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*查看代理商品详情*/
+						mui('.ag-probox-'+pageindex).on('tap','.agency-pro-box',function(){
+							var pcode = $(this).attr('title');
+							mui.openWindow({url:'__URL__/agprode?pcode='+pcode,id:"agprode"});
+						});
+					}
+				}
+			});
+		}
+		
+		
+		mui('.ag-probox-'+pageindex).on('tap','.agency-pro-box',function(){
+			var pcode = $(this).attr('title');
+			mui.openWindow({url:'__URL__/agprode?pcode='+pcode,id:"agprode"});
+		});
+	</script>
+
+</html>

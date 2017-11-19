@@ -1,0 +1,71 @@
+<script type="text/javascript">
+/*app访问网页调分享*/
+function sharepro(shareTitle,descContent,imgUrl,lineLink,returnurl){
+    /*获取分享的信息*/
+    var apptype = "<?php echo get_app_type(); ?>";
+    if (!shareTitle) {
+        var shareTitle = "<?php echo trim($weixinshare['c_sharetitle']);?>"; 
+    }
+    if (!descContent) {
+        var descContent = "<?php echo trim($weixinshare['c_discript']);?>"; 
+    }
+    if (!imgUrl) {
+        var imgUrl = "<?php echo $weixinshare['c_pthumbnail'];?>"; 
+    }
+    if (!lineLink) {
+        var lineLink = "<?php echo $signPackage['url'];?>"; 
+    }
+    if (!returnurl) {
+        var returnurl = "<?php echo $weixinshare['c_apireturnurl'];?>"; 
+    }
+    
+    if (!shareTitle) {
+        shareTitle = document.title;
+    }
+    if (!descContent) {
+        var meta = document.getElementsByTagName('meta');       
+        for (i in meta) {
+            if (typeof meta[i].name != "undefined" && meta[i].name.toLowerCase() == "description") {
+                descContent = meta[i].content;
+            }
+        }       
+    }
+    if (!imgUrl) {
+        imgUrl = 'https://wldappimg.iweilingdi.com/apppathimg/login/nlogo.png';
+    }
+    if (!lineLink) {
+        lineLink = 'https://www.weilingdi.com';
+    }
+    if (apptype == 1) {
+      androidShare(lineLink,imgUrl,shareTitle,descContent,returnurl);
+    } else if(apptype == 2) {
+      iosShare(lineLink,imgUrl,shareTitle,descContent,returnurl);
+    } else {
+      share_set();
+    }    
+}
+
+/*调用安卓分享*/
+function androidShare(lineLink,imgUrl,shareTitle,descContent,returnurl) {
+    javaScript:resultData.generalizeShare(lineLink,imgUrl,shareTitle,descContent,returnurl);    
+}
+/*ios分享*/
+function iosShare(lineLink,imgUrl,shareTitle,descContent,returnurl) {  
+    window.webkit.messageHandlers.AppModel.postMessage({"share":{ "imgsrc":""+imgUrl+"", "weburl":""+lineLink+"","title":""+shareTitle+"","desc":""+descContent+"","returnurl":""+returnurl+""}});      
+}
+/*h5分享提示*/
+function share_set(){
+    var show = '';
+    show +='<div class="pro-lead">';
+    show +='<img src="'+WEB_HOST+'/data/pro-high-user.png" alt="">';        
+    show +='</div>';
+    $("body").prepend(show);    
+    $(".pro-lead").fadeIn(300);
+    $('.pro-lead').height(window.screen.height);
+
+    $(".pro-lead").click(function(){
+        $(".pro-lead").remove();
+    });
+}
+
+</script>

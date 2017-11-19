@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>店铺评论</title>
+		<meta content="微域领地,微域领地系统,小蜜系统店铺评论" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:13%; background: #fff;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="comment-con divtab bgcolor" id="data_list">
+					<!-- <div class="commcode-info divtab commcode-info-1">
+						<div class="comm-head fl" title="ucode0">
+							<img src="__IMG__/store/dlsc_xq_03.jpg" alt="" />
+						</div>
+						<div class="comm-intro fl">
+							<div class="comm-nc-info divtab">
+								<div class="comm-nc-grade fl">
+									<p class="fs14 c3 fov" style="padding: 3% 0;">良品铺子</p>
+									<p><span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span></p>
+								</div>
+								<div class="comm-time fr fs12 c9">2017-05-05</div>
+							</div>
+							<div class="comm-desc c5 fs13">mui中选项卡切换加下拉刷新，动态加载数据左右轮滑无效！ mui中选项卡切换加下拉刷新，动态加载数据左右轮滑无效！ </div>
+							<div class="comm-imglist" id="imglist-1-id0" title="cid0">
+								<ul>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+								</ul>
+							</div>
+							<div class="comm-source fs12 c9">来源：扫码订单88888888888</div>
+							<div class="comm-product">
+								<div class="commpro-img fl"><img src="__IMG__/store/qdpage-.jpg" alt="" /></div>
+								<div class="commpro-name fl fov fs13 c3">缇丽莎洗面奶深层清洁控油保湿</div>
+								<div class="comm-nextico fl"><img src="__IMG__/store/icon_next.png" alt="" /></div>
+							</div>
+							<div class="comm-praise fs12">
+								<div class="comm-send fr">
+									<span><img src="__IMG__/store/sm_icon_2.png" alt="" /></span><em>122</em>
+								</div>
+								<div class="comm-send comm-send2 fr">
+									<span><img src="__IMG__/store/sm_icon_plhf.png" alt="" /></span><em>122</em>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="commcode-info divtab commcode-info-1">
+						<div class="comm-head fl" title="ucode0">
+							<img src="__IMG__/store/dlsc_xq_03.jpg" alt="" />
+						</div>
+						<div class="comm-intro fl">
+							<div class="comm-nc-info divtab">
+								<div class="comm-nc-grade fl">
+									<p class="fs14 c3 fov" style="padding: 3% 0;">良品铺子</p>
+									<p><span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span></p>
+								</div>
+								<div class="comm-time fr fs12 c9">2017-05-05</div>
+							</div>
+							<div class="comm-desc c5 fs13">mui中选项卡切换加下拉刷新，动态加载数据左右轮滑无效！ mui中选项卡切换加下拉刷新，动态加载数据左右轮滑无效！ </div>
+							<div class="comm-imglist" id="imglist-1-id0" title="cid0">
+								<ul>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+									<li>
+										<img src="__IMG__/store/dlsc_dlxq_06.jpg" alt="" />
+									</li>
+								</ul>
+							</div>
+							<div class="comm-source fs12 c9">来源：扫码订单88888888888</div>
+							<div class="comm-product">
+								<div class="commpro-img fl"><img src="__IMG__/store/qdpage-.jpg" alt="" /></div>
+								<div class="commpro-name fl fov fs13 c3">缇丽莎洗面奶深层清洁控油保湿</div>
+								<div class="comm-nextico fl"><img src="__IMG__/store/icon_next.png" alt="" /></div>
+							</div>
+							<div class="comm-praise fs12">
+								<div class="comm-send fr">
+									<span><img src="__IMG__/store/sm_icon_2.png" alt="" /></span><em>122</em>
+								</div>
+								<div class="comm-send comm-send2 fr">
+									<span><img src="__IMG__/store/sm_icon_plhf.png" alt="" /></span><em>122</em>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+				<div id="console"></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				yangshi();
+			}
+
+			function yangshi() {
+				/*评论样式*/
+				var headh = $('.comm-head').width(),
+					lihb = headh * 50 / 100;
+				$('.comm-head').height(headh);
+				$('.comm-head').css("border-radius", headh + "px");
+				$(".comm-nc-grade").css("line-height", lihb + "px");
+				$(".comm-time").css("line-height", headh + "px");
+				$('.comm-imglist ul li').width($('.comm-imglist ul li').width());
+				$('.comm-imglist ul li').height($('.comm-imglist ul li').height());
+
+				$('.commpro-img').height($('.commpro-img').width());
+				$('.commpro-name').css("line-height", $('.commpro-img').width() + "px");
+				$('.comm-send').css("line-height", $('.comm-send').height() + "px");
+			}
+			/*评论列表*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			getscore(pageindex);
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getscore(pageindex);
+					}
+				}
+				if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+					$('.comm-nav-tab').addClass('menu-fixed');
+				}
+				if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+					$('.comm-nav-tab').removeClass('menu-fixed');
+				}
+			});
+
+			function getscore(page) {
+				if(page == 1) {
+					pageindex = 1;
+				}
+				var _html = "";
+				var pcode = '<?php echo $pcode ?>';
+				var strurl = "__APP__/Store/Store/GetAllScore?useraction=1&pageindex=" + pageindex;
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: strurl,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">暂无相关评论</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										if(datalist[i]['is_like'] == 0) {
+											var oplike = 1;
+										} else {
+											var oplike = 0;
+										}
+										_html += '<div class="commcode-info divtab commcode-info-' + pageindex + '">';
+										_html += '<input type="hidden" id="prastatu' + datalist[i]['c_id'] + '" value="' + oplike + '" />';
+										_html += '<div class="comm-head fl" title="' + datalist[i]['c_ucode'] + '">';
+										_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+										_html += '</div>';
+										_html += '<div class="comm-intro fl">';
+										_html += '<div class="comm-nc-info divtab">';
+										_html += '<div class="comm-nc-grade fl">';
+										_html += '<p class="fs14 c3 fov" style="padding: 3% 0;">' + datalist[i]["c_nickname"] + '</p>';
+										_html += '<p>';
+										if(datalist[i]['c_score'] == 5) {
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+										} else if(datalist[i]['c_score'] == 4) {
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+										} else if(datalist[i]['c_score'] == 3) {
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+										} else if(datalist[i]['c_score'] == 2) {
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+										} else if(datalist[i]['c_score'] == 1) {
+											_html += '<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>';
+										}
+										_html += '</p>';
+										_html += '</div>';
+										_html += '<div class="comm-time fr fs12 c9">' + datalist[i]["c_addtime"] + '</div>';
+										_html += '</div>';
+										_html += '<div class="comm-desc c5 fs13" title="' + datalist[i]["c_id"] + '">' + datalist[i]["c_content"] + '</div>';
+										var imglist = datalist[i]['imglist'];
+										var imgs = eval(imglist);
+										_html += '<div class="comm-imglist">';
+										_html += '<ul>';
+										for(var k in imgs) {
+											_html += '<li>';
+											_html += '<img src="' + imgs[k].c_img + '" alt="" />';
+											_html += '</li>';
+										}
+										_html += '</ul>';
+										_html += '</div>';
+										if(datalist[i]["c_pcode"]) {
+											_html += '<div class="comm-source fs12 c9" title="' + datalist[i]["c_detailid"] + '" data-acode="' + datalist[i]["c_acode"] + '">来源：商品订单';
+											if(ucode == datalist[i]["c_acode"]) {
+												_html += '' + datalist[i]["c_orderid"] + '</div>';
+											}
+											_html += '<div class="comm-product" title="' + datalist[i]["c_pcode"] + '" data-type="' + datalist[i]["source"] + '">';
+											_html += '<div class="commpro-img fl"><img src="' + datalist[i]["c_pimg"] + '" alt="" /></div>';
+											_html += '<div class="commpro-name fl fov fs13 c3">' + datalist[i]["c_pname"] + '</div>';
+											_html += '<div class="comm-nextico fl"><img src="__IMG__/store/icon_next.png" alt="" /></div>';
+											_html += '</div>';
+										} else {
+											_html += '<div class="comm-source comm-source01 fs12 c9" title="' + datalist[i]["c_detailid"] + '" data-acode="' + datalist[i]["c_acode"] + '">来源：扫码订单';
+											if(ucode == datalist[i]["c_acode"]) {
+												_html += '' + datalist[i]["c_orderid"] + '</div>';
+											}
+										}
+
+										_html += '<div class="comm-praise fs12">';
+										if(datalist[i]["is_like"] == 1) {
+											_html += '<div class="comm-send fr comm-send-hover" id="islike' + datalist[i]['c_id'] + '" onclick="addpraise(' + datalist[i]['c_id'] + ',0)">';
+											_html += '<span><img src="__IMG__/store/sm_icon_2_selection.png" alt="" /></span><em id="praisenum-' + datalist[i]['c_id'] + '">' + datalist[i]["c_like"] + '</em>';
+											_html += '</div>';
+										} else {
+											_html += '<div class="comm-send fr" id="islike' + datalist[i]['c_id'] + '" onclick="addpraise(' + datalist[i]['c_id'] + ',1)">';
+											_html += '<span><img src="__IMG__/store/sm_icon_2.png" alt="" /></span><em id="praisenum-' + datalist[i]['c_id'] + '">' + datalist[i]["c_like"] + '</em>';
+											_html += '</div>';
+										}
+										_html += '<div class="comm-send comm-send02 fr" title="' + datalist[i]["c_id"] + '">';
+										_html += '<span><img src="__IMG__/store/sm_icon_plhf.png" alt="" /></span><em>' + datalist[i]["comment_num"] + '</em>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+									}
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+
+					},
+					complete: function() {
+						yangshi();
+						/*查看评论大图*/
+						$('.comm-imglist').each(function(i) {
+							$(this).viewer({
+								title: false
+							});
+						});
+
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							/*查看个人空间*/
+							mui('.commcode-info-' + pageindex).on('tap', '.comm-head', function() {
+//								var ucode = $(this).attr('title');
+//								mui.openWindow({
+//									url: "__APP__/Home/Myspace/index?fromucode=" + ucode,
+//									id: "myspace"
+//								});
+							});
+							/*查看商品*/
+							mui('.commcode-info-' + pageindex).on('tap', '.comm-product', function() {
+								var pcode = $(this).attr('title');
+								var ptype = $(this).attr('data-type');
+								var purl = "";
+								if(ptype == 1) { /*线上商品详情*/
+									purl = "__APP__/Shopping/Index/pdetail?pcode=" + pcode;
+								} else if(ptype == 2) { /*线下商品详情*/
+									purl = "__APP__/Shopping/Entitymap/edetail?pcode=" + pcode;
+								} else if(ptype == 3) { /*代理商品详情*/
+									purl = "__APP__/Agency/Index/pdetail?pcode=" + pcode;
+								}
+								mui.openWindow({
+									url: purl,
+									id: "pdetail"
+								});
+							});
+
+							/*查看商品订单详情*/
+							mui('.commcode-info-' + pageindex).on('tap', '.comm-source', function() {
+								var orderid = $(this).attr('title');
+								var acoded = $(this).attr('data-acode');
+								if(ucode == acoded) {
+									mui.openWindow({
+										url: "__APP__/Order/Storeorder/detail?orderid=" + orderid,
+										id: "order"
+									});
+								}
+							});
+							/*查看扫码订单详情*/
+							mui('.commcode-info-' + pageindex).on('tap', '.comm-source01', function() {
+								var orid = $(this).attr('title');
+								var acoded = $(this).attr('data-acode');
+								if(ucode == acoded) {
+									mui.openWindow({
+										url: "__APP__/Order/Scanorder/scandetail?ncode=" + orid,
+										id: "order"
+									});
+								}
+							});
+
+							/*评论详情*/
+							mui('.commcode-info-' + pageindex).on('tap', '.comm-send02', function() {
+								var scoid = $(this).attr('title');
+								mui.openWindow({
+									url: "__APP__/Store/Store/comdetail?scoreid=" + scoid,
+									id: "comdetail"
+								});
+							});
+							mui('.commcode-info-' + pageindex).on('tap', '.comm-desc', function() {
+								var ssid = $(this).attr('title');
+								mui.openWindow({
+									url: "__APP__/Store/Store/comdetail?scoreid=" + ssid,
+									id: "comdetail"
+								});
+							});
+						}
+					}
+				});
+			}
+			/*评论点赞*/
+			function addpraise(sid) {
+				if(!ucode) {
+					mui.confirm('点赞需登录', '提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : mui.openWindow({
+							url: WEB_HOST + '/index.php/Login/Index/index',
+							id: 'login'
+						});
+					}, 'div');
+					return;
+				}
+
+				var handle = $('#prastatu' + sid).val();
+				$.post(WEB_HOST + '/index.php/Store/Store/ScoreLike', {
+						handle: handle,
+						scoreid: sid
+					},
+					function(obj) {
+						var msg = eval(obj);
+						if(msg['code'] == 0) {
+							if(handle == 1) {
+								$('#islike').addClass("comm-send-hover");
+								$('#islike img').attr('src', "__IMG__/store/sm_icon_2.png");
+								$("#praisenum-" + sid).text(parseInt($("#praisenum-" + sid).text()) - (-1));
+							} else {
+								$('#islike').removeClass("comm-send-hover");
+								$('#islike img').attr('src', "__IMG__/store/sm_icon_2_selection.png");
+								$("#praisenum-" + sid).text(parseInt($("#praisenum-" + sid).text()) - 1);
+							}
+							mui.toast(msg['msg']);
+						} else {
+							mui.toast(msg['msg']);
+						}
+					});
+			}
+		</script>
+		<include file="Common/foot" />
+	</body>
+
+</html>

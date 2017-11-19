@@ -1,0 +1,450 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>订单详情</title>
+		<!--<title>我的活动</title>-->
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地订单详情" name="description">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.listbody-left').height($('.listbody-left').width());
+//				$('.img-state').height($('.img-state').width());
+				$('.top-img').height($('.top-img').width());
+				$('.top-text').height($('.top-img').width());
+				$('.top-text').css('line-height', $('.top-img').width() + 'px');
+			}
+		</script>
+		<style>
+			.mui-toast-container {
+				bottom: 50% !important;
+			}
+			.mui-toast-message {
+				
+				opacity: 0.6; 
+				color: #fff; 
+			}
+			.img-state{
+				width: 22%;
+			}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom:13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="detail-top">
+					<?php if(!empty($data['thinfo'])){ ?>
+					<li class="fl detail-left fs14" style="width: 100%;">
+						<div style="float: left;">提货码：{$data['thinfo']['c_tcode']}</div>
+						<div class="ti" style="float: right;margin-right: 1rem;">
+							<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?><font style="color: #fead42;">未提货</font><?php } ?>
+							<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?><font style="color: #999;">已提货</font><?php }  ?>	
+						</div>
+					</li>
+					<?php }else{ ?>
+						
+					<!--<li class="fl detail-left fs14">订单号：{$data.c_orderid}</li>-->
+					<li class="fl detail-left fs14">
+						<?php if ($data['c_pay_state'] == 0 && $data['c_order_state'] == 1) {  ?>
+							<div class="detail-descript fl">
+								<span class="fl"><img src="__IMG__/order_icon_gb.png" alt="" /></span>
+								<p class="fl fs14 c3">交易关闭</p>
+							</div>
+							<div class="img-state fr">
+								<img src="__IMG__/order_img_jygb.png" alt="" />
+							</div>
+						<?php }  ?>
+						<?php if ($data['c_pay_state'] == 0 && $data['c_order_state'] == 2) {  ?> 
+							<div class="detail-descript fl">
+								<div class="divtab">
+									<span class="fl"><img src="__IMG__/order_icon_dd.png" alt="" /></span>
+									<font class="fl fs14 c3">待付款</font>
+								</div>
+								<p class="fs12 c9">{$data['desc']}</p>
+							</div>
+							<div class="img-state fr"><img src="__IMG__/order_img_dfk.png" alt="" /></div>
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+							<div class="detail-descript fl">
+								<span class="fl"><img src="__IMG__/order_icon_dd.png" alt="" /></span>
+								<font class="fl fs14 c3">待发货</font>
+							</div>
+							<div class="img-state fr"><img src="__IMG__/order_img_dfh.png" alt="" /></div>
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 2 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+							<div class="detail-descript fl">
+								<span class="fl"><img src="__IMG__/order_icon_cg.png" alt="" /></span>
+								<font class="fl fs14 c3">卖家已发货</font>
+							</div>
+							<div class="img-state fr"><img src="__IMG__/order_img_yfh.png" alt="" /></div>
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1 && $data['scorestatu'] == 0) {  ?>
+							<div class="detail-descript fl">
+								<span class="fl"><img src="__IMG__/order_icon_cg.png" alt="" /></span>
+								<font class="fl fs14 c3">交易成功</font>
+							</div>
+							<div class="img-state fr"><img src="__IMG__/order_img_jycg.png" alt="" /></div>
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1 && $data['scorestatu'] == 1) {  ?>
+							<div class="detail-descript fl">
+								<span class="fl"><img src="__IMG__/order_icon_cg.png" alt="" /></span>
+								<font class="fl fs14 c3">交易成功</font>
+							</div>
+							<div class="img-state fr"><img src="__IMG__/order_img_jycg.png" alt="" /></div>
+						<?php }  ?>
+					</li>
+					<?php } ?>
+				</ul>
+				<ul class="detail-top">
+					<?php if(empty($data['thinfo'])){ ?>
+					<div class="fl detailtop-img">
+						<img src="__IMG__/location.png" alt="">
+					</div>
+					<div class="fl detailtop-right">
+						<h3 class="fs14">{$data.address.c_consignee}<span>{$data.address.c_telphone}</span></h3>
+						<p class="fs13">{$data.address.c_province}{$data.address.c_cityname}{$data.address.c_district}{$data.address.c_address}</p>
+					</div>
+					<?php }else{ ?>
+					<div class="model1">
+						<div class="information" style="margin-bottom: 1rem;">
+							<img src="__IMG__/dd_icon_shagjia.png" alt="" style="width: 1.5rem;height: 1.5rem;"/>
+							<span class="fs15" style="line-height: 1.5rem;">商家信息</span>
+						</div>
+						<div class="supermarket fs15" style="margin-bottom: 0.5rem;">{$data['acodeinfo']['c_name']}</div>
+						<div class="fs13 c9" style="margin-bottom: 0.5rem;">{$data['acodeinfo']['c_phone']}</div>						
+					</div>
+					<?php } ?>
+				</ul>
+				<ul class="orderlist-box" id="list_order">
+					<li class="orderlist" style="width: 100%;margin: 0 0 3% 0;border-radius: 0;">
+						<div class="orderlist-top">
+							<div class="fl top-left detaillist fs13">
+								<div class="fl top-img detaillist-img">
+									<img src="__IMG__/store.png" alt="">
+								</div>
+								<?php if ($data['c_acode']) { ?>
+								<div class="fl top-text fs14" style="padding: 1.5% 0 0 2%;">{$data.c_nickname}</div>
+								<?php } else { ?>
+								<div class="fl top-text fs14" style="padding: 1.5% 0 0 2%;">{$data.c_activity_name}</div>
+								<?php } ?>
+								<div class="fl top-img detaillist-img">
+									<img src="__IMG__/jiantou.png" alt="">
+								</div>
+							</div>
+							<div class="fr contact-shop fs13" onclick="fchat();">
+								联系卖家
+							</div>
+						</div>
+						<?php foreach ($data['detail'] as $key => $value) { ?>
+						<div class="orderlist-body orderlist-pcode" id="{$value['c_pcode']}" title="{$data['c_source']}">
+							<div class="fl listbody-left">
+								<img src="<?php echo $value['c_pimg']; ?>" alt="">
+							</div>
+							<div class="fl listbody-center">
+								<h3 class="fs14"><?php echo $value['c_pname']; ?></h3>
+								<?php if(!empty($value['c_pmodel_name'])){ ?>
+								<p class="fs13">
+									<?php echo $value['c_pmodel_name']; ?>
+								</p>
+								<?php }else{ ?>
+								<p style="padding:2% 0;"></p>
+								<?php } ?>
+								<div class="listbody-bot">
+									<div class="fl order-price fs14">
+										￥
+										<?php echo $value['c_pprice']; ?>
+									</div>
+									<div class="fr order-num fs12">
+										x
+										<?php echo $value['c_pnum']; ?>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<?php if ($data['c_pay_state'] == 1 && $value['c_isevaluate'] == 0) { ?>
+						<div class="orderlist-bot">
+							<?php if ($value['c_productstatus'] == 0 && $data['c_deliverystate'] == 5 && $data['c_order_state'] == 2) {  ?>
+							<div class="fr order-sub subcolor fs13" id="evaluate_btn">
+								评价宝贝
+							</div>
+							<?php } ?>
+							<?php if ($value['c_productstatus'] == 0 && $data['c_order_state'] == 2 && $data['c_deliverystate'] != 5) {  ?>
+							<div class="fr order-sub fs13" id="aftersale_btn">
+								申请售后
+							</div>
+							<?php } ?>
+						</div>
+						<?php } ?>
+
+						<?php } ?>
+
+						<div class="orderlist-mid">
+							<div class="detail-midtop">
+								<h3 class="fl fs14">运费</h3>
+								<p class="fr fs14">￥{$data.c_free}</p>
+							</div>
+							<!-- <div class="detail-midtop">
+								<h3 class="fl fs14">余额抵扣</h3>
+								<p class="fr fs14">-￥10.00</p>
+							</div> -->
+						</div>
+
+						<div class="detaillist-bot">
+							<h3 class="fl fs14">实付款</h3>
+							<p class="fr fs14">￥
+								<?php echo bcadd($data['c_total_price'],$data['c_free'],2); ?>
+							</p>
+						</div>
+					</li>
+					<li class="detail-freight fs13">
+						<div class="freight">
+							<div class="fl freight-left">配送方式</div>
+							<div class="fl freight-right">
+								<?php if ($data['c_delivery'] == 1) { ?> 快递
+								<?php } else if($data['c_delivery']==2) { ?> 面对面收货
+								<?php }else if($data['c_delivery']==3){ ?>
+									到店自提
+								<?php } ?>									
+							</div>
+						</div>	
+						<div class="freight">
+							<div class="fl freight-left">订单编号</div>
+							<div class="fl freight-right">
+								<textarea class="text1" rows="1" id="bar" style="border: none;resize: none;">{$data.c_orderid}</textarea>
+								<div class="freight-code dynamic fr c3 fs12" data-clipboard-action="copy" data-clipboard-target="#bar">复制</div>
+							</div>
+							
+						</div>
+						<div class="freight">
+							<div class="fl freight-left">订单时间</div>
+							<div class="fl freight-right">
+								{$data.c_addtime}
+							</div>
+						</div>
+						<?php if (!empty($data['c_paytime'])): ?>
+						<div class="freight">
+							<div class="fl freight-left">支付时间</div>
+							<div class="fl freight-right">{$data.c_paytime}</div>
+						</div>
+						<?php endif ?>
+						<?php if (!empty($data['c_deliverytime'])): ?>
+						<div class="freight">
+							<div class="fl freight-left">发货时间</div>
+							<div class="fl freight-right">{$data.c_deliverytime}</div>
+						</div>
+						<?php endif ?>
+						<?php if (!empty($data['c_confirmtime'])): ?>
+						<div class="freight">
+							<div class="fl freight-left">成交时间</div>
+							<div class="fl freight-right">{$data.c_confirmtime}</div>
+						</div>
+						<?php endif ?>
+						<div class="freight">
+							<div class="fl freight-left">买家留言</div>
+							<div class="fl freight-right">{$data.c_postscript}</div>
+						</div>
+					</li>
+					<div class="orderlist-bot fiexd-box">
+						<?php if ($data['c_pay_state'] == 0 && $data['c_order_state'] == 2) {  ?>
+						<div class="fr order-sub subcolor fs13" id="paymoney_btn">
+							付款
+						</div>
+						<div class="fr order-sub fs13" style="margin-left:0px;" onclick="canlceorder('{$data.c_orderid}');">
+							取消订单
+						</div>
+						
+						<?php }  ?>
+						
+							<?php if($data['c_delivery']==3){ ?>
+								<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+								<div class="fr order-sub subcolor fs13" id="confirmorder">
+									确认收货
+								</div>
+								<?php } ?>
+							<?php }else{ ?>
+								<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+								<div class="fr order-sub subcolor fs13" onclick="RemindDeliver('{$data.c_orderid}');">
+									提醒发货
+								</div>
+								<?php }  ?>
+								<?php if ($data['c_deliverystate'] == 2 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+								<div class="fr order-sub subcolor fs13" id="confirmorder">
+									确认收货
+								</div>
+								<div class="fr order-sub fs13"  id="logitics_btn">
+									查看物流
+								</div>
+								
+								<?php }  ?>								
+							<?php } ?>	
+							
+							<?php if ($data['c_pay_state'] == 0 && $data['c_order_state'] == 1) {  ?> 
+								<div class="fr order-sub fs13" onclick="deleteorder('{$data.c_orderid}','<?php echo $statu ?>')">
+									删除订单
+								</div>
+							<?php }  ?>
+							<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?> 
+								<div class="fr order-sub fs13" onclick="deleteorder('{$data.c_orderid}','<?php echo $statu ?>')">
+									删除订单
+								</div>
+							<?php }  ?>
+								
+							<!--<?php if ($data['c_pay_state'] == 1 && $value['c_isevaluate'] == 0) { ?>
+							<div class="orderlist-bot">
+								<?php if ($value['c_productstatus'] == 0 && $data['c_deliverystate'] == 5 && $data['c_order_state'] == 2) {  ?>
+								<div class="fr order-sub subcolor fs13" id="evaluate_btn">
+									评价宝贝
+								</div>
+								<?php } ?>
+								<?php if ($value['c_productstatus'] == 0 && $data['c_order_state'] == 2 && $data['c_deliverystate'] != 5) {  ?>
+								<div class="fr order-sub fs13" id="aftersale_btn">
+									申请售后
+								</div>
+								<?php } ?>
+							</div>
+							<?php } ?>-->
+					</div>			
+				</ul>
+				
+			</div>
+		</div>
+
+	</body>
+	<include file="Base@Public/pubjs" />
+	<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+	<script type="text/javascript" src="__JS__/clipboard.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var stImg = $('.detail-descript span').width();
+			$('.detail-descript font').css('line-height', stImg +'px');
+
+			var slfIg =	$('.img-state').width();
+			$('.detail-descript').css('padding-top',slfIg*0.18 +'px');
+			
+			$('.listbody-left').height($('.listbody-left').width());
+			
+			//复制粘贴
+	    /*var clipboard = new Clipboard('.dynamic', {
+	        target: function(trigger) {
+				console.log(document.querySelector('.text1'));
+				return document.querySelector('.text1');
+	        }
+	    });
+	
+	    clipboard.on('success', function(e) {
+	        console.log(e);
+	    });
+	
+	    clipboard.on('error', function(e) {
+	        console.log(e);
+	    });*/
+	   	var clipboard = new Clipboard('.dynamic');
+		clipboard.on('success', function(e) {
+		    console.info('Action:', e.action);
+		    console.info('Text:', e.text);
+		    console.info('Trigger:', e.trigger);
+			alert("复制成功");
+		    e.clearSelection();
+		});
+
+		clipboard.on('error', function(e) {
+		    console.error('Action:', e.action);
+		    console.error('Trigger:', e.trigger);
+		    alert('浏览器版本过低，请“拷贝”进行复制!');
+		});
+
+		}
+		/*跳转对应商品详情*/
+		mui('.mui-content').on('tap', '.orderlist-pcode', function() {
+			var pcode = $(this).attr('id');
+			var type = $(this).attr('title');
+			if(type == '2') {
+				var url = '__APP__/Shopping/Entitymap/detail?pcode=' + pcode;
+			} else {
+				var url = '__APP__/Shopping/Index/detail?pcode=' + pcode;
+			}
+			mui.openWindow({
+				url: url,
+				id: 'pdetails'
+			});
+		});
+		/*评价*/
+		mui('.mui-content').on('tap','#evaluate_btn',function(){
+			mui.openWindow({url:"__URL__/evaluate?detailid=<?php echo $value['c_detailid'] ?>",id:"evaluate"});
+		});
+		/*申请售后*/
+		mui('.mui-content').on('tap','#aftersale_btn',function(){
+			mui.openWindow({url:"__URL__/aftersale?orderid={$data.c_orderid}&detailid=<?php echo $value['c_detailid'] ?>",id:"aftersale"});
+		});
+		/*付款*/
+		mui('.mui-content').on('tap','#paymoney_btn',function(){
+			mui.openWindow({url:"__URL__/payment?orderid={$data.c_orderid}",id:"aftersale"});
+		});
+		/*查看物流*/
+		mui('.mui-content').on('tap','#logitics_btn',function(){
+			mui.openWindow({url:"__APP__/Order/Storeorder/logitics?orderid={$data.c_orderid}",id:"logitics"});
+		});
+		
+		/*确认收货*/
+        var deltag = true;
+		var cdelivery = '<?php echo $data["c_delivery"];?>'; 
+		var orderid = '<?php echo $data["c_orderid"]; ?>';
+		mui('.mui-content').on('tap','#confirmorder',function(){
+			mui.confirm('是否确认收货？','提示',['取消','确认'],function (e) {
+				e.index==0?ztrue():receiving();
+			},'div');			
+		});
+		/*取消操作*/
+		function ztrue() {
+            deltag = true;
+            confir = true;
+        }
+		function receiving (){
+			if(cdelivery==3){
+				delivery_3(orderid);
+			}else{
+				confirmorder(orderid);
+			}
+		}
+		function delivery_3(orderid){
+			if(deltag) {
+				deltag = false;
+				$.ajax({
+					type: "POST",
+					url: '__APP__/Order/Storeorder/delivery',
+					data: {
+						orderid: orderid
+					},
+					dataType: "json",
+					success: function(json) {
+						var obj = eval(json);
+						deltag = true;
+						if(obj.code == 0) {
+							setTimeout(function() {
+								mui.openWindow({url:""});	
+							}, 500);
+						} else {
+                            deltag=true
+						}
+					}
+				});
+			}				
+		}		
+		
+		
+	</script>
+
+</html>

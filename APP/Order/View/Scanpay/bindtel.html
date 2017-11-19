@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>绑定手机号</title>
+		<meta content="扫码支付绑定手机号,小蜜扫码支付绑定手机号" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/scanpay/index.css?v=1.2">
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="divtab bindbox bgcolor">
+					<div class="fl bindleft c6 fs14">手机号</div>
+					<input class="fl bindright c9 fs14" type="tel" id="phone" name="phone" value="" placeholder="输入手机号">
+				</div>
+
+				<div class="divtab bindbox binddesc c9 fs12">
+					*如有注册小蜜APP，请填写小蜜登录手机号
+				</div>
+
+				<div class="divtab bindbox bgcolor">
+					<div class="fl bindleft c6 fs14">验证码</div>
+					<div class="fl bindmid c9 fs14">
+						<input class="fl verify_left" type="text" id="verify" name="verify" value="" placeholder="输入验证码">
+						<div class="fl verify_right" id="secondbtn">获取验证码</div>
+					</div>
+				</div>
+				<div class="divtab scansub bindsub cf fs16" id="bindtijiao">立即绑定</div>
+
+				<div class="binded-red c5">
+					<div class="binded-rule-tit fs16">红包领取规则</div>
+					<div class="binded-rule-con fs14">
+						<p>1、小蜜现金红包金额随机，可以在小蜜APP的余额中查看</p>
+						<p>2、获得的小蜜现金红包可以用于提现和小蜜平台消费</p>
+						<p>3、微领地小蜜平台享有活动最终解释权</p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/sendcode.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				v = $.cookie("secondcode1"); //获取cookie值
+				if(v > 0) {
+					settimep($("#secondbtn"), 'secondcode1'); //开始倒计时
+				}
+			});
+			mui('.mui-content').on('tap', '#secondbtn', function() {
+				sendCode($("#secondbtn"), 1000, 'secondcode1', $('#phone'));
+			});
+
+			mui('.mui-content').on('tap', '#bindtijiao', function() {
+				BindRegister();
+			});
+
+			//绑定手机号
+			function BindRegister() {
+				if(phonetxt1()) {
+					var verify = $('#verify').val();
+					if(!verify) {
+						mui.toast('请输入验证码');
+						return;
+					}
+					$.post('__URL__/BindRegister', {
+						verify: verify,
+						phone: $('#phone').val(),
+						acode: '<?php echo $acode ?>',
+					}, function(obj) {
+						var result = eval(obj);
+						if(result['code'] != 0) {
+							mui.toast(result['msg']);
+						} else {
+							window.location.href = "__APP__/Order/Scanpay/binded?ucode=" + result['data'];
+						}
+					});
+				}
+			}
+
+			/*验证手机号码*/
+			function phonetxt1() {
+				var phone = $('#phone').val();
+				if(phone != "") {
+					if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))) {
+						mui.toast("手机号码格式错误！");
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					mui.toast("请输入手机号码！");
+					return false;
+				}
+
+			}
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

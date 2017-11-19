@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<title>商家后台管理--资料下载</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('#li-5 a').addClass('hover');
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="content-s w_960">
+	<div class="material">
+		<volist name="data" id="vo">
+		<div class="material_top">
+			<div class="material_title">{$vo.c_name}</div>
+		</div>
+		<div class="material_mid none">
+			<div class="fl"><input type="checkbox" id="checkall-{$i}">&nbsp;全选</div>
+			<div class="material_del fl" onclick="dwonall();" id="download">批量下载</div>
+		</div>
+		<div class="material_list">				
+			<table>	
+			<?php foreach ($vo['chidren'] as $key => $value) { ?>				
+				<tr>
+					<td width="30"><input type="checkbox" name="Id" value="<?php echo $value['c_id'] ?>"></td>
+					<td><?php echo $value['c_name'] ?></td>
+					<td><?php echo $value['c_addtime'] ?></td>
+					<td>
+						<a href="__URL__/downfile?Id=<?php echo $value['c_id'] ?>" title="下载">
+							<img src="__IMG__/index/down.png" alt="">
+						</a>
+					</td>
+				</tr>
+			<?php } ?>
+			</table>				
+		</div>
+		</volist>
+	</div> 
+
+	<!-- 弹窗提示
+	<div class="pup-bg"></div>
+	<div class="pup-box">
+		<div class="pup-box-img"><img src="__IMG__/dl_icon_pc.png"></div>
+		<p>请前往APP端进行审核</p>
+		<button onclick="cflink()">确认</button>
+	</div> -->
+
+    <script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="__LIB__/layer/1.9.3/layer.js"></script>
+
+ 
+
+</div>
+
+<script type="text/javascript">
+// 	window.onload=function(){
+
+// 	    //弹框高度获取
+// 	    $(".pup-bg").height($(document).height());
+
+// 	}
+
+// 	//审核提示确认
+// 	function cflink(){
+// 		window.location.href = '__APP__/Agent/Information/index';
+
+// 	}
+ </script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>绑定成功</title>
+	<meta content="微信绑定手机号,微信绑定小蜜" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__RSC__/Order/css/scanpay/index.css?v=1.2">
+
+</head>
+<body class="bgcolor">
+
+<div class="wrap-page" style="margin-bottom:13%;">
+	<include file="Base@Public/pubheader" />
+	<div class="mui-content bgcolor">
+		<div class="divtab scanheadimg scanheadimg1">
+			<img src="__RSC__/Order/img/scanpay/scantop.png" alt="">
+		</div>		
+		
+		<div class="divtab scaninfo c9 fs14">
+			<p>已成功绑定手机号码，立即下载小蜜APP</p>
+			<p>登录帐号为<span class="fs16">{$userdata['c_phone']}</span></p>
+		</div>
+		
+		
+		<a href="https://a.app.qq.com/o/simple.jsp?pkgname=com.wld.net" class="divtab scansub bindsub cf fs16">
+			立即下载小蜜APP
+		</a>
+		
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+	
+	$('.scanheadimg').height($('.scanheadimg').width());
+}
+
+</script>
+
+</body>
+</html>

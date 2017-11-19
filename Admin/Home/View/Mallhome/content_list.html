@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>商城首页</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe670;</i>商城首页<span class="c-gray en">&gt;</span>{$plate}<span class="c-gray en">&gt;</span>内容列表<span class="c-gray en"><a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="__HHOME__/Mallhome/platelist?type={$type}" title="返回" ><i class="Hui-iconfont">返回活动列表</i></a></nav>
+<div class="pd-20">
+	<form action="content_list" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入标题" name="title" value="{$post['title']}">
+		<span class="select-box inline">
+		<select name="state" class="select">
+			<option value="">选择发布状态</option>
+			<option value="1" <if condition="$post['state']  eq 1">selected="selected"</if>>不发布</option>
+     		<option value="2" <if condition="$post['state']  eq 2">selected="selected"</if>>发布</option>
+		</select>
+		</span>
+		<input type="hidden" name="type"  value="{$type}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+	</div>
+	</form>
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<a href="javascript:;" onclick="content_del('','',1)" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i>批量删除
+			</a> 
+			<a class="btn btn-primary radius" onclick="content_add('添加内容','content_add?homeid={$homeid}&type={$type}',800)" href="javascript:;">
+				<i class="Hui-iconfont">&#xe600;</i>添加内容
+			</a>
+		</span> 
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="25">ID</th>
+					<th width="100">内容主题</th>
+					<th width="80">内容图片</th>
+					<th width="90">跳转类型</th>
+					<th width="100">附加值</th>
+					<th width="100">网页链接</th>
+					<th width="60">排序</th>
+					<th width="80">发布状态</th>
+					<th width="100">添加时间</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="contentid" value="{$vo.c_id}"></td>
+					<td>{$i}</td>															
+					<td><font color="green">{$vo.c_title}</font></td>
+					<td>
+						<if condition="$vo['c_img'] neq NULL" >
+							<a href="<?php echo GetHost().'/'.$vo['c_img'] ?>"  target="_blank">
+								<img src="<?php echo GetHost().'/'.$vo['c_img'] ?>"  style="width:80px;"/>					
+							</a>
+						</if>
+		         	</td>
+		         	<td>
+						<?php if ($vo['c_tag'] == 1) { ?>
+							跳转url
+						<?php }else if($vo['c_tag'] == 2){ ?>
+							带openid跳转url
+						<?php }else if($vo['c_tag'] == 3){ ?>
+							订单详情
+						<?php }else if($vo['c_tag'] == 4){ ?>
+							线上商家商品详情
+						<?php }else if($vo['c_tag'] == 5){ ?>
+							个人空间
+						<?php }else if($vo['c_tag'] == 6){ ?>
+							个人资料
+						<?php }else if($vo['c_tag'] == 7){ ?>
+							商家商品列表
+						<?php }else if($vo['c_tag'] == 8){ ?>
+							红包
+						<?php }else if($vo['c_tag'] == 9){ ?>
+							资源列表
+						<?php }else if($vo['c_tag'] == 10){ ?>
+							资源详情
+						<?php }else if($vo['c_tag'] == 11){ ?>
+							粉丝列表
+						<?php }else if($vo['c_tag'] == 12){ ?>
+							营销中心
+						<?php }else if($vo['c_tag'] == 13){ ?>
+							实体店铺
+						<?php }else if($vo['c_tag'] == 14) { ?>
+							扫码支付页面
+						<?php }else if($vo['c_tag'] == 15){ ?>
+							线下商家商品详情
+						<?php }else if($vo['c_tag'] == 16){ ?>
+							线上订单
+						<?php }else if($vo['c_tag'] == 17){ ?>
+							线下订单
+						<?php }else if($vo['c_tag'] == 18){ ?>
+							购物车
+						<?php }else if($vo['c_tag'] == 19){ ?>
+							资讯中心
+						<?php }else if($vo['c_tag'] == 20){ ?>
+							线上店商品管理
+						<?php }else if($vo['c_tag'] == 21){ ?>
+							线下店商品管理
+						<?php }else if($vo['c_tag'] == 22){ ?>
+							店铺管理
+						<?php }else if($vo['c_tag'] == 23){ ?>
+							店铺二维码
+						<?php }else if($vo['c_tag'] == 24){ ?>
+							推广中心
+						<?php }else if($vo['c_tag'] == 25){ ?>
+							分享返利
+						<?php }else if($vo['c_tag'] == 26){ ?>
+							购买返利
+						<?php }else if ($vo['c_tag'] == 27) { ?>
+							卡劵包
+						<?php }else if($vo['c_tag'] == 28){ ?>
+							
+						<?php }else if($vo['c_tag'] == 29){ ?>
+							关注列表
+						<?php }else if($vo['c_tag'] == 30){ ?>
+							兑换中心
+						<?php }else if($vo['c_tag'] == 31){ ?>
+							商家动态
+						<?php }else if($vo['c_tag'] == 32){ ?>
+							店铺商品列表
+						<?php }else if($vo['c_tag'] == 33){ ?>
+							评论列表
+						<?php }else if($vo['c_tag'] == 34){ ?>
+							店铺相册
+						<?php }else if($vo['c_tag'] == 35){ ?>
+							到店兑换
+						<?php }else if($vo['c_tag'] == 36){ ?>
+							商城商品列表
+						<?php }else{ ?>
+							首页
+						<?php } ?>
+					</td>
+					<td>{$vo['c_tagvalue']}</td>
+					<td>{$vo['c_weburl']}</td>
+					<td>{$vo['c_sort']}</td>
+					<td>
+		         		<?php if ($vo['c_state'] == 1) { ?>
+		         			<font color="red">不发布</font>
+		         		<?php }else if($vo['c_state'] == 2){ ?>
+		         			<font color="green">发布</font>
+		         		<?php } ?>
+		         	</td>
+					
+					<td>{$vo.c_addtime}</td>
+					<td class="f-14">
+						<a title="编辑" href="javascript:;" onclick="content_edit('编辑','content_edit?Id={$vo.c_id}&type={$type}&homeid={$homeid}',780)" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="content_del(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>		
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+
+
+/*系统-栏目-添加*/
+function content_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-编辑*/
+function content_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-删除*/
+function content_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=contentid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Mallhome/content_delete',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        		window.location.reload(); 
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>商品兑换</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/exchange/index.css" />
+</head>
+<body class="bgeb" style="padding-bottom:6%;">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="exchange-nav-tab bgcolor divtab fs13">
+				<ul>
+					<li class="hover c-nav-tli" id="c-nav-t1">线下面对面兑换</li>
+					<li class="c-nav-tli" id="c-nav-t2">线上兑换</li>
+				</ul>
+			</div>
+
+			<div class="exchange-main" id="data_list">
+				<!-- <div class="ex-product-box ex-bbox bgcolor">
+					<div class="ex-pro-top divtab">
+						<div class="ex-seller-img fl">
+							<img src="__IMG__/cpackage/tu14.jpg">
+						</div>
+						<div class="ex-seller-name fs14 fl">
+							优C柠檬梅溪湖店
+						</div>
+						<div class="ex-operate fs11 fr cf">兑换</div>
+					</div>
+					<div class="ex-pro-img divre">
+						<img src="__IMG__/cpackage/tu14.jpg">
+					</div>
+					<div class="ex-pro-info divtab bborder">
+						<div class="ex-pro-name fov fl c3 fs12">玫瑰花酒，自酿低度数</div>
+						<div class="ex-pro-price fr divre">
+							<div class="fs16 cy">￥120</div>
+							<div class="diagonal exbg01 divab"></div>
+						</div>
+					</div>
+					<div class="ex-pro-time fs11 c9">
+						<span>2017-04-10至2017-05-10</span>
+						<span>附近499m有门店</span>
+					</div>
+				</div> -->
+
+				<!-- <div class="ex-product-box ex-bbox bgcolor">
+					<div class="ex-pro-top divtab">
+						<div class="ex-seller-img fl">
+							<img src="__IMG__/cpackage/tu14.jpg">
+						</div>
+						<div class="ex-seller-name fs14 fl">
+							优C柠檬梅溪湖店
+						</div>
+					</div>
+					<div class="ex-pro-img divre">
+						<img src="__IMG__/cpackage/tu14.jpg">
+						已领取
+						<div class="ex-pro-get divab">
+							<div class="ex-get-img divab">
+								<img src="__IMG__/exchange/exchange_icon_receive@2x.png">
+							</div>
+						</div>
+						已领取
+					</div>
+					<div class="ex-pro-info divtab bborder">
+						<div class="ex-pro-name fov fl c3 fs12">玫瑰花酒，自酿低度数</div>
+						<div class="ex-pro-price fr divre">
+							<div class="fs16 c6">￥120</div>
+							<div class="diagonal exbg02 divab"></div>
+						</div>
+					</div>
+					<div class="ex-pro-time fs11 c9">
+						<span>2017-04-10至2017-05-10</span>
+						<span>附近499m有门店</span>
+					</div>
+				</div> -->
+
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		$('.ex-seller-img').height($('.ex-seller-img').width());
+		$('.ex-seller-name').css('line-height',$('.ex-seller-img').width()+'px');
+		$('.ex-pro-img').height($('.ex-pro-img').width()*0.6);
+
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	 var statu = '<?php echo $statu ?>';
+	 if(!statu) {
+	 	statu = 1;
+	 }
+	 selectstatu(statu);
+	 mui('.mui-content').on('tap', '#c-nav-t1', function() {
+	 	selectstatu(1);
+	 });
+	 mui('.mui-content').on('tap', '#c-nav-t2', function() {
+	 	selectstatu(2);
+	 });
+
+	 function selectstatu(i) {
+	 	statu = i;
+	 	pageindex = 1;
+	 	ctrls = true;
+	 	emptyval = true;
+	 	$('.c-nav-tli').removeClass('hover');
+	 	$('#c-nav-t' + i).addClass('hover');
+	 	getdatalist();
+	 }
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+
+		 if($(window).scrollTop() >= $('.exchange-nav-tab').height()) {
+		 	$('.exchange-nav-tab').addClass('menu-fixed');
+		 }
+		 if($(window).scrollTop() < $('.exchange-nav-tab').height()) {
+		 	$('.exchange-nav-tab').removeClass('menu-fixed');
+		 }
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/GetExchangeList?type="+statu+"pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html += '<div class="divtab divempty">';
+							_html += '<h3 class="divtab c6 fs14">没有可兑换的宝贝</h3>';
+							_html += '<p class="divtab c9 fs12">赶紧去首页探索神秘宝贝吧~</p>';
+							_html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<div class="ex-product-box ex-bbox bgcolor changesign'+pageindex+'" title="'+dataarr['c_id']+'">';
+									_html+='<div class="ex-pro-top divtab">';
+										_html+='<div class="ex-seller-img fl store'+dataarr['c_id']+'" title="'+dataarr['c_acode']+'">';
+											_html+='<img src="'+dataarr['c_headimg']+'">';
+										_html+='</div>';
+										_html+='<div class="ex-seller-name fs14 fl store'+dataarr['c_id']+'" title="'+dataarr['c_acode']+'">'+dataarr['c_nickname']+'</div>';
+										if (dataarr['c_status'] != 3) {
+											_html+='<div class="ex-operate fs11 fr cf duihuan'+dataarr['c_id']+'">兑换</div>';
+										}
+
+									_html+='</div>';
+									_html+='<div class="ex-pro-img divre pcode'+dataarr['c_id']+'" title="'+dataarr['c_pcode']+'">';
+										_html+='<img src="'+dataarr['c_pimg']+'">';
+
+										if (dataarr['c_status'] == 3) {   //已领取
+											_html+='<div class="ex-pro-get divab">';
+												_html+='<div class="ex-get-img divab">';
+													_html+='<img src="__IMG__/exchange/exchange_icon_receive@2x.png">';
+												_html+='</div>';
+											_html+='</div>';
+										}
+
+									_html+='</div>';
+									_html+='<div class="ex-pro-info divtab bborder">';
+										_html+='<div class="ex-pro-name fov fl c3 fs12">'+dataarr['c_name']+'</div>';
+										_html+='<div class="ex-pro-price fr divre">';
+										if (dataarr['c_status'] == 3) {   //已领取
+											_html+='<div class="fs16 c6">￥'+dataarr['c_maxvalue']+'</div>';
+											_html+='<div class="diagonal exbg02 divab"></div>';
+										} else {
+											_html+='<div class="fs16 cy">￥'+dataarr['c_maxvalue']+'</div>';
+											_html+='<div class="diagonal exbg01 divab"></div>';
+										}
+										_html+='</div>';
+									_html+='</div>';
+									_html+='<div class="ex-pro-time fs11 c9">';
+										_html+='<span>'+dataarr['times']+'</span>';
+										_html+='<span>'+dataarr['distance']+'</span>';
+									_html+='</div>';
+								_html+='</div>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}		
+			}
+		});
+	}
+
+	loadclick();
+	function loadclick() {
+		$('.changesign' + pageindex).each(function() {
+			var sid = $(this).attr('title');
+
+			//跳转店铺
+			mui('.mui-content').on('tap', '.store' + sid, function() {
+				var acode = $(this).attr('title');
+				mui.openWindow({
+					url: "__APP__/Store/Index/index?fromucode=<?php echo $acode; ?>",
+					id: "storeinfo"
+				});
+			});
+
+			//进入兑换
+			mui('.mui-content').on('tap', '.duihuan' + sid, function() {
+				if (statu == 1) {  //线下
+					mui.openWindow({
+						url: "__URL__/exget?sid="+sid,
+						id: "exget"
+					});
+				} else {
+					mui.openWindow({
+						url: "__URL__/exaddress?sid="+sid,
+						id: "exget"
+					});
+				}
+				
+			});
+
+			//进入产品详情
+			mui('.mui-content').on('tap', '.pcode' + sid, function() {
+				var pcode = $(this).attr('title');
+				if (statu == 1) {  //线下
+					mui.openWindow({
+						url: "__APP__/Shopping/Entitymap/detail?pcode="+pcode,
+						id: "pdetail"
+					});	
+				} else {
+					mui.openWindow({
+						url: "__APP__/Shopping/Index/detail?pcode="+pcode,
+						id: "pdetail"
+					});
+				}
+			});
+			
+		});
+	}
+	
+</script>
+
+</html>

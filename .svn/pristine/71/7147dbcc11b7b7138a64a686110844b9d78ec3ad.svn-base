@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>搜索</title>
+		<meta content="订单" name="keywords">
+		<meta content="到店自提" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/order.css?v=3.0.3">
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="actgood-search bgcolor divtab">
+					<div class="act-o-search fl">
+						<div class="act-o-icon fl"><img src="__RSC__/Home/img/search/searchbox_icon.png" alt="" /></div>
+						<div class="act-o-input fl"><input type="text" placeholder="请输入提货码" class="fs13" maxlength="12" id="keycode" /></div>
+					</div>
+					<div class="act-o-searchbtn searchbtn fs14 c3 fl">搜索</div>
+					<!--<div class="act-o-searchbtn cancelbtn fs14 c3 fl" style="display: none;">取消</div>-->
+				</div>
+				<div class="actgood-con" id="data_list">
+					<!--<div class="actorder-list">
+						<div class="actorder-up fs14 bborder divtab">
+							<span class="c3">提货码：999999999999</span>
+							<span class="cy">未提货</span>
+						</div>
+						<div class="actorder-pro bborder divtab">
+							<div class="act-o-proimg">
+								<img src="__IMG__/logo.png" alt="" />
+							</div>
+							<div class="act-o-proinfo">
+								<div class="act-o-proname c5 fs13 clamp2">良品铺子麻辣鱼仔良品铺子麻辣鱼仔良品铺子麻辣鱼仔良品铺子麻辣鱼仔</div>
+								<div class="act-o-proprice cy fs16">￥20.00</div>
+							</div>
+						</div>
+						<div class="actorder-down fs13 c5 divtab">
+							<span>电话：13357315808</span>
+							<span>发货</span>
+						</div>
+					</div>
+					<div class="actorder-list">
+						<div class="actorder-up fs14 bborder divtab">
+							<span class="c3">提货码：999999999999</span>
+							<span class="cy">未提货</span>
+						</div>
+						<div class="actorder-pro bborder divtab">
+							<div class="act-o-proimg">
+								<img src="__IMG__/logo.png" alt="" />
+							</div>
+							<div class="act-o-proinfo">
+								<div class="act-o-proname c5 fs13 clamp2">良品铺子麻辣鱼仔良品铺子麻辣鱼仔良品铺子麻辣鱼仔良品铺子麻辣鱼仔</div>
+								<div class="act-o-proprice cy fs16">￥20.00</div>
+							</div>
+						</div>
+						<div class="actorder-down fs13 c5 divtab">
+							<span>电话：13357315808</span>
+							<span>发货</span>
+						</div>
+					</div>-->
+				</div>
+				<div id="console"></div>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var apptype = "<?php echo get_app_type(); ?>";
+			/*拼团商品列表*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			window.onload = function() {
+				yangshi();
+			}
+			/*搜索*/
+			mui('.mui-content').on('tap', '.searchbtn', function() {
+				//				$('.cancelbtn').show();
+				//				$('.searchbtn').hide();			
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				getdatalist();
+			});
+
+			//页面加载完js改变样式
+			function yangshi() {
+				$('.act-o-proimg').height($('.act-o-proimg').width());
+				$('.act-o-proname').height($('.act-o-proimg').height() * 0.5);
+				$('.act-o-proname').css('line-height', $('.act-o-proname').height() * 0.5 + 'px');
+				$('.act-o-proprice').css('line-height', $('.act-o-proimg').width() * 0.3 + 'px');
+			}
+			/*发货*/
+			var deltag = true;
+
+			function delivery_3(orderid) {
+				if(deltag) {
+					deltag = false;
+					$.ajax({
+						type: "POST",
+						url: '__URL__/delivery',
+						data: {
+							orderid: orderid
+						},
+						dataType: "json",
+						success: function(json) {
+							deltag = true;
+							var obj = eval(json);
+							if(obj.code == 0) {
+								setTimeout(function() {
+									mui.openWindow({
+										url: ""
+									});
+								}, 500)
+							} else {
+
+							}
+						}
+					});
+				}
+			}
+
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+				if($(window).scrollTop() >= $('.actgood-search').height()) {
+					$('.actgood-search').addClass('menu-fixed');
+					$('.actgood-search').css('top', $('.xiaomi-bar').height() + 'px');
+				}
+				if($(window).scrollTop() < $('.actgood-search').height()) {
+					$('.actgood-search').removeClass('menu-fixed');
+					$('.actgood-search').css('top', $('.xiaomi-bar').height() + 'px');
+				}
+			});
+			getdatalist();
+
+			function getdatalist() {
+				var _html = "";
+				var geturl = "";
+				geturl = '__URL__/GetOrderList?type=7&keys=' + $('#keycode').val() + '&pageindex=' + pageindex;
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: geturl,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img">';
+									_html += '<img src="__RSC__/Common/img/empty_bg_card.png" alt="" />';
+									_html += '</div>';
+									_html += '<div class="data-empty-font c3 fs13">暂无相关信息</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="actorder-list">';
+										_html += '<div class="actorder-up fs14 bborder divtab">';
+										if(dataarr['thinfo']) {
+											_html += '<span class="c3">提货码：' + dataarr['thinfo']['c_tcode'] + '</span>';
+											if(dataarr['c_deliverystate'] == 0 && dataarr['c_order_state'] == 2 && dataarr['c_pay_state'] == 1) {
+												_html += '<span class="cy">未提货</span>';
+											} else if(dataarr['c_deliverystate'] == 5 && dataarr['c_order_state'] == 2 && dataarr['c_pay_state'] == 1) {
+												_html += '<span class="c9">已提货</span>';
+											}
+										}
+										_html += '</div>';
+										var detail = dataarr['detail'];
+										for(j = 0; j < detail.length; j++) {
+											_html += '<div class="actorder-pro bborder divtab" title="' + dataarr['c_orderid'] + '">';
+											_html += '<div class="act-o-proimg divre">';
+											_html += '<img src="' + detail[j]['c_pimg'] + '" alt="" />';
+											if(dataarr['actsign'] == "拼团") {
+												_html += '<div class="sjc-pro-randon divab cf fs12">拼团</div>';
+											} else if(dataarr['actsign'] == "砍价") {
+												_html += '<div class="sjc-pro-randon divab cf fs12">砍价</div>';
+											} else if(dataarr['actsign'] == "秒杀") {
+												_html += '<div class="sjc-pro-randon divab cf fs12">秒杀</div>';
+											}
+											_html += '</div>';
+											_html += '<div class="act-o-proinfo">';
+											_html += '<div class="act-o-proname c5 fs13 clamp2">' + detail[j]['c_pname'] + '</div>';
+											_html += '<div class="act-o-proprice cy fs16">￥' + detail[j]['c_pprice'] + '</div>';
+											_html += '</div>';
+											_html += '</div>';
+										}
+										if(dataarr['c_deliverystate'] == 0 && dataarr['c_order_state'] == 2 && dataarr['c_pay_state'] == 1) {
+											_html += '<div class="actorder-down fs13 c5 divtab">';
+											_html += '<span>电话：' + dataarr['acodeinfo']['user_phone'] + '</span>';
+											_html += '<span class="send_good" title="' + dataarr['c_orderid'] + '">发货</span>';
+											_html += '</div>';
+										}
+										_html += '</div>';
+
+									}
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+
+					},
+					complete: function() {
+						yangshi();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							/*查看拼团详情*/
+							$('.actorder-list').on('tap', '.actorder-pro', function() {
+								var orderid = $(this).attr('title');
+								mui.openWindow({
+									url: "__URL__/detail?orderid=" + orderid + "&type=" + apptype
+								});
+							});
+							/*发货*/
+							$('.actorder-list').on('tap', '.send_good', function() {
+								var orderid = $(this).attr('title');
+								mui.confirm('是否确认发货？', '', ['取消', '确认'], function(e) {
+									e.index == 0 ? deltag = true : delivery_3(orderid);
+								}, 'div')
+							});
+						}
+					}
+				});
+			}
+		</script>
+
+	</body>
+
+</html>

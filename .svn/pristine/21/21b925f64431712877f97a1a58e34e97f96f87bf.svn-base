@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>提现</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+</head>
+
+<body class="bgcolor">
+<form name="form1" id="form1" action="" method="post">
+<div class="wrap-page" style="padding-bottom: 6%;">
+	<include file="Base@Public/pubheader" />
+	<div class="mui-content" style="background: #fff;">
+		<div class="apply-for-ico">
+			<img src="__IMG__/tx_wcimg.png" alt="">
+		</div>
+		<div class="apply-for-font fs14">提现申请已提交</div>
+		<ul class="draw-infos">
+			<li>
+				<div class="apply-for-txt fl c9 fs14">
+					提现至
+				</div>
+				<?php if($sign==1) { ?>
+				<div class="apply-for-val fl fs14 c3">
+					<p>银行卡号</p>
+					<p>{$info["c_banksn"]}</p>
+				</div>
+				<?php } ?>
+				<?php if($sign==2) { ?>
+				<div class="apply-for-val fl fs14 c3">
+					<p>微信钱包</p>
+					<p>{$info["c_wxcard"]}</p>
+				</div>
+				<?php } ?>
+				<?php if($sign==3) { ?>
+				<div class="apply-for-val fl fs14 c3">
+					<p>支付宝账号</p>
+					<p>{$info["c_alipaycard"]}</p>
+				</div>
+				<?php } ?>
+			</li>
+			<li>
+				<div class="apply-for-txt fl c9 fs14">
+					提现金额
+				</div>
+				<div class="apply-for-val fl fs14 c3">
+					￥{$mymoney}
+				</div>
+			</li>
+			<?php if($ysstate==0){ ?>
+			<li>
+				<div class="apply-for-txt fl c9 fs14">
+					预计到账时间
+				</div>
+				<div class="apply-for-val fl fs14 c3">
+					2个小时内
+				</div>
+			</li>
+			<?php }else {  ?>
+			<li>
+				<div class="apply-for-txt fl c9 fs14">
+					到账时间
+				</div>
+				<div class="apply-for-val fl fs14 c3">
+					<?php if($sign==1) { ?>
+					24个小时内
+					<?php } ?>
+					<?php if($sign==2) { ?>
+					24个小时内
+					<?php } ?>
+					<?php if($sign==3) { ?>
+					24个小时内
+					<?php } ?>
+				</div>
+			</li>
+			<?php } ?>
+		</ul>
+		<?php if($ysstate!=0){ ?>
+			<div class="withdraw-tip c9 fs14">
+			<?php if ($sign == 1) { ?>
+			<p>1、提供7*24 小时提现服务</p>
+			<p>2、在正常工作日时间9:00-16:00内发起的提现，将在24个小时内到账。</p>
+			<p>3、在非工作时间段提现将顺延至当日或者次日到账。</p>
+			<?php } else if ($sign == 2) { ?>
+			<p>1、提供7*24 小时提现服务</p>
+			<p>2、在正常工作日时间9:00-16:00内发起的提现，将在24个小时内到账<!--将在2个小时内到账-->。</p>
+			<p>3、在非工作时间段提现将顺延至当日或者次日到账</p>
+			<?php } else if ($sign == 3) { ?>
+			<p>1、提供7*24 小时提现服务</p>
+			<p>2、在正常工作日时间9:00-16:00内发起的提现，将在24个小时内到账<!--将在12个小时内到账-->。</p>
+			<p>3、在非工作时间段提现将顺延至当日或者次日到账。</p>
+			<?php } ?>
+			</div>
+		<?php } ?>
+		<div class="tijiao-sub">
+			<button type="button" class="sub-btns fs16" onclick="finished()">完成</button>
+		</div>
+	</div>
+</div>
+<include file="Base@Public/pubjs" />
+<include file="Common/footer"/>
+</form>
+<script type="text/javascript">
+window.onload=function(){
+
+}
+function finished () {
+	mui.openWindow({url:'__URL__/index',id:'bindex'});
+}
+</script>
+
+
+</body>
+</html>

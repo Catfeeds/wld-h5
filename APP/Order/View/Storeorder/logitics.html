@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>订单详情</title>
+		<meta content="width=device-width,user-scalable=no" name="viewport">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="format-detection" content="telephone=yes" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/logitics.css?v=1.2">
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page bgcolor">
+		<include file="Base@Public/pubheader" />
+		<div class="mui-content bgcolor">
+			<div class="logistics">
+				<div class="logistics_head">
+					<div class="logistics_img1">
+						<img src="__IMG__/logistics.png">
+					</div>
+					<div class="logistics_message">
+						<p class="logistics_name fs13">{$transcompany}</p>
+						<p class="logistics_number fs14">订单号:<span>{$orderid}</span></p>
+						<p class="logistics_number fs13">物流号<span>{$transid}</span></p>
+						<p class="logistics_state fs13">物流状态：<span class="logistics_type">{$state}</span></p>
+					</div>
+				</div>
+				<div class="logistics_particular">
+
+					<volist name="list" id="vo" empty="暂时没有数据" key="k">
+						<if condition="($tag eq 1) and ($k eq 0)">
+							<div class="logistics_img2">
+								<img src="__IMG__/locationstore.png">
+							</div>
+							<else />
+							<div class="logistics_img2">
+								<img src="__IMG__/Track.png">
+							</div>
+						</if>
+						<div class="logistics_qiangxi">
+							<div class="logistics_qiangxi1">
+								<p class="logistics_name fs13">{$vo.context}</p>
+								<!--                            <p class="logistics_name">湖南省长沙市平各堂公司<span class="logistics_type1">已签收</span><span class="logistics_qianshouren">签收人：<span>张飞</span></span></p>						-->
+							</div>
+							<div class="logistics_time">
+								<p class="fs13">{$vo.time}</p>
+							</div>
+						</div>
+					</volist>
+				</div>
+			</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+
+</html>

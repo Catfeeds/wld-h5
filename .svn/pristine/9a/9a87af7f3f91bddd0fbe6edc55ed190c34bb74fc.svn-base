@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>{$pagetit}</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page" style="margin-bottom:15%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="upadte-banner">
+					<div class="setsafe-img divab"><img src="__IMG__/usercenter/safepwd2.png" alt=""></div>
+					<div class="old-telephone fs14" id="pagetit">{$pagetit}</div>
+					<img src="__IMG__/usercenter/safepwd.png" alt="">
+				</div>
+				<div class="pwd-input-list divtab">
+					<form name="formEdit" id="password">
+						<input readonly class="pass" name="pass" type="password" maxlength="1" value="" id="pass_1">
+						<input readonly class="pass" name="pass" type="password" maxlength="1" value="" id="pass_2">
+						<input readonly class="pass" name="pass" type="password" maxlength="1" value="" id="pass_3">
+						<input readonly class="pass" name="pass" type="password" maxlength="1" value="" id="pass_4">
+						<input readonly class="pass" name="pass" type="password" maxlength="1" value="" id="pass_5">
+						<input readonly class="pass pass_right" name="pass" type="password" maxlength="1" value="" id="pass_6">
+					</form>
+					<form name="formsure" id="pwd2" style="display:none;">
+						<input readonly class="pass" name="pass2" type="password" maxlength="1" value="" id="pass_01">
+						<input readonly class="pass" name="pass2" type="password" maxlength="1" value="" id="pass_02">
+						<input readonly class="pass" name="pass2" type="password" maxlength="1" value="" id="pass_03">
+						<input readonly class="pass" name="pass2" type="password" maxlength="1" value="" id="pass_04">
+						<input readonly class="pass" name="pass2" type="password" maxlength="1" value="" id="pass_05">
+						<input readonly class="pass pass_right" name="pass2" type="password" maxlength="1" value="" id="pass_06">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="keyboardDIV"></div>
+		<input type="hidden" name="check_pass_word" id="check_pass_word" value="">
+		<input type="hidden" name="check_pwd_2" id="check_pwd_2" value="">
+		<input type="hidden" name="url" id="url" value="{$url}">
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__JS__/usercenter/setpassword.js?v=2017314"></script>
+	</body>
+
+</html>

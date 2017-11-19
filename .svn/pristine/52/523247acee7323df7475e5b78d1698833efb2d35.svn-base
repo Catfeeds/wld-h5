@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>创建推广</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<style type="text/css">
+			/*透明度*/
+			
+			.coupon-detail {
+				opacity: 0;
+				filter: alpha(opacity=0);
+				-moz-opacity: 0;
+				-khtml-opacity: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+			}
+			.ad-creat-btn{width: 45%;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 18%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div id="page_1">
+					<div class="creatad-box divtab bgcolor bborder">
+						<div class="creatad-font fl c3 fs13">推广类型</div>
+						<div class="creatad-txt fl">
+							<select name="advert_type" id="advert_type" class="c9 fs13">
+								<option value="1" selected="selected">卡券</option>
+								<!-- <option value="2">商品</option> -->
+							</select>
+						</div>
+					</div>
+					<div class="creatad-box divtab bgcolor bborder">
+						<div class="creatad-sel-t divtab">
+							<div class="creatad-font fl c3 fs13">选择优惠券</div>
+							<div class="creatad-arrow fr"><img src="__IMG__/kqgl_icon_next.png" alt="" /></div>
+						</div>
+						<div class="creatad-sel-list divtab">
+
+						</div>
+					</div>
+					<div class="creatad-box divtab bgcolor bborder">
+						<div class="creatad-font fl c3 fs13">添加数量</div>
+						<div class="creatad-txt fl">
+							<input type="number" name="adnum" id="adnum" placeholder="请输入添加数量" class="c9 fs13" />
+						</div>
+					</div>
+
+					<div class="ad-creat-site divtab cb fs16">提交</div>
+				</div>
+				<div id="page_2" style="display: none;">
+					<div id="coupon_list" class="divtab coupon_main">
+						<!--<div class="coupon-box divre" id="cbox_1_0" title="0">
+							<input type="hidden" name="ctype" id="ctype_1_0" value="1" />
+							<input type="hidden" name="chid" id="chid_1_0" value="0" />
+							<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+							<div class="coupon-tit divab">
+								<p class="cf fs13">代金券</p>
+								<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+							</div>
+							<div class="coupon-use-rang divab cf fs12">全平台通用</div>
+							<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+							<div class="coupon-detail divab cf fs13 verticle-mode">选择卡券</div>
+							<div class="coupon-le-ico divab fs12 cf">平台补贴</div>
+							<img src="__IMG__/sel_1_bglink.png" alt="" id="typeimg_1_0" />
+						</div>
+						<div class="coupon-box divre" id="cbox_1_1" title="1">
+							<input type="hidden" name="ctype" id="ctype_1_1" value="2" />
+							<input type="hidden" name="chid" id="chid_1_1" value="1" />
+							<div class="coupon-money divab cf"><span class="fs16">8.8</span><br /><span class="fs12">折</span></div>
+							<div class="coupon-tit divab">
+								<p class="cf fs13">折扣券</p>
+								<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+							</div>
+							<div class="coupon-use-rang divab cf fs12 fov">商家「<span class="fov">快乐柠檬快乐快乐柠檬快乐</span>」</div>
+							<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+							<div class="coupon-detail divab cf fs13 verticle-mode">选择卡券</div>
+							<div class="coupon-le-ico divab fs12 cf">平台补贴</div>
+							<img src="__IMG__/sel_2_bglink.png" alt="" id="typeimg_1_1" />
+						</div>
+						<div class="coupon-box divre" id="cbox_1_2" title="2">
+							<input type="hidden" name="ctype" id="ctype_1_2" value="2" />
+							<input type="hidden" name="chid" id="chid_1_2" value="2" />
+							<div class="coupon-money divab cf"><span class="fs16">7.8</span><br /><span class="fs12">折</span></div>
+							<div class="coupon-tit divab">
+								<p class="cf fs13">折扣券</p>
+								<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+							</div>
+							<div class="coupon-use-rang divab cf fs12 ">商家「<span>快乐柠檬快乐</span>」</div>
+							<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+							<div class="coupon-detail divab cf fs13 verticle-mode">选择卡券</div>
+							<div class="coupon-le-ico divab fs12 cf">平台补贴</div>
+							<img src="__IMG__/sel_2_bglink.png" alt="" id="typeimg_1_2" />
+						</div>-->
+					</div>
+					<div class="ad-creat-site">
+						<div class="ad-creat-btn cf fs16 fl ad-creat-btn1">返回</div>
+						<div class="ad-creat-btn cf fs16 fr ad-creat-btn2">添加卡券</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-bar-nav-right').hide();
+				$('.creatad-font').css('line-height', $('.creatad-txt').height() + "px");
+
+			}
+			$(document).ready(function() {
+
+			});
+			/*样式*/
+			function styles() {
+				$('.creatad-font').css('line-height', $('.creatad-txt').height() + "px");
+
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.36;
+				$('.coupon-box').height(boxh);
+			}		
+			mui('.mui-content').on('tap','.ad-creat-btn1',function(){
+				$('#page_2').hide();
+				$('#page_1').show();
+				styles();
+			});
+			mui('.mui-content').on('tap','.ad-creat-btn2',function(){
+				var detailurl = '<?php echo encodeurl(GetHost(1)."/index.php/Adposition/Index/creatad"); ?>';
+				mui.openWindow({url:"__APP__/Activity/Coupon/addcoupon?url="+detailurl,id:"addcoupon"});
+			});
+			
+			/*选择优惠券*/
+			mui('#page_1').on('tap', '.creatad-sel-t', function() {
+				$('#page_1').hide();
+				$('#page_2').show();
+				getdatalist();
+				styles();
+			});
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var oldid = -1;
+			var oldtype = -1;
+
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据列表加载*/
+			function getdatalist() {
+				var url = "__APP__/Store/Store/getCouponList?pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab bgeb">';
+									_html += '<div class="c-empty-img"><img src="__IMG__/promote_home_defaultpage.png" alt="" /></div>';
+									_html += '<div class="c-empty-font c3 fs13">暂时还没有优惠券</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html+='<div class="boxm_'+pageindex+'">';
+										_html += '<div class="coupon-box divre" id="cbox_' + pageindex + '_' + dataarr["c_id"] + '" title="' + dataarr["c_id"] + '">';
+										_html += '<input type="hidden" name="ctype" id="ctype_' + pageindex + '_' + dataarr["c_id"] + '" value="' + dataarr["c_type"] + '" />';
+										_html += '<input type="hidden" name="chid" id="chid_' + pageindex + '_' + dataarr["c_id"] + '" value="' + dataarr["c_id"] + '" />';
+										if(dataarr["c_type"] == 1) {
+											_html += '<div class="coupon-money divab cf"><span class="fs18">' + dataarr["c_money"] + '</span><br /><span class="fs12">元</span></div>';
+										} else if(dataarr["c_type"] == 2) {
+											_html += '<div class="coupon-money divab cf"><span class="fs18">' + dataarr["c_money"] + '</span><br /><span class="fs12">折</span></div>';
+										}
+										_html += '<div class="coupon-tit divab">';
+										_html += '<p class="cf fs14">' + dataarr["c_name"] + '</p>';
+										_html += '<p class="cf fs12">' + dataarr["showstr"] + '</p>';
+										_html += '</div>';
+										//_html += '<div class="coupon-use-rang divab cf fs12">全平台通用</div>';
+										//if(dataarr['c_nickname'] && dataarr['c_sign'] != 1) {
+										//	_html += '<div class="coupon-use-rang divab cf fs12 fov" onclick="viewshop(\'' + dataarr['c_ucode'] + '\')">商家「<span>' + dataarr['c_nickname'] + '</span>」</div>';
+										//}
+										_html += '<div class="coupon-time divab cf fs12">' + dataarr["c_starttime"] + '~' + dataarr["c_endtime"] + '</div>';
+										_html += '<div class="coupon-detail divab cf fs13 verticle-mode">选择卡券</div>';
+										if(dataarr["c_sign"] == 1) {
+											_html += '<div class="coupon-le-ico divab fs12 cf">平台补贴</div>';
+										}
+										if(dataarr["c_type"] == 1) {
+											_html += '<img src="__IMG__/sel_1_bglink.png" alt="" id="typeimg_' + pageindex + '_' + dataarr["c_id"] + '" />';
+										} else if(dataarr["c_type"] == 2) {
+											_html += '<img src="__IMG__/sel_2_bglink.png" alt="" id="typeimg_' + pageindex + '_' + dataarr["c_id"] + '" />';
+										}
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#coupon_list').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval){
+							selected_cp();
+						}
+					}
+				});
+			}
+			/*选择优惠券*/			
+			function selected_cp(){
+				mui('.boxm_'+pageindex).on('tap', '.coupon-box', function() {
+					var cid = $(this).attr('title');
+					var ctype = $('#ctype_' + pageindex + '_' + cid).val();
+					selcoupon(cid, ctype);
+				});				
+			}
+			function selcoupon(cid, ctype) {
+				$('.creatad-sel-list').empty();
+				if(oldid != -1) {
+					$('#typeimg_' + pageindex + '_' + oldid).attr('src', '__IMG__/sel_' + oldtype + '_bglink.png');
+				}
+				oldid = cid;
+				oldtype = ctype;
+				$('#typeimg_' + pageindex + '_' + oldid).attr('src', '__IMG__/sel_' + oldtype + '_bghover.png');
+				var addItem = $('#cbox_' + pageindex + '_' + oldid).clone(true).attr('id', 'new_cbox_' + oldid);
+				$('.creatad-sel-list').html(addItem);
+				$('#new_cbox_' + oldid).off();
+				$('#new_cbox_' + oldid).removeClass('coupon-box');
+				$('#new_cbox_' + oldid).addClass('coupon-box2');
+				$('#new_cbox_' + oldid + ' input[name="chid"]').attr('name', 'newchid');
+				$('#new_cbox_' + oldid + ' input[name="newchid"]').attr('id', 'newchid_' + oldid);
+				$('#new_cbox_' + oldid + ' input[name="ctype"]').attr('name', 'newctype');
+				$('#new_cbox_' + oldid + ' input[name="newctype"]').attr('id', 'newctype_' + oldid);
+				$('#new_cbox_' + oldid + ' input[name="state"]').attr('id', 'newstate_' + oldid);
+				$('#new_cbox_' + oldid + ' img').attr('id', 'newtypeimg_' + oldid).attr('src', "__IMG__/sel_" + oldtype + "_bglink.png");
+				$('#page_2').hide();
+				$('#page_1').show();
+				styles();
+			}
+			//查看商家
+			function viewshop(ucode) {
+				mui.openWindow({
+					url: '__APP__/Store/Index/index?fromucode=' + ucode,
+					id: 'veiwshop'
+				});
+			}
+			
+			var cclick = 1;
+			/*提交*/
+			mui('#page_1').on('tap','.ad-creat-site',function(){
+				if(cclick==1){	
+					cclick = 2;
+					var pid = $('input[name="newchid"]').val();
+					var numbb = $('#adnum').val();
+					var ctype = $('#advert_type option:selected').val();
+					$.post("__URL__/SetupCard",{pid:pid,numb:numbb,ctype:ctype},function(obj){
+						var data = eval(obj);
+						if(data['code']==0){
+							mui.openWindow({url:"__URL__/index"});
+						}else{
+							mui.toast(data['msg']);
+							cclick = 1;
+						}
+					});
+				}
+			});
+			
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

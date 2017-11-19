@@ -1,0 +1,265 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>维权详情</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地维权详情" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="detail-top">
+					<li class="fl detail-right warranty_right fs14">
+						<?php if ($data['c_type'] == 1) { ?>
+						<?php if ($data['c_refundstate'] == 0) { ?> 退款处理中
+						<?php } else if ($data['c_refundstate'] == 1) { ?> 商家已同意退款
+						<?php } else if ($data['c_refundstate'] == 2) { ?> 商家不同意退款
+						<?php } else if ($data['c_refundstate'] == 3) { ?> 退款已完成
+						<?php } ?>
+						<?php } else { ?>
+						<?php if ($data['c_refundstate'] == 0) { ?> 退货处理中
+						<?php } else if ($data['c_refundstate'] == 1) { ?> 商家已同意退货
+						<?php } else if ($data['c_refundstate'] == 2) { ?> 商家不同意退货
+						<?php } else if ($data['c_refundstate'] == 3) { ?> 退货已完成
+						<?php } ?>
+						<?php } ?>
+					</li>
+				</ul>
+
+				<ul class="orderlist-box" id="list_order">
+					<li class="orderlist" style="width: 100%;margin: 0 0 3% 0;border-radius: 0;">
+						<div class="orderlist-top">
+							<div class="fl top-left detaillist">
+								<div class="fl top-img detaillist-img">
+									<img src="__IMG__/store.png" alt="">
+								</div>
+								<div class="fl top-text c6 fs14" style="padding: 1.5% 0 0 3%;">{$data.c_nickname}</div>
+								<div class="fl top-img detaillist-img">
+									<img src="__IMG__/jiantou.png" alt="">
+								</div>
+							</div>
+							<div class="fr contact-shop fs13" onclick="fchat('{$data.c_ucode}','{$data.c_nickname}');" style="padding: 2% 0;">
+								联系卖家
+							</div>
+						</div>
+
+						<div class="orderlist-body">
+							<div class="warranty-tit">
+								<p class="fl c6 fs14">退款金额</p>
+								<span class="fl fs14">￥{$data.c_total}</span>
+							</div>
+							<div class="warranty-con fs13">
+								<?php if ($data['c_refundstate'] == 0) { ?>
+								<?php if ($subtime > 0) { ?> 等待处理中：卖家还有
+								<span id="t">00</span>天<span id="h">00</span>时<span id="f">00</span>分<span id="m">00</span>秒内处理该退款，预期未处理系统将自动处理
+								<?php } ?>
+								<?php } else if ($data['c_refundstate'] == 1) { ?> 商家已同意处理
+								<?php } else if ($data['c_refundstate'] == 2) { ?> 商家不同意处理
+								<?php } else if ($data['c_refundstate'] == 1) { ?> 处理完成
+								<?php } ?>
+							</div>
+						</div>
+					</li>
+					<div class="warranty-info c6 fs13" id="conferinfo">
+						协商详情
+						<img class="fr" src="__IMG__/jiantou.png" alt="">
+					</div>
+					<li class="detail-freight warranty-freight fs13">
+						<div class="freight c6">
+							<div class="fl freight-left">维权类型</div>
+							<div class="fl freight-right">
+								<?php if ($data['c_type'] == 1): ?> 仅退款
+								<?php else: ?> 退款退货
+								<?php endif ?>
+							</div>
+						</div>
+						<div class="freight c6">
+							<div class="fl freight-left">退款金额</div>
+							<div class="fl freight-right">￥{$data.c_total}</div>
+						</div>
+						<div class="freight c6">
+							<div class="fl freight-left">维权原因</div>
+							<div class="fl freight-right">{$data.c_reason}</div>
+						</div>
+						<div class="freight c6">
+							<div class="fl freight-left">维权说明</div>
+							<div class="fl freight-right">
+								{$data.c_remarks}
+							</div>
+						</div>
+						<div class="freight c6">
+							<div class="fl freight-left">维权编码</div>
+							<div class="fl freight-right">{$data.c_refundcode}</div>
+						</div>
+						<div class="freight c6">
+							<div class="fl freight-left">申请时间</div>
+							<div class="fl freight-right">{$data.c_addtime}</div>
+						</div>
+						<?php if (!empty($data['c_handletime'])): ?>
+						<div class="freight c6">
+							<div class="fl freight-left">处理时间</div>
+							<div class="fl freight-right">{$data.c_handletime}</div>
+						</div>
+						<?php endif ?>
+						<?php if (count($data['c_img']) > 0): ?>
+						<div class="freight c6">
+							<div class="fl freight-left">图片说明</div>
+							<div class="fl freight-right">
+								<?php foreach ($data['c_img'] as $key => $value) { ?>
+								<div class="fl warranty-img">
+									<img src="{$value}" alt="">
+								</div>
+								<?php } ?>
+							</div>
+						</div>
+						<?php endif ?>
+					</li>
+				</ul>
+				<?php if ($data['c_type'] == 2) { ?>
+				<div class="logistics fs13">
+					<div class="logistics-name">
+						<div class="logistics-right c6">
+							<span class="fl">卖家收货地址</span>
+						</div>
+					</div>
+					<div class="fl freight-address c6">
+						<div class="fl freight-left" id="name">{$data.address.c_consignee}</div>
+						<div class="fl freight-right" id="tel">{$data.address.c_mobile}</div>
+					</div>
+					<div class="fl freight-address c6" id="ad">{$data.address.c_provincename}{$data.address.c_cityname}{$data.address.c_districtname}{$data.address.c_address}</div>
+				</div>
+				<?php } ?>
+
+				<?php if ($data['c_type'] == 2 && $data['c_refundstate'] != 0 && $data['c_refundstate'] != 2) { ?>
+				<div class="logistics fs13">
+					<div class="logistics-name">
+						<div class="logistics-right c6">
+							<img src="__IMG__/che.png" class="fl" alt="">
+							<span class="fl">退回物流信息</span>
+						</div>
+					</div>
+					<div class="logistics-name">
+						<div class="fl logistics-left c6">
+							快递公司
+						</div>
+						<select name="transno" id="transno" class="fl logistics-right c9">
+							<?php if (!empty($data['c_transno'])): ?>
+							<option value="{$data.c_transno}">{$data.c_transno}</option>
+							<?php else: ?>
+							<option value="">请选择快递公司</option>
+							<option value="优速快递">优速快递</option>
+							<option value="汇通快递">汇通快递</option>
+							<option value="申通快递">申通快递</option>
+							<option value="韵达快递">韵达快递</option>
+							<option value="圆通快递">圆通快递</option>
+							<option value="天天快递">天天快递</option>
+							<option value="顺丰快递">顺丰快递</option>
+							<option value="中国邮政EMS">中国邮政EMS</option>
+							<?php endif ?>
+						</select>
+					</div>
+					<div class="logistics-name">
+						<div class="fl logistics-left c6">
+							快递单号
+						</div>
+						<input type="text" name="transcompany" id="transcompany" value="{$data.c_transcompany}" placeholder="请填写正确快递单号" class="fl logistics-right c9 fs13" <?php if (!empty($data[ 'c_transno'])): ?>readonly="readonly"
+						<?php endif ?>>
+					</div>
+					<?php if (empty($data['c_transno'])) { ?>
+					<div class="logistics-sub fs16" onclick="express();">
+						确&nbsp;定
+					</div>
+					<?php } ?>
+				</div>
+				<?php } ?>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.warranty-img').height($('.warranty-img').width());
+				$('.top-img').height($('.top-img').width());
+				$('.top-text').height($('.top-img').width());
+				$('.top-text').css('line-height', $('.top-img').width() + 'px');
+			}
+			var subtime = "<?php echo $subtime ?>";
+			var refundstate = "<?php echo $data['c_refundstate'] ?>";
+			if(refundstate == 0) {
+				$(function() {
+					setInterval(function() {
+						if(subtime > 0) {
+							subtime--;
+							t = parseInt(subtime / 86400);
+							b = parseInt((subtime % 86400) / 3600);
+							c = parseInt((subtime % 3600) / 60);
+							w = subtime % 60;
+							document.all["t"].innerHTML = t < 10 ? '0' + t : t;
+							document.all["h"].innerHTML = b < 10 ? '0' + b : b;
+							document.all["f"].innerHTML = c < 10 ? '0' + c : c;
+							document.all["m"].innerHTML = w < 10 ? '0' + w : w;
+
+						}
+					}, 1000);
+				});
+			}
+			
+			/*协商*/
+			mui('.mui-content').on('tap','#conferinfo',function(){
+				mui.openWindow({url:"__URL__/confer_info?rcode={$data.c_refundcode}",id:"confer_info"});
+			});
+			
+			var clicktag = true;
+			// 提交快递单号
+			function express() {
+				if(clicktag){
+					clicktag = false;
+					var rcode = "<?php echo $data['c_refundcode'] ?>";
+					var transno = $('#transno').val();
+					var transcompany = $('#transcompany').val();
+					if(!transno || !transcompany) {
+						mui.toast('请填写完整信息');
+						clicktag = true;
+						return;
+					}
+					$.ajax({
+						type: "POST",
+						url: WEB_HOST + '/index.php/Order/Index/Updateexpress',
+						data: {
+							rcode: rcode,
+							transno: transno,
+							transcompany: transcompany
+						},
+						dataType: "json",
+						success: function(json) {
+							var obj = eval(json);
+							if(obj.code == 0) {
+								mui.toast(obj.msg);
+								$('.logistics-sub').hide();
+							} else {
+								mui.toast(obj.msg);
+								clicktag = true;
+							}
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

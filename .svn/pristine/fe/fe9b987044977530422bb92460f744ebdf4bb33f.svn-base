@@ -1,0 +1,359 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>订单列表</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地订单列表" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/order.css?v=1.3">
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="orderlist-box" id="list_order">
+
+				</ul>
+
+				<div id="console"></div>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.order_sign').height($('.order_sign').width());
+				$('.order_sign').css('border-radius', $('.order_sign').width() + 'px');
+				$('.order_sign').css('line-height', $('.order_sign').width() + 'px');
+				$('.listbody-left').height($('.listbody-left').width());
+			}
+		</script>
+		<script type="text/javascript">
+			var apptype = "<?php echo get_app_type(); ?>";
+			var page = 1;
+			var ctrls = true;
+			var kongzhi = true;
+			var statu = '<?php echo $statu ?>';
+			if(statu < 0) {
+				statu = 2;
+			}
+
+			selectstatu(statu);
+
+			function selectstatu(i) {
+				statu = i;
+				page = 1;
+				ctrls = true;
+				kongzhi = true;
+				$('.order-topli').removeClass('topli-hover');
+				$('#topli_' + i).addClass('topli-hover');
+				getdata();
+			}
+			// getdata();
+			//获取当前可是范围的高度
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && kongzhi) {
+						getdata();
+					}
+				}
+			});
+
+			function getdata() {
+				var html = '';
+				if(statu == 5) {
+					var url = '__URL__/Getrefundlist?pageindex=' + page;
+				} else {
+					var url = '__URL__/GetOrderList?type=' + statu + '&pageindex=' + page;
+				}
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(json) {
+						if(page == 1) {
+							$('#list_order').empty();
+						}
+						var obj = eval(json);
+						if(obj.code == 0) {
+							var data = obj.data;
+							if(data) {
+								var orderlist = data.list;
+								var pageCount = data.pageCount;
+								if(pageCount >= page) {
+									page++;
+									for(i = 0; i < orderlist.length; i++) {
+										if(statu == 5) {
+											var ourl = '__URL__/warranty_info?rcode=' + orderlist[i]['c_refundcode'] + '&type=' + apptype;
+										} else {
+											var ourl = '__URL__/detail?orderid=' + orderlist[i]['c_orderid'] + '&type=' + apptype;
+										}
+										//if (apptype==2) {
+										//html += '<li class="orderlist" onclick="getiosUrl(\''+ourl+'\')">';
+										//html += '<a class="orderlist-top" href="javascript:;" onclick="getiosUrl(\''+ourl+'\'//)">';
+										//}else{
+										html += '<li class="orderlist">';
+										html += '<a class="orderlist-top" href="' + ourl + '">';
+										//}
+										html += '<div class="fl top-left">';
+										if(statu == 5) {
+											html += '<div class="fl top-text fs13">维权号：' + orderlist[i]['c_refundcode'] + '</div>';
+											html += '</div>';
+											if(orderlist[i]['c_type'] == 1) {
+												if(orderlist[i]['c_refundstate'] == 0) {
+													html += '<div class="fr top-right fs13">买家退款</div>';
+												} else if(orderlist[i]['c_refundstate'] == 1) {
+													html += '<div class="fr top-right fs13">已同意退款</div>';
+												} else if(orderlist[i]['c_refundstate'] == 2) {
+													html += '<div class="fr top-right fs13">不同意退款</div>';
+												} else if(orderlist[i]['c_refundstate'] == 3) {
+													html += '<div class="fr top-right fs13">退款已完成</div>';
+												}
+											} else if(orderlist[i]['c_type'] == 2) {
+												if(orderlist[i]['c_refundstate'] == 0) {
+													html += '<div class="fr top-right fs13">买家退货</div>';
+												} else if(orderlist[i]['c_refundstate'] == 1) {
+													html += '<div class="fr top-right fs13">已同意退货</div>';
+												} else if(orderlist[i]['c_refundstate'] == 2) {
+													html += '<div class="fr top-right fs13">不同意退货</div>';
+												} else if(orderlist[i]['c_refundstate'] == 3) {
+													html += '<div class="fr top-right fs13">退货已完成</div>';
+												}
+											}
+										} else {
+											html += '<div class="fl top-text fs13">订单号：' + orderlist[i]['c_orderid'] + '</div>';
+											html += '</div>';
+											if(orderlist[i]['c_pay_state'] == 0 && orderlist[i]['c_order_state'] == 1) {
+												html += '<div class="fr top-right fs13">已关闭</div>';
+											}
+											if(orderlist[i]['c_pay_state'] == 0 && orderlist[i]['c_order_state'] == 2) {
+												html += '<div class="fr top-right fs13">待付款</div>';
+											}
+											if(orderlist[i]['c_deliverystate'] == 0 && orderlist[i]['c_order_state'] == 2 && orderlist[i]['c_pay_state'] == 1) {
+												html += '<div class="fr top-right fs13">待发货</div>';
+											}
+											if(orderlist[i]['c_deliverystate'] == 2 && orderlist[i]['c_order_state'] == 2 && orderlist[i]['c_pay_state'] == 1) {
+												html += '<div class="fr top-right fs13">待买家确认收货</div>';
+											}
+											if(orderlist[i]['c_deliverystate'] == 5 && orderlist[i]['c_order_state'] == 2 && orderlist[i]['c_pay_state'] == 1 && orderlist[i]['scorestatu'] == 0) {
+												html += '<div class="fr top-right fs13">待买家全部评价</div>';
+											}
+											if(orderlist[i]['c_deliverystate'] == 5 && orderlist[i]['c_order_state'] == 2 && orderlist[i]['c_pay_state'] == 1 && orderlist[i]['scorestatu'] == 1) {
+												html += '<div class="fr top-right fs13">已完成</div>';
+											}
+										}
+
+										html += '</a>';
+										if(statu == 5) {
+											html += '<a class="orderlist-body" href="__URL__/warranty_info?rcode=' + orderlist[i]['c_refundcode'] + '&type=' + apptype + '">';
+											html += '<div class="fl listbody-left divre">';
+											html += '<img src="' + orderlist[i]['c_pimg'] + '" alt="">';
+											if(orderlist[i]['actsign'] == "拼团") {
+												html += '<div class="sjc-pro-randon divab cf fs12">拼团</div>';
+											} else if(orderlist[i]['actsign'] == "砍价") {
+												html += '<div class="sjc-pro-randon divab cf fs12">砍价</div>';
+											} else if(orderlist[i]['actsign'] == "秒杀") {
+												html += '<div class="sjc-pro-randon divab cf fs12">秒杀</div>';
+											}
+											html += '</div>';
+											html += '<div class="fl listbody-center">';
+											html += '<h3 class="fs14">' + orderlist[i]['c_pname'] + '</h3>';
+											if(!orderlist[i]['c_pmname']) {
+												html += '<p style="padding:3% 0;" class="fs12"></p>';
+											} else {
+												html += '<p class="fs12">' + orderlist[i]['c_pmname'] + '</p>';
+											}
+											html += '<div class="listbody-bot">';
+											html += '<div class="fl order-price fs14">￥' + orderlist[i]['c_pprice'] + '</div>';
+											html += '<div class="fr order-num fs13">x' + orderlist[i]['c_pnum'] + '</div>';
+											html += '</div>';
+											html += '</div>';
+											html += '</a>';
+											html += '<div class="orderlist-mid fs14">';
+											html += '交易金额：<b>￥' + orderlist[i]['c_ptotal'] + '</b>&nbsp;&nbsp;&nbsp;&nbsp;';
+											html += '退款金额：<b>￥' + orderlist[i]['c_total'] + '';
+											html += '</div>';
+										} else {
+											var detail = orderlist[i]['detail'];
+											for(j = 0; j < detail.length; j++) {
+												html += '<div class="orderlist-body">';
+												//if (apptype==2) {
+												//	html += '<a class="fl listbody-left" href="javascript:;" onclick="getiosUrl(\//''+ourl+'\')">';
+												//}else{
+												html += '<a class="fl listbody-left divre" href="' + ourl + '">';
+												//}
+												html += '<img src="' + detail[j]['c_pimg'] + '" alt="">';
+												if(orderlist[i]['actsign'] == "拼团") {
+													html += '<div class="sjc-pro-randon divab cf fs12">拼团</div>';
+												} else if(orderlist[i]['actsign'] == "砍价") {
+													html += '<div class="sjc-pro-randon divab cf fs12">砍价</div>';
+												} else if(orderlist[i]['actsign'] == "秒杀") {
+													html += '<div class="sjc-pro-randon divab cf fs12">秒杀</div>';
+												}
+												html += '</a>';
+												html += '<div class="fl listbody-center">';
+												html += '<h3 onclick=location.href="' + ourl + '" class="fs14">' + detail[j]['c_pname'] + '</h3>';
+												if(detail[j]['c_pmodel_name']) {
+													html += '<p class="fs12">' + detail[j]['c_pmodel_name'] + '</p>';
+												} else {
+													html += '<p style="padding:3% 0;" class="fs12"></p>';
+												}
+												html += '<div class="listbody-bot">';
+												html += '<div class="fl order-price fs14">￥' + detail[j]['c_ptotal'] + '</div>';
+
+												if(orderlist[i]['c_deliverystate'] == 5 && detail[j]['c_isevaluate'] == 0) {
+													html += '<a class="fr order-sub subcolor evaluate-bell fs13" href="javascript:;">未评价</a>';
+												}
+												html += '<div class="fr order-num fs13">x' + detail[j]['c_pnum'] + '</div>';
+												html += '</div>';
+												html += '</div>';
+												html += '</div>';
+											};
+											var zprice = (orderlist[i]['c_total_price'] - (-orderlist[i]['c_free'])).toFixed(2);
+											html += '<div class="orderlist-mid fs15">总计：<b>￥' + zprice + '</b>';
+											if(orderlist[i]['c_free'] > 0) {
+												html += '<span class="fs13">（含运费￥' + orderlist[i]['c_free'] + '）</span>';
+											}
+											html += '</div>';
+										}
+										if(orderlist[i]['c_pay_state'] == 0 && orderlist[i]['c_order_state'] == 2) {
+											html += '<div class="orderlist-bot">';
+											html += '<a href="javascript:;" onclick="changefree(\'__URL__/freight?orderid=' + orderlist[i]['c_orderid'] + '&free=' + orderlist[i]['c_free'] + '&type={$apptype}\');" class="fr order-sub subcolor fs13">修改运费</a>';
+											html += '</div>';
+										}
+										if(orderlist[i]['c_deliverystate'] == 0 && orderlist[i]['c_order_state'] == 2 && orderlist[i]['c_pay_state'] == 1) {
+											html += '<div class="orderlist-bot">';
+											if (orderlist[i]['c_delivery'] == 2) {    //面对面
+												html += '<a onclick="logisticsBaiduTraces(\''+orderlist[i]['c_orderid']+'\',\''+orderlist[i]['c_deliverystate']+'\',\''+orderlist[i]['longitude']+'\',\''+orderlist[i]['latitude']+'\',\''+orderlist[i]['slongitude']+'\',\''+orderlist[i]['slatitude']+'\');" href="javascript:;" class="fr order-sub subcolor fs13">发货</a>';
+											} else {	//快递
+												html += '<a href="__URL__/deliver?orderid=' + orderlist[i]['c_orderid'] + '" class="fr order-sub subcolor fs13">发货</a>';
+											}
+											html += '</div>';
+										}
+										if(orderlist[i]['c_deliverystate'] == 2 && orderlist[i]['c_order_state'] == 2 && orderlist[i]['c_pay_state'] == 1) {
+											html += '<div class="orderlist-bot">';
+											if (orderlist[i]['c_delivery'] == 2) {    //面对面
+												html += '<a class="fr order-sub subcolor fs13" onclick="logisticsBaiduTraces(\''+orderlist[i]['c_orderid']+'\',\''+orderlist[i]['c_deliverystate']+'\',\''+orderlist[i]['longitude']+'\',\''+orderlist[i]['latitude']+'\',\''+orderlist[i]['slongitude']+'\',\''+orderlist[i]['slatitude']+'\');" href="javascript:;">查看位置</a>';
+											} else {	//快递
+												html += '<a class="fr order-sub subcolor fs13" href="__URL__/logitics?orderid=' + orderlist[i]['c_orderid'] + '">查看物流</a>';
+											}
+
+											html += '</div>';
+										}
+										html += '</li>';
+									};
+								} else {
+									kongzhi = false;
+								}
+							} else {
+								kongzhi = false;
+							}
+						} else {
+							kongzhi = false;
+						}
+						if(page == 1) {
+							html += '<div class="data-empty divtab bgeb">';
+							html += '<div class="data-empty-img">';
+							html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+							html += '</div>';
+							html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+							html += '</div>';
+						}
+
+						$('#list_order').append(html);
+						$('#console').css('display', 'none');
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						$('.listbody-left').height($('.listbody-left').width());
+						ctrls = true;
+					}
+				});
+			}
+
+			function tiaozhuan(arg) {
+				mui.openWindow({
+					url: arg,
+					id: "tiaozhuan"
+				});
+			}
+
+			//修改邮费
+			function changefree(furl) {
+				mui.openWindow({
+					url: furl,
+					id: "furl"
+				});
+			}
+
+			/*ios调用*/
+			function getiosUrl(url) {
+				getProductUrl(url);
+			}
+
+			//短距物流
+			function logisticsBaiduTraces(orderid,deliverystate,longitude,latitude,slongitude,slatitude) {
+				if (deliverystate == 0) {
+					express(orderid);
+				}				
+				if (apptype == 1) {		//小蜜安卓软件
+					javaScript:resultData.logisticsBaiduTraces(orderid,deliverystate,longitude,latitude,slongitude,slatitude);
+				} else if (apptype == 2) {		//小蜜ios软件
+					window.webkit.messageHandlers.AppModel.postMessage({"logisticsBaiduTraces":{"orderid":""+orderid+"","deliverystate":""+deliverystate+"","longitude":""+longitude+"","latitude":""+latitude+"","slongitude":""+slongitude+"","slatitude":""+slatitude+""}});
+				} else {
+					mui.toast('请使用小蜜APP操作查看位置');
+					setTimeout(function () {
+						window.location.reload();
+					}, 2000);
+				}
+			}
+			var clicktag = true;
+			// 提交快递单号
+			function express(orderid) {
+				if(clicktag){
+					clicktag = false;
+					$.ajax({
+						type: "POST",
+						url:'__URL__/deliver',
+						data: {
+							orderid: orderid,
+							expressname: '',
+							expressnum: ''
+						},
+						dataType: "json",
+						success: function(json) {
+							var obj = eval(json);
+							clicktag = true;
+							if(obj.code == 0) {
+								
+							} else {
+								
+							}
+						}
+					});					
+				}
+			}
+		</script>
+	</body>
+
+</html>

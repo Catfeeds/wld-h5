@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>店铺会员</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/multshop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="shopmem-top divtab bgcolor">
+				<p class="fs20 fb600 c3">{$data['num']}人</p>
+				<span class="fs12 c3">会员总人数</span>
+			</div>
+
+			<div class="shopmem-list bgcolor">
+				<ul>
+					<?php foreach ($data['list'] as $key => $value) { ?>
+					<li class="federationid" title="{$value['c_id']}">
+						<div class="shopmem-img fl"><img src="{$value['c_headimg']}" ></div>
+						<div class="shopmem-name fl c3 fs14 fov">{$value['c_nickname']}</div>
+						<div class="shopmem-next fr">
+							<img src="__IMG__/multshop/lsdgl_icon_next.png">
+						</div>
+						<div class="shopmem-num fr fs14 c3 ">{$value['member']}人</div>
+					</li>
+					<?php } ?>
+					<!-- <li>
+						<div class="shopmem-img fl"><img src="__IMG__/member/hy8.png" ></div>
+						<div class="shopmem-name fl c3 fs14 fov">良品铺子</div>
+						<div class="shopmem-next fr">
+							<img src="__IMG__/multshop/lsdgl_icon_next.png">
+						</div>
+						<div class="shopmem-num fr fs14 c3 ">12人</div>
+					</li> -->
+				</ul>
+			</div>
+			<div id="console"></div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var	shopImg = $('.shopmem-img').width();
+	    $('.shopmem-img').height(shopImg);
+	    $('.shopmem-img').css('border-radius', shopImg + 'px');
+	    $('.shopmem-name').css('line-height', shopImg + 'px');
+	    $('.shopmem-num').css('line-height', shopImg + 'px');
+	    $('.shopmem-next').css('padding-top', shopImg*0.3 + 'px');
+	}
+
+	//跳转数据统计
+	mui('.mui-content').on('tap', '.federationid', function() {
+		var federationid = $(this).attr('title');
+		mui.openWindow({url:"__URL__/detailmember?federationid="+federationid,id:"detailmember"});	
+	});
+
+</script>
+
+</html>

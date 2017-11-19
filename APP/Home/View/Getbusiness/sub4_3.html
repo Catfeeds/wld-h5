@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title><?php if($hreftype==1){ ?>商家信息认证<?php }else{ ?>申请成为商家<?php } ?></title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.all.css" />
+		<style>.resource-main{ margin-bottom: 16%;}.resource-l { width: 35%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="mui-content">
+				<?php if($hreftype==2){ ?><div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_txzl.png" alt=""></div><?php } ?>
+				<div class="p_info_tit"><span class="fs14 c3">商家资料<?php if($hreftype==1){ ?>2/4<?php }else{ ?>3/5<?php } ?></span></div>
+				<div class="p_info_con fs14 bgcolor">
+					<div class="resource-main">
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商户名称</div>
+							<div class="resource-r fl"><input type="text" id="merchantname" value="{$vo['c_merchantname']}" name="merchantname" class="resource-text" placeholder="请输入商户名称" maxlength="64"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span> <?php if($ctype == 1){ ?>负责人姓名 <?php } else if($ctype == 2){ ?>法人姓名<?php } else if($ctype == 3){ ?>经营者姓名 <?php } ?>
+							</div>
+							<div class="resource-r fl inp-name"><input type="text" id="c_name" value="{$vo['c_name']}" name="name" class="resource-text" placeholder="<?php if($ctype == 1){ ?>请输入负责人姓名 <?php } else if($ctype == 2){ ?>请输入法人姓名<?php } else if($ctype == 3){ ?>请输入营业执照经营者的姓名<?php } ?>" maxlength="32"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>身份证号码</div>
+							<div class="resource-r fl"><input type="text" id="idcardinfo" value="{$vo['c_idcardinfo']}" name="idcardinfo" class="resource-text" placeholder="<?php if($ctype == 1){ ?>请输入负责人身份证号码<?php } else if($ctype == 2){ ?>请输入法人身份证号码<?php } else if($ctype == 3){ ?>请输入经营者身份证号码<?php } ?>" maxlength="18"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl">
+								<span>*&nbsp;</span>证件有效期
+							</div>
+							<div class="resource-r fl inp-name">
+								<input type="text" value="{$vo['c_idcardstarttime']}" name="starttime" id="starttime" placeholder="请选择" class="fs14 c3 resource-text fl" readonly="readonly" style="width: 45%;text-align: center" />
+								<input type="hidden" name="idcardstarttime" id="idcardstarttime" value="{$vo['c_idcardstarttime']}" />
+								<input type="text" disabled="disabled" value="至" style="width: 10%;color: #999;" class="resource-text fl">
+								<input type="text" value="{$vo['c_idcardendtime']}" name="endtime" id="endtime" placeholder="请选择" class="fs14 c3 resource-text fl" readonly="readonly" style="width: 45%;text-align: center" />
+								<input type="hidden" name="idcardendtime" id="idcardendtime" value="{$vo['c_idcardendtime']}" />
+							</div>
+							<div class="resource-l fl" style="width:100%">
+								<font class="c9 fs11">&nbsp;注：有效期3个月的证件不予受理</font>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>手机号码</div>
+							<div class="resource-r fl"><input type="tel" id="phone" value="{$vo['c_phone']}" name="phone" class="resource-text" placeholder="<?php if($ctype == 1){ ?>请输入负责人手机号码<?php } else if($ctype == 2){ ?>请输入法人手机号码<?php } else if($ctype == 3){ ?>请输入经营者手机号码<?php } ?>" maxlength="11"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>省市区</div>
+							<div class="resource-r fl"><input type="text" id="areadata" value="{$vo['c_province']}{$vo['c_city']}{$vo['c_county']}" name="areadata" class="resource-text" placeholder="请选择省市区" readonly="readonly"></div>
+							<input type="hidden" id="province" name="provincename" value="{$vo['c_province']}">
+							<input type="hidden" id="city" name="cityname" value="{$vo['c_city']}">
+							<input type="hidden" id="district" name="districtname" value="{$vo['c_county']}">
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>详细地址：</div>
+							<div class="resource-r fl"><input type="text" id="addrarea" value="{$vo['address1']}" name="addrarea" class="resource-text" placeholder="请输入详细地址"></div>
+						</div>
+						<?php if($ctype == 3) {?>
+							<div class="resource-list">
+								<div class="resource-l fl"><span>*&nbsp;</span>营业执照号</div>
+								<div class="resource-r fl"><input type="text" id="charter" name="charter" class="resource-text" value="<?php echo $vo['c_charter']; ?>" placeholder="请输入营业执照号"></div>
+							</div>
+						<?php }?>
+					</div>
+				</div>
+				<!--经纬度-->
+				<input type="hidden" id="address1" name="address" value="{$vo['address1']}">
+				<input type="hidden" name="lng" id="lng" value="{$vo['c_longitude']}">
+				<input type="hidden" name="lat" id="lat" value="{$vo['c_latitude']}">
+
+				<div class="longtime fixed-sub fs14 c5 bgcolor divtab none" style="z-index: 1000000;padding: 2% 0;text-align: center;">长期有效</div>
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li id="PreviousCK">上一步</li>
+						<li id="savestep" style="background: #45AAFA;">保存并下一步</li>
+					</ul>
+				</div>
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.all.js"></script>
+		<script type="text/javascript" src="__JS__/getbusiness/areadata.js?v=20171110"></script>
+		<script type="text/javascript">
+			var stattt = "";
+            var endttt = "";
+            mui('.mui-content').on('tap', '#starttime', function() {
+                if(endttt){
+                    var picker = new mui.DtPicker({
+                        type: "date",//设置日历初始视图模式
+                        beginDate: new Date(1900,00,01),
+                        endDate: new Date(endttt)//设置结束日期
+                    });
+                }else{
+                    var picker = new mui.DtPicker({
+                        type: "date",
+                        beginDate: new Date(1900,00,01),
+                        endDate: new Date(2100,00,01)//设置结束日期
+                    });
+                }
+                picker.show(function(rs) {
+                    stattt=rs.text;
+                    $("#starttime").val(rs.text);
+                    $('#idcardstarttime').val(rs.text);
+                    picker.dispose();
+                });
+            });
+            /*结束时间*/
+            mui('.mui-content').on('tap', '#endtime', function() {
+                if(stattt){
+                    var picker = new mui.DtPicker({
+                        type: "date",//设置日历初始视图模式
+                        beginDate: new Date(stattt),//设置开始日期
+                        endDate: new Date(2100,00,01)//设置结束日期
+                    });
+                }else{
+                    var picker = new mui.DtPicker({
+                        type: "date",
+                        beginDate: new Date(1900,00,01),
+                        endDate: new Date(2100,00,01)//设置结束日期
+                    });
+                }
+
+                $('.longtime').slideDown();
+                picker.show(function(rs) {
+                    endttt=rs.text;
+                    $("#endtime").val(rs.text);
+                    $('#idcardendtime').val(rs.text);
+                    $('.longtime').slideUp();
+                    picker.dispose();
+                });
+                /*取消*/
+				picker.ui.cancel.addEventListener('tap', function() {
+                    $('.longtime').slideUp();
+                    $('.mui-dtpicker').remove();
+                    $('.mui-backdrop').remove();
+                    $("body").removeClass("mui-dtpicker-active-for-page");
+                }, false);
+                /*证照失效时间:长期有效*/
+	            $('.mui-content').on('tap','.longtime',function () {
+	                $('.longtime').slideUp();
+	                $('#idcardendtime').val("长期");
+	                $('#endtime').val("长期");
+                    $('.mui-dtpicker').remove();
+                    $('.mui-backdrop').remove();
+                    $("body").removeClass("mui-dtpicker-active-for-page");
+	            });
+
+            });
+            /*省市区选择*/
+            mui('.mui-content').on('tap','#areadata',function () {
+                var province = '<?php echo $vo["c_province"]; ?>';
+                var ccity = '<?php echo $vo["c_city"]; ?>';
+                var ccounty = '<?php echo $vo["c_county"]; ?>';
+                var citypicker = new mui.PopPicker({
+                    layer: 3
+                });
+                citypicker.setData(cityData3);
+                citypicker.pickers[0].setSelectedValue(''+province+'');
+                citypicker.pickers[1].setSelectedValue(''+ccity+'');
+                citypicker.pickers[2].setSelectedValue(''+ccounty+'');
+                citypicker.show(function(SelectedItem) {
+                    $('#areadata').val(SelectedItem[0]['text']+SelectedItem[1]['text']+SelectedItem[2]['text']);
+					$("#province").val(SelectedItem[0]['text']);
+                    $("#city").val(SelectedItem[1]['text']);
+                    $("#district").val(SelectedItem[2]['text']);
+                    citypicker.dispose();
+                });
+            });
+		</script>
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var ctype = '<?php echo $ctype ?>'; /*1个人，2企业，3个体户*/
+			var prov = '<?php echo $vo["c_province"]?>';
+			var citye =  '<?php echo $vo["c_city"] ?>';
+			var newdistrict = '<?php echo $vo["c_county"] ?>';
+            var oldinfo = '<?php echo $oldinfo; ?>';
+            var dcode = '<?php echo $vo["c_dcode"] ?>';
+            var vostate = '<?php echo $vo["c_checked"]; ?>';
+            var hreftype = '<?php echo $hreftype; ?>';/*1补全资料，2成为商家*/
+			window.onload = function() {
+				//页面样式
+				//$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+				$('#province').css('height', $('.resource-list').height() * 0.9 + 'px');
+				$('#city').css('height', $('.resource-list').height() * 0.9 + 'px');
+				$('#district').css('height', $('.resource-list').height() * 0.9 + 'px');
+			}
+
+			//上一步
+			mui('.mui-content').on('tap', '#PreviousCK', function() {
+                if(hreftype==1){
+                    mui.openWindow({url:"__URL__/sub4_1?hreftype=1&isfixed="+isfixed+'&ctype='+ctype, id:"sub4_2"});
+                }else{
+                    mui.openWindow({url:"__URL__/sub4_2?hreftype=2&isfixed="+isfixed+'&ctype='+ctype, id:"sub4_2"});
+                }
+			});
+
+			//提交
+			mui('.mui-content').on('tap', '#savestep', function() {
+				savestep();
+			})
+
+			/*save*/
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					if(emptyval($('input[name="merchantname"]').val())) {
+						mui.toast('请输入商户名称');
+						$('input[name="merchantname"]').focus();
+						return false;
+					}
+					if(emptyval($('input[name="name"]').val())) {
+						if(ctype==1){
+							mui.toast('请输入负责人姓名');
+						}else if(ctype==2){
+							mui.toast('请输入法人姓名');
+						}else if(ctype==3){
+							mui.toast('请输入营业执照经营者的姓名');
+						}
+						$('input[name="name"]').focus();
+						return false;
+					}
+					if(emptyval($('input[name="idcardinfo"]').val())) {
+						if(ctype==1){
+							mui.toast('请输入负责人身份证号');
+						}else if(ctype==2){
+							mui.toast('请输入法人身份证号码');
+						}else if(ctype==3){
+							mui.toast('请输入经营者身份证号码');
+						}
+                        $('input[name="idcardinfo"]').focus();
+                        return false;
+                    } else {
+                        if(!checknumabc($('input[name="idcardinfo"]').val())) {
+                            mui.toast('请输入正确的身份证号！');
+                            $('input[name="idcardinfo"]').focus();
+                            return false;
+                        }
+                    }
+                    if(emptyval($('#starttime').val())){
+                        mui.toast('请选择生效时间');
+                        $('input[name="starttime"]').focus();
+                        return false;
+                    }
+                    if(emptyval($('#endtime').val())){
+                        mui.toast('请选择失效时间');
+                        $('input[name="endtime"]').focus();
+                        return false;
+                    }
+                    var arr = $('#starttime').val().split("-");
+                    var starttime = new Date(arr[0], arr[1], arr[2]);
+                    var starttimes = starttime.getTime();
+                    var arrs = $('#endtime').val().split("-");
+                    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+                    var lktimes = lktime.getTime();
+                    if (starttimes >= lktimes) {
+                        mui.toast('生效时间大于等于失效时间，请检查');
+                        return false;
+                    }
+                    if(emptyval($('#phone').val())){
+                        if(ctype==1){
+							mui.toast('请输入负责人手机号码');
+						}else if(ctype==2){
+							mui.toast('请输入法人手机号码');
+						}else if(ctype==3){
+							mui.toast('请输入经营者手机号码');
+						}
+                        $('input[name="phone"]').focus();
+                        return false;
+                    }else if(!checknumber($('input[name="phone"]').val())) {
+                        mui.toast('请输入正确的手机号码！');
+                        $('input[name="phone"]').focus();
+                        return false;
+                    }else {
+                    	if($('#phone').val().length < 8){
+                    		mui.toast('请输入正确位数的手机号码');
+	                        $('input[name="phone"]').focus();
+	                        return false;
+                    	}
+                    }
+					var province = $("#province").val();
+					var city = $("#city").val();
+					var district = $("#district").val();
+					var addrarea = document.getElementById('addrarea').value;
+
+					if(province == "" || city == "" || district == "" || addrarea == "") {
+                        mui.toast("请完善地址信息！");
+                        $('#areadata').focus();
+                        $('#addrarea').focus();
+						return false;
+					}
+					$('#address1').val(province + "省" + city + "市" + district + addrarea);
+
+                    if(ctype==3){
+                        if (emptyval($('input[name="charter"]').val())) {
+                            mui.toast('请输入营业执照号');
+                            $('input[name="charter"]').focus();
+                            return false;
+                        } else {
+                            if (!checknumabc($('input[name="charter"]').val())) {
+                                mui.toast('请输入正确的营业执照号！');
+                                $('input[name="charter"]').focus();
+                                return false;
+                            }
+                        }
+                    }
+                    resign = false;
+                    var attrbul = getFormAttrs('form1');
+                    $.ajax({
+                        type: "POST",
+                        url: '__URL__/SetInfo3',
+                        data: "attrbul=" + JSON.stringify(attrbul),
+                        dataType: "json",
+                        success: function(json) {
+                            var msg = eval(json);
+                            if(msg.code == 0) {
+                                mui.toast("保存成功！");
+                                setTimeout(function() {
+                                    mui.openWindow({url: '__URL__/sub4_4?hreftype='+hreftype+'&isfixed='+isfixed +'&ctype='+ctype ,id:"sub4_4"});
+                                }, 1000);
+                            } else {
+                                mui.toast(msg.msg);
+                                resign = true;
+                            }
+                        }
+                    });
+				}
+			}
+
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>联系人</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/message/index.css?v=1.2">
+</head>
+<body>
+
+<div class="wrap-page" style="margin-bottom:13%;background:#fff;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">	
+	<div class="message-tit">
+		<a class="message-menu information fl" href="__URL__/index">消息</a>
+		<a class="message-menu contact menu-hover fr" href="__URL__/contact">联系人</a>
+	</div>
+	<div id="console"></div>
+	<ul class="contact-list">
+		<!-- <li class="contact-li">
+			<div class="contact-himg fl">
+				<div class="is_head_img"><img src="__IMG__/message/founder1.jpg" alt=""></div>
+				<div class="is_shop_img"><img src="__IMG__/message/sj.png" alt=""></div>
+				
+			</div>
+			<div class="contact-info fl">
+				<div class="contact-name-time">
+					<div class="contact-name fl">微领地官方客服007</div>
+					<div class="contact-time fr">2016-5-4</div>
+				</div>
+				<div class="contact-gxqm-xx">
+					<div class="contact-gxqm">一如既往 我相信我的团队 我相信你 我更深信不疑我自己。</div>
+					<div class="contact-xx">3</div>
+				</div>
+			</div>
+		</li> -->
+	</ul>
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+
+	styles();
+}
+function styles () {
+	var th = $('.contact-himg').width();
+	$('.contact-himg').height(th);			
+
+	var hh = $('.is_head_img').width();
+	$('.is_head_img').height(hh);
+	$('.is_head_img').css('border-radius',hh+'px');
+
+	var lih = $('.contact-himg').height(),
+		lhh = lih*45/100;
+	$('.contact-info').css('line-height',lhh+'px');			
+}
+var ctrls = true;
+var emptyval = true;
+var pageindex = 1;
+contactlist(pageindex);
+$(window).bind('scroll', function() {
+	if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+		if (ctrls && emptyval) {
+			contactlist(pageindex);	
+		}		
+	}		
+});	
+
+function contactlist(page){
+	if (page==1) {
+		pageindex = 1;
+	}			
+	var _html = "";
+    $.ajax({  
+	   type:'get', dataType:'json', url:"__URL__/contact?pageindex="+pageindex, cache:false, beforeSend:function() {
+			$('#console').css('display', 'block');
+			$('#console').html('加载中...');
+			ctrls = false;
+		}, error:function() {
+			$('#console').css('display', 'block');
+			$('#console').html('加载失败');
+			ctrls = true;
+		},success:function(obj) {					
+		if(pageindex==1) {
+				$('.contact-list').empty();
+			}
+			var mgs = eval(obj);
+			if(mgs['code']==0) {
+				var data = mgs.data;
+				var datalist = data.list;
+				if(data==null || datalist ==null){
+    			if (pageindex==1) {
+			      	$('#console').css('display', 'block');
+					$('#console').html('没有找到相关信息');
+    			}
+				emptyval = false;
+				return;
+    		}else{
+				if (pageindex <= data.pageCount) {
+					pageindex++;
+					for (var i = 0; i < datalist.length; i++) {
+						_html+='<li class="contact-li">';
+						_html+='<div class="contact-himg fl">';
+						_html+='<div class="is_head_img"><img src="'+WEB_HOST+"/"+datalist[i]["c_headimg"]+'" alt=""></div>';								
+						if (datalist[i]['c_shop']==1) {
+							_html+='<div class="is_shop_img"><img src="__IMG__/message/sj.png" alt=""></div>';
+						}else{
+							_html+='<div class="is_shop_img"><img src="__IMG__/message/dl.png" alt=""></div>';
+						}
+						_html+='</div>';												
+						_html+='<div class="contact-info fl">';
+						_html+='<div class="contact-name-time">';
+						_html+='<div class="contact-name fl">'+datalist[i]['c_nickname']+'';
+						_html+='</div>';								
+						_html+='</div>';
+						_html+='<div class="contact-gxqm-xx">';
+						_html+='<div class="contact-gxqm">'+datalist[i]["c_signature"]+'</div>';
+						//_html+='<div class="contact-xx">3</div>';
+						_html+='</div>';
+						_html+='</div>'
+						_html+='</li>';								
+					}
+				}
+				else{
+					emptyval=false;
+				}
+			}
+		}
+		else{
+			emptyval=false;
+		}
+
+		$('.contact-list').append(_html);
+		$('#console').css('display', 'none');	
+		}, complete:function() {
+			styles();	
+			$('#console').css('display', 'none');				
+			ctrls = true;
+		} 
+	}); 
+
+  }
+</script>
+</body>
+</html>

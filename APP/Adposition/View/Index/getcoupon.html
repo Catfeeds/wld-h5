@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>卡券领取</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 18%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<input type="hidden" name="previewval" id="previewval" value="{$previewval}" />
+			<div class="ad-site-head divre">
+				<!-- <div class="ad-site-bar divtab divab">
+					<div class="ad-page-return fl"><img src="__IMG__/nav_return.png" alt="" /></div>
+					<div class="ad-page-bartit fl cf fs15">卡券领取</div>
+				</div> -->
+				<include file="Base@Public/pubheader" />
+				<div class="store-top-hinfo divab">
+					<div class="store-t-h-img fl">
+						<if condition="$data['c_headimg'] eq null">
+							<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+							<else />
+							<img id="self-heads" src="{$data['c_headimg']}" alt="">
+						</if>
+					</div>
+					<div class="store-t-h-intro fl">
+						<div class="s-t-h-n-icon divtab">
+							<div class="s-t-h-nkname fl cf fs14">{$data['c_nickname']}</div>
+						</div>
+						<div class="s-t-h-num divtab cf fs12">
+							<span>粉丝</span>
+							<span>{$data['c_attention']}</span>
+							<span>访问量</span>
+							<span>{$data['c_pv']}</span>
+						</div>
+					</div>
+				</div>
+				<div class="store-t-h-btn divab"><span class="cb fs14">进店看看</span></div>
+
+				<img src="__IMG__/promote_preview_bg.png" alt="" />
+			</div>
+
+			<div class="mui-content">
+				<div class="store-all-tit c9 fs14 divtab bgcolor bborder">商家信息</div>
+				<div class="store-all-desc divtab fs12 c5 bgcolor bborder">
+					<?php if (empty($storeinfo['c_desc'])) { ?>
+					<div class="baoqian">该商家还没有完善资料</div>
+					<?php } else { ?>
+					{$storeinfo['c_desc']} 
+					<?php } ?>
+				</div>
+				<?php if ($cardinfo['c_type'] == 1) { ?>
+					<div class="ad-coupon-site divre bgcolor">
+						<div class="ad-c-sitetit divab divtab cf fs14">优惠券<?php if($cardinfo['c_sign'] == 1) { ?>（平台）<?php } ?></div>
+						<div class="ad-c-sitetime divab divtab cf fs12">有效期：{$cardinfo['c_starttime']}~{$cardinfo['c_endtime']}</div>
+						<div class="ad-c-sitemoney divab cf fs22">￥{$cardinfo['c_money']}</div>
+						<div class="ad-c-sitedesc divab cf fs12">满{$cardinfo['c_limit_money']}可用</div>
+						<div class="ad-c-siterang divab cf fs12">使用范围：<?php if(!empty($cardinfo['c_pcodearr'])) { ?>部分商品<?php } else { ?>全部商品<?php } ?></div>
+						<img src="__IMG__/promote_preview_coupons.png" alt="" />
+					</div>	
+				<?php } else if ($cardinfo['c_type'] == 2) { ?>
+					<div class="ad-coupon-site divre bgcolor">
+						<div class="ad-c-sitetit divab divtab cf fs14">折扣券<?php if($cardinfo['c_sign'] == 1) { ?>（平台）<?php } ?></div>
+						<div class="ad-c-sitetime divab divtab cf fs12">有效期：{$cardinfo['c_starttime']}~{$cardinfo['c_endtime']}</div>
+						<div class="ad-c-sitemoney divab cf fs22">{$cardinfo['c_money']}折</div>
+						<div class="ad-c-sitedesc divab cf fs12">最高折扣{$cardinfo['c_limit_money']}元</div>
+						<div class="ad-c-siterang divab cf fs12">使用范围：<?php if(!empty($cardinfo['c_pcodearr'])) { ?>部分商品<?php } else { ?>全部商品<?php } ?></div>
+						<img src="__IMG__/promote_preview_discount.png" alt="" />
+					</div>
+				<?php } ?>
+				
+				<div class="ad-s-prolist bgcolor">
+					<div class="ad-s-protit"><img src="__IMG__/promote_recommend.png" alt="" /></div>
+					<div class="store-pro-main divtab" id="product_list">
+					<?php foreach ($productlist as $k => $v) { ?>
+						<div class="s-pro-box fl" onclick="shopGoodsDetails('{$v['c_pcode']}','{$v['c_source']}','{$v['c_isagent']}');">
+							<div class="s-pro-img"><img src="{$v['c_pimg']}" alt="" /></div>
+							<div class="s-pro-name c3 fs13 fov">{$v['c_name']}</div>
+							<div class="s-pro-p-n divtab">
+								<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">{$v['c_price']}</span></div>
+
+							</div>
+						</div>
+					<?php } ?>	
+					</div>
+				</div>
+			</div>
+			<div class="ad-creat-site divtab fs16 cb">领取</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xiaomi-bar').css('background','none');
+				var adbarw = $('.ad-site-head').width(),
+					adbarh = adbarw * 0.48;
+				$('.ad-site-head').height(adbarh);
+
+				var thhh = $('.store-t-h-img').width(),
+					tlih = thhh * 50 / 100;
+				$('.store-t-h-img').height(thhh);
+				$('.store-t-h-intro').css('line-height', tlih + 'px');
+
+				var adsitew = $('.s-coupon-site').width(),
+					adsith = adsitew * 0.45;
+				$('.s-coupon-site').height(adsith);
+
+				styles();
+
+			}
+			$(document).ready(function() {
+				/*领取操作*/
+				mui('.wrap-page').on('tap', '.ad-creat-site', function() {
+					if ($('#previewval').val() == 1) {
+						/*预览则取消点击事件*/
+						mui.toast('预览不能领取');
+					} else {
+						ReceiveAdvert();
+					}
+				});
+			});
+
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+			//领取操作
+			var tjsign = true;
+			function ReceiveAdvert() {
+				if (tjsign) {
+					tjsign = false;
+					$.post("__URL__/ReceiveAdvert", {
+						acode: '<?php echo $acode; ?>',
+						cardid: '<?php echo $cardid; ?>',
+						vid: '<?php echo $vid; ?>',
+						type: '<?php echo $type; ?>'
+					}, function(obj) {
+						var data = eval(obj);
+						if (data['code'] == 0) {
+							mui.alert(data['msg']);
+							$('.ad-creat-site').css({'background':"#CCCCCC","color":"#ffffff"});
+							mui('.wrap-page').off('tap','.ad-creat-site');
+						} else if (data['code'] == 1009) {   //跳转登录
+							mui.confirm('领取需先授权登录', '登录提示', ['取消', '确认'], function(e) {
+								e.index == 0 ? "" : mui.openWindow({
+									url: "__APP__/Login/Index?url=" + detailurl,
+									id: 'store'
+								});;
+							}, 'div');
+						} else {
+							mui.toast(data['msg']);
+							tjsign = true;
+						}
+					});
+				}
+			}
+			/*样式*/
+			function styles() {
+				var pimgw = $('.s-pro-img').width();
+				$('.s-pro-img').height(pimgw);
+			}
+
+			/*进店看看*/
+			mui('.ad-site-head').on('tap', '.store-t-h-btn', function() {
+				goShopDetail("<?php echo $acode; ?>");
+			});
+
+			//查看商品详情
+			// function viewproduct (pcode,source,isagent) {
+			// 	shopGoodsDetails(pcode,source,pucode);
+			// }
+
+			/*数据列表加载*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			//getdatalist();
+			// $(window).bind('scroll', function() {
+			// 	if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			// 		if(ctrls && emptyval) {
+			// 			getdatalist();
+			// 		}
+			// 	}
+			// });
+
+			function getdatalist() {
+				var url = "";
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#product_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">没有找到相关信息</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="s-pro-box fl">';
+										_html += '<div class="s-pro-img"><img src="__IMG__/tu15.jpg" alt="" /></div>';
+										_html += '<div class="s-pro-name c3 fs13">富贵竹一束</div>';
+										_html += '<div class="s-pro-p-n divtab">';
+										_html += '<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">80</span></div>';
+										_html += '</div>';
+										_html += '</div>';
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#product_list').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+			/*查看商品详情*/
+			function pro_details(pcode) {
+				var pcode = pcode;
+				window.location.href = WEB_HOST + "/index.php/Home/Entitymap/details?pcode=" + Trim(pcode);
+			}
+
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

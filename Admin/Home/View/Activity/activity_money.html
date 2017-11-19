@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>活动奖金池</title>
+<script type="text/javascript">
+function clickups(ts){
+	var star = $(ts).attr('alt');
+	var gid = $(ts).attr('id'); 
+	var obj = $(ts);
+
+	if(star == 1){
+		var message = "发放状态确定改为发放？";
+	}else{
+		var message = "发放状态确定改为不发放？";
+	}
+	layer.confirm(message,function(index){
+		$.post(HHOME+'/Activity/money_state',{active:star,gid:gid}, function(data){
+			if(data == ""){
+				if(star == 2){
+					var id = 1;
+					var src = '__HIMG__/no.gif';
+				}else{
+					var id = 2;
+					var src = '__HIMG__/yes.gif';
+				}
+				obj.attr('src',src);
+				obj.attr('alt',id);
+				layer.msg('操作成功',{icon:10,time:2000}); 
+			}else{
+				alert(data);
+			}
+		});
+	});
+}
+</script>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 活动管理 <span class="c-gray en">&gt;</span>"{$activityname}"-奖金池<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="__HHOME__/Activity/activity_list" title="返回" ><i class="Hui-iconfont">返回活动列表</i></a></nav>
+
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a class="btn btn-primary radius" onclick="money_add('添加奖金池','money_add?aid={$aid}',780)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加奖金池</a></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="30">ID</th>
+					<th width="60">奖池总额</th>
+					<th width="60">剩余总额</th>
+					<th width="60">送出最小金额</th>
+					<th width="60">送出最大金额</th>
+					<th width="60">规则类型</th>
+					<th width="30">发放状态</th>
+					<if condition="$activitytype eq 15" >
+						<th width="180">发放时间</th>
+					</if>
+					<th width="40">展示图片</th>
+					<th width="130">添加时间</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="moneyid" value=""></td>
+					<td>{$i}</td>															
+					<td>￥{$vo.c_money}</td>
+					<td>￥{$vo.c_remain}</td>
+					<td>￥{$vo.c_min_money}</td>
+					<td>￥{$vo.c_max_money}</td>
+					<td>
+						<if condition="$vo['c_rule'] eq 1">按活动金额表
+						<else/>按活动奖品表
+			         	</if>
+		         	</td>
+					<td>
+						<if condition="$vo['c_state'] eq 1" ><img src="__HIMG__/yes.gif" alt="2" class="activeop" id="{$vo['c_id']}" onclick="clickups(this);" /><else/><img src="__HIMG__/no.gif" alt="1" class="activeop" id="{$vo['c_id']}"   onclick="clickups(this);"/></if>
+		         	</td>
+     	         	<if condition="$activitytype eq 15" >
+     					<td>{$vo['c_starttime']}~{$vo['c_endtime']}</td>
+     				</if>
+		         	<td><a href="__ROOT__/{$vo['c_imgpath']}" target="_blank"><img src="__ROOT__/{$vo['c_imgpath']}" style="width:80px;"/></a></td>
+					<td>{$vo.c_addtime}</td>
+					<td class="f-14">
+						<a title="编辑" href="javascript:;" onclick="money_edit('编辑','money_edit?Id={$vo.c_id}&aid={$vo.c_aid}',780)" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					</td>
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+
+
+/*系统-栏目-添加*/
+function money_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-编辑*/
+function money_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+</script>
+</body>
+</html>

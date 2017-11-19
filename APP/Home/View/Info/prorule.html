@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>商品上传攻略</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<style type="text/css">
+	.prule-con{ padding: 4% 3% 15% 3%;}
+	.prule-con p{ line-height: 1.75rem;text-indent: 2em;}
+	.prule-tit{ font-weight: bold; margin: 5% 0 1% 0;}
+	.prule-tit span{ padding-right:3%; }
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page bgcolor">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<div class="prule-con">
+				<div class="prule-tit c3 fs14"><span>·</span>商品名称的命名规则</div>
+				<p class="fs14 c5">必须包含但不仅限于品牌名+商品名称+货号，字数控制在二十个字以内，不能出现“特价”、“限时优惠”等促销信息，也不能使用“最大”、“最高”、“最好”、“最便宜”、“最低价”等最高级的陈述。</p>
+
+				<div class="prule-tit c3 fs14"><span>·</span>商品描述的填写要求</div>
+				<p class="fs14 c5">商品描述字数控制在五百字以内，不得出现与其它商品和品牌恶意贬低诽谤内容，不得出现虚假宣传和不实描述情况。</p>
+
+				<div class="prule-tit c3 fs14"><span>·</span>图片上传要求</div>
+				<p class="fs14 c5"> 商品首图最多可以上传3张，将在商城列表中和商品轮播图上展示。必须为单图展示，无其他logo。</p>
+				<p class="fs14 c5"> 商品详细图最多可以上传9张，将在商品详细页中向用户进行信息展示。</p>
+				<p class="fs14 c5"> 上传的图片建议414 * 323像素比例，最好不超过1M，上传图片请勿出现大量留白，且不能重复出现同一张图片。</p>
+
+				<div class="prule-tit c3 fs14"><span>·</span>型号添加要求</div>
+				<p class="fs14 c5">商品型号可以是中文英文以及数字的混合，请尽量按照商品的特征进行填写，便于型号的识别，并完善价格和库存。小蜜商家可根据实际情况添加多个商品型号。</p>
+
+				<div class="prule-tit c3 fs14"><span>·</span>商品分类和邮费选择</div>
+				<p class="fs14 c5">小蜜商家需根据实际情况进行商品分类，若无相关分类，可选择“不限”。小蜜商家可自行设置邮费，填写为0，则是包邮。</p>
+
+				<div class="prule-tit c3 fs14"><span>·</span>商品评论</div>
+				<p class="fs14 c5"> 商品购买者在进行商品评论之后，小蜜商家可对评论进行回复，但是不能删除或屏蔽该条评论。</p>
+
+				<div class="prule-tit c3 fs14"><span>·</span>商品链接分享</div>
+				<p class="fs14 c5"> 小蜜商家可将商品进行分享给微信QQ好友，分享至朋友圈和QQ空间。好友点击之后，可进入该商品的详情页面。</p>
+			</div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		//ChRightText("添加");
+		//yangshi()
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+	}
+</script>
+
+</html>

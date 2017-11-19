@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+
+/*个人空间首页*/
+.myspace-s-banner{width: 100%;position: relative;}
+.myspace-s-head{position: absolute;left: 35%;top:10%;width: 30%;}
+.myspace-s-head img{width: 100%;height: 100%;}
+.myspace-s-name{position: absolute;text-align: center;top:45%;color: #fff;font-size: 16px;width: 100%;}
+.myspace-s-desc{position: absolute;text-align: center;top:55%;color: #fff;font-size: 14px;width: 80%;left: 10%;}
+.myspace-s-friend{position: absolute;top: 78%;left: 5%;overflow: hidden;width: 85%;}
+.tip-download{width: 40%;margin-left: 10%;}
+.myspace-s-tab{position: absolute;bottom: 0;width: 100%;overflow: hidden;border-top: solid 1px rgba(255,255,255,.5);}
+.s-tableft{width: 50%; float: left;}
+.myspace-head-main{position: relative;width: 100%;}
+.myspace-head{width: 100%;overflow: hidden;border: solid 4px rgba(255,255,255,.2);position: absolute;left: 0;top: 0;z-index: 55;}
+.myspace-sj-hy{width: 20%;position: absolute;left: 38%;text-align: center;z-index: 66;}
+
+/*新增修改*/
+.myspace-s-log{position: absolute;top: 65%;left: 5%;overflow: hidden;width: 90%;color: #fff;font-size: 14px;
+text-align: center;}
+.myspace-dian{width: 100%;padding: 2%;overflow: hidden;background:#fff;}
+.dian{width: 16%;overflow: hidden;display: block;}
+.dian img{width: 100%;height: 100%;}
+.dian-text{width: 60%;overflow: hidden;margin-left: 2%;}
+.dian-view{padding:1% 3%;color:#999;margin-top:5%;font-size:14px;border: 1px solid #ebebeb;border-radius: 3px;}
+.dian-text h3{font-size: 16px;font-weight: 600px;padding:3% 0px;}
+.dian-text p{font-size: 12px;padding:2% 0px;}
+.dian-shopnum{width: 100%;overflow: hidden;padding:2% 0px;}
+.shopnum1{width:25%;overflow: hidden;margin-right: 4%;}
+.shopnum1 img{vertical-align: center;}
+.f-comm-ico-list img{width: 100%;height: 100%;vertical-align:center;}
+.send-comm-tipimg1{width: 75%;margin-left: 0px;margin-top:3%;}
+.sendcomm-praise1{margin-top:3%;}
+.sendcomm-praisenum1{margin-left: 0%;padding:2.8% 0px;}
+.soucedel{font-size: 14px;color:#6496d6;cursor:pointer;margin-top: 8%;}
+.myspacelv{position: absolute;z-index: 999;width: 100%;left:0px;bottom:0px;}
+.self-head{top:18%;}
+.self-name{top:58%;}
+.self-log{top: 68%;}
+.myspacelvlog{position: absolute;z-index:1000;width: 100%;left:0px;bottom:0px;color:#fff;overflow: hidden;}
+.myspacelvlogff{width: 33.333333%;overflow: hidden;text-align: center;}
+.myspacelvlogff h3{font-size: 16px;padding:1% 0px;}
+.myspacelvlogff p{font-size: 12px;padding:0px 0px 3% 0px;}
+.self-fabu{width: 100%;padding:4%;font-size: 14px;text-align: center;background:#fff;}
+.self-fabu span{color:#6496d6;cursor:pointer;}
+
+
+
+/*商品*/
+.shop-main{padding: 2%;margin-top: 5%;}
+.shop-list{width: 100%;overflow: hidden;}
+.shop-box{float: left;width: 45%;background: #fff;margin:0 0 4% 3.5%;cursor:pointer;}
+.pro-img{width: 100%;}
+.pro-img img{width: 100%;height: 100%;}
+.pro-name{color: #333;font-size: 14px;border-bottom: solid 1px #ececec;padding: 3% 0; margin: 0 2%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;width: 96%;}
+.pro-price-btn{width: 100%;overflow: hidden;padding: 4% 0;}
+.pro-price{float: left;color: #fcac49;font-size: 14px;margin-left:2%;width: 40%;}
+.pro-btn{float: right;width: 48%;margin-right:2%;}
+.pro-btn-a{display: block;border: solid 1px #fcac49;border-radius: 3px;color: #fcac49; font-size: 14px; text-align: center;padding: 3% 0;width: 96%;}
+.pro-agent,.pro-self-support,.pro-rebate{width: 12%;float: left;margin:1.5% 0 0 3%;}
+
+
+/*资源*/
+.myspace-ss-main{padding: 5% 0;background: #fff;}
+.myspace-resourc-list{width: 100%;overflow: hidden;margin: 5% 0; }
+.myspace-ss-font{color: #555;font-size: 14px;line-height: 1.55em;padding: 0 4%;}
+.myspace-ss-img{width: 100%;overflow: hidden;}
+.myspace-ss-img ul li{float: left;width: 29%;margin:2% 0 3% 3%;}
+.myspace-ss-img ul li img{border:solid 1px #ebebeb;width: 100%;height: 100%;}
+.resource-time{color: #999;font-size: 14px;text-align: left;padding-left: 4%;padding-bottom: 2%;border-bottom: solid 1px #f0f0f0;}
+
+
+/*新增资源*/
+.source{width: 100%;padding:3% 2% 5% 2%;overflow: hidden;background:#fff;margin-top: 3%;}
+.source-left{width: 15%;overflow: hidden;text-align: right;padding-right:2%;position:relative;z-index: 12;}
+.timsmonth{margin-top: 15%;}
+.timshours{}
+.source-right{width: 85%;}
+.source-top{position:relative;width: 100%;overflow: hidden;left:-1.25%;z-index: 13;}
+.source-cotent{width: 100%;border-left: 2px solid #f0f0f0;}
+.source-body{width: 94.5%;overflow: hidden;background:#f0f0f0;margin-left: 4.5%;padding:3% 2% 0 3%;border-radius: 6px;position: relative;top: -10px;}
+.new-desc{padding-top:0px;}
+
+
+
+/*个人空间弹出*/
+.self-space-bg{background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%; display: none;}
+.self-space-view{background: #fff;border-radius:5px;top:10%;left:0;right: 0; position:fixed;z-index: 100000;margin: 0 auto;width: 65%; display: none;max-width: 521px;}
+.self-space-info{margin: 0 auto;padding:5%;}
+.self-head{text-align: center;}
+.self-nkname{text-align: center;color: #333;font-size: 14px;padding-top: 3%;}
+.self-signature{font-size: 12px;color: #999;border-bottom: solid 1px #dfdfdf; padding: 2% 0 3% 0;}
+.self-job{color: #999;font-size: 12px;padding: 4% 0 1% 0;}
+.self-area{color: #999;font-size: 12px;padding-bottom:3%;}
+.self-tags{overflow: hidden;width: 100%;}
+.self-tags ul li{ background: #ebebeb; color: #999; float: left; font-size: 12px;padding: 2% 3%;border-radius: 5px;text-align: center;margin: 3% 3% 0 0;}
+
+
+
+/*我的店*/
+.shopping-banner{min-width: 320px; max-width: 720px;width: 100%;}
+.shopping-menu{width: 100%;overflow: hidden;background: #fff;}
+.shopping-menu ul{overflow: hidden;}
+.shopping-menu ul li{float: left;overflow: hidden;width: 33%;}
+.shopping-menu ul li a{display: block;border-bottom: solid 2px #fff;width: 70%;text-align: center;color: #555;font-size: 14px;padding: 6% 0;margin: 0 auto;}
+.shopping-menu ul li a:hover{color: #47abf7;border-bottom: solid 2px #47abf7;}
+.shopping-menu ul li a.hover{color: #47abf7;border-bottom: solid 2px #47abf7;}
+
+.shopping-list{width: 100%;overflow: hidden;}
+.shopping-box{padding: 3%;overflow: hidden;background: #fff;margin-top: 4%;}
+.shopping-box a{display: block;width: 100%;}
+.shopping-img{width: 100%;overflow: hidden;}
+.shopping-img img{width: 100%;height: 100%;}
+.shopping-name{color: #555;font-size: 16px;padding-top: 2%;}
+.shopping-price{color: #fcac49;font-size: 18px;padding: 2% 0;font-weight: 600;}
+.shopping-return{color: #999;font-size: 12px;}
+.shopping-return span{margin-right: 10%;}
+
+.myinfo-dian{width: 100%;padding: 2%;overflow: hidden;position: absolute;bottom:-2%;left:0;
+z-index: 9999;}
+.myinfo-mb{width: 100%;overflow: hidden;position: absolute;bottom:0px;left:0;
+z-index: 999;}
+.store-text{color:#fff;padding-top:2%;}
+.store-view{color:#fff;width: 20%;overflow: hidden;margin-top: 9%;}
+
+/*新增我的粉丝*/
+.fans-top{margin-left: 3%;width: 97%;overflow: hidden;padding:3% 0px;font-size: 16px;border-bottom:1px solid #ebebeb;}
+.fans-list{margin-left: 3%;width: 97%;overflow: hidden;}
+.fans-box{display:block;width: 100%;overflow: hidden;padding:2% 3% 2% 0px;border-bottom:1px solid #ebebeb;}
+.fans-left{width: 15%;overflow: hidden;}
+.fans-left img{width: 100%;height: 100%;}
+.fans-mid{width: 63%;margin-left: 2%;overflow: hidden;}
+.fans-mid h3{font-size: 14px;padding:1% 0px;}
+.fans-mid p{font-size: 12px;}
+.fans-right{width: 20%;margin-top:3%;}
+
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	.dian-text p,.dian-text p,.timshours,.myspacelvlogff p,.fans-mid p{font-size: 16px;}
+	.dian-text h3,.shopping-name,.dian-text h3,.myspacelvlogff h3,.fans-top{font-size: 20px;}
+	.pro-name,.pro-price,.pro-btn-a,.myspace-s-desc,.myspace-ss-font,.myspace-s-log,.dian-view{font-size: 18px;}
+	.myspace-s-name,.shopping-price{font-size: 22px;}
+	.self-nkname,.shopping-menu ul li a,.soucedel,.timsmonth,.self-fabu,.fans-mid h3{font-size: 18px;}
+	.self-signature,.self-job,.self-area,.self-tags ul li,.resource-time{font-size: 14px;}
+	.source-body{top:-12px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	.dian-text p,.dian-text p,.timshours,.myspacelvlogff p,.fans-mid p{font-size: 20px;}
+	.dian-text h3,.shopping-name,.dian-text h3,.myspacelvlogff h3,.fans-top{font-size: 24px;}
+	.pro-name,.pro-price,.pro-btn-a,.myspace-s-desc,.myspace-ss-font,.myspace-s-log,.dian-view{font-size: 22px;}
+	.myspace-s-name,.shopping-price{font-size: 26px;}
+	.self-nkname,.shopping-menu ul li a,.soucedel,.timsmonth,.self-fabu,.fans-mid h3{font-size: 22px;}
+	.self-signature,.self-job,.self-area,.self-tags ul li,.resource-time{font-size: 18px;}
+	.source-body{top:-16px;}
+}
+
+@media (min-width: 621px){	
+	.dian-text p,.dian-text p,.timshours,.myspacelvlogff p,.fans-mid p{font-size: 24px;}
+	.dian-text h3,.shopping-name,.dian-text h3,.myspacelvlogff h3,.fans-top{font-size: 28px;}
+	.pro-name,.pro-price,.pro-btn-a,.myspace-s-desc,.myspace-ss-font,.myspace-s-log,.dian-view{font-size: 26px;}
+	.myspace-s-name,.shopping-price{font-size: 30px;}
+	.self-nkname,.shopping-menu ul li a,.soucedel,.timsmonth,.self-fabu,.fans-mid h3{font-size: 26px;}
+	.self-signature,.self-job,.self-area,.self-tags ul li,.resource-time{font-size: 22px;}
+	.source-body{top:-18px;}
+}
+
+
+
+
+

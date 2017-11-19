@@ -1,0 +1,182 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+
+.suborder-header{ background: #fff; width: 100%;padding: 3% 0;overflow: hidden;}
+.subo-h-left{float: left;overflow: hidden;padding-left: 4%;width: 83%;}
+.subo-h-icon{width: 7%;float: left;padding-top: 2%;}
+.subo-receipt-addr{float: left;margin-left: 2%;width: 90%;}
+.subo-receipt-name{color: #333;font-size: 16px;}
+.subo-receipt-address{color: #999;font-size: 12px;}
+.subo-h-right{float: right;width: 13%;}
+.subo-h-right img{width: 100%;height: 100%;}
+.suborder-h-img{width: 100%;}
+
+.order-pro-list{width: 100%;background: #fff;}
+.buy-pro-list{width: 100%;margin-top: 2%;}
+.buy-pro-box{border-bottom: solid 1px #f0f0f0;width: 100%;padding: 4% 0;overflow: hidden;}
+.buy-pro-img{width: 18%;margin-left: 4%;float: left;}
+.buy-pro-img img{width: 100%;height: 100%;border: solid 1px #d8d8d8;}
+.buy-pro-r-info{width: 76%;float: right;margin-left: 2%;}
+.buy-pro-names{color: #333;font-size: 14px;width: 100%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.buy-pro-poperty{font-size: 12px;color: #999;}
+.buy-pro-price-num{width: 100%;overflow: hidden;}
+.buy-pro-price{color: #ffad3f;font-size: 16px;float: left;}
+.buy-pro-nums{color: #999;font-size: 14px;float: right;padding-right: 5%;}
+.buy-pro-money{color:#555;width: 100%;padding: 4% 0;font-size: 16px;text-align: right;padding-right: 4%;}
+.buy-pro-money span{color: #ffad3f;}
+
+.pay-delivery-type{width: 100%;background: #fff;margin-top: 6%;}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+.pay-types{overflow: hidden;padding: 2% 0;border-bottom: solid 1px #f0f0f0;}
+.pay-types-font{color: #999;font-size: 14px;float: left;width: 25%;padding-left: 4%;}
+.pay-type-money{color: #999;font-size: 14px;float: left;margin-left: 4%;overflow: hidden;overflow: hidden;width: 71%;}
+.pay-type-money input[type='text']{border: none;width: 97%;background: #fff;color: #999;font-size: 14px;padding: 2% 0 2% 3%;}
+.delivery_msg{width: 8%;margin-top: 2%;}
+.delivery_text{padding: 2% 15px;font-size: 12px;color: #555;}
+
+.buyer-message{width: 100%;background: #fff;padding: 4% 0; margin-top: 6%;overflow: hidden;}
+.buyer-msg-font{width: 25%;margin-left: 4%;float: left;color: #999;font-size: 14px;}
+.buyer-msg-text{width: 71%;float: left;}
+.buyer-msg-text textarea{font-size: 14px;color: #999;border: none;width: 96%;}
+
+.suborder-total{overflow:hidden;position: fixed;border-top:solid 1px #ebebeb;width: 100%;max-width: 720px;min-width: 320px; margin:auto;left:0;right:0;bottom:0;}
+.suborder-money{width: 70%;background:#fff;color: #555;font-size: 14px;float: left;padding: 4% 0 4% 4%;}
+.suborder-money-num{color: #ffad3f;font-size: 16px;}
+.suborder-pay-btn{width: 30%;float: left;}
+#btn_pan{ display: block; background: #ffad3f;text-align: center;width: 100%;color: #fff;font-size: 14px;outline: none;}
+
+
+/*新增地址*/
+.insert_bg{position: fixed;width: 100%;height: 100%;top:0px;left:0px;z-index: 999;background: rgba(124,124,124,0.3);display: none;}
+.insert_address{position: absolute;z-index: 9999;width: 100%;max-width:720px;margin:auto;top:10%;background: #ffffff;display: none;}
+.insert_address li{width: 96%;margin-left: 4%;padding: 2% 0px; padding-right: 4%;overflow: hidden;font-size: 14px;color: #999999;border-bottom: 1px solid #ebebeb;}
+.insert_left{width: 20%;padding: 2% 0px;text-align: left;}
+.insert_right{width: 80%;padding-right: 4%;}
+.insert_right img{width: 12%;}
+.login_inpt{border: 0px;padding: 2% 0px;padding-left: 10px;width: 90%;}
+.insert_right select{border: 0px;padding: 2% 0px;padding-right: 3%;}
+.insert_sub{width: 100%;padding: 3% 0px;text-align: center;font-size: 16px;color: #ffffff;background: #00B4EF;border-radius: 6px;}
+.selectct{width: 30%;overflow: hidden;font-size: 14px;}
+/*收货地址操作*/
+.opration{width: 100%;overflow: hidden;padding: 2% 0px;border-top: 1px solid #ebebeb;}
+.opration_xg{width: 20%;margin-right: 4%;color: #999999;font-size: 14px;border: 1px solid #ebebeb; border-radius: 5px;padding: 2%;text-align: center; }
+.opration_up{background: #00b4f0;color: #fff;border: none;}
+
+
+/*收货地址列表*/
+.address-list-main{width: 100%;overflow: hidden;margin-bottom: 10%;max-width: 720px;min-width: 320px;display: none;}
+.address-list{padding:0 0 4% 4%;width: 100%;overflow: hidden;background: #fff;margin-bottom: 5%;}
+.address-list-box{padding: 3% 0;border-bottom: solid 1px #d8d8d8;position: relative;cursor:pointer;}
+.address-name{color: #555;font-size: 14px;}
+.address-info{color: #999;font-size: 14px;width: 85%;}
+.address-opration{padding: 3% 0;width: 100%;}
+.address-opr-input{width: 28%;float: left;}
+.address-opr-btn{float: right;width: 50%;}
+.address-opr-btn a{color: #999; background: none; border-radius: 5px;border: solid 1px #ccc;font-size: 14px; text-align: center;padding: 2% 10%;float: left;margin:0 3%;outline: none;}
+.default-addr-txt{color: #999;font-size: 14px;float: right;}
+.address-add-btn{padding: 2%;background: #fff;overflow: hidden;position: fixed;bottom:0;left:0;right:0;z-index: 999;max-width: 720px;min-width: 320px;width: 100%;margin: 0 auto;}
+#address-btn-add{background: #46aafa; cursor:pointer; color: #fff;font-size: 16px;text-align: center;padding:4% 0;width: 100%;border: none;border-radius: 5px;}
+.selectedimg{width: 6.6%;position: absolute;right: 2%;top: 40%; display: block;z-index: 66;}
+
+/*支付方式*/
+.payment-type{width: 100%;background: #fff;margin-top: 4%;}
+.payment-list{border-bottom: solid 1px #f0f0f0;width: 100%;padding: 4% 0;overflow: hidden;}
+.payment-icon{width: 15%;float: left;}
+.payment-text{color: #555;font-size: 14px;float: left;}
+.payment-radio{float: right;width: 10%;margin-right: 4%;padding-top: 5%;}
+.payment-btn{padding: 10% 0;overflow: hidden;margin: 0 10%;}
+.paym-btn{background: #ffad3f;color: #fff;font-size: 16px;text-align: center;padding: 4% 0;border: none;border-radius: 5px;width: 100%;}
+
+/*支付完成*/
+.paysuccess-top{background: #47abf7;width: 100%;overflow: hidden;padding: 4% 0;}
+.paysuccess-top-l{width: 20%;margin-left: 10%;float: left;}
+.paysuccess-top-r{width: 66%;float: left;margin-left: 4%;}
+.paysuccess-r-txt{color: #fff;font-size: 18px;}
+.payordermoney{color: #fff;font-size: 14px;}
+.achieve-btn{overflow: hidden;padding: 15% 10%;}
+.achieve-btn a{ border-radius: 5px; display: block;font-size: 16px;padding: 3% 8%;text-align: center;float: left;}
+.achieve-btn-l{color: #555;border: solid 1px #999;}
+.achieve-btn-r{color: #47abf7;border: solid 1px #47abf7;margin-left: 15%;}
+
+/*支付失败*/
+.pay-fail-img{overflow: hidden;padding: 10% 15%;text-align: center;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+.subo-receipt-name{font-size: 20px;}
+.subo-receipt-address{font-size: 16px;}
+.buy-pro-names{font-size: 18px;}
+.buy-pro-poperty{font-size: 16px;}
+.buy-pro-price,.buy-pro-money{font-size: 20px;}
+.buy-pro-nums{font-size: 18px;}
+.pay-types-font,.pay-type-money,.buyer-msg-font,.buyer-msg-text textarea{font-size: 18px;}
+.delivery_text,.delivery_msg{font-size: 16px;}
+.suborder-money,#btn_pan{font-size: 18px;}
+.suborder-money-num,.insert_sub{font-size: 20px;}
+.insert_address li,.selectct,.opration_xg{font-size: 18px;}
+.address-name,.address-info,.default-addr-txt,.address-opr-btn a{font-size: 18px;}
+#address-btn-add{font-size: 20px;}
+.payment-text{font-size: 18px;}
+.paym-btn{font-size: 20px;}
+.paysuccess-r-txt{font-size: 22px;}
+.payordermoney{font-size: 18px;}
+.achieve-btn a{font-size: 20px;}
+
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+.subo-receipt-name{font-size: 24px;}
+.subo-receipt-address{font-size: 20px;}
+.buy-pro-names{font-size: 22px;}
+.buy-pro-poperty{font-size: 20px;}
+.buy-pro-price,.buy-pro-money{font-size: 24px;}
+.buy-pro-nums{font-size: 22px;}
+.pay-types-font,.pay-type-money,.buyer-msg-font,.buyer-msg-text textarea{font-size: 22px;}
+.delivery_text,.delivery_msg{font-size: 18px;}
+.suborder-money,#btn_pan{font-size: 22px;}
+.suborder-money-num,.insert_sub{font-size: 24px;}
+.insert_address li,.selectct,.opration_xg{font-size: 22px;}
+.address-name,.address-info,.default-addr-txt,.address-opr-btn a{font-size: 22px}
+#address-btn-add{font-size: 24px;}
+.payment-text{font-size: 22px;}
+.paym-btn{font-size: 24px;}
+.paysuccess-r-txt{font-size: 26px;}
+.payordermoney{font-size: 22px;}
+.achieve-btn a{font-size: 24px;}
+
+}
+
+@media (min-width: 621px){	
+.subo-receipt-name{font-size: 28px;}
+.subo-receipt-address{font-size: 24px;}
+.buy-pro-names{font-size: 26px;}
+.buy-pro-poperty{font-size: 24px;}
+.buy-pro-price,.buy-pro-money{font-size: 28px;}
+.buy-pro-nums{font-size: 26px;}
+.pay-types-font,.pay-type-money,.buyer-msg-font,.buyer-msg-text textarea{font-size: 26px;}
+.delivery_text,.delivery_msg{font-size: 18px;}
+.suborder-money,#btn_pan{font-size: 26px;}
+.suborder-money-num,.insert_sub{font-size: 28px;}
+.insert_address li,.selectct,.opration_xg{font-size: 26px;}
+.address-name,.address-info,.default-addr-txt,.address-opr-btn a{font-size: 26px}
+#address-btn-add{font-size: 28px;}
+.payment-text{font-size: 26px;}
+.paym-btn{font-size: 28px;}
+.paysuccess-r-txt{font-size: 30px;}
+.payordermoney{font-size: 26px;}
+.achieve-btn a{font-size: 28px;}
+
+}
+
+/*radio按钮*/
+input[type="radio"]{width: 20px;height: 20px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../../img/shop/delivery-link.png");background-size: 100% 100%;outline: none;}
+input[type="radio"]:checked {width: 20px;height: 20px;border: 0px;background:url("../../img/shop/delivery-hover.png");background-size: 100% 100%;outline: none;}
+
+.payment-radio input[type="radio"]{background: url(../../img/shop/mycart_3.png);background-size: 100% 100%;}
+.payment-radio input[type="radio"]:checked {background: url(../../img/shop/mycart_2.png);background-size: 100% 100%;}
+
+@media (min-width: 421px){
+    input[type="radio"]{width: 25px;height: 25px;background-size: 100% 100%;outline: none;}
+    input[type="radio"]:checked {width: 25px;height: 25px;background-size: 100% 100%;outline: none;}  
+}
+

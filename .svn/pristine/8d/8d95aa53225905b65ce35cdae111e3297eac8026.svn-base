@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>藏宝记录</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+		
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content">
+					<div class="comm-nav-tab bgcolor divtab fs14">
+						<ul>
+							<li class="hover c-nav-tli" id="c-nav-t1">商品</li>
+							<li class="c-nav-tli" id="c-nav-t2">卡券</li>
+							<li class="c-nav-tli" id="c-nav-t3">红包</li>
+						</ul>
+					</div>
+
+					<!-- 商品  -->
+					<div class="ch-product-main divtab" id="page_1">
+						<div class="ch-product-status ch-status divtab  bgcolor bborder">
+							<div class="fl">
+								<p class="cy fs14">
+									{$protj['gff']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">共发放</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$protj['ddh']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">待兑换</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$protj['dlq']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">待领取</span>
+							</div>
+						</div>
+						
+					</div>
+					<!--  商品 -->
+
+					<!-- 卡券  -->
+					<div class="coupon-main" id="page_2" style="display: none;">
+						<div class="coupon-status ch-status divtab  bgcolor bborder">
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['gff']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">共发放</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['dsy']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">待使用</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['wlq']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">未领取</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['ygq']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">已过期</span>
+							</div>
+						</div>
+
+					</div>
+					<!-- 卡券  -->
+					
+					<div id="data_list">
+						
+					</div>
+					
+					<!-- 红包  -->
+					<div class="red-main" id="page_3" style="display:none">
+						<div class="red-money-status ch-status divtab  bgcolor bborder">
+							<div class="fl">
+								<p class="cy fs14">￥
+									<?php if(!empty($redtj['tfze'])){ ?>{$redtj['tfze']}
+									<?php }else{ ?>0
+									<?php } ?>
+									<font class="fs11">元</font>
+								</p>
+								<span class="fs12 c3">投放总额</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">￥
+									<?php if(!empty($redtj['syje'])){ ?>{$redtj['syje']}
+									<?php }else{ ?>0
+									<?php } ?>
+									<font class="fs11">元</font>
+								</p>
+								<span class="fs12 c3">剩余金额</span>
+							</div>
+						</div>				
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell mui-collapse mui-active" data-month="{$monthdata}" data-id="0">
+								<a class="mui-navigate-right fs14">{$monthn}</a>
+								<div id="data_month_0" class="mui-collapse-content">
+								</div>
+							</li>
+							<volist name="datearr" id="vom">
+							<li class="mui-table-view-cell mui-collapse" data-month="{$vom['date']}" data-id="{$i}">
+								<a class="mui-navigate-right fs14">{$vom['name']}</a>
+								<div id="data_month_{$i}" class="mui-collapse-content">
+									
+								</div>
+							</li>
+							</volist>
+						</ul>
+					</div>
+					<!-- 红包  -->
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		var datamonth = '<?php echo $monthdata; ?>'
+		window.onload = function() {
+
+			ChRightText("筛选");
+
+			yangshi();
+
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+
+			$('.ch-product-img').height($('.ch-product-img').width());
+			$('.ch-product-info').css('line-height', $('.ch-product-img').width() * 0.3 + 'px');
+			$('.ch-seller-head').height($('.ch-seller-head').width());
+			$('.ch-seller-head').css('border-radius', $('.ch-seller-head').width() + 'px');
+			$('.ch-seller-name').css('line-height', $('.ch-seller-head').width() + 'px');
+
+			$('.tip-pup').css('bottom', $('.ch-product-seller').height() + 8 + "px");
+
+		}
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		var ctrls_3 = true;
+		var emptyval_3 = true;
+
+		/*列表*/
+		var statu = '<?php echo $statu ?>';
+		if(!statu) {
+			statu = 1;
+		}
+		
+		selectstatu(statu);
+
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+
+			ctrls_3 = true;
+			emptyval_3 = true;
+
+			$('.c-nav-tli').removeClass('hover');
+			$('#c-nav-t' + i).addClass('hover');
+			if(statu == 1) {
+				$('#page_3').hide();
+				$('#page_2').hide();
+				$('#page_1').show();
+				$('#data_list').show();
+				getdatalist();
+			}
+			if(statu == 2) {
+				$('#page_3').hide();
+				$('#page_1').hide();
+				$('#page_2').show();
+				$('#data_list').show();
+				getdatalist();
+			}
+			if(statu == 3) {
+				$('#page_2').hide();
+				$('#page_1').hide();
+				$('#data_list').hide();
+				$('#page_3').show();
+				getdatamonth('' + datamonth + '', 0);
+			}
+		}
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			selectstatu(1);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			selectstatu(2);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t3', function() {
+			selectstatu(3);
+		});
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+			if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').addClass('menu-fixed');
+			}
+			if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').removeClass('menu-fixed');
+			}
+		});
+		/*商品*/
+		function getdatalist() {
+			var geturl;
+			if(statu == 1) {
+				geturl = '__URL__/GoodsLog?pageindex=' + pageindex + '&joinaid=' + joinaid;
+			} else if(statu == 2) {
+				geturl = '__URL__/CoupondProLog?pageindex=' + pageindex + '&joinaid=' + joinaid;
+			}
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: geturl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">暂无相关记录</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									if(statu == 1) {
+										_html += '<div class="ch-product-item bgcolor divre pro-item-' + pageindex + '">';
+										_html += '<div class="ch-product-top divtab bborder">';
+										_html += '<div class="ch-product-img fl">';
+										_html += '<img src="' + dataarr['pimg'] + '">';
+										_html += '</div>';
+										_html += '<div class="ch-product-info fl">';
+										_html += '<div class="ch-info-name fov fs13">' + dataarr['pname'] + '</div>';
+										_html += '<div class="ch-info-time fs12 c9">';
+										_html += '有效期：' + dataarr['times'] + '';
+										_html += '</div>';
+										_html += '<div class="ch-info-status fs11 c9">';
+										if(dataarr['c_status'] == 0) {
+											_html += '待领取';
+										} else if(dataarr['c_status'] == 1) {
+											_html += '待发放';
+										} else if(dataarr['c_status'] == 2) {
+											_html += '待确认';
+										} else if(dataarr['c_status'] == 3) {
+											_html += '已发放';
+										}
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '<div class="ch-product-seller divtab">';
+										_html += '<div class="fl ch-seller-head"><img src="' + dataarr['headimg'] + '"></div>';
+										_html += '<div class="fl ch-seller-name fs13 c3">' + dataarr['nickname'] + '</div>';
+										if(dataarr['c_status'] == 0) {
+											_html += '<div class="fr ch-seller-operate ch-seller-operate01 fs13">待领取</div>';
+										} else if(dataarr['c_status'] == 1) {
+											_html += '<div class="fr ch-seller-operate ch-seller-operate02 fs13" title="' + dataarr['c_id'] + '">确认发放</div>';
+										} else if(dataarr['c_status'] == 2) {
+											_html += '<div class="fr ch-seller-operate ch-seller-operate01 fs13">待确认</div>';
+										} else if(dataarr['c_status'] == 3) {
+											_html += '<div class="fr ch-seller-operate ch-seller-operate01 fs13">已发放</div>';
+										}
+										_html += '</div>';
+										_html += '<div class="tip-pup divab" style="display:none;" id="tip-pup-' + dataarr['c_id'] + '>';
+										_html += '<div class="tip-pup-con divre">';
+										_html += '<div class="tip-pup-txt divab cf fs13">记得提醒用户确认兑换！</div>';
+										_html += '<img src="__IMG__/chests/jilu_tip_pop.png" alt="" />';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+
+									} else if(statu == 2) {
+
+										_html += '<div class="coupon-box divre">';
+										if(dataarr['coupond_type'] == 1) {
+											var ma = Math.round(dataarr['c_money']);
+											_html += '<div class="d-coupon-money divab cf"><span class="fs18">' + ma + '</span><br /><span class="fs12">元</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs14">代金券</p>';
+											_html += '<p class="cf fs14">';
+											if(dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+										}
+										if(dataarr['coupond_type'] == 2) {
+											var mb = Math.round(dataarr['c_money'], 1);
+											_html += '<div class="d-coupon-money divab cf"><span class="fs18">' + mb + '</span><br /><span class="fs12">折</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs14">折扣券</p>';
+											_html += '<p class="cf fs14">';
+											if(dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+										}
+										_html += '<span>' + dataarr['c_name'] + '</span></p>';
+										_html += '</div>';
+										if(dataarr['c_sign'] == 1) {
+											_html += '<div class="coupon-range divab cf fs12">全平台通用</div>';
+										} else {
+											_html += '<div class="coupon-range zk-seller divab cf fs12 fov" onclick="viewshop(\'' + dataarr['shopucode'] + '\')">商家「' + dataarr['c_nickname'] + '」</div>';
+										}
+										_html += '<div class="coupon-time divab cf fs12">' + dataarr['times'] + '</div>';
+										if(dataarr['c_sign'] == 1) {
+											_html += '<div class="d-coupon-ico divab fs12 cf">平台补贴</div>';
+										}
+										if(dataarr['fadestate'] == 1) {											
+											_html += '<img src="__IMG__/chests/kqgl_bg_guoqi.png" alt="" />';
+										}else{
+											if(dataarr['coupond_type'] == 1) {
+												_html += '<img src="__IMG__/chests/kqgl_bg_daijin.png" alt="" />';
+	
+											}
+											if(dataarr['coupond_type'] == 2) {
+												_html += '<img src="__IMG__/chests/kqgl_bj_youhui.png" alt="" />';
+											}											
+										}
+										_html += '</div>';
+									} else if(statu == 3) {
+
+									}
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						/*确认发放*/
+						mui('.pro-item-' + pageindex).on('tap', '.ch-seller-operate02', function() {
+							var pid = $(this).attr('title');
+							suresend(pid);
+						});
+
+					}
+				}
+			});
+		}
+
+		var getsign = true;
+		var tmid;
+		/*确认发放*/
+		function suresend(pid) {
+			if(getsign) {
+				getsign = false;
+				$.post("__URL__/OfflineExchange", {
+					sid: pid
+				}, function(obj) {
+					var msg = eval(obj);
+					getsign = true;
+					if(msg['code'] == 0) {
+						mui.toast(msg['msg']);
+						$('#tip-pup-' + pid).fadeIn(300);
+						tmid = window.setTimeout(closetip(pid), 60000);
+						$('#tip-pup-' + pid).click(function() {
+							$(this).fadeOut(300);
+							window.clearTimeout(tmid);
+						});
+						setTimeout(function() {
+							mui.openWindow({
+								url: '__URL__/record?joinaid=' + $('#joinaid').val() + '&statu=1',
+								id: "index"
+							});
+						}, 1000);
+					} else {
+						mui.toast(msg['msg']);
+					}
+				});
+			}
+		}
+
+		function closetip(pid) {
+			$('#tip-pup-' + pid).fadeOut(300);
+		}
+		//查看商家
+		function veiwshop(ucode) {
+			mui.openWindow({
+				url: '__APP__/Store/Index/index?fromucode=' + ucode,
+				id: 'veiwshop'
+			});
+		}
+
+		/*红包筛选*/
+		function rightcaozuo() {
+			var optionsJson = '{"type":"date"}';
+			var options = JSON.parse(optionsJson);
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				$('#datetime').val(rs.text);
+				pageindex = 1;
+				picker.dispose();
+			});
+		}
+
+		/*红包，根据不同月份查询，月份格式2017-05，先获取月份，*/
+		function getdatamonth(month, id) {
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: '__URL__/CoupondLog?joinaid=' + joinaid + '&month=' + month,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls_3 = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls_3 = true;
+				},
+				success: function(obj) {
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						$('#data_month_' + id).empty();
+						var data = mgs.data;
+						if(!data) {
+							_html += '<div class="baoqian">暂无相关记录</div>';
+							emptyval_3 = false;
+						} else {
+							for(var i = 0; i < data.length; i++) {
+								dataarr = data[i];
+								_html += '<div class="bborder divtab">';
+								_html += '<div class="red-item-con divtab">';
+								_html += '<div class="red-item-time fl c9">';
+								_html += '<p class="fs12">' + dataarr['todays'] + '</p>';
+								_html += '<p class="fs11">' + dataarr['desctime'] + '</p>';
+								_html += '</div>';
+								_html += '<div class="red-item-img fl child-img">';
+								_html += '<img src="' + dataarr['headimg'] + '">';
+								_html += '</div>';
+								_html += '<div class="red-item-info fl">';
+								_html += '<div class="divtab">';
+								_html += '<div class="fs14 fov c5">' + dataarr['c_name'] + '';
+								if(dataarr['c_type'] == 1) {
+									_html += '<font class="rtype02 fs11 cf">普</font>';
+								}
+								if(dataarr['c_type'] == 2) {
+									_html += '<font class="rtype01 fs11 cf">拼</font>';
+								}
+								_html += '</div>';
+								_html += '</div>';
+								if(dataarr['c_value']){
+									_html += '<span class="fs12 c3">' + dataarr['c_value'] + '元</span>';
+								}
+								_html += '</div>';
+								_html += '</div>';
+								_html += '</div>';
+							}
+						}
+					} else {
+						emptyval_3 = false;
+					}
+					$('#data_month_' + id).append(_html);
+
+				},
+				complete: function() {						
+					$('.red-item-img').width($('.red-item-img').width());
+					$('.red-item-img').height($('.red-item-img').width());
+					$('.red-item-img').css('border-radius', $('.red-item-img').width() + 'px');
+					$('.red-item-info').css('line-height', $('.red-item-img').width() * 0.5 + 'px');
+					$('.red-item-time').css('height', $('.red-item-img').width() + 'px');
+					$('#console').css('display', 'none');
+					ctrls_3 = true;
+					if(emptyval_3) {}
+				}
+			});
+		}
+		/*月份切换*/
+		mui('.mui-table-view').on('tap','.mui-collapse',function(){
+			var month = $(this).attr("data-month");
+			var id = $(this).attr("data-id");
+			getdatamonth(month,id);
+		});
+	</script>
+
+</html>

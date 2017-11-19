@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商圈</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.4"></script>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<input type="hidden" name="province" id="province" value="" />
+			<input type="hidden" name="city" id="city" value="" />
+			<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}" />
+			<input type="hidden" name="citycode" id="citycode" value="{$citycode}" />
+			<div class="mui-content">
+				<div class="t-trade-head divre divtab">
+					<div class="t-header-info divtab divab">
+						<div class="t-header-saom fl"><img src="__IMG__/nav_saoyisao2x.png" alt="" /></div>
+						<div class="t-header-title fl cf fs16">商圈</div>
+						<div class="t-header-msg fl divre">
+							<img src="__IMG__/nav_message2x.png" alt="" />
+							<span class="t-msg-unread divab" <?php if ($msgtag==1 ) {?>style="display:block;"<?php } else { ?>style="display:none;"<?php } ?>></span>
+						</div>
+					</div>
+					<div class="t-trade-headimg divab">
+						<div class="t-trade-h-img fl"><img src="__IMG__/logo2x.png" alt="" id="circleimg" /></div>
+						<div class="t-trade-h-info fl">
+							<div class="t-trade-name divtab">
+								<div class="fs14 cf fl t-sqname" id="localtitle"></div>
+								<div class="fl divre t-sqlevel">
+									<!--<div class="divab fs11 t-sqlevel-num">LV.16</div>--><img src="__IMG__/level-8.png" alt="" id="levelimg" /></div>
+							</div>
+							<div class="t-trade-num divtab">
+								<div class="t-trade-in fl cf fs12">信息&nbsp;<span id="resourcenum"></span></div>
+								<div class="t-trade-mo fl cf fs12">人气&nbsp;<span id="moods"></span></div>
+							</div>
+						</div>
+					</div>
+					<div class="t-trade-more divab">
+						<div class="t-t-more"><img src="__IMG__/district_icon_switch2x.png" alt="" /></div>
+						<p class="fs12 cf">切换商圈</p>
+					</div>
+					<img src="__IMG__/hy4.png" alt="" />
+				</div>
+
+				<div class="trade-menu-bar bgcolor divtab" style="display: none;">
+					<ul>
+						<li id="t-s-mbar-1">
+							<div class="t-menu-li fl"><img src="__IMG__/sq_icon_qd1.png" alt="" /></div>
+							<div class="t-menu-li-font fl c5 fs13" id="checkin">签到</div>
+						</li>
+						<li id="t-s-mbar-2">
+							<div class="t-menu-li fl"><img src="__IMG__/sq_icon_hd.png" alt="" /></div>
+							<div class="t-menu-li-font fl c5 fs13">活动</div>
+						</li>
+						<li id="t-s-mbar-3">
+							<div class="t-menu-li fl"><img src="__IMG__/sq_icon_sc.png" alt="" /></div>
+							<div class="t-menu-li-font fl c5 fs13">商城</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="t-cir-scroll fs13 divre">
+					<div class="mui-scroll-wrapper" id="news_list">
+						<div class="mui-scroll">
+							<div class="news-item fs13 c9"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="t-maps-con divtab" style="margin: 4% auto;"><img src="__IMG__/trademap.png" alt="" /></div>
+
+				<div class="t-source-main divtab" id="sq_source_list">
+
+				</div>
+				<div id="console"></div>
+			</div>
+
+			<!-- 评论弹出框 -->
+			<div class="send-comm-bg"></div>
+			<div class="send-comm-pup">
+				<div class="send-comm-puptit">评论</div>
+				<div class="send-comm-txt">
+					<textarea placeholder="输入评论内容" name="feel" id="feel" rows="6" class="fs12"></textarea>
+				</div>
+				<input type="hidden" name="rid" id="rid" value="">
+				<input type="hidden" name="bid" id="bid" value="">
+				<div class="send-comm-btn" onclick="subcomment();">发表</div>
+			</div>
+			<!--作发布资源按钮-->
+			<div class="t-s-publish-bg"></div>
+			<div class="t-s-publish-content none">
+				<div class="t-s-publish-imgtxt">
+					<div class="t-s-publish-sub fl"><img src="__IMG__/district_corner_Image2x.png" alt="" /></div>
+					<div class="t-s-publish-search fl"><img src="__IMG__/district_corner_search.png" alt="" /></div>
+					<div class="t-s-publish-close fr"><img src="__IMG__/district_icon_close2x.png" alt="" /></div>
+				</div>
+			</div>
+			<div class="t-s-publish-pup">
+				<div class="t-s-publish-pupimg">
+					<img src="__IMG__/district_icon_add2x.png" alt="" id="publish_img" />
+				</div>
+			</div>
+
+			<!-- 底部菜单浮层 -->
+			<div class="sm-bottom">
+				<div class="sm-bottom-main">
+					<div class="sm-bottom-menu">
+						<a href="{:U('Index/index')}" class="sm-bottom-a">
+							<img src="__COMMON__/img/sm_img_d1.png" alt="">
+						</a>
+					</div>
+					<div class="sm-bottom-menu">
+						<a href="__APP__/Shopping/index" class="sm-bottom-a">
+							<img src="__COMMON__/img/sm_img_d2.png" alt="">
+						</a>
+					</div>
+					<div class="sm-bottom-menu">
+						<a href="__APP__/Home/Index/index" class="sm-bottom-a">
+							<img src="__COMMON__/img/sm_img_d3.png" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!--
+    	作者：1415801689@qq.com
+    	时间：2017-04-06
+    	描述：切换商圈提示
+   -->
+			<div class="prompt-cut-bg"></div>
+			<div class="prompt-cut-pup">
+				<div class="prompt-cut-cont bgcolor">
+					<div class="prompt-cut-font fs14 block">是否切换到长沙商圈</div>
+					<div class="prompt-cout-position fs11 c9">您当前位置是长沙市</div>
+					<div class="prompt-sure-btn divtab">
+						<div class="prompt-surebtn-le fl fs13 c3">取消</div>
+						<div class="prompt-surebtn-ri fl fs13 c3">切换</div>
+					</div>
+				</div>
+			</div>
+			<div id="allmap"></div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript" src="__JS__/option.js"></script>
+		
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				styles();
+				getLocation();
+				//source_style();					
+			}
+			
+			/*样式*/
+			function styles() {
+				var headw = $('.t-trade-head').width(),
+					headh = headw * 0.38;
+				$('.t-trade-head').height(headh);
+
+				var msgw = $('.t-header-msg').width();
+				$('.t-header-msg').width(msgw);
+				$('.t-header-msg').height(msgw);
+				$('.t-header-saom').width(msgw);
+				$('.t-header-saom').height(msgw);
+				$('.t-header-title').css('line-height', msgw + 'px');
+
+				var unrw = $('.t-msg-unread').width();
+				$('.t-msg-unread').width(unrw);
+				$('.t-msg-unread').height(unrw);
+				$('.t-msg-unread').css('border-radius', unrw + 'px');
+
+				var thimgh = $('.t-trade-h-img').width();
+				$('.t-trade-h-img').width(thimgh);
+				$('.t-trade-h-img').height(thimgh);
+
+				var tlw = $('.t-sqlevel').width(),
+					tlh = tlw * 0.48;
+				$('.t-sqlevel').height(tlh);
+				$('.t-sqlevel').css('line-height', tlh + "px");
+
+				$('.t-menu-li').height($('.t-menu-li').width());
+				var mlih = $('.t-menu-li').height();
+				$('.t-menu-li-font').css('line-height', mlih + 'px');
+
+//				var sclh = $('.t-cir-scroll').height(),
+//					sclw = $('.t-cir-scroll').width();
+//				$('.t-cir-scroll').height(sclh);
+//				$('.t-cir-scroll').css('line-height', sclh + "px");
+//				$('.t-cir-scroll').width(sclw);
+//				$('#scroll_div').height(sclh);
+//				$('#scroll_div').width(sclw);
+
+				var smbh = $('.sm-bottom').height();
+				$('.t-s-publish-pup').css('bottom', smbh + 'px');
+
+			}
+//			mui('#news_list').scroll({
+//				deceleration: 0.0005,				
+//				scrollY: false, //是否竖向滚动
+//				scrollX: true, //是否横向滚动
+//				startX: 0, //初始化时滚动至x
+//				startY: 0, //初始化时滚动至y
+//				indicators: false, //是否显示滚动条
+//				deceleration:0.0005, //阻尼系数,系数越小滑动越灵敏
+//				bounce: false //是否启用回弹
+//			});
+			/*资源列表样式*/
+			function source_style() {
+				var headw = $('.t-s-headimg').width(),
+					hlih = headw * 50 / 100;
+				$('.t-s-headimg').height(headw);
+				$('.t-s-headname').css('line-height', hlih + 'px');
+
+				var tsimgw = $('.t-s-imglist ul li').width();
+				$('.t-s-imglist ul li').height(tsimgw);
+
+				var tsich = $('.t-s-btn-ico-3').height();
+				$('.t-s-btn-praisen').css('line-height', tsich + 'px');
+
+				var pimgh = $('.f-product-img').width(),
+					pnameh = pimgh * 50 / 100,
+					arrowm = pimgh * 25 / 100;
+				$('.f-product-img').height(pimgh);
+				$('.f-pro-names-price').css('line-height', pnameh + 'px');
+				$('.f-pro-arrow').css('margin-top', arrowm + 'px');
+				
+//				var videow = $('.t-s-video-li').width();
+//				$('.t-s-video-li').height(videow*0.56);
+//				$('.t-s-video-li video').play(); // 播放
+//				$('.t-s-video-li video').pause(); // 暂停
+
+			}
+			
+			function NewsShopact(){
+				$.post("__URL__/NewShopact",{provincecode:$('#provincecode').val(),citycode:$('#citycode').val()},function(obj){
+					var data = eval(obj);
+					if(data['code']==0){
+						$('.news-item').html(data['data']['content']);						
+						mui('.mui-content').on('tap','.news-item',function(){
+							mui.openWindow({url:""+data['data']['weburl']+"",id:"news"})
+						});
+					}
+				});
+			}
+			/*签到*/
+			mui('.trade-menu-bar').on('tap', '#t-s-mbar-1', function() {
+				mui.openWindow({url:"__APP__/Activity/Signin/index",id:"Signin"});
+				//Usersign();
+			});
+
+			//用户签到
+			function Usersign() {
+				var province = $('#province').val();
+				var city = $('#city').val();
+				var provcode = $('#provincecode').val();
+				var ccode = $('#citycode').val();
+				if(!provcode || !ccode) {
+					mui.alert('请稍后再试');
+					return;
+				}
+				var urls = '__URL__/Usersign?province=' + province + '&city=' + city + '&provincecode=' + provcode + '&citycode=' + ccode;
+
+				$.getJSON(urls, function(json) {
+					var obj = eval(json);
+					if(obj['code'] == 0) {
+						var data = obj.data;
+						var moodsnum = parseInt($('#moods').text()) + data['add_moods'];
+						$('#moods').text(moodsnum);
+						$('#checkin').text('已签到');
+						$('#checkin').addClass('cy');
+						$('#checkin').removeClass('c5');
+					} else {
+						mui.alert(obj.msg);
+					}
+				});
+			}
+			//获取用户签到信息
+			function Signinfo() {
+				var province = $('#province').val();
+				var city = $('#city').val();
+				var provcode = $('#provincecode').val();
+				var ccode = $('#citycode').val();
+				var urls = '__URL__/Signinfo?province=' + province + '&city=' + city + '&provincecode=' + provcode + '&citycode=' + ccode;
+
+				$.getJSON(urls, function(json) {
+					var obj = eval(json);
+					if(obj['code'] == 0) {
+						var data = obj.data;
+						if(data.signstate == 1) {
+							$('#checkin').text(data.msg);
+							$('#checkin').addClass('cy');
+							$('#checkin').removeClass('c5');
+						}
+					}
+				});
+			}
+			/*活动*/
+			mui('.trade-menu-bar').on('tap', '#t-s-mbar-2', function() {
+				mui.openWindow({
+					url: '__URL__/activitylist?provincecode=' + $('#provincecode').val() + '&citycode=' + $('#citycode').val(),
+					id: 'activity'
+				});
+			});
+			/*商家*/
+			mui('.trade-menu-bar').on('tap', '#t-s-mbar-3', function() {
+				mui.openWindow({url:"__APP__/Shopping/Index/index",id:"shopping"});
+//				mui.openWindow({
+//					url: '__URL__/shopslist?provincecode=' + $('#provincecode').val() + '&citycode=' + $('#citycode').val(),
+//					id: 'business'
+//				});
+			});
+			/*切换商圈*/
+			mui('.t-trade-head').on('tap', '.t-trade-more', function() {
+				mui.openWindow({
+					url: '__URL__/changetrade?provincecode=' + $('#provincecode').val() + '&citycode=' + $('#citycode').val(),
+					id: 'business'
+				});
+			});
+			/*扫码提示*/
+			mui('.t-trade-head').on('tap', '.t-header-saom', function() {
+				fchat();
+			});
+
+			/*消息跳转*/
+			mui('.t-trade-head').on('tap', '.t-header-msg', function() {
+				if(!ucode){
+		 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'});
+		 		}else{
+		 			mui.openWindow({url:'__APP__/Home/Message/index',id:'mesg'});
+		 		}
+			});
+
+
+			/*资源数据加载*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			var keyword = '';
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getresourcelist($('#provincecode').val(), $('#citycode').val());
+					}
+				}
+			});
+
+			function getresourcelist(provincecode, citycode) {
+				var url = "__URL__/GetCircleResource?pageindex=" + pageindex + "&provincecode=" + provincecode + "&citycode=" + citycode + "";
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#sq_source_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img">';
+									_html += '<img src="__RSC__/Activity/img/chests/box_default.png" alt="" />';
+									_html += '</div>';
+									_html += '<div class="data-empty-font c3 fs13">暂无相关商圈信息</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										if(datalist[i]['is_like'] == 0) {
+											var oplike = 1;
+										} else {
+											var oplike = 0;
+										}
+										if(datalist[i]['is_attention'] == 0) {
+											var opatten = 1;
+										} else {
+											var opatten = 0;
+										}
+										_html += '<div class="t-source-list t-s-list-' + pageindex + '"  title="' + datalist[i]['c_id'] + '">';
+										_html += '<div class="t-source-ri fl divre">';
+										_html += '<div class="t-source-b-t divre"><img src="__IMG__/t_1_03.png" alt="" /></div>';
+										_html += '<div class="t-source-b-c">';
+										_html += '<div class="t-source-b-body">';
+										_html += '<input type="hidden" id="prastatu' + datalist[i]['c_id'] + '" value="' + oplike + '" />';
+										_html += '<input type="hidden" id="attentatu' + datalist[i]['c_id'] + '" value="' + opatten + '"/>';
+										_html += '<input type="hidden" id="rid_' + pageindex + '_' + i + '" value="' + datalist[i]['c_id'] + '"/>';
+										_html += '<input type="hidden" id="issue_ucode_' + pageindex + '_' + i + '" value="' + datalist[i]['c_ucode'] + '"/>';
+										_html += '<div class="t-s-head-info divtab">';
+										_html += '<div class="t-s-head fl" title="' + datalist[i]['c_ucode'] + '" data-type="'+ datalist[i]['jumptype'] +'">';
+										_html += '<div class="t-s-headimg fl">';
+										_html += '<img src="' + datalist[i]['c_headimg'] + '" alt="" />';
+										_html += '</div>';
+										_html += '<div class="t-s-headname fl">';
+										_html += '<div class="t-s-h-name fs14 cb fov">' + datalist[i]['c_nickname'] + '</div>';
+										_html += '<div class="t-s-h-time fs12 c9">' + datalist[i]['switch_addtime'] + '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										if(ucode != datalist[i]['c_ucode']) {
+											_html += '<div class="t-s-attention fr">';
+											if(datalist[i]['is_attention'] == 0) {
+												_html += '<div class="t-s-de-attention fl fs11 c9" style="width:100%;padding:3%;" id="attention-' + datalist[i]['c_id'] + '" onclick="attentionss(' + datalist[i]['c_id'] + ',\'' + datalist[i]['c_ucode'] + '\',1,1)">+关注</div>';
+											} else {
+												_html += '<div class="t-s-de-attention fl fs11 c9" style="width:100%;padding:3%;" id="attention-' + datalist[i]['c_id'] + '" onclick="attentionss(' + datalist[i]['c_id'] + ',\'' + datalist[i]['c_ucode'] + '\',1,0)">取消关注</div>';
+											}
+											_html += '</div>';
+										}
+										_html += '</div>';
+										var sc_type = datalist[i]['c_type'];
+										if(sc_type == 1) {
+											if(datalist[i]['c_content']) {
+												_html += '<div class="t-s-desription c5 fs13 divtab" title="' + datalist[i]['c_id'] + '">';
+												_html += '' + datalist[i]['c_content'] + '';
+												_html += '</div>';
+											}
+											var imglist = datalist[i]['imglist'];
+											if(imglist.length > 0) {
+												_html += '<div class="t-s-imglist divtab" id="imglist-' + datalist[i]['c_id'] + '" title="' + datalist[i]['c_id'] + '">';
+												_html += '<ul>';
+												for(var j = 0; j < imglist.length; j++) {
+													_html += '<li><img src="' + imglist[j]['c_img'] + '" alt=""></li>';
+												};
+												_html += '</ul>';
+												_html += '</div>';
+											}
+										}else if(sc_type == 2) {
+											var imglist = datalist[i]['imglist'];
+											var poster_img = "";
+											if(imglist.length > 0) {
+												poster_img = imglist[0]['c_img'];
+											}
+											if(datalist[i]['c_content']) {
+												_html += '<div class="t-s-desription c5 fs13 divtab" title="' + datalist[i]['c_id'] + '">';
+												_html += '' + datalist[i]['c_content'] + '';
+												_html += '</div>';
+											}
+											_html += '<div class="t-s-video-li">';
+											_html += '<video controls autobuffer class="video_w" poster="'+poster_img+'" loop="loop" x-webkit-airplay="true" webkit-playsinline="true">';
+											_html += '<source src="'+datalist[i]['c_videourl']+'" type=\'video/mp4; codecs="avc1.42E01E, mp4a.40.2"\'></source>';
+											_html += '</video>';
+											_html += '</div>';
+										}else if(sc_type!=3){
+											if(datalist[i]['c_content']) {
+												_html += '<div class="t-s-desription c5 fs13 divtab" title="' + datalist[i]['c_id'] + '">';
+												_html += '' + datalist[i]['c_content'] + '';
+												_html += '</div>';
+											}
+										}
+										if (datalist[i]['circle_name']) {
+											_html += '<div class="s-circlename c9 fs11">';
+											_html += '<span class="fs11"><img src="__IMG__/o2store_icon_szsq_fb.png" alt="" />' + datalist[i]['circle_name'] + '</span>';
+											_html += '</div>';			
+										}
+										var produce = datalist[i]['tj_product'];
+										if(produce.length > 0) {
+											for(var k = 0; k < produce.length; k++) {
+												if(produce[k]['c_source'] == 2) {
+													_html += '<div class="f-product-info" data-href="' + WEB_HOST + '/index.php/Shopping/Entitymap/detail?pcode=' + produce[k]['c_pcode'] + '">';
+												} else {
+													_html += '<div class="f-product-info" data-href="' + WEB_HOST + '/index.php/Shopping/Index/detail?pcode=' + produce[k]['c_pcode'] + '">';
+												}
+												_html += '<div class="f-product-img fl"><img src="' + produce[k]['c_pimg'] + '" alt=""></div>';
+												_html += '<div class="f-pro-names-price fl">';
+												_html += '<div class="f-product-name">' + produce[k]['c_name'] + '</div>';
+												_html += '<div class="f-product-price">￥' + produce[k]['c_price'] + '</div>';
+												_html += '</div>';
+												_html += '<div class="f-pro-arrow fr">';
+												_html += '<img src="__IMG__/s_15.png" alt="">';
+												_html += '</div>';
+												_html += '</div>';
+											};
+										}
+										_html += '<div class="f-comment-all">';
+										_html += '<div class="f-comm-list" id="comment-' + datalist[i]['c_id'] + '">';
+										var comment = datalist[i]['comment_list'];
+										if(comment.length > 0) {
+											for(var c = 0; c < comment.length; c++) {
+												if(!comment[c]['upucode']) {
+													_html += '<div class="f-comm-box fs12"><span class="f-comm-send"  onclick="sendcommt(\'' + datalist[i]['c_id'] + '\',\'回复：' + comment[c]['c_nickname'] + '\',\'' + comment[c]['c_ucode'] + '\',\'' + comment[c]['c_id'] + '\')"><span>' + comment[c]['c_nickname'] + '</span>：<em>' + comment[c]['c_content'] + '</em></span>';
+													if(ucode == comment[c]['c_ucode']) {
+														_html += '<span class="f-com-del fs12" onclick="DeleteComment(this,\'' + comment[c]['c_id'] + '\');">&nbsp;&nbsp;&nbsp;删除</span>';
+													}
+													_html += '</div>';
+												} else {
+													_html += '<div class="f-comm-box fs12"><span class="f-comm-reply fs12 c9"  onclick="sendcommt(\'' + datalist[i]['c_id'] + '\',\'回复：' + comment[c]['c_nickname'] + '\',\'' + comment[c]['c_ucode'] + '\',\'' + comment[c]['c_id'] + '\')"><span>' + comment[c]['c_nickname'] + '</span><em>&nbsp;回复&nbsp;</em><span>' + comment[c]['upnickname'] + '</span>：<em>' + comment[c]['c_content'] + '</em></span>';
+													if(ucode == comment[c]['c_ucode']) {
+														_html += '<span class="f-com-del fs12" onclick="DeleteComment(this,\'' + comment[c]['c_id'] + '\');">&nbsp;&nbsp;&nbsp;删除</span>';
+													}
+													_html += '</div>';
+												}
+											};
+										}
+										_html += '</div>';
+										_html += '</div>';
+										_html += '<div class="t-s-button-ico divtab">';
+										/*举报入口*/
+										if(datalist[i]['is_tip'] == 1){
+											_html += '<div class="t-s-btn-ico-0 fl" title="' + datalist[i]['c_id'] + '" data-tip="'+datalist[i]['is_tip']+'">';
+											_html += '<img src="__IMG__/dynamic_report_selected.png" alt="" />';
+											_html += '</div>';
+
+										} else{
+											if(ucode != datalist[i]['c_ucode']) {
+												_html += '<div class="t-s-btn-ico-0 fl" title="' + datalist[i]['c_id'] + '" id="t-s-btn-report" data-tip="'+datalist[i]['is_tip']+'">';
+												_html += '<img src="__IMG__/district_dynamic_report.png" alt="" />';
+												_html += '</div>';
+											}
+										}
+										/*举报入口*/
+										_html += '<div class="t-s-btn-ico-1 fl" title="' + datalist[i]['c_id'] + '">';
+										_html += '<img src="__IMG__/district_icon_share2x.png" alt="" />';
+										_html += '</div>';
+										_html += '<div class="t-s-btn-ico-2 fl" title="' + datalist[i]['c_id'] + '">';
+										_html += '<img src="__IMG__/district_icon_comment2x.png" alt="" />';
+										_html += '</div>';
+										_html += '<div class="t-s-btn-ico-3 fr" title="' + datalist[i]['c_id'] + '">';
+										_html += '<div class="t-s-btn-praisen fr c9 fs13" id="praisenum-' + datalist[i]['c_id'] + '">' + datalist[i]['c_like'] + '</div>';
+										_html += '<div class="t-s-btn-praisec fr">';
+										if(datalist[i]['is_like'] == 1) {
+											_html += '<img src="__IMG__/praise_selection.png" alt="" id="praiseimg-' + datalist[i]['c_id'] + '" onclick="addpraise(' + datalist[i]['c_id'] + ',0)">';
+										} else {
+											_html += '<img src="__IMG__/praise_default2x.png" alt="" id="praiseimg-' + datalist[i]['c_id'] + '" onclick="addpraise(' + datalist[i]['c_id'] + ',1)">';
+										}
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#sq_source_list').append(_html);
+					},
+					complete: function() {
+						source_style();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) {
+							/*查看资源图片*/
+							$(".t-s-imglist").each(function(index) {
+								var rcid = $(this).attr("title");
+								$("#imglist-" + rcid).viewer({
+									title: false
+								});
+							});
+							opratebtn(pageindex);
+						}
+					}
+				});
+			}
+			/*点赞，分享，评论--按钮*/
+			function opratebtn(pageindex) {
+				/*举报*/
+				mui('.t-s-list-'+pageindex).on('tap','#t-s-btn-report',function(){
+					var rcid = $(this).attr('title');
+					mui.openWindow({
+						url: '__URL__/report?content_id=' + rcid +'&provincecode=' + $('#provincecode').val() + '&citycode='+$('#citycode').val(),
+						id: 'report'
+					});
+				});
+				/*分享*/
+				mui('.t-s-list-' + pageindex).on('tap', '.t-s-btn-ico-1', function() {
+					fchat();
+				});
+				/*评论*/
+				mui('.t-s-list-' + pageindex).on('tap', '.t-s-btn-ico-2', function() {
+					var rcid = $(this).attr('title');				
+					sendcommt(rcid, '评论');
+				});
+
+				/*查看个人空间*/
+				mui('.t-s-list-' + pageindex).on('tap', '.t-s-head', function() {
+					var ucoded = $(this).attr('title');
+					var jumptype = $(this).attr('data-type');
+					if(jumptype == 0) {
+						mui.openWindow({
+							url: WEB_HOST + '/index.php/Home/Myspace/index?fromucode=' + ucoded,
+							id: 'myspace'
+						});
+					} else {
+						mui.openWindow({
+							url: WEB_HOST + '/index.php/Store/Index/index?fromucode=' + ucoded,
+							id: 'stroe'
+						});
+					}
+				});
+				/*查看动态详情*/
+				mui('.t-s-list-' + pageindex).on('tap', '.t-s-desription', function() {
+					var rcid = $(this).attr('title');
+					mui.openWindow({
+						url: '__URL__/redetail?rid=' + rcid + '&circlename=' + $('#localtitle').text(),
+						id: 'myinfo'
+					});
+				});				
+				/*查看商品详情*/
+				mui('.t-s-list-'+pageindex).on('tap','.f-product-info',function(){
+					var urls = $(this).attr('data-href');
+					mui.openWindow({
+						url: urls,
+						id: 'myinfo'
+					});
+				});
+			}
+			/*发布资源按钮*/
+			mui('.t-s-publish-pup').on('tap', '#publish_img', function() {
+				$('.t-s-publish-pup').fadeOut(100);
+				$('.t-s-publish-bg').fadeIn(200);
+				$('.t-s-publish-content').fadeIn(200);
+				$(".t-s-publish-bg").height($(document).height());
+				var smbh = $('.sm-bottom').height();
+				$('.t-s-publish-content').css('bottom', smbh + 'px');
+			});
+			mui('.t-s-publish-imgtxt').on('tap', '.t-s-publish-close', function() {
+				$('.t-s-publish-bg').fadeOut(100);
+				$('.t-s-publish-content').fadeOut(100);
+				$('.t-s-publish-pup').fadeIn(200);
+				var smbh = $('.sm-bottom').height();
+				$('.t-s-publish-pup').css('bottom', smbh + 'px');
+			});
+			mui('.t-s-publish-imgtxt').on('tap', '.t-s-publish-sub', function() {
+				var province = $('#province').val();
+				var city = $('#city').val();
+				var provinceco = $('#provincecode').val();
+				var cityco = $('#citycode').val();
+				mui.openWindow({
+					url: '__URL__/publish?circlename=' + $('#localtitle').text() + '&provincecode=' + provinceco + '&citycode=' + cityco,
+					id: 'publish'
+				});
+			});
+			/*搜索*/
+			mui('.t-s-publish-imgtxt').on('tap', '.t-s-publish-search', function() {
+				var provinceco = $('#provincecode').val();
+				var cityco = $('#citycode').val();
+				mui.openWindow({
+					url: '__APP__/Home/Search/index?sstype=2&circlename=' + $('#localtitle').text() + '&provincecode=' + provinceco + '&citycode=' + cityco,
+					id: 'searchtrade'
+				});
+			});
+			/*取消切换商圈*/
+			mui('.prompt-cut-cont').on('tap', '.prompt-surebtn-le', function() {
+				$(".prompt-cut-bg").fadeOut(300);
+				$(".prompt-cut-pup").fadeOut(300);
+			});
+			/*切换商圈*/
+			mui('.prompt-cut-cont').on('tap', '.prompt-surebtn-ri', function() {
+				pageindex = 1;
+				Getcircleinfo();
+				$(".prompt-cut-bg").fadeOut(300);
+				$(".prompt-cut-pup").fadeOut(300);
+			});
+		
+			/*定位获取经纬度，地名*/
+			function getLocation() {
+				if(navigator.geolocation) {
+					navigator.geolocation.watchPosition(showPosition);
+				} else {
+					mui.alert("Geolocation is not supported by this browser.");
+				}
+			}
+
+			var getctrl = true;
+
+			function showPosition(position) {
+				var longitude = position.coords.longitude;
+				var latitude = position.coords.latitude;
+				var map = new BMap.Map("allmap");
+				var point = new BMap.Point(longitude, latitude);
+				var gc = new BMap.Geocoder();
+				gc.getLocation(point, function(rs) {
+					var addComp = rs.addressComponents;
+					//x.innerHTML= addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+					//x.innerHTML = addComp.province.replace('省', "") + addComp.city.replace('市', "") + "圈";					
+					$('#province').val(addComp.province);
+					$('#city').val(addComp.city);
+					if(getctrl) {
+						Getcircleinfo();
+						getctrl = false;
+					}
+				});
+			}
+
+			/*获取商圈的信息*/
+			function Getcircleinfo() {
+				var province = $('#province').val();
+				var city = $('#city').val();
+				var provcode = $('#provincecode').val();
+				var ccode = $('#citycode').val();
+				var urls = "";
+				//				if(!provcode && !ccode){
+				urls += '__URL__/Getcircleinfo?province=' + province + '&city=' + city + '&provincecode=' + provcode + '&citycode=' + ccode;
+				//				}else{
+				//					urls+='__URL__/Getcircleinfo?provincecode=' + provcode + '&citycode=' + ccode;
+				//				}
+
+				$.getJSON(urls, function(json) {
+					var obj = eval(json);
+					if(obj['code'] == 0) {
+						var data = obj.data;
+						$('#provincecode').val(data['c_provincecode']);
+						$('#citycode').val(data['c_citycode']);
+						$('#localtitle').text(data['c_name']);
+						$('#moods').text(data['c_moods']);
+						$('#resourcenum').text(data['c_resourcenum']);
+						$('#circleimg').attr('src', data['c_img']);
+						$('#levelimg').attr('src', data['c_levelimg']);
+						if(data['isremind']) {
+							/*是否切换商圈*/
+							$('#provincecode').val(data['provincecode1']);
+							$('#citycode').val(data['citycode1']);
+							$(".prompt-cut-bg").fadeIn(300);
+							$(".prompt-cut-pup").fadeIn(300);
+							$(".prompt-cut-bg").height($(document).height());
+						}
+						var provcode = $('#provincecode').val();
+						var ccode = $('#citycode').val();
+						if(!provcode && !ccode) {
+							getctrl = true;
+							mui.alert('获取位置失败');
+							return;
+						}
+						/*商圈资源*/
+						getresourcelist(data['c_provincecode'], data['c_citycode']);
+						
+						NewsShopact(data['provincecode1'],data['citycode1']);
+						
+						Signinfo();
+					}
+				});
+			}
+		</script>
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

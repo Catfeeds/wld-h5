@@ -1,0 +1,155 @@
+[ 2017-05-23T20:03:32+08:00 ] ::1 /wldApp/agent.php/Agent/Information/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0200s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0100s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0650s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.082005s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.082005s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-23T20:03:33+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0150s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-23T20:03:38+08:00 ] ::1 /wldApp/agent.php/Agent/Information/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0120s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0150s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0310s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-23T20:03:38+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0210s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0170s ]
+
+[ 2017-05-23T20:03:43+08:00 ] ::1 /wldApp/agent.php/Agent/Information/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_info` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SELECT a.*,b.c_infoid FROM t_check_info as a left join t_check_infolog as b on a.c_id=b.c_infoid and b.c_ucode='xms901d0079a06d0057'  WHERE (  (  a.c_ucode='' or a.c_ucode is null or a.c_ucode='xms901d0079a06d0057' ) ) AND (  (  a.c_type=1 or a.c_type=3 or a.c_type=4 ) ) ORDER BY case when ifnull(b.c_infoid,"")="" then 0 else 1 end asc,a.c_addtime desc LIMIT 0,20   [ RunTime:0.0270s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-23T20:03:43+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0100s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0130s ]
+
+[ 2017-05-23T20:03:47+08:00 ] ::1 /wldApp/agent.php/Agent/Information/ReadInfostatu
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_check_shopinfo` [ RunTime:0.0120s ]
+SQL: SELECT * FROM `t_check_shopinfo` WHERE `c_ucode` = 'xms901d0079a06d0057' LIMIT 1   [ RunTime:0.0100s ]
+
+[ 2017-05-23T20:03:48+08:00 ] ::1 /wldApp/agent.php/Agent/Shopcheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_users` [ RunTime:0.0210s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_users as a left join t_check_shopinfo as b on a.c_ucode=b.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_isagent = 0 AND (  (  b.c_name like '%%' or b.c_phone='' ) ) AND (  (  b.c_dcode !='' or b.c_dcode is not null  ) ) LIMIT 1   [ RunTime:0.0140s ]
+SQL: SELECT a.c_isagent,a.c_headimg,b.* FROM t_users as a left join t_check_shopinfo as b on a.c_ucode=b.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_isagent = 0 AND (  (  b.c_name like '%%' or b.c_phone='' ) ) AND (  (  b.c_dcode !='' or b.c_dcode is not null  ) ) ORDER BY b.c_checked asc,b.c_updatetime desc,b.c_addtime desc LIMIT 0,20   [ RunTime:0.0690s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.040002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.040002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-05-23T20:03:51+08:00 ] ::1 /wldApp/agent.php/Agent/Shopcheck/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `t_users` [ RunTime:0.0210s ]
+SQL: SELECT COUNT(*) AS tp_count FROM t_users as a left join t_check_shopinfo as b on a.c_ucode=b.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_isagent = 0 AND (  (  b.c_name like '%%' or b.c_phone='' ) ) AND (  (  b.c_dcode !='' or b.c_dcode is not null  ) ) LIMIT 1   [ RunTime:0.0120s ]
+SQL: SELECT a.c_isagent,a.c_headimg,b.* FROM t_users as a left join t_check_shopinfo as b on a.c_ucode=b.c_ucode  WHERE a.c_acode = 'xms901d0079a06d0057' AND a.c_isagent = 0 AND (  (  b.c_name like '%%' or b.c_phone='' ) ) AND (  (  b.c_dcode !='' or b.c_dcode is not null  ) ) ORDER BY b.c_checked asc,b.c_updatetime desc,b.c_addtime desc LIMIT 0,20   [ RunTime:0.0500s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.017001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+

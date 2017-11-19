@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>扫码支付</title>
+		<meta content="扫码支付,小蜜扫码支付" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/scanpay/index.css?v=1.2">
+		<style type="text/css">
+			/*取消长按复制*/
+			
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+		</style>
+	</head>
+
+	<body style="background:#efefef;">
+
+		<div class="wrap-page" style="margin-bottom:13%;">
+
+			<div class="divtab scanheadimg">
+				<img src="{$userdata['c_headimg']}" alt="">
+			</div>
+
+			<div class="divtab scaninfo c9 fs14">
+				正在向<span style="color:#46a9fa;">&nbsp;&nbsp;{$userdata['c_nickname']}小店&nbsp;&nbsp;</span>支付
+			</div>
+
+			<div class="divtab bgcolor scanbody">
+				<div class="divtab scanbox">
+					<div class="scantit c5 fs16 fl">金额</div>
+					<div class="fr scanmoney fs18">￥<span id="pay_money" class="fs34"></span><span style="width: 2%;float: right;"><img src="__IMG__/scanpay/guangbiao.gif" alt=""></span></div>
+				</div>
+			</div>
+			<div class="dibtab c9 fs14" id="copyrights" style="padding:1% 4%;position:absolute;left:0;right:0;margin:0 auto;"><img src="__IMG__/scanpay/sm02_03.png" alt=""></div>
+		</div>
+		<div id="keyboardDIV"></div>
+
+		<include file="Base@Public/pubjs" />
+		<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="__JS__/scanpay/fastclick.js"></script>
+		<script type="text/javascript">
+			wx.config({
+				// debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				appId: '<?php echo $signPackage["appId"];?>', // 必填，公众号的唯一标识
+				timestamp: '<?php echo $signPackage["timestamp"];?>', // 必填，生成签名的时间戳
+				nonceStr: '<?php echo $signPackage["nonceStr"];?>', // 必填，生成签名的随机串
+				signature: '<?php echo $signPackage["signature"];?>', // 必填，签名，见附录1
+				jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+			});
+
+			window.onload = function() {
+				$('.scanheadimg').height($('.scanheadimg').width());
+                $('.scanmoney img').height($('.scanmoney img').width()*8);
+				$('.scanbox').css('line-height',$('.scanmoney img').height()+"px");
+
+			}
+
+			var character = true;
+			var chk_work = "";
+			//生成扫码支付订单
+			function CreateScanpayOrder() {
+				var money = $('#pay_money').text();
+				var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+				if(!match.test(money)) {
+					mui.toast('请输入正确的支付金额！');
+					$('#pay_money').text("");
+					return false;
+				}
+				//获取判断用的对象
+				var is_weixin = "<?php echo $is_weixin ?>";
+				if(is_weixin == 1) {
+					var payrule = 2;
+				} else {
+					var payrule = 1;
+				}
+				$.ajax({
+					type: 'POST',
+					url: '__URL__/CreateScanpayOrder2',
+					cache: false,
+					dataType: 'json',
+					data: {
+						'acode': '<?php echo $acode; ?>',
+						'deskid': '<?php echo $deskid; ?>',
+						"payrule": payrule,
+						'money': money
+					},
+					beforeSend: function() {
+						$('.symbol_pay').css('background', "#fff");
+						$('.symbol_pay #paybtn').css('color', "#4d4d57");
+						$('.scanmoney').css('color', "#ccc");
+						document.getElementById('paybtn').onclick = null;
+					},
+					success: function(obj, textStatus) {
+						var result = eval(obj);
+						if(result['code'] != 0) {
+							mui.toast(result['msg']);
+							$('#pay_money').text("");
+							character = true;
+							$('.symbol_pay').css('background', "#46a9fa");
+							$('.symbol_pay #paybtn').css('color', "#fff");
+							$('.scanmoney').css('color', "#46a9fa");
+							document.getElementById('paybtn').onclick = function() {
+								CreateScanpayOrder();
+							}
+						} else {
+							$('#pay_money').text("");
+							var mch_id = "<?php echo $mch_id; ?>";
+							var data = result['data'];
+							if(mch_id) {
+								if(payrule == 2) {
+									//调用微信JS api 支付
+									WeixinJSBridge.invoke('getBrandWCPayRequest', {
+										"appId": data['appId'],
+										"nonceStr": data['nonceStr'],
+										"package": data['package'],
+										"paySign": data['paySign'],
+										"signType": data['signType'],
+										"timeStamp": data['timeStamp']
+									}, function(res) {
+										if(res.err_msg == "get_brand_wcpay_request:ok") {
+											var url = WEB_HOST + "/index.php/Order/Scanpay/success?orderid=" + result['data']['orderid'];
+											window.open(url);
+											character = false;
+										} else if(res.err_msg == "get_brand_wcpay_request:cancel") {
+											character = true;
+											$('.symbol_pay').css('background', "#46a9fa");
+											$('.symbol_pay #paybtn').css('color', "#fff");
+											$('.scanmoney').css('color', "#46a9fa");
+											document.getElementById('paybtn').onclick = function() {
+												CreateScanpayOrder();
+											}
+										}
+										WeixinJSBridge.log(res.err_msg);
+									});
+								} else { //进入支付宝支付
+									AlipayJSBridge.call('tradePay', {
+										tradeNO: data['tradeNO']
+									}, function(ret) {
+										if(ret.resultCode == '9000') { //支付成功
+											var url = WEB_HOST + "/index.php/Order/Scanpay/success?orderid=" + result['data']['orderid'];
+											window.open(url);
+										}
+									});
+								}
+							} else {
+								if(payrule == 2) {
+									var parameters = data['jsApiParameters'];
+									//调用微信JS api 支付
+									WeixinJSBridge.invoke('getBrandWCPayRequest', {
+										"appId": parameters['appId'],
+										"nonceStr": parameters['nonceStr'],
+										"package": parameters['package'],
+										"paySign": parameters['paySign'],
+										"signType": parameters['signType'],
+										"timeStamp": parameters['timeStamp']
+									}, function(res) {
+										if(res.err_msg == "get_brand_wcpay_request:ok") {
+											var url = WEB_HOST + "/index.php/Order/Scanpay/success?orderid=" + data['orderid'];
+											window.open(url);
+											character = false;
+										} else if(res.err_msg == "get_brand_wcpay_request:cancel") {
+											character = true;
+											$('.symbol_pay').css('background', "#46a9fa");
+											$('.symbol_pay #paybtn').css('color', "#fff");
+											$('.scanmoney').css('color', "#46a9fa");
+											document.getElementById('paybtn').onclick = function() {
+												CreateScanpayOrder();
+											}
+										}
+										WeixinJSBridge.log(res.err_msg);
+									});
+								} else { //进入支付宝支付
+									window.location.href = "__APP__/Order/Alipay/doalipay?orderid=" + data;
+								}
+							}
+
+						}
+					},
+					error: function(textStatus) {
+						setTimeout("mui.toast('网络繁忙，请刷新再试...');", 30000);
+						$('.symbol_pay').css('background', "#46a9fa");
+						$('.symbol_pay #paybtn').css('color', "#fff");
+						$('.scanmoney').css('color', "#46a9fa");
+						document.getElementById('paybtn').onclick = function() {
+							CreateScanpayOrder();
+						}
+					},
+					complete: function(msg, textStatus) {
+						var result = eval(msg);
+						if(result['code'] == 0) {
+							$('.symbol_pay').css('background', "#fff");
+							$('.symbol_pay #paybtn').css('color', "#4d4d57");
+							$('.scanmoney').css('color', "#ccc");
+							document.getElementById('paybtn').onclick = null;
+						}
+					}
+				});
+			}
+
+			$(function() {
+				FastClick.attach(document.body);
+				document.body.onselectstart = document.body.oncontextmenu = function() {
+					return false;
+				}
+				var _html = "";
+				_html += '<div id="key" style="position:absolute;background-color:#eee;width:99.5%;bottom:0px;">';
+				_html += '    <ul id="keyboard" style="margin:2px -2px 1px 2px" class="fs24">';
+				_html += '        <div class="li-left">';
+				_html += '            <li class="symbol"><span class="off">1</span></li>';
+				_html += '            <li class="symbol"><span class="off">2</span></li>';
+				_html += '            <li class="symbol"><span class="off">3</span></li>';
+				_html += '            <li class="tab"><span class="off">4</span></li>';
+				_html += '            <li class="symbol"><span class="off">5</span></li>';
+				_html += '            <li class="symbol"><span class="off">6</span></li>';
+				_html += '            <li class="symbol"><span class="off">7</span></li>';
+				_html += '            <li class="tab"><span class="off">8</span></li>';
+				_html += '            <li class="symbol"><span class="off">9</span></li>';
+				_html += '            <li class="nbsp"><span class="off">&nbsp;</span></li>';
+				_html += '            <li class="symbol"><span class="off">0</span></li>';
+				_html += '            <li class="pointer"><span class="off">.</span></li>';
+				_html += '        </div>';
+				_html += '        <div class="li-right">';
+				_html += '            <li class="delete"><div class="del-clear"><img src="__IMG__/scanpay/dele.png"></div></li>';
+				_html += '            <li class="symbol_pay"><div class="paybtn" id="paybtn" onclick="CreateScanpayOrder()">支付</div></li>';
+				_html += '        </div>';
+				_html += '    </ul>';
+				_html += '</div>';
+
+				$("#keyboardDIV").html(_html);
+				styles();
+				if($('#pay_money').text() == "") {
+					$('.symbol_pay').css('background', "#fff");
+					$('.symbol_pay #paybtn').css('color', "#4d4d57");
+					$('.scanmoney').css('color', "#ccc");
+					document.getElementById('paybtn').onclick = null;
+				}
+				$('#keyboard li').click(function() {
+					var monstr = document.getElementById('pay_money');
+					var unlen = monstr.innerHTML.length;
+					if($(this).hasClass('delete')) {
+						monstr.innerHTML = monstr.innerHTML.slice(0, unlen - 1);
+						character = true;
+						if($('#pay_money').text() == "") {
+							$('.symbol_pay').css('background', "#fff");
+							$('.symbol_pay #paybtn').css('color', "#4d4d57");
+							$('.scanmoney').css('color', "#ccc");
+							document.getElementById('paybtn').onclick = null;
+						}
+					}
+					if($(this).hasClass('symbol') || $(this).hasClass('tab') || $(this).hasClass('pointer')) {
+						if(character) {
+							if($("#pay_money").text().length > 10) {
+								character = false;
+							} else {
+								//判断第一位不为小数
+								if($("#pay_money").text().length == 0 && $(this).text() == ".") {
+									character = false;
+								}
+								var arrobj = new Array();
+								arrobj = $("#pay_money").text().split('');
+								var bl = '';
+								for(var i = 0; i <= arrobj.length; i++) {
+									if(arrobj[i] == ".") {
+										bl = i;
+										if($(this).text() == ".") {
+											character = false;
+										}
+									}
+									if(bl && i == parseInt(bl - (-2))) {
+										character = false;
+									}
+								}
+								$("#pay_money").append($(this).text());								
+								$('.symbol_pay').css('background', "#46a9fa");
+								$('.symbol_pay #paybtn').css('color', "#fff");
+								$('.scanmoney').css('color', "#46a9fa");
+								document.getElementById('paybtn').onclick = function() {
+									CreateScanpayOrder();
+								}
+
+							}
+
+						}
+					}
+				});
+			});
+
+			function styles() {
+				var rh = $('.li-left').height();
+				var deh = $('.delete').height();
+				$('.li-right').height(rh);
+				$('.paybtn').height(rh - deh);
+
+				var keyb = $('#key').height();
+				$('#copyrights').css('bottom', keyb + "px");
+			}
+
+			/*A字符串在B字符串出现次数*/
+			function FindCount(targetStr, FindStr) {
+				var start = 0;
+				var aa = 0;
+				var ss = targetStr.indexOf(FindStr, start);
+				while(ss > -1) {
+					start = ss + FindStr.length;
+					aa++;
+					ss = targetStr.indexOf(FindStr, start);
+				}
+				return aa;
+			}
+		</script>
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

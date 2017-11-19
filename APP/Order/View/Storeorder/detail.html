@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>订单详情</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地订单详情" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/order.css?v=1.3">
+		<style>
+			.mui-toast-container {
+				bottom: 50% !important;
+			}
+			
+			.mui-toast-message {
+				opacity: 0.6;
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap-page" style="padding-bottom:8%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="detail-top">
+					<?php if(!empty($data['thinfo'])){ ?>
+					<li class="fl detail-left fs14" style="width: 100%;">
+						<div style="float: left;">提货码：{$data['thinfo']['c_tcode']}</div>
+						<div class="ti" style="float: right;margin-right: 1rem;">
+							<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+							<font style="color: #fead42;">未提货</font>
+							<?php } ?>
+							<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+							<font style="color: #999;">已提货</font>
+							<?php }  ?>
+						</div>
+					</li>
+					<?php }else{ ?>
+					<li class="fl detail-left fs14">
+						<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 0) {  ?> 待买家付款
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?> 待发货
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 2 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?> 已发货，待买家确认收货
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1 && $data['scorestatu'] == 0) {  ?> 待买家全部评价
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 5 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1 && $data['scorestatu'] == 1) {  ?> 已完成
+						<?php }  ?>
+					</li>
+					<?php } ?>
+				</ul>
+				<ul class="detail-top">
+					<?php if(empty($data['thinfo'])){ ?>
+					<div class="fl detailtop-img">
+						<img src="__IMG__/location.png" alt="">
+					</div>
+					<div class="fl detailtop-right">
+						<h3 class="fs13">{$data.address.c_consignee}<span>{$data.address.c_telphone}</span></h3>
+						<p class="fs13">{$data.address.c_province}{$data.address.c_cityname}{$data.address.c_district}{$data.address.c_address}</p>
+					</div>
+					<?php }else{ ?>
+					<div class="model1">
+						<div class="supermarket fs15" style="margin-bottom: 0.5rem;">{$data['acodeinfo']['user_name']}</div>
+						<div class="fs13 c9" style="margin-bottom: 0.5rem;">{$data['acodeinfo']['user_phone']}</div>
+					</div>
+					<?php } ?>
+				</ul>
+				<ul class="orderlist-box" id="list_order">
+					<li class="orderlist" style="width: 100%;margin: 0;border-radius: 0;">
+						<div class="orderlist-top">
+							<div class="fl top-left detaillist">
+								<div class="fl top-text fs13">配送方式：
+									<?php if ($data['c_delivery'] == 2){ ?> 面对面收货
+									<?php }else if($data['c_delivery'] == 1){ ?> 快递收货
+									<?php }else if($data['c_delivery'] == 3){ ?> 到店自提
+									<?php } ?>
+								</div>
+								<?php if (!empty($data['c_expressname']) && !empty($data['c_expressnum'])): ?>
+								<div class="fl top-text fs13">
+									{$data.c_expressname}：{$data.c_expressnum}
+								</div>
+								<?php endif ?>
+							</div>
+						</div>
+						<?php foreach ($data['detail'] as $key => $value) { ?>
+						<div class="orderlist-body orderlist-pcode" id="{$value['c_pcode']}" title="{$data['c_source']}">
+							<div class="fl listbody-left">
+								<img src="<?php echo $value['c_pimg']; ?>" alt="">
+							</div>
+							<div class="fl listbody-center">
+								<h3 class="fs14"><?php echo $value['c_pname']; ?></h3>
+								<?php if(!empty($value['c_pmodel_name'])){ ?>
+								<p class="fs13">
+									<?php echo $value['c_pmodel_name']; ?>
+								</p>
+								<?php }else{ ?>
+								<p style="padding:2% 0;" class="fs13"></p>
+								<?php } ?>
+								<div class="listbody-bot">
+									<div class="fl order-price fs14">
+										￥
+										<?php echo $value['c_pprice']; ?>
+									</div>
+									<div class="fr order-num fs12">
+										x
+										<?php echo $value['c_pnum']; ?>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<?php } ?>
+
+						<div class="orderlist-mid">
+							<div class="detail-midtop">
+								<h3 class="fl fs14">运费</h3>
+								<p class="fr fs14">￥{$data.c_free}</p>
+							</div>
+							<!-- <div class="detail-midtop">
+					<h3 class="fl">余额抵扣</h3>
+					<p class="fr">-￥10.00</p>
+				</div> -->
+						</div>
+
+						<div class="detaillist-bot">
+							<h3 class="fl fs14">实付款（含运费）</h3>
+							<p class="fr fs14">￥
+								<?php echo bcadd($data['c_total_price'],$data['c_free'],2); ?>
+							</p>
+						</div>
+					</li>
+					<li class="detail-freight">
+						<div class="freight">
+							<div class="fl freight-left fs13">配送方式</div>
+							<div class="fl freight-right fs13">
+								<?php if ($data['c_delivery'] == 2){ ?> 面对面收货
+								<?php }else if($data['c_delivery'] == 1){ ?> 快递收货
+								<?php }else if($data['c_delivery'] == 3){ ?>到店自提
+								<?php } ?>
+							</div>
+						</div>
+						<div class="freight">
+							<div class="fl freight-left fs13">订单时间</div>
+							<div class="fl freight-right fs13">{$data.c_addtime}</div>
+						</div>
+						<?php if (!empty($data['c_paytime'])): ?>
+						<div class="freight">
+							<div class="fl freight-left fs13">支付时间</div>
+							<div class="fl freight-right fs13">{$data.c_paytime}</div>
+						</div>
+						<?php endif ?>
+						<?php if (!empty($data['c_deliverytime'])): ?>
+						<div class="freight">
+							<div class="fl freight-left fs13">发货时间</div>
+							<div class="fl freight-right fs13">{$data.c_deliverytime}</div>
+						</div>
+						<?php endif ?>
+						<?php if (!empty($data['c_confirmtime'])): ?>
+						<div class="freight">
+							<div class="fl freight-left fs13">成交时间</div>
+							<div class="fl freight-right fs13">{$data.c_confirmtime}</div>
+						</div>
+						<?php endif ?>
+						<div class="freight">
+							<div class="fl freight-left fs13">买家留言</div>
+							<div class="fl freight-right fs13">{$data.c_postscript}</div>
+						</div>
+					</li>
+					<div class="orderlist-bot fiexd-box fs13">
+						<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 0) {  ?>
+						<div class="fr order-sub subcolor" id="freight">
+							修改运费
+						</div>
+						<div class="fr order-sub" onclick="fchat('{$data['c_ucode']}','{$data['c_nickname']}');">联系买家
+						</div>
+						<?php }  ?>
+
+						<?php if ($data['c_deliverystate'] == 0 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+						<div class="fr order-sub subcolor" id="deliver">
+							确认发货
+						</div>
+						<div class="fr order-sub" onclick="fchat('{$data['c_ucode']}','{$data['c_nickname']}');">联系买家
+						</div>
+						<?php }  ?>
+						<?php if ($data['c_deliverystate'] == 2 && $data['c_order_state'] == 2 && $data['c_pay_state'] == 1) {  ?>
+						<div class="fr order-sub subcolor" id="logitics">
+							查看物流
+						</div>
+						<div class="fr order-sub" onclick="fchat('{$data['c_ucode']}','{$data['c_nickname']}');">联系买家
+						</div>
+						<?php }  ?>
+					</div>
+				</ul>
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.listbody-left').height($('.listbody-left').width());
+			}
+		</script>
+		<script type="text/javascript">
+			var orderid = "<?php echo $data['c_orderid']; ?>";
+
+			/*跳转对应商品详情*/
+			mui('.mui-content').on('tap', '.orderlist-pcode', function() {
+				var pcode = $(this).attr('id');
+				var type = $(this).attr('title');
+				if(type == '2') {
+					var url = '__APP__/Shopping/Entitymap/detail?pcode=' + pcode;
+				} else {
+					var url = '__APP__/Shopping/Index/detail?pcode=' + pcode;
+				}
+				mui.openWindow({
+					url: url,
+					id: 'pdetails'
+				});
+			});
+			/*发货*/
+			mui('.mui-content').on('tap', '#deliver', function() {
+				mui.confirm('是否确认发货', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : delivers();
+				}, 'div');
+			});
+
+			function delivers() {
+				var deliverystate = "<?php echo $data['c_deliverystate']?>";
+				var delivery = "<?php echo $data['c_delivery']?>";
+				if(delivery == 2) {
+					logisticsBaiduTraces(orderid, deliverystate);
+				} else if(delivery == 3) {
+					delivery_3(orderid);
+				} else {
+					mui.openWindow({
+						url: "__URL__/deliver?orderid=" + orderid,
+						id: 'pdetails'
+					});
+				}
+			}
+			/*修改运费*/
+			mui('.mui-content').on('tap', '#freight', function() {
+				mui.openWindow({
+					url: "__URL__/freight?orderid=" + orderid + "&free=" + '<?php echo $data["c_free"]?>',
+					id: 'pdetails'
+				});
+			});
+			/*查看物流*/
+			mui('.mui-content').on('tap', '#logitics', function() {
+				var deliverystate = "<?php echo $data['c_deliverystate']?>";
+				var longitude = "<?php echo $data['longitude']?>";
+				var latitude = "<?php echo $data['latitude']?>";
+				var slongitude = "<?php echo $data['slongitude']?>";
+				var slatitude = "<?php echo $data['slatitude']?>";
+				var delivery = "<?php echo $data['c_delivery']?>";
+				if(delivery == 2) {
+					logisticsBaiduTraces(orderid, deliverystate, longitude, latitude, slongitude, slatitude)
+				} else {
+					mui.openWindow({
+						url: "__URL__/logitics?orderid=" + orderid,
+						id: "logitics"
+					});
+				}
+			});
+
+			//短距物流
+			function logisticsBaiduTraces(orderid, deliverystate, longitude, latitude, slongitude, slatitude) {
+				if(deliverystate == 0) {
+					express(orderid);
+				}
+				var apptype = "<?php echo get_app_type(); ?>";
+				if(apptype == 1) { //小蜜安卓软件
+					javaScript: resultData.logisticsBaiduTraces(orderid, deliverystate, longitude, latitude, slongitude, slatitude);
+				}
+				else if(apptype == 2) { //小蜜ios软件
+					window.webkit.messageHandlers.AppModel.postMessage({
+						"logisticsBaiduTraces": {
+							"orderid": "" + orderid + "",
+							"deliverystate": "" + deliverystate + "",
+							"longitude": "" + longitude + "",
+							"latitude": "" + latitude + "",
+							"slongitude": "" + slongitude + "",
+							"slatitude": "" + slatitude + ""
+						}
+					});
+				} else {
+					mui.toast('请使用小蜜APP操作查看位置');
+					setTimeout(function() {
+						window.location.reload();
+					}, 2000);
+				}
+			}
+			var clicktag = true;
+			// 提交快递单号
+			function express(orderid) {
+				if(clicktag) {
+					clicktag = false;
+					$.ajax({
+						type: "POST",
+						url: '__URL__/deliver',
+						data: {
+							orderid: orderid,
+							expressname: '',
+							expressnum: ''
+						},
+						dataType: "json",
+						success: function(json) {
+							var obj = eval(json);
+							clicktag = true;
+							if(obj.code == 0) {
+
+							} else {
+
+							}
+						}
+					});
+				}
+			}
+			var deltag = true;
+
+			function delivery_3(orderid) {
+				if(deltag) {
+					deltag = false;
+					$.ajax({
+						type: "POST",
+						url: '__URL__/delivery',
+						data: {
+							orderid: orderid
+						},
+						dataType: "json",
+						success: function(json) {
+							var obj = eval(json);
+							deltag = true;
+							if(obj.code == 0) {
+								setTimeout(function() {
+									mui.openWindow({
+										url: ""
+									});
+								}, 500)
+							} else {
+
+							}
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

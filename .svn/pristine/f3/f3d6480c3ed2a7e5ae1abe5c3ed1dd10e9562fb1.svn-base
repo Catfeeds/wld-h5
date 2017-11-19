@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>收支报表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 统计报表<span class="c-gray en">&gt;</span>收支报表<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="text-c">
+        按月搜索：
+        <input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="开始时间" onClick="laydate({istime: true, format: 'YYYY-MM'})" class="laydate-icon"/>
+        -
+        <input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM'})" class="laydate-icon"/>&nbsp;
+
+        <button type="submit" class="btn btn-success radius" id="" name="" onclick="chaxun()"><i class="Hui-iconfont">&#xe665;</i> 搜索月份</button>
+    </div>
+    <div class="pd-20 text-c">
+        <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="timetype()" class="btn btn-primary radius">今天</a> <a class="btn btn-primary radius" onclick="timetype(1)" href="javascript:;">昨天</a> <a href="javascript:;" onclick="timetype(2)" class="btn btn-primary radius">过去7天</a> <a class="btn btn-primary radius" onclick="timetype(3)" href="javascript:;">过去30天</a></span></div>
+        <div class="mt-20">
+            <div id="sumCount" style="width: 100%;margin-bottom: 30px;font-size: 16px;WORD-BREAK: break-all; WORD-WRAP: break-word;text-align:right;">
+                <font color="green">总收入：{$income}(元)</font>&nbsp;&nbsp;<font color="#33A1C9">总支出：{$outcome}(元)</font> &nbsp;&nbsp;<font color="#ff7f50">总余额：{$remain}(元)</font>&nbsp;&nbsp;
+                <br/><font color="red">{$warning}</font>&nbsp;&nbsp;
+            </div>
+            <div id="container" style="min-width:700px;height:450px"></div>
+        </div> 
+    </div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript" src="__HLIB__/echarts.js"></script>
+
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('container'));
+    // 显示标题，图例和空的坐标轴
+    var option = {
+        // 默认色板
+        color: ['#66CCCC','#ff7f50','#87cefa'],
+
+        title : {
+            text: '用户收入支出条形图统计',
+            textStyle:{  
+                color:"#333399"  
+            },
+        },
+
+        tooltip : {
+            trigger: 'axis',
+            backgroundColor: '#66CCCC',
+            borderRadius: 10,  
+        },
+
+        legend: {
+            data:['总收入','总支出'],
+        },
+
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+
+        calculable : true,
+
+        xAxis : [
+            {
+                gridLineWidth:2,
+                type : 'category',
+                // boundaryGap : false,
+                data : []
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                formatter: '{value}'
+                }
+            }
+        ],
+
+        series : [
+            {
+                name:'总收入',
+                type:'bar',
+                data:[]
+            },
+            {
+                name:'总支出',
+                type:'bar',
+                data:[]
+            },
+        ]
+    };
+
+    myChart.setOption(option);
+    myChart.showLoading();
+
+    getChaxun();
+
+    function getChaxun(timetype,querytime,querytime1){
+        $.get("{:U('Tongji/query_moneylog')}",{timetype:timetype,querytime:querytime,querytime1:querytime1}).done(function (data) {
+            $("#sumCount").text(data.sumCount);
+           
+            myChart.hideLoading();
+            // 填入数据
+            myChart.setOption({
+                title: {
+                    text: data.maintitle,
+                    textStyle:{  
+                        color:"#333399"  
+                    },
+                    subtext:data.subtitle,
+                    subtextStyle:{  
+                        color:"#FF0000"  
+                    },
+                },
+                xAxis: {
+                    data: data.xAxis
+                },
+                series: [
+                    {
+                        // 根据名字对应到相应的系列
+                        name: '总收入',
+                        data: data.yAxis1 
+                    }, 
+                    {
+                        // 根据名字对应到相应的系列
+                        name: '总支出',
+                        data: data.yAxis 
+                    },   
+                ]
+            });
+        });
+    }
+
+    function timetype(n){
+        myChart.showLoading();
+        getChaxun(n);
+    }
+
+    function chaxun(){
+      var EntTime1 = $("#EntTime1").val();//季度时间
+      var EntTime2 = $("#EntTime2").val();//季度时间
+      if(EntTime1 != '' && EntTime2 != ''){
+          var year = EntTime1.substr(0,4);
+          var year1 = EntTime2.substr(0,4);//年
+          var month = EntTime1.substr(5,3);
+          var month1 = EntTime2.substr(5,3);//月
+
+          var ydiff = year1 - year;
+          if(ydiff < 0){
+            alert('查询条件输入有误');
+            return false;    
+          }
+
+          if(year == year1){
+                sum = month1 - month;
+                if(sum < 0){
+                    alert('查询条件输入有误');
+                    return false;    
+                }else if(sum > 6){
+                    alert('查询条件区间最大不能超过半年');
+                    return false;
+                }else if(sum == 0){
+                    myChart.showLoading();
+                    getChaxun(4,EntTime1,EntTime2);
+                    return true;
+                }else{
+                  myChart.showLoading();
+                  getChaxun(5,EntTime1,EntTime2);
+                  return true;
+                }
+          }else{
+              if(ydiff == 1){
+                  sum1 = 12 - month +1;
+                  sum = parseInt(sum1) + parseInt(month1);
+                  if(sum > 6){
+                      alert('查询条件区间最大不能超过半年');
+                      return false;
+                  }else{
+                      myChart.showLoading();
+                      getChaxun(5,EntTime1,EntTime2);
+                      return true;
+                  }
+              }else{
+                  alert('查询区间最大不能超过一年');
+                  return false;
+              }
+          } 
+      }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>代理商品详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="pcode" id="pcode" value="{$pcode}" />
+				<div class="mui-content">
+					<!--商品图片切换-->
+					<div class="mui-slider">
+					  <div class="mui-slider-group">
+					 	<?php foreach ($data['mainimgs'] as $k1 => $v1) { ?>
+						<div class="mui-slider-item imgarrs child-img">
+					      <img src="{$v1['img']}" alt="" />
+					    </div>
+						<?php } ?>					    
+					  </div>					  
+					  <div class="mui-slider-indicator">
+					  	<?php foreach ($data['mainimgs'] as $k1 => $v1) { ?>
+						<div class="mui-indicator <?php if ($k1==0): ?>mui-active<?php endif ?>"></div>
+						<?php } ?>	
+					  </div>
+					</div>
+					<div class="divtab bborder bgcolor">						
+						<div class="good-name c3 fs14">{$data['c_name']}</div>
+						<div class="good-price cy fs16">{$data['c_pprice']}</div>
+						<div class="pro-price-rebate">
+							<div class="share-rebate fs13">快递：<span>￥{$data['c_freeprice']}</span></div>
+							<?php if ($data['c_isfree'] == 1): ?>
+							<div class="share-rebate fs13">包邮</div>	
+							<?php endif ?>
+						</div>
+					</div>
+					<!-- <div class="good-model bgcolor divtab bborder">
+						<div class="gm-font fl fs14 c3">请选择</div>
+						<div class="gm-model fl fs14 c3">型号</div>
+						<div class="gm-ico-arrow fr"><img src="__IMG__/index/der_icon_next.png" alt="" /></div>
+					</div> -->
+					<div class="agent-intro divtab bgcolor">
+						<div class="divtab">
+							<input type="hidden" name="acode" id="acode" value="acode" />
+							<div class="ag-head fl" title="ucode"><img src="{$user['c_headimg']}" alt="" /></div>
+							<div class="ag-info fl">
+								<div class="ag-nkname c3 fs14 fov">{$user['c_nickname']}</div>
+								<div class="ag-visitnum c5 fs12"><span>粉丝</span><span>{$user['c_attention']}</span><span>访问量</span><span>{$user['c_pv']}</span></div>
+							</div>
+							<?php if ($user['is_attention'] == 1) { ?>
+							<div class="ag-attention c9 fr fs13 ag-atted">已关注</div>	
+							<?php } else { ?>
+							<div class="ag-attention cb fr fs13">+关注</div>
+							<?php } ?>			
+						</div>
+						<div class="ag-contact cb fb600 fs13"><span><img src="__IMG__/index/der_icon_chat.png" alt="" /></span>联系商家</div>
+					</div>
+					<div class="ag-comment bgcolor">
+						<div class="ag-com-tit bborder divtab">
+							<div class="ag-comnumb fl fs14 c3">评论<span>（{$data['comment_num']}）</span></div>
+							<div class="ag-comcheck fr c9 fs14">查看全部<span class="fr"><img src="__IMG__/index/der_icon_next.png" alt="" /></span></div>
+						</div>
+						<!--商品评论列表-->
+						<div class="comment-con divtab">								
+							<div class="commcode-info divtab">
+								
+								<?php if (count($comment) > 0) { ?>
+								<div class="comm-head fl">
+									<img src="{$comment['c_headimg']}" alt="" />
+								</div>
+								<div class="comm-intro fl">
+									<div class="comm-nc-info divtab">
+										<div class="comm-nc-grade fl" style="width:65%;">
+											<p class="fs14 c3 fov" style="padding: 3% 0;">{$comment['c_nickname']}</p>
+											<p>
+											<?php for ($i=0; $i < $comment['c_score']; $i++) { ?> 
+												<span style="width:10%;"><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>
+											<?php } ?>
+											</p>
+										</div>
+										<div class="comm-time fr fs12 c9">{$comment['c_addtime']}</div>
+									</div>
+									<div class="comm-desc c5 fs13">{$comment['c_content']}</div>
+									<div class="comm-imglist">
+										<ul>
+											<?php foreach ($comment['c_content'] as $key => $value) { ?>
+											<li>
+												<img src="{$value['c_thumbnail_img']}" alt="" />
+											</li>
+											<?php } ?>
+										</ul>
+									</div>	
+								</div>
+								<?php } else { ?>
+									<div class="baoqian">暂未有相关评论</div>
+								<?php } ?>
+							</div>								
+						</div>	
+					</div>
+					
+					<div class="good-details bgcolor">
+						<div class="good-remark divtab">
+							<p class="fs16 c3 alignc">商品详情</p>
+							<p class="fs13 c3">{$data['c_desc']}</p>
+						</div>
+						<div class="good-d-imglist divtab alignc">
+						<?php foreach ($data['imglist'] as $key => $value) { ?>
+							<img src="{$value['c_pimgepath']}" alt="" />
+						<?php } ?>
+						</div>
+					</div>
+					
+				</div>
+				<?php if ($data['levelname']) { ?>
+				<div class="fixed-btn cb fs16 divtab bgcolor go-agency">立即进货</div>
+				<?php } else { ?>
+				<div class="fixed-btn cb fs16 divtab bgcolor go-agency">我要代理</div>
+				<?php } ?>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+			$('.imgarrs').height($('.imgarrs').width()*0.7);
+			var aghw = $('.ag-head').width();
+			$('.ag-head').height(aghw);
+			$('.ag-head').css("border-radius",aghw+"px");
+			$('.ag-info').css("line-height",aghw*0.5+"px");
+			
+			yangshi();
+			
+			/*查看评论大图*/
+			$(".comm-imglist").viewer({
+				title: false
+			});	
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			/*评论样式*/
+			var headh = $('.comm-head').width(),lihb = headh*50/100;
+			$('.comm-head').height(headh);
+			$('.comm-head').css("border-radius", headh + "px");
+			$(".comm-nc-grade").css("line-height",lihb+"px");
+			$(".comm-time").css("line-height",headh+"px");			
+		}
+		
+		
+		var pcode = $('#pcode').val();
+		var acode = $('#acode').val();
+		/*联系商家*/
+		// mui('.mui-content').on('tap','.ag-contact',function(){
+		// 	mui.toast('联系商家');
+		// });
+		/*代理详情*/
+		mui('.mui-content').on('tap','.agent-intro',function(){
+			mui.openWindow({url:"__URL__/agentde?acode=<?php echo $data['c_ucode']; ?>",id:"agentde"});
+		});
+		/*查看评论*/
+		mui('.mui-content').on('tap','.ag-com-tit',function(){
+			goGoodsAllComment(pcode,acode);
+		});
+		/*我要代理*/
+		mui('.wrap-page').on('tap','.go-agency',function(){
+			mui.openWindow({url:"__URL__/agentde?bag_code=<?php echo $data['c_bag_code']; ?>&acode=<?php echo $data['c_ucode']; ?>&pcode=<?php echo $pcode; ?>",id:"agentde"});
+		});
+
+	</script>
+
+</html>

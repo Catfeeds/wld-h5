@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>藏宝记录</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+		
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content">
+					<div class="comm-nav-tab bgcolor divtab fs14">
+						<ul>
+							<li class="c-nav-tli" id="c-nav-t1">商品</li>
+							<li class="hover c-nav-tli" id="c-nav-t2">卡券</li>
+							<li class="c-nav-tli" id="c-nav-t3">红包</li>
+						</ul>
+					</div>
+
+					<!--藏宝记录 卡券  -->
+					<div class="coupon-main">
+						<div class="coupon-status ch-status divtab  bgcolor bborder">
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['gff']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">共发放</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['dsy']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">待使用</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['wlq']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">未领取</span>
+							</div>
+							<div class="fl">
+								<p class="cy fs14">
+									{$coupontj['ygq']}
+									<font class="fs11">个</font>
+								</p>
+								<span class="fs12 c3">已过期</span>
+							</div>
+						</div>
+
+					</div>
+					<!-- 卡券  -->
+
+					<div id="data_list">
+
+					</div>
+					<div id="console"></div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+
+			yangshi();
+
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+
+			$('.ch-product-img').height($('.ch-product-img').width());
+			$('.ch-product-info').css('line-height', $('.ch-product-img').width() * 0.3 + 'px');
+			$('.ch-seller-head').height($('.ch-seller-head').width());
+			$('.ch-seller-head').css('border-radius', $('.ch-seller-head').width() + 'px');
+			$('.ch-seller-name').css('line-height', $('.ch-seller-head').width() + 'px');
+
+			$('.tip-pup').css('bottom', $('.ch-product-seller').height() + 8 + "px");
+
+		}
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			 mui.openWindow({
+				url: "__URL__/precord?joinaid=" + joinaid,
+				id: "precord"
+			});
+		});
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			 getdatalist()
+		});
+		mui('.mui-content').on('tap', '#c-nav-t3', function() {
+			mui.openWindow({
+				url: "__URL__/rrecord?joinaid=" + joinaid,
+				id: "rrecord"
+			});
+		});
+
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+
+		getdatalist();
+		/*卡券数据加载*/
+		function getdatalist() {
+			var url = '__URL__/CoupondProLog?pageindex=' + pageindex + '&joinaid=' + joinaid;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">暂无相关记录</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="coupon-box divre">';
+									if(dataarr['coupond_type'] == 1) {
+										var ma = Math.round(dataarr['c_money']);
+										_html += '<div class="d-coupon-money divab cf"><span class="fs18">' + ma + '</span><br /><span class="fs12">元</span></div>';
+										_html += '<div class="coupon-tit divab">';
+										_html += '<p class="cf fs14">代金券</p>';
+										_html += '<p class="cf fs14">';
+										if(dataarr['c_pcodearr']) {
+											_html += '<span>部分商品</span>|';
+										} else {
+											_html += '<span>全部商品</span>|';
+										}
+									}
+									if(dataarr['coupond_type'] == 2) {
+										var mb = Math.round(dataarr['c_money'], 1);
+										_html += '<div class="d-coupon-money divab cf"><span class="fs18">' + mb + '</span><br /><span class="fs12">折</span></div>';
+										_html += '<div class="coupon-tit divab">';
+										_html += '<p class="cf fs14">折扣券</p>';
+										_html += '<p class="cf fs14">';
+										if(dataarr['c_pcodearr']) {
+											_html += '<span>部分商品</span>|';
+										} else {
+											_html += '<span>全部商品</span>|';
+										}
+									}
+									_html += '<span>' + dataarr['c_name'] + '</span></p>';
+									_html += '</div>';
+									if(dataarr['c_sign'] == 1) {
+										_html += '<div class="coupon-range divab cf fs12">全平台通用</div>';
+									} else {
+										_html += '<div class="coupon-range zk-seller divab cf fs12 fov" onclick="viewshop(\'' + dataarr['shopucode'] + '\')">商家「' + dataarr['c_nickname'] + '」</div>';
+									}
+									_html += '<div class="coupon-time divab cf fs12">' + dataarr['times'] + '</div>';
+									if(dataarr['c_sign'] == 1) {
+										_html += '<div class="d-coupon-ico divab fs12 cf">平台补贴</div>';
+									}
+									if(dataarr['fadestate'] == 1) {											
+										_html += '<img src="__IMG__/chests/kqgl_bg_guoqi.png" alt="" />';
+									}else{
+										if(dataarr['coupond_type'] == 1) {
+											_html += '<img src="__IMG__/chests/kqgl_bg_daijin.png" alt="" />';
+
+										}
+										if(dataarr['coupond_type'] == 2) {
+											_html += '<img src="__IMG__/chests/kqgl_bj_youhui.png" alt="" />';
+										}											
+									}
+									_html += '</div>';
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+				}
+			});
+		}
+		//查看商家
+		function veiwshop(ucode) {
+			mui.openWindow({
+				url: '__APP__/Store/Index/index?fromucode=' + ucode,
+				id: 'veiwshop'
+			});
+		}
+	</script>
+
+</html>

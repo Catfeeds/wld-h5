@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+/* 红包管理首页 */
+.red-list-item{width: 92%;margin: 4% auto;}
+.red-con{ width: 77%;right: 3%;top: 0;}
+.redname{ margin: 4% auto;overflow: hidden;}
+.red-type{ padding: 0 1%; margin: 1%;}
+.type01{ background: #feaa38;}
+.type02{ background: #69d6ff;}
+.red-operate{ width: 32%;text-align: center;padding: 6px 0;border-radius: 25px;letter-spacing: 2px;}
+.operate01{ background: #fec957; border: 1px solid #fff;}
+.operate02{ background: #ccc; border: 1px solid #ccc;}
+.red-time-number{ bottom: 1%;padding: 1% 3%;}
+.red-money-operate{margin-bottom: 8%;}
+.red-status { border-top-left-radius: 6px; border-bottom-right-radius: 6px;text-align: center;padding: 1% 1.5%;top: 0;left: 0;}
+.status01{ background: #ff5c5d;}
+.status02{ background: #999999;}
+
+.ad-creat-site{background: #fff; position: fixed;border-top: 1px solid #e5e5e5;left: 0;right: 0; bottom: 0; margin: 0 auto;width: 100%;max-width: 720px;min-width: 320px;padding: 3% 0;text-align: center;z-index: 99;}
+.ad-creat-btn{background: url(../../img/rednewact/signin_btn_bg.png) no-repeat;background-size: 100% 100%;width: 55%;margin: 0 auto;padding: 2% 0 4% 0;}
+
+
+/* 红包详情页 */
+.red-info{}
+.red-surplus-money{ margin: 0 0 2% 0;top: 8%;}
+.red-total-money{top: 45%;}
+.red-name{top: 62%;width: 60%;margin: 0 auto;left: 0;right: 0;}
+.red-amount{ padding: 2% 3%;bottom: 0;}
+
+.comm-nav-tab{padding: 0 0 0 0;-webkit-box-shadow:0 0 6px rgba(0, 0, 0, .1);-moz-box-shadow:0 0 6px rgba(0, 0, 0, .1);box-shadow:0 0 6px rgba(0, 0, 0, 0.1);margin-bottom: 1%;}
+.comm-nav-tab ul{overflow: hidden;}
+.comm-nav-tab ul li{ float: left;padding: 3% 0;width: 50%;text-align: center;color: #999;}
+.comm-nav-tab ul li.hover{border-bottom: solid 2px #47ABF7;color: #47ABF7;}
+
+
+.red-activity{margin-bottom: 4%;}
+.activity-con{ padding: 3%;}
+.red-img-title{width: 38%;margin: 0 auto;padding: 6% 0 2% 0;}
+.activity-img{ width: 30%;}
+.activity-info{ width: 67%;margin-left: 3%;}
+.activity-amount{}
+
+.red-getdetail{ padding-bottom: 5%;}
+.red-getdetail-con{ padding: 4% 2% 4% 4%;}
+.getdetail-info{ width: 70%;}
+.getdetail-img{ width: 25%;margin-right: 3%;}
+.getdetail-shop{ width: 72%;}
+.getdetail-money{ width: 30%;text-align: right;}
+.shop-name {}
+.shop-red span{ float: right; margin-right:28%;}
+
+/* 发放详情页 */
+.red-grantdetail{ padding-top: 3%;}
+.red-grantdetail-con{ padding: 3%;}
+.grantdetail-info{ width: 70%;}
+.grantdetail-info p{padding: 1% 0;}
+.grantdetail-time span{ margin-right: 6%;}
+.grantdetail-money{ text-align: right;}
+.grantdetail-money p{padding: 1% 0;}
+
+/* 发放记录页 */
+.redrecord-info{}
+.redrecord-money{ top: 15%;left: 0;right: 0;text-align: center;margin: 0 auto;}
+.redrecord-amount{ bottom: 30%;left: 0;right: 0;text-align: center;margin: 0 auto;}
+
+.redrecord-con{ padding:3%;}
+.record-name{overflow: hidden;}
+.record-name span{display: block;float: left;}
+.record-name span.record-n{width: 80%;}
+.redrecord-name-time{ width: 75%;}
+.record-money{ width: 25%; text-align: right;}
+
+
+/*选择红包，发放弹窗*/
+.issue-coupon-bg{ display: none; background-color: black; z-index:9999;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.issue-coupon-pup{ display: none;top:25%;left:0; position:fixed;z-index: 100000;width:100%;margin: auto;right: 0;max-width: 720px;padding: 0 5%;}
+.issue-coupon-con{border-radius: 8px;text-align: center;}
+.issue-c-tit{padding: 3.5% 0;}
+.issue-ctype-txt{width:100%;}
+.issue-close{width: 7%;right: 2%;top: 4%;}
+.issue-shengyu{padding: 5% 0;}
+.issue-c-num{padding: 0 0 4% 0;}
+.issue-c-numtxt{width: 90%;margin: 3% auto;padding: 3% 0;}
+.issue-c-numtxt input[type="number"]{ background: #f0f0f0; border: none;line-height: auto;height: auto;padding: 2% 3%;margin: 0;outline: none;}
+.issue-c-subbtn{background: #45AAFA;padding: 4% 0;border-bottom-left-radius:8px;border-bottom-right-radius:8px;}
+
+/*红包规则*/
+.red-rule-bg{ display: none; background-color: black; z-index:9999;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.red-rule-pup{ display: none;top:25%;left:0; position:fixed;z-index: 100000;width:100%;margin: auto;right: 0;max-width: 720px;padding: 0 8%;}
+.red-rule-con{background: #fff;border-radius: 8px;padding: 4%;}
+.red-ruleimg{width: 45%;margin: 0 auto;}
+.red-rulep{padding: 4% 2%;}
+.red-rulep p{padding: 0 0 2% 0;}
+
+
+/*红包分享页*/
+.redshare-main{}
+.rshare-ico{width: 30%;left: 0;top: 6.5%;}
+.rshare-uinfo{top: 10%;left: 0;right: 0;margin: 0 auto;text-align: center;padding: 0 4%;}
+.rshare-head{width: 25%;margin: 0 auto;overflow: hidden;}
+.rshare-nickname{padding: 3% 0 0 0;}
+.rshare-desc{padding: 3% 0;}
+.rshare-unum{}
+.rshare-unum span{margin-right: 4%;}
+.rshare-redinfo{left: 0;right: 0;margin: 0 auto;top: 39%;width: 100%;}
+.rshare-redimg{width: 80%;margin: 0 auto;}
+.red-get-info{top: 6.5%;width: 72%;left: 0;right: 0;margin: 0 auto;text-align: center;}
+.red-get-info p{color: #FEAB3D;padding: 2% 0 0 0;}
+.red-get-tn{text-align: left;}
+.red-get-tn span{padding-left: 4%;}
+.rshare-erweima{left: 0;right: 0;margin: 0 auto;width: 85%;top: 38%;}
+.rshare-erweima p{padding: 2.5% 0;text-align: center;}
+.erweimaimg{width: 65%;margin: 0 auto;}
+
+
+
+
+

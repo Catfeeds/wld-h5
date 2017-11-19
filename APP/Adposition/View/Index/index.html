@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>推广位</title> 
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<style>
+		    .mui-slider-indicator .mui-active.mui-indicator{background: url(__IMG__/promote_rules_rolling_one.png) center bottom no-repeat; background-size: 100% 100%;width: 15px;height: 15px;margin: 3% 1% 0 1%;}
+			.mui-slider-indicator .mui-indicator{background: #fff;box-shadow: none;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 18%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+
+			<div class="ad-site-head divre">
+				<!-- <div class="ad-site-bar divtab divab">
+					<div class="ad-page-return fl"><img src="__IMG__/nav_return.png" alt="" /></div>
+					<div class="ad-page-bartit fl cf fs15">推广位</div>
+				</div> -->
+				<include file="Base@Public/pubheader" />
+				<div class="ad-site-h-num divab fs13 c9">
+					<p>可使用<span class="cy fs16"> {$data['tjchance']} </span>个推广机会</p>
+					<p>已获得<span class="cb fs16"> {$data['advertnum']} </span>个广告位</p>
+				</div>
+				<div class="ad-site-h-btn fs14 cf divab" style="background: #ffc958;">投放</div>
+				<div class="ad-site-h-rule divab"><img src="__IMG__/promote_home_rules.png" alt="" /></div>
+				<img src="__IMG__/promote_home_bg.png" alt="" />
+			</div>
+
+			<div class="mui-content">
+				<div class="ad-site-main divtab" id="adsite_list">
+					<!-- <div class="adsite-box divre">
+						<div class="ad-kq-money divab">
+							<p class="fs18 cf fb600">50</p>
+							<p class="fs13 cf">元</p>
+						</div>
+						<div class="ad-kq-info divab">
+							<p class="cf fs14">满600减166</p>
+							<p class="cf fs13 ad-kq-info2">已投6次</p>
+							<p class="cf fs12">2017.04.27~2017.05.01</p>
+						</div>
+						<div class="ad-kq-btn divab">
+							<div class="ad-btnli btnbg-b fl cf fs13" id="btndesc_1_0" title="0">详情</div>
+							<div class="ad-btnli btnbg-b ad-btnli-r fr cf fs13" id="btnview_1_0" title="0">预览</div>
+						</div>
+						<div class="ad-kq-state divab"><img src="__IMG__/promote_home_waiting.png" alt="" /></div>
+						<img src="__IMG__/promote_home_coupons.png" alt="" />
+					</div>
+					<div class="adsite-box divre">
+						<div class="ad-kq-money divab">
+							<p class="fs18 cf fb600">6.5</p>
+							<p class="fs13 cf">折</p>
+						</div>
+						<div class="ad-kq-info divab">
+							<p class="cf fs14">最高折扣120元</p>
+							<p class="cf fs13 ad-kq-info2">已投6次</p>
+							<p class="cf fs12">2017.04.27~2017.05.01</p>
+						</div>
+						<div class="ad-kq-btn divab">
+							<div class="ad-btnli btnbg-y fl cf fs13" id="btndesc_1_1" title="1">详情</div>
+							<div class="ad-btnli btnbg-y ad-btnli-r fr cf fs13" id="btnview_1_1" title="1">预览</div>
+						</div>
+						<div class="ad-kq-state divab"><img src="__IMG__/promote_home_already.png" alt="" /></div>
+						<img src="__IMG__/promote_home_discount.png" alt="" />
+					</div>
+					<div class="adsite-box divre">
+						<div class="ad-kq-money divab">
+							<p class="fs18 cf fb600">50</p>
+							<p class="fs13 cf">元</p>
+						</div>
+						<div class="ad-kq-info divab">
+							<p class="cf fs14">满600减166</p>
+							<p class="cf fs13 ad-kq-info2">已投6次</p>
+							<p class="cf fs12">2017.04.27~2017.05.01</p>
+						</div>
+						<div class="ad-kq-btn divab">
+							<div class="ad-btnli btnbg-g fl cf fs13" id="btndesc_1_2" title="2">详情</div>
+							<div class="ad-btnli btnbg-g ad-btnli-r fr cf fs13" id="btnview_1_2" title="2">预览</div>
+						</div>
+						<div class="ad-kq-state divab"><img src="__IMG__/promote_home_endof.png" alt="" /></div>
+						<img src="__IMG__/promote_home_end.png" alt="" />
+					</div> -->
+				</div>
+				<div id="console"></div>
+
+			</div>
+			<div class="ad-creat-site divtab">
+				<div class="ad-creat-btn cf fs16">创建推广物料</div>
+			</div>
+
+			<!--规则弹窗-->
+			<div class="prompt-box-bg"></div>
+			<div class="prompt-rule-pup">
+				<div class="rule-pup-con">
+					<div class="mui-slider">
+					    <div class="mui-slider-group">					    
+							<!-- 第一张 -->
+							<div class="mui-slider-item">
+								
+								<img src="__IMG__/promote_rules_one.png">
+								
+							</div>
+							<!-- 第二张 -->
+							<div class="mui-slider-item">
+								
+								<img src="__IMG__/promote_rules_two.png">
+								
+							</div>
+							<!-- 第三张 -->
+							<div class="mui-slider-item">
+								
+								<img src="__IMG__/promote_rules_three.png">
+								
+							</div>
+							<!-- 第四张 -->
+							<div class="mui-slider-item">
+								
+								<img src="__IMG__/promote_rules_four.png">
+								
+							</div>
+					   </div>					    
+						<div class="mui-slider-indicator">
+							<div class="mui-indicator mui-active"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+						</div>
+						<div class="rule-close divab"><img src="__IMG__/promote_close.png" alt="" /></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xiaomi-bar').css('background','none');
+				var adbarw = $('.ad-site-head').width(),
+					adbarh = adbarw * 0.51;
+				$('.ad-site-head').height(adbarh);
+
+				styles();
+				var spandnum = "<?php echo $spandnum; ?>";
+				if (spandnum > 0) {   //获得推广机会弹出框
+					mui.alert('您运气太好啦，获得'+spandnum+'个推广机会，记得明天再来喔~','恭喜您');
+				}
+
+			}
+			$(document).ready(function() {
+
+			});
+			/*样式*/
+			function styles() {
+				var boxw = $('.adsite-box').width(),
+					boxh = boxw * 0.42;
+				$('.adsite-box').height(boxh);
+			}
+
+			/*投放*/
+			mui('.wrap-page').on('tap', '.ad-site-h-btn', function() {
+				if (pageindex == 1) {
+					mui.toast('请先创建推广物料喔~');return;	
+				}
+				var tjchance = "<?php echo $data['tjchance']; ?>";
+				if (tjchance <= 0) {
+					mui.toast('没有推广机会，快去首页发现吧~');
+				} else {
+					mui.openWindow({
+						url: '__URL__/adserving',
+						id: 'adserving'
+					});
+				}
+			});
+
+			/*规则弹窗*/
+			mui('.wrap-page').on('tap', '.ad-site-h-rule', function() {
+				$('.prompt-box-bg').fadeIn(300);
+				$('.prompt-rule-pup').fadeIn(600);
+				$('.prompt-box-bg').height($(document).height());				
+			});
+			mui('.rule-pup-con').on('tap','.rule-close',function(){
+				$('.prompt-box-bg').fadeOut(300);
+				$('.prompt-rule-pup').fadeOut(600);
+			});
+			
+			/*创建推广物料*/
+			mui('.wrap-page').on('tap', '.ad-creat-site', function() {
+				mui.openWindow({
+					url: '__URL__/creatad',
+					id: ''
+				});
+			});
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据列表加载*/
+			function getdatalist() {
+				var url = "__URL__/CardList?pageindex="+pageindex; 
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#adsite_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {							
+									/*没数据状态，投放按钮为灰色*/
+									$('.ad-site-h-btn').css('background-color', '#ccc');
+									_html += '<div class="data-empty divtab bgeb">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">您还没有创建推广内容，<br/>点击下方按钮创建吧！</div>';
+									_html += '</div>';		
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									$('.ad-site-h-btn').css('background-color', '#ffc958');
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="adsite-box divre adsite-box-'+pageindex+'">';
+										_html += '<div class="ad-kq-money divab">';
+										if(dataarr["c_type"]==1){
+											_html += '<p class="fs18 cf fb600">'+dataarr["c_money"]+'</p>';
+											_html += '<p class="fs13 cf">元</p>';
+											
+										}else if(dataarr["c_type"]==2){
+											_html += '<p class="fs18 cf fb600">'+dataarr["c_money"]+'</p>';
+											_html += '<p class="fs13 cf">折</p>';
+											
+										}										
+										_html += '</div>';
+										_html += '<div class="ad-kq-info divab">';
+										if(dataarr["c_type"]==1){
+										_html += '<p class="cf fs14">满'+dataarr['c_limit_money']+'元可用</p>';
+										}else if(dataarr["c_type"]==2){
+										_html += '<p class="cf fs14">最高折扣'+dataarr['c_limit_money']+'元</p>';
+										}
+										_html += '<p class="cf fs13 ad-kq-info2">已投'+dataarr["putin_num"]+'次</p>';
+										_html += '<p class="cf fs12">'+dataarr["c_starttime"]+'~'+dataarr["c_endtime"]+'</p>';
+										_html += '</div>';
+										_html += '<div class="ad-kq-btn divab">';
+										if(dataarr["c_type"]==1 && dataarr["lootall"]!=1 && dataarr["c_status"]!=1){
+											/*代金券,蓝色*/
+											_html += '<div class="ad-btnli btnbg-b fl cf fs13 btndetail" title="'+dataarr["c_id"]+'">详情</div>';
+											_html += '<div class="ad-btnli btnbg-b ad-btnli-r fr cf fs13 btnview" title="'+dataarr["c_id"]+'">预览</div>';											
+										}else if(dataarr["c_type"]==2 && dataarr["lootall"]!=1 && dataarr["c_status"]!=1){
+											/*折扣券,橙色*/
+											_html += '<div class="ad-btnli btnbg-y fl cf fs13 btndetail" title="'+dataarr["c_id"]+'">详情</div>';
+											_html += '<div class="ad-btnli btnbg-y ad-btnli-r fr cf fs13 btnview" title="'+dataarr["c_id"]+'">预览</div>';
+										}
+										if(dataarr["lootall"]==1 && dataarr["c_status"]!=1){
+											/*已抢光，灰色*/
+											_html += '<div class="ad-btnli btnbg-g fl cf fs13 btndetail" title="'+dataarr["c_id"]+'">详情</div>';
+											_html += '<div class="ad-btnli btnbg-g ad-btnli-r fr cf fs13 btnview" title="'+dataarr["c_id"]+'">预览</div>';											
+										}
+										if(dataarr["c_status"]==1){
+											/*已过期，灰色*/
+											_html += '<div class="ad-btnli btnbg-g fl cf fs13 btndetail" title="'+dataarr["c_id"]+'">详情</div>';
+											_html += '<div class="ad-btnli btnbg-g ad-btnli-r fr cf fs13 btnview" title="'+dataarr["c_id"]+'">预览</div>';											
+										}
+										_html += '</div>';
+
+										_html += '<div class="ad-kq-state divab">';
+										if(dataarr["putin_num"]==0&&dataarr["c_status"]!=1&&dataarr["lootall"]!=1){											
+											/*待投放*/
+											_html += '<img src="__IMG__/promote_home_waiting.png" alt="" />';
+										} else if(dataarr["putin_num"]>0&&dataarr["c_status"]!=1&&dataarr["lootall"]!=1){
+											/*已投放*/
+											_html += '<img src="__IMG__/promote_home_already.png" alt="" />';											
+										}
+										if(dataarr["lootall"]==1&&dataarr["c_status"]!=1){
+											/*已抢光*/
+											_html += '<img src="__IMG__/promote_home_endof.png" alt="" />';											
+										}
+										if(dataarr["c_status"]==1){
+											/*已过期*/
+											_html += '<img src="__IMG__/kqgl_icon_past.png" alt="" />';											
+										}
+										_html += '</div>';
+										
+										if(dataarr["c_type"]==1&&dataarr["c_status"]!=1&&dataarr["lootall"]!=1){
+											/*代金券*/
+											_html += '<img src="__IMG__/promote_home_coupons.png" alt="" />';
+											
+										}else if(dataarr["c_type"]==2&&dataarr["c_status"]!=1&&dataarr["lootall"]!=1){
+											/*折扣券*/
+											_html += '<img src="__IMG__/promote_home_discount.png" alt="" />';											
+										}
+										if(dataarr["lootall"]==1&&dataarr["c_status"]!=1){
+											/*已抢光*/
+											_html += '<img src="__IMG__/promote_home_end.png" alt="" />';											
+										}
+										if(dataarr["c_status"]==1){
+											/*已过期*/
+											_html += '<img src="__IMG__/promote_home_end.png" alt="" />';											
+										}
+										
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#adsite_list').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval){
+							/*详情*/
+							mui('.adsite-box-'+pageindex).on('tap','.btndetail',function(){
+								var cardid = $(this).attr('title');
+								mui.openWindow({
+									url: "__URL__/detail?cardid="+cardid,
+									id: "detail"
+								});
+							});
+							/*预览*/
+							mui('.adsite-box-'+pageindex).on('tap','.btnview',function(){
+								var cardid = $(this).attr('title');
+								mui.openWindow({
+									url: "__URL__/getcoupon?preview=1&cardid="+cardid,
+									id: "detail"
+								});
+							});							
+						}
+					}
+				});
+			}
+
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

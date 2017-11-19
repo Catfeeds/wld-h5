@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>结算中心</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+<style>ul.balance-menu{padding: 5% 0 3% 0;}ul.balance-menu li{width: 25%;padding: 3% 3.5%;}</style>
+</head>
+
+<body>
+<div class="wrap-page" style="margin-bottom: 15%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+		<input type="hidden" value="{$data.balance}" id="summoney_val" name="summoney_val" />
+		<div class="divsbox bgcolor divtab">
+			<div class="sumasset-font c9 fs16">总资产（元）</div>
+			<div class="sumasset divtab" id="sum-show">
+				<div class="sumasset-mon fl ce fs18">{$data.balance}</div>
+				<div class="sumasset-ico fr"><img src="__IMG__/imgico9.png" alt=""></div>
+			</div>
+			<?php if($ysstate==0){ ?>
+			<div class="sumasset-detail divtab">
+				<div class="cash-detail fl">
+					<p class="c9 fs14">可提现（元）</p><p class="ce fs14">{$data.drawmoney}</p>
+				</div>
+				<div class="account-detail fl">
+					<div class="fl stay-s-left" style="width: 65%;">
+						<p class="c9 fs14">待结算（元）</p><p class="ce fs14">{$data.stmoney}</p>
+					</div>
+					<div class="fr fs14 c9 stay-s-right" style="width: 12%;margin-top: 7%;"><img src="__IMG__/icon_next.png" alt=""></div>
+				</div>
+			</div>
+			<?php } ?>
+		</div>
+		<div class="divsbox bgcolor divtab asset-Report">
+			<div class="asset-tab-list borderra fs14">
+				<ul>
+					<li class="borderra hover" id="tab_1">今日</li>
+					<li class="borderra" id="tab_2">昨日</li>
+					<li class="borderra" id="tab_3">7天</li>
+					<li class="borderra" id="tab_4">30天</li>
+				</ul>
+			</div>
+			<div class="report-list divtab" id="con_tab_1">
+				<div class="divtab report_line none" id="lineimg_1">
+	
+				</div>
+				<div class="divtab outin_con">
+					<div class="c3 fs16 todaysum divtab">
+						<div class="sumin-num fl">
+							<span id="txt_1">今日收入</span>&nbsp;&nbsp;<span class="cb fs20" id="txt_9">+</span><span class="cb fs20" id="txt_2">0.00</span>
+						</div>
+						<div class="sumin-time fl none" id="txt_10">
+							<img src="__IMG__/imgico5.png" alt="">
+						</div>
+					</div>
+					<div class="today-left fl">
+						<ul id="today-ul">
+							<li>
+								<div class="sico fl">
+									<img src="__IMG__/imgico6.png" alt="">
+								</div>
+								<div class="sname fl fs14 c9" id="txt_11">扫码支付</div>
+								<div class="smoney fl fs14 cb" id="txt_3">0.00</div>
+							</li>
+							<li>
+								<div class="sico fl">
+									<img src="__IMG__/imgico8.png" alt="">
+								</div>
+								<div class="sname fl fs14 c9" id="txt_12">线上订单</div>
+								<div class="smoney fl fs14 cb" id="txt_4">0.00</div>
+							</li>
+							<li>
+								<div class="sico fl">
+									<img src="__IMG__/imgico1.png" alt="" id="imgsrc_1">
+								</div>
+								<div class="sname fl fs14 c9" id="txt_13">红&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包</div>
+								<div class="smoney fl fs14 cb" id="txt_5">0.00</div>
+							</li>
+							<li>
+								<div class="sico fl">
+									<img src="__IMG__/imgico2.png" alt="">
+								</div>
+								<div class="sname fl fs14 c9" id="txt_14">其&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;他</div>
+								<div class="smoney fl fs14 cb" id="txt_6">0.00</div>
+							</li>
+						</ul>
+					</div>
+					<div class="today-right fl">
+						<div id='canvasDiv'></div>
+					</div>
+				</div>
+				<div class="divtab outin_tab" id="out_tab">
+					<div class="tab-out-fl fl fs16 c9"><span id="txt_7">今日支出</span></div>
+					<div class="tab-out-mon fr fs20 cy" id="txt_8">0.00</div>
+				</div>
+			</div>
+		</div>
+		<div class="divsbox bgcolor divtab">
+			<ul class="balance-menu">
+				<li id="menuli-1"><img src="__IMG__/newb016.png" alt=""></li>
+				<li id="menuli-2"><img src="__IMG__/newb013.png" alt=""></li>
+				<li id="menuli-3"><img src="__IMG__/newb015.png" alt=""></li>
+		
+				<!--<?php if(empty($bindinfo['c_wxname']) || empty($bindinfo['c_wxcard']) || $bindinfo['iswx_auth'] == 0){ ?>-->
+				<!--<li id="menuli-4"><img src="__IMG__/newb02.png" alt=""></li>-->
+				<!--<?php }else{ ?>-->
+				<!--<li id="menuli-4"><img src="__IMG__/newb05.png" alt=""></li>-->
+				<!--<?php } ?>-->
+
+				<!--<?php if(empty($bindinfo['c_alipayname']) || empty($bindinfo['c_alipaycard'])){ ?>-->
+				<!--<li id="menuli-5"><img src="__IMG__/newb04.png" alt=""></li>-->
+				<!--<?php }else{ ?>-->
+				<!--<li id="menuli-5"><img src="__IMG__/newb07.png" alt=""></li>-->
+				<!--<?php } ?>-->
+
+				<?php if(empty($bindinfo['c_banksn']) || empty($bindinfo['c_bankname']) || empty($bindinfo['c_sub_bankname'])){ ?>
+				<li id="menuli-6"><img src="__IMG__/newb03.png" alt=""></li>
+				<?php }else{ ?>
+				<li id="menuli-6"><img src="__IMG__/newb06.png" alt=""></li>
+				<?php } ?>
+			</ul>
+			<div class="tijiao-sub none">
+				<button type="button" class="sub-btns fs16">我要提现</button>
+			</div>
+
+			<div class="fixed-btn btn-withdraw fs16">我要提现</div>
+
+			<input type="hidden" name="todayn" id="todayn" value="{$todayn}">
+			<input type="hidden" name="yestoday" id="yestoday" value="{$yestoday}">
+	
+			<input type="hidden" name="endday" id="endday" value="{$endday}">
+			<input type="hidden" name="todaymon" id="todaymon" value="{$todaymon}">
+	
+			<input type="hidden" name="endtimes" id="endtimes" value="{$endtimes}">
+			<input type="hidden" name="begintimes" id="begintimes" value="{$begintimes}">
+			<input type="hidden" name="txt" id="txt" value="{$txt}">
+			<input type="hidden" name="date1" id="date1" value="{$date1}">
+	
+		</div>
+	</div>	
+	<div class="months-bg"></div>
+	<div class="months-pup">
+		<div class="months-pup-con divre">
+			<div class="months-list divab">
+				<ul class="fs12">
+					<volist name="datearr" id="vo">
+						<li onclick="monthlist('{$vo['date']}','{$vo['name']}')" class="li{$i}">{$vo['name']}</li>
+					</volist>
+				</ul>
+			</div>
+			<img src="__IMG__/imgico-5.png" alt="">
+		</div>
+	</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__COMMON__/js/ichart.1.2.min.js"></script>
+<script type="text/javascript" src="__JS__/index.js?v=3.1.0"></script>
+<script type="text/javascript"></script>
+
+<script type="text/javascript">
+	/*菜单跳转************/
+	/*提现记录*/
+	mui('.mui-content').on('tap','#menuli-1',function(){
+		mui.openWindow({url:'__URL__/drawinglog',id:'drawinglog'});
+	});
+	
+	/*交易中*/
+	mui('.mui-content').on('tap','#menuli-2',function(){
+		mui.openWindow({url:'__URL__/tradeing',id:'tallybook'});
+	});
+	// mui('.mui-content').on('tap','#menuli-2',function(){
+	// 	mui.openWindow({url:'__URL__/tallybook',id:'tradeing'});
+	// });
+	//跳转app收支明细
+	mui('.mui-content').on('tap','#menuli-3',function(){
+//		if (apptype == 1) { //小蜜安卓软件
+//			javaScript: resultData.goBalanceList();
+//		}
+//		else if (apptype == 2) { //小蜜ios软件
+//			window.webkit.messageHandlers.AppModel.postMessage({
+//				"payDetails": {}
+//			});
+//		} else {
+			var url = '__URL__/budget';
+			mui.openWindow({
+				url: url,
+				id: "budget"
+			});
+//		}
+	});
+
+	var uname = '<?php echo $bindinfo["c_uname"] ?>';
+	var carid = '<?php echo $bindinfo["c_carid"] ?>';
+
+    var banksn = '<?php echo $bindinfo["c_banksn"] ?>';
+    var bankname = '<?php echo $bindinfo["c_bankname"] ?>';
+    var subbankname = '<?php echo $bindinfo["c_sub_bankname"] ?>';
+    var province = '<?php echo $bindinfo["c_province"] ?>';
+    var city = '<?php echo $bindinfo["c_city"] ?>';
+
+    var oldall = '<?php echo $oldinfo; ?>'
+    var cshop = '<?php echo $userdata["c_shop"]; ?>'
+    var cchecked = '<?php echo $shopinfo["c_checked"]; ?>';
+	
+	/*绑定微信跳转*/
+	mui('.mui-content').on('tap','#menuli-4',function(){
+		if(!emptyval(uname) && !emptyval(carid)){
+			window.location.href="__URL__/bindingwx";
+		}else{
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+		   		e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=2',id:'identify2'});
+		    },'div');
+		    return;
+		}
+	});
+	
+	/*绑定支付宝跳转*/
+	mui('.mui-content').on('tap','#menuli-5',function(){
+		if (!emptyval(uname) && !emptyval(carid)) {
+			window.location.href = "__URL__/bindingap";
+		} else {
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+		   		e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=3',id:'identify3'});
+		    },'div');
+		    return;
+		}
+	});
+	
+	/*绑定银行卡跳转*/
+	mui('.mui-content').on('tap','#menuli-6',function(){
+		if (!emptyval(uname) && !emptyval(carid)) {
+			window.location.href = "__URL__/bindingup";
+		} else {
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+		   		e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=1',id:'identify1'});
+		    },'div');
+		    return;		
+		}
+	});
+	/*我要提现*/
+	mui('.mui-content').on('tap','.btn-withdraw',function(){
+//		if(cshop==1 && oldall==1){
+//            mui.confirm('为了加强您的账户安全，请先完成商家信息认证','提示',['取消','确认'],function (e) {
+//                e.index == 0 ? "" : mui.openWindow({url:'__APP__/Home/Getbusiness/index?type=1',id:'index'});
+//            },'div');
+//		}else if(cchecked==0 && cchecked==2){
+//            mui.confirm('资料正在审核中','提示',['取消','确认'],function (e) {
+//                e.index == 0 ? "" : "";
+//            },'div');
+//		}else if(cchecked==1){
+//            mui.confirm('审核未通过，请重新提交资料','提示',['取消','确认'],function (e) {
+//                e.index == 0 ? "" : mui.openWindow({url:'__APP__/Home/Getbusiness/index?type=2',id:'index'});;
+//            },'div');
+//		}else{
+            if (!emptyval(uname) && !emptyval(carid)) {
+                if (!emptyval(bankname) && !emptyval(banksn) && !emptyval(subbankname) && !emptyval(province) && !emptyval(city)) {
+                    mui.openWindow({url:'__URL__/withdraw?sign=1',id:'withdraw'});
+                } else {
+                    mui.confirm('银行卡信息不完善，请先完善','提示',['取消','确认'],function (e) {
+                        e.index == 0 ? "" : mui.openWindow({url:'__URL__/bindingup',id:'bindingup'});
+                    },'div');
+                }
+            } else {
+                mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+                    e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=1',id:'identify3'});
+                },'div');
+            }
+//		}
+		//mui.openWindow({url:'__URL__/cashway',id:'cashway'});
+	});
+	
+	/*收入支出tab*/
+	mui('.mui-content').on('tap','#tab_1',function(){
+		outintab(1,'今日收入','今日支出');
+	});
+	mui('.mui-content').on('tap','#tab_2',function(){
+		outintab(2,'昨日收入','昨日支出');
+	});
+	mui('.mui-content').on('tap','#tab_3',function(){
+		outintab(3,'最近7天收入','最近7天支出');
+	});
+	mui('.mui-content').on('tap','#tab_4',function(){
+		outintab(4,'最近30天收入','最近30天支出');
+	});
+	
+	/*隐藏总资产*/
+	mui('.mui-content').on('tap','#sum-show',function(){
+		sumshow();
+	});
+	
+	mui('.mui-content').on('tap','#txt_10',function(){
+		getmonths();
+	});
+
+	/*查看待结算*/
+	mui('.mui-content').on('tap','.account-detail',function () {
+		mui.openWindow({url:"__APP__/Balance/Staysettle/index",id:"Staysettle"});
+    })
+
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>编辑个人资料</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+</head>
+<body class="bgcolor">
+<form name="formEdit" action="" method="post" enctype="multipart/form-data" id="form1">
+<input type="hidden" value="{$data['c_ucode']}" name="ucode" id="ucode">
+<div class="wrap-page" style="margin-bottom:13%;background:#fff;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="editor-list">
+
+        <div class="pd_head">        	
+	        <a href="#" onclick="fileElem.click()">   
+		        <if condition = "$data['c_headimg'] eq NULL">            
+	                <img src="__IMG__/logo.png" id="head"/>
+	            <else />
+	                <img src="{$data['c_headimg']}" id="head"/>                
+	            </if>	                   
+	            
+	            <img src="__IMG__/usercenter/xiangji.png" id="camera"/>             
+	            <input type="file" id="fileElem" name="img" style="display:none" onchange="handleFiles(this)" multiple accept="image/*"  >
+	            <div class="preview" id="fileList" style="display:none;">
+	            	<if condition = "$data['c_headimg'] eq NULL">            
+	                <img src="__IMG__/logo.png" id="head"/>
+		            <else />
+		                <img src="{$data['c_headimg']}" id="head"/>                
+		            </if>
+	            </div>
+	        </a>
+        </div>
+		<input type="hidden" id="imgsrc" value="">
+		<div class="editor-li editor-sex">
+			<div class="editor-li-txt fl">性别</div>
+			<div class="editor-li-data fl">
+				<select name="sex" id="sex" class="select-sex">
+					<option value="女" <if condition="$data.c_sex eq 女"> selected="selected"</if> >女</option>
+					<option value="男" <if condition="$data.c_sex eq 男"> selected="selected"</if> >男</option>
+				</select>
+			</div>
+		</div>
+		<div class="editor-li editor-sex">
+			<div class="editor-li-txt fl">行业</div>
+			<div class="editor-li-data fl">
+				<select name="trade" id="trade" class="select-sex">
+					<option value="0" id="tradename" selected>选择行业</option>   
+					<foreach name="myjob" item="job">
+					  <option value="{$job.c_name}" <if condition="$job.c_name eq $data['c_trade']"> selected</if> >{$job.c_name}</option>
+					</foreach> 
+				</select>
+			</div>
+		</div>
+		<div class="editor-li editor-sex">
+			<div class="editor-li-txt fl">地区</div>
+			<div class="editor-li-data fl">				
+				<select name="province" id="province" class="fl select-region" onchange="loadcity('province',2,'city','{:U('Address/getRegion')}');">
+					  <option value="" id="provincename" selected>选择省</option>
+			          <foreach name="province" item="province">
+			              <option id="{$province.region_id}" value="{$province.region_name}" <if condition="$province.region_name eq $data['c_province']"> selected</if> >{$province.region_name}</option>
+			          </foreach>
+				</select>
+				<select name="city" id="city" class="fl select-region" onchange="loadcity('city',3,'district','{:U('Address/getRegion')}');">
+					<if condition="$data['c_city'] neq null">
+						<option value="{$data['c_city']}" id="cityname">{$data['c_city']}</option>
+						<else />
+						<option value="" id="cityname">选择市</option>
+					</if>					
+				</select>
+				<select name="region" id="district" class="fl select-region">					
+					<if condition="$data['c_region'] neq null">						
+						<option value="{$data['c_region']}" id="districtname" selected>{$data['c_region']}</option>
+						<else />
+						<option value="" id="districtname" selected>选择区</option>
+					</if>
+				</select>
+			</div>
+		</div>
+		<div class="editor-li editor-signature">
+			<div class="editor-li-txt fl">个性签名</div>
+			<div class="editor-li-data fl">
+				<textarea name="signature" id="signature" rows="5" placeholder="长度不超过100个字" datatype="*10-100" dragonfly="true" onKeyUp="textarealength(this,35)">{$data['c_signature']}</textarea>
+			</div>
+		</div>
+		
+		<div class="editor-btn" onclick="submit2()">保存</div>
+		<!-- <input type="hidden" value="{$time}"> -->
+	</div>
+</div>
+</div>
+</form>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js"></script>
+<script type="text/javascript" src="__COMMON__/js/region.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+
+		var lih = $('.editor-nick').height();
+		$('.editor-nick').css('line-height',lih+'px');
+		var lsh = $('.editor-sex').height();
+		$('.editor-sex').css('line-height',lsh+'px');
+		
+        var h = $('#head').height();
+        var w = $('#head').width();
+        $('.preview').css('width',w+'px');
+        $('.preview').css('height',w+'px');
+        $('.preview').css('border-radius',w+'px');
+        $('#head').css('border-radius',w+'px');
+        $('#head').css('height',w+'px');
+        $('#head').css('width',w+'px');
+        $('.preview').css('margin-left',-w/1.8+'px');  			
+
+	}		
+
+	function checkform () {			
+		var trade = $('#trade option:selected').text();			
+		var filev = $('#fileList').html();
+		var province = $('#province option:selected').text();
+		var city = $('#city option:selected').text();
+		var district = $('#district option:selected').text();
+		if (filev=="") {             
+            mui.toast('您还未上传图像！');
+            return false;
+		}
+		else if (trade=="选择行业") {        
+            mui.toast('请选择要修改的行业！');
+            return false;
+		}
+		else if(province=="选择省" || city=="请选择" || district=="请选择"){      
+            mui.toast('请选择要修改的地区信息！');
+            return false;
+		}
+		return true;
+	}
+	
+	/*表单提交修改信息*/
+	function submit2 () {
+		if (checkform()) {
+			$('#form1').submit();
+		}else{
+			return false;
+		}
+		
+	}
+</script>
+<script type="text/javascript"> 
+/*textarea 字数限制*/
+function textarealength(obj,maxlength){
+	var v = $(obj).val();
+	var l = v.length;
+	if( l > maxlength){
+		v = v.substring(0,maxlength);
+	}
+	$('#signature').val(v);
+}
+window.URL = window.URL || window.webkitURL;
+var fileElem = document.getElementById("fileElem"), fileList = document.getElementById("fileList");
+
+function handleFiles(obj) {
+	fileList.style.display="block";
+	var files = obj.files, img = new Image();
+
+	if(window.URL) {
+		img.src = window.URL.createObjectURL(files[0]);
+		//创建一个object URL，并不是你的本地路径
+		//img.width = 100%;
+		//img.height = 100%;
+
+		img.onload = function(e) {
+			window.URL.revokeObjectURL(this.src);
+			$('#imgsrc').val(this.src);
+			//图片加载后，释放object URL
+		}
+		$('#fileList').html(img);
+		//fileList.appendChild(img);		
+		$("#imgsrc").css("width","100%");
+		$("#imgsrc").css("height","100%");
+		
+	}
+	else if(window.FileReader) {
+		//opera不支持createObjectURL/revokeObjectURL方法。我们用FileReader对象来处理
+		var reader = new FileReader();
+		reader.readAsDataURL(files[0]);
+
+		reader.onload = function(e) {
+			img.src = this.result;
+			$('#imgsrc').val(img.src);		
+			//fileList.appendChild(img);	
+			$('#fileList').html(img);
+			$("#imgsrc").css("width","100%");
+			$("#imgsrc").css("height","100%");			
+		}
+		
+	}
+	else {
+		//ie
+		obj.select();
+		obj.blur();
+		var nfile = document.selection.createRange().text;
+		document.selection.empty();
+		img.src = nfile;
+		$('#imgsrc').val(nfile);
+		img.onload=function() {
+		}
+		//fileList.appendChild(img);
+		$('#fileList').html(img);
+		$("#imgsrc").css("width","100%");
+		$("#imgsrc").css("height","100%");
+		
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>{$userdata['c_nickname']}的微店</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/user/index.css" />
+</head>
+<body class="bgcolor">
+	<div class="wrap-page bgcolor">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<include file="Base@Public/pubheader" />
+		<div class="mui-content bgcolor">	
+			<div class="maintop divtab">
+				<div class="topimg child-img">
+					<img src="{$userdata['c_headimg']}" alt="">
+				</div>
+				<div class="p1 fs14 c3 divtab shopname fov">{$userdata['c_nickname']}</div>
+			</div>
+			<div class="divtab">
+				<img src="__IMG__/user/5_02.png" alt="">
+			</div>
+			<div class="boximg" id="data_list">
+				<!-- <div class="divtab divempty">
+					<h3 class="divtab c6 fs14">暂无相关商品</h3>
+					<p class="divtab c9 fs12">请添加您需要的分销商品</p>
+				</div> -->
+				<!-- 原来的排版
+				<li class="divtab bagsli bagsli1 bgcolor bagsli-1">
+					<div class="divtab fl bagsleft child-img lookdetail" title="1">
+						<img src="__COMMON__/logo.png" alt="">
+					</div>
+					<div class="divtab fl bagright lookdetail" title="1">
+						<h3 class="divtab fs14 c3">良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子</h3>
+						<p class="divtab fs12 c6 bagsprinum">
+							<span class="fl jiage fs14">￥30</span>
+						</p>
+					</div>
+				</li> -->
+
+				<!-- 按优化重新布局，boximg 需要加了 bgeb divtab
+				<li class="divtab bagsli3 bgcolor ">
+					<div class="divtab bagsli3-img child-img lookdetail" title="1">
+						<img src="__COMMON__/logo.png" alt="">
+					</div>
+					<div class="divtab bagsdetail" title="1">
+						<h3 class="divtab fs14 fov c3">良品铺子良品铺子良品铺子良品铺子良品铺子良品</h3>
+						<p class="divtab fs12 cy bagsprinum">
+							￥<span class="fs16 fb600">30.</span><font>00</font></span>
+						</p>
+					</div>
+				</li> -->
+			</div>
+			<div id="console"></div>
+		</div>
+	</div>
+<include file="Base@Public/pubjs" />
+<!-- 引入分享 -->
+<include file="Base@Public/appshare" />
+<include file="Base@Public/wxshare" />
+</body>
+<script type="text/javascript">
+
+	window.onload = function() {
+		ChRightText("推广");
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var tpw = $('.topimg').width();
+		$('.topimg').height(tpw);
+		$('.topimg').css('border-radius',tpw+'px');
+
+		var ligd = $('.bagsleft').width();
+		$('.bagsleft').height(ligd);
+		$('.bagright h3').css('line-height',ligd*0.3+'px');
+		$('.bagright p').height(ligd*0.3);
+		$('.bagright p').css('line-height',ligd*0.3+'px');
+
+
+		$(".bagright h3").each(function(i) {
+			while ($(this).height() > ligd*0.6) {
+				$(this).text($(this).text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+			};
+		});
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/SmallShopProduct?fromucode=<?php echo $fromucode; ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data || !data.list) {
+						if(pageindex == 1) {   //数据为空展示							
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关商品</div>';
+							_html += '<div class="data-empty-font c3 fs14">请添加您需要的分销商品~~</div>';
+							_html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<li class="divtab bagsli bagsli1 bgcolor bagsli-'+pageindex+'">';
+									_html+='<div class="divtab fl bagsleft child-img lookdetail" title="'+dataarr['c_pcode']+'">';
+										_html+='<img src="'+dataarr['c_pimg']+'" alt="">';
+									_html+='</div>';
+									_html+='<div class="divtab fl bagright lookdetail" title="'+dataarr['c_pcode']+'">';
+										_html+='<h3 class="divtab fs14 c3">'+dataarr['c_name']+'</h3>';
+										_html+='<p class="divtab fs12 c6 bagsprinum">';
+											_html+='<span class="fl jiage fs14">￥'+dataarr['c_price']+'</span>';
+										_html+='</p>';
+									_html+='</div>';
+								_html+='</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+	loadclick();
+	function loadclick() {
+		//商品详情
+		mui('.bagsli-'+pageindex).on('tap', '.lookdetail', function() {
+			var pcode = $(this).attr('title');
+			mui.openWindow({
+				url: '__URL__/detail?pcode='+pcode,
+				id: "agdetail"
+			});
+		});
+	}
+
+</script>
+
+</html>

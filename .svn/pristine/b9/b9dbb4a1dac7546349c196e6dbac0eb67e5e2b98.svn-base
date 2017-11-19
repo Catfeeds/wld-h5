@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>激活串码审核</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<style type="text/css">.pup-bg{display: block;}</style>
+</head>
+
+<body>
+
+<include file="Common/head"/>
+<div class="wrap-page">
+	<!-- <ul class="str-t-num">
+		<li>
+			<p class="fs16">{$info['nochecked']}个</p>
+			<p class="fs12">待审核</p>
+		</li>
+		<li>
+			<p class="fs16">{$info['checked']}个</p>
+			<p class="fs12">已审核</p>
+		</li>
+	</ul> -->
+	<ul class="str-list" id="data_list">
+		<!-- <li>
+			<div class="str-item">
+				<div class="fl str-headimg"><img src="__IMG__/mobile/agentimg.jpg" alt=""></div>
+				<div class="fl str-info">
+					<p class="fs16 c3">代理商名称</p>
+					<p class="fs12 c9">申请串码个数：<span class="fs22">10</span>个</p>
+					<div class="check_radio fs14">
+						<span class="fl">
+							<input type="radio" name="str_check_0" value="" id="strval_0" disabled="disabled"><label>免费</label>
+						</span>
+						<span class="fr">
+							<input type="radio" name="str_check_0" value="" id="strval_1" checked="checked" disabled="disabled"><label>已付款</label>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="str-oprate">
+				<span class="fs14">已审核</span>
+				<span class="fs14 hover" style="display:none;">审核通过</span>
+			</div>
+		</li>
+		<li>
+			<div class="str-item">
+				<div class="fl str-headimg"><img src="__IMG__/mobile/agentimg.jpg" alt=""></div>
+				<div class="fl str-info">
+					<p class="fs16 c3">代理商名称</p>
+					<p class="fs12 c9">申请串码个数：<span class="fs22">20</span>个</p>
+					<div class="check_radio fs14">
+						<span class="fl selected">
+							<input type="radio" name="str_check_1" value="" id="strval_2"><label>免费</label>
+						</span>
+						<span class="fr selected">
+							<input type="radio" name="str_check_1" value="" id="strval_3"><label>已付款</label>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="str-oprate">
+				<span class="fs14" style="display:none;">已审核</span>
+				<span class="fs14 hover" onclick="pupcheck()">审核通过</span>
+			</div>
+		</li> -->
+	</ul>
+
+	<div class="pup-bg"></div>
+	<div class="pup-box">
+		<div class="pup-box-img"><img src="__IMG__/dl_icon_mb.png"></div>
+		<p>请前往APP端进行审核</p>
+		<button onclick="cflink()">确认</button>
+	</div>
+	<!-- <div class="sure-pup">
+		<div class="sure-con">
+			<div class="sure-tit c3 fs16">确认审核</div>
+			<div class="sure-font fs14 c5">审核后将发送短信提醒代理</div>
+			<div class="sure-btn fs14">
+				<span onclick="cancelpup()">取消</span>
+				<span onclick="surecheck()">确定</span>
+			</div>
+		</div>
+	</div> -->
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+
+	    // topstyle();/*头部样式*/
+
+	    // $('#return-top').hide();
+	    // $('#page-top-c-t').text("串码审核");
+
+	    // var ah = $('.str-headimg').width();
+	    // $('.str-headimg').width(ah);
+	    // $('.str-headimg').height(ah);
+	    // $('.str-info p').css('line-height',ah*0.3+'px');
+	    // $('.check_radio').height(ah*0.4);
+	    // $('.check_radio span').css('line-height',$('.check_radio').height()+'px');
+
+	    //弹框高度获取
+	    $(".pup-bg").height($(document).height());
+
+	}
+
+	//审核提示确认
+	function cflink(){
+		window.location.href = '__APP__/Agent/Information/index';
+
+	}
+
+// 	var pageindex = 1;
+// 	var ctrls = true;
+// 	var emptyval = true;
+// 	getdatalist();
+// 	$(window).bind('scroll', function() {
+// 		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+// 			if(ctrls && emptyval) {
+// 				getdatalist();
+// 			}
+// 		}	
+// 	});
+
+// 	/*数据加载*/
+// 	function getdatalist() {
+// 		var url = "__URL__/GetCodeCheckList?pageindex=" + pageindex;
+// 		var _html = "";
+// 		$.ajax({
+// 			type: 'get',
+// 			dataType: 'json',
+// 			url: url,
+// 			cache: false,
+// 			beforeSend: function() {
+// 				$('#console').css('display', 'block');
+// 				$('#console').html('加载中...');
+// 				ctrls = false;
+// 			},
+// 			error: function() {
+// 				$('#console').css('display', 'block');
+// 				$('#console').html('加载失败');
+// 				ctrls = true;
+// 			},
+// 			success: function(obj) {
+// 				if(pageindex == 1) {
+// 					$('#data_list').empty();
+// 				}
+// 				var mgs = eval(obj);
+// 				if(mgs['code'] == 0) {
+// 					var data = mgs.data;
+// 					if(!data ||  data.list.length <= 0) {
+// 						if(pageindex == 1) {   //数据为空展示
+// 							_html+='<div class="baoqian">暂无相关信息</div>';
+// 						}
+// 						emptyval = false;
+// 					} else {
+// 						if(pageindex <= data.pageCount) {
+// 							pageindex++;
+// 							var datalist = data.list;
+// 							for(var i = 0; i < datalist.length; i++) {
+// 								var dataarr = datalist[i];
+// 								_html+='<li>';
+// 								_html+='<div class="str-item">';
+// 								_html+='<div class="fl str-headimg"><img src="'+dataarr['c_headimg']+'" alt=""></div>';
+// 								_html+='<div class="fl str-info">';
+// 								_html+='<p>'+dataarr['c_nickname']+'</p>';
+// 								_html+='<p>申请串码个数：<span>'+dataarr['c_num']+'</span>个</p>';
+// 								_html+='<div class="check_radio">';
+// 								if (dataarr['c_state'] == 1) {
+// 									/*已审核*/
+// 									_html+='<span class="fl">';
+// 									if (dataarr['c_isfree'] == 1) {
+// 										_html+='<input type="radio" name="str_check_1" value="2" disabled="disabled"><label>免费</label>';
+// 									} else {
+// 										_html+='<input type="radio" name="str_check_1" value="2" checked="checked" disabled="disabled"><label>免费</label>';	
+// 									}
+// 									_html+='</span>';
+// //									_html+='<span class="fr">';
+// //									if (dataarr['c_isfree'] == 1) {
+// //										_html+='<input type="radio" name="str_check_'+dataarr['c_id']+'" value="1" checked="checked" disabled="disabled"><label>已付款</label>';
+// //									} else {
+// //										_html+='<input type="radio" name="str_check_'+dataarr['c_id']+'" value="1" disabled="disabled"><label>已付款</label>';	
+// //									}
+// //									_html+='</span>';
+// 								} else {
+// 									/*审核通过*/
+// 									_html+='<span class="fl selected">';
+// 									_html+='<input type="radio" name="str_check_'+dataarr['c_id']+'" value="2"><label>免费</label>';
+// 									_html+='</span>';
+// //									_html+='<span class="fr selected">';
+// //									_html+='<input type="radio" name="str_check_'+dataarr['c_id']+'" value="1"><label>已付款</label>';
+// //									_html+='</span>';
+
+// 								}
+								
+// 								_html+='</div>';
+// 								_html+='</div>';
+// 								_html+='<div class="str-oprate fl">';
+// 								if (dataarr['c_state'] == 1) {
+// 									_html+='<span class="">已审核</span>';
+// 								} else {
+// 									_html+='<span class="hover" onclick="pupcheck(\''+dataarr['c_id']+'\')">审核通过</span>';
+// 								}
+// 								_html+='</div>';
+// 								_html+='</div>';
+// 								_html+='</li>';
+// 							};
+// 						} else {
+// 							emptyval = false;
+// 						}
+// 					}
+// 				} else {
+// 					emptyval = false;
+// 				}
+// 				$('#data_list').append(_html);
+// 			},
+// 			complete: function() {
+// 			    var ah = $('.str-headimg').width();
+// 			    $('.str-headimg').width(ah);
+// 			    $('.str-headimg').height(ah);
+// 			    $('.str-info p').css('line-height',ah*0.3+'px');
+// 			    $('.check_radio').height(ah*0.4);
+// 			    $('.check_radio span').css('line-height',$('.check_radio').height()+'px');
+// 				$('#console').css('display', 'none');
+// 				ctrls = true;
+// 			}
+// 		});
+// 	}
+
+// var checksign = 0;
+// var isfree = '';
+// /*审核弹窗*/
+// function pupcheck(sg){
+// 	checksign = sg;
+// 	isfree = $('input[name="str_check_'+checksign+'"][type="radio"]:checked').val();
+// 	if (!isfree) {
+// 		alert('请选择状态');return;	
+// 	}
+// 	$('.pup-bg').fadeIn();
+// 	$('.sure-pup').fadeIn();
+// 	$('.pup-bg').height($(document).height());
+// }
+
+// /*取消*/
+// function cancelpup(){
+// 	$('.pup-bg').fadeOut();
+// 	$('.sure-pup').fadeOut();
+// }
+
+// /*确定审核*/
+// var tjsign = true;
+// function surecheck() {
+// 	$('.pup-bg').fadeOut();
+// 	$('.sure-pup').fadeOut();	
+// 	if (tjsign) {
+// 		tjsign = false;
+// 		$.post("__URL__/CheckCode",{cid:checksign,isfree:isfree},function(obj){
+// 			var data = eval(obj);
+// 			tjsign = true;
+// 			if(data['code']==0){
+// 				alert(data['msg']);
+// 				window.location.href="__URL__/index";
+// 			}else{
+// 				alert(data['msg']);
+// 			}
+// 		});
+// 	}
+// }
+
+
+</script>
+</body>
+</html>

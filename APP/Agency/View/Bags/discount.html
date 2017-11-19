@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>设置折扣</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/bags/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<include file="Base@Public/pubheader" />
+		<form action="" id="formdata" method="post" accept-charset="utf-8">
+		<input type="hidden" name="bag_code" value="{$pid}">
+		<input type="hidden" name="pcode" value="{$pcode}">
+		<div class="mui-content">			
+			<ul class="divtab bagslist" id="data_list">
+
+				<!-- <div class="divtab divempty">
+					<h3 class="divtab c6 fs14">暂无相关商品</h3>
+					<p class="divtab c9 fs12">请添加您需要的分销商品</p>
+				</div> -->
+				<li class="divtab bagsli bagsli1 bgcolor">
+					<div class="divtab fl bagsleft child-img bagsleft1">
+						<img src="{$pdata['c_pimg']}" alt="">
+					</div>
+					<div class="divtab fl bagright">
+						<h3 class="divtab fs14 c3">{$pdata['c_name']}</h3>
+						<p class="divtab fs12 c6 bagsprinum">
+							<span class="fl jiage fs14">￥{$pdata['c_price']}</span>
+						</p>
+					</div>
+				</li>
+				<?php if ($pdata['c_status'] == 1) { ?>
+				<li class="divtab bagsli bagsli1 bgcolor">
+					<input type="hidden" id="upstate" name="state" value="1">
+					<div class="divtab fl addleft c3 fs14">上架商品</div>
+					<div class="divtab fr offonimg c3 fs14">
+						<img id="opimg" src="__IMG__/bags/on.png" alt="">
+					</div>
+				</li>	
+				<?php } else { ?>
+				<li class="divtab bagsli bagsli1 bgcolor">
+					<input type="hidden" id="upstate" name="state" value="0">
+					<div class="divtab fl addleft c3 fs14">上架商品</div>
+					<div class="divtab fr offonimg c3 fs14">
+						<img id="opimg" src="__IMG__/bags/off.png" alt="">
+					</div>
+				</li>
+				<?php } ?>
+				<?php for ($i=0; $i < 5; $i++) { ?>
+				<?php if (!empty($data[$i])) { ?>
+				<li class="divtab bagsli bagsli1 bgcolor divre">
+					<div class="divtab fl addleft c3 fs14">{$data[$i]['c_grade_name']}</div>
+					<input type="hidden" name="grade_name{$i}" value="{$data[$i]['c_grade_name']}">
+					<input type="hidden" name="grade{$i}" value="{$data[$i]['c_grade']}">
+					<input type="text" name="discount{$i}" value="{$pdata['disdata'][$i]['c_discount']}" placeholder="请输入折扣比例" class="divtab fl addright c3 fs14 addright1" onblur="discountshow({$i});">
+					<div class="fr disright fs14 c6">折</div>
+					<div class="divtab divab fs12 c9 showprice none" id="showprice{$i}">0.00元</div>
+				</li>
+				<?php } ?>
+				<?php } ?>
+			</ul>
+			<div class="divtav levelremid fs12 c9">
+			 	请输入对应等级的商品价格折扣比例
+			</div>
+			<div id="console"></div>
+		</div>
+		</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+
+	window.onload = function() {
+		ChRightText("保存");
+		yangshi();
+		discountshow();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var ligd = $('.bagsleft').width();
+		$('.bagsleft').height(ligd);
+		$('.bagright h3').css('line-height',ligd*0.3+'px');
+		$('.bagright p').height(ligd*0.3);
+		$('.bagright p').css('line-height',ligd*0.3+'px');
+
+
+		$(".bagright h3").each(function(i) {
+			while ($(this).height() > ligd*0.6) {
+				$(this).text($(this).text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+			};
+		});
+	}
+
+	//显示折后价
+	function discountshow(gi) {
+		if (gi >= 0) {
+			var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+			if (!match.test($('input[name="discount' + gi + '"]').val())) {
+				mui.toast('请输入正确的折扣比例！');
+				return;
+			}
+		}
+		for (var i = 0; i < 5; i++) {
+			var zhekou = $('input[name="discount' + i + '"]').val();
+			var price = "<?php echo $pdata['c_price']; ?>";
+			var zhprice = (zhekou * price/10).toFixed(2);
+			$('#showprice' + i).hide();
+			$('#showprice' + i).text(zhprice + '元');
+			if (zhekou) {
+				$('#showprice' + i).show();
+			}
+		};
+	}
+
+	//上下架点击
+	mui('.mui-content').on('tap', '.offonimg', function() {
+		var ctype = $('#upstate').val();
+		if (ctype == 1) {   //下架
+			$('#upstate').val(0);
+			$('#opimg').attr('src', '__IMG__/bags/off.png');
+		} else {
+			$('#upstate').val(1);
+			$('#opimg').attr('src', '__IMG__/bags/on.png');
+		}	
+	});
+
+	//提交表单
+	function rightcaozuo() {
+		putform();
+	}
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/AddBagProduct',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"bagsindex"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);					
+						}
+					}
+			});
+		}	
+	}
+
+
+</script>
+
+</html>

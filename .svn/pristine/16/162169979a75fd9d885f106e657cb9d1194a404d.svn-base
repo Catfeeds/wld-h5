@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="content-s w_960">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="page-title">
+					<div class="page-tit-name">商家资料2/<?php if($isfixed==1){ ?>8<?php }else{ ?>7<?php } ?></div>
+				</div>
+				<div class="p_info_con">
+
+					<div class="trade-list">
+						<p class="c3">请选择所属行业（单项选择）</p>
+						<ul>
+							<volist name="industry" id="vo">
+								<li class="tradeitem c5 <?php if($vo['c_id']==$data['c_shoptrade'] ){ ?> hover <?php } ?>" onclick="seltrade({$vo['c_id']})" id="tradeli_{$vo['c_id']}">{$vo['c_name']}</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+
+			</form>
+
+			<div class="tip-info" style="padding-left: 35px;"><img src="__IMG__/sjjh_icon_msg.png" alt="" />审核通过后将不可更改，请慎重选择</div>
+	
+			<div class="step-btn">
+				<span id="prev_btn" onclick="PreviousCK()">上一步</span>
+				<span id="next_btn" onclick="savestep()">保存并下一步</span>
+				<input type="hidden" name="tradetid" id="tradetid" value="{$data['c_shoptrade']}" />
+			</div>			
+		</div>
+		
+
+		<script type="text/javascript">
+			var voisfixed = '<?php echo $isfixed ?>';
+
+			window.onload = function() {
+
+			}
+
+			function seltrade(id) {
+				$('.tradeitem').removeClass("hover");
+				$('#tradetid').val("");
+				$('#tradetid').val("" + id + "");
+				$('#tradeli_' + id).addClass("hover");
+			}
+
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/info_1?isfixed=" + voisfixed;
+			}
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var tid = $('input[name="tradetid"]').val();
+					if(tid == "" || tid == null || typeof(tid) == "undefined") {
+						JqueryDialog.Show("请选择所属行业！");
+						resign = true;
+						return;
+					} else {
+						$.post('__APP__/Shop/Personal/SetInfo2', {
+							tid: tid
+						}, function(obj) {
+							var data = eval(obj);
+							if(data['code'] == 0) {
+								JqueryDialog.Show("保存成功！");
+								setTimeout(function() {
+									window.location.href = "__APP__/Shop/Personal/info_3?isfixed=" + voisfixed;
+								}, 1000);
+
+							} else {
+								JqueryDialog.Show("保存失败！");
+								resign = true;
+								return false;
+							}
+						});
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

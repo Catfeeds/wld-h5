@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>我的</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+
+			<!-- 我的 -->
+			<div class="ca-record-info">
+				<ul class="bgcolor">
+					<li>
+						<div class="ca-record-tit fl c3 fs14" id="ca-my-info">我的信息</div>
+						<div class="ca-record-img fr"><img src="__IMG__/cashier/cashier_icon_next.png"></div>
+					</li>
+					<li>
+						<div class="ca-record-tit fl c3 fs14" id="ca-my-gathering">收款记录</div>
+						<div class="ca-record-img fr"><img src="__IMG__/cashier/cashier_icon_next.png"></div>
+					</li>
+					<li>
+						<div class="ca-record-tit fl c3 fs14" id="ca-my-work">上班记录</div>
+						<div class="ca-record-img fr"><img src="__IMG__/cashier/cashier_icon_next.png"></div>
+					</li>
+				</ul>
+				<ul class="bgcolor" style="display: none;">
+					<li>
+						<div class="ca-switch-tit fl c3 fs14">二维码到账语音提醒</div>
+						<div class="ca-record-switch fr" style="width: 13.5%;" id="mySwitch">
+							<div class="mui-switch mui-switch-blue mui-switch-mini">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		//我的 
+		$('.ca-record-tit').css('line-height',$('.ca-record-img').width() +'px');
+		$('.ca-switch-tit').css('line-height',$('.ca-record-switch').width()*0.5 +'px');
+	}
+
+	//跳转我的信息
+	mui('.mui-content').on('tap', '#ca-my-info', function() {
+		mui.openWindow({
+			url: '__URL__/myinfo',
+			id: 'myinfo'
+		});		
+	});
+
+	//跳转收款记录
+	mui('.mui-content').on('tap', '#ca-my-gathering', function() {
+		mui.openWindow({
+			url: '__URL__/mlog',
+			id: 'mlog'
+		});		
+	});
+
+	//跳转上班记录
+	mui('.mui-content').on('tap', '#ca-my-work', function() {
+		mui.openWindow({
+			url: '__URL__/signinfo',
+			id: 'signinfo'
+		});		
+	});
+</script>
+
+</html>

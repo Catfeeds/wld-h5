@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>卡劵详情</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body>
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<input type="hidden" name="coupontype" id="coupontype" value="{$coupontype}">
+			<input type="hidden" name="c_cid" id="c_cid" value="">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="coupon-cqd-page bgcolor" style="margin-top:18%;">
+					<?php if ($data['c_type'] == 1) { ?>
+					<div class="coupon-cqd-tit bdashed c3 fs14 divtab">代金券</div>
+					<div class="coupon-cqd-info divtab">
+						<div class="c-cqd-money fs18 divtab">{$data['c_money']}元</div>
+						<div class="c-cqd-con1 divtab c3 fs12">
+							<?php if ($data['c_pcodearr']) { ?>
+							<span>部分商品</span>
+							<?php } else { ?>
+							<span>全部商品</span>
+							<?php } ?>|<span>满{$data['c_limit_money']}减{$data['c_money']}</span>
+						</div>
+						<?php } else if ($data['c_type'] == 2) {  ?>
+						<div class="coupon-cqd-tit bdashed c3 fs14 divtab">折扣劵</div>
+						<div class="coupon-cqd-info divtab">
+							<div class="c-cqd-money fs18 divtab">{$data['c_money']}折</div>
+							<div class="c-cqd-con1 divtab c3 fs12">
+								<?php if ($data['c_pcodearr']) { ?>
+								<span>部分商品</span>
+								<?php } else { ?>
+								<span>全部商品</span>
+								<?php } ?>|<span>最高折扣{$data['c_limit_money']}元</span>
+							</div>
+							<?php } ?>
+
+							<?php if ($data['c_sign'] == 1) { ?>
+							<div class="c-cqd-rangt cf fs12 divtab"><span>全平台通用</span></div>
+							<?php } ?>
+
+							<div class="c-cqd-time c9 fs12 divtab">有效期<span>{$data['c_starttime']}</span>至<span>{$data['c_endtime']}</span></div>
+
+							<div class="c-cqd-splitl"><img src="__IMG__/kqgl_bg_par02_b_02.png" alt="" id="splitimg" /></div>
+
+							<div class="c-cqd-numinfo bdashed divtab">
+								<div class="c-cqd-totalnum fl c3 fs13">总数量：{$data['c_totalnum']}</div>
+								<div class="c-cqd-surplus fr c3 fs13">剩余数量：{$data['c_num']}</div>
+							</div>
+							<div class="coupon-cqd-tit bdashed c3 fs14 divtab">投放的商家</div>
+							<div class="c-cqd-dynamic bdashed divtab">
+								<?php if (count($datalog) <= 0) { ?>
+								<div class="baoqian">还没有相关记录，赶紧去投放吧~~</div>
+								<?php } else { ?>
+								<?php foreach ($datalog as $key => $value) { ?>
+								<div class="c-cqd-dybox divtab bborder" id="ads_{$value['c_adid']}">
+									<div class="c-cqd-dyimg fl" style="width: 18%;">
+										<img src="{$value['c_headimg']}" alt="" />
+									</div>
+									<div class="c-cqd-dyinfo fl" style="width: 59%;">
+										<p class="divtab fs14 c3">
+											<span class="fl fov" style="width: 62%;">{$value["c_nickname"]}</span>
+											<?php if ($value['c_type']==1) { ?>
+											<span class="fl pt_icon pt_shop cf fs12">店铺</span>
+											<?php } else if ($value['c_type']==2) { ?>
+											<span class="fl pt_icon pt_order cf fs12">订单</span>
+											<?php } ?>
+										</p>
+										<p class="c9 fs12" style="padding: 5% 0;"><span>已领：{$value["getnum"]}张</span><span>浏览：{$value["seenum"]}</span></p>
+										<p class="cf fs12"><span class="putin_btn fl" onclick="viewstore('{$value['c_ucode']}')">查看</span><span class="putin_btn fl" onclick="revocation({$value['c_adid']})">撤回</span></p>
+									</div>
+								</div>
+								<?php } ?>
+								<?php } ?>
+
+								<!--<div class="c-cqd-dybox divtab">
+									<div class="c-cqd-dyimg fl">
+										<img src="__IMG__/tu15.jpg" alt="" />
+									</div>
+									<div class="c-cqd-dyinfo fl">
+										<p class="fs14 c3 fov">快乐柠檬<span class="pt_icon pt_order cf fs12">订单</span></p>
+										<p class="c9 fs12" style="padding: 5% 0 15% 0;"><span>已领：66张</span><span>浏览：8888</span></p>
+										<p class="cf fs12"><span class="putin_btn fl" onclick="hrefact(1)">查看</span><span class="putin_btn fr" onclick="revocation(1)">撤回</span></p>
+									</div>
+								</div>-->
+							</div>
+						</div>
+						<div class="c-cqd-userang bdashed divtab">
+							<div class="c-cqd-useran-tit fs13 c9 divtab">适用范围</div>
+							<div class="c-cqd-useran-con divtab">
+								<?php if (empty($data['c_pcodearr'])) { ?>
+								<div class="c-cqd-useran-ct fs13 c9 divtab">(适用全部商品)</div>
+								<?php } else { ?>
+								<div class="select-pro-list divtab bgcolor">
+									<?php foreach ($productlist as $k => $v) { ?>
+									<div class="s-pro-box fl" onclick="linkproduct('{$v['c_pcode']}')">
+										<div class="s-pro-img divre">
+											<img src="{$v['c_pimg']}" alt="" />
+										</div>
+										<div class="s-pro-name c3 fs13 fov">{$v['c_name']}</div>
+										<div class="s-pro-p-n divtab">
+											<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">{$v['c_price']}</span></div>
+										</div>
+									</div>
+									<?php } ?>
+								</div>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="c-cqd-delete divtab fs14">删除</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ctype = "<?php echo $data['c_type']; ?>"; /*优惠券类型*/
+			window.onload = function() {
+				$('.xm-bar-nav-right').hide();
+				/*根据卡券类型显示不同样式*/
+				if(ctype == 1) {
+					$('body').css('background-color', "#6AD5FF"); /*代金券详情背景色*/
+					$('.xiaomi-bar').css('background-color', "#6AD5FF");
+					$('.mui-content').css('background-color', "#6AD5FF");
+					$('.c-cqd-money').css('color', '#6AD5FF');
+					$('#splitimg').attr('src', '__IMG__/kqgl_bg_par02_b_02.png');
+					$('.putin_btn').addClass('bblue');
+				} else {
+					$('body').css('background-color', "#FEC957"); /*折扣券详情背景色*/
+					$('.xiaomi-bar').css('background-color', "#FEC957");
+					$('.mui-content').css('background-color', "#FEC957");
+					$('.c-cqd-money').css('color', '#FEC957');
+					$('#splitimg').attr('src', '__IMG__/kqgl_bg_par02_y_02.png');
+					$('.putin_btn').removeClass('bblue');
+				}
+				styles();
+			}
+			$(document).ready(function() {
+
+			});
+
+			/*样式*/
+			function styles() {
+				var cdyw = $('.c-cqd-dyimg').width(),
+					cdylih = cdyw * 50 / 100;
+				$('.c-cqd-dyimg').height(cdyw);
+				//$('.c-cqd-dyinfo').css('line-height', cdylih + 'px');
+				$('.c-cqd-dystate').css('line-height', cdyw + 'px');
+
+				var pimgw = $('.s-pro-img').width();
+				$('.s-pro-img').height(pimgw);
+
+			}
+
+			//跳转产品详情
+			function linkproduct(pcode) {
+				mui.openWindow({
+					url: '__APP__/Shopping/Index/detail?pcode=' + pcode,
+					id: 'productdetail'
+				});
+			}
+			/*查看*/
+			function viewstore(ucode) {
+				mui.openWindow({
+					url: "__APP__/Store/Index/couponlist?fromucode=" + ucode,
+					id: "preview"
+				});
+//				mui.openWindow({
+//					url: "__APP__/Store/Index/index?fromucode=" + ucode,
+//					id: "index"
+//				});
+			}
+
+			/*撤回*/
+			function revocation(id) {
+				mui.confirm('撤回后此广告位将无效需重新抢占，确认撤回？', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : recall(id);
+				}, 'div');
+			}
+			var reclick = 1;
+
+			function recall(id) {
+				if(reclick == 1) {
+					$.post("__URL__/AdvertRecall", {
+						cardid: id
+					}, function(obj) {
+						var result = eval(obj);
+						if(result['code'] == 0) {
+							reclick = 2;
+							mui.alert("撤回成功！");
+							$('#ads_' + id).remove();
+						} else {
+							mui.toast(result.msg);
+							reclick = 1;
+						}
+					});
+				}
+			}
+
+			/*删除*/
+			mui('.mui-content').on('tap', '.c-cqd-delete', function() {
+				mui.confirm('删除后将无法继续领取，确认删除？', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : delcoupon();
+				}, 'div');
+			});
+			var dclick = 1;
+			/*删除优惠券*/
+			function delcoupon() {
+				if(dclick == 1) {
+					var cid = "<?php echo $cardid; ?>"; /*优惠券删除调用的id*/
+					$.post("__URL__/CardDel", {
+						cardid: cid
+					}, function(obj) {
+						var result = eval(obj);
+						if(result['code'] == 0) {
+							dclick = 2;
+							mui.alert("删除成功！");
+							setTimeout(function() {
+								mui.openWindow({
+									url: '__URL__/index',
+									id: 'adindex'
+								});
+							}, 2000);
+						} else {
+							mui.toast(result.msg);
+							dclick = 1;
+						}
+					});
+				}
+			}
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

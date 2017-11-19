@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * 拼手气活动接口
+ */
+class PinshouqiActivity {
+	function PinRun($parr){
+		//查询拼手气活动
+		$ucode = $parr['ucode'];
+		if (empty($ucode)) {
+			return Message(1009,'请登录后再操作');
+		}
+		$result = IGD('Index','Newact')->GetPlatActInfo(31);
+		if ($result['code'] != 0) {
+            return Message(3000,'活动还没有开始');
+        }
+        $activitydata = $result['data'];
+       
+        //获取剩余的参与次数
+        if (!empty($parr['ucode'])) {
+            $lotterywhere['c_ucode'] = $parr['ucode'];
+            $lotterywhere['c_rule'] = 6;
+            $chance = M('Activity_lotterynum')->where($lotterywhere)->getField('c_num');
+        } else {
+            if (!$parr['openid']) {
+                return Message(3002,'请使用微信参与');
+            }
+            $num = S('SLOT'.$parr['openid']);
+            $chance = isset($num)?explode('|', $num)[0]:0;
+        }
+        if ($chance <= 0) {
+            return Message(3001,'您的抽奖机会已经用完');
+        }
+
+        //判断是否中奖
+        $resultprize = $this->ClickWinPrize($parr);
+
+        //查询奖项
+        $prizewhere['c_joinaid'] = $activitydata['c_id'];
+        $prizewhere['c_today_prize'] = 1;
+        $prizewhere['c_status'] = 1;
+        $prizewhere['c_delete'] = 2;
+        $prizewhere['c_num'] = array('GT',0);
+        $prizewhere['c_marks'] = $resultprize['data'];
+        $prizedata = M('A_actprize')->where($prizewhere)->find();
+
+        if (!$prizedata) {
+			$prizewhere['c_marks'] = 9;
+			$prizedata = M('A_actprize')->where($prizewhere)->find();
+		}
+
+       	$prizedata['c_img'] = GetHost().'/'.$prizedata['c_img'];
+       	$db = M('');
+       	$db->startTrans();
+       	
+       	if ($prizedata['c_type'] == 2) {  //中现金
+			//随机金额
+			$movalue = rand($prizedata['c_value']*100,$prizedata['c_maxvalue']*100)/100;
+			$prizedataresult = IGD('Roulette','Activity')->Winmoney($activitydata,$ucode,$prizedata,$movalue);
+			if ($prizedataresult['code'] != 0) {
+				$db->rollback(); //不成功，则回滚
+				return $prizedataresult;
+			}
+			$prizedata['c_value'] = $movalue;
+		} else if ($prizedata['c_type'] == 1) { //中实物
+	        $prizedataresult = IGD('Roulette','Activity')->WinMatter($activitydata,$ucode,$prizedata);
+			if ($prizedataresult['code'] != 0) {
+				$db->rollback(); //不成功，则回滚
+				return $prizedataresult;
+			}
+			$prizedata = $prizedataresult['data'];
+		}
+
+		if (!$prizedata) {
+			$db->rollback(); //不成功，则回滚
+			return Message(3004,'活动奖品已派完');
+		}
+
+		//写入中奖记录
+        $log['c_ucode'] = $parr['ucode'];
+        $log['c_pid'] = $prizedata['c_pid'];
+        $log['c_joinaid'] = $prizedata['c_joinaid'];
+        $log['c_awid'] = $prizedata['c_id'];
+        $log['c_name'] = $prizedata['c_name'];
+        $log['c_img'] = $prizedata['c_img'];
+        $log['c_value'] = $prizedata['c_value'];
+        $log['c_marks'] = $prizedata['c_marks'];
+        $log['c_type'] = $prizedata['c_type'];
+        $log['c_state'] = 0;
+        $log['c_addtime'] = gdtime();
+        $result = M('A_actlog')->add($log);
+        if (!$result) {
+            $db->rollback(); //不成功，则回滚
+            return Message(1033, '记录写入失败');
+        }
+
+        //扣除奖品数量
+        $decwhere['c_id'] = $prizedata['c_id'];
+        $result =  M('A_actprize')->where($decwhere)->setDec('c_num',1);
+        if ($result['code'] != 0) {
+            $db->rollback(); //不成功，则回滚
+            return Message(1034, '扣除奖品数量失败');
+        }
+
+        $prizedata['lid'] = $result;
+        //改变用户参与机会
+        if (!empty($parr['ucode'])) {
+            $result = M('Activity_lotterynum')->where($lotterywhere)->setDec('c_num',1);
+            if (!$result) {
+                $db->rollback(); //不成功，则回滚
+                return Message(1035, '扣除用户抽奖次数失败');
+            }
+        } else {
+            $numarr = explode('|', $num);
+            $numtime = ($numarr[0] - 1).'|'.$numarr[1];
+            S('SLOT'.$parr['openid'],$numtime,86400);
+        }
+
+        $db->commit();
+        return MessageInfo(0,'获取成功',$prizedata);
+
+	}
+
+	/**
+     *  随机中奖项
+     *  @param count
+     *  @return type:8八等奖,7七等奖,6六等奖,5五等奖,4四等奖,3三等奖,2二等奖,1一等奖
+     */
+    function ClickWinPrize($parr) {
+        $type = 3;
+        $rom = rand(1,1000);
+        if ($rom == 28) {
+            $type = 1;
+        } else if ($rom > 28 && $rom <= 527) {
+            $type = 2;
+        }
+		
+        return MessageInfo(0,'参与成功',$type);
+    }
+
+
+}

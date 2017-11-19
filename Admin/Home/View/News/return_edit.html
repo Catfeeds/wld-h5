@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>回复内容</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-category-add">
+		<div id="tab-category" class="HuiTab">
+				<div class="tabCon">	
+					<div class="row cl">
+						<label class="form-label col-3">选择回复人：</label>
+						<div class="formControls col-6"> <span class="select-box">
+							<select name="ucode" class="select" onClick="selectucode('选择回复人：','Member/member_list?hide=1&shop=1',800);" id="typecheck">
+								<option value="">选择回复人</option>
+							</select>
+			        	</span>
+						
+					</div>		
+					<div class="row cl">
+						<label class="form-label col-3"><span class="c-red">*</span>回复内容：</label>
+						<div class="formControls col-6">
+							<input type="text" class="input-text"  value="" placeholder="" id="" name="content" nullmsg="回复不能为空">
+							<input type="hidden" class="input-text"  value="{$Id}" placeholder="" id="" name="Id" nullmsg="回复不能为空">
+						</div>
+						<!-- <div class="col-3"> </div> -->
+					</div>
+							
+				</div>
+		
+			<div class="row cl">
+				<div class="col-9 col-offset-3">
+					<div class="btn btn-primary radius" onclick="ajax_post_data('News/add_return','form-category-add','News/retroact');">&nbsp;&nbsp;提交&nbsp;&nbsp;</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	// $("#form-article-category-add").Validform({
+	// 	tiptype:2,
+	// 	callback:function(form){
+	// 		form[0].submit();
+	// 		var index = parent.layer.getFrameIndex(window.name);
+	// 		parent.$('.btn-refresh').click();
+	// 		parent.layer.close(index);
+	// 	}
+	// });
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+
+//选择商家
+function selectucode(title,url,w,h) {
+	layer_show(title,url,w,h);
+	$('.ctrl_hidden').hide();
+}
+</script>
+</body>
+</html>

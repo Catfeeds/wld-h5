@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!-- <style type="text/css">
+.ctrl_hidden{display:none;}
+</style> -->
+<title>分润明细</title>
+<script type="text/javascript">
+function batch(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/split');
+		$("#transmit").submit();
+	}
+}
+
+</script>
+</head>
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span> 会员管理 
+	<span class="c-gray en">&gt;</span> 分润明细 
+		<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+			<i class="Hui-iconfont">&#xe68f;</i>
+		</a>
+</nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入来源关键字" name="key" value="{$post['key']}">
+		<span class="select-box inline">
+		<select name="c_source" class="select">
+			<option value="">选择来源</option>
+			<!-- <?php foreach ($gmtype as $key => $value): ?>
+				<option value="{$key}" <if condition="$post['c_source']  eq $key">selected="selected"</if>>{$value}</option>
+			<?php endforeach ?> -->
+			<option value="1" <if condition="$vo.c_source eq 1">selected="selected"</if>>普城订单</option>
+	        <option value="2" <if condition="$vo.c_source eq 2">selected="selected"</if>>后台</option>
+	        <option value="3" <if condition="$vo.c_source eq 3">selected="selected"</if>>活动</option>
+	        <option value="4" <if condition="$vo.c_source eq 4">selected="selected"</if>>蜜城订单</option>
+	        <option value="5" <if condition="$vo.c_source eq 5">selected="selected"</if>>普通跨界</option>
+	        <option value="6" <if condition="$vo.c_source eq 6">selected="selected"</if>>提现</option>
+	        <option value="7" <if condition="$vo.c_source eq 7">selected="selected"</if>>注册</option>
+	        <option value="8" <if condition="$vo.c_source eq 8">selected="selected"</if>>老注册</option>
+	        <option value="9" <if condition="$vo.c_source eq 9">selected="selected"</if>>扫码</option>
+	        <option value="10" <if condition="$vo.c_source eq 10">selected="selected"</if>>转发</option>
+	        <option value="11" <if condition="$vo.c_source eq 11">selected="selected"</if>>绑定</option>
+	        <option value="12" <if condition="$vo.c_source eq 12">selected="selected"</if>>跨界扫码</option>
+	        <option value="13" <if condition="$vo.c_source eq 13">selected="selected"</if>>普城购返</option>
+	        <option value="14" <if condition="$vo.c_source eq 14">selected="selected"</if>>普城推返</option>
+	        <option value="15" <if condition="$vo.c_source eq 15">selected="selected"</if>>蜜城跨界</option>
+	        <option value="16" <if condition="$vo.c_source eq 16">selected="selected"</if>>普通退款</option>
+	        <option value="17" <if condition="$vo.c_source eq 17">selected="selected"</if>>蜜城退款</option>
+	        <option value="18" <if condition="$vo.c_source eq 18">selected="selected"</if>>红包</option>
+	        <option value="20" <if condition="$vo.c_source eq 20">selected="selected"</if>>充值</option>
+	        <option value="21" <if condition="$vo.c_source eq 21">selected="selected"</if>>手续费</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_status" class="select">
+			<option value="">是否完成</option>
+			<option value="dj" <if condition="$post['c_status']  eq 'dj'">selected="selected"</if>>未完成</option>
+     		<option value="1" <if condition="$post['c_status']  eq 1">selected="selected"</if>>已完成</option>
+     		<option value="2" <if condition="$post['c_status']  eq 2">selected="selected"</if>>已取消</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_settled" class="select">
+			<option value="">结算状态</option>
+     		<option value="1" <if condition="$post['c_settled']  eq 1">selected="selected"</if>>已结算</option>
+     		<option value="2" <if condition="$post['c_settled']  eq 2">selected="selected"</if>>未结算</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_sign" class="select">
+			<option value="">选择状态</option>
+     		<option value="1" <if condition="$post['c_sign']  eq 1">selected="selected"</if>>代付</option>
+     		<option value="2" <if condition="$post['c_sign']  eq 2">selected="selected"</if>>代扣</option>
+		</select>
+		</span>
+
+		<span class="select-box inline">
+		<select name="c_type" class="select">
+			<option value="">选择结算方式</option>
+			<option value="1" <if condition="$post['c_type']  eq 1">selected="selected"</if>>实时结算</option>
+     		<option value="2" <if condition="$post['c_type']  eq 2">selected="selected"</if>>按日结算</option>
+     		<option value="3" <if condition="$post['c_type']  eq 3">selected="selected"</if>>按月结算</option>
+		</select>
+
+		</span>
+		<!-- <input type="hidden" name="ucode"  value="{$ucode}"> -->
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="batch();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>	
+			</span>
+		</div> 
+	</div>
+	</form>
+	<!-- 添加与记录条数 -->
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<a class="btn btn-primary radius" onclick="system_category_add('添加分润人','Member/share_list_add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加分润人</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	        </span>	
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="100">分润人</th>
+				<!-- <th width="40">商家</th>
+				<th width="40">买家</th> -->
+				<th width="80">订单来源</th>
+				<th width="80">订单号<br/><br/><font color="red">银盛统一订单号</font></th>
+				<th width="60">订单总金额<br/><br/><font color="red">分到金额</font></th>
+				<th width="60">结算方式</th>
+				<th width="60">是否结算<br/><br/><font color="red">结算时间</font></th>
+				<th width="60">状态</th>
+				<th width="60">来源描述<br/><br/><font color="red">来源关键字</font></th>
+				<th width="50">是否完成<br/><br/><font color="red">完成时间</font></th>
+				<th width="100">添加时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c" >
+				<td><input type="checkbox" value="" name=""></td>
+				<td>{$i}</td>
+				<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a></td>
+				<!-- <td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_scode}" style="text-decoration:none">{$vo['c_nicknames']}</a></td>
+				<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_bcode}" style="text-decoration:none">{$vo['c_nicknameb']}</a></td> -->
+				<td>
+				    <if condition="$vo['c_source'] eq 1" >
+						<font color="#666600">普城订单</font>
+					<elseif condition="$vo['c_source'] eq 2"/>
+						<font color="#FF44AA">后台</font>
+					<elseif condition="$vo['c_source'] eq 3"/>
+						<font color="#FF8C00">活动</font>
+					<elseif condition="$vo['c_source'] eq 4"/>
+						<font color="#FF7F50">蜜城订单</font>
+					<elseif condition="$vo['c_source'] eq 5"/>
+						<font color="#FF6EB4">普通跨界</font>
+					<elseif condition="$vo['c_source'] eq 6"/>
+						<font color="#FF4500">提现</font>
+					<elseif condition="$vo['c_source'] eq 7"/>
+						<font color="#B0E2FF">注册</font>
+					<elseif condition="$vo['c_source'] eq 8"/>
+						<font color="#B03060">老注册</font>
+					<elseif condition="$vo['c_source'] eq 9"/>
+						<font color="#9F79EE">扫码</font>
+					<elseif condition="$vo['c_source'] eq 10"/>
+						<font color="#8B7500">转发</font>
+					<elseif condition="$vo['c_source'] eq 11"/>
+						<font color="#8B7D6B">绑定</font>
+					<elseif condition="$vo['c_source'] eq 12"/>
+						<font color="#7FFF00">跨界扫码</font>
+					<elseif condition="$vo['c_source'] eq 13"/>
+						<font color="#458B00">普城购返</font>
+					<elseif condition="$vo['c_source'] eq 14"/>
+						<font color="#48D1CC">普城推返</font>
+					<elseif condition="$vo['c_source'] eq 15"/>
+						<font color="#556B2F">蜜城跨界</font>
+					<elseif condition="$vo['c_source'] eq 16"/>
+						<font color="#668B8B">普通退款</font>
+					<elseif condition="$vo['c_source'] eq 17"/>
+						<font color="#6495ED">蜜城退款</font>
+					<elseif condition="$vo['c_source'] eq 18"/>
+						<font color="#7CCD7C">红包</font>
+					<elseif condition="$vo['c_source'] eq 20"/>
+						<font color="#FFFACD">充值</font>
+					<elseif condition="$vo['c_source'] eq 21"/>
+						<font color="#FFF8DC ">手续费</font>
+					</if>
+				</td>
+				<td>{$vo['c_orderid']}<br/><br/><font color="red">{$vo['c_tcode']}</font></td>
+				<td>{$vo['c_total_money']}<br/><br/><font color="red">{$vo['c_money']}</font></td>
+				<td>
+				    <if condition="$vo['c_type'] eq 1" >
+						<font color="#666600">实时结算</font>
+					<elseif condition="$vo['c_type'] eq 2"/>
+						<font color="#FF44AA">按日结算</font>
+					<elseif condition="$vo['c_type'] eq 3"/>
+						<font color="#FF8C00">按月结算</font>
+				    </if>
+			    </td>
+				<td>
+				    <if condition="$vo['c_settled'] eq 1" >
+						<font color="#666600">已结算</font>
+					<elseif condition="$vo['c_settled'] eq 2"/>
+						<font color="#FF44AA">未结算</font>
+				    </if>
+				    <br/>
+				    <br/>
+				    <font color="red">{$vo['c_settledtime']}</font>
+			    </td>
+			    <td>
+				    <if condition="$vo['c_sign'] eq 1" >
+						<font color="#666600">代付</font>
+					<elseif condition="$vo['c_sign'] eq 2"/>
+						<font color="#FF44AA">代扣</font>
+					</if>
+			    </td>
+				<td>{$vo['c_desc']}<br/><br/><font color="red">{$vo['c_key']}</font></td>
+				<td>
+					<if condition="$vo['c_status'] eq 0" >
+						<font color="#666600">未完成</font>
+					<elseif condition="$vo['c_status'] eq 1"/>
+						<font color="#FF44AA">已完成</font>
+					<elseif condition="$vo['c_status'] eq 2"/>
+						<font color="#FF8C00">已取消</font>
+				    </if>
+				    <br/><br/>
+				    <font color="red">{$vo['c_updatetime']}</font></td>
+				<td>{$vo['c_addtime']}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+/*系统-栏目-添加*/
+function system_category_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

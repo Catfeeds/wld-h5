@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>选择店铺模板</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css?v=1.2">
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page" style="margin-bottom:13%;">
+		<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<volist name="datalist" id="vo" empty="$emptyval">
+					<div class="template-list divtab bgcolor bborder">
+						<div class="template-left fl">
+							<div class="template-img fl">
+								<img src="{$vo['c_cover_img']}" alt="" />
+							</div>
+							<div class="template-tit c3 fs14 fl">{$vo['c_name']}</div>
+						</div>
+						<div class="template-right fl" id="template_{$vo['c_id']}" title="{$vo['c_id']}">
+							<?php if ($tplid == $vo['c_id']){ ?>
+							<img src="__IMG__/store/sm_mb__selection.png" alt="" />	
+							<?php }else{ ?>								
+							<img src="__IMG__/store/sm_mb_default.png" alt="" />
+							<?php } ?>
+						</div>
+					</div>
+					
+				</volist>
+				
+				<div class="activity-subbtn">
+					<button type="button" class="fs15 cf tmp-button">保存</button>
+				</div>
+				<input type="hidden" id="tmp_val" value="{$tplid}" />
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				styles();
+			}
+
+			function styles() {
+				var tempr = $('.template-right').height(),
+					mh = tempr * 20 / 100;
+				$('.template-list').height(tempr);
+				$('.template-list').css('line-height', tempr + 'px');
+				$('.template-left').height(tempr);
+				$('.template-left').height(tempr);
+				$('.template-img').css('margin-top', mh + 'px');
+
+			}
+			/*选择模板*/	
+			mui('.template-list').on('tap','.template-right',function(){	
+				var ii = $(this).attr('title');	
+				console.log(ii)
+				selectTmp(ii);
+			});
+			var tempid = -1;
+			function selectTmp(id) {
+				$('.template-right img').attr('src', '__IMG__/store/sm_mb_default.png');
+				$('#tmp_val').val("");
+				if(tempid != -1) {
+					$('#template_' + tempid +' img').attr('src', '__IMG__/store/sm_mb_default.png');
+				}
+				tempid = id;
+				$('#tmp_val').val(id);
+				$('#template_' + id +' img').attr('src', '__IMG__/store/sm_mb__selection.png');
+			}
+			
+			/*保存所选择的模板信息*/
+			mui('.mui-content').on('tap', '.tmp-button', function() {
+				var tmp_val = $('#tmp_val').val();
+				if (!tmp_val) {
+					mui.alert('必须选择模板');
+					return;
+				}
+				$.post('__URL__/CheckShopTpl', {
+					tplid: tmp_val
+				}, function(obj) {
+					var result = eval(obj);
+					mui.alert(result.msg);
+					setTimeout(
+						function() {
+							mui.openWindow({
+								url: '__URL__/index',
+								id: 'shopmg1'
+							});
+						}, 1000);
+				});
+			}); 
+		</script>
+
+	</body>
+
+</html>

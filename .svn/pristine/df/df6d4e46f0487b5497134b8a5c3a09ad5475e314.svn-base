@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title><?php if($hreftype==1){ ?>商家信息认证<?php }else{ ?>申请成为商家<?php } ?></title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<input type="hidden" name="tradetid" id="tradetid" value="{$data['c_shoptrade']}" />
+			<div class="mui-content">
+				<?php if($hreftype==2){ ?><div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_txzl.png" alt=""></div><?php } ?>
+				<div class="p_info_tit"><span class="fs14 c3">商家资料2/<?php if($hreftype==1){ ?>4<?php }else{ ?>5<?php } ?></span></div>
+				<div class="p_info_con bgcolor">
+					<div class="trade-list">
+						<p class="fs14 c3">请选择所属行业（单项选择）</p>
+						<ul>
+							<volist name="industry" id="voo">
+								<li class="tradeitem fs12 c5 <?php if($voo['c_id']==$data['c_shoptrade'] ){ ?> hover <?php } ?>" onclick="seltrade({$voo['c_id']})" id="tradeli_{$voo['c_id']}">{$voo['c_name']}</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<div class="info1_tip" style="margin-top: 2%;">
+					<div class="info1_ticon fl"><img src="__IMG__/getbusiness/sjjh_icon_msg.png" alt="" /></div>
+					<div class="info1_tfont fl fs12">审核通过后将不可修改，请慎重选择</div>
+				</div>
+
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li id="PreviousCK">上一步</li>
+						<li id="savestep">保存并下一步</li>
+					</ul>
+				</div>
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+
+			}
+
+			var isfixed = '<?php echo $isfixed ?>';
+			var ctype = '<?php echo $ctype ?>';
+			var oldinfo = '<?php echo $oldinfo; ?>';
+            var dcode = '<?php echo $vo["c_dcode"] ?>';
+            var vostate = '<?php echo $vo["c_checked"]; ?>';
+            var hreftype = '<?php echo $hreftype; ?>';/*1补全资料，2成为商家*/
+
+			function seltrade(id) {
+				$('.tradeitem').removeClass("hover");
+				$('#tradetid').val("");
+				$('#tradetid').val("" + id + "");
+				$('#tradeli_' + id).addClass("hover");
+			}
+
+//			mui('.mui-content').on('tap', '.trade-list ul li', function() {
+//				$(this).addClass('hover');
+//				$(this).siblings().removeClass('hover');
+//				$('#savestep').css({background: '#45aafa',});
+//			});
+
+
+			//上一步
+			mui('.mui-content').on('tap', '#PreviousCK', function() {
+				mui.openWindow({url:"__URL__/sub4_1?hreftype="+hreftype+"&isfixed="+isfixed+"&ctype="+ctype,id:"sub4_1"});
+			});
+
+			//提交
+			mui('.mui-content').on('tap', '#savestep', function() {
+				savestep();
+			})
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var tid = $('input[name="tradetid"]').val();
+					if(tid == "" || tid == null || typeof(tid) == "undefined") {
+						mui.toast("请选择所属行业！");
+						resign = true;
+						return;
+					} else {
+						$.post('__URL__/SetInfo2', {
+							tid: tid
+						}, function(obj) {
+							var data = eval(obj);
+							if(data['code'] == 0) {
+								mui.toast("保存成功！");
+								setTimeout(function() {
+									mui.openWindow({url: '__URL__/sub4_3?hreftype='+hreftype+'&isfixed='+ isfixed +'&ctype='+ctype,id: 'sub4_3'});
+								}, 1000);
+
+							} else {
+								mui.toast("保存失败！");
+								resign = true;
+								return false;
+							}
+						});
+					}
+				}
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

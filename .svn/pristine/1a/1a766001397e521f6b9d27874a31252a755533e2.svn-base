@@ -1,0 +1,89 @@
+/* CSS Document */
+img{width: 100%;height: 100%;}
+.ex-bbox{width: 94%;margin: 3% auto 0 auto; border-radius: 5px;}
+
+/* 商品兑换 */
+.exchange-nav-tab ul li{border-bottom: solid 2px #ebebeb;float: left;padding: 3% 0;width: 50%;text-align: center;}
+.exchange-nav-tab ul li.hover {border-bottom: solid 2px #47ABF7;}
+.ex-pro-top{ padding: 2%;}
+.ex-seller-img{ width: 12%; margin-right: 3%;}
+.ex-operate{ background: #47ABF7;padding: 1.5% 7%;border-radius: 5px;margin-top: 2%;}
+.ex-pro-info { padding: 2% 3%;}
+.ex-pro-name{width: 75%;}
+.ex-pro-time{ padding: 1.5% 3%;}
+.ex-pro-time span:nth-of-type(2){ margin-left: 3%;}
+.diagonal{ height: 2px;transform: rotate(165deg);width: 100%;top: 60%;left: 5%;}
+.exbg01{background: #ffaa3b;}
+.exbg02{background: #666666;}
+.ex-pro-get{width: 100%; height: 100%; background:rgba(0,0,0,0.3); bottom: 0;}
+.ex-get-img{bottom: 3%;right: 3%;width: 28%;}
+
+
+/* 到店领取 */
+.exget-shop{ padding: 18% 3% 0 3%;}
+.ex-shop-img{ width: 20%; margin-right: 3%;}
+.ex-shop-info{ width: 55%;}
+.local-img{width: 6%; margin: 5% 1% 0 6%;}
+.ex-get-goview{ background: #fff; padding: 1.5% 3%;border-radius: 15px;margin-top: 6%;}
+.exget-pro-img img{ border-top-left-radius: 5px; border-top-right-radius: 5px;}
+.exget-step-con{ margin-left: 5%;border-left: 2px solid #ebebeb;}
+.exget-step-img{ width: 5%;position: absolute;left: 3%;margin-top: 2%;}
+.exget-step-info{ width: 85%; margin-left: 7%;}
+.exget-step-info div{ margin-bottom: 1%;}
+.exget-stepbg{ width: 35%;text-align: center;padding: 2.5%;}
+.stepbg01{ background: #ebebeb;}
+.stepbg02{ background: #46a9fa;}
+.exget-step-item{ padding: 3% 0;}
+
+/* 到店领取 地址 */
+.exaddress-con{ padding: 2%;}
+.exaddress-img{width: 4%;}
+.exaddress-info{ width: 85%;margin-left: 1.5%;}
+.exaddress-icon_edit{ width: 5%; margin-top: 1.2%;}
+.exmessage-con textarea{ width: 100%;padding: 2%;}
+
+
+/* 兑换成功 */
+.exsu-pro{ text-align: center;padding: 0% 3%;margin-bottom: 3%;}
+.exsu-pro-status{ padding: 3% 0 2% 0;}
+.exsu-pro-status div:nth-of-type(2){ padding-bottom: 0.5%;}
+.exsu-img{ width: 9%;left: 28%;}
+.exsu-price{ width: 16%; margin: 0 auto 2% auto;}
+.exsu-pro-name{ margin-bottom: 1%;}
+.exsu-com-tit{ padding:3% 2%;}
+.exsu-com-info textarea{ width: 100%;padding: 2%;}
+.exsu-photo{ width: 25%;border: 1px dashed #ebebeb;text-align: center;padding: 6% 3% 3% 3%;margin: 2% 0 5% 3%;}
+.exsu-photo-img{ width: 55%;margin:0 auto 15% auto;}
+.exsu-com-show{padding: 4% 3%;}
+.com-show-checkbox{margin: -1.5% 1% 0 0;}
+.exsu-score-box{ padding: 2% 3%;margin-top: 3%;}
+.exsu-score-term,.exsu-score-tit{ padding: 3% 0}
+.exsu-score-img{ width: 5%;margin-right: 1%;}
+.exsu-term-name{ width: 25%;}
+.exsu-term-star{ width: 62%;}
+.exsu-term-star p{ width: 10%;margin-right: 9%;}
+
+
+
+/*复选框样式*/
+.com-show-checkbox input[type=checkbox]{ display: inline-block;width: 28px;height: 26px;border: 0;outline: 0!important; background-color: transparent;-webkit-appearance: none;}
+.com-show-checkbox input[type=checkbox]:checked:before {color: #47ABF7;}
+.com-show-checkbox input[type=checkbox]:checked:before { content: '\e442'; }
+.com-show-checkbox input[type=checkbox]:before {content: '\e411';}
+.com-show-checkbox input[type=checkbox]:before{font-family: Muiicons; font-size: 26px;font-weight: 400;line-height: 1;text-decoration: none;color: #ebebeb; border-radius: 0;background: 0 0;-webkit-font-smoothing: antialiased; content: '\e442';} 
+
+
+
+/*分享气球、挖到宝了*/
+.scf{color: #ffd863;}
+.share-con{width: 85%; left: 7.5%;  padding: 3.5%; border-radius: 8px; }
+.chests-share{ top: 36%; background: #4f270d; border: 2px solid #451f0c;}
+.balloon-share{ top: 38%; background: #ccf5f9; }
+.box-top{ height: 4px; background: #45aafa; border-radius: 30%; width: 85%; top: 37.8%; left: 7.5%; z-index: 66;}
+.share-pro-name{ text-align: center; width: 85%; margin: 0 auto;}
+.share-pro-img img{ border-top-left-radius: 8px; border-top-right-radius: 8px;}
+.exbg02{ background: #45aafa;}
+.go-find{ width: 40%; left: 30%; }
+.balloon-find{ top:91%;}
+.chests-find{ top:90%;}
+.go-find span{ text-align: center; display: block; width: 100%; top: 16%;}

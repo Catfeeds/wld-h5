@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />    
+<title>所属区域资料</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript">
+	window.onload=function(){
+		topstyle();/*头部样式*/
+		$('#return-top').hide();
+		$('#page-top-c-t').text("所属区域资料");
+		var reh = $('.resource-list').height();
+		$('.resource-list').css('line-height',reh+'px');
+	}
+
+
+</script>
+
+</head>
+
+<body class="bgcolor">
+
+<include file="Common/head"/>
+
+<div class="wrap-page bgcolor">	
+	<div class="resource-main">
+		<div class="resource-list">
+			<div class="resource-l fl">负责人：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_name'])?$shopinfo['c_name']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">联系方式：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_phone'])?$shopinfo['c_phone']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">开户银行：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_fee_bank'])?$shopinfo['c_fee_bank']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">开户支行：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_fee_branch'])?$shopinfo['c_fee_branch']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">开户姓名：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_fee_name'])?$shopinfo['c_fee_name']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">银行卡号：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_fee_cardnum'])?$shopinfo['c_fee_cardnum']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">支付宝帐号：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_fee_alipay'])?$shopinfo['c_fee_alipay']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<div class="resource-l fl">微信号：</div>
+			<div class="resource-r fl">
+				<div class="resource-text">
+					<?php echo !empty($shopinfo['c_fee_weixin'])?$shopinfo['c_fee_weixin']:'暂无'; ?>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>
+
+</body>
+</html>

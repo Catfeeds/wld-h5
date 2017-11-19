@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>添加优惠券</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/coupon/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<style>
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				-webkit-appearance: none !important;
+				margin: 0;
+			}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<form action="" method="post" id="formdata" enctype="multipart/form-data">
+				<div class="mui-content" id="page_1">
+					<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}">
+					<input type="hidden" name="pcodestr" id="pcodestr" value="">
+					<input type="hidden" name="checksign" id="checksign" value="1">
+					<div class="add-coupon-tit c5 fs14 divtab bgcolor">券信息</div>
+					<div class="add-coupon-box divtab bgcolor">
+						<div class="add-c-txt fl fs13 c5">卡券类型</div>
+						<div class="add-c-ctrl fl">
+							<select name="type" id="add_c_type" class="fs13 c9">
+								<option value="0">请选择卡券类型</option>
+								<option value="1">代金券</option>
+								<option value="2">折扣券</option>
+							</select>
+						</div>
+					</div>
+					<div id="add_c_type1">
+						<div class="add-coupon-box divtab bgcolor">
+							<div class="add-c-txt fl fs13 c5">券面金额</div>
+							<div class="add-c-ctrl fl">
+								<input type="text" value="" name="money1" id="money1" placeholder="优惠券抵扣的金额" class="fs13 c3" />
+							</div>
+						</div>
+						<div class="add-coupon-box divtab bgcolor">
+							<div class="add-c-txt fl fs13 c5">使用条件</div>
+							<div class="add-c-ctrl fl">
+								<input type="text" value="" name="limit_money1" id="limit_money1" placeholder="用券最低订单金额" class="fs13 c3" />
+							</div>
+						</div>
+					</div>
+					<div id="add_c_type2" class="none">
+						<div class="add-coupon-box divtab bgcolor">
+							<div class="add-c-txt fl fs13 c5">折扣比例</div>
+							<div class="add-c-ctrl fl">
+								<input type="text" value="" name="money2" id="money2" placeholder="优惠券折扣的比例" class="fs13 c3" />
+							</div>
+						</div>
+						<div class="add-coupon-box divtab bgcolor">
+							<div class="add-c-txt fl fs13 c5">最高抵扣</div>
+							<div class="add-c-ctrl fl">
+								<input type="text" value="" name="limit_money2" id="limit_money2" placeholder="用券最高抵扣金额" class="fs13 c3" />
+							</div>
+						</div>
+					</div>
+					<div class="add-coupon-tit c5 fs14 divtab bgcolor a-c-titmar">限制规则</div>
+					<div class="add-coupon-box divtab bgcolor">
+						<div class="add-c-txt fl fs13 c5">券的库存</div>
+						<div class="add-c-ctrl fl">
+							<input type="text" value="" name="num" id="num" placeholder="可被领取的总券数" class="fs13 c3" maxlength="10"  />
+						</div>
+					</div>
+					<div class="add-coupon-tit c9 fs11 divtab bgcolor">每人限领一张</div>
+					<div class="add-coupon-tit c5 fs13 divtab bgcolor a-c-titmar">有效期限</div>
+					<div class="add-coupon-box divtab bgcolor">
+						<div class="add-c-txt fl fs13 c5">开始时间</div>
+						<div class="add-c-ctrl fl">
+							<input type="text" data-options='{"type":"datetime"}' value="" name="starttime" id="starttime" placeholder="使用券的开始时间" class="fs13 c3" readonly="readonly" />
+							<input type="hidden" name="hid_starttime" id="hid_starttime" value="" />
+						</div>
+					</div>
+					<div class="add-coupon-box divtab bgcolor">
+						<div class="add-c-txt fl fs13 c5">结束时间</div>
+						<div class="add-c-ctrl fl">
+							<input type="text" data-options='{"type":"datetime"}' value="" name="endtime" id="endtime" placeholder="使用券的结束时间" class="fs13 c3" readonly="readonly" />
+							<input type="hidden" name="hid_endtime" id="hid_endtime" value="" />
+						</div>
+					</div>
+					<div class="add-coupon-tit c5 fs14 divtab bgcolor a-c-titmar">使用范围</div>
+					<div class="add-c-userang divtab bgcolor fs13">
+						<div class="add-c-userang-btn usehover fl" id="usetab1">全店通用</div>
+						<div class="add-c-userang-btn fl" id="usetab2">部分商品</div>
+						<input type="hidden" value="1" id="usebtn_2" />
+						<input type="hidden" value="2" id="usebtn_1" />
+					</div>
+
+					<div class="usepro-main divtab bgcolor">
+						<div class="usepro-tit divtab none">
+							<div class="usepro-tit-le fl">
+								<span class="c3 fs13">添加商品</span><span class="c9 fs13">已选<em id="selected_num_1">0</em>件</span>
+							</div>
+							<div class="usepro-tit-ri fl">
+								<div class="usepro-tit-rico fr"><img src="__IMG__/coupon/kqgl_icon_next.png" alt="" /></div>
+								<span class="fr c3 fs13">添加</span>
+							</div>
+						</div>
+						<div class="store-pro-main divtab" id="product_list_1">
+
+						</div>
+						<div class="add-save-btn cb fs16" id="addsave_btn">保存</div>
+					</div>
+				</div>
+			</form>
+			<!--选择商品-->
+			<div class="mui-content none" id="page_2">
+				<div class="select-pro-list divtab bgcolor" id="product_list_2">
+					<!--<div class="s-pro-box fl" id="selected_p_0" title="0" onclick="selectedpro('0')">
+						<input type="hidden" value="2" id="sel_val_0" name="selstate" />
+						<input type="hidden" value="0" id="pcode_0" name="pcode[]" />
+						<div class="s-pro-img divre">
+							<div class="selectedico divab none" id="selectedico_0"><img src="__IMG__/coupon/kqgl_icon_select.png" alt="" /></div>
+							<img src="__IMG__/coupon/tu14.jpg" alt="" />
+						</div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs13">￥</span><span class="fs14">80</span></div>
+						</div>
+					</div>
+					<div class="s-pro-box fl" id="selected_p_1" title="1" onclick="selectedpro('1')">
+						<input type="hidden" value="2" id="sel_val_1" name="selstate" />
+						<input type="hidden" value="1" id="pcode_1" name="pcode[]" />
+						<div class="s-pro-img divre">
+							<img src="__IMG__/coupon/tu14.jpg" alt="" />
+							<div class="selectedico divab none" id="selectedico_1"><img src="__IMG__/coupon/kqgl_icon_select.png" alt="" /></div>
+						</div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs13">￥</span><span class="fs14">80</span></div>
+						</div>
+					</div>
+					<div class="s-pro-box fl" id="selected_p_2" title="2" onclick="selectedpro('2')">
+						<input type="hidden" value="2" id="sel_val_2" name="selstate" />
+						<input type="hidden" value="2" id="pcode_2" name="pcode[]" />
+						<div class="s-pro-img divre">
+							<img src="__IMG__/coupon/tu14.jpg" alt="" />
+							<div class="selectedico divab none" id="selectedico_2"><img src="__IMG__/coupon/kqgl_icon_select.png" alt="" /></div>
+						</div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs13">￥</span><span class="fs14">80</span></div>
+						</div>
+					</div>
+					<div class="s-pro-box fl" id="selected_p_3" title="3" onclick="selectedpro('3')">
+						<input type="hidden" value="2" id="sel_val_3" name="selstate" />
+						<input type="hidden" value="3" id="pcode_3" name="pcode[]" />
+						<div class="s-pro-img divre">
+							<img src="__IMG__/coupon/tu14.jpg" alt="" />
+							<div class="selectedico divab none" id="selectedico_3"><img src="__IMG__/coupon/kqgl_icon_select.png" alt="" /></div>
+						</div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs13">￥</span><span class="fs14">80</span></div>
+						</div>
+					</div>
+					<div class="s-pro-box fl" id="selected_p_4" title="4" onclick="selectedpro('4')">
+						<input type="hidden" value="2" id="sel_val_4" name="selstate" />
+						<input type="hidden" value="4" id="pcode_4" name="pcode[]" />
+						<div class="s-pro-img divre">
+							<img src="__IMG__/coupon/tu14.jpg" alt="" />
+							<div class="selectedico divab none" id="selectedico_4"><img src="__IMG__/coupon/kqgl_icon_select.png" alt="" /></div>
+						</div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs13">￥</span><span class="fs14">80</span></div>
+						</div>
+					</div>-->
+				</div>
+				<div id="console"></div>
+
+				<div class="add-save-btn cb fs16" id="sel_true">确认(<span id="selected_num_2">0</span>)</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			mui('.mui-content').on('tap', '#starttime', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					$("#starttime").val(rs.text);
+					$('#hid_starttime').val(rs.text);
+					picker.dispose();
+				});
+			});
+			/*结束时间*/
+			mui('.mui-content').on('tap', '#endtime', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					$("#endtime").val(rs.text);
+					$('#hid_endtime').val(rs.text);
+					picker.dispose();
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-bar-nav-right').hide();
+
+				var atxth = $('.add-c-ctrl').height();
+				$('.add-c-txt').css('line-height', atxth + 'px');
+				$('.add-c-ctrl').css('line-height', atxth + 'px');
+				//styles();
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			getprolist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getprolist();
+					}
+				}
+			});
+
+			/*样式*/
+			function styles() {
+				var pimgw = $('.s-pro-img').width();
+				$('.s-pro-img').width(pimgw);
+				$('.s-pro-img').height(pimgw);
+			}
+			/*选择卡券类型*/
+			$('#add_c_type').change(function() {
+				$(this).css('color', '#333');
+				if($('#add_c_type :selected').val() == 1) {
+					$('#add_c_type1').show();
+					$('#add_c_type2').hide();
+				} else if($('#add_c_type :selected').val() == 2) {
+					$('#add_c_type1').hide();
+					$('#add_c_type2').show();
+				}
+			});
+			/*全店*/
+			mui('.mui-content').on('tap', '#usetab1', function() {
+				$('#checksign').val(1);
+				$(this).addClass('usehover');
+				$('#usetab2').removeClass('usehover');
+				$('#page_1').show();
+				$('#page_2').hide();
+				$('#product_list_1').empty();				
+				$('#selected_num_2').text(0);
+				$('#selected_num_1').text(0);
+				$('.usepro-tit').css('display','none');
+			});
+			/*部分商品*/
+			mui('.mui-content').on('tap', '#usetab2', function() {
+				$('#checksign').val(2);
+				$('#usetab1').removeClass('usehover');
+				$(this).addClass('usehover');
+				if(pageindex==1){
+					mui.toast('您的店铺还没有商品');
+					$('.usepro-tit').css('display','none');
+					return;
+				}else{
+					/*选择商品*/
+					$('.usepro-tit').css('display','block');					
+					mui('#page_1').on('tap', '.usepro-tit', function() {
+						showpage2();
+					});
+				}
+			});
+
+			/*显示选择商品页*/
+			function showpage2() {
+				$('#page_1').hide();
+				$('#page_2').show();
+			}
+			
+			var clicktag = 0;
+			/*保存卡券信息*/
+			mui('#page_1').on('tap', '#addsave_btn', function() {
+				if(clicktag == 0) {
+                    var　numreg = /^\d+$/;
+                    if(!numreg.test($('#num').val())){
+                        mui.toast('库存请输入整数值');
+                        return;
+					}
+					clicktag = 1;
+					$('#hid_endtime').val($('#endtime').val());
+					$('#hid_starttime').val($('#starttime').val());
+					var attrbul = getFormAttrs('formdata');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/AddCouponCard',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.toast('添加成功');
+								var backurl = "<?php echo $backurl; ?>";
+								if(!backurl) {
+									backurl = '__URL__/index';
+								}
+								setTimeout(function() {
+									mui.openWindow({
+										url: backurl,
+										id: "couponindex"
+									});
+								}, 2000);
+							} else {
+								mui.toast(msg.msg);
+								clicktag = 0;
+							}
+						}
+					});
+				}
+			});
+
+			/*数据加载*/
+			function getprolist() {
+				var url = WEB_HOST + "/index.php/Trade/Index/GetProductList?pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#product_list_2').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">您的店铺暂时还没有可以添加的商品</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										_html += '<div class="s-pro-box fl" id="selected_p_' + datalist[i]['c_pcode'] + '" title="' + datalist[i]['c_pcode'] + '" onclick="selectedpro(\'' + datalist[i]['c_pcode'] + '\')">';
+										_html += '<input type="hidden" value="2" id="sel_val_' + datalist[i]['c_pcode'] + '" name="selstate">';
+										_html += '<input type="hidden" value="' + datalist[i]['c_pcode'] + '" id="pcode_' + datalist[i]['c_pcode'] + '" name="pcode[]" />';
+										_html += '<div class="s-pro-img divre">';
+										_html += '<img src="' + datalist[i]['c_pimg'] + '" alt="" />';
+										_html += '<div class="selectedico divab none" id="selectedico_' + datalist[i]['c_pcode'] + '"><img src="__IMG__/coupon/kqgl_icon_select.png" alt="" /></div>';
+										_html += '</div>';
+										_html += '<div class="s-pro-name c3 fs13 fov">' + datalist[i]['c_name'] + '</div>';
+										_html += '<div class="s-pro-p-n divtab">';
+										_html += '<div class="s-pro-price fl cy"><span class="fs13">￥</span><span class="fs14">' + datalist[i]['c_price'] + '</span></div>';
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#product_list_2').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+			/*选中的效果*/
+			function selectedpro(id) {
+				$('#sel_statu').val('1');
+				var selnum;
+				var resuled = $('#sel_val_' + id).val();
+				if(resuled == 2) {
+					$('#selectedico_' + id).css('display', 'block');
+					$('#sel_val_' + id).val(1);
+					selnum = $('#selected_num_2').text();
+					//if(parseInt(selnum) >= 0) {
+						$('#selected_num_2').text(parseInt(selnum) - (-1));
+						$('#selected_num_1').text(parseInt(selnum) - (-1));
+					//}
+				} else if(resuled==1) {
+					$('#selectedico_' + id).css('display', 'none');
+					$('#sel_val_' + id).val(2);
+					selnum = $('#selected_num_2').text();
+					var resultn = parseInt(selnum) - 1;
+					if(parseInt(resultn) <= 0) {						
+						$('#product_list_1').empty();
+						$('#selected_num_2').text(0);
+						$('#selected_num_1').text(0);
+					} else {
+						$('#selected_num_2').text(resultn);
+						$('#selected_num_1').text(resultn);
+					}
+				}
+			}
+
+
+			/*确认选中的商品*/
+			mui('#page_2').on('tap', '#sel_true', function() {
+				$('#product_list_1').empty();
+				/*选中后的商品显示*/
+				if(parseInt($('#selected_num_2').text()) > 0) {
+					var pcodestr = '',
+						pcodeid = 0;
+					$('input[name="selstate"]').each(function(index) {
+						if($(this).val() == 1) {
+							var idd = $(this).parents('.s-pro-box').attr('title');
+							var addItem = $('#selected_p_' + idd).clone(true).attr('id', 'new_sel_p' + idd);
+							$('#product_list_1').append(addItem);
+							$('#new_sel_p' + idd).removeAttr('onclick');
+							$('#new_sel_p' + idd).removeClass('s-pro-box');
+							$('#new_sel_p' + idd).addClass('s-pro-box-2');
+							$('#new_sel_p' + idd + ' input[name="pcode"]').attr('id', 'selpro_val' + idd);
+							if(pcodeid == 0) {
+								pcodestr += idd;
+							} else {
+								pcodestr += '|' + idd;
+							}
+
+							pcodeid++;
+							$('#product_list_1 .selectedico').remove();
+							$('#product_list_1 input[name="selstate"]').remove();
+						}
+					});
+					$('#pcodestr').val(pcodestr);
+					$('#muinav_return').addClass('.mui-action-back');
+					$('#page_1').show();
+					$('#page_2').hide();
+					$('.usepro-main').show();
+					
+					$('#selected_num_1').text($('#selected_num_2').text());
+				} else {
+					$('#page_1').show();
+					$('#page_2').hide();					
+//					mui.toast('您还未选择商品');
+//					return;
+				}
+			});
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

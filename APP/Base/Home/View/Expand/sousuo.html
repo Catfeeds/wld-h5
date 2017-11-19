@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>推广中心</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/expand/index.css?v=1.2">
+	<style type="text/css">
+		.expand-main { margin-top:12%;}
+	</style>
+</head>
+<body class="bgeb">
+
+<div class="wrap-page" style="margin-bottom:13%;">
+<div class="xiaomi-bar header-shop" style="background: #47ABF7;">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs28" id="muinav_return"></a>
+	<div class="header-search fl divre" style="width: 75%;">
+		<input type="search" id="searchshop" name="searchshop" class="c9 fs14 aglinc" required="" placeholder="搜索" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="zh-CN">
+		<span class="divab"><img src="__IMG__/expand/der_icon_search.png" alt="" /></span>
+	</div>
+	<div class="search-cancel fr cf fs14 divre">搜索</div>
+</div>
+
+
+<div class="mui-content">
+	<div class="expand-main">
+		<ul class="list-ul" id="expand-main">
+			<!-- <li class="expand-list">
+				<div class="product-box">
+					<div class="product-img fl">
+						<img src="__IMG__/expand/tg-img-2.png" alt="">
+					</div>
+					<div class="product-info fl">
+						<div class="product-oprate">
+							<div class="product-name c3 fs14 fl">秘制豆腐干休闲食品</div>
+						</div>
+						<div class="product-state fs11">
+							<ul>
+								<li class="blue-btn">自营</li>
+								<li class="yellow-btn">代理</li>
+								<li class="blue-btn">包邮</li>
+								<li class="yellow-btn">推广佣金</li>
+								<li class="yellow-btn">购物优惠</li>
+							</ul>
+						</div>
+						<div class="product-price">
+							<div class="price-font fs16 fl"><span class="fs12">￥</span>888</div>
+							<div class="rebate-font fr fs14">佣金10%</div>
+						</div>
+					</div>
+				</div>
+				<div class="rebate-box">
+					<div class="expand-button fr">
+						<button type="button" class="fs14 btn-tg">我要推广</button>
+					</div>
+				</div>
+			</li> -->
+			<div id="console"></div>
+		</ul>
+	</div>
+</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload = function() {
+		ChRightText("搜索");
+		styles();
+	}
+
+	function styles() {
+		var proh = $('.product-img').width();
+		$('.product-img').height(proh);
+		$('.product-price').css('margin-top', proh*0.1 + 'px' );
+
+		var listh = $('.expand-list').height();
+		$('.expand-list').height(listh);
+		$('.delete-btn').height(listh);
+	}
+
+
+	//搜索框焦点操作
+	$('.header-search input[name="searchshop"]').focus(function() {
+		$('.header-search span').css("left", '2%');
+	});
+
+	$('.header-search input[name="searchshop"]').blur(function() {
+		$('.header-search span').css("left", '38%');
+		$('#searchshop').val('')
+	});
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	var name = '';
+
+	/*$('#searchshop').bind('input propertychange', function() {
+		sercherinfo();
+	});*/
+
+	mui('.header-shop').on('tap', '.search-cancel', function() {
+		sercherinfo();
+	});
+
+	//搜索方法
+	function sercherinfo() {
+		var text =$('input[name="searchshop"]').val()
+//			if(text) {
+				pageindex = 1;
+				name = $('#searchshop').val();
+				getdatalist();
+//			}else{
+//				mui.toast('请输入搜索关键字');
+//			}
+	}
+
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/allproduct?name="+name+"&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#expand-main').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {
+							//数据为空展示
+							_html += '<div class="data-null"><img src="__IMG__/expand/empty.png" alt=""></div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i]
+								_html += '<li class="expand-list">';
+								_html += '<div class="product-box">';
+								_html += '<div class="product-img fl">';
+								_html += '<img src="'+dataarr['c_pimg'] +'" alt="">';
+								_html += '</div>';
+								_html += '<div class="product-info fl">';
+								_html += '<div class="product-oprate">';
+								_html += '<div class="product-name c3 fs14 fl">'+ dataarr['c_name']+'</div>';
+								_html += '</div>';
+								_html += '<div class="product-state">';
+								_html += '<ul>';
+								if(dataarr['c_isagent'] == 0){
+									_html += '<li class="blue-btn fs11">自营</li>';
+								}
+								if(dataarr['c_isagent'] == 1){
+									_html += '<li class="yellow-btn fs11">代理</li>';
+								}
+								if(dataarr['c_isfree'] == 1){
+									_html += '<li class="blue-btn fs11">包邮</li>';
+								}
+								if(dataarr['c_isspread'] == 1){
+									_html += '<li class="yellow-btn fs11">推广</li>';
+								}
+								_html += '</ul>';
+								_html += '</div>';
+								_html += '<div class="product-price">';
+								_html += '<div class="price-font fs16 fl"><span class="fs12">￥</span>'+ dataarr['c_price']+'</div>';
+								_html += '<div class="rebate-font fr fs14">佣金&nbsp<span>'+ ( dataarr['c_price']*(dataarr['c_spread_proportion']/100)).toFixed(2) +'</span></div>';
+								_html += '</div>';
+								_html += '</div>';
+								_html += '</div>';
+								_html += '<div class="rebate-box">';
+								_html += '<div class="expand-button fr">';
+								_html += '<button type="button" class="fs14 btn-tg" onclick="lookproinfo(\'' + dataarr['c_ucode'] + '\',\'' + dataarr['c_pcode'] + '\',' + dataarr['c_source'] + ')">我要推广</button>';
+								_html += '</div>';
+								_html += '</div>';
+								_html += '</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#expand-main').append(_html);
+			},
+			complete: function() {
+				styles();
+				ctrls = true;
+				$('#console').css('display', 'none');
+
+			}
+		});
+	}
+
+	/*查看商品*/
+	function lookproinfo(ucode, pcode, source) {
+		if (source == 1) {
+			window.location.href = "__APP__/Shopping/Index/detail?pcode=" + pcode + "&pucode=" + ucode;
+		} else {
+			window.location.href = "__APP__/Shopping/Entitymap/detail?pcode=" + pcode + "&pucode=" + ucode;
+		}
+	}
+
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

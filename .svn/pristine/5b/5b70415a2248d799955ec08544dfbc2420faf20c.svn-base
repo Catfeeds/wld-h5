@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>连锁店管理</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+	</head>
+
+	<body>
+		<include file="Common/head" />
+		<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+
+			<div class="wrap-page bgcolor" style="margin-bottom:15%;">
+				<div class="page-title">
+					<div class="page-tit-name">我的连锁店</div>
+				</div>
+				<div class="multshop-list divtab">
+					<ul id="data_list">
+						<!--<li>
+							<div class="divtab">
+								<div class="multshop-img fl">
+									<img src="__IMG__/liansuodian.png" alt="" />
+								</div>
+								<div class="multshop-info fl">
+									<h3 class="c3 fs14">黄焖鸡米饭</h3>
+									<p class="c5 fs12">店铺编号：808080800808080</p>
+									<p class="c5 fs12 multzh">账号：9898989898989898</p>
+								</div>								
+							</div>						
+							<div class="multshop-state">
+								<div class="marrow fr"><span style="color: red;">资料审核中</span><span class="arrowimg"><img src="__IMG__/cashier_icon_next.png" alt="" /></span></div>
+								<div class="mstate fl">
+									<p class="fs12 c9">2017-06-14</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="divtab">
+								<div class="multshop-img fl">
+									<img src="__IMG__/liansuodian.png" alt="" />
+								</div>
+								<div class="multshop-info fl">
+									<h3 class="c3 fs14">黄焖鸡米饭</h3>
+									<p class="c5 fs12">店铺编号：808080800808080</p>
+									<p class="c5 fs12 multzh">账号：9898989898989898</p>
+								</div>								
+							</div>						
+							<div class="multshop-state">
+								<div class="marrow fr"><span style="color: red;">资料审核中</span><span class="arrowimg"><img src="__IMG__/cashier_icon_next.png" alt="" /></span></div>
+								<div class="mstate fl">
+									<p class="fs12 c9">2017-06-14</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="divtab">
+								<div class="multshop-img fl">
+									<img src="__IMG__/liansuodian.png" alt="" />
+								</div>
+								<div class="multshop-info fl">
+									<h3 class="c3 fs14">黄焖鸡米饭</h3>
+									<p class="c5 fs12">店铺编号：808080800808080</p>
+									<p class="c5 fs12 multzh">账号：9898989898989898</p>
+								</div>								
+							</div>						
+							<div class="multshop-state">
+								<div class="marrow fr"><span style="color: red;">资料审核中</span><span class="arrowimg"><img src="__IMG__/cashier_icon_next.png" alt="" /></span></div>
+								<div class="mstate fl">
+									<p class="fs12 c9">2017-06-14</p>
+								</div>
+							</div>
+						</li>-->
+					</ul>
+					<div id="console"></div>
+				</div>
+				<div class="addshop_btn fixed-btn cb fs16" onclick="AddMultshop()">添加收银员</div>
+			</div>
+
+		</form>
+
+		<script type="text/javascript">
+			window.onload = function() {
+
+				styles();
+			}
+
+			function styles() {
+				$('.multshop-img').height($('.multshop-img').width());
+				$('.multshop-info .multzh').css('padding-top', $('.multshop-img').height() * 0.3 + 'px');
+
+				$('.arrowimg').height($('.arrowimg').width());
+				$('.multshop-state').css("line-height", $('.arrowimg').height() + 'px');
+			}
+
+			function AddMultshop() {
+				window.location.href = "__URL__/addshop";
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/ChainList?pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(!data || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html += '<div class="divempty">';
+									_html += '<h3 class="divtab c6 fs16">暂无相关连锁店信息</h3>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<li onclick="viewinfo(\'' + dataarr['c_ucode'] + '\')">';
+										_html += '<div class="divtab">';
+										_html += '<div class="multshop-img fl">';
+										_html += '<img src="' + dataarr['c_headimg'] + '" alt="" />';
+										_html += '</div>';
+										_html += '<div class="multshop-info fl">';
+										_html += '<h3 class="c3 fs14">' + dataarr['c_nickname'] + '</h3>';
+										_html += '<p class="c5 fs12">店铺编号：' + dataarr['c_shopcode'] + '</p>';
+										_html += '<p class="c5 fs12 multzh">账号：' + dataarr['c_phone'] + '</p>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '<div class="multshop-state">';
+										_html += '<div class="marrow fr">';
+										if(dataarr['c_checked'] == 0 || !dataarr['c_checked']) {
+											if(dataarr['c_dcode']) {
+												_html += '<span style="color: red;">资料审核中</span>';
+											} else {
+												_html += '<span style="color: red;">资料未完善</span>';
+											}
+										} else if(dataarr['c_checked'] == 1) {
+											_html += '<span style="color:red;">资料未通过</span>';
+										} else if(dataarr['c_checked'] == 2) {
+											_html += '<span class="c3">资料审核中</span>';
+										} else if(dataarr['c_checked'] == 3) {
+											_html += '<span style="color: green;">审核已通过</span>';
+										}
+										_html += '<span class="arrowimg"><img src="__IMG__/cashier_icon_next.png" alt="" /></span>';
+										_html += '</div>';
+										_html += '<div class="mstate fl">';
+										_html += '<p class="fs12 c9">' + dataarr['c_addtime'] + '</p>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</li>';
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+			/*查看商家信息*/
+			function viewinfo(fucode) {
+				window.location.href = "__URL__/step_1?fucode=" + fucode;
+			}
+		</script>
+	</body>
+
+</html>

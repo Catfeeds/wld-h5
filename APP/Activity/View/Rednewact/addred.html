@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>创建红包</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/rednewact/index.css?v=20176133.0.8" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 28%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}">
+				<input type="hidden" name="backurl" id="backurl" value="{$backurl}">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<input type="hidden" name="balancemon" id="balancemon" value="{$balancemon}">
+				<div class="mui-content">
+					<div class="addred-content">
+						<div class="addred-li divtab bgcolor c3 fs14" style="padding: 0 3%;">
+							<div class="addred-li-le fl" id="money_type" style="padding: 4% 0;">总金额</div>
+							<div class="addred-li-ce fl" style="padding: 4% 0;">
+								<input type="hidden" name="hidredmon" id="hidredmon" value="" id="" />
+								<span id="red_money" class="fs13 c3" style="width: 100%;display: block;text-align: right;background: #fff;padding: 0.5% 0;">0.00</span>
+								<!--<input type="text" name="redmon" id="redmon" placeholder="0.00" readonly="readonly" maxlength="8"/>-->
+							</div>
+							<div class="addred-li-re fl" style="padding: 3.5% 0;">元</div>
+						</div>
+						<div class="addred-type-li divtab c9 fs13">
+							<span id="updredfont">当前为拼手气红包</span><span class="cb" id="updredtype">点击改为普通红包</span>
+						</div>
+						<div class="addred-li divtab bgcolor c3 fs14">
+							<div class="addred-li-le fl">红包个数</div>
+							<div class="addred-li-ce fl">
+								<input type="tel" name="redbit" id="redbit" value="" placeholder="输入个数" />
+							</div>
+							<div class="addred-li-re fl">个</div>
+						</div>
+						<div class="addred-li divtab bgcolor">
+							<div class="addred-msg divtab c3 fs14">
+								<textarea name="red_remark" rows="2" cols="" placeholder="福旺财旺人气旺，山高水长福寿长！" maxlength="20" id="red_remark"></textarea>
+							</div>
+							<div class="addred-fontnum divtab fs13 c9"><span id="min-lenfont">0</span>/<span>20</span>字</div>
+						</div>
+						<div class="addred-money c3 alignc"><span class="fs14">￥</span><span id="totalmon" class="fs24">0.00</span></div>
+					</div>
+					<!--总金额-->
+					<input type="hidden" name="totalmm" id="totalmm" value="" />
+					<div class="addred-subbtn"><img src="__IMG__/rednewact/saiqian_but_offclick.png" alt="" /></div>
+					<div class="addred-desc">
+						<?php if($rtype==1){ ?>
+						<p class="fs13 c5">1.宝箱红包创建后，可随时取消发放；</p>
+						<p class="fs13 c5">2.红包取消发放后未领取的红包金额将自动退还至小蜜余额中；</p>
+						<p class="fs13 c5">3.普通红包：每个用户领到的红包金额统一为固定金额；</p>
+						<p class="fs13 c5">4.拼手气红包：每个用户领到的红包金额为随机金额。 </p>
+						<?php }else if($rtype==2){ ?>
+						<p class="fs13 c5">1.热气球红包创建后，可随时取消发放；</p>
+						<p class="fs13 c5">2.红包取消发放后未领取的红包金额将自动退还至小蜜余额中；</p>
+						<p class="fs13 c5">3.普通红包：每个用户领到的红包金额统一为固定金额；</p>
+						<p class="fs13 c5">4.拼手气红包：每个用户领到的红包金额为随机金额。 </p>
+						<?php }else{ ?>
+						<p class="fs13 c5">1、所有商家创建的红包投放于店铺后，不可撤回。所有未领取完的红包，将在24小时后系统自动退回余额。</p>
+						<p class="fs13 c5">2、所有商家参与活动发出来未领取的红包，可选择撤回。</p>
+						<p class="fs13 c5">3、创建的普通红包每个用户领取的为统一固定金额。</p>
+						<p class="fs13 c5">4、若创建拼手气红包，每个用户领取的为随机金额。 </p>
+						<?php } ?>
+					</div>
+				</div>
+			</form>
+			<div id="keyboardDIV" style="display: none"></div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script src="__RSC__/Order/js/scanpay/fastclick.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/keyboard.js?v=3.0.5"></script>
+		<script type="text/javascript">
+            window.addEventListener('load', function() {
+                FastClick.attach(document.body);
+            }, false);
+
+            var character = true;
+            var chk_work = "";
+            window.onload = function() {
+                $('.xm-bar-nav-right').hide();
+                yangshi();
+            }
+            $('#red_remark').focus(function() {
+                $("#keyboardpwd").css('display', "none");
+            });
+            $('#redbit').focus(function() {
+                $("#keyboardpwd").css('display', "none");
+            });
+            //页面键盘js改变样式
+            function yangshi() {
+                $('.hide-keyp').css('bottom', $('#keyboard').height() + "px");
+                $('#keyboard .delete').height($('#keyboard .symbol').height());
+                $('#keyboard .del-clear').height($('#keyboard .del-clear').width() * 0.70);
+
+                $('.techsup').css('bottom', $('#keyboard_pwd').height() + "px");
+                $('#keyboard_pwd .delete').height($('#keyboard_pwd .symbol').height());
+                $('#keyboard_pwd .del-clear').height($('#keyboard_pwd .del-clear').width() * 0.70);
+
+                $('.pass').height($('.pass').width());
+            }
+
+            /*红包类型*/
+            var redctype = 2;
+            mui('.mui-content').on('tap', '#updredtype', function() {
+                if(redctype == 2) {
+                    $('#updredfont').text("当前为普通红包");
+                    $('#updredtype').text("点击改为拼手气红包");
+                    $('#money_type').text("单个金额");
+                    $('#red_money').text("0.00");
+                    $('input[name="redbit"]').val("");
+                    $('#hidredmon').val("");
+                    $('#totalmon').text("0.00");
+                    $('#totalmm').val("");
+                    chk_work = "";
+                    mui('.mui-content').off('tap', '.addred-subbtn');
+                    $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                    redctype = 1;
+                    character = true;
+                } else {
+                    $('#updredfont').text("当前为拼手气红包");
+                    $('#updredtype').text("点击改为普通红包");
+                    $('#money_type').text("总金额");
+                    $('#red_money').text("0.00");
+                    $('input[name="redbit"]').val("");
+                    $('#hidredmon').val("");
+                    $('#totalmon').text("0.00");
+                    $('#totalmm').val("");
+                    chk_work = "";
+                    mui('.mui-content').off('tap', '.addred-subbtn');
+                    $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                    redctype = 2;
+                    character = true;
+                }
+            });
+            mui('.mui-content').on('tap', '#red_money', function() {
+                $("#red_remark").blur();
+                $('input[name="redbit"]').blur();
+                $('#keyboardDIV').css("display", "block");
+                $('.hide-keyp').css('bottom', $('#keyboard').height() + "px");
+                $('#keyboard .delete').height($('#keyboard .symbol').height());
+                $('#keyboard .del-clear').height($('#keyboard .del-clear').width() * 0.70);
+                $('#keyboard .symbol').height($('#keyboard .symbol').height());
+                $('#keyboard .tab').height($('#keyboard .symbol').height());
+                $('#v .nbsp').height($('#keyboard .symbol').height());
+            });
+            mui('#keyboardDIV').on('tap', '.hide-keyp', function() {
+                $('#keyboardDIV').css("display", "none");
+            });
+            $('input[name="redbit"]').focus(function() {
+                $('#keyboardDIV').css("display", "none");
+            });
+            /*个数*/
+            $('input[name="redbit"]').keyup(function() {
+                if($('#hidredmon').val() != "") {
+                    checktxt($('#hidredmon').val(), $('input[name="redbit"]').val());
+                } else {
+                    checktxt("", $('input[name="redbit"]').val());
+                }
+            });
+            /*验证输入*/
+            function checktxt(mon, num) {
+                if(redctype == 1) {
+                    if(mon) {
+                        if(mon > 200.00) {
+                            mui.toast("单个红包金额不可超过200元");
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return;
+                        }
+                        if(mon < 0.01) {
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return;
+                        }
+                    }
+                    if(num) {
+                        if(parseInt(num) > 100) {
+                            mui.toast("一次最多可发100个红包");
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return;
+                        }
+                        if(parseInt(num) <= 0) {
+                            mui.toast("至少需要设置1个红包");
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return;
+                        }
+                    }
+                    if(mon && num) {
+                        $("#totalmon").text(parseFloat(mon * num).toFixed(2));
+                        $('#totalmm').val(parseFloat(mon * num).toFixed(2));
+                        $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_click.png");
+                        /*提交*/
+                        mui('.mui-content').on('tap', '.addred-subbtn', function() {
+                            createdred();
+                        });
+                    } else {
+                        $("#totalmon").text("0.00");
+                        $('#totalmm').val("");
+                        mui('.mui-content').off('tap', '.addred-subbtn');
+                        $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                        return;
+                    }
+                } else {
+                    if(mon) {
+                        if(mon > 20000.00) {
+                            mui.toast("单次支付总额不可超过20000元");
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return false;
+                        }
+                        if(mon < 0.01) {
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return false;
+                        }
+                        $("#totalmon").text(mon);
+                        $('#totalmm').val(mon);
+                    }
+                    if(num) {
+                        if(parseInt(num) > 100) {
+                            mui.toast("一次最多可发100个红包");
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return false;
+                        }
+                        if(parseInt(num) <= 0) {
+                            mui.toast("至少需要设置1个红包");
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return false;
+                        }
+                    }
+                    if(mon && num) {
+                        var tot = mon / num;
+                        if(tot < 0.01) {
+                            mui.toast('单个红包金额不可低于0.01元');
+                            mui('.mui-content').off('tap', '.addred-subbtn');
+                            $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+                            return false;
+                        }
+//					if(tot > 200.00) {
+//						mui.toast('单个红包金额不可超过200.00元');
+//						mui('.mui-content').off('tap', '.addred-subbtn');
+//						$('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+//
+//						return;
+//					}
+                        $("#totalmon").text(mon);
+                        $('#totalmm').val(mon);
+                        $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_click.png");
+                        /*提交*/
+                        mui('.mui-content').on('tap', '.addred-subbtn', function() {
+                            createdred();
+                        });
+                    }
+//				else {
+//					$("#totalmon").text("0.00");
+//					$('#totalmm').val("");
+//					mui('.mui-content').off('tap', '.addred-subbtn');
+//					$('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+//					return;
+//				}
+                }
+            }
+            /*提示限制输入20个字符*/
+            $(function() {
+                var len = $("#red_remark").val().length;
+                document.getElementById("min-lenfont").innerHTML = len.toString();
+                $("#red_remark").keyup(function() {
+                    var len_2 = $(this).val().length;
+                    document.getElementById("min-lenfont").innerHTML = len_2.toString();
+                    if(len_2 >= 20) {
+                        $(this).val($(this).val().substring(0, 20));
+                    }
+                    var num = 20 - len_2;
+                    document.getElementById("min-lenfont").innerHTML = num;
+                });
+            });
+
+            /*塞钱进红包*/
+            function createdred() {
+                $('#red_money').blur();
+                $('input[name=redbit]').blur();
+                $("#red_remark").blur();
+                var mymoney = $('#red_money').text();
+                var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+                if(!match.test(mymoney)) {
+                    mui.toast('请输入正确的红包金额！');
+                    return false;
+                }
+                if(redctype == 2) {
+                    var tot = (parseFloat($("#hidredmon").val()) / parseFloat($('input[name=redbit]').val())).toFixed(2);
+                    if(tot > 200.00) {
+                        mui.toast('单个红包金额不可超过200.00元');
+                        mui('.mui-content').off('tap', '.addred-subbtn');
+                        $('.addred-subbtn img').attr("src", "__IMG__/rednewact/saiqian_but_offclick.png");
+
+                        return;
+                    }
+                }
+                /*验证支付密码*/
+                var detailurl = '<?php echo $returnurl; ?>';
+                checkNo(detailurl,2,3);
+            }
+		</script>
+		<script type="text/javascript" src="__JS__/moneyinput.js?v=201707011602"></script>
+		<script type="text/javascript" src="__COMMON__/js/safepwd.js?v=3.0.5"></script>
+	</body>
+</html>

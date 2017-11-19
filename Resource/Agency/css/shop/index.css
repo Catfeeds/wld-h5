@@ -1,0 +1,71 @@
+/*首页部分*/
+img{width: 100%;height: auto;}
+.shophd{position: fixed;top: 0;left: 0;right: 0;bottom: 0;}
+.shopimg,.shopname{z-index: 9;left: 0px;right: 0px;margin: auto;}
+.shopmenu{z-index: 9;left: 0px;right: 0px;margin: auto;width: 65%;background: #45AAFA;border-radius: 30px;text-align: center;padding: 3% 0;letter-spacing: 0.2rem;}
+.shopimg{width: 30%;top: 12%;}
+.shopname{top: 34%;text-align: center;width: 60%;}
+#nav-t1{top:45%;}
+#nav-t2{top:55%;}
+#nav-t3{top:65%;}
+
+/*等级部分*/
+.level_li{padding:3% 4%;border-bottom: 1px solid #ebebeb;}
+.level_left{padding: 2% 0px;width: 43%;padding-right: 3%;}
+.level_mid,.level_right{padding: 2% 0px;}
+.level_sign{width: 7%;margin-top: 3.3%;}
+.level_img{width: 6%;margin-top: 2.8%;}
+.levelmoney{padding: 2% 0px;padding-right: 2%;}
+.leveldesc{padding: 1% 0px;}
+.levelremid{padding: 2%;}
+.level-ex-Img{ width: 7%; margin-right: 1.5%;}
+
+
+.addli{padding: 4% 4%;border-top: 1px solid #ebebeb;}
+.addleft{width: 25%;padding: 2% 0px;}
+.addright{width: 70%;padding: 2% 2%;}
+.addsub{background: #46aafa;margin: 6% 4%;width: 92%;padding: 3% 0px;text-align: center;border-radius: 5px;}
+
+
+/*分销商管理*/
+.resellertop{padding:8% 4%;border-bottom: 1px solid #ebebeb;}
+.resel{width: 50%;text-align: center;}
+.resel p{padding: 1% 0px;}
+.ctrlslist{padding: 3%;border-bottom: 1px solid #ebebeb;}
+.ctrleft{width: 20%;}
+.ctrright{width: 80%;padding-left: 2%;}
+.ctrright div{padding:0.5% 0px;display: block;}
+.ctrright p{padding:1% 0px;display: block;}
+.levelname{width: 25%;}
+div.levelnames{padding-right: 3%;}
+.levelimgs{width: 8%;margin-top:1%;}
+.arrows{width: 8%;}
+.jiage{color: #ffb658;}
+
+/*分销商详情*/
+.infotops{padding: 3%;}
+.shopleft{width: 15%;}
+.shopright{width: 85%;padding: 2% 2%;padding-bottom: 0px;}
+.nametit{overflow: hidden;max-width: 80%;}
+.imgsign{width: 7%;overflow: hidden;margin-left: 1.5%;}
+.guanzhu{padding:1%;}
+.gzmargin{margin-left: 2%;}
+.goodslist{margin-top: 3%;}
+.bagsli{padding: 3%;}
+.bagsli1{border-bottom: 1px solid #ebebeb;padding-bottom: 2%;}
+.bagsli2{border: 0px;margin-bottom: 3%;}
+.bagsleft{width: 25%;}
+.bagright{width: 75%;padding-left: 2%;}
+.pname{padding: 2% 0px;}
+.bagright p{padding: 1% 0px;}
+.goodsoption{width:25%;text-align: center;}
+.leveldateil{padding: 2% 0px;}
+.levelimgs1{margin:1%;}
+.xiaofei{padding-left: 17%;}
+.guige{width: 30%;text-align: center;}
+.shuliang{width: 18%;text-align: center;}
+.pprice{width: 22%;text-align: center;}
+.ptime{width: 30%;text-align: center;}
+.showinfo{padding-left: 25%; }
+.showinfo span{margin-left: 1%;}
+.looktext{padding:2.5% 2%;}

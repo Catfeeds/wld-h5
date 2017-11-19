@@ -1,0 +1,131 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+/*取消长按复制*/
+* {
+-webkit-touch-callout:none;
+-webkit-user-select:none;
+-khtml-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
+}
+
+
+/* 红包管理首页 */
+.red-list-item{width: 92%;margin: 4% auto;}
+.red-con{ width: 77%;right: 3%;top: 0;z-index: 90;}
+.redname{ margin: 4% auto;overflow: hidden;}
+.red-type{ padding: 0 1%; margin: 0.5% 1%;border-radius: 6px;}
+.type01{ background: #feaa38;}
+.type02{ background: #69d6ff;}
+.red-operate{ width: 28%;text-align: center;padding: 2.5% 0;border-radius: 25px;letter-spacing: 2px;right: 4%;bottom: 28%;z-index: 99;}
+.operate01{ background: #fec957; border: 1px solid #fff;}
+.operate02{ background: #ccc; border: 1px solid #ccc;}
+.red-time-number{ bottom: 1%;padding: 1% 3%;}
+.red-money-operate{margin-bottom: 8%;}
+.red-status { border-top-left-radius: 6px; border-bottom-right-radius: 6px;text-align: center;padding: 1% 1.5%;top: 0;left: 0;}
+.status01{ background: #ff5c5d;}
+.status02{ background: #999999;}
+
+.ad-creat-site{background: #fff; position: fixed;border-top: 1px solid #e5e5e5;left: 0;right: 0; bottom: 0; margin: 0 auto;width: 100%;max-width: 720px;min-width: 320px;padding: 3% 0;text-align: center;z-index: 99;}
+.ad-creat-btn{background: url(../../img/rednewact/signin_btn_bg.png) no-repeat;background-size: 100% 100%;width: 55%;margin: 0 auto;padding: 2% 0 4% 0;}
+
+/*发布资源按钮*/
+.t-s-publish-pup{position: fixed;right: 0;left: 0; bottom: 5%;z-index:99;max-width: 720px;min-width: 320px;width: 100%;margin: 0 auto;}
+.t-s-publish-pupimg{width: 17%;margin-left: 79%;}
+.t-s-publish-content{position: fixed;right: 0; bottom: 5%;z-index:999;left: 0;width: 100%;margin: 0 auto;max-width: 720px;min-width: 320px;}
+.t-s-publish-imgtxt{width: 100%;overflow: hidden;}
+.t-s-publish-sub{width: 17%;margin-top: 13%;margin-right: -14%;}
+.t-s-publish-sub2{width: 17%;margin-top: 25%;margin-right: 4%;}
+.t-s-publish-close{width: 17%;margin-top: 40%;margin-right: 4%;}
+
+
+
+/* 创建红包 */
+.addred-content{padding: 0.5% 0 0 0;}
+.addred-li{border-top: solid 1px #EBEBEB; padding: 4% 3%;margin-top: 4%;}
+.addred-li-le{width: 25%;}
+.addred-li-ce{width: 62%;margin-left: 3%;}
+.addred-li input[type="text"],.addred-li input[type="number"],.addred-li input[type="tel"]{border:none;background: #fff;text-align: right;width: 100%;}
+.addred-li-re{width: 10%;text-align: right;}
+.addred-type-li{padding: 2% 0 0 3%;}
+.addred-msg{padding: 3%;}
+.addred-msg textarea{border: none;background: #fff;width: 100%;resize: none;}
+.addred-fontnum{text-align: right;}
+.addred-money{padding: 4% 0 0 0;}
+
+.addred-subbtn{margin: 4% auto;width: 65%;}
+
+.addred-desc{padding: 4% 3%;}
+.addred-desc p{padding: 2% 0;}
+
+
+/*安全密码*/
+.set-pwd-bg{display: none; background-color: black; z-index:999; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.set-pwd-pup{ display: none;top:8%;left:0; position:fixed;z-index: 100000;width:90%;margin:0 auto;right: 0;left:0;max-width: 720px;min-width: 320px;padding: 10%;}
+.set-pwd-con{background: #fff;border-radius: 10px;}
+.set-pwd-tit{padding:3% 0;border-bottom:1px solid #ebebeb;}
+.set-cancel{width: 5%;text-align: center;margin: 1.5% 0 0 4%;}
+.set-font-pwd{width: 75%;text-align: center;}
+.set-pwd-money{text-align: center;padding: 2% 0;margin: 0 7.5%;}
+.set-pwd-surplus{text-align: center;padding: 2% 0;margin: 0 7.5%;}
+.pwd-input-list{padding: 3% 2% 3% 4%;}
+.pass { background: #fff; text-align: center;width: 15%;line-height: 100%;float: left;margin-left: 1%;border:1px solid #d9d9d9;}
+.pass_right{border-right:1px solid #d9d9d9;}
+
+
+/* 红包详情页 */
+.red-info{}
+.red-surplus-money{ margin: 0 0 2% 0;top: 8%;}
+.red-total-money{top: 45%;}
+.red-name{top: 62%;width: 60%;margin: 0 auto;left: 0;right: 0;}
+.red-amount{ padding: 2% 3%;bottom: 0;}
+
+.comm-nav-tab{padding: 0 0 0 0;-webkit-box-shadow:0 0 6px rgba(0, 0, 0, .1);-moz-box-shadow:0 0 6px rgba(0, 0, 0, .1);box-shadow:0 0 6px rgba(0, 0, 0, 0.1);margin-bottom: 1%;}
+.comm-nav-tab ul{overflow: hidden;}
+.comm-nav-tab ul li{ float: left;padding: 3% 0;width: 50%;text-align: center;color: #999;}
+.comm-nav-tab ul li.hover{border-bottom: solid 2px #47ABF7;color: #47ABF7;}
+
+
+.red-activity{margin-bottom: 4%;}
+.activity-con{ padding: 3%;}
+.red-img-title{width: 38%;margin: 0 auto;padding: 6% 0 2% 0;}
+.activity-img{ width: 30%;}
+.activity-info{ width: 67%;margin-left: 3%;}
+.activity-amount{}
+
+.red-getdetail{ padding-bottom: 5%;}
+.red-getdetail-con{ padding: 4% 2% 4% 4%;}
+.getdetail-info{ width: 70%;}
+.getdetail-img{ width: 25%;margin-right: 3%;}
+.getdetail-shop{ width: 72%;}
+.getdetail-money{ width: 30%;text-align: right;}
+.shop-name {}
+.shop-red span{ float: right; margin-right:28%;}
+
+/* 发放详情页 */
+.red-grantdetail{ padding-top: 3%;}
+.red-grantdetail-con{ padding: 3%;}
+.grantdetail-info{ width: 70%;}
+.grantdetail-info p{padding: 1% 0;}
+.grantdetail-time span{ margin-right: 6%;}
+.grantdetail-money{ text-align: right;}
+.grantdetail-money p{padding: 1% 0;}
+
+/* 发放记录页 */
+.redrecord-info{}
+.redrecord-money{ top: 15%;left: 0;right: 0;text-align: center;margin: 0 auto;}
+.redrecord-amount{ bottom: 30%;left: 0;right: 0;text-align: center;margin: 0 auto;}
+
+.redrecord-con{ padding:3%;}
+.record-name{overflow: hidden;}
+.record-name span{display: block;float: left;border-radius: 5px;}
+.record-name span.record-n{width: 80%;}
+.redrecord-name-time{ width: 75%;}
+.record-money{ width: 25%; text-align: right;}
+
+
+
+
+

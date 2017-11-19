@@ -1,0 +1,28 @@
+<div class="divtab divre">
+	<div class="exget-shop divtab divab">
+		<div class="ex-shop-img fl">
+			<img src="{$info['c_headimg']}">
+		</div>
+		<div class="ex-shop-info fl divre" style="width: 60%;">
+			<div class="fs14 cf fov" style="width: 80%;">{$info['c_nickname']}</div>
+			<div class="cf divtab">
+				<div class="fl fs11">访问量{$info['c_pv']}</div>
+				<div class="fl local-img">
+					<img src="__IMG__/exchange/pop_icon_distance@2x.png">
+				</div>
+				<span class="fs11">{$info['distance']}</span>
+			</div>
+		</div>
+		<div class="ex-get-goview fr fs12 cb store divab" style="top:35%;right:5%;" title="{$info['c_acode']}">进店查看</div>
+	</div>
+	<img src="__IMG__/exchange/store_Top_bg.png">
+</div>
+
+<script type="text/javascript">	
+
+function yangshit() {
+	$('.ex-shop-img').height($('.ex-shop-img').width());
+	$('.ex-shop-info').css('line-height',$('.ex-shop-img').width()*0.5+'px');
+}
+
+</script>

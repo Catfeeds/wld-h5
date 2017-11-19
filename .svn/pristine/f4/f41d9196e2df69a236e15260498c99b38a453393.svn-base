@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>筛选</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="filter-time divtab" id="datetime">
+				<p class="fs15 c3 fl">选择时间</p>
+				<div class="fr fnext-icon"><img src="__IMG__/arr.png" alt=""></div>
+				<p class="fs12 c3 fr" id='selectedtime'>{$dtime}</p>
+			</div>
+
+			<div class="filter-type fs12 divtab">
+				<p class="c3 fs15">分类选择</p>
+				<ul>
+					<li data-type="1" <?php if($dtype == 1){ ?> class="hover" <?php } ?> data-name="扫码">扫码</li>
+					<li data-type="2" <?php if($dtype == 2){ ?> class="hover" <?php } ?> data-name="线上订单">线上订单</li>
+					<li data-type="3" <?php if($dtype == 3){ ?> class="hover" <?php } ?> data-name="红包">红包</li>
+					<li data-type="4" <?php if($dtype == 4){ ?> class="hover" <?php } ?> data-name="提现">提现</li>
+					<li data-type="5" <?php if($dtype == 5){ ?> class="hover" <?php } ?> data-name="跨界">跨界</li>
+					<li data-type="6" <?php if($dtype == 6){ ?> class="hover" <?php } ?> data-name="其他">其他</li>
+				</ul>
+			</div>
+
+			<input type="hidden" name="dtype" value="{$dtype}" id="dtype" />
+			<input type="hidden" name="dtime" value="{$dtime}" id="dtime" />
+			<input type="hidden" name="dtypename" value="{$typename}" id="dtypename" />
+
+			<div class="add-save-btn cb fs16">确定</div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+</body>
+<script type="text/javascript">
+	var dtime = '<?php echo $dtime ?>';
+	var dtype = '<?php echo $dtype ?>';
+
+	window.onload = function() {
+		yangshi()
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var nImg = $('.fnext-icon').width();
+		$('.filter-time p').css('line-height', nImg + 'px');
+	}
+
+	//时间选择
+	mui('.mui-content').on('tap', '#datetime', function() {
+		var optionsJson = '{"type":"month"}';
+		var options = JSON.parse(optionsJson);
+		var picker = new mui.DtPicker(options);
+		picker.show(function(rs) {
+			$('#selectedtime').text(rs.text);
+            $('#dtime').val(rs.text);
+			picker.dispose();
+		});
+	});
+
+
+	mui('.mui-content').on('tap', '.filter-type li', function() {
+		$(this).addClass('hover');
+		$(this).siblings().removeClass('hover');
+		var id = $(this).attr('data-type');
+		var name = $(this).attr('data-name');
+		$('#dtype').val(id);
+		$('#dtypename').val(name);
+	})
+
+	//确定
+	mui('.mui-content').on('tap', '.add-save-btn', function() {
+		var bgtime = $('#dtime').val();
+		var dtype = $('#dtype').val();
+		mui.openWindow({
+			url: '__URL__/budget?dtime='+ bgtime +'&dtype='+ dtype +'&typename='+$('#dtypename').val(),
+			id: 'budget'
+		});
+
+	})
+
+</script>
+
+</html>

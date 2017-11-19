@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>首页</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+	</head>
+	<include file="Base@Public/pubjs" />
+	<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="xiaomi-bar header-shop">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs22"></a>
+					<div class="header-search fl divre">
+						<input type="search" name="searchshop" class="c9 fs13 aglinc" required="" placeholder="搜索商品" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="zh-CN">
+						<span class="divab"><img src="__IMG__/index/der_icon_search.png" alt="" /></span>
+					</div>
+					<div class="header-msg fr divre"><img src="__IMG__/index/nav_message2x.png" alt="" /><span class="t-msg-unread divab" <?php if ($msgtag==1 ) {?>style="display:block;"<?php } else { ?>style="display:none;"<?php } ?>></span></div>
+				</div>
+				<div class="mui-content">
+					<!--  banner图  -->
+					<div class="mui-slider">
+						<div class="mui-slider-group">
+							<?php foreach ($banner as $k1 => $v1) { ?>
+							<div class="mui-slider-item imgarrs child-img">
+							  	<img src="{$v1['c_img']}" alt="" />
+							</div>
+							<?php } ?>					    
+						</div>					  
+						<div class="mui-slider-indicator">
+							<?php foreach ($banner as $k1 => $v1) { ?>
+							<div class="mui-indicator <?php if ($k1==0): ?>mui-active<?php endif ?>"></div>
+							<?php } ?>	
+						</div>
+					</div>
+					<!--  banner图  -->
+
+					<!--  小菜单  -->
+					<div class="m-menu-con divtab bgcolor">
+						<div class="m-menu-item fl" id="menu1">
+							<div class="m-menu-img">
+								<img src="__IMG__/index/mall_icon_hdzq.png">
+							</div>
+							<span class="c5 fs13">活动专区</span>
+						</div>
+						<div class="m-menu-item fl" id="menu2">
+							<div class="m-menu-img ">
+								<img src="__IMG__/index/mall_icon_dlsc.png">
+							</div>
+							<span class="c5 fs13">代理商城</span>
+						</div>
+						<div class="m-menu-item fl" id="menu3">
+							<div class="m-menu-img ">
+								<img src="__IMG__/index/mall_icon_cnxh.png">
+							</div>
+							<span class="c5 fs13">猜你喜欢</span>
+						</div>
+						<div class="m-menu-item fl" id="menu4">
+							<div class="m-menu-img ">
+								<img src="__IMG__/index/mall_icon_fj.png">
+							</div>
+							<span class="c5 fs13">附近</span>
+						</div>
+					</div>
+					<!--  小菜单  -->
+					
+					<?php foreach ($home as $k => $v) { ?>
+					<?php if ($v['c_type'] == 1) { ?>
+					<!--模块一***-->
+					<div class="template-01 template bgcolor divtab">
+						<div class="template-tit divtab">
+							<div class="temp-tit-fl fl">
+								<img src="{$v['c_themeimg']}" alt="" />
+							</div>
+							<div class="temp-tit-ce fl temp-tit-ce{$k}">
+								<span class="fs13" id="coll_{$k}">倒计时</span>
+								<span class="fs13" id="t_{$k}">00</span>
+								<span class="fs13">天</span>
+								<span class="fs13" id="h_{$k}">00</span>
+								<span class="fs14">:</span>
+								<span class="fs13" id="f_{$k}">00</span>
+								<span class="fs14">:</span>
+								<span class="fs13" id="m_{$k}">00</span>
+							</div>
+							<div class="temp-tit-fr fr fs12 jumpurl" data-tag="{$v['c_tag']}" data-value="{$v['c_tagvalue']}" data-url="{$v['c_weburl']}">
+								<span>{$v['c_remarks']}</span>
+								<span><img src="{$v['c_subimg']}" alt="" /></span>
+							</div>
+						</div>
+						<script type="text/javascript">
+                            $('.temp-tit-ce'+"{$k}").showtime({
+                                  sign: {$k},
+                                  startname: "距开始",
+                                  endname: "倒计时",
+                                  ended: "已结束",
+                                  starttime: {$v.c_begintime1},
+                                  endtime: {$v.c_endtime1}
+                             });
+                        </script>
+						<div class="template-con divtab">
+							<ul>
+								<li class="temp-con-le">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 1){ ?>
+										<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+										<?php } ?>
+									<?php } ?>
+								</li>
+								<li class="temp-con-fr">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 2 || $sv['c_sort'] == 3){ ?>
+										<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+										<?php } ?>
+									<?php } ?>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--横图01****-->
+					<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+						<?php if ($sv['c_sort'] == 4){ ?>
+						<div class="template-ad divtab template-ad-01 jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+							<img src="{$sv['c_img']}" alt="" />
+						</div>
+						<?php } ?>
+					<?php } ?>
+					
+					<?php } ?>
+	
+					<?php if ($v['c_type'] == 2) { ?>
+					<!--模块二****-->
+					<div class="template-02 template bgcolor divtab">
+						<div class="template-tit divtab">
+							<div class="temp-tit-fl fl">
+								<img src="{$v['c_themeimg']}" alt="" />
+							</div>
+							<div class="temp-tit-fr fr fs12 jumpurl" data-tag="{$v['c_tag']}" data-value="{$v['c_tagvalue']}" data-url="{$v['c_weburl']}">
+								<span>{$v['c_remarks']}</span>
+								<span><img src="{$v['c_subimg']}" alt="" /></span>
+							</div>
+						</div>
+						<div class="template-con divtab">
+							<ul>
+								<li class="temp-con-up">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 1 || $sv['c_sort'] == 2 || $sv['c_sort'] == 3){ ?>
+										<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+										<?php } ?>
+									<?php } ?>
+								</li>
+								<li class="temp-con-down">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 4 || $sv['c_sort'] == 5){ ?>
+										<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+										<?php } ?>
+									<?php } ?>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--横图02****-->
+					<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+						<?php if ($sv['c_sort'] == 6){ ?>
+						<div class="template-ad divtab template-ad-02 jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+							<img src="{$sv['c_img']}" alt="" />
+						</div>
+						<?php } ?>
+					<?php } ?>
+					<?php } ?>
+
+					<?php if ($v['c_type'] == 3) { ?>
+					<!--模块三****-->
+					<div class="template-03 template bgcolor divtab">
+						<div class="template-tit divtab">
+							<div class="temp-tit-fl fl">
+								<img src="{$v['c_themeimg']}" alt="" />
+							</div>
+							<div class="temp-tit-ce fl temp-tit-ce{$k}">
+								<span class="fs13" id="coll_{$k}">倒计时</span>
+								<span class="fs13" id="t_{$k}">00</span>
+								<span class="fs13">天</span>
+								<span class="fs13" id="h_{$k}">00</span>
+								<span class="fs14">:</span>
+								<span class="fs13" id="f_{$k}">00</span>
+								<span class="fs14">:</span>
+								<span class="fs13" id="m_{$k}">00</span>
+							</div>
+							<div class="temp-tit-fr fr fs12 jumpurl" data-tag="{$v['c_tag']}" data-value="{$v['c_tagvalue']}" data-url="{$v['c_weburl']}">
+								<span>{$v['c_remarks']}</span>
+								<span><img src="{$v['c_subimg']}" alt="" /></span>
+							</div>
+						</div>
+						<script type="text/javascript">
+                            $('.temp-tit-ce'+"{$k}").showtime({
+                                  sign: {$k},
+                                  startname: "距开始",
+                                  endname: "倒计时",
+                                  ended: "已结束",
+                                  starttime: {$v.c_begintime1},
+                                  endtime: {$v.c_endtime1}
+                             });
+                        </script>
+
+						<div class="template-con divtab">
+							<ul>
+								<li class="temp-con-up">
+									<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="pro_control">
+									    <div class="mui-scroll">
+									    	<?php foreach ($v['actproduct'] as $pk => $pv) { ?>
+									        <div class="mui-control-item mui-pro-item">
+									            <div class="ms-pro-item jumpurl" data-tag="{$pv['c_tag']}" data-value="{$pv['c_tagvalue']}" data-url="{$pv['c_weburl']}">
+									            	<div class="ms-pro-img">
+									            		<img src="{$pv['c_imgpath']}" alt="" />
+									            	</div>
+									            	<div class="ms-pro-price cy fs14 aglinc">￥{$pv['c_value']}</div>
+									            	<div class="ms-pro-price2 c9 fs12 aglinc">￥{$pv['c_price']}</div>
+									            </div>
+									        </div>
+									        <?php } ?>
+									        <!--<div class="mui-control-item mui-pro-item">
+									            <div class="ms-pro-item">
+									            	<div class="ms-pro-img">
+									            		<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+									            	</div>
+									            	<div class="ms-pro-price cy fs14 aglinc">￥88.88</div>
+									            	<div class="ms-pro-price2 c9 fs12 aglinc">￥888.88</div>
+									            </div>
+									        </div>
+									        <div class="mui-control-item mui-pro-item">
+									            <div class="ms-pro-item">
+									            	<div class="ms-pro-img">
+									            		<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+									            	</div>
+									            	<div class="ms-pro-price cy fs14 aglinc">￥88.88</div>
+									            	<div class="ms-pro-price2 c9 fs12 aglinc">￥888.88</div>
+									            </div>
+									        </div>
+									        <div class="mui-control-item mui-pro-item">
+									            <div class="ms-pro-item">
+									            	<div class="ms-pro-img">
+									            		<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+									            	</div>
+									            	<div class="ms-pro-price cy fs14 aglinc">￥88.88</div>
+									            	<div class="ms-pro-price2 c9 fs12 aglinc">￥888.88</div>
+									            </div>
+									        </div>
+									        <div class="mui-control-item mui-pro-item">
+									            <div class="ms-pro-item">
+									            	<div class="ms-pro-img">
+									            		<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+									            	</div>
+									            	<div class="ms-pro-price cy fs14 aglinc">￥88.88</div>
+									            	<div class="ms-pro-price2 c9 fs12 aglinc">￥888.88</div>
+									            </div>
+									        </div>
+									        <div class="mui-control-item mui-pro-item">
+									            <div class="ms-pro-item">
+									            	<div class="ms-pro-img">
+									            		<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+									            	</div>
+									            	<div class="ms-pro-price cy fs14 aglinc">￥88.88</div>
+									            	<div class="ms-pro-price2 c9 fs12 aglinc">￥888.88</div>
+									            </div>
+									        </div>									        -->
+									    </div>
+									</div>
+								</li>
+								<li class="temp-con-down">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 1 || $sv['c_sort'] == 2){ ?>
+										<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+										<?php } ?>
+									<?php } ?>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--横图03****-->
+					<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+						<?php if ($sv['c_sort'] == 3){ ?>
+						<div class="template-ad divtab template-ad-03 jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+							<img src="{$sv['c_img']}" alt="" />
+						</div>
+						<?php } ?>
+					<?php } ?>
+					<?php } ?>
+
+					<?php if ($v['c_type'] == 4) { ?>
+					<!--模块四-->
+					<div class="template-04 template bgcolor divtab">
+						<div class="template-tit divtab">
+							<div class="temp-tit-fl fl">
+								<img src="{$v['c_themeimg']}" alt="" />
+							</div>
+							<div class="temp-tit-fr fr fs12 jumpurl" data-tag="{$v['c_tag']}" data-value="{$v['c_tagvalue']}" data-url="{$v['c_weburl']}">
+								<span>{$v['c_remarks']}</span>
+								<span><img src="{$v['c_subimg']}" alt="" /></span>
+							</div>
+						</div>
+						<div class="template-con divtab">
+							<ul>
+								<li class="temp-con-up">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 1){ ?>
+										<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+										<?php } ?>
+									<?php } ?>
+								</li>
+								<li class="temp-con-down">
+									<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+										<?php if ($sv['c_sort'] == 2){ ?>
+										<div class="fl down01 jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+											<img src="{$sv['c_img']}" alt="" />
+										</div>
+										<?php } ?>
+									<?php } ?>
+									<div class="fl down02">
+										<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+											<?php if ($sv['c_sort'] == 3 || $sv['c_sort'] == 4){ ?>
+											<span class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+												<img src="{$sv['c_img']}" alt="" />
+											</span>
+											<?php } ?>
+										<?php } ?>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<?php } ?>
+
+					<?php if ($v['c_type'] == 5) { ?>
+					<!--模块5-->
+					<div class="template-05 template bgcolor divtab">
+						<div class="template-tit divtab">
+							<div class="temp-tit-fl fl">
+								<img src="{$v['c_themeimg']}" alt="" />
+							</div>
+							<div class="temp-tit-fr fr fs12 jumpurl" data-tag="{$v['c_tag']}" data-value="{$v['c_tagvalue']}" data-url="{$v['c_weburl']}">
+								<span>{$v['c_remarks']}</span>
+								<span><img src="{$v['c_subimg']}" alt="" /></span>
+							</div>
+						</div>
+						<div class="template-con divtab">
+							<ul>
+								<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+									<?php if ($sv['c_sort'] == 1 || $sv['c_sort'] == 2 || $sv['c_sort'] == 3 || $sv['c_sort'] == 4 || $sv['c_sort'] == 5 || $sv['c_sort'] == 6){ ?>
+									<li class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+										<span>
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+									</li>
+									<?php } ?>
+								<?php } ?>								
+							</ul>
+						</div>
+					</div>
+					<!--横图04****-->
+					<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+						<?php if ($sv['c_sort'] == 7){ ?>
+						<div class="template-ad divtab template-ad-04 jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+							<img src="{$sv['c_img']}" alt="" />
+						</div>
+						<?php } ?>
+					<?php } ?>
+					<?php } ?>
+
+					<?php if ($v['c_type'] == 6) { ?>
+					<!--模块6-->
+					<div class="template-06 template bgcolor divtab">
+						<div class="template-tit divtab">
+							<div class="temp-tit-fl fl">
+								<img src="{$v['c_themeimg']}" alt="" />
+							</div>
+							<div class="temp-tit-ce fl temp-tit-ce{$k}">
+								<span class="fs13" id="coll_{$k}">倒计时</span>
+								<span class="fs13" id="t_{$k}">00</span>
+								<span class="fs13">天</span>
+								<span class="fs13" id="h_{$k}">00</span>
+								<span class="fs14">:</span>
+								<span class="fs13" id="f_{$k}">00</span>
+								<span class="fs14">:</span>
+								<span class="fs13" id="m_{$k}">00</span>
+							</div>
+							<div class="temp-tit-fr fr fs12 jumpurl" data-tag="{$v['c_tag']}" data-value="{$v['c_tagvalue']}" data-url="{$v['c_weburl']}">
+								<span>{$v['c_remarks']}</span>
+								<span><img src="{$v['c_subimg']}" alt="" /></span>
+							</div>
+						</div>
+						<script type="text/javascript">
+                            $('.temp-tit-ce'+"{$k}").showtime({
+                                  sign: {$k},
+                                  startname: "距开始",
+                                  endname: "倒计时",
+                                  ended: "已结束",
+                                  starttime: {$v.c_begintime1},
+                                  endtime: {$v.c_endtime1}
+                             });
+                        </script>
+
+						<div class="template-con divtab">
+							<ul>
+								<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+									<?php if ($sv['c_sort'] == 1 || $sv['c_sort'] == 2 || $sv['c_sort'] == 3 || $sv['c_sort'] == 4){ ?>
+									<li class="jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+										<span>
+											<img src="{$sv['c_img']}" alt="" />
+										</span>
+									</li>
+									<?php } ?>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+					<!--横图05****-->
+					<?php foreach ($v['imglist'] as $sk => $sv) { ?>
+						<?php if ($sv['c_sort'] == 5){ ?>
+						<div class="template-ad divtab template-ad-05 jumpurl" data-tag="{$sv['c_tag']}" data-value="{$sv['c_tagvalue']}" data-url="{$sv['c_weburl']}">
+							<img src="{$sv['c_img']}" alt="" />
+						</div>
+						<?php } ?>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+
+					<!-- 推荐产品 -->
+					<div class="shopping-prolist divtab">
+						<div class="shopping-pro-tit"><span><img src="__IMG__/index/mall_icon_tj.png" alt="" /></span></div>
+						<div class="shopping-pro-con divtab">
+							<ul id="data_list">
+								<!--<li>
+									<div class="href_prodesc">
+										<div class="sproimg"><img src="__IMG__/index/qdpage-.jpg" alt="" /></div>
+										<p class="sproname clamp2 c5 fs13">商品名称商品名称</p>
+										<p class="sproprice cy fs14">￥200.00</p>
+									</div>
+								</li>
+								<li>
+									<div class="href_prodesc">
+										<div class="sproimg"><img src="__IMG__/index/qdpage-.jpg" alt="" /></div>
+										<p class="sproname clamp2 c5 fs13">商品名称商品名称</p>
+										<p class="sproprice cy fs14">￥200.00</p>
+									</div>
+								</li>
+								<li>
+									<div class="href_prodesc">
+										<div class="sproimg"><img src="__IMG__/index/qdpage-.jpg" alt="" /></div>
+										<p class="sproname clamp2 c5 fs13">商品名称商品名称</p>
+										<p class="sproprice cy fs14">￥200.00</p>
+									</div>
+								</li>
+								<li>
+									<div class="href_prodesc">
+										<div class="sproimg"><img src="__IMG__/index/qdpage-.jpg" alt="" /></div>
+										<p class="sproname clamp2 c5 fs13">商品名称商品名称</p>
+										<p class="sproprice cy fs14">￥200.00</p>
+									</div>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>		
+	</body>
+	<script type="text/javascript">
+		var ucode = $('#ucode').val();
+		window.onload = function() {
+			$('.xiaomi-bar').css('background', 'none');
+
+			yangshi();
+			prostyle();
+			$('.header-msg').width($('.header-msg').width());
+			$('.header-msg').height($('.header-msg').width());
+			
+			$('.header-search input[name="searchshop"]').focus(function() {
+				$('.header-search span').css("left", '2%');	
+				mui.openWindow({
+					url:"__APP__/Home/Search/index?sstype=1",
+					id: "msearch"
+				});	
+			});
+			$('.header-search input[name="searchshop"]').blur(function() {
+//				$('.header-search span').css("left", '25%');
+//				var key = $('input[name="searchshop"]').val();
+//				mui.openWindow({
+//					url:"__APP__/Home/Search/index?sstype=1",
+//					id: "msearch"
+//				});			
+			});
+			
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});	
+			
+			if($(window).scrollTop() >= $('.header-shop').height()) {
+				$('.header-shop').addClass('menu-fixed');
+				$('.header-shop').css("background", "rgba(71,171,247,.9)");
+			}
+			if($(window).scrollTop() < $('.header-shop').height()) {
+				$('.header-shop').removeClass('menu-fixed');
+				$('.header-shop').css("background", "none");
+			}			
+			
+		}
+
+		//模块跳转
+		mui('.mui-content').on('tap', '.jumpurl', function() {
+			var tag = $(this).attr('data-tag');
+			var tagvalue = $(this).attr('data-value');
+			var weburl = $(this).attr('data-url');
+			mui.openWindow({
+				url: weburl,
+				id: "weburl"
+			});
+		});
+
+		// 跳转活动中心
+		mui('.mui-content').on('tap', '#menu1', function() {
+			mui.openWindow({
+				url: "__APP__/Shopping/Actarea/index",
+				id: "actarea"
+			});
+		});
+		// 跳转代理商城
+		mui('.mui-content').on('tap', '#menu2', function() {
+			mui.openWindow({
+				url: "__APP__/Agency/Index/index",
+				id: "agency"
+			});
+		});
+		// 跳转猜你喜欢
+		mui('.mui-content').on('tap', '#menu3', function() {
+			mui.openWindow({
+				url: "__URL__/mguess",
+				id: "mguess"
+			});
+		});
+		// 跳转附近商城
+		mui('.mui-content').on('tap', '#menu4', function() {
+			mui.openWindow({
+				url: "__URL__/mnearby",
+				id: "mnearby"
+			});
+		});
+
+		/*消息跳转*/
+		mui('.header-shop').on('tap', '.header-msg', function() {
+			if(!ucode){
+	 			mui.openWindow({url:'__APP__/Login/Index/index',id:'login'});
+	 		}else{
+	 			mui.openWindow({url:'__APP__/Home/Message/index',id:'mesg'});
+	 		}
+		});
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if($(window).scrollTop() >= $('.header-shop').height()) {
+				$('.header-shop').addClass('menu-fixed');
+				$('.header-shop').css("background", "rgba(71,171,247,.9)");
+			}
+			if($(window).scrollTop() < $('.header-shop').height()) {
+				$('.header-shop').removeClass('menu-fixed');
+				$('.header-shop').css("background", "none");
+			}
+		});
+		/*模块样式*/
+		function yangshi() {
+			$('.banner-img').height($('.banner-img').width() * 0.58 + 'px');
+			$('.m-menu-img').height($('.m-menu-img').width());
+			/*模块标题*/
+			$('.temp-tit-ce').css({
+				"padding-top": ($('.temp-tit-fl').height() - $('.temp-tit-ce').height()) / 2 + "px",
+				"line-height": $('.temp-tit-ce').height() + "px"
+			})
+			$('.temp-tit-fr').css('line-height', $('.template-tit').height() + 'px');
+			/*横图*/
+			$('.template-ad').height($('.template-ad').width() * 0.23);
+
+			/*模块一*/
+			$('.template-01 .temp-con-le').height($('.template-01 .temp-con-le').width() * 0.86);
+			$('.template-01 .temp-con-fr').height($('.template-01 .temp-con-le').width() * 0.86);
+			$('.template-01 .temp-con-fr span').height($('.template-01 .temp-con-fr span').width() * 0.43);
+			/*模块二*/
+			$('.template-02 .temp-con-up span').height($('.template-02 .temp-con-up span').width() * 1.13);
+			$('.template-02 .temp-con-down span').height($('.template-02 .temp-con-down span').width() * 0.51);
+			/*模块三*/
+			$('.template-03 .temp-con-down span').height($('.template-03 .temp-con-down span').width() * 0.51);
+			/*模块四*/
+			$('.template-04 .temp-con-up span').height($('.template-04 .temp-con-up span').width() * 0.23);
+			$('.template-04 .down01').height($('.template-04 .down01').width());
+			$('.template-04 .down02').height($('.template-04 .down01').height());
+			$('.template-04 .down02 span').width($('.template-04 .down01').width() / 2);
+			$('.template-04 .down02 span').height($('.template-04 .down01').width() / 2);
+			/*模块5*/
+			$('.template-05 .template-con span').height($('.template-05 .template-con span').width() * 1.13);
+			/*模块6*/
+			$('.template-06 .template-con span').height($('.template-06 .template-con span').width() * 0.44);
+						
+			$('.shopping-pro-tit span').height($('.template-pro-tit span').width() * 0.14);
+			$('.shopping-pro-con li').height($('.shopping-pro-con li').width() * 1.47);
+			
+			var tw = window.screen.width;
+			if(tw > 720) {
+				tw = 720;
+			}
+			/*横向滚动商品*/
+			$('.ms-pro-item').width(tw / 3.55);
+			$('.ms-pro-img').width($('.ms-pro-img').width());
+			$('.ms-pro-img').height($('.ms-pro-img').width());
+
+			$('.mui-pro-item').width($('.mui-pro-item').width());
+			$('#pro_control').height($('.mui-pro-item').height());
+
+		}
+		/*商品样式*/
+		function prostyle() {
+			var proImg = $('.shopping-pro-con .sproimg').width()
+			$('.shopping-pro-con .sproimg').height(proImg);
+			$('.shopping-pro-con .sproname').css("height", proImg * 0.2 + "px");
+			$('.shopping-pro-con .sproprice').css("height", proImg * 0.125 + "px");
+		}
+
+
+		var ctrls = true;
+		var emptyval = true;
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/ProductTjList";
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					$('#data_list').empty();					
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data) {
+							 //数据为空展示
+							_html += '<div class="baoqian">抱歉，没有相关商品信息</div>';							
+							emptyval = false;
+						} else {
+							for(var i = 0; i < data.length; i++) {
+								var dataarr = data[i];
+								_html += '<li class="pro_detail">';
+								_html += '<div class="href_prodesc" data-pcode="' + dataarr['c_pcode'] + '" data-source="' + dataarr['c_source'] + '">';
+								_html += '<div class="sproimg"><img src="'+dataarr['c_pimg']+'" alt="" /></div>';
+								_html += '<p class="sproname clamp2 c5 fs13">' + dataarr['c_name'] + '</p>';
+								_html += '<p class="sproprice cy fs15">￥' + dataarr['c_price'] + '</p>';
+								_html += '<div>';
+								_html += '</li>';
+							};
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					prostyle();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						/*跳转商品详情*/
+						$('.pro_detail').on('tap', '.href_prodesc', function() {
+							var pcode = $(this).attr('data-pcode');
+							var source = $(this).attr('data-source');
+							if(source == 1) {
+								mui.openWindow({
+									url: "__APP__/Shopping/Index/detail?pcode=" + pcode,
+									id: "detail"
+								});
+							}
+							if(source == 2) {
+								mui.openWindow({
+									url: "__APP__/Shopping/Entitymap/detail?pcode=" + pcode,
+									id: "detail"
+								});
+							}
+						});
+					}
+				}
+			});
+		}
+	</script>
+
+</html>

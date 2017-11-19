@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>砍价记录</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 活动管理 <span class="c-gray en">&gt;</span>砍价记录<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="wordred_log" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入注册手机号" name="phone" value="{$post['phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入用户昵称" name="username" value="{$post['username']}">
+		<span class="select-box inline">
+			<select name="status" class="select">
+				<option value="">选择领取状态</option>
+	     		<option value="1" <if condition="$post['status'] eq 1">selected="selected"</if>>已领取</option>
+	     		<option value="10" <if condition="$post['status'] eq 10">selected="selected"</if>>未领取</option>
+			</select>
+		</span>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
+	</div>
+	</form>
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">ID</th>
+					<th>口令名称</th>
+					<th>用户昵称</th>
+					<th>用户头像</th>
+					<th>微信openid</th>
+					<th>红包金额</th>
+					<th>口令类型</th>
+					<th>领取状态<br/>(领取时间)</th>
+					<th>更新时间</th>
+					<th>添加时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="prizeid" value="{$vo.c_id}"></td>
+					<td>{$i}</td>
+					<td><font color="green">{$vo.c_name}</font></td>
+					<td><a title="用户详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}">{$vo['c_username']}</a></td>	
+					<td><a href="{$vo['c_headimg']}" target="_blank"><img src="{$vo['c_headimg']}" style="width:80px;"/></a></td>
+					<td>{$vo.c_openid}</td>
+					<td>￥{$vo.c_money}</td>
+					<td>
+						<if condition="$vo['c_status'] eq 1"><font color="green">已领取</font><br/>{$vo.c_recivetime}
+						<else/><font color="green">未领取</font>
+			         	</if>
+			        </td>
+					<td>
+						<if condition="$vo['c_type'] eq 1">普通类型
+						<else/>扫码类型
+			         	</if>
+					</td>
+					<td>{$vo.c_updatetime}</td>
+					<td>{$vo.c_addtime}</td>
+				</tr>
+				<?php foreach ($vo['child'] as $key => $value){ ?>
+				<tr class="text-c">
+					<td></td>
+					<td></td>
+					<td><font color="green">{$value.c_name}</font></td>
+					<td><a title="用户详情" href="__HHOME__/Member/member_list?ucode={$value.c_ucode}">{$value['c_username']}</a></td>	
+					<td><a href="{$value['c_headimg']}" target="_blank"><img src="{$value['c_headimg']}" style="width:80px;"/></a></td>
+					<td>{$value.c_openid}</td>
+					<td>￥{$value.c_money}</td>
+					<td>
+						<if condition="$value['c_status'] eq 1"><font color="green">已领取</font><br/>{$value.c_recivetime}
+						<else/><font color="green">未领取</font>
+			         	</if>
+			        </td>
+					<td>
+						<if condition="$value['c_type'] eq 1">普通类型
+						<else/>扫码类型
+			         	</if>
+					</td>
+					<td>{$value.c_updatetime}</td>
+					<td>{$value.c_addtime}</td>
+				</tr>
+				<?php } ?>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>		
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+</script>
+</body>
+</html>

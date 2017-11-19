@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>我的活动</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/myacts/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="comm-nav-tab bgcolor divtab fs14">
+						<ul>
+							<li class="hover c-nav-tli" id="c-nav-t0">拼团</li>
+							<li class="c-nav-tli" id="c-nav-t1">砍价</li>
+						</ul>
+					</div>
+					<div class="sjcollage-con" id="data_list">
+						<!--<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/myacts/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣</div>
+									<div class="sjc-pro-number fs12 c9" style="text-decoration: line-through;">原价：￥120.00</div>
+									<div class="sjc-pro-price"><span class="cy fs16">￥100.00</span></div>
+								</div>
+							</div>
+							<div class="sjcollage-oprate divtab">
+								<div class="oprate-time fl">
+									<div class="oprate-state" style="display: none;">
+										<div class="state-txt fs14 cb fl">拼团成功失败</div>
+										<div class="state-icon fl"><img src="__IMG__/myacts/spell_icon_cg.png" alt="" />spell_icon_sb.png</div>
+									</div> 
+									<p class="fs14 cuttime" id="votetime1" title="1">剩余
+										<span id="coll_1" style="display:none;"></span>
+										<span id="t_1" style="display:none;"></span>
+										<span id="h_1">11</span>
+										:<span id="f_1">12</span>
+										:<span id="m_1">13</span>
+										结束
+									</p>
+									<p class="fs14 cuttime" id="votetime1" title="1" style="color: #000;">
+										拼团成功
+										<span><img src="__IMG__/myacts/ziti_icon_kt.png" alt="" style="width: 6rem;height: 2rem;margin-left: 3rem;" /></span>
+									</p>
+								</div>
+								<div class="oprate-btn fr fs14"><span>邀请好友找人砍价</span></div>
+								<button class="oprate-btn fr fs14"><span>查看订单</span></button>
+							</div>
+						</div>-->
+						<!--<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/myacts/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣</div>
+									<div class="sjc-pro-number fs12 c9" style="text-decoration: line-through;">原价：￥120.00</div>
+									<div class="sjc-pro-price"><span class="cy fs16">￥100.00</span></div>
+								</div>
+							</div>
+							<div class="sjcollage-oprate divtab">
+								<div class="oprate-time fl">
+									<div class="oprate-state" style="display: none;">
+										<div class="state-txt fs14 cb fl">拼团成功失败</div>
+										<div class="state-icon fl"><img src="__IMG__/myacts/spell_icon_cg.png" alt="" />spell_icon_sb.png</div>
+									</div> 
+									<p class="fs14 cuttime" id="votetime1" title="1">剩余
+										<span id="coll_1" style="display:none;"></span>
+										<span id="t_1" style="display:none;"></span>
+										<span id="h_1">11</span>
+										:<span id="f_1">12</span>
+										:<span id="m_1">13</span>
+										结束
+									</p>
+									<p class="fs14 cuttime" id="votetime1" title="1" style="color: #000;">
+										拼团成功
+										<span><img src="__IMG__/myacts/ziti_icon_yt.png" alt="" style="width: 6rem;height: 2rem;margin-left: 3rem;" /></span>
+									</p>
+								</div>
+								<div class="oprate-btn fr fs14"><span>邀请好友找人砍价</span></div>
+								<button class="oprate-btn fr fs14"><span>查看订单</span></button>
+							</div>
+						</div>-->
+						<!--<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/myacts/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣</div>
+									<div class="sjc-pro-number fs12 c9">L7777777</div>
+									<div class="sjc-pro-price"><span class="cy fs16">￥100.00</span><span class="fs12 c9">原价：￥120.00</span></div>
+								</div>
+							</div>
+							<div class="sjcollage-oprate divtab">
+								<div class="oprate-time fl">
+									<div class="oprate-state" style="display: none;">
+										<div class="state-txt fs14 cb fl">拼团成功失败</div>
+										<div class="state-icon fl"><img src="__IMG__/myacts/spell_icon_cg.png" alt="" />spell_icon_sb.png</div>
+									</div> 
+									<p class="fs14 cuttime" id="votetime2" title="2">剩余<span id="coll_2" style="display:none;"></span><span id="t_2" style="display:none;"></span><span id="h_2">11</span>:<span id="f_2">12</span>:<span id="m_2">13</span>结束</p>
+								</div>
+								<div class="oprate-btn fr fs14"><span>更多拼团更多砍价</span></div>
+							</div>
+						</div>-->
+						<!--<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/myacts/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣</div>
+									<div class="sjc-pro-number fs12 c9">L5555555</div>
+									<div class="sjc-pro-price"><span class="cy fs16">￥100.00</span><span class="fs12 c9">原价：￥120.00</span></div>
+								</div>
+							</div>
+							<div class="sjcollage-oprate divtab">
+								<div class="oprate-time fl">
+									<div class="oprate-state" style="display: none;">
+										<div class="state-txt fs14 cb fl">拼团成功失败</div>
+										<div class="state-icon fl"><img src="__IMG__/myacts/spell_icon_cg.png" alt="" />spell_icon_sb.png</div>
+									</div> 
+									<p class="fs14 cuttime" id="votetime3" title="3">剩余<span id="coll_3" style="display:none;"></span><span id="t_3" style="display:none;"></span><span id="h_3">11</span>:<span id="f_3">12</span>:<span id="m_3">13</span>结束</p>
+								</div>
+								<div class="oprate-btn fr fs14"><span>查看订单</span></div>
+							</div>
+						</div>-->
+						<!--<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/myacts/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣</div>
+									<div class="sjc-pro-number fs12 c9">L888888</div>
+									<div class="sjc-pro-price"><span class="cy fs16">￥100.00</span><span class="fs12 c9">原价：￥120.00</span></div>
+								</div>
+							</div>
+							<div class="sjcollage-oprate divtab">
+								<div class="oprate-time fl">
+									<div class="oprate-state" style="display: none;">
+										<div class="state-txt fs14 cb fl">拼团成功失败</div>
+										<div class="state-icon fl"><img src="__IMG__/myacts/spell_icon_cg.png" alt="" />spell_icon_sb.png</div>
+									</div> 
+									<p class="fs14 cuttime" id="votetime4" title="4">剩余<span id="coll_4" style="display:none;"></span><span id="t_4" style="display:none;"></span><span id="h_4">11</span>:<span id="f_4">12</span>:<span id="m_4">13</span>结束</p>
+								</div>
+								<div class="oprate-btn fr fs14"><span>更多拼团</span></div>
+							</div>
+						</div> -->
+							
+					</div>
+					<div id="console"></div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+			yangshi();
+		}
+		function startcuttimejs(startime, endtime, id) {
+			if (startime && endtime) {
+				$('#votetime' + id).ready(function() {
+					$('#votetime' + id).showtime({
+						sign: id,
+						startname: "距开始时",
+						endname: "距结束时",
+						ended: "已结束",
+						starttime: startime,
+						endtime: endtime
+					});
+				});
+			}
+		}
+		//页面加载完js改变样式
+		function yangshi() {
+			/*商品信息*/
+			$('.sjc-pro-img').height($('.sjc-pro-img').width());
+			$('.sjc-pro-name').height($('.sjc-pro-img').width()*0.5);
+			$('.sjc-pro-name').css('line-height',$('.sjc-pro-name').height()*0.5+'px');
+			$('.sjc-pro-price').css('line-height',$('.sjc-pro-img').width()*0.25+'px');
+			$('.sjc-pro-number').css('line-height',$('.sjc-pro-img').width()*0.25+'px');
+			
+			//$('.oprate-state').height($('.oprate-btn').height());
+			
+			//$('.state-txt').css('line-height',$('.state-icon').height()+'px');
+			
+			$('.c-box-number').height($('.c-box-number').width()*0.2+'px');
+
+		}
+		/*列表*/
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var statu = '<?php echo $statu ?>';
+		if(!statu) {
+			statu = 0;
+		}
+		selectstatu(statu);
+
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			$('.c-nav-tli').removeClass('hover');
+			$('#c-nav-t' + i).addClass('hover');
+			getdatalist();
+		}
+		mui('.mui-content').on('tap', '#c-nav-t0', function() {
+			selectstatu(0);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			selectstatu(1);
+		});
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+			if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').addClass('menu-fixed');
+			}
+			if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').removeClass('menu-fixed');
+			}
+		});
+
+		function getdatalist() {
+			var _html = "";
+			var strurl = "__URL__/MyJoinGroup?statu="+statu+"&pageindex="+pageindex;
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html+='<div class="data-empty divtab">';
+								_html+='<div class="data-empty-img">';
+								_html+='<img src="__IMG__/myacts/kj_qc_wu.png" alt="" />';								
+								_html+='</div>';
+								_html+='<div class="data-empty-font c3 fs13">暂未参加相关活动</div>';
+								_html+='</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="sjcollage-li bgcolor divtab sjcollage-li-'+pageindex+'">';
+									_html+='<div class="sjcollage-pro divtab bborder divre" title="'+dataarr['c_groupcode']+'" data-pcode="'+dataarr['c_act_pcode']+'" data-order="'+dataarr['c_orderid']+'">';
+									_html+='<div class="sjc-pro-img fl"><img src="'+dataarr['c_imgpath']+'" alt="" /></div>';
+									_html+='<div class="sjc-pro-info fl">';
+									_html+='<div class="sjc-pro-name clamp2 fs13 c3">'+dataarr['c_pname']+'</div>';
+									_html+='<div class="sjc-pro-number fs12 c9 fov">'+dataarr['c_model_name']+'</div>';
+									if (statu == 0) {
+										_html+='<div class="sjc-pro-price"><span class="cy fs16">￥'+dataarr['c_actprice']+'</span><span class="fs12 c9">原价：￥'+dataarr['price']+'</span></div>';
+									} else {
+										_html+='<div class="sjc-pro-price"><span class="fs12 c9">现价:</span><span class="cy fs16">￥'+dataarr['c_actprice']+'</span><span class="fs12 c9">原价：￥'+dataarr['price']+'</span></div>';
+									}
+									_html+='</div>';
+									_html+='</div>';
+									_html+='<div class="sjcollage-oprate divtab">';
+									_html+='<div class="oprate-time fl">';
+
+									/*砍价，拼团，成功，失败*/
+									if (dataarr['c_state'] == 0) {
+										if ((dataarr['c_pay_state'] == 1 && statu == 0) || statu == 1) {
+											/*倒计时*/
+											_html+='<p class="fs14 cuttime" id="votetime'+dataarr['c_groupcode']+'">';
+											_html+='剩余<span id="coll_'+dataarr['c_groupcode']+'" style="display:none;"></span>';
+											_html+='<span id="t_'+dataarr['c_groupcode']+'" style="display:none;">00</span>';
+											_html+='<span id="h_'+dataarr['c_groupcode']+'">00</span>:<span id="f_'+dataarr['c_groupcode']+'">00</span>:<span id="m_'+dataarr['c_groupcode']+'">00</span>结束';
+											_html+='</p>';
+										} else {
+											_html+='<p class="fs14 cuttime" style="color:red;">支付失败</p>';
+										}
+									} else if (dataarr['c_state'] == 1) {
+										_html+='<div class="oprate-state" style="width:78%;">';
+										if (statu == 0) {
+											if(dataarr['c_delivery']==3){
+												_html+='<div class="fr" style="width:46%;"><img src="__IMG__/myacts/ziti_icon_kt.png"/></div>';
+											}
+											_html+='<div class="state-txt fs14 cb fl" style="padding:1.5% 0 0 0;">拼团成功</div>';
+										} else {
+											_html+='<div class="state-txt fs14 cb fl" style="padding:1.5% 0 0 0;">砍价成功</div>';
+										}
+										_html+='<div class="state-icon fl" style="padding:2% 0 0 0;"><img src="__IMG__/myacts/spell_icon_cg.png" alt="" /></div>';										
+										_html+='</div>';
+									} else {
+										_html+='<div class="oprate-state">';
+										if (statu == 0) {
+											_html+='<div class="state-txt fs14 cb fl">拼团失败</div>';
+										} else {
+											_html+='<div class="state-txt fs14 cb fl">砍价失败</div>';
+										}
+										_html+='<div class="state-icon fl"><img src="__IMG__/myacts/spell_icon_sb.png" alt="" /></div>';
+										_html+='</div>';	
+									}
+									
+									_html+='</div>';
+
+									_html+='<input type="hidden" id="sharetit'+dataarr['c_groupcode']+'" value="'+dataarr['sharetit']+'" />';
+									_html+='<input type="hidden" id="shareimg'+dataarr['c_groupcode']+'" value="'+dataarr['shareimg']+'" />';
+									_html+='<input type="hidden" id="sharedesc'+dataarr['c_groupcode']+'" value="'+dataarr['sharedesc']+'" />';
+									_html+='<input type="hidden" id="shareurl'+dataarr['c_groupcode']+'" value="'+dataarr['shareurl']+'" />';
+
+									
+									if (dataarr['c_state'] == 0) {
+										if ((dataarr['c_pay_state'] == 1 && statu == 0) || statu == 1) {
+											_html+='<div class="oprate-btn fr fs14">';
+											_html+='<span class="invitebtn" title="'+dataarr['c_groupcode']+'" data-pcode="'+dataarr['c_act_pcode']+'" data-state="'+dataarr['c_state']+'" data-order="'+dataarr['c_orderid']+'" data-paystate="'+dataarr['c_pay_state']+'">';
+												if (statu == 0) {
+													_html+='邀请好友';
+												} else {
+													_html+='找人砍价';
+												}
+												_html+='</span>';
+											_html+='</div>';
+										} else {
+											_html+='<div class="oprate-btn fr fs14">';
+											_html+='<span class="invitebtn" title="'+dataarr['c_groupcode']+'" data-pcode="'+dataarr['c_act_pcode']+'" data-state="'+dataarr['c_state']+'" data-order="'+dataarr['c_orderid']+'" data-paystate="'+dataarr['c_pay_state']+'">';
+													_html+='继续支付';
+												_html+='</span>';
+											_html+='</div>';
+										}
+									} else if (dataarr['c_state'] == 1 && dataarr['c_pay_state'] == 1) {
+										_html+='<div class="oprate-btn fr fs14">';
+									_html+='<span class="invitebtn" title="'+dataarr['c_groupcode']+'" data-pcode="'+dataarr['c_act_pcode']+'" data-state="'+dataarr['c_state']+'" data-order="'+dataarr['c_orderid']+'" data-paystate="'+dataarr['c_pay_state']+'">';
+										_html+='查看订单';	
+										_html+='</span>';
+									_html+='</div>';
+									} else if (dataarr['c_state'] == 2) {
+										_html+='<div class="oprate-btn fr fs14">';
+									_html+='<span class="invitebtn" title="'+dataarr['c_groupcode']+'" data-pcode="'+dataarr['c_act_pcode']+'" data-state="'+dataarr['c_state']+'" data-order="'+dataarr['c_orderid']+'" data-paystate="'+dataarr['c_pay_state']+'">';
+										_html+='更多活动';	
+										_html+='</span>';
+									_html+='</div>';
+									}
+									
+									_html+='</div>';
+									_html+='</div>';	
+									if (dataarr['c_state'] == 0 && ((dataarr['c_pay_state'] == 1 && statu == 0) || statu == 1)) {
+										startcuttimejs(dataarr['stattime'],dataarr['endtime'],dataarr['c_groupcode']);	
+									}		
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						/*邀请好友,查看订单，更多拼团*/
+						/*找人砍价,查看订单，更多砍价*/
+						mui('.sjcollage-li-' + pageindex).on('tap', '.invitebtn', function() {
+							var groupcode = $(this).attr('title');
+							/*按钮操作状态*/
+							var state = $(this).attr('data-state');
+							var act_pcode = $(this).attr('data-pcode');
+							var orderid = $(this).attr('data-order');
+							var paystate = $(this).attr('data-paystate');
+							if (paystate == 1) {
+								if (state == 0) {    //分享
+									fenxiang(groupcode,act_pcode);
+								} else if (state == 1) {   //查看订单
+									mui.openWindow({
+										url: "__APP__/Order/Index/detail?orderid="+orderid,
+										id: "orderinfo"
+									});
+								} else {   //查看更多活动
+									mui.openWindow({
+										url: "__APP__/Shopping/Actarea/index",
+										id: "actareaindex"
+									});
+								}
+							} else {
+								if (statu == 1) {
+									fenxiang(groupcode,act_pcode);return;
+								}
+								var apptype = "<?php echo get_app_type(); ?>";
+								if(apptype == 1) {
+									javaScript: resultData.clickorderpay(orderid);
+								}
+								else if(apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({
+										"pay": {
+											"orderid": "" + orderid + ""
+										}
+									});
+								} else {
+									mui.openWindow({
+										url: "__APP__/Order/Index/payment?orderid=" + orderid,
+										id: "orderpay"
+									});
+								}
+							}
+						});	
+
+						/*查看拼团详情*/
+						mui('.sjcollage-li-' + pageindex).on('tap', '.sjcollage-pro', function() {
+							var groupcode = $(this).attr('title');
+							var act_pcode = $(this).attr('data-pcode');
+							var orderid = $(this).attr('data-order');
+							if (statu == 0) {
+								mui.openWindow({
+									url: "__URL__/detail?act_pcode="+act_pcode+"&groupcode="+groupcode+"&orderid="+orderid,
+									id: "actdetail"
+								});
+							} else {
+								mui.openWindow({
+									url: "__URL__/bdetail?groupcode="+groupcode+"&orderid="+orderid,
+									id: "actdetail"
+								});
+							}
+						});				
+					}
+				}
+			});
+		}
+
+		function fenxiang(groupcode,act_pcode) {
+			var shareTitle = $('#sharetit'+groupcode).val();
+			var descContent = $('#sharedesc'+groupcode).val();
+			var imgUrl = $('#shareimg'+groupcode).val();
+			var lineLink = $('#shareurl'+groupcode).val();
+			var apptype = "<?php echo get_app_type(); ?>";
+			if (apptype == 3) {
+				mui.openWindow({
+					url: lineLink,
+					id: "viewinfo"
+				});
+			} else {
+				sharepro(shareTitle,descContent,imgUrl,lineLink);
+			}
+		}
+		/*邀请好友,查看订单，更多拼团*/
+		/*找人砍价,查看订单，更多砍价*/
+//		mui('.sjcollage-li-' + pageindex).on('tap', '.invitebtn', function() {
+//			
+//		});			
+	</script>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>{$data['c_nickname']}的店</title>
+	<meta content="我的店" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/myspace/index.css?v=1.2">
+	<link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css">
+</head>
+<body>
+<div class="self-space-bg"></div>
+<div class="self-space-view">
+	<div class="self-space-info">
+		<div class="self-head">
+			<if condition="$myspace['c_headimg'] eq null">
+			<img src="__COMMON__/img/logo.png" alt="">
+			<else />
+			<img src="{$myspace['c_headimg']}" alt="">
+			</if>
+		</div>
+		<div class="self-nkname">{$myspace['c_nickname']}</div>
+		<div class="self-signature">{$myspace['c_signature']}</div>
+		<div class="self-job">行业：{$myspace['c_trade']}</div>
+		<div class="self-area">地区：{$myspace['c_province']}-{$myspace['c_city']}</div>
+		<div class="self-tags">
+			<ul>
+				<volist name="mylabel" id="vo">
+				<li>{$vo}&nbsp;×</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+	<input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide" style="position:relative;z-index:123;">
+                <a href="javascript:;" style="width:100%;height:100%;display:block">
+                    <img src="__IMG__/myspace/storebg.jpg" alt=""/>
+                </a>
+
+				<div class="myinfo-mb">
+					<img src="__IMG__/myspace/mb.png" alt="">
+				</div>
+				<div class="myinfo-dian">
+					<a class="fl dian dian-head" href="javascript:;">
+						<img src="{$data['c_headimg']}" alt="">
+					</a>
+					<div class="fl dian-text store-text">
+						<h3 style="font-weight: 600;">{$data['c_nickname']}的店</h3>
+						<div class="dian-shopnum cf fs12">
+							<?php if(!empty($data['c_shopnum'])){ ?>
+							<div class="fl">店铺号&nbsp;</div>
+							<div class="fl shopnum1">
+								<img src="{$data['shopnum_img']}" alt="">
+							</div>
+							<?php } ?>
+							<div class="fl cf">访问量&nbsp;{$data['c_pv']}</div>
+						</div>
+					</div>
+					<a class="fr store-view" href="javascript:;" onclick="fchat()">
+						<img src="__IMG__/myspace/jia.png" alt="">
+					</a>
+				</div>
+            </div>
+
+        </div>
+        <!-- <div class="swiper-pagination"></div> -->
+
+    </div>
+    <script src="__COMMON__/js/swiper.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /*幻灯切换*/
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            paginationClickable: true,
+            spaceBetween: 0,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+        });
+    </script>
+	<div class="shopping-menu">
+		<ul>
+			<li>
+				<a href="javascript:;" onclick="selectstatu(1)" id="shoppingmenu_1" class="shoppingli">最新</a>
+			</li>
+			<li>
+				<a href="javascript:;" onclick="selectstatu(2)" id="shoppingmenu_2" class="shoppingli">销量</a>
+			</li>
+			<li>
+				<a href="javascript:;" onclick="selectstatu(3)" id="shoppingmenu_3" class="shoppingli">价格</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="shopping-list" id="shopping-list">
+		<!--<div class="shopping-box">
+			<a href="">
+				<div class="shopping-img"><img src="__IMG__/supplier/agent-proimg2.jpg" alt=""></div>
+				<div class="shopping-name">测试商品1111111111111111</div>
+				<div class="shopping-price">￥27.5</div>
+			</a>
+		</div>
+		<div class="shopping-box">
+			<a href="">
+				<div class="shopping-img"><img src="__IMG__/supplier/agent-proimg.jpg" alt=""></div>
+				<div class="shopping-name">测试商品11111111111111112222222222</div>
+				<div class="shopping-price">￥27.5</div>
+			</a>
+		</div>-->
+	</div>
+	<div id="console"></div>
+
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function(){
+		styles();
+		$(".dian-head").click(function(){
+			$('.self-space-bg').fadeIn(200);
+			$('.self-space-view').fadeIn(200);
+			$(".self-space-bg").height($(document).height());
+
+
+			var selfh = $(".self-head").width();
+			$(".self-head").height(selfh);
+			$(".self-head img").width(selfh);
+			$(".self-head img").height(selfh);
+		});
+		$(".self-space-bg").click(function(){
+			$('.self-space-bg').fadeOut(200);
+			$('.self-space-view').fadeOut(200);
+		});
+
+		var dianh = $('.dian-head').width();
+		$('.dian-head').height(dianh);
+	}
+
+	function styles(){
+		var imgh = $('.shopping-img').width(),
+			imghh = imgh*62/100;
+		$('.shopping-img').height(imghh);
+	}
+
+var page = 1;
+var ctrls = true;
+var kongzhi = true;
+
+selectstatu(1);
+function selectstatu(i){
+	statu = i;page = 1;ctrls = true;kongzhi = true;
+	$('.shoppingli').removeClass('hover');
+	$('#shoppingmenu_' + i).addClass('hover');
+	getproinfo();
+}
+//获取当前可是范围的高度
+$(window).bind('scroll', function() {
+	if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+		if (ctrls && kongzhi) {
+			getproinfo();
+		}
+	}
+});
+function getproinfo() {
+var _html = '';
+var issue_ucode = $('#issue_ucode').val();
+$.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: WEB_HOST+'/index.php/Home/Myspace/GetproductList?statu='+statu+'&pageindex='+page+'&issue_ucode='+issue_ucode,
+        cache: false,
+        beforeSend: function() {
+          $('#console').css('display','block');
+          $('#console').html('加载中...');
+          ctrls = false;
+        },
+        error: function(){
+          $('#console').css('display','block');
+          $('#console').html('加载失败');
+          ctrls = true;
+        },
+        success: function(json) {
+        	if (page==1) {
+		        $('#shopping-list').empty();
+		    }
+			var obj = eval(json);
+			if (obj.code==0) {
+			var data = obj.data;
+			if (data) {
+			var prolist = data.list;
+			var pageCount = data.pageCount;
+			if (pageCount >= page) {
+				page++;
+				for ( i=0; i<prolist.length; i++ ) {
+					_html+='<div class="shopping-box">';
+					_html+='<a href="'+ WEB_HOST + '/index.php/Home/Shop/details?pcode='+prolist[i]['c_pcode']+'&type=<?php echo $apptype ?>">';
+					_html+='<div class="shopping-img"><img src="'+prolist[i]['c_pimg']+'" alt=""></div>';
+					_html+='<div class="shopping-name">'+prolist[i]['c_name']+'</div>';
+					_html+='<div class="shopping-price">￥'+prolist[i]['c_price']+'</div>';
+					_html+='</a>';
+					_html+='</div>';
+				}
+			} else {
+			    kongzhi = false;
+			}
+			} else {
+				kongzhi = false;
+			}
+			} else {
+				kongzhi = false;
+			}
+			if (page==1) {
+		        _html += '<div class="baoqian">抱歉！没有查询到商品信息</div>';
+		    }
+
+         	$('#shopping-list').append(_html);
+         	$('#console').css('display','none');
+        },
+        complete: function() {
+        	$('#console').css('display','none');
+        	styles();
+          	ctrls = true;
+        }
+    });
+}
+
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

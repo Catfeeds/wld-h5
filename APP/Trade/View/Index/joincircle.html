@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>加入商圈</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body>
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content">
+				<div class="change-trade-thot-body" id="circlelist">
+
+				</div>
+				<div id="console"></div>
+				<!--<div class="change-trade-pub divtab">			
+			<div class="change-trade-tit divtab bborder" id="c-t-pub--tt">
+				<div class="change-ttit-ico fl" style="margin-left: 33%;"><img src="__IMG__/district_icon_blue_left2x.png" alt="" /></div>
+				<div class="change-ttit-font fl c3 fs14">湖南商圈</div>
+				<div class="change-ttit-ico fl"><img src="__IMG__/district_icon_blue_right2x.png" alt="" /></div>
+				<div class="change-ttit-cut fr">
+					<span class="c9 fs13 fl">切换省份</span><div class="change-ttit-arrow fl"><img src="__IMG__/district_icon_open2x.png" alt="" /></div>
+				</div>
+			</div>
+			<div class="change-trade-list bgcolor divtab">
+				<ul id="hot-trade-list">
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">长沙商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">湘潭商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">株洲商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">株洲商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">株洲商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">株洲商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+					<li>
+						<div class="change-tli-btn fr">
+							<div class="change-btn fs13">进入</div>
+						</div>
+						<div class="change-tli-img fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+						<div class="change-tli-info fl">
+							<div class="change-tliname divtab">
+								<div class="change-tli-name c3 fs13 fl fov">株洲商圈</div>
+								<div class="change-tli-level fl divre"><img src="__IMG__/level-hot1.png" alt="" /><div class="change-tli-levelnum divab cf fs11">LV.8</div></div>
+								<div class="change-tli-hotico fl"><img src="__IMG__/district_icon_new2x.png" alt="" /></div>
+							</div>
+							<div class="change-tnuminfo divtab c9 fs12">信息<span>1000</span>人气<span>2000</span></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>-->
+			</div>
+
+			<div class="change-t-prov-bg"></div>
+			<div class="change-t-prov-main">
+				<div class="change-t-prov-con bgcolor divtab">
+					<div class="change-trade-tit divtab bborder" id="c-t-pub--tt">
+						<div class="change-ttit-ico fl" style="margin-left: 33%;"><img src="__IMG__/district_icon_blue_left2x.png" alt="" /></div>
+						<div class="change-ttit-font fl c3 fs14">湖南</div>
+						<div class="change-ttit-ico fl"><img src="__IMG__/district_icon_blue_right2x.png" alt="" /></div>
+						<div class="change-ttit-cut fr" id="change-ttit-2">
+							<div class="change-ttit-arrow fl" style="margin-left: 65%;"><img src="__IMG__/district_icon_open2x.png" alt="" /></div>
+						</div>
+					</div>
+					<div class="change-t-prov-list fs13">
+						<ul>
+							<volist id="prov" name="provincedata">
+								<li onclick="getCirclelist('{$prov['c_code']}','{$prov['c_circle_name']}')">{$prov['c_circle_name']}</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var akclick = 1;
+			window.onload = function() {
+				var provincecode = "<?php echo $provincecode ?>";
+				//styles();				
+				getCirclelist(provincecode, '');
+			}
+			$(document).ready(function() {
+				$('.change-t-prov-bg').click(function() {
+					$('.change-t-prov-bg').fadeOut();
+					$('.change-t-prov-main').fadeOut();
+					$('.change-ttit-arrow img').attr('src', '__IMG__/district_icon_open2x.png');
+					$('.change-ttit-cut span').html("切换省份");
+				});
+			});
+			//	var headerhg = $('.change-trade-thot-body').height();
+			//	var zonghg = headerhg;
+			//	$(window).bind('scroll', function() {		
+			//		if ( (($(window).scrollTop()) >= (zonghg))) {
+			//			$('#c-t-pub--tt').addClass('menu-fixed');
+			//		}
+			//		if ($(window).scrollTop()< zonghg) {
+			//			$('#c-t-pub--tt').removeClass('menu-fixed');
+			//		}
+			//	});	
+			/*样式*/
+			function styles() {
+
+				var limgw = $('.change-tli-img').width();
+				$('.change-tli-img').height(limgw);
+
+				var lew = $('.change-tli-level').width(),
+					leh = lew * 0.48;
+				$('.change-tli-level').height(leh);
+				$('.change-tli-level').css('line-height', leh + 'px');
+			}
+
+			var ctrls = true;
+			var emptyval = true;
+			/*商圈列表*/
+			function getCirclelist(provincecode, circlename) {
+				$('#circlelist').empty();
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: '__URL__/Getcirclelist?provincecode=' + provincecode,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						var msg = eval(obj);
+						if(msg['code'] == 0) {
+							var data = msg.data;
+							if(data == null) {
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+								_html += '<div class="data-empty-font c3 fs14">没有找到相关商圈信息</div>';
+								_html += '</div>';
+								emptyval = false;
+							} else {
+								for(var i = 0; i < data.length; i++) {
+									_html += '<div class="change-trade-tit divtab bborder">';
+									if(i != 0) {
+										//_html += '<div class="change-ttit-ico fl" style="margin-left: 33%;"><img src="__IMG__/district_icon_yellow_left2x.png" alt="" /></div>';
+										//} else {
+										_html += '<div class="change-ttit-ico fl" style="margin-left: 33%;"><img src="__IMG__/district_icon_blue_left2x.png" alt="" /></div>';
+									}
+									_html += '<div class="change-ttit-font fl c3 fs14" id="ciclename-' + i +
+										'">';
+									if(i == 1) {
+										if(circlename != "") {
+											_html += '' + circlename + '';
+										} else {
+											_html += '' + data[i]['title'] + '';
+										}
+										//} else {
+										//_html += '' + data[i]['title'] + '';
+									}
+
+									_html += '</div>';
+
+									if(i == 1) {
+										_html += '<div class="change-ttit-ico fl"><img src="__IMG__/district_icon_blue_right2x.png" alt="" /></div>';
+										_html += '<div class="change-ttit-cut fr" id="change-ttit-1">';
+										_html += '<span class="c9 fs13 fl">切换省份</span>';
+										_html += '<div class="change-ttit-arrow fl"><img src="__IMG__/district_icon_open2x.png" alt="" /></div>';
+										_html += '</div>';
+										//} else {
+										//_html += '<div class="change-ttit-ico fl"><img src="__IMG__/district_icon_yellow_right2x.png" alt="" /></div>';
+									}
+									_html += '</div>';
+									_html += '<div class="change-trade-list bgcolor divtab">';
+									_html += '<ul id="hot-trade-list">';
+									var datalist = data[i].list;
+									for(var jk = 0; jk < datalist.length; jk++) {
+										if(i != 0) {
+											_html += '<li>';
+											_html += '<div class="change-tli-btn fr">';
+											_html += '<div class="change-btn fs13" onclick="entercicle(\'' + datalist[jk]["c_provincecode"] + '\',\'' + datalist[jk]["c_citycode"] + '\',\'' + datalist[jk]['c_address'] + '\')">加入</div>';
+											_html += '</div>';
+											_html += '<div class="change-tli-img fl"><img src="' + datalist[jk]['c_img'] + '" alt="" /></div>';
+											_html += '<div class="change-tli-info fl">';
+											_html += '<div class="change-tliname divtab">';
+											_html += '<div class="change-tli-name c3 fs13 fl fov">';
+											_html += '' + datalist[jk]['c_name'] + '';
+											_html += '</div>';
+											_html += '<div class="change-tli-level fl divre"><img src="' + datalist[jk]['c_levelimg'] + '" alt="" /></div>';
+											_html += '</div>';
+											_html += '<div class="change-tnuminfo divtab c9 fs12">信息<span>' + datalist[jk]['c_resourcenum'] + '</span>人气<span>' + datalist[jk]['c_moods'] + '</span></div>';
+											_html += '</div>';
+											_html += '</li>';
+										}
+									}
+									_html += '</ul>';
+									_html += '</div>';
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#circlelist').append(_html);
+						$('.change-t-prov-bg').fadeOut();
+						$('.change-t-prov-main').fadeOut();
+						akclick = 1;
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						mui('.change-trade-tit').on('tap', '#change-ttit-1', function() {
+							$('.change-t-prov-bg').fadeIn();
+							$('.change-t-prov-main').fadeIn();
+							$(".change-t-prov-bg").height($(document).height());
+							$('.change-ttit-arrow img').attr('src', '__IMG__/district_icon_stop2x.png');
+							mui('.change-trade-tit').on('tap', '#change-ttit-2', function() {
+								$('.change-t-prov-bg').fadeOut();
+								$('.change-t-prov-main').fadeOut();
+								$('.change-ttit-arrow img').attr('src', '__IMG__/district_icon_open2x.png');
+							});
+						});
+					}
+				});
+			}
+
+			var apptype = "<?php echo get_app_type(); ?>";
+			var clicktag = true;
+			/*加入商圈*/
+			function entercicle(provcode, ccode, address) {
+				mui.confirm('亲，您确定加入该商圈吗？加入商圈成功后，不可再次加入其他商圈', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : joincircles(provcode, ccode, address);
+				}, 'div');
+			}
+			function joincircles(provcode, ccode, address) {
+				if(clicktag) {
+					clicktag = false;
+					$.post("__URL__/ShopJoinCircle", {
+						provincecode: provcode,
+						citycode: ccode,
+						address: address
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							mui.toast('亲，您成功加入该商圈了哦！');
+							setTimeout(function() {
+								jumphome(apptype);
+							}, 1000);
+						} else {
+							mui.toast(data['msg']);
+							clicktag = true;
+						}
+					});
+
+				}
+			}
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

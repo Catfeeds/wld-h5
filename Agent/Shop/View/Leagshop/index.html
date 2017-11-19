@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>加盟店管理</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css?v=1.3">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/agent.js"></script>
+	</head>
+
+	<body>
+		<include file="Common/head" />
+		<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="content-s w_960">
+				<div class="page-title divre">
+					<div class="page-tit-name">已有加盟店</div>
+					<div class="invitebtn divab cf" onclick="inviteshop()">邀请加盟</div>
+				</div>
+				<div class="leagshop-list divtab">
+					<ul id="data_list">
+						<!-- <li>
+							<div class="fl leag-left">
+								<p class="fs14"><span class="fs14 c3">name,name,name</span><span class="fs12 c9">2017-06-14 17:17:17</span></p>
+								<p class="fs14">联系方式：18888888888</p>
+								<p class="fs14">地址：北京朝阳区朝阳区朝阳区朝阳区朝阳区</p>
+							</div>
+							<div class="fl leag-right">
+								<p class="fs14 c5">资料详情<span class="fs16 c3">></span></p>
+								<p class="fs14 c5">
+									<input name="read" value="" type="checkbox" id="off_use_0">
+									<label class="c5 fs14 deal-label" style="padding-left: 5px;">停用该店铺</label>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="fl leag-left">
+								<p class="fs14"><span class="fs14 c3">name,name,name</span><span class="fs12 c9">2017-06-14 17:17:17</span></p>
+								<p class="fs14">联系方式：18888888888</p>
+								<p class="fs14">地址：北京朝阳区朝阳区朝阳区朝阳区朝阳区</p>
+							</div>
+							<div class="fl leag-right">
+								<p class="fs14 c5">资料详情<span class="fs16 c3">></span></p>
+								<p class="fs14 c5">
+									<input name="read" value="" type="checkbox" id="off_use_0" checked="checked">
+									<label class="c5 fs14 deal-label" style="padding-left: 5px;">停用该店铺</label>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="fl leag-left">
+								<p class="fs14"><span class="fs14 c3">name,name,name</span><span class="fs12 c9">2017-06-14 17:17:17</span></p>
+								<p class="fs14">联系方式：18888888888</p>
+								<p class="fs14">地址：北京朝阳区朝阳区朝阳区朝阳区朝阳区</p>
+							</div>
+							<div class="fl leag-right">
+								<p class="fs14 c5">资料详情<span class="fs16 c3">></span></p>
+								<p class="fs14 c5">
+									<input name="read" value="" type="checkbox" id="off_use_0" checked="checked">
+									<label class="c5 fs14 deal-label" style="padding-left: 5px;">停用该店铺</label>
+								</p>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+
+		</form>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('#li-6 a').addClass('hover');
+			}
+
+			function inviteshop() {
+				window.location.href = "__URL__/inviteshop";
+			}
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/LeagueList?pageindex="+pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(!data || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html += '<div class="divempty">';
+									_html += '<h3 class="divtab c6 fs16">暂无相关加盟店信息</h3>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<li>';
+										_html += '<div class="fl leag-left">';
+										_html += '<p class="fs14"><span class="fs14 c3">'+dataarr['c_nickname']+'</span><span class="fs12 c9">'+dataarr['c_addtime']+'</span></p>';
+										_html += '<p class="fs14">联系方式：'+dataarr['c_phone']+'</p>';
+										if (dataarr['c_address']) {
+											_html += '<p class="fs14">地址：'+dataarr['c_address']+'</p>';
+										} else {
+											_html += '<p class="fs14">地址：未知</p>';
+										}
+										_html += '</div>';
+										_html += '<div class="fl leag-right">';
+										_html += '<p class="fs14 c5" onclick="getdetail(\''+dataarr['c_id']+'\')">资料详情<span class="fs16 c3">></span></p>';
+										_html += '<p class="fs14 c5">';
+
+										if (dataarr['c_status'] == 1) {
+											_html += '<input name="read" value="'+dataarr['c_status']+'" type="checkbox" id="off_use_'+dataarr['c_id']+'" onclick="offonuse(\''+dataarr['c_id']+'\',\''+dataarr['c_status']+'\')" checked="checked">';
+										} else {
+											_html += '<input name="read" value="'+dataarr['c_status']+'" type="checkbox" id="off_use_'+dataarr['c_id']+'" onclick="offonuse(\''+dataarr['c_id']+'\',\''+dataarr['c_status']+'\')">';
+										}
+										
+										_html += '<label class="c5 fs14 deal-label" style="padding-left: 5px;">停用该店铺</label>';
+										_html += '</p>';
+										_html += '</div>';
+										_html += '</li>'; 
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+			var clicksign = true;
+			/*启用，停用该店铺*/
+			function offonuse(fid,status) {
+				if (status == 2) {
+					var state = 1;
+				} else {
+					var state = 2;
+				}
+				if(clicksign){
+					clicksign = false;
+					$.post("__URL__/OptionLeague",{fid:fid,status:state},function(obj){
+						var data = eval(obj);
+						clicksign = true;
+						if(data['code']==0){
+							alert('操作成功');
+							var os = $('#off_use_'+fid).val();
+							if (os == 2) {
+								$('#off_use_'+fid).val(1);
+								$('#off_use_'+fid).prop('checked',true);
+							} else {
+								$('#off_use_'+fid).val(2);
+								$('#off_use_'+fid).prop('checked',false);
+							}
+						}else{
+							alert(data['msg']);													
+						}
+					});
+				}
+			}
+			function getdetail(fid){
+				window.location.href = "__URL__/detail?fid="+fid;
+			}
+		</script>
+	</body>
+
+</html>

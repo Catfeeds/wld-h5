@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>活动中心</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/actarea/index.css" />
+	</head>
+	<style type="text/css">
+		.c-box-kjbtn {
+			right: 5%;
+			bottom: 12%;
+		}
+	</style>
+
+	<body>
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<div class="mui-content">
+				<div class="actarea-menu fs14">
+					<ul>
+						<?php foreach ($actlist as $k => $v) { ?>
+						<li id="c-nav-t{$v['id']}" class="act-item <?php if ($k==0): ?>menu-active<?php endif ?>" title="{$v['id']}">
+							{$v['name']}
+						</li>
+						<?php } ?>
+					</ul>
+				</div>
+
+				<!-- 数据列表部分 -->
+				<div id="data_list" class="divtab act-list bgcolor" style="margin-top:3px;">
+					<!--<div class="ag-probox-1 divre">
+						<div class="agency-pro-box bborder" title="pcode0">
+							<div class="child-img a-pro-img fl">
+								<img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" />
+							</div>
+							<div class="a-pro-info fl">
+								<div class="a-pro-name c3 fs14 clamp2">良品铺子麻辣/五香灯影牛肉丝重庆特产/良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣</div>
+								<div class="a-pro-price c9 fs11">原价：￥25.88</div>
+								<div class="a-agentprice cy fs16">￥100008.8</div>
+							</div>
+							<div class="c-box-number divab fr">
+								<div class="divtab divre">
+									<span class="divab ccb fs11">10人团</span>
+									<span class="cf fs12 divab">去开团</span>
+									<img src="__IMG__/collage/spell_btn_qkt.png" />
+								</div>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div id="console"></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var statu = '<?php echo $statu ?>';
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+
+			var sdh = $('.search-default').height();
+			$('.search-default p').css('line-height', sdh + 'px');
+
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var pimgw = $('.a-pro-img').width();
+			$('.a-pro-img').height(pimgw);
+			$('.a-pro-name').css('height', pimgw * 0.5 + 'px');
+			$('.a-pro-name').css('line-height', $('.a-pro-name').height() * 0.5 + 'px');
+			$('.a-pro-price').css('line-height', pimgw * 0.25 + 'px');
+			$('.a-agentprice').css('line-height', pimgw * 0.25 + 'px');
+
+			$('.c-box-number').height($('.c-box-number').width()*0.2);
+			var clImg = $('.c-box-number').height();
+			$('.c-box-number span').css('line-height', clImg + 'px');
+
+		}
+
+		mui('.mui-content').on('tap', '.act-item', function() {
+			var categoryid = $(this).attr('title');
+			selectstatu(categoryid);
+		});
+
+		if(!statu) {
+			statu = 1;
+		}
+		selectstatu(statu);
+
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			$('.act-item').removeClass('menu-active');
+			$('#c-nav-t' + i).addClass('menu-active');
+			getdatalist();
+		}
+
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/ShopProductList?statu=" + statu + "&pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							$('.agency-list').removeClass('bgcolor');
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="divtab divempty">';
+								_html += '<h3 class="divtab c6 fs14">暂无相关活动</h3>';
+								_html += '<p class="divtab c9 fs12">等商家发布，稍后再来吧！</p>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							$('.agency-list').addClass('bgcolor');
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="ag-probox-1 divre">';
+									_html += '<div class="agency-pro-box bborder jumpclk' + pageindex + '" title="' + dataarr['c_id'] + '">';
+									_html += '<div class="child-img a-pro-img fl">';
+									_html += '<img src="' + dataarr['c_imgpath'] + '" alt="" />';
+									_html += '</div>';
+									_html += '<div class="a-pro-info fl">';
+									_html += '<div class="a-pro-name c3 fs14 clamp2">' + dataarr['c_name'] + '</div>';
+									_html += '<div class="a-pro-price c9 fs11">原价：￥' + dataarr['c_value'] + '</div>';
+									_html += '<div class="a-agentprice cy fs16">￥' + dataarr['c_actprice'] + '</div>';
+									_html += '</div>';
+
+									_html += '<input type="hidden" value="' + dataarr['jumpurl'] + '" id="jumpurl' + dataarr['c_id'] + '" />';
+
+									if(dataarr['c_activitytype'] == 26) { //拼团
+										_html += '<div class="c-box-number divab fr jumpinfo' + dataarr['c_id'] + '">';
+										_html += '<div class="divre">';
+										_html += '<span class="divab ccb fs11">' + dataarr['c_targetnum'] + '人团</span>';
+										_html += '<span class="cf fs12 divab">去开团</span>';
+										_html += '<img src="__IMG__/collage/spell_btn_qkt.png" />';
+										_html += '</div>';
+										_html += '</div>';
+									} else if(dataarr['c_activitytype'] == 27) { //砍价
+										_html += '<div class="divab c-box-kjbtn cf fs14 fr jumpinfo' + dataarr['c_id'] + '">去砍价</div>';
+									} else if(dataarr['c_activitytype'] == 28) { //秒杀	
+										_html += '<div class="divab c-box-kjbtn cf fs14 fr jumpinfo' + dataarr['c_id'] + '">去秒杀</div>';
+									}
+
+									_html += '</div>';
+									_html += '</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*查看商品详情*/
+						loadclick();
+					}
+				}
+			});
+		}
+
+		//加载点击事件
+		loadclick();
+
+		function loadclick() {
+			/*进入详情*/
+			$('.jumpclk' + pageindex).each(function(index) {
+				var cid = $(this).attr('title');
+				mui('.mui-content').on('tap', '.jumpinfo' + cid, function() {
+					var url = $('#jumpurl' + cid).val();
+					mui.openWindow({
+						url: url,
+						id: 'urlinfo'
+					});
+				});
+			});
+		}
+	</script>
+
+</html>

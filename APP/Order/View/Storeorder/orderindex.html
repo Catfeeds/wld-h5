@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>订单管理</title>
+		<meta content="" name="keywords">
+		<meta content="订单管理" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/order.css?v=1.3">
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+		<div class="mui-content">
+			<div class="order-index-menu">
+				<div class="order-menu-all-a" id="order_all">
+					<div class="order-menu-all">
+						<div class="order-all-l fl fs15">全部订单</div>
+						<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+						<div class="order-all-c fr fs13">查看全部订单</div>
+					</div>
+				</div>
+				<ul class="order-menu-ul">
+					<li id="order_menu_1">
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/or-06.png" alt=""></div>
+							<div class="order-menu-f fl fs13">待支付</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+							<div class="order-menu-c fr">{$data.waitpay}</div>
+						</div>
+					</li>
+					<li id="order_menu_2">						
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/or-07.png" alt=""></div>
+							<div class="order-menu-f fl fs13">待发货</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+							<div class="order-menu-c fr">{$data.waitsend}</div>
+						</div>						
+					</li>
+					<li id="order_menu_3">
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/or-08.png" alt=""></div>
+							<div class="order-menu-f fl fs13">已发货</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+							<div class="order-menu-c fr">{$data.waitreceiving}</div>
+						</div>
+					</li>
+					<li id="order_menu_4">						
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/or-09.png" alt=""></div>
+							<div class="order-menu-f fl fs13">已收货</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+						</div>						
+					</li>
+					<li style="margin-top:4%;" id="order_menu_5">						
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/or-10.png" alt=""></div>
+							<div class="order-menu-f fl fs13">退款/售后</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+							<div class="order-menu-c fr">{$data.saleafter}</div>
+						</div>
+					</li>
+					<li style="margin-top:4%;" id="order_menu_6">					
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/or-11.png" alt=""></div>
+							<div class="order-menu-f fl fs13">已关闭</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+						</div>						
+					</li>
+					<?php if($info['c_isfixed1']==1){ ?>
+					<li style="margin-top:4%;" id="order_menu_7">					
+						<div class="order-menu-box">
+							<div class="order-menu-l fl"><img src="__IMG__/dd_icon_guanli_ziti.png" alt=""></div>
+							<div class="order-menu-f fl fs13">到店自提</div>
+							<div class="order-menu-r fr"><img src="__IMG__/order-7.png" alt=""></div>
+							<div class="order-menu-c fr">{$data.tihuo}</div>
+						</div>						
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+			</div>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				// var ch = $('.order-menu-c').height();
+				// $('.order-menu-c').css('line-height',ch+'px');
+
+				var lih = $('.order-menu-ul li').height();
+				$('.order-menu-ul li').css('line-height', lih + 'px');
+
+				var allh = $('.order-menu-all').height();
+				$('.order-menu-all').css('line-height', lih + 'px');
+			}
+			/*全部*/
+			mui('.mui-content').on('tap','#order_all',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=0&type={$apptype}",id:"orderlist"});
+			});
+			/*待支付*/
+			mui('.mui-content').on('tap','#order_menu_1',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=1&type={$apptype}",id:"orderlist"});			
+			});
+			/*待发货*/
+			mui('.mui-content').on('tap','#order_menu_2',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=2&type={$apptype}",id:"orderlist"});	
+			});
+			/*已发货*/
+			mui('.mui-content').on('tap','#order_menu_3',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=3&type={$apptype}",id:"orderlist"});	
+			});
+			/*已收货*/
+			mui('.mui-content').on('tap','#order_menu_4',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=4&type={$apptype}",id:"orderlist"});
+			});
+			/*售后*/
+			mui('.mui-content').on('tap','#order_menu_5',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=5&type={$apptype}",id:"orderlist"});
+			});
+			/*关闭*/
+			mui('.mui-content').on('tap','#order_menu_6',function(){
+				mui.openWindow({url:"__URL__/orderlist?statu=6&type={$apptype}",id:"orderlist"});
+			});	
+			/*到店自提*/
+			mui('.mui-content').on('tap','#order_menu_7',function(){
+				mui.openWindow({url:"__URL__/actgoodslist?statu=7&type={$apptype}",id:"actgoodslist"});
+			});				
+		</script>
+
+	</body>
+
+</html>

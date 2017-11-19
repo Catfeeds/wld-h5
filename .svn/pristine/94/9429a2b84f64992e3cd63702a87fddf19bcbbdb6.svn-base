@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加碎片</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+		<div id="tab-category" class="HuiTab">
+			<div class="row cl">
+				<label class="form-label col-3">上级行业：</label>
+				<div class="formControls col-6"> <span class="select-box">
+					<select class="select" id="sel_Sub" name="pid">
+						<option value="">--顶级行业--</option>
+						<volist name="pro_list" id="v">
+							<?php if ($vo['c_pid'] === $v['c_id']) { ?>
+								<option value="{$v.c_id}" selected="selected">{$v.c_name}</option>
+							<?php } else { ?>
+								<option value="{$v.c_id}">{$v.c_name}</option>
+							<?php } ?>								
+						</volist>
+					</select>
+					</span> </div>
+				<div class="col-3"> </div>
+			</div>
+			
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>行业名称：</label>
+				<div class="formControls col-6">
+					<input type="text" class="input-text" value="{$vo.c_name}" placeholder="" id="" name="c_name" placeholder="">
+				</div>
+				<div class="col-3"> </div>
+			</div>
+
+			<div class="row cl">
+		      <label class="form-label col-3">抽商家（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_scanpay_shoprake}" placeholder="子行业不填则继承主行业比例" id="" name="scanpay_shoprake">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">推荐人利润（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_scanpay_tjprofit}" placeholder="子行业不填则继承主行业比例" id="" name="scanpay_tjprofit">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		     <div class="row cl">
+		      <label class="form-label col-3">代理商分红（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_scanpay_cityprofit}" placeholder="子行业不填则继承主行业比例" id="" name="scanpay_cityprofit">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">区代分红（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_scanpay_areaprofit}" placeholder="子行业不填则继承主行业比例" id="" name="scanpay_areaprofit">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">商家红包（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_scanpay_redscale}" placeholder="子行业不填则继承主行业比例" id="" name="scanpay_redscale">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+			
+			<div class="row cl">
+		      <label class="form-label col-3">线上抽商家（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_online_shoprake}" placeholder="子行业不填则继承主行业比例" id="" name="online_shoprake">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">线上推荐人利润（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_online_tjprofit}" placeholder="子行业不填则继承主行业比例" id="" name="online_tjprofit">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		     <div class="row cl">
+		      <label class="form-label col-3">线上代理商分红（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_online_cityprofit}" placeholder="子行业不填则继承主行业比例" id="" name="online_cityprofit">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">线上区代分红（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_online_areaprofit}" placeholder="子行业不填则继承主行业比例" id="" name="online_areaprofit">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">线上商家红包（扫码支付）：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_online_redscale}" placeholder="子行业不填则继承主行业比例" id="" name="online_redscale">
+		      </div>
+		      <div class="col-3"><span class="c-red">*顶级行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+		    <div class="row cl">
+		      <label class="form-label col-3">银行行业类别编码：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_industrid}" placeholder="" id="" name="industrid">
+		      </div>
+		      <div class="col-3"><span class="c-red">*所有行业必填</span> </div>
+		      <div class="col-4"> </div>
+		    </div>
+
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<input type="submit" value="提交" class="btn btn-primary radius">
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+</script>
+</body>
+</html>

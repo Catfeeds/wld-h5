@@ -1,0 +1,289 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin: 0; padding: 0;}
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-size: 62.5%;}
+body {margin: 0;padding: 0; height: 100%; overflow-x: hidden; -webkit-overflow-scrolling: touch;overflow-scrolling: touch; min-width: 320px;font-size:62.5%}
+
+a {
+text-decoration: none; outline: none;
+-webkit-tap-highlight-color: transparent;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+}
+
+a:active { outline: 0; }
+b, strong { font-weight: bold; }
+img { border: 0; max-width: 100%;vertical-align:top;}
+.child-img img{width: 100%;height: 100%;}
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0;border: 0px; }
+button { overflow: visible; }
+button, select { text-transform: none; }
+button, html input[type="button"], input[type="reset"], input[type="submit"] { /*-webkit-appearance: button;*/ cursor: pointer; outline: none;}
+button[disabled], html input[disabled] { cursor: default; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+input { line-height: normal; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { height: auto; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+textarea { overflow: auto; resize: vertical;  -webkit-appearance: none;}
+input[type="text"]:focus{tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input{-webkit-appearance: none;}
+
+table { border-collapse: collapse; border-spacing: 0; }
+ul, ol, li { list-style: none; }
+h1, h2, h3 {font-weight: normal; }
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+select{margin: 0;padding: 2% 0px; outline: none; border: rgb(191, 204, 220) 1px solid; border-radius: 3px;
+display: inline-block;background-color: #fff;/*background-size: 5px 5px,5px 5px,25px 25px,1px 25px;
+background-image: repeating-linear-gradient(225deg,rgb(105,123,149) 0%,rgb(105,123,149) 50%,transparent 50%,transparent 100%),
+repeating-linear-gradient(135deg,rgb(105,123,149) 0%,rgb(105,123,149) 50%,transparent 50%,transparent 100%),
+linear-gradient( #FFFFFF 0%,#F8F9Fd, #EFFAFA 100%), repeating-linear-gradient( rgb(191, 204, 220) 0%,rgb(191, 204, 220) 100%);*/
+background-repeat: no-repeat;background-position: 101px 10px,106px 10px,right top,92px top;-webkit-appearance: none}
+
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+
+.none{display: none;}
+.block{display: block;}
+.bgcolor{ background: #fff;}
+.bgeb{/*background:#ebebeb;*/background: #f0f0f0;}
+.bgb{background: #45aafa;}
+.bgy{background: #FFAE48;}
+.bborder{border-bottom: solid 1px #ebebeb;}
+
+.fl{ float: left;}
+.fr{ float: right;}
+.clear{clear: both;}
+.c0{color:#000000;}
+.c3{color:#333333;}
+.c5{color:#555555;}
+.c6{color:#666666;}
+.c9{color:#999999;}
+.cf{color:#ffffff;}
+.cc{color:#ccc;}
+.cb{color: #45aafa;}
+.cy{color: #ffaa3b;}
+.undline{text-decoration: underline;}
+
+.divtab{width: 100%;overflow: hidden;}
+.divre{position: relative;}
+.divab{position:absolute;}
+.fov{overflow: hidden; white-space: nowrap; text-overflow: ellipsis;-o-text-overflow: ellipsis;-webkit-text-overflow:ellipsis;-moz-text-overflow:ellipsis;}
+.fs11{font-size: 1.1rem;}.fs12{font-size: 1.2rem;}.fs13{font-size: 1.3rem;}.fs14{font-size: 1.4rem;}.fs15{font-size: 1.5rem;}.fs16{font-size: 1.6rem;}.fs17{font-size: 1.7rem;}.fs18{font-size: 1.8rem;}.fs20{font-size: 2.0rem;}.fs22{font-size: 2.2rem;}.fs24{font-size: 2.4rem;}.fs28{font-size: 2.8rem;}
+/*.fs11{font-size: 11px;}.fs12{font-size: 12px;}.fs13{font-size: 13px;}.fs14{font-size: 14px;}.fs15{font-size: 15px;}.fs16{font-size: 16px;}.fs17{font-size: 17px;}.fs18{font-size: 18px;}.fs20{font-size: 20px;}.fs22{font-size: 22px;}.fs24{font-size: 24px;}.fs28{font-size: 28px;}*/
+
+.fb400{font-weight: 400;}
+.fb600{font-weight: 600;}
+.fb800{font-weight: 800;}
+.alignc{text-align: center;}
+
+::-webkit-input-placeholder { /* WebKit browsers */color: #999;}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */color: #999;}
+::-moz-placeholder { /* Mozilla Firefox 19+ */color: #999;}
+:-ms-input-placeholder { /* Internet Explorer 10+ */color: #999;} 
+
+/*404*/
+.page-404-img{padding: 25% 0 3% 0;overflow: hidden;width: 100%;}
+.page-404-font{text-align: center;padding: 0 0 12% 0;width: 100%;}
+.page-404-btn{ display: block; width: 40%;margin: 0 auto;border-radius: 30px;text-align: center;color: #46aafa;border: solid 1px #46aafa;padding: 1% 0;}
+
+/*系统错误*/
+.exception-img{width: 35%;margin: 38% auto 1%;overflow: hidden;}
+.exception-font{text-align: center;padding: 1%;width: 100%;}
+.exception-renovate{padding: 1%;text-align: center;width: 36%;margin: 5% auto 0;background: #48acf7;}
+
+/*h5分享提示*/
+.pro-lead{width:100%;min-width: 320px;max-width: 720px;margin:0 auto;height:100%; position:fixed; top:-13%; z-index: 9999;display:none;}
+
+/*头部固定悬窗*/
+.menu-fixed{width: 100%; position: fixed;top: 0; z-index: 2014;max-width: 720px;min-width: 320px;margin:0 auto;}
+
+*:focus {outline: none;}
+
+/*底部menu*/
+.sm-bottom{width: 100%; position: fixed;bottom: 0; z-index: 999;max-width: 720px;min-width: 320px;margin:0 auto;}
+.sm-bottom-main{max-width: 720px;min-width: 320px;margin: 0 auto; position: relative; text-align: center;overflow: hidden;}
+.sm-bottom-menu{width: 33%; float: left;}
+.sm-bottom-a{display: block;width: 100%;}
+
+/*发表评论弹窗*/
+.send-comm-bg{ display: none; background-color: black; z-index:9999;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.send-comm-pup{ display: none; background: #ebebeb; border-radius: 8px;top:15%;left:0; position:fixed;z-index: 100000;width:90%;margin: auto;right: 0;max-width: 640px;}
+.send-comm-puptit{background: #fff;color: #555;font-size: 16px;padding: 4%;border-radius: 8px;}
+.send-comm-txt{background: #fff;padding: 0 4% 4% 4%;}
+.send-comm-txt textarea{border:solid 1px #eee; border-radius: 5px; background: #fff;width: 100%;font-size: 14px;padding: 2%;resize:none;outline: none;}
+.send-comm-btn{background: #fff;border-radius: 8px; cursor:pointer; margin: 4%;color: #47abf7;font-size: 16px;text-align: center;padding: 2% 0;}
+
+/*头部导航*/
+.xiaomi-bar{background: #47ABF7;max-width: 720px;margin: 0 auto;padding: 0 3%;position:fixed;z-index:2014;left: 0;right: 0;}
+.xiaomi-bar-nav{}
+.xm-bar-nav-right{overflow: hidden;}
+.xm-nav-title{margin: 0 auto; text-overflow: ellipsis; font-weight: 500; text-align: center; white-space: nowrap; overflow: hidden; width: 80%; float: left;}
+
+
+
+/*数据为空纯文字*/
+.page-empty{width: 48%;margin: 0 auto;padding-top: 10%;}
+
+/*数据为空纯图片提示方式*/
+.data-null{width: 35%;margin: 10% auto;}
+
+/*数据为空图片文字提示方式*/
+#console{width: 100%;font-size: 14px;font-weight: 400;color: #999999;text-align: center;padding: 3% 0px;}
+.baoqian{width: 100%;font-size: 14px;font-weight: 400;color: #999999;text-align: center;padding: 3% 0px;}
+
+
+/*页面为空文字展示*/
+.divempty{width: 80%;margin: auto;margin-top: 50%;}
+.divempty h3,.divempty p{padding: 1% 0px;text-align: center;}
+.empty-gg{color: #ffad3f;}
+
+/*数据为空，上图片，下文字形式*/
+.data-empty{margin: 35% 0 0 0;}
+.data-empty-img{width: 35%;margin: 0 auto;}
+.data-empty-font{text-align: center;padding: 2% 0;}
+
+
+/*文字竖排*/
+.verticle-mode {
+    writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;      
+    writing-mode: vertical-rl;
+    *writing-mode: tb-rl;
+}
+
+/*超出2行隐藏*/
+.clamp2{overflow : hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+
+/*底部浮动*/
+.fixed-btn{position: fixed;border-top: 1px solid #e5e5e5;left: 0;right: 0; bottom: 0; margin: 0 auto;width: 100%;max-width: 720px;min-width: 320px;padding: 3% 0;text-align: center;z-index: 999;}
+
+/*弹窗，背景遮罩层*/
+.pup-bg{display:none; background-color: black; z-index:998;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+
+/*安全密码弹窗*/
+.set-pwd-bg{display: none; background-color: black; z-index:999; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.set-pwd-pup{ display: none;top:10%;left:0; position:fixed;z-index: 100000;width:90%;margin:0 auto;right: 0;left:0;max-width: 720px;min-width: 320px;padding: 10%;}
+.set-pwd-con{background: #fff;border-radius: 10px;}
+.set-pwd-tit{padding:4% 0;border-bottom:1px solid #ebebeb;}
+.set-cancel{width: 5%;text-align: center;margin: 1.5% 0 0 4%;}
+.set-font-pwd{width: 75%;text-align: left;margin-left: 5%;}
+.set-pwd-money{text-align: center;padding: 2% 0;margin: 0 7.5%;}
+.set-pwd-surplus{text-align: center;padding: 2% 0;margin: 0 7.5%;}
+.pwd-input-list{padding: 6% 2% 6% 5%;}
+.pass { background: #fff; text-align: center;width: 15%;line-height: 100%;float: left;margin-left: 1%;border:1px solid #d9d9d9;padding:4% 0;}
+.pass_right{border-right:1px solid #d9d9d9;}
+
+
+/*键盘样式-2017-5-14金额输入框等带小数点的*/
+#keyboard {border-top:solid 1px #dadada;margin: 0;	padding: 0;	list-style: none;overflow: hidden;width: 100%;position: fixed;left:0;right: 0;bottom: 0;margin: 0 auto;z-index: 1000;}
+#keyboard li {float: left;border-right:solid 1px #dadada;border-bottom:solid 1px #e6e6e6;width: 33.3333%;text-align: center;background: #f5f5f5;vertical-align: middle;padding: 4% 0;}
+#keyboard span{color: #000;}
+#keyboard .tab {width: 33.3333%;}
+#keyboard .cancle {	width: 33.3333%;background: #e0e0e0;}
+#keyboard .nbsp{ background:#e0e0e0;}
+#keyboard .delete{width: 33.3333%; background:#e0e0e0;vertical-align: middle;}
+#keyboard .del-clear{width: 25%;margin:0 auto;padding-top: 5%;}
+.hide-keyp{ background: #f5f5f5; width:100%;padding:1.5% 0;text-align: center;border-top: solid 1px #ebebeb;position: fixed;left: 0;right: 0;}
+.hide-keyp:hover{background: #999;}
+.hide-keyp-ar{width: 8%;margin: 0 auto;}
+#keyboard li.symbol:active,#keyboard li.tab:active,#keyboard li.delete:active {background: #c3c4c9;cursor: pointer;}
+
+/*安全密码键盘样式-2017-5-14，不带小数点的*/
+#keyboard_pwd {border-top:solid 1px #dadada;margin: 0;	padding: 0;	list-style: none;overflow: hidden;width: 100%;position: fixed;left:0;right: 0;bottom: 0;margin: 0 auto;z-index: 1000;}
+#keyboard_pwd li {float: left;border-right:solid 1px #dadada;border-bottom:solid 1px #e6e6e6;width: 33.3333%;text-align: center;background: #f5f5f5;vertical-align: middle;padding: 4% 0;}
+#keyboard_pwd span{color: #000;}
+#keyboard_pwd .tab {width: 33.3333%;}
+#keyboard_pwd .cancle {	width: 33.3333%;background: #e0e0e0;}
+#keyboard_pwd .nbsp{ background:#e0e0e0;}
+#keyboard_pwd .delete{width: 33.3333%; background:#e0e0e0;vertical-align: middle;}
+#keyboard_pwd .del-clear{width: 25%;margin:0 auto;padding-top: 3%;}
+#keyboard_pwd li.symbol:active,#keyboard_pwd li.tab:active,#keyboard_pwd li.delete:active {background: #c3c4c9;cursor: pointer;}
+.techsup{width: 100%;margin: 0 auto;position: fixed;left: 0;right: 0;z-index: 9999;}
+
+
+
+
+/*@media (min-width: 421px) and (max-width: 520px) {
+	.fs12{font-size: 16px;}.fs13{font-size: 17px;}.fs14{font-size: 18px;}.fs15{font-size: 19px;}.fs16{font-size: 20px;}.fs17{font-size: 21px;}.fs18{font-size: 22px;}.fs20{font-size: 24px;}.fs22{font-size: 26px;}.fs24{font-size: 28px;}.fs28{font-size: 32px;}
+	.baoqian,#console{font-size: 18px;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+	.fs12{font-size: 20px;}.fs13{font-size: 21px;}.fs14{font-size: 22px;}.fs15{font-size: 23px;}.fs16{font-size: 24px;}.fs17{font-size: 25px;}.fs18{font-size: 26px;}.fs20{font-size: 28px;}.fs22{font-size: 30px;}.fs24{font-size: 32px;}.fs28{font-size: 36px;}
+	.baoqian,#console{font-size: 22px;}
+}
+
+@media (min-width: 621px){
+	.fs12{font-size: 24px;}.fs13{font-size: 25px;}.fs14{font-size: 26px;}.fs15{font-size: 27px;}.fs16{font-size: 28px;}.fs17{font-size: 29px;}.fs18{font-size: 30px;}.fs20{font-size: 32px;}.fs22{font-size: 34px;}.fs24{font-size: 36px;}.fs28{font-size: 40px;}
+	.baoqian,#console{font-size: 26px;}
+}*/
+
+/*@media (min-width: 360px) and (max-width: 375px) {
+	.fs11{font-size: 12px;}.fs12{font-size: 14px;}.fs13{font-size: 15px;}.fs14{font-size: 16px;}.fs15{font-size: 17px;}.fs16{font-size: 18px;}.fs17{font-size: 19px;}.fs18{font-size: 18px;}.fs20{font-size: 20px;}.fs22{font-size: 24px;}.fs24{font-size: 26px;}.fs28{font-size: 30px;}
+	.baoqian,#console{font-size: 16px;}
+}
+@media (min-width: 376px) and (max-width: 420px) {
+	.fs11{font-size: 13px;}.fs12{font-size: 14px;}.fs13{font-size: 15px;}.fs14{font-size: 16px;}.fs15{font-size: 18px;}.fs16{font-size: 20px;}.fs17{font-size: 21px;}.fs18{font-size: 22px;}.fs20{font-size: 24px;}.fs22{font-size: 26px;}.fs24{font-size: 28px;}.fs28{font-size: 32px;}
+	.baoqian,#console{font-size: 18px;}
+}
+@media (min-width: 421px) and (max-width: 520px) {
+	.fs11{font-size: 14px;}.fs12{font-size: 16px;}.fs13{font-size: 18px;}.fs14{font-size: 20px;}.fs15{font-size: 22px;}.fs16{font-size: 24px;}.fs17{font-size: 26px;}.fs18{font-size: 28px;}.fs20{font-size: 30px;}.fs22{font-size: 32px;}.fs24{font-size: 34px;}.fs28{font-size: 36px;}
+	.baoqian,#console{font-size: 20px;}
+}
+@media (min-width: 521px) and (max-width: 620px) {
+	.fs11{font-size: 17px;}.fs12{font-size: 18px;}.fs13{font-size: 20px;}.fs14{font-size: 22px;}.fs15{font-size: 23px;}.fs16{font-size: 24px;}.fs17{font-size: 25px;}.fs18{font-size: 26px;}.fs20{font-size: 28px;}.fs22{font-size: 30px;}.fs24{font-size: 32px;}.fs28{font-size: 40px;}
+	.baoqian,#console{font-size: 22px;}
+}
+@media (min-width: 621px) and (max-width: 749px) {
+	.fs11{font-size: 19px;}.fs12{font-size: 22px;}.fs13{font-size: 24px;}.fs14{font-size: 26px;}.fs15{font-size: 27px;}.fs16{font-size: 28px;}.fs17{font-size: 29px;}.fs18{font-size: 30px;}.fs20{font-size: 32px;}.fs22{font-size: 34px;}.fs24{font-size: 36px;}.fs28{font-size: 44px;}
+	.baoqian,#console{font-size: 26px;}
+}
+@media (min-width: 750px) and (max-width: 799px) {
+	.fs11{font-size: 20px;}.fs12{font-size: 22px;}.fs13{font-size: 24px;}.fs14{font-size: 26px;}.fs15{font-size: 27px;}.fs16{font-size: 28px;}.fs17{font-size: 29px;}.fs18{font-size: 30px;}.fs20{font-size: 32px;}.fs22{font-size: 34px;}.fs24{font-size: 36px;}.fs28{font-size: 44px;}
+	.baoqian,#console{font-size: 26px;}
+}
+@media (min-width: 800px){
+	.fs11{font-size: 22px;}.fs12{font-size: 22px;}.fs13{font-size: 24px;}.fs14{font-size: 26px;}.fs15{font-size: 27px;}.fs16{font-size: 28px;}.fs17{font-size: 29px;}.fs18{font-size: 30px;}.fs20{font-size: 32px;}.fs22{font-size: 34px;}.fs24{font-size: 36px;}.fs28{font-size: 44px;}
+	.baoqian,#console{font-size: 26px;}
+}*/
+
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 94%!important;
+    }
+}
+@media only screen and (min-width: 561px){
+    html {
+        font-size: 109%!important;
+    }
+}
+@media only screen and (min-width: 641px){
+    html {
+        font-size: 125%!important;
+    }
+}
+
+
+
+
+
+
+/*radio按钮*/
+/*input[type="radio"]{width: 20px;height: 20px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../img/check.png");background-size: 100% 100%;}
+input[type="radio"]:checked {width: 20px;height: 20px;border: 0px;background:url("../img/checked.png");background-size: 100% 100%;}
+.num_sub{color: #555555;}
+@media (min-width: 421px){
+    input[type="radio"]{width: 25px;height: 25px;background-size: 100% 100%;}
+    input[type="radio"]:checked {width: 25px;height: 25px;background-size: 100% 100%;}
+}*/
+
+/*checkbox*/
+/*input[type="checkbox"]{ cursor:pointer; width: 20px;height: 20px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../img/check.png");background-size: 100% 100%; secondcode:none;}
+input[type="checkbox"]:checked {width: 20px;height: 20px;border: 0px;background:url("../img/checked.png");background-size: 100% 100%;}
+.num_sub{color: #555555;}
+@media (min-width: 421px){
+    input[type="checkbox"]{width: 25px;height: 25px;background-size: 100% 100%;}
+    input[type="checkbox"]:checked {width: 25px;height: 25px;background-size: 100% 100%;}
+}*/

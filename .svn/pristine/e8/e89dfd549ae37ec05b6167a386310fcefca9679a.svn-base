@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>买过的客户</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/gmanage/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="pcode" id="pcode" value="{$pcode}" />
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!-- 数据列表部分 -->
+			<div class="gcustomer-main">
+				<ul id="data_list">
+					<!--<li>-->
+						<!--<div class="gstr-img fl"><img src="__IMG__/index/tu14.jpg"></div>-->
+						<!--<div class="gcustomer-name fl c3 fs14 fov">宋的坑估计大会法规及大富豪</div>-->
+						<!--<div class="gcustomer-num fr c9 fs12">购买<font>13次</font></div>-->
+					<!--</li>-->
+				</ul>
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+    var pcode = '<?php echo $pcode ?>';
+
+	window.onload = function() {
+		yangshi();
+	}
+
+	//js改变样式
+	function yangshi() {
+		var gsImg = $('.gstr-img').width();
+		$('.gstr-img').height(gsImg);
+		$('.gcustomer-name').css('line-height', gsImg + 'px');
+		$('.gcustomer-num').css('line-height', gsImg + 'px');
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/getBuyUserList?pcode="+ pcode + "&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+                            _html += '<div class="data-empty bgeb">';
+                            _html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+                            _html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+                            _html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html += '<li class="jumppage"  title="'+ dataarr['ucode'] +'" data-type="'+ dataarr['c_shop'] +'">';
+								_html += '<div class="gstr-img fl">';
+								_html += '<img src="'+ dataarr['headimg'] +'">';
+								_html += '</div>';
+								_html += '<div class="gcustomer-name fl c3 fs14 fov">'+ dataarr['c_nickname'] +'</div>';
+								_html += '<div class="gcustomer-num fr c9 fs12">购买<font>'+ dataarr['total'] +'次</font></div>';
+								_html += '</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+	//跳转链接
+	// mui('.mui-content').on('tap', '.jumppage', function() {
+	// 	var ucoded = $(this).attr('title');
+	// 	var isshop = $(this).attr('data-type');
+	// 	if(isshop == 0) {
+	// 		mui.openWindow({
+	// 			url: WEB_HOST + '/index.php/Home/Myspace/index?fromucode=' + ucoded,
+	// 			id: 'myspace'
+	// 		});
+	// 	} else {
+	// 		mui.openWindow({
+	// 			url: WEB_HOST + '/index.php/Store/Index/index?fromucode=' + ucoded,
+	// 			id: 'stroe'
+	// 		});
+	// 	}
+
+	// });
+
+
+</script>
+
+</html>

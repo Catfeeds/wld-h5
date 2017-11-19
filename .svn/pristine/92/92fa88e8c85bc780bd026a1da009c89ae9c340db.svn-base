@@ -1,0 +1,72 @@
+body{
+	background-color: whitesmoke;
+}
+.ag-probox-1{
+	background-color: white;
+	margin-bottom: 1rem;
+}
+.agency-pro-box{
+	margin-left: 3%;
+	overflow: hidden;
+	padding: 4% 0;
+	background-color:white;
+}
+.a-pro-img{
+	width: 26%;
+}
+.a-pro-info{
+	width: 71%;
+	margin-left: 3%;
+}
+.a-pro-name{
+	padding-right: 3%;
+	font-size: 1rem;
+	color: #000;
+	margin-bottom: 1rem;
+}
+.a-pro-price{
+	padding-right: 3%;
+	font-size: 0.9rem;
+	text-decoration:line-through;
+}
+.a-agentprice{
+	padding-right: 3%;
+}
+.a-agentprice span{
+	font-size: 0.5rem;
+}
+.ccb{
+	color: #56b2fb;
+}
+.c-box-number{ 
+	width: 34%; 
+	background-size: 100% 100%;
+	bottom: 13%;right: 4%;
+}
+.c-box-number span:nth-of-type(1){ 
+	left:10%;
+}
+.c-box-number span:nth-of-type(2){ 
+	left: 56%;
+}
+
+.child-img{
+	background: url(../../img/dlsc_dlxq_02.jpg) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	width: 25%;
+	/*height: 75px;*/
+	padding: 1% 0 1.5% 0;
+}
+.complete{
+	float: left;
+	line-height:30px;
+	font-size: 1.5rem;
+	color: #ffaa3b;
+}
+.agency-pro-box button{
+	float: right;
+	margin-right: 1.5rem;
+	font-size: 1.5rem;
+	border: 1px solid #999;
+}

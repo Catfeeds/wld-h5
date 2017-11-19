@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>商家会员</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+</head>
+<body>
+
+<div class="wrap-page bgcolor" style="padding-bottom:20%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+<?php if(!empty($mysup)){ ?>
+	<div class="sj-member-top">
+		<div class="sj-member divre"></div>
+		<div class="sj-member-con divre">
+			<div class="join-type c3 fs14 divab">加入方式：{$mysup["c_binding"]}</div>
+			<div class="join-time c3 fs14 divab">加入时间：{$mysup["c_time"]}</div>
+			<div class="join-member-info divab" onclick="window.location.href='__APP__/Home/Myspace?fromucode={$mysup['c_ucode']}'">
+				<div class="j-member-head fl"><img src="{$mysup['c_headimg']}" alt=""></div>
+				<div class="j-member-info fl">
+					<div class="j-member-name c3 fs14">{$mysup["c_nickname"]}</div>
+					<div class="j-member-gz c9 fs12">
+						<span>关注</span><span>{$mysup["c_attention"]}</span><span>|</span><span>访问量</span><span>{$mysup["c_pv"]}</span>
+					</div>
+				</div>
+				<div class="j-member-arrow fl"><img src="__IMG__/usercenter/r2.png" alt=""></div>
+			</div>
+			<img src="__IMG__/usercenter/index4.png" alt="">
+		</div>
+	</div>
+	<div class="sj-member-tip fs14 c9">您在{$mysup["c_time"]}通过<span>{$mysup["c_binding"]}</span>成为<span class="bluec" style="margin:0;">{$mysup["c_nickname"]}</span>的商家会员</div>
+	<div class="sj-member-btn fs16">
+		<a href="__APP__/Home/Myspace?fromucode={$mysup['c_ucode']}">进去看看</a>
+	</div>
+<?php }else{ ?>
+	<div class="sj-member-top">
+		<div class="sj-member divre"></div>
+		<div class="sj-member-con divre">
+			<div class="sj-wx-tip divab">
+				<h3 class="c3 fs18">温馨提示</h3>
+				<p class="c5 fs14">您还不是任何商家会员,可以通过向商家扫码支付或者商家购买任意商品即可成为商家会员。</p>
+			</div>
+			<img src="__IMG__/usercenter/index1.png" alt="">
+		</div>
+	</div>
+	<div class="sj-member-btn fs16">
+		<a href="__APP__/Home/index">去逛逛</a>
+	</div>
+<?php } ?>
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function(){
+		var headh = $('.j-member-head').width(),
+			lih = 48*headh/100;
+		$('.j-member-head').height(headh);
+		$('.j-member-head').css("border-radius",headh+"px");
+		$('.j-member-info').css('line-height',lih+"px");
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>分红设置添加</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-category-add">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabCon">		
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>抽代理商比列(小蜜商城)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_agent_scale}" placeholder="" id="" name="agent_scale" nullmsg="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>推荐人利润(小蜜商城)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_agent_refreescale}" placeholder="" id="" name="agent_refreescale" nullmsg="管理员全名不能为空">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>抽商家比例(商城)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_shop_scale}" placeholder="" id="" name="shop_scale">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>推荐人利润(商城)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_shop_refreescale}" placeholder="" id="" name="shop_refreescale" nullmsg="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+
+
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>区代分红比例：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_area_scale}" placeholder="" id="" name="area_scale" nullmsg="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3">代理商分红比例：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_city_scale}" placeholder="" id="" name="city_scale">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+
+				<div class="row cl">
+					<label class="form-label col-3">商家返利红包比列：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_red_scale}" placeholder="" id="" name="red_scale">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-3">抽商家(扫码支付)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_scanpay_shoprake}" placeholder="" id="" name="scanpay_shoprake">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3">推荐人利润(扫码支付)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_scanpay_tjprofit}" placeholder="" id="" name="scanpay_tjprofit">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3">区代分红(扫码支付)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_scanpay_areaprofit}" placeholder="" id="" name="scanpay_areaprofit">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3">代理商分红(扫码支付)：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_scanpay_cityprofit}" placeholder="" id="" name="scanpay_cityprofit">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+				<!-- <div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>股票池：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_sharespool}" placeholder="" id="" name="sharespool" nullmsg="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>股票当前价格：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_shareprice}" placeholder="" id="" name="shareprice">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>股票涨幅度：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_sharerose}" placeholder="股票涨幅度， 如果设置为负数，代表价格减少，如果为正数代表价格增加" id="" name="sharerose">
+					</div>
+					<div class="col-3"> </div>
+				</div> -->
+				
+				<div class="row cl">
+					<label class="form-label col-3">启用状态：</label>
+					<div class="formControls col-6"> 
+						<span class="select-box">
+						<select class="select" id="sel_Sub" name="state">	
+							<option value="{$vo.c_state}">
+								<?php if ($vo['c_state'] == 1) { ?>
+								启用
+								<?php } else { ?>
+								不启用
+								<?php } ?>
+							</option>						
+							<option value="1">启用</option>
+							<option value="0">不启用</option>
+						</select>
+						</span> 
+					</div>
+					<div class="col-3"> </div>
+				</div>				
+			</div>
+		</div>
+		<div class="row cl" style="width:60%;margin-left: 15%;">
+
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<div type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save" onclick="ajax_post_data('{$action}','form-category-add','System/dividend_list');"><i class="icon-ok"></i> &nbsp;&nbsp;提交&nbsp;&nbsp;</div>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+</script>
+</body>
+</html>

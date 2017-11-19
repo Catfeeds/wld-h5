@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>推广位投放详情</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 18%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+
+			<include file="Base@Public/pubheader" />
+
+			<div class="mui-content">
+				<input type="hidden" id="typeval" value="">
+				<input type="hidden" id="sortval" value="">
+				<div id="page_1">
+					<div class="ad-detail-list">
+						<div class="ad-detail-box divre">
+							<div class="ad-d-font1 cf fs16 divab">店铺推广位</div>
+							<div class="ad-d-font2 cf fs12 divab">剩余{$data['isputin']}个</div>
+							<div class="ad-d-font3 cf fs13 divab">展示在商家店铺内</div>
+							<div class="ad-d-font4 cb fs14 divab"><span class="fl" <?php if ($data['isputin'] <= 0) { ?>style="background:#cccccc;color:#ffffff;"<?php } ?> onclick="oprate_putin('{$data['sort']}',1,{$data['isputin']})">投放</span><span class="fr" onclick="oprate_check()">查看</span></div>
+							<img src="__IMG__/promote_details_storebg.png" alt="" />
+						</div>
+						<div class="ad-detail-box divre">
+							<div class="ad-d-font1 cf fs16 divab">完成支付推广位</div>
+							<div class="ad-d-font2 cf fs12 divab">剩余{$data['isputin1']}个</div>
+							<div class="ad-d-font3 cf fs13 divab">展示在支付订单完成页</div>
+							<div class="ad-d-font4 cb fs14 divab"><span class="fl" <?php if ($data['isputin1'] <= 0) { ?>style="background:#cccccc;color:#ffffff;"<?php } ?>  onclick="oprate_putin('{$data['sort1']}',2,{$data['isputin1']})">投放</span><span class="fr" onclick="oprate_check()">查看</span></div>
+							<img src="__IMG__/promote_details_paybg.png" alt="" />
+						</div>
+					</div>
+				</div>
+				<div id="page_2" style="display: none;">
+					<div class="ad-coupon-list" id="adsite_list">
+						<!--<div class="ad-d-c-box divre" id="cbox_1_0" title="0">
+							<input type="hidden" name="ctype" id="ctype_1_0" value="1" />
+							<input type="hidden" name="chid" id="chid_1_0" value="0" />
+							<div class="ad-d-font0 cf divab"><span class="fs18">88</span><br/><span class="fs13">元</span></div>
+							<div class="ad-d-font1 cf fs16 divab">满199可用</div>
+							<div class="ad-d-font2 cf fs12 divab">全店通用</div>
+							<div class="ad-d-font3 cf fs13 divab">2017.05.01~2017.05.05</div>
+							<div class="ad-d-font5 cf fs14 divab"><span class="fl">共20张</span><span class="fr">剩余11张</span></div>
+
+							<img src="__IMG__/sel_1_bglink.png" alt="" id="typeimg_1_0" />
+						</div>
+						<div class="ad-d-c-box divre" id="cbox_1_1" title="1">
+							<input type="hidden" name="ctype" id="ctype_1_1" value="1" />
+							<input type="hidden" name="chid" id="chid_1_1" value="1" />
+							<div class="ad-d-font0 cf fs18 divab"><span class="fs18">88</span><br/><span class="fs13">元</span></div>
+							<div class="ad-d-font1 cf fs16 divab">满199可用</div>
+							<div class="ad-d-font2 cf fs12 divab">全店通用</div>
+							<div class="ad-d-font3 cf fs13 divab">2017.05.01~2017.05.05</div>
+							<div class="ad-d-font5 cf fs14 divab"><span class="fl">共20张</span><span class="fr">剩余11张</span></div>
+
+							<img src="__IMG__/sel_1_bglink.png" alt="" id="typeimg_1_1" />
+						</div>
+						<div class="ad-d-c-box divre" id="cbox_1_2" title="2">
+							<input type="hidden" name="ctype" id="ctype_1_2" value="2" />
+							<input type="hidden" name="chid" id="chid_1_2" value="2" />
+							<div class="ad-d-font0 cf fs18 divab"><span class="fs18">8.8</span><br/><span class="fs13">折</span></div>
+							<div class="ad-d-font1 cf fs16 divab">满199可用</div>
+							<div class="ad-d-font2 cf fs12 divab">全店通用</div>
+							<div class="ad-d-font3 cf fs13 divab">2017.05.01~2017.05.05</div>
+							<div class="ad-d-font5 cf fs14 divab"><span class="fl">共20张</span><span class="fr">剩余11张</span></div>
+
+							<img src="__IMG__/sel_2_bglink.png" alt="" id="typeimg_1_2" />
+						</div>-->
+
+					</div>
+				</div>
+			</div>
+			<input type="hidden" id="cid" value="" />
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-bar-nav-right').hide();
+
+				var boxw = $('.ad-detail-box').width(),
+					boxh = boxw * 0.43;
+				$('.ad-detail-box').height(boxh);
+
+				styles();
+
+			}
+			$(document).ready(function() {
+
+			});
+			/*样式*/
+			function styles() {
+				var boxw = $('.ad-d-c-box').width(),
+					boxh = boxw * 0.36;
+				$('.ad-d-c-box').height(boxh);
+			}
+
+			/*投放*/
+			function oprate_putin(sr,ty,isputin) {
+				if (parseInt(isputin) <= 0) {
+					mui.toast('该推广位已满');return;
+				}
+				$('#sortval').val(sr);
+				$('#typeval').val(ty);
+				$('#page_1').hide();
+				$('#page_2').show();
+				styles();
+			}
+			/*查看*/
+			function oprate_check() {
+				mui.openWindow({
+					url: "__APP__/Store/Index/couponlist?fromucode=<?php echo $acode ?>",
+					id: "preview"
+				});
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据列表加载*/
+			function getdatalist() {
+				var url = "__URL__/CardList?gettype=2&pageindex="+pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#adsite_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">没有找到可用的推广物料</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="ad-d-c-box divre cbox_'+pageindex+'" title="'+dataarr['c_id']+'">';
+										_html += '<input type="hidden" name="ctype" id="ctype_'+dataarr['c_id']+'" value="'+dataarr["c_type"]+'" />';
+										_html += '<input type="hidden" name="chid" id="chid_'+dataarr['c_id']+'" value="0" />';
+										if(dataarr["c_type"]==1){
+											_html += '<div class="ad-d-font0 cf divab"><span class="fs18">'+dataarr["c_money"]+'</span><br/><span class="fs13">元</span></div>';
+											
+										}else if(dataarr["c_type"]==2){
+											_html += '<div class="ad-d-font0 cf divab"><span class="fs18">'+dataarr["c_money"]+'</span><br/><span class="fs13">折</span></div>';
+											
+										}
+
+										if(dataarr["c_type"]==1){
+											_html += '<div class="ad-d-font1 cf fs16 divab">满'+dataarr['c_limit_money']+'元可用</div>';
+										}else if(dataarr["c_type"]==2){
+											_html += '<div class="ad-d-font1 cf fs16 divab">最高折扣'+dataarr['c_limit_money']+'元</div>';
+										}
+
+										if (dataarr['c_pcodearr']) {
+											_html += '<div class="ad-d-font2 cf fs12 divab">部分商品</div>';
+										} else {
+											_html += '<div class="ad-d-font2 cf fs12 divab">全店通用</div>';
+										}
+										
+										_html += '<div class="ad-d-font3 cf fs13 divab">'+dataarr['c_starttime']+'~'+dataarr['c_endtime']+'</div>';
+										_html += '<div class="ad-d-font5 cf fs14 divab"><span class="fl">共'+dataarr["c_totalnum"]+'张</span><span class="fr">剩余'+dataarr["c_num"]+'张</span></div>';
+										_html += '<img src="__IMG__/sel_'+dataarr["c_type"]+'_bglink.png" alt="" id="typeimg_'+dataarr['c_id']+'" />';
+										_html += '</div>';
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#adsite_list').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						if (emptyval) {  //加载循环点击事件
+							loadclick();
+						}
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+
+			
+			loadclick();
+			function loadclick() {
+				mui('#page_2').on('tap', '.cbox_' + pageindex, function() {
+					var cid = $(this).attr('title');
+					var ctype = $('#ctype_' + cid).val();
+					selcoupon(cid, ctype);
+				});
+			}
+
+			var oldid = -1;
+			var oldtype = -1;
+			function selcoupon(cid, ctype) {
+				if(oldid != -1) {
+					$('#typeimg_' + oldid).attr('src', '__IMG__/sel_' + oldtype + '_bglink.png');
+				}
+				oldid = cid;
+				oldtype = ctype;
+				$('#typeimg_' + oldid).attr('src', '__IMG__/sel_' + oldtype + '_bghover.png');
+				mui.confirm('请注意有效期', '确认投放此推广位', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : sure_putin(oldid);
+				}, 'div')
+				styles();
+			};
+			
+			/*确认投放*/
+			var tjsign = true;
+			function sure_putin(cid) {
+				if (tjsign) {
+					tjsign = false;
+					$.post("__URL__/PutinAdevert", {
+						cardid: cid,
+						type:$('#typeval').val(),
+						order:$('#sortval').val(),
+						acode: '<?php echo $acode; ?>',
+					}, function(obj) {
+						var data = eval(obj);
+						tjsign = true;
+						if (data['code'] == 0) {
+							mui.toast(data['msg']);
+							setTimeout(function() {
+								mui.openWindow({
+									url: '__URL__/index',
+									id: 'adindex'
+								});
+							}, 2000);
+						} else {
+							mui.toast(data['msg']);
+						}
+					});
+				}
+			}
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

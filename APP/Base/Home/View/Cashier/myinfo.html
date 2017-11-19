@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>我的信息</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+
+			<!-- 我的信息 -->
+			<div class="ca-myinfo-con bgcolor">
+				<ul>
+					<li>
+						<div class="ca-myinfo-tit fl c3 fs14">收银店铺</div>
+						<div class="ca-myinfo-img fl"><img src="__IMG__/cashier/store.png"></div>
+						<span class="c3 fs14">{$cashinfo['shopname']}</span>
+					</li>
+					<li>
+						<div class="ca-myinfo-tit fl c3 fs14" >添加时间</div>
+						<div class="ca-myinfo-time fl c3 fs14">{$cashinfo['c_addtime']}</div>
+					</li>
+					<li>
+						<div class="ca-myinfo-tit fl c3 fs14">工号</div>
+						<div class="ca-myinfo-num fl fs14">{$cashinfo['c_name']}</div>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		//我的信息
+		$('.ca-myinfo-con ul li span').css('line-height',$('.ca-myinfo-img').width() +'px');
+	}
+
+</script>
+
+</html>

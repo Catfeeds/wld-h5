@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>领取记录</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/stores.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				
+				<div id="gelog_list" class="divtab bgcolor">
+					<!-- <div class="getlog-box bborder">
+						<div class="log-headimg fl"><img src="__IMG__/store/qdpage-.jpg" alt="" /></div>
+						<div class="log-info fl">
+							<p class="c3 fs14">taylor swift</p>
+							<p class="c9 fs12">2017-04-26</p>
+						</div>
+						<div class="log-c-info fr">
+							<p class="c3 fs16 cb">100元</p>
+							<p class="c9 fs12">代金券</p>
+						</div>
+					</div>
+					<div class="getlog-box bborder">
+						<div class="log-headimg fl"><img src="__IMG__/store/qdpage-.jpg" alt="" /></div>
+						<div class="log-info fl">
+							<p class="c3 fs14">taylor swift</p>
+							<p class="c9 fs12">2017-04-26</p>
+						</div>
+						<div class="log-c-info fr">
+							<p class="c3 fs16 cy">8.8折</p>
+							<p class="c9 fs12">折扣券</p>
+						</div>
+					</div>
+					<div class="getlog-box bborder">
+						<div class="log-headimg fl"><img src="__IMG__/store/qdpage-.jpg" alt="" /></div>
+						<div class="log-info fl">
+							<p class="c3 fs14">taylor swift</p>
+							<p class="c9 fs12">2017-04-26</p>
+						</div>
+						<div class="log-c-info fr">
+							<p class="c3 fs16 cy">8.8折</p>
+							<p class="c9 fs12">折扣券</p>
+						</div>
+					</div> -->
+					
+				</div>
+				
+				 <!--<div class="coupon-empty divtab">
+					<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>					
+					<div class="c-empty-font c3 fs13">暂时没有可发放的优惠券</div>
+				</div> -->
+
+				<div id="console"></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-nav-title').text("领取记录");
+				$('.xm-bar-nav-right').hide();
+				styles();
+			}
+			$(document).ready(function() {
+
+			});
+			
+			/*样式*/
+			function styles() {
+				var headw = $('.log-headimg').width(),lih2 = headw*40/100;
+				$('.log-headimg').height(headw);
+				$('.log-headimg').css('border-radius',headw+'px');
+				$('.log-info').css('line-height',lih2+'px')
+				$('.log-c-info').css('line-height',lih2+'px')
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+				
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/GetReceviLog?pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#gelog_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">暂无相关记录</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										ctype = dataarr['katype'];
+										_html+='<div class="getlog-box bborder">';
+										_html+='<div class="log-headimg fl"><img src="'+dataarr['c_headimg']+'" alt="" /></div>';
+										_html+='<div class="log-info fl">';
+										_html+='<p class="c3 fs14 fov">'+dataarr['c_nickname']+'</p>';
+										_html+='<p class="c9 fs12">'+dataarr['c_addtime']+'</p>';
+										_html+='</div>';
+										_html+='<div class="log-c-info fr">';
+										if(ctype==1){						
+										_html+='<p class="c3 fs16 cb">'+dataarr['signpro']+'</p>';					
+										_html+='<p class="c9 fs12">'+dataarr['signstr']+'</p>';
+										}else{						
+										_html+='<p class="c3 fs16 cy">'+dataarr['signpro']+'</p>';					
+										_html+='<p class="c9 fs12">'+dataarr['signstr']+'</p>';
+										}					
+										_html+='</div>';
+										_html+='</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#gelog_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;						
+					}
+				});
+			}
+			
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

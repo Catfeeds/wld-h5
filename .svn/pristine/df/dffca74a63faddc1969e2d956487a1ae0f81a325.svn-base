@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>商品管理</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css?v=1.2">
+	<!--<script type="text/javascript" src="__JS__/expand/clipboard.js"></script> -->
+	<style type="text/css">a{display: block;}</style>
+</head>
+<div class="wrap-page bgeb">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+		<div class="divtab" id="goods_list">	
+<!-- 	<div class="wrap-page bgcolor" id="store_id1">
+		<a class="orderlist-body bgcolor" href="__URL__/goods_edit">
+		<div class="fl listbody-left">
+			<img src="__IMG__/logo.png" alt="">
+		</div>
+		<div class="fl listbody-center">
+			<h3><span>(代理)</span>这是一个产品名称</h3>
+			<div class="store_mid">
+				<div class="fl price_left">￥89.00</div>
+				<div class="fr price_img">
+					<img src="__IMG__/order/jiantou.png" alt="">
+				</div>
+			</div>
+			<div class="listbody-bot">
+				<div class="fl order-price">
+					销量：2000
+				</div>
+				<div class="fl order-num">
+					库存：100
+				</div>
+			</div>
+		</div>
+	</a>
+	<div class="store_menu bgcolor">
+		<a href="__URL__/comment" class="fl menu_list c9" style="margin-left:5%;">
+			<div class="menu_img">
+				<img src="__IMG__/store/s1.png" alt="">
+			</div>
+			评论管理
+		</a>
+		<a href="__URL__/goods_edit" class="fl menu_list c9">
+			<div class="menu_img">
+				<img src="__IMG__/store/s2.png" alt="">
+			</div>
+			编辑
+		</a>
+		<a href="javascript:;" class="fl menu_list c9" onclick="removeGoods(this,'{$vo.c_id}');">
+			<div class="menu_img">
+				<img src="__IMG__/store/s1.png" alt="">
+			</div>
+			删除
+		</a>
+		<a href="javascript:;" class="fl menu_list c9" onclick="updownGoods(2,'{$vo.c_id}');">
+			<div class="menu_img">
+				<img src="__IMG__/store/s1.png" alt="">
+			</div>
+			下架
+		</a>
+		<a href="__URL__/detail?pcode={$vo.c_pcode}" class="fl menu_list c9">
+			<div class="menu_img">
+				<img src="__IMG__/store/s3.png" alt="">
+			</div>
+			浏览
+		</a>
+		<a href="javascript:;" class="fl menu_list c9">
+			<div class="menu_img">
+				<img src="__IMG__/store/s4.png" alt="">
+			</div>
+			分享
+		</a>
+	</div>
+	</div> -->
+</div>
+</div>
+</div>
+<div class="wrap-page bgcolor" id="store_id1">
+	<a href="__URL__/addproduct" class="store_tit">		
+		<p><img src="__IMG__/store/add.png" alt=""></p>  	
+	</a>
+	
+	<!-- <div class="store_null">
+		<img src="__IMG__/store/null.png" alt="">
+	</div> -->
+</div>
+<include file="Base@Public/pubjs" /> 
+<script type="text/javascript">
+	window.onload = function() {
+		$('.listbody-left').height($('.listbody-left').width());
+		// $('#store_id1').hide();
+		// $('#store_id2').show();
+	}
+
+	var ctrls = true;
+		var emptyval = true;
+		var pageindex = 1;
+		getscore(pageindex);
+		$(window).bind('scroll', function() {
+			if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if (ctrls && emptyval) {
+					getscore(pageindex);	
+				}		
+			}		
+		});		
+        function getscore (page) {
+        	if (page==1) {
+				pageindex = 1;
+			}			
+			var _html="";
+			var strurl = "__URL__/GetProductList?pageindex="+pageindex;
+			$.ajax({
+				type:'get', dataType:'json', url:strurl, cache:false, beforeSend:function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				}, error:function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},success:function(obj) {
+					if(pageindex == 1) {
+						$('#goods_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code']==0) {
+						var data = mgs.data;
+						if(data == null || data.list == null){							
+							if (pageindex==1) {
+								_html += '<div class="wrap-page bgcolor">';								
+								_html += '<div class="store_null">';
+								_html += '<img src="__IMG__/store/null.png" alt="">';
+								_html += '</div>';
+								_html += '</div>';
+							}							
+							emptyval = false;
+						} else {
+						if (pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for (var i = 0;i < datalist.length;i++) {
+								_html += '<div class="goods_list" id="goods_list">';
+								_html += '<a class="orderlist-body bgcolor" href="__URL__/goods_edit?pcode='+datalist[i]['c_pcode']+'">';
+								_html += '<div class="fl listbody-left">';
+								_html += '<img src="'+datalist[i]['c_pimg']+'" alt="">';
+								_html += '</div>';
+								_html += '<div class="fl listbody-center">';
+								if (datalist[i]['c_isagent'] == 0) {
+									_html += '<h3><span>(自营)</span>'+datalist[i]['c_name']+'</h3>';
+								} else {
+									_html += '<h3><span>(代理)</span>'+datalist[i]['c_name']+'</h3>';
+								}
+								_html += '<div class="store_mid">';
+								_html += '<div class="fl price_left">￥'+datalist[i]['c_price']+'</div>';
+								_html += '<div class="fr price_img">';
+								_html += '<img src="__COMMON__/img/arrows.png" alt="">';
+								_html += '</div>';
+								_html += '</div>';
+								_html += '<div class="listbody-bot">';
+								_html += '<div class="fl order-price">销量：'+datalist[i]['c_salesnum']+'</div>';
+								_html += '<div class="fl order-num">库存：'+datalist[i]['c_num']+'</div>';
+								_html += '</div>';
+								_html += '</div>';
+								_html += '</a>';
+								_html += '<div class="store_menu bgcolor">';
+								_html += '<a href="__URL__/comment?pcode='+datalist[i]['c_pcode']+'" class="fl menu_list c9" style="margin-left:5%;">';
+								_html += '<div class="menu_img">';
+								_html += '<img src="__IMG__/store/s1.png" alt="">';
+								_html += '</div>评论管理</a>';
+								_html += '<a href="__URL__/goods_edit?pcode='+datalist[i]['c_pcode']+'" class="fl menu_list c9">';
+								_html += '<div class="menu_img">';
+								_html += '<img src="__IMG__/store/s2.png" alt="">';
+								_html += '</div>编辑</a>';
+								_html += '<a href="javascript:;" class="fl menu_list c9" onclick="confirms(this,\''+datalist[i]['c_pcode']+'\');">';
+								_html += '<div class="menu_img">';
+								_html += '<img src="__IMG__/store/s5.png" alt="">';
+								_html += '</div>删除</a>';
+								if (datalist[i]['c_ishow'] == 2) {
+									_html += '<a href="javascript:;" class="fl menu_list c9" onclick="updownGoods(1,\''+datalist[i]['c_pcode']+'\');">';
+									_html += '<div class="menu_img">';
+									_html += '<img src="__IMG__/store/s6.png" alt="">';
+									_html += '</div>上架</a>';
+								} else {
+									_html += '<a href="javascript:;" class="fl menu_list c9" onclick="updownGoods(2,\''+datalist[i]['c_pcode']+'\');">';
+									_html += '<div class="menu_img">';
+									_html += '<img src="__IMG__/store/s7.png" alt="">';
+									_html += '</div>下架</a>';
+								}	
+								
+
+								_html += '<a href="__URL__/pdetail?pcode='+datalist[i]['c_pcode']+'" class="fl menu_list c9">';
+								_html += '<div class="menu_img">';
+								_html += '<img src="__IMG__/store/s3.png" alt="">';
+								_html += '</div>预览</a>';
+								_html += '<a href="'+WEB_HOST+'/index.php/Shopping/Index/detail?pcode='+datalist[i]['c_pcode']+'&pucode='+datalist[i]['c_ucode']+'" class="fl menu_list c9">';
+								_html += '<div class="menu_img">';
+								_html += '<img src="__IMG__/store/s4.png" alt="">';
+								_html += '</div>分享</a>';
+								_html += '</div>';
+								_html += '</div>';	
+								_html += '</div>';	
+							}
+						}
+						else{
+							emptyval=false;
+						}
+					}
+					}
+					else{
+						emptyval=false;
+					}
+					$('#goods_list').append(_html);	
+				}, complete:function() {									
+		            $('.listbody-left').height($('.listbody-left').width());
+					ctrls = true;
+				}
+			});
+        }
+
+	// 上下架
+	function updownGoods(ishow,pcode) {
+		$.ajax({
+			type: "POST",
+			url:  "__URL__/goods_out",
+			data: "pcode=" + pcode +"&ishow=" + ishow,
+			dataType: "json",
+			success: function(json) {
+				var obj = eval(json);
+				if (obj.code == 0) {
+					mui.toast(obj.msg);
+					window.location.href = '';						
+				} else {
+					mui.toast(obj.msg);
+				}
+			}
+		});		
+	}
+
+	function confirms(tg,pcode) {
+        mui.confirm('删除后将无法恢复，确认删除？', '提示', ['取消', '确认'], function(e) {
+			e.index == 0 ? "" : removeGoods(tg,pcode);
+		}, 'div');
+    }
+
+	// 删除商品
+	function removeGoods(tg,pcode) {
+		$.ajax({
+			type: "POST",
+			url:  "__URL__/goods_delete",
+			data: "pcode=" + pcode,
+			dataType: "json",
+			success: function(json) {
+				var _html = '';
+				var obj = eval(json);
+				if (obj.code == 0) {
+					mui.toast(obj.msg);	
+					$(tg).parent().parent().remove();
+					if ($('.listbody-center').size() == 0) {
+						_html += '<div class="wrap-page bgcolor">';
+						_html += '<div class="store_null">';
+						_html += '<img src="__IMG__/store/null.png" alt="">';
+						_html += '</div>';
+						_html += '</div>';
+						$('#goods_list').append(_html);
+					};						
+				} else {
+					mui.toast(obj.msg);
+				}
+			}
+		});		
+	}
+
+	function sharepro(id) {
+		var clipboard = new Clipboard('#' + id);
+		clipboard.on('success', function(e) {
+			console.log(e);
+			mui.toast('分享链接已复制到剪贴板！');
+		});
+		clipboard.on('error', function(e) {
+			console.log(e);
+		});
+	}
+
+</script>
+</body>
+</html>

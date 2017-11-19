@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>品牌详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="confirm-pcode" value="">
+				<div class="mui-content">
+					<div class="good-details bgcolor">
+						<div class="good-remark divtab">
+							<p class="fs16 c3 alignc">{$data['c_bag_name']}</p>
+							<p class="fs13 c3">{$data['c_bag_desc']}</p>
+						</div>
+						<div class="good-d-imglist divtab alignc">
+							<?php foreach ($data['imglist'] as $key => $value) { ?>
+							<img src="{$value['c_thumbnail_img']}" alt="" />
+							<?php } ?>
+						</div>
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var pcode = '<?php echo $datainfo["c_pcode"] ?>';
+		var ucode = '<?php echo $ucode ?>';
+		
+		window.onload = function() {
+			$('.xm-bar-nav-right').hide();
+
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			
+		}
+	</script>
+
+</html>

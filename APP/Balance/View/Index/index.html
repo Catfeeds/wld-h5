@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>结算中心</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+<style>ul.balance-menu{padding: 5% 0 3% 0;}ul.balance-menu li{width: 25%;padding: 3% 3.5%;}</style>
+</head>
+
+<body class="bgcolor">
+<div class="wrap-page bgcolor" style="padding-bottom: 6%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content" style="background: #fff;">
+		<div class="index-top-bg">
+			<div class="index-circle divre">
+				<div class="usable-money cf fs14 divab">可用余额（元）</div>
+				<div class="usable-money-val divab cf">{$data.balance}</div>
+				<div class="usable-money-font divab fs14">努力赚钱努力花</div>
+				<img src="__IMG__/topbg.png" alt="">
+			</div>
+		</div>
+		<?php if($ysstate==0){ ?>
+		<div class="index-record-li">
+			<div class="record-box fl fs14" id="record-box-1">
+				<p class="c9 fs14">可提现（元）</p>
+				<h3 class="fs16">￥{$data.drawmoney}</h3>
+			</div>
+			<div class="record-box fl fs14 record-box-b" id="record-box-2">
+				<p class="c9 fs14">待结算（元）</p>
+				<h3 class="fs16">￥{$data.stmoney}</h3>
+			</div>
+		</div>
+		<?php } ?>
+		<ul class="balance-menu">
+			<li id="menuli-1"><img src="__IMG__/newb016.png" alt=""></li>
+			<li id="menuli-2"><img src="__IMG__/newb013.png" alt=""></li>
+			<li id="menuli-3"><img src="__IMG__/newb015.png" alt=""></li>
+	
+			<!--<?php if(empty($bindinfo['c_wxname']) || empty($bindinfo['c_wxcard']) || $bindinfo['iswx_auth'] == 0){ ?>-->
+			<!--<li id="menuli-4"><img src="__IMG__/newb02.png" alt=""></li>-->
+			<!--<?php }else{ ?>-->
+			<!--<li id="menuli-4"><img src="__IMG__/newb05.png" alt=""></li>-->
+			<!--<?php } ?>-->
+
+			<!--<?php if(empty($bindinfo['c_alipayname']) || empty($bindinfo['c_alipaycard'])){ ?>-->
+			<!--<li id="menuli-5"><img src="__IMG__/newb04.png" alt=""></li>-->
+			<!--<?php }else{ ?>-->
+			<!--<li id="menuli-5"><img src="__IMG__/newb07.png" alt=""></li>-->
+			<!--<?php } ?>-->
+
+			<?php if(empty($bindinfo['c_banksn']) || empty($bindinfo['c_bankname']) || empty($bindinfo['c_sub_bankname'])){ ?>
+			<li id="menuli-6"><img src="__IMG__/newb03.png" alt=""></li>
+			<?php }else{ ?>
+			<li id="menuli-6"><img src="__IMG__/newb06.png" alt=""></li>
+			<?php } ?>
+		</ul>
+		<div class="tijiao-sub none">
+			<button type="button" class="sub-btns fs16">我要提现</button>
+		</div>
+		<div class="fixed-btn btn-withdraw fs16">我要提现</div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+	window.onload=function(){
+	
+	}
+	
+	/*交易中跳转*/
+//	mui('.mui-content').on('tap','#record-box-1',function(){
+//		mui.openWindow({url:'__URL__/tradeing',id:'tradeing'});
+//	});
+	/*累计提现查看*/
+	mui('.mui-content').on('tap','#record-box-2',function(){
+//		mui.openWindow({url:'__URL__/drawinglog',id:'drawinglog'});
+        mui.openWindow({url:"__APP__/Balance/Staysettle/index",id:"Staysettle"});
+	});
+	
+	/*菜单跳转************/
+	/*提现记录*/
+	mui('.mui-content').on('tap','#menuli-1',function(){
+		mui.openWindow({url:'__URL__/drawinglog',id:'drawinglog'});
+	});
+	
+	/*交易中*/
+//	mui('.mui-content').on('tap','#menuli-2',function(){
+//		mui.openWindow({url:'__URL__/tallybook',id:'tradeing'});
+//	});
+	mui('.mui-content').on('tap','#menuli-2',function(){
+		mui.openWindow({url:'__URL__/tradeing',id:'tallybook'});
+	});
+	
+	/*收支明细*/
+	mui('.mui-content').on('tap','#menuli-3',function(){
+		mui.openWindow({url:'__URL__/budget',id:'budget'});
+	});
+	
+	var uname = '<?php echo $bindinfo["c_uname"] ?>';
+	var carid = '<?php echo $bindinfo["c_carid"] ?>';
+
+    var banksn = '<?php echo $bindinfo["c_banksn"] ?>';
+    var bankname = '<?php echo $bindinfo["c_bankname"] ?>';
+    var subbankname = '<?php echo $bindinfo["c_sub_bankname"] ?>';
+    var province = '<?php echo $bindinfo["c_province"] ?>';
+    var city = '<?php echo $bindinfo["c_city"] ?>';
+	
+	/*绑定微信跳转*/
+	mui('.mui-content').on('tap','#menuli-4',function(){
+		if(!emptyval(uname) && !emptyval(carid)){
+			window.location.href="__URL__/bindingwx";
+		}else{
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+		   		e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=2',id:'identify2'});
+		    },'div');
+		    return;
+		}
+	});
+	
+	/*绑定支付宝跳转*/
+	mui('.mui-content').on('tap','#menuli-5',function(){
+		if (!emptyval(uname) && !emptyval(carid)) {
+			window.location.href = "__URL__/bindingap";
+		} else {
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+		   		e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=3',id:'identify3'});
+		    },'div');
+		    return;
+		}
+	});
+	
+	/*绑定银行卡跳转*/
+	mui('.mui-content').on('tap','#menuli-6',function(){
+		if (!emptyval(uname) && !emptyval(carid)) {
+			window.location.href = "__URL__/bindingup";
+		} else {
+			mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+		   		e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=1',id:'identify1'});
+		    },'div');
+		    return;		
+		}
+	});
+	
+	/*我要提现*/
+	mui('.mui-content').on('tap','.btn-withdraw',function(){
+		//mui.openWindow({url:'__URL__/cashway',id:'cashway'});
+        if (!emptyval(uname) && !emptyval(carid)) {
+            if (!emptyval(bankname) && !emptyval(banksn) && !emptyval(subbankname) && !emptyval(province) && !emptyval(city)) {
+                mui.openWindow({url:'__URL__/withdraw?sign=1',id:'withdraw'});
+            } else {
+                mui.confirm('银行卡信息不完善，请先完善','提示',['取消','确认'],function (e) {
+                    e.index == 0 ? "" : mui.openWindow({url:'__URL__/bindingup',id:'bindingup'});
+                },'div');
+            }
+        } else {
+            mui.confirm('您还未小蜜实名认证，是否进行实名认证','提示',['取消','确认'],function (e) {
+                e.index == 0 ? "" : mui.openWindow({url:'__URL__/identify?sign=1',id:'identify3'});
+            },'div');
+        }
+	});
+
+</script>
+
+<include file="Common/footer"/>
+</body>
+</html>

@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<style>.resource-main{ margin-bottom: 16%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="mui-content">
+				<div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_txzl.png" alt=""></div>
+				<div class="p_info_tit"><span class="fs14 c3">商家资料4/8</span></div>
+				<div class="p_info_con fs14 bgcolor">
+					<div class="resource-main">
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>负责人</div>
+							<div class="resource-r fl"><input type="text" id="contact-name" value="{$vo['c_name']}" name="name" class="resource-text" placeholder="请输入负责人"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>联系电话</div>
+							<div class="resource-r fl"><input type="text" id="phone-name" value="{$vo['c_phone']}" name="phone" class="resource-text" placeholder="请输入联系电话"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>法人</div>
+							<div class="resource-r fl"><input type="text" id="law-name" value="{$vo['c_legalperson']}" name="legalperson" class="resource-text" placeholder="请输入法人"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>身份证号码</div>
+							<div class="resource-r fl"><input type="text" id="identity-name" value="{$vo['c_idcard']}" name="idcard" class="resource-text" placeholder="请输入身份证号码"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>币种</div>
+							<div class="resource-r fl">
+								<select name="feetype" id="feetype" class="fs14">
+									<?php if (empty($vo['c_feetype'])){ ?>
+										<option value="CNY" selected="selected">人民币</option>
+										<option value="USD">美元</option>
+										<option value="EUR">欧元</option>
+										<option value="HKD">港币</option>
+									<?php }else{ ?>
+										<option value="CNY" <?php if ($vo['c_feetype']=='CNY'): ?>selected="selected"
+											<?php endif ?>>人民币</option>
+										<option value="USD" <?php if ($vo['c_feetype']=='USD'): ?>selected="selected"
+											<?php endif ?>>美元</option>
+										<option value="EUR" <?php if ($vo['c_feetype']=='EUR'): ?>selected="selected"
+											<?php endif ?>>欧元</option>
+										<option value="HKD" <?php if ($vo['c_feetype']=='HKD'): ?>selected="selected"
+											<?php endif ?>>港币</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商家类型</div>
+							<div class="resource-r fl c9 fs14">
+								<?php if($isfixed==0){ ?> 线上微商
+								<input type="hidden" name="isfixed" id="isfixed" value="0">
+								<?php }elseif($isfixed==1){ ?> 线下实体商家
+								<input type="hidden" name="isfixed" id="isfixed" value="1">
+								<?php } ?><span class="fs12 cyellow">（不可修改）</span>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>所属行业</div>
+							<div class="resource-r fl c9 fs14">
+									<?php if($vo['tradepid']==0){ ?>
+									{$vo['tradename']}
+									<?php }else{ ?>
+									{$vo['tradename']}
+									<?php } ?><span class="fs12 cyellow">（不可修改）</span>
+								<input type="hidden" name="tid" id="tid" value="{$vo['c_shoptrade']}" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li id="PreviousCK">上一步</li>
+						<li id="savestep" style="background: #45AAFA;">保存并下一步</li>
+					</ul>
+				</div>
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var ctype = '<?php echo $ctype ?>'; /*1个人，2企业*/
+			window.onload = function() {
+				//页面样式
+				$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+				$('#feetype').css('height', $('.resource-list').height()*0.9 + 'px');
+
+
+			}
+			/*身份证验证*/
+			function checkIdcard(idcard) {
+				var idreg = /^[0-9a-zA-Z]*$/g;
+				// var idreg = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+				// switch (idcard.length) {
+				// 	case 10: //台湾
+				// 		if (idcard.indexOf("(") > 0) {
+				// 			if (isNaN(idcard.substr(0,1))) {  //香港
+				// 				idreg = /^[A-Z][0-9]{6}\([0-9A]\)$/;
+				// 			} else {	//澳门
+				// 				idreg = /^[157][0-9]{6}\([0-9]\)$/;
+				// 			}
+				// 		} else {   //台湾
+				// 			idreg = /^[A-Z][0-9]{9}$/;
+				// 		}
+				// 		break;
+				// 	default:
+				// 		idreg = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+				// 		break;
+				// }
+				if(!idreg.test($('input[name="idcard"]').val())) {
+					return false;
+				}
+				return true;
+			}
+
+			/*上一步*/
+			mui('.mui-content').on('tap', '#PreviousCK', function() {
+				mui.openWindow({url:"__URL__/info_3?isfixed="+isfixed+"&ctype="+ctype, id:"info_3"});
+			});
+
+			//提交
+			mui('.mui-content').on('tap', '#savestep', function() {
+				savestep();
+			})
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					if(emptyval($('input[name="name"]').val())) {
+						mui.toast('请输入负责人信息');
+						$('input[name="name"]').focus();
+						resign = true;
+						return false;
+					}
+					if(emptyval($('input[name="phone"]').val())){
+						mui.toast('请输入联系电话！');
+						$('input[name="phone"]').focus();
+						resign = true;
+						return false;
+					}else{
+						var match = /^1[3|4|5|7|8][0-9]\d{8}$/;
+						if(!match.exec($('input[name="phone"]').val())) {
+							mui.toast('联系电话格式错误');
+							$('input[name="phone"]').focus();
+							resign = true;
+							return false;
+						}
+					}
+					if(emptyval($('input[name="legalperson"]').val())) {
+						mui.toast('请输入法人信息');
+						$('input[name="legalperson"]').focus();
+						resign = true;
+						return false;
+					}
+					if(emptyval($('input[name="idcard"]').val())) {
+						mui.toast('请输入身份证号');
+						$('input[name="idcard"]').focus();
+						resign = true;
+						return false;
+					} else {
+						if(!checkIdcard($('input[name="idcard"]').val())) {
+							mui.toast('请输入正确的身份证号码！');
+							$('input[name="idcard"]').focus();
+							resign = true;
+							return false;
+						}
+					}
+					if(emptyval($("#feetype").find("option:selected").val())) {
+						mui.toast('请选择币种');
+						$('select[name="feetype"]').focus();
+						resign = true;
+						return false;
+					}
+					var attrbul = getFormAttrs('form1');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetInfo4',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.toast("保存成功！");
+								setTimeout(function() {
+									mui.openWindow({url: '__URL__/info_5?isfixed='+isfixed+'&ctype='+ctype,id:'info_5'});
+								}, 1000);
+							} else {
+								mui.toast(msg.msg);
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

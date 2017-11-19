@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>微信公众号</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 微信公众号 <span class="c-gray en">&gt;</span> 微信消息列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="wxmessage_list" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入触发关键字" name="key" value="{$post['key']}">
+		
+		<span class="select-box inline">
+		<select name="sign" class="select">
+			<option value="">选择消息类型</option>
+			<option value="1" <if condition="$post['sign'] eq 1">selected="selected"</if>>普通消息</option>
+     		<option value="2" <if condition="$post['sign'] eq 2">selected="selected"</if>>已绑定关注</option>
+     		<option value="3" <if condition="$post['sign'] eq 3">selected="selected"</if>>未绑定关注</option>
+     		<option value="4" <if condition="$post['sign'] eq 4">selected="selected"</if>>未应答回复</option>
+		</select>
+		</span>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+	</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span>
+		<a href="javascript:;" onclick="wxmessage_add('添加消息模板','Weixing/wxmessage_add','','720')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe62f;</i>添加消息模板</a>
+		<a href="javascript:;" onclick="batch_wxmessage('','',1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="90">信息标识编码</th>
+				<th width="60">触发关键字</th>
+				<th width="100">标题/内容</th>
+				<th width="90">图文消息描述</th>
+				<th width="60">图片</th>
+				<th width="60">素材类型</th>
+				<th width="100">资讯链接</th>
+				<th width="100">回复消息标识</th>
+				<th width="130">添加时间</th>
+				<th width="60">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo['c_id']}" name="wxmessageid"></td>
+				<td>{$i}</td>
+				<td>{$vo['c_msgcode']}</td>
+				<td>{$vo['c_key']}</td>
+				<td>
+					<?php if (!empty($vo['c_text'])) { ?>
+						{$vo['c_text']|substr=0,30}<font color="red">...</font>
+					<?php } ?>
+				</td>
+				<td>
+					<?php if (!empty($vo['c_desc'])) { ?>
+						{$vo['c_desc']|substr=0,30}<font color="red">...</font>
+					<?php } ?>
+				</td>
+				<td>
+					<?php if (!empty($vo['c_picurl'])) { ?>
+						<a href="{$root_url}{$vo['c_picurl']}" target="_blank"><img src="{$root_url}{$vo['c_picurl']}" style="width:80px;"/></a>
+					<?php } ?>
+				</td>
+				<td>{$vo['c_type']}</td>
+				<td>
+					<?php if (!empty($vo['c_url'])) { ?>
+						<a href="{$vo['c_url']}" target="_blank">{$vo['c_url']|substr=0,30}<font color="red">...</font></a>
+					<?php } ?>	
+				</td>
+				<td>
+					<?php if ($vo['c_sign'] == 2) { ?>
+						已绑定关注
+					<?php }else if($vo['c_sign'] == 3){ ?>
+						未绑定关注
+					<?php }else if($vo['c_sign'] == 4){ ?>
+						未应答回复
+					<?php }else{ ?>
+						普通消息
+					<?php } ?>
+				</td>
+				<td>{$vo['c_addtime']}</td>
+				<td class="td-manage">
+					<a title="编辑" href="javascript:;" onclick="wxmessage_edit('编辑','wxmessage_edit?Id={$vo.c_id}',780)" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+				 	<a title="删除" href="javascript:;" onclick="batch_wxmessage(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+
+
+//批量处理
+function batch_wxmessage(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=wxmessageid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('消息记录删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Weixing/wxmessage_del',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+/*消息-添加*/
+function wxmessage_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*消息-编辑*/
+function wxmessage_edit(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

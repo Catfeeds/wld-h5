@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>我的连锁店</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/multshop/mindex.css" />
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+	<style type="text/css">
+	.dc-tab-list{width: 50%;}
+	.dc-propor-timg{width: 8%;}
+	.dc-tab-list ul li{padding: 3% 0;}
+	</style>
+</head>
+<body class="bgeb" style="padding-bottom:12%;">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<div class="mshop-head divtab">
+				<div class="mshop-head-img">
+					<img src="{$unioninfo['c_headimg']}">
+				</div>
+				<p class="fs14 cf">{$unioninfo['c_nickname']}</p>
+				<p class="fs12">{$unioninfo['c_shopcode']}</p>
+			</div>
+
+			<div class="mshop-con" >
+				<div class="mshop-money divtab">
+					<ul>
+						<li><p class="cy fs20 fb600">{$count['today']}</p><span class="fs12">今日营业额</span></li>
+						<li><p class="cy fs20 fb600">{$count['yesterday']}</p><span class="fs12">昨日营业额</span></li>
+					</ul>
+				</div>
+				<div class="mshop-menu c3 fs14 divtab" id="mincomedetail">
+					<span>营收明细</span>
+					<div class="mshop-menu-next fr">
+						<img src="__IMG__/multshop/lsdgl_icon_next.png">
+					</div>
+				</div>
+				<div class="mshop-menu c3 fs14 divtab bborder" id="mcrossincome">
+					<span>跨界收益</span>
+					<div class="mshop-menu-next fr">
+						<img src="__IMG__/multshop/lsdgl_icon_next.png">
+					</div>
+				</div>
+
+				<!-- <div class="mshop-report-con divtab">
+					<div class="mshop-report-tab fs14 c3 divtab">
+						<ul>
+							<li class="report-bg" id="tab_1">7天</li>
+							<li id="tab_2">30天</li>
+							<div class="mshop-report-time fr">
+								<img src="__IMG__/multshop/lsdgl_icon_sx.png">
+							</div>
+						</ul>
+					</div>
+
+					<div class="mshop-report-data">
+						<div id="mshop-report-line"></div>
+					</div>
+				</div> -->
+
+				<div class="divtab divre">
+					<div class="divtab fs12 alignc c9" style="margin-top:2%;" id="cshowtit">最近七天</div>
+					<div class="divtab fs14 alignc fb600 c5" style="padding:2%;">营业额<span id="cmoney">00.00</span>元</div>
+
+					<div class="dc-report-time fr divab" id="checkdate" data-options='{"type":"month"}' style="top:14%;right:4%;width: 8%;">
+						<img src="__IMG__/multshop/lsdgl_icon_sx.png">
+					</div>
+				</div>
+				
+				<div class="divtab">
+					<!-- 折线图 -->
+					<div id="main1" style="width:100%;"></div>
+				</div>				
+				
+
+			</div>
+
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script src="__COMMON__/echart/js/echarts.js"></script>
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('#main1').height($('#main1').width()*0.5);
+		drawline();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		// body...
+	}
+
+	//日期选择
+	mui('.mui-content').on('tap', '#checkdate', function() {
+		var optionsJson = $(this).attr('data-options');
+		var options = JSON.parse(optionsJson);
+		var picker = new mui.DtPicker(options);
+		picker.show(function(rs) {
+			getLinedata(3,rs.text);
+			picker.dispose();
+		});
+	});
+
+	getLinedata(1,'');
+	//获取折线图数据
+	function getLinedata(timetype, chtime) {
+		$.post("__URL__/GetdataTally", {
+			pid: "",
+			federationid:"<?php echo $unioninfo['c_id']; ?>",
+			timetype: timetype,
+			time: chtime
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				var data = result['data'];
+				$('#cmoney').text(data['money']);
+				var datalist = data['list'];
+				var datas = new Array();
+				var sdata = new Array();
+				//循环赋值数组
+				for (var i = 0; i < datalist.length; i++) {
+					datas[i] = datalist[i]['time'];
+					sdata[i] = datalist[i]['c_money'];
+				};
+				$('#cshowtit').text(data['date']);
+				drawline(datas, sdata);
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+
+	//绘制折线图
+	function drawline(data,sdata) {
+		// 路径配置
+		require.config({
+			paths: {
+				echarts: WEB_HOST+'/Resource/Common/echart/build/dist'
+			}
+		});
+
+		// 使用
+		require(
+			[
+				'echarts',
+				'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+			],
+			function(ec) {
+				// 基于准备好的dom，初始化echarts图表
+				var myChart = ec.init(document.getElementById('main1'));
+
+				var option = {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							lineStyle: {
+								// color:['#ff7f7f'],
+							}
+						}
+					},
+					grid: {
+				        left: '0%',
+				        right: '0%',
+				        bottom: '0%',
+				        x:1,
+	                    y:'2%',
+	                    x2:1,
+	                    y2:30,
+				        containLabel: true
+				    },
+					calculable : true,
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false,
+						axisLine: {
+		                    lineStyle: {
+		                        type: 'solid',
+		                        color: '#555555',//左边线的颜色
+		                        width:'1'//坐标线的宽度
+		                    }
+		                },
+						data: data,
+						splitLine: {
+						    lineStyle: {
+						        // 使用深浅的间隔色
+						        color: ['#f0f0f0']
+						    }
+						}
+					}],
+					yAxis: [{
+						show: true,
+						axisLine: {
+							show: false,
+						},
+						axisLabel: {
+							show: false,
+						},
+						splitLine: {
+						    lineStyle: {
+						        type: 'dashed',
+						        color: ['#999999']
+						    }
+						}
+					}],
+					series: [
+						{
+							name: '收入',
+							type: 'line',
+							itemStyle : {  
+                                normal : {  
+                                    color:'#d8d8d8',  
+                                    lineStyle:{  
+                                        color:'#d8d8d8'  
+                                    }  
+                                }  
+                            },  
+							stack: '',
+							data: sdata
+						}
+					]
+				};
+
+				// 为echarts对象加载数据 
+				myChart.setOption(option);
+			}
+		);
+	}
+
+	//跳转营收明细
+	mui('.mui-content').on('tap', '#mincomedetail', function() {
+		mui.openWindow({url:"__URL__/mincomedetail",id:"mincomedetail"});	
+	});
+	
+	//跳转跨界收益
+	mui('.mui-content').on('tap', '#mcrossincome', function() {
+		mui.openWindow({url:"__URL__/mcrossincome",id:"mcrossincome"});	
+	});
+</script>
+
+</html>

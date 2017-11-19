@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>会员管理</title>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/yspayinfo');
+		$("#transmit").submit();
+	}
+}
+
+</script>
+</head>
+<body>
+<nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页 
+        <span class="c-gray en">&gt;</span> 会员管理 
+        <span class="c-gray en">&gt;</span> 银盛开户管理 
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+</nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:110px" placeholder="输入用户昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:110px" placeholder="输入商户名称" name="c_merchant" value="{$post['c_merchant']}">
+		<input type="text" class="input-text" style="width:110px" placeholder="输入商家手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:80px" placeholder="输入负责人姓名" name="c_person" value="{$post['c_person']}">
+		<input type="text" class="input-text" style="width:140px" placeholder="输入商户号" name="c_username" value="{$post['c_username']}">
+		<span class="select-box inline">
+		<select name="c_reason" class="select">
+			<option value="">提交状态</option>
+     		<option value="可提交" <if condition="$post['c_reason'] eq 可提交">selected="selected"</if>>可提交</option>
+     		<option value="加急" <if condition="$post['c_reason'] eq 加急">selected="selected"</if>>加急</option>
+     		<option value="已驳回" <if condition="$post['c_reason'] eq 已驳回">selected="selected"</if>>已驳回</option>
+     		<option value="未处理" <if condition="$post['c_reason'] eq 未处理">selected="selected"</if>>未处理</option>
+     		<option value="未备注" <if condition="$post['c_reason'] eq 未备注">selected="selected"</if>>未备注</option>
+		</select>
+		</span>
+		
+		<span class="select-box inline">
+		<select name="c_isagent" class="select">
+			<option value="">是否是代理</option>
+     		<option value="se" <if condition="$post['c_isagent'] eq se">selected="selected"</if>>不是</option>
+     		<option value="1" <if condition="$post['c_isagent'] eq 1">selected="selected"</if>>是</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_storetype" class="select">
+			<option value="" selected>商户类型</option>
+     		<option value="1" <if condition="$post['c_storetype'] eq 1">selected="selected"</if>>线下</option>
+     		<option value="sp" <if condition="$post['c_storetype'] eq sp">selected="selected"</if>>线上</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_isshop" class="select">
+			<option value="" selected>是否是商家</option>
+     		<option value="sq" <if condition="$post['c_isshop'] eq sq">selected="selected"</if>>不是</option>
+     		<option value="1" <if condition="$post['c_isshop'] eq 1">selected="selected"</if>>是</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_openaccount" class="select">
+			<option value="">是否开户</option>
+     		<option value="er" <if condition="$post['c_openaccount'] eq er">selected="selected"</if>>未开户</option>
+     		<option value="1" <if condition="$post['c_openaccount'] eq 1">selected="selected"</if>>已开户</option>
+     		<option value="2" <if condition="$post['c_openaccount'] eq 2">selected="selected"</if>>已驳回</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="c_storetials" class="select">
+			<option value="">开户资质</option>
+     		<option value="1" <if condition="$post['c_storetials'] eq 1">selected="selected"</if>>个人</option>
+     		<option value="2" <if condition="$post['c_storetials'] eq 2">selected="selected"</if>>企业</option>
+     		<option value="3" <if condition="$post['c_storetials'] eq 3">selected="selected"</if>>个体户</option>
+		</select>
+		</span>
+		<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>	
+			</span>   
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</div>
+	</form>
+	<if condition="$flag eq 0">
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<form method="post" action="Leading_in" enctype="multipart/form-data">
+					<input  type="file" name="file_stu" />
+					<input type="submit"  value="批量导入" class="btn btn-danger radius"/>
+				</form>
+			</span>
+		</div>
+	</if> 
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th>ID</th>
+				<th width="100">用户昵称</th>
+				<th width="40">开户资质</th>
+				<th width="40">是否是商家</th>
+				<th>注册手机号</th>
+				<th width="40">负责人姓名</th>
+				<th width="120">商户号</th>
+				<th width="40">是否开户</th>
+				<th width="60">未开户成功理由</th>
+				<th>是否代理</th>
+				<th>商户类型</th>
+				<th >添加时间</th>
+				<th >更新时间</th>
+				<th width="120">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="" name="usercode"></td>
+				<td>{$i}</td>
+				<td>
+					<a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a>
+				</td>
+				<td>
+					<if condition="$vo['c_storetials'] eq 1" >
+						<font color="#666600">个人</font>
+					<elseif condition="$vo['c_storetials'] eq 2"/>
+						<font color="#FF44AA">企业</font>
+					<elseif condition="$vo['c_storetials'] eq 3"/>
+						<font color="blue">个体户</font>
+					</if>
+				</td>
+				<td>
+					<if condition="$vo['c_isshop'] eq 0" >
+						<font color="#666600">不是</font>
+					<else/>
+						<font color="#FF44AA">是</font>
+					</if>
+				</td>
+				<td>{$vo['c_phone']}</td>
+				<td>{$vo['c_person']}</td>
+				<td>{$vo['c_username']}</td>
+				<td>
+				    <if condition="$vo['c_openaccount'] eq 0"><font color="blue">未开户</font>
+					<elseif condition="$vo['c_openaccount'] eq 1"/><font color="green">已开户</font>
+					<elseif condition="$vo['c_openaccount'] eq 2"/><font color="red">驳回</font>
+					</if>
+				</td>
+				<td>
+	              <input class="" name="reason" type="text" id="reason_{$vo.c_id}" placeholder="{$vo.c_reason}" value="{$vo.c_reason}" style="width:130px;height:30px;margin-left:15px;" onchange="change('{$vo['c_id']}',this)" />
+				</td>
+				<td>
+					<if condition="$vo['c_isagent'] eq 1" >
+						<font color="green">是</font>
+					<else/>
+						<font color="red">不是</font>
+					</if>
+				</td>										
+				<td>
+					<if condition="$vo['c_storetype'] eq 1" >
+						<font color="green">线下</font>
+					<else/>
+						<font color="red">线上</font>
+					</if>
+				</td>	
+				<td>{$vo['c_addtime']}</td>
+				<td>{$vo['c_updatetime']}</td>
+				<td> 
+					<a style="text-decoration:none" class="ml-5" onClick="yspay_info('商家资料编辑','Member/yspay_info?ucode={$vo['c_ucode']}','10001')" href="javascript:;" title="商家资料编辑">
+					    <i class="Hui-iconfont">&#xe638;</i>
+					</a>
+					<?php if($vo['c_openaccount'] == 0) { ?>&nbsp;
+					<a title="通过" href="javascript:;" onclick="ajax_handle('1','{$vo['c_id']}')" class="ml-5" style="text-decoration:none">
+					    <i class="Hui-iconfont"><font color="#00CD00">通过</font></i>
+					</a>&nbsp;
+					<a title="驳回" href="javascript:;" onclick="ajax_handle('2','{$vo['c_id']}')" class="ml-5" style="text-decoration:none">
+					    <i class="Hui-iconfont"><font color="red">驳回</font></i>
+					</a>
+				<?php }　?>
+				</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">
+	{$page}
+	<div  class="mypages" style="display:inline;position:relative;left:20;">
+		<input class="input-text" type="number" min="1" max="{$count}" name="mypage" id="mypage" placeholder="请输入页码" style="width:130px;height:40px;position:absolute;left:50px;"/>
+	    <input class="btn btn-danger" type="submit" value="确定" style="height:40px;position:absolute;left:200px;" onclick="btnAction()"/>
+	</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  // {"orderable":false,"aTargets":[0,8,8]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+/*商家-编辑*/
+function yspay_info(title,url,id,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+/*页码跳转*/
+function btnAction(){
+	var mypage = $("#mypage").val();
+	if(mypage != ''){
+		var url = window.location.href;
+		if(url.indexOf("/p/") > 0){
+			var webhost = HHOME+'/Member/index';
+			url = webhost+'/p/'+mypage;
+
+			var phone = $('input[name=phone]').val();
+			if(phone != ''){
+				url = url+'/phone/'+phone;
+			}
+			var nickname = $('input[name=nickname]').val();
+			if(nickname != ''){
+				url = url+'/nickname/'+nickname;
+			}
+			var c_merchantname = $('select[name=c_merchantname]').val();
+			if(c_merchantname != ''){
+				url = url+'/c_merchantname/'+c_merchantname;
+			}
+			var name = $('select[name=name]').val();
+			if(name != ''){
+				url = url+'/name/'+name;
+			}
+			
+			var c_mchdealtype = $('input[name=c_mchdealtype]').val();
+			if(c_mchdealtype != ''){
+				url = url+'/c_mchdealtype/'+c_mchdealtype;
+			}
+			var hide = $('input[name=ismerch]').val();
+			if(ismerch != ''){
+				url = url+'/ismerch/'+ismerch;
+			}
+			
+			var istijiao = $('input[name=istijiao]').val();
+			if(istijiao != ''){
+				url = url+'/ismerch/'+istijiao;
+			}
+		}else{
+			if(url.indexOf("?") > 0){
+				var strs= new Array(); //定义一数组
+				strs=url.split("?");
+				url = strs[0]+'/p/'+mypage+'?'+strs[1];
+			}else{
+				url = url+'/p/'+mypage;
+			}
+		}
+
+		location.href = url;//location.href实现客户端页面的跳转  
+	}	
+}
+
+/*开户申请操作*/
+function ajax_handle(handle,txcode){
+
+	if(handle == 1){
+		var message = '确定要通过开户请求吗？';
+	}else if(handle == 2){
+		var message = '确定不通过,驳回请求吗？';
+	}
+
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Member/dealyspay',{handle:handle,txcode:txcode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000);
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000); 
+	        }          
+	    });		
+	});
+}
+
+function change(txcode,obj){
+   	var val = $(obj).val(); 
+    if(val!=''){
+        if(confirm("你确定执行该操作吗？")){
+            $.post('__URL__/save_thirdyspay',{Id:txcode,thirdparty:val},function(data){
+                var result = eval(data);		
+    	        if (result['code'] != 0) {
+    	        	layer.msg(result['msg'],{icon:10,time:2000});
+    	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000);
+    	        } else {
+    	        	layer.msg(result['msg'],{icon:1,time:2000});
+    	      //   	setTimeout(function () {
+		        	// 	window.location.reload();
+		        	// },2000); 
+    	        }          
+            });
+        }
+    }
+    return false;
+}
+</script> 
+</body>
+</html>

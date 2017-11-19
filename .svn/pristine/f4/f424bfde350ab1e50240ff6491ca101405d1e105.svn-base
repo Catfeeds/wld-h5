@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+    <div id="main1" style="height:330px;width:500px;margin-left:150px"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main1')); 
+                
+                var     option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['区域一','区域二','区域三']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            
+            dataView : {show: true, readOnly: false},
+            
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['1','2','3','4','5','6','7','8','9','10','11','12']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'区域一',
+            type:'line',
+            stack: '',
+            data:[19, 18, 18, 19, 20, 21, 20, 23, 21, 22, 21, 22]
+        },
+        {
+            name:'区域二',
+            type:'line',
+            stack: '',
+            data:[19, 18, 20, 21, 20, 23, 22,21, 23, 21,22, 21]
+        },
+        {
+            name:'区域三',
+            type:'line',
+            stack: '',
+            data:[19, 20, 21, 22, 19, 20, 22, 24, 25,23, 23, 22]
+        },
+        
+    ]
+};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+
+	<div id="main2" style="height:330px;width:500px;margin-left:650px;margin-top:-330px;"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main2')); 
+                
+                var     option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['区域一','区域二','区域三']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+           
+            dataView : {show: true, readOnly: false},
+            
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['1','2','3','4','5','6','7','8','9','10','11','12']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'区域一',
+            type:'line',
+            stack: '',
+            data:[75, 76, 81, 85, 80, 85, 83, 81, 82, 81, 82, 80]
+        },
+        {
+            name:'区域二',
+            type:'line',
+            stack: '',
+            data:[70, 72, 77, 80, 81, 83, 80, 85, 79, 80, 81, 83]
+        },
+        {
+            name:'区域三',
+            type:'line',
+            stack: '',
+            data:[72, 73, 71, 75, 83, 82, 84, 87, 82, 83, 85, 88]
+        },
+       
+    ]
+};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+
+	<div id="main3" style="height:330px;width:500px;margin-left:150px;"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main3')); 
+                
+                var     option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['区域一','区域二','区域三']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+           
+            dataView : {show: true, readOnly: false},
+           
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['1','2','3','4','5','6','7','8','9','10','11','12']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'区域一',
+            type:'line',
+            stack: '',
+            data:[17, 16, 18, 19, 20, 23, 25, 23, 26, 23, 28, 30]
+        },
+        {
+            name:'区域二',
+            type:'line',
+            stack: '',
+            data:[18, 16, 17, 19, 24, 23, 27, 29, 22, 27, 29, 31]
+        },
+        {
+            name:'区域三',
+            type:'line',
+            stack: '',
+            data:[19, 15, 16, 20, 25, 27, 24, 28, 30, 32, 33, 35]
+        },
+        
+    ]
+};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+
+	<div id="main4" style="height:330px;width:500px;margin-left:650px;margin-top:-330px;"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main4')); 
+                
+                var     option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['区域一','区域二','区域三']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            
+            dataView : {show: true, readOnly: false},
+            
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['1','2','3','4','5','6','7','8','9','10','11','12']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'区域一',
+            type:'line',
+            stack: '',
+            data:[21000, 23000, 22000, 26000, 35000, 37000, 29000, 24000, 25000, 23000, 21000, 21000]
+        },
+        {
+            name:'区域二',
+            type:'line',
+            stack: '总量',
+            data:[20000, 22000, 21000, 27000, 30000, 35000, 27000, 25000, 22000, 24000, 25000, 25000]
+        },
+        {
+            name:'区域三',
+            type:'line',
+            stack: '',
+            data:[22000, 25000, 21000, 27000, 34000, 35000, 33000, 35000, 25000,23000, 21500, 20000]
+        },
+       
+    ]
+};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+
+</body>

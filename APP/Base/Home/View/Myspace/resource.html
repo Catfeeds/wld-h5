@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>个人空间-资源</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/myspace/index.css?v=1.2">
+
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:5%;">
+		<include file="Base@Public/pubheader" />
+		<div class="mui-content">
+
+			<div class="myspace-s-banner">
+				<div class="myspace-s-head">
+					<img src="{$myspace['c_headimg']}" alt="">
+				</div>
+				<div class="myspace-s-name">{$myspace['c_nickname']}</div>
+				<div class="myspace-s-desc">{$myspace['c_signature']}</div>
+				<div class="myspace-s-friend">
+					<div class="fl tip-download"><img src="__IMG__/myspace/myspace-friend1.png" alt=""></div>
+					<div class="fl tip-download"><img src="__IMG__/myspace/myspace-friend2.png" alt=""></div>
+				</div>
+				<div class="myspace-s-tab">
+					<a class="s-tableft" href="javascript:;"><img src="__IMG__/myspace/myspace-link-1.png" alt=""></a>
+					<a class="s-tableft" href="javascript:;"><img src="__IMG__/myspace/myspace-hover-2.png" alt=""></a>
+				</div>
+
+				<img src="__IMG__/myspace/myspace-banner-2.jpg" alt="">
+			</div>
+			<div class="myspace-ss-main">
+				<div class="myspace-ss-font">诚招代理！ 银纤维是采用纯银包裹在尼龙基材表面，形成抗菌层。银袜是采用一定比例的银纤维与其他天然纤维混纺，银纤维网状包裹全脚，抗菌性能无以伦比。高科技的工艺性能，一切只为了舒适和防臭。5天不洗，保证不臭脚！</div>
+
+				<div class="myspace-ss-img">
+					<ul>
+						<li><img src="__IMG__/myspace/ssimg1.png" alt=""></li>
+						<li><img src="__IMG__/myspace/ssimg2.png" alt=""></li>
+						<li><img src="__IMG__/myspace/ssimg3.png" alt=""></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				var myh = $(".myspace-s-head").width();
+				$(".myspace-s-head").height(myh);
+				$(".myspace-s-head").css("border-radius", myh + "px");
+			}
+		</script>
+	</body>
+
+</html>

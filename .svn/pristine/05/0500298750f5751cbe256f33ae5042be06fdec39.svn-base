@@ -1,0 +1,21 @@
+﻿[wepay]
+;======================= 商户开通的商户号
+merchantNum = 
+
+;======================= 商户key
+desKey = 
+
+;=======================服务地址
+serverPayUrl=https://api.onepaypass.com/aps/cloudplatform/api/trade.html
+
+;=======================查询服务地址
+serverQueryUrl=https://api.onepaypass.com/aps/cloudplatform/api/trade.html
+
+;=======================退款服务地址
+refundUrl=https://api.onepaypass.com/aps/cloudplatform/api/trade.html
+
+;=======================callback地址
+callbackUrl=http://localhost/cskjDemo_php/com/cskj/pay/demo/action/CallBack.php
+
+;=======================notify地址
+notifyUrl=http://localhost/cskjDemo_php/com/cskj/pay/demo/action/AsnyNotify.php

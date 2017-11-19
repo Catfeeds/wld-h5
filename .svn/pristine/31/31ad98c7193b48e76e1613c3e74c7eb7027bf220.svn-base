@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+/*商圈分享*/
+.ts-top{padding: 2% 2% 2% 4%;overflow: hidden;}
+.ts-top-left{width: 50%;padding: 1.1% 0;}
+.tsl-next{color: #40aaff;}
+.ts-top-right{width: 33%;}  
+.biankuang{padding: 1%;overflow: hidden;}
+
+.ts-main{padding: 3%;overflow: hidden;}
+.ts-main-left{width: 13%;overflow: hidden;}
+.ts-main-right{width: 85%;}
+.tsmr-top{padding: 1% 1% 2%;overflow: hidden;}
+.tsmrt-left{width: 70%;}
+.tshare-time{padding: 1% 0;}
+.tt-time{padding-right: 3%;}
+.tsmrt-right{width: 24%;overflow: hidden;text-align: center;padding: 1%;padding: 0.5% 1%;border:1px solid #d8d8d8;}
+
+.tmr-text{padding: 1%;}
+.tmr-photo{padding: 1% 0;overflow: hidden;}
+.tmr-photo li{width: 33.3%;padding: 1.16%;}
+.t-s-video-li{
+    width:100%;
+    position:relative;
+    padding-top: 75%;
+    height: 0;
+}
+.t-s-video-li video{
+    position: absolute;
+    width: 100%;
+    max-height: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.tsmrt-product{margin: 2% 2% 2% 1%;padding: 2%;border:1px solid #d8d8d8;overflow: hidden;width: 97.6%;}
+.tsp-photo{width: 16%;}
+.tsp-text{width: 76.5%;padding-left: 3%;}
+.tsp-text1{padding: 1% 0;}
+.tsp-price{padding: 1% 0;color: #f8ab43;}
+.tsp-next{width: 4%;padding: 5% 1% 5% 0;}
+
+.ts-xiaomi{padding: 8% 8%;}
+.ts-dianzan{width: 30%;margin: 0 auto;padding-bottom: 5%;}
+.ts-dianzan-img{width: 50%;margin: 0 auto;}
+.ts-dianzan-text{text-align: center;padding: 3% 0;}
+
+.ts-comment-top{padding: 3%;background: #ebebeb;}
+.ts-comment-input{width: 100%;padding: 2%;}
+.ca-remark_con{padding: 3% 4%; border-top:1px solid #f5f5f5;position: fixed; width: 100%; bottom: 0;}
+.ca-remark-info{ background: #f4f4f4; max-height: 75px; width: 100%; padding: 3% 3%; border-radius: 6px; border-radius: 6px; overflow: auto;}
+.ca-remark-opearte{ text-align: center; padding-top: 4%;}
+.ts-comment-all{margin-left:3%;border-bottom: 1px solid #f0f0f0;padding: 4% 0;}
+.ts-comment-content{padding-left: 3%;overflow: hidden;}
+.ts-comment-content li{padding: 3% 4% 3% 0;border-bottom: 1px solid #f0f0f0;overflow: hidden;}
+.ts-comment-content li img{vertical-align: top;}
+.ts-con-photo{width: 13%;overflow: hidden;}
+.ts-con-text{width: 85%;overflow: hidden;}
+.ts-con-text1{padding: 1% 0;overflow: hidden;}
+.tst-name{width: 88%;}
+.tst-name-time{padding-left: 5%;}
+.huifu1{padding: 0 2%;}
+.tst-reply{width: 10%;text-align: right;}
+.ts-con-tsxt2{padding: 1% 0;}
+.tst2-con{width: 88%;}
+.tst-del{color:#6496d6;text-align: right;}
+
+.send-comm-bottom{background: #ebebeb;bottom:0;left:0;right: 0; position:fixed;z-index: 1000;width:100%;margin: auto;max-width: 720px; min-width: 320px; padding: 2% 0;}
+.send-comm-tipimg{width: 85%; cursor: pointer;margin:2% 0 0 3%;}
+.sendcomm-praise{width: 8%;margin-left: 3%;cursor:pointer;}
+.sendcomm-share{width: 8%;margin-left: 2%;cursor:pointer;}
+.sendcomm-praisenum,.sendcomm-sharetxt{text-align: center;}
+
+
+.ts-now{padding: 3%;}
+.ts-now-top{width: 65%;margin: 0 auto;padding-bottom: 2%;}
+.ts-noc-main{padding: 4% 2%;border:1px solid #d8d8d8;overflow: hidden;margin-bottom: 6%;}
+.tsnm-phopo{width: 16%;margin-top: 2%;overflow: hidden;}
+.tsnm-content{width: 69%;padding-left: 2%;}
+.tsnm-content-c1{padding: 1% 0;}
+.shangquan{padding-right: 4%;}
+.tsnm-content-c2{padding: 1% 0;}
+.tsnm-next{width: 15%;padding: 5% 0;}

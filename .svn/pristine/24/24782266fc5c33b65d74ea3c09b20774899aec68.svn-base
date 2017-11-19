@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>绑定成功</title>
+		<meta content="扫码支付绑定手机号,小蜜扫码支付绑定手机号" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/scanpay/index.css?v=1.2">
+	</head>
+
+	<body class="bgcolor">
+
+		<div class="wrap-page" style="margin-bottom:13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<?php if(empty($redpacket)){ ?>
+				<div class="binded-topimg divtab"><img src="__IMG__/scanpay/newscan_5.png" alt=""></div>
+				<div class="divtab scaninfo c9 fs14">
+					<p>登录帐号为<span class="fs16">{$userdata['c_phone']}</span></p>
+					<p>已成功绑定手机号码，立即下载小蜜APP</p>
+					<!-- <p>登录密码已发送到您手机上，请查收。</p> -->
+				</div>
+				<a href="https://a.app.qq.com/o/simple.jsp?pkgname=com.wld.net" class="divtab scansub bindsub cf fs16">
+					立即下载小蜜APP
+				</a>
+				<?php }else{ ?>
+				<div class="binded-get-red">
+					<div class="spread-red-m"><span class="fs18">￥</span><span class="fs24"><b>{$redpacket}</b></span></div>
+					<div class="spread-red-gift fs18">{$redpacket}<span class="c5">元现金红包</span></div>
+					<img src="__IMG__/scanpay/red-bg.png" alt="">
+				</div>
+				<div class="divtab scaninfo c9 fs14">
+					<p>{$redpacket}元小蜜红包已存入余额，下载并登录<br><span class="c5">服务中心—结算中心查看余额</span></p>
+					<p>登录帐号为<span class="fs16">{$userdata['c_phone']}</span></p>
+					<p>注：新注册小蜜用户将在手机上获得临时登陆密码短信</p>
+				</div>
+				<a href="https://a.app.qq.com/o/simple.jsp?pkgname=com.wld.net" class="divtab scansub bindsub cf fs16">
+					立即查看
+				</a>
+				<div style="text-align: center;padding:4% 0;" class="fs12">ps：余额可提现，亦可消费</div>
+				<?php } ?>
+
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<include file="Base@Public/footer" />
+		<script type="text/javascript">
+			window.onload = function() {
+	
+				$('.scanheadimg').height($('.scanheadimg').width());
+			}
+		</script>
+	</body>
+
+</html>

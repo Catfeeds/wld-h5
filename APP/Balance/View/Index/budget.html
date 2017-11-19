@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>收支明细</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=1.6">
+<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+</head>
+
+<body class="bgcolor">
+<div class="wrap-page" style="padding-bottom: 6%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+		<ul class="budget-top fs13 c5 menu-fixed">
+			<li class="fl budget-li" id="topli_0">全部</li>
+			<li class="fl budget-li" id="topli_1">收入</li>
+			<li class="fl budget-li" id="topli_2">支出</li>
+		</ul>
+
+		<div class="budget-con">
+			<!-- 筛选导航区 -->
+			<?php if($dtime || $dtype){ ?>
+				<div class="budget-filter divtab fs14">
+					<?php if($dtime){ ?>
+						<div class="budget-filter-time">
+							<span id="prtime">{$dtime}</span>
+							<div class="edit-icon fr"><img src="__IMG__/szmx_icon_bj.png"></div>
+						</div>
+					<?php } ?>
+
+					<?php if($dtype){ ?>
+						<div class="budget-filter-type">
+							<span id="prtype">{$typename}</span>
+							<div class="edit-icon fr"><img src="__IMG__/szmx_icon_bj.png"></div>
+						</div>
+					<?php } ?>
+
+					<div class="budget-total divtab">
+						<span class="c3">收入<font class="c3 fs12" id="inmoney"></font></span>
+						<span class="c3">支出<font class="c3 fs12" id="outmoney"></font></span>
+					</div>
+				</div>
+			<?php } ?>
+			<!-- 筛选分类区域 -->
+			<div class="b-f-type-bg none"></div>
+			<div class="filter-type-con bgeb none">
+				<div class="filter-type fs12 divtab">
+					<p class="c3 fs15">分类选择</p>
+					<ul>
+						<li data-type="1" <?php if($dtype == 1){ ?> class="hover" <?php } ?> data-name="扫码">扫码</li>
+						<li data-type="2" <?php if($dtype == 2){ ?> class="hover" <?php } ?> data-name="线上订单">线上订单</li>
+						<li data-type="3" <?php if($dtype == 3){ ?> class="hover" <?php } ?> data-name="红包">红包</li>
+						<li data-type="4" <?php if($dtype == 4){ ?> class="hover" <?php } ?> data-name="提现">提现</li>
+						<li data-type="5" <?php if($dtype == 5){ ?> class="hover" <?php } ?> data-name="跨界">跨界</li>
+						<li data-type="6" <?php if($dtype == 6){ ?> class="hover" <?php } ?> data-name="其他">其他</li>
+					</ul>
+				</div>
+				<div class="filter-cancel fs15 c3">取消</div>
+			</div>
+
+
+			<ul class="mid_column" id="tixianlist" style="margin-top:0px;padding-right:0px;padding-left:0px;">
+				<!-- <div class="divtab newbg-top bgeb">
+					<div class="fl newbgtext fs13 c3">本月</div>
+					<div class="fr newbgimg"><img src="__IMG__/arr.png" alt=""></div>
+					<div class="fr newbgtext fs13 c9">查看月账单</div>
+				</div>
+			    <li class="divtab newbg_column">
+				    <div class="fl newbg-img">
+				    	<img src="__IMG__/infotip.png" alt="">
+				    </div>
+				    <div class="fl newbg-mid">
+				    	<p class="fs14 c3">订单收入</p>
+				    	<span class="fs12 c9"><font>今天</font><font>20:20</font></span>
+				    </div>
+				    <div class="fr newbg-right fs14 c5">
+				    	<h3 class="fs14 c3">+10.00</h3>
+				    </div>
+			    </li> -->
+			</ul>
+			<div id="console"></div>
+			<input type="hidden" name="dtype" value="{$dtype}" id="dtype">
+			<input type="hidden" name="dtime" value="{$dtime}" id="dtime">
+			<input type="hidden" name="typename" value="{$typename}" id="dtypename">
+		</div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		var dtime = '<?php echo $dtime ?>';
+		var dtype = '<?php echo $dtype ?>';
+		var dtypename = '<?php echo $typename ?>';
+		yangshi();
+        var apptype = "<?php echo get_app_type(); ?>";
+		$('.b-f-type-bg').height($(document).height());
+		if(apptype==1 || apptype==2){
+            $('.budget-con').css('padding-top', $('.budget-top').height()+'px');
+		}else{
+            $('.budget-top').css('top',$('.xiaomi-bar').height()+'px');
+            $('.budget-con').css('margin-top', $('.xiaomi-bar').height() + $('.budget-top').height() +'px');
+		}
+
+	}
+
+	function yangshi() {
+		var bgImg = $('.newbg-img').width();
+		$('.newbg-img').height(bgImg);
+		$('.newbg-mid').css('line-height', bgImg*0.5 +'px');
+		$('.newbgtext').css('line-height', $('.newbgimg').width() + 'px');
+	}
+
+
+	//增加筛选
+	ChRightText("筛选");
+
+	/*筛选链接*/
+	function rightcaozuo() {
+		mui.openWindow({
+			url: '__URL__/filter?dtype='+ $('#dtype').val() +'&dtime=' + $('#dtime').val() +'&typename=' + $('#dtypename').val(),
+
+			id: 'filter'
+		});
+	}
+
+
+	mui('.mui-content').on('tap', '.budget-filter-type', function() {
+		$('.filter-type-con').show();
+		$('.b-f-type-bg').show();
+	});
+	mui('.mui-content').on('tap', '.filter-cancel', function() {
+		$('.filter-type-con').hide();
+		$('.b-f-type-bg').hide();
+	});
+
+
+
+	var page = 1;
+	var ctrls = true;
+	var kongzhi = true;
+
+	//时间筛选
+	mui('.mui-content').on('tap', '.budget-filter-time', function() {
+		var optionsJson = '{"type":"month"}';
+		var options = JSON.parse(optionsJson);
+		var picker = new mui.DtPicker(options);
+		picker.show(function(rs) {
+			$('#dtime').val(rs.text);
+			$('#prtime').text(rs.text);
+			page = 1;
+			getdata();
+			picker.dispose();
+		});
+	});
+
+	//类型筛选
+	mui('.mui-content').on('tap', '.filter-type li', function() {
+		$(this).addClass('hover')
+		$(this).siblings().removeClass('hover');
+		var id = $(this).attr('data-type');
+		var name = $(this).attr('data-name');
+		$('#dtype').val(id);
+		$('#prtype').text(name);
+		$('#dtypename').val(name);
+		$('.filter-type-con').hide();
+		$('.b-f-type-bg').hide();
+		page = 1;
+		getdata();
+	});
+
+	var statu = '<?php echo $statu ?>';
+	if (!statu) {
+		statu = 0;
+	}
+	
+	var isshop = "<?php echo $isshop ?>";
+	var monthsign = "<?php echo date('m',time()); ?>";
+	var ifdate = "<?php echo strtotime(date('Y-m-d 00:00:00',time())); ?>";
+	var yesdate = "<?php echo strtotime(date('Y-m-d 00:00:00',strtotime('-1 days',time()))); ?>";
+	var showmonth = '';
+	mui('.budget-top').on('tap','#topli_0',function(){
+		selectstatu(0);
+	});
+	mui('.budget-top').on('tap','#topli_1',function(){
+		selectstatu(1);
+	});
+	mui('.budget-top').on('tap','#topli_2',function(){
+		selectstatu(2);
+	});
+	 selectstatu(statu);
+	function selectstatu(i){
+		$(window).scrollTop(0);
+		statu = i;page = 1;ctrls = true;kongzhi = true;showmonth = '';
+		$('.budget-li').removeClass('topli-hover');
+		$('#topli_' + i).addClass('topli-hover');
+		getdata();
+	}
+	//获取当前可是范围的高度
+	$(window).bind('scroll', function() {
+		if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if (ctrls && kongzhi) {
+				getdata();
+			}
+		}
+		// if ($(window).scrollTop() >= $('.budget-top').height()) {
+		// 	$('.budget-top').addClass('menu-fixed');
+		// }
+		// if ($(window).scrollTop() < $('.budget-top').height()) {
+		// 	$('.budget-top').removeClass('menu-fixed');
+		// }
+	});
+
+	function getdata() {
+	var html = '';
+	$.ajax({
+	        type: 'get',
+	        dataType: 'json',
+	        url: '__URL__/GetMoneyLog?type='+statu+'&pageindex='+page+'&dtime='+$('#dtime').val()+'&dtype='+$('#dtype').val(),
+	        cache: false,
+	        beforeSend: function() {
+	          $('#console').css('display','block');
+	          $('#console').html('加载中...');
+	          ctrls = false;
+	        },
+	        error: function(){
+	          $('#console').css('display','block');
+	          $('#console').html('加载失败');
+	          ctrls = true;
+	        },
+	        success: function(json) {
+	        	if (page==1) {
+			        $('#tixianlist').empty();
+			    }
+				var obj = eval(json);
+				if (obj.code==0) {
+				var data = obj.data;
+				if (data) {
+				var orderlist = data.list;
+				var pageCount = data.pageCount;
+				$('#inmoney').text('￥'+data.money_income);/*收入*/
+				$('#outmoney').text('￥'+data.money_out);/*支出*/
+				if (pageCount >= page) {
+					page++;
+					for ( i=0; i<orderlist.length; i++ ) {
+						var detailurl = WEB_HOST+'/index.php/Balance/Index/incomepay?id='+orderlist[i]['c_id'];
+						var monthurl = WEB_HOST+'/index.php/Balance/Index/monthbill?date='+orderlist[i]['ifdate'];
+						if (!$('div').is('monthsign'+orderlist[i]['showmoths']) && showmonth != orderlist[i]['showmoths'] && isshop==1) {
+							showmonth = orderlist[i]['showmoths'];
+							html += '<div class="divtab newbg-top bgeb monthsign'+orderlist[i]['showmoths']+'"  onclick="location.href=\''+monthurl+'\'">';
+								if (monthsign == orderlist[i]['showmoths']) {
+									html += '<div class="fl newbgtext fs13 c3">本月</div>';
+								} else {
+									html += '<div class="fl newbgtext fs13 c3">'+orderlist[i]['showmoths']+'月</div>';
+								}
+								html += '<div class="fr newbgimg"><img src="__IMG__/arr.png" alt=""></div>';
+								html += '<div class="fr newbgtext fs13 c9">查看月账单</div>';
+							html += '</div>';
+						}
+					    html += '<li class="divtab newbg_column" onclick="location.href=\''+detailurl+'\'">';
+						    html += '<div class="fl newbg-img">';
+						    	html += '<img src="'+orderlist[i]['c_showimg']+'?time=1" alt="">';
+						    html += '</div>';
+						    html += '<div class="fl newbg-mid">';
+						    	html += '<p class="fs14 c3">'+orderlist[i]['c_showtext']+'</p>';
+						    	html += '<span class="fs12 c9">';
+						    		if (ifdate == orderlist[i]['ifdate']) {
+						    			html += '<font>今天 </font>';
+						    			html += '<font>'+orderlist[i]['showtime']+'</font>';
+						    		} else if (yesdate == orderlist[i]['ifdate']) {
+						    			html += '<font>昨天 </font>';
+						    			html += '<font>'+orderlist[i]['showtime']+'</font>';
+						    		} else {
+						    			html += '<font>'+orderlist[i]['showweek']+'</font>';
+						    			html += '<font>'+orderlist[i]['showdate']+'</font>';
+						    		}
+						    	html += '</span>';
+						    html += '</div>';
+                        if(orderlist[i]['c_status']==2) {
+                            html += '<div class="fr newbg-right fs12 c5" style="padding: 0;">';
+                        }else{
+                            html += '<div class="fr newbg-right fs12 c5">';
+						}
+						    		if (orderlist[i]['c_money'] > 0) { orderlist[i]['c_money'] = orderlist[i]['c_money']; }
+						    		html += '<h5 class="fs14 c3">'+orderlist[i]['c_money']+'</h5>';
+                        			if(orderlist[i]['c_status']==2){
+                                        html += '<p class="fs12 c9">待结算</p>';
+									}
+						    html += '</div>';
+					    html += '</li>';
+					};
+				} else {
+				    kongzhi = false;
+				}
+				} else {
+					kongzhi = false;
+				}
+				} else {
+					kongzhi = false;
+				}
+				if (page==1) {
+                    html += '<div class="data-empty">';
+                    html += '<div class="data-empty-img"><img src="__IMG__/szmx_img_wujl.png" alt="" /></div>';
+					html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+                    html += '</div>';
+			    }
+
+	         	$('#tixianlist').append(html);
+	         	$('#console').css('display','none');
+	        },
+	        complete: function() {
+	        	yangshi();
+	        	$('#console').css('display','none');
+	          	ctrls = true;
+	        }
+	    });
+	}
+
+</script>
+</body>
+</html>

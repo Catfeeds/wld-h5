@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>我的微店</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/user/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<div class="mui-content">
+			<div class="divtab child-img shophd">
+				<div class="divtab divab shopimg child-img">
+					<img src="{$userdata['c_headimg']}" alt="">
+				</div>
+				<div class="divtab divab shopname fs14 c3 fov">{$userdata['c_nickname']}</div>
+
+				<div class="divtab divab shopmenu cf fs16" id="nav-t1">我的微店
+					<!--<img src="__IMG__/user/menu1.png" alt="">-->
+				</div>
+				<div class="divtab divab shopmenu cf fs16" id="nav-t2">商品管理
+					<!--<img src="__IMG__/user/menu2.png" alt="">-->
+				</div>
+				<div class="divtab divab shopmenu cf fs16" id="nav-t3">订单管理
+					<!--<img src="__IMG__/user/menu3.png" alt="">-->
+				</div>
+				<img src="__IMG__/shop/shopbg.png" alt="">
+			</div>
+
+		</div>	
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var wd = $('.shopimg').width();
+		$('.shopimg').height(wd);
+		$('.shopimg').css('border-radius',wd+'px');
+	}
+
+	//我的微店
+	mui('.mui-content').on('tap', '#nav-t1', function() {
+		mui.openWindow({
+			url: '__URL__/myshop?fromucode=<?php echo $ucode; ?>',
+			id: 'myshop'
+		});
+	});
+	//商品管理
+	mui('.mui-content').on('tap', '#nav-t2', function() {
+		mui.openWindow({
+			url: '__URL__/ctrgoods',
+			id: 'ctrgoods'
+		});
+	});
+	// 订单管理
+	mui('.mui-content').on('tap', '#nav-t3', function() {
+		mui.openWindow({
+			url: '__APP__/Order/Storeorder/orderindex',
+			id: 'storeorder'
+		});
+	});
+
+</script>
+
+</html>

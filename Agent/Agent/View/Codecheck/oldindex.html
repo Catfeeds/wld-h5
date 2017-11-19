@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--串码中心</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="content-s w_960">
+			<ul class="str-t-num">
+				<li>
+					<p class="fs16">{$info['c_checknum']}个</p>
+					<p class="fs12">待审核</p>
+				</li>
+				<li>
+					<p class="fs16">{$info['c_usenum']}个</p>
+					<p class="fs12">可使用</p>
+				</li>
+				<li>
+					<p class="fs16">{$info['c_codenum']}个</p>
+					<p class="fs12">已拥有</p>
+				</li>
+			</ul>
+
+			<div class="code-check">
+				<div class="code-btn fr" onclick="codecheck()">申请串码</div>
+				<div class="code-txt fl c5">激活串码申请</div>
+				<div class="code-input fl "><input type="tel" placeholder="请输入数量" class="fs14" id="code_num" maxlength="10"></div>
+			</div>
+
+			<div class="send-strcode" style="display:none;" onclick="sendcode()">
+				<span><img src="__IMG__/mobile/issue_btn.png" alt=""></span>
+			</div>
+
+			<div class="comm-nav-tab bgcolor divtab">
+				<ul>
+					<li class="hover c-nav-tli" id="c-nav-t0" onclick="selectstatu(0)">已激活串码商家</li>
+					<li class="c-nav-tli" id="c-nav-t1" onclick="selectstatu(1)">待激活串码</li>
+				</ul>
+			</div>
+			<div class="gbuy-data-list divtab">
+				<ul id="data_list">
+				</ul>
+			</div>
+			<div class="pup-bg"></div>
+			<div class="sure-pup">
+				<div class="sure-con">
+					<div class="sure-tit c3">激活串码发放成功</div>
+					<div class="sure-font c5">
+						<textarea cols="" rows="" id="codestr" readonly="readonly"></textarea>
+					</div>
+					<div class="sure-btn">
+						<span onclick="cancelpup()">取消</span>
+						<span onclick="copystr()">复制</span>
+					</div>
+				</div>
+			</div>
+			<div class="pages">
+				<div>
+					{$page}
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				yangshi();
+			}
+
+			function yangshi() {
+				$('#li-4 a').addClass('hover');
+				var hzw = $('.u-headimg').width();
+				$('.u-headimg').width(hzw);
+				$('.u-headimg').height(hzw);
+				$('.u-nameinfo').css('line-height', hzw * 0.45 + 'px');
+				$('.u-state').css('line-height', hzw + 'px');
+			}
+
+			var tjsign = true;
+
+			function codecheck() {
+				if(tjsign) {
+					tjsign = false;
+					var re = /^[0-9]*[1-9][0-9]*$/;
+					var codenum = $('#code_num').val();
+					if(!codenum) {
+						alert('请输入申请串码个数');
+						tjsign = true;
+						return false;
+					}
+					if(!re.test(codenum)) {
+						alert("请输入数字");
+						$('#code_num').val("");
+						tjsign = true;
+						return false;
+					}
+
+					$.post("__URL__/ApplyCode", {
+						num: codenum
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							alert(data['msg']);
+							window.location.href = "__URL__/index";
+						} else {
+							alert(data['msg']);
+							tjsign = true;
+						}
+					});
+				}
+			}
+
+			/*发放串码*/
+			var ffsign = true;
+
+			function sendcode() {
+				if(confirm('确认发放，一个激活串码？')) {
+					if(ffsign) {
+						ffsign = false;
+						$.post("__URL__/GrantCode", {
+							num: 1
+						}, function(obj) {
+							var data = eval(obj);
+							if(data['code'] == 0) {
+								var info = data['data'];
+								$('#codestr').text(info['c_code']);
+								$('.pup-bg').fadeIn();
+								$('.sure-pup').fadeIn();
+								$('.pup-bg').height($(document).height());
+							} else {
+								alert(data['msg']);
+								ffsign = true;
+							}
+						});
+					}
+				}
+			}
+			/*取消*/
+			function cancelpup() {
+				$('.pup-bg').fadeOut();
+				$('.sure-pup').fadeOut();
+				window.location.href = "__URL__/index";
+			}
+
+			/*复制*/
+			function copystr() {
+				var Url2 = document.getElementById("codestr");
+				Url2.select();
+				document.execCommand("Copy");
+				alert("已复制好，可贴粘。");
+			}
+
+			/*列表*/
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var statu = '<?php echo $statu ?>';
+			if(!statu) {
+				statu = 0;
+			}
+			selectstatu(statu);
+
+			function selectstatu(i) {
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				$('.c-nav-tli').removeClass('hover');
+				$('#c-nav-t' + i).addClass('hover');
+				if(statu == 0) {
+					$('.code-check').css('display', 'block');
+					$('.send-strcode').css('display', 'none');
+				} else {
+					$('.code-check').css('display', 'none');
+					$('.send-strcode').css('display', 'block');
+				}
+				getdatalist();
+			}
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+				if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+					$('.comm-nav-tab').addClass('menu-fixed');
+				}
+				if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+					$('.comm-nav-tab').removeClass('menu-fixed');
+				}
+			});
+
+			function getdatalist() {
+				var _html = "";
+				var strurl = "__URL__/GetCodeInfoList?statu=" + statu + "pageindex=" + pageindex;
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: strurl,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html += '<div class="baoqian">暂无相关记录</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										if(statu == 0) {
+											/*已激活串码商家*/
+											_html += '<li>';
+											_html += '<div class="u-headimg fl">';
+											if(dataarr['c_headimg']) {
+												_html += '<img src="' + dataarr['c_headimg'] + '" alt="" />';
+											} else {
+												_html += '<img src="__IMG__/logo.png" alt="" />';
+											}
+											_html += '</div>';
+											_html += '<div class="u-nameinfo fl">';
+											_html += '<p class="c3">' + dataarr['c_nickname'] + '</p>';
+											_html += '<p class="c9">' + dataarr['c_code'] + '</p>';
+											_html += '</div>';
+											_html += '<div class="u-state fl" style="text-align: right;">';
+											_html += '<p class="c9">' + dataarr['c_addtime'].substr(0, 10) + '</p>';
+											_html += '</div>';
+											_html += '</li>';
+										} else if(statu == 1) {
+											/*待激活串码*/
+											_html += '<li>';
+											_html += '<div class="code-str fl">' + dataarr['c_code'] + '</div>';
+											_html += '<div class="code-addtime fr c9">' + dataarr['c_addtime'] + '</div>';
+											_html += '</li>';
+										}
+
+									}
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+
+					},
+					complete: function() {
+						yangshi();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+		</script>
+
+	</body>
+
+</html>

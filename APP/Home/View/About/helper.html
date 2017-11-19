@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+	    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	    <meta name="apple-mobile-web-app-capable" content="yes" />
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	    <meta name="format-detection" content="telephone=no, email=no" />        
+        <title>我的小助手</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+	    <link rel="stylesheet" type="text/css" href="__CSS__/about/index.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/swiper.min.css">  
+    	<style type="text/css">
+			.wrap-page{position: relative;}
+			.setting-list-txt{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 80%;}
+			#btnsearch:hover{background: #ccc;}
+			.swiper-button-prev,.swiper-button-next{width: 17px;height: 30px;}
+			@media (min-width: 621px){
+				.swiper-button-prev,.swiper-button-next{width: 27px;height: 44px;}
+			}
+    	</style>
+    </head>
+    <body>
+        <div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+			<div class="helper-banner">
+				<!-- Swiper -->
+			    <div class="swiper-container" dir="rtl">
+			        <div class="swiper-wrapper">
+			            <div class="swiper-slide">
+			            	<?php if($apptype == 1){ ?>
+							<a href="javascript:;" onclick="clickandrMes()">
+								<img src="__IMG__/about/bee-boy.png" alt="">
+								<div class="messagenum">{$msgnum}</div>
+							</a>
+							<?php }else if($apptype==2){ ?>
+							<a href="javascript:;" onclick="clickiosMes()">
+								<img src="__IMG__/about/bee-boy.png" alt="">
+								<div class="messagenum">{$msgnum}</div>
+							</a>							
+							<?php }else{ ?>
+							<a href="javascript:;">
+								<img src="__IMG__/about/bee-boy.png" alt="">
+								<div class="messagenum">{$msgnum}</div>
+							</a>							
+							<?php } ?>
+			            </div>
+			            <div class="swiper-slide">
+			            	<?php if($apptype == 1){ ?>
+							<a href="javascript:;" onclick="clickandrMes()">
+								<img src="__IMG__/about/bee-girl.png" alt="">
+								<div class="messagenum">{$msgnum}</div>
+							</a>
+							<?php }else if($apptype==2){ ?>
+							<a href="javascript:;" onclick="clickiosMes()">
+								<img src="__IMG__/about/bee-girl.png" alt="">
+								<div class="messagenum">{$msgnum}</div>
+							</a>							
+							<?php }else{ ?>
+							<a href="javascript:;">
+								<img src="__IMG__/about/bee-girl.png" alt="">
+								<div class="messagenum">{$msgnum}</div>
+							</a>							
+							<?php } ?>
+			        	</div>
+			        </div>
+			        <!-- Add Pagination -->
+			        <!-- <div class="swiper-pagination"></div> -->
+			        <!-- Add Navigation -->
+			        <div class="swiper-button-prev" style="right:10%;background-image:url(__IMG__/about/r.png);background-size:100% 100%;"></div>
+			        <div class="swiper-button-next" style="right:82%;background-image:url(__IMG__/about/l.png);background-size:100% 100%;"></div>
+			    </div>
+			
+				<form action="helper" method="post">
+					<div class="sm-search" style="padding:8% 2% 0 2%;">
+						<div class="sm-search-con none">
+							<div class="sm-search-ico">
+								<img src="__IMG__/coalition/sm_img_3.jpg" alt="">
+							</div>
+							<div class="sm-search-txt">
+								<input type="text" class="" name="keyword" id="keyword" value="{$post['keyword']}" placeholder="输入搜索关键字">
+							</div>
+							<div class="sm-search-btn">
+								<input type="submit"  id="btnsearch" name="" value="搜索">
+							</div>
+						</div>
+						<div class="helper-ser">
+							<div class="ser-img-ico fl">
+								<img src="__IMG__/coalition/sm_img_3.jpg" alt="">
+							</div>
+							<div class="ser-img-font fs14 cc fl">有问题？点我搜一搜</div>
+						</div> 
+					</div> 
+				</form>			
+			</div>
+
+			<ul class="setting-list">
+				<volist name="data" id="vo">
+					<li>
+						<a href="__URL__/helpdetail/tid/{$vo['c_id']}">
+							<div class="setting-list-txt">{$vo['c_title']}</div>
+							<div class="setting-list-arr">
+								<img src="__IMG__/about/arr.png" alt="">
+							</div>
+						</a>
+					</li>
+				</volist>
+			</ul>  
+		</div>
+        </div>
+        
+	    <include file="Base@Public/pubjs" />	    
+	    <!-- Swiper JS -->
+	    <script src="__COMMON__/js/swiper.min.js"></script>
+
+	    <!-- Initialize Swiper -->
+	    <script>
+	    var swiper = new Swiper('.swiper-container', {
+	        pagination: '.swiper-pagination',
+	        paginationClickable: true,
+	        nextButton: '.swiper-button-next',
+	        prevButton: '.swiper-button-prev'
+	    });
+	    </script>
+        <script type="text/javascript">
+        	window.onload=function(){        
+
+				var serh = $('.helper-ser').height();
+				$('.ser-img-font').css("line-height",serh+'px');
+
+        		var lih = $('.setting-list li').height();
+        		$('.setting-list li').css('line-height',lih+'px')
+        		$('.setting-list li a').height(lih);
+
+        		$('.helper-ser').click(function(){
+        			$(this).hide();
+        			$('.sm-search-con').show();        			
+					var txth = $('.sm-search-con').height();
+					$('#keyword').css("line-height",txth+'px');
+					$('#btnsearch').css("line-height",txth+'px');
+        		});
+
+        	}
+        	/*app调用小助手消息*/
+        	function clickandrMes () {
+        		javaScript:resultData.goSystemMes();
+        	}
+        	function clickiosMes () {
+        		window.webkit.messageHandlers.AppModel.postMessage({"helper":"helper"});
+        	}
+        </script>
+    </body>
+</html>

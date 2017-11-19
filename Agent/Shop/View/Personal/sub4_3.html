@@ -1,0 +1,458 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<link rel="stylesheet" type="text/css" href="__JS__/jquery.datetimepicker.css">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript" src="__JS__/jquery.datetimepicker.full.js"></script>
+		<style type="text/css">
+			select {
+				padding: 0;
+			}
+			input[type="checkbox"]{width: 18px;
+				height:18px;}
+			input[type="checkbox"]:checked{width: 18px;
+				height:18px;}
+		</style>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="content-s w_960">
+			<form action="" id="CONSIGNEE_ADDRESS" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="page-title">
+					<div class="page-tit-name">商家资料<?php if($oldinfo==1 && $userdata["c_shop"]==1){ ?>2/4<?php }else{ ?>3/5<?php } ?></div>
+				</div>
+				<div class="resource-main">
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">商户名称</div>
+							<div class="resource-r fl"><input type="text" id="merchantname" value="{$vo['c_merchantname']}" name="merchantname" class="resource-text" placeholder="请输入商户名称" maxlength="64"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<?php if($ctype==1){ ?>
+							<div class="resource-l fl">负责人姓名</div>
+							<div class="resource-r fl"><input type="text" id="contact-name" value="{$vo['c_name']}" name="name" class="resource-text" placeholder="请输入负责人姓名" maxlength="32"></div>
+							<?php }?>
+							<?php if($ctype==2){ ?>
+							<div class="resource-l fl">法人姓名</div>
+							<div class="resource-r fl"><input type="text" id="contact-name" value="{$vo['c_name']}" name="name" class="resource-text" placeholder="请输入法人姓名" maxlength="32"></div>
+							<?php }?>
+							<?php if($ctype==3){ ?>
+							<div class="resource-l fl">经营者姓名</div>
+							<div class="resource-r fl"><input type="text" id="contact-name" value="{$vo['c_name']}" name="name" class="resource-text" placeholder="请输入营业执照经营者的姓名" maxlength="32"></div>
+							<?php }?>
+							
+						</div>
+						<div class="resource-tipt fl" style="width: 35%;"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">身份证号码</div>
+							<?php if($ctype==1){ ?>
+							<div class="resource-r fl"><input type="text" id="idcardinfo" value="{$vo['c_idcardinfo']}" name="idcardinfo" class="resource-text" placeholder="请输入负责人身份证号码" maxlength="18"></div>
+							<?php }?>
+							<?php if($ctype==2){ ?>
+							<div class="resource-r fl"><input type="text" id="idcardinfo" value="{$vo['c_idcardinfo']}" name="idcardinfo" class="resource-text" placeholder="请输入法人身份证号码" maxlength="18"></div>
+							<?php }?>
+							<?php if($ctype==3){ ?>
+							<div class="resource-r fl"><input type="text" id="idcardinfo" value="{$vo['c_idcardinfo']}" name="idcardinfo" class="resource-text" placeholder="请输入经营者身份证号码" maxlength="18"></div>
+							<?php }?>
+							
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">
+								证件有效期
+							</div>
+							<div class="resource-r fl">
+								<input type="text" value="{$vo['c_idcardstarttime']}" name="starttime" id="starttime" placeholder="请选择" class="fs12 c3 resource-text fl" style="width: 30%;text-align: center" />
+								<input type="hidden" name="idcardstarttime" id="idcardstarttime" value="{$vo['c_idcardstarttime']}" />
+								<input type="text" disabled="disabled" value="至" style="width: 10%;color: #999;" class="resource-text fl">
+								<input type="text" value="{$vo['c_idcardendtime']}" name="endtime" id="endtime" placeholder="请选择" class="fs12 c3 resource-text fl" style="width: 30%;text-align: center" <?php if($vo['c_idcardendtime']=="长期"){ ?> disabled="disabled" <?php } ?>/>
+								<input type="hidden" name="idcardendtime" id="idcardendtime" value="{$vo['c_idcardendtime']}" />
+								<input type="checkbox" name="longtime" value="长期有效" id="longtime" style="margin-top: -5px;" <?php if($vo['c_idcardendtime']=="长期"){ ?> checked="checked" <?php } ?> />
+								<label class="fs16">长期有效</label>
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span><font class="c9">注：有效期3个月的证件不予受理</font></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">手机号码</div>
+							<?php if($ctype==1){ ?>
+							<div class="resource-r fl"><input type="tel" id="cphone" value="{$vo['c_phone']}" name="phone" class="resource-text" placeholder="请输入负责人手机号码" maxlength="11"></div>
+							<?php }?>
+							<?php if($ctype==2){ ?>
+							<div class="resource-r fl"><input type="tel" id="cphone" value="{$vo['c_phone']}" name="phone" class="resource-text" placeholder="请输入法人手机号码" maxlength="11"></div>
+							<?php }?>
+							<?php if($ctype==3){ ?>
+							<div class="resource-r fl"><input type="tel" id="cphone" value="{$vo['c_phone']}" name="phone" class="resource-text" placeholder="请输入经营者手机号码" maxlength="11"></div>
+							<?php }?>
+							
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">省</div>
+							<div class="resource-r fl">
+								<select name="province" id="province" class="c3 fs14" onchange="loadRegion('province',2,'city','{:U('Personal/getRegion')}');">
+									<option value="" id="provincename">选择省</option>
+									<foreach name="province" item="province">
+										<option value="{$province.region_id}" <?php if($vo[ 'c_province']==$province[ 'region_name']){ ?> selected="selected"
+											<?php } ?> >{$province.region_name}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">市</div>
+							<div class="resource-r fl">
+								<select name="city" id="city" class="c3 fs14" onchange="loadRegion('city',3,'district','{:U('Personal/getRegion')}');">
+									<?php if($vo['c_city']){ ?>
+									<option value="" id="cityname">{$vo['c_city']}</option>
+									<?php }else{ ?>
+									<option value="" id="cityname">选择市</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">区</div>
+							<div class="resource-r fl">
+								<select name="district" id="district" class="c3 fs14">
+									<?php if($vo['c_county']){ ?>
+									<option value="" id="districtname">{$vo['c_county']}</option>
+									<?php }else{ ?>
+									<option value="" id="districtname">选择区</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">详细地址</div>
+							<div class="resource-r fl"><input type="text" id="addrarea" value="{$vo['address1']}" name="addrarea" class="resource-text" placeholder="请输入详细地址" maxlength="80"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<?php if($ctype==3){ ?>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">营业执照号</div>
+							<div class="resource-r fl"><input type="text" id="charter" name="charter" class="resource-text" value="{$vo['c_charter']}" placeholder="请输入营业执照号" maxlength="64"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<?php }?>
+
+					<!--经纬度-->
+					<input type="hidden" id="address1" name="address" value="{$vo['address1']}">
+					<input type="hidden" name="lng" id="lng" value="{$vo['c_longitude']}">
+					<input type="hidden" name="lat" id="lat" value="{$vo['c_latitude']}">
+
+					<div class="step-btn">
+						<span id="prev_btn" onclick="PreviousCK()">上一步</span>
+						<span id="next_btn" onclick="savestep()">保存并下一步</span>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<div class="mar30"></div>
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var ctype = '<?php echo $ctype; ?>'; /*企业资质，1个人2个体户3企业*/
+			var prov = '<?php echo $vo["c_province"]?>';
+			var citye = '<?php echo $vo["c_city"] ?>';
+			var newdistrict = '<?php echo $vo["c_county"] ?>';
+			var oldinfo = '<?php echo $oldinfo; ?>';
+			var dcode = '<?php echo $vo["c_dcode"] ?>';
+			var vostate = '<?php echo $vo["c_checked"]; ?>';
+			var cshop = '<?php echo $userdata["c_shop"]; ?>';
+
+			var longtimeval = '<?php echo $vo["c_idcardendtime"]; ?>'
+
+			window.onload = function() {
+
+				$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+
+				// loadRegion('province', 2, 'city', "<?php echo U('Personal/getRegion');?>");
+
+
+			}
+			/*生效时间*/
+			$('#starttime').datetimepicker({
+				lang: 'ch',
+				timepicker: false,
+				format: 'Y-m-d',
+				formatDate: 'Y-m-d'
+			});
+			/*失效时间*/
+			$('#endtime').datetimepicker({
+				lang: 'ch',
+				timepicker: false,
+				format: 'Y-m-d',
+				formatDate: 'Y-m-d'
+			});
+			/*长期有效*/
+			$('#longtime').click(function() {
+                if(this.checked==true){
+                    $('#idcardendtime').val("长期");
+                    $('#endtime').val("长期");
+                    $('#endtime').attr('disabled', 'disabled');
+                }else{
+                    $('#idcardendtime').val("");
+                    $('#endtime').val("");
+                    $('#endtime').removeAttr("disabled");
+				}
+			});
+
+			/*上一步*/
+			function PreviousCK() {
+				if(oldinfo == 1 && cshop== 1) {
+					window.location.href = "__URL__/sub4_1?isfixed=" + isfixed + '&ctype=' + ctype;
+				} else {
+					window.location.href = "__URL__/sub4_2?isfixed=" + isfixed + '&ctype=' + ctype;
+				}
+			}
+			/*save*/
+			var resign = true;
+//			$('#idcardstarttime').val()=$('#starttime').val($('#idcardstarttime').val());
+
+
+			function savestep() {
+				if(resign) {
+					if(emptyval($('input[name="merchantname"]').val())) {
+						JqueryDialog.Show('请输入商户名称');
+						$('input[name="merchantname"]').focus();
+						return false;
+					}
+					if($('input[name="name"]').val() == '') {
+						if(ctype==1){
+							JqueryDialog.Show('请输入负责人姓名');
+						}else if(ctype==2){
+							JqueryDialog.Show('请输入法人姓名');
+						}else if(ctype==3){
+							JqueryDialog.Show('请输入营业执照经营者的姓名');
+						}
+						$('input[name="name"]').focus();
+						return false;
+					}
+					if(emptyval($('input[name="idcardinfo"]').val())) {
+						if(ctype==1){
+							JqueryDialog.Show('请输入负责人身份证号');
+						}else if(ctype==2){
+							JqueryDialog.Show('请输入法人身份证号码');
+						}else if(ctype==3){
+							JqueryDialog.Show('请输入经营者身份证号码');
+						}
+						$('input[name="idcardinfo"]').focus();
+						return false;
+					} else {
+						if(!checknumabc($('input[name="idcardinfo"]').val())) {
+							JqueryDialog.Show('请输入正确的身份证号！');
+							$('input[name="idcardinfo"]').focus();
+							return false;
+						}
+					}
+					if(emptyval($('#starttime').val())) {
+						JqueryDialog.Show('请选择生效时间');
+						$('input[name="starttime"]').focus();
+						return false;
+					}
+					if(emptyval($('#endtime').val())) {
+						JqueryDialog.Show('请选择失效时间');
+						$('input[name="endtime"]').focus();
+						return false;
+					}
+					var arr = $('#starttime').val().split("-");
+					var starttime = new Date(arr[0], arr[1], arr[2]);
+					var starttimes = starttime.getTime();
+					var arrs = $('#endtime').val().split("-");
+					var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+					var lktimes = lktime.getTime();
+					console.log($('#cphone').val())
+					if(starttimes >= lktimes) {
+						JqueryDialog.Show('生效时间大于等于失效时间，请检查');
+						return false;
+					}
+					if(emptyval($('#cphone').val())) {
+						if(ctype==1){
+							JqueryDialog.Show('请输入负责人手机号码');
+						}else if(ctype==2){
+							JqueryDialog.Show('请输入法人手机号码');
+						}else if(ctype==3){
+							JqueryDialog.Show('请输入经营者手机号码');
+						}
+						$('input[name="cphone"]').focus();
+						return false;
+					} else if(!checknumber($('input[name="phone"]').val())){
+						JqueryDialog.Show('请输入正确的手机号码！');
+						$('input[name="phone"]').focus();
+						return false;
+					}else {
+						if($('#cphone').val().length < 8){
+							JqueryDialog.Show('请输入正确位数的手机号码！');
+	                        $('input[name="phone"]').focus();
+	                        return false;
+						}
+						
+					}
+
+					var province = $("#province option:selected").text();
+					var city = $("#city option:selected").text();
+					var district = $("#district option:selected").text();
+					var addrarea = document.getElementById('addrarea').value;
+
+					if(province == "选择省" || city == "请选择" || district == "请选择" || addrarea == "") {
+						JqueryDialog.Show("请完善地址信息！");
+						$('#addrarea').focus();
+						return false;
+					} else if(province == "选择省" || city == "选择市" || district == "选择区" || addrarea == "") {
+						JqueryDialog.Show("请完善地址信息！");
+						$('#addrarea').focus();
+						return false;
+					}
+					$('#address1').val(province + "省" + city + "市" + district + addrarea);
+					pcdaddress = province + city + district; /*获取经纬度地址*/
+
+					/*个体户的营业执照*/
+					if(ctype == 3) {
+						if(emptyval($('input[name="charter"]').val())) {
+							JqueryDialog.Show('请输入营业执照号');
+							$('input[name="charter"]').focus();
+							return false;
+						} else {
+							if(!checknumabc($('input[name="charter"]').val())) {
+								JqueryDialog.Show('请输入正确的营业执照号！');
+								$('input[name="charter"]').focus();
+								return false;
+							}
+						}
+					}
+
+					resign = false;
+					$('#idcardstarttime').val($('#starttime').val());
+					$('#idcardendtime').val($('#endtime').val())
+					var attrbul = getFormAttrs('CONSIGNEE_ADDRESS');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetInfo3',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								JqueryDialog.Show("保存成功！");
+								setTimeout(function() {
+									window.location.href = "__URL__/sub4_4?isfixed=<?php echo $isfixed; ?>&ctype=<?php echo $ctype; ?>";
+								}, 1000);
+							} else {
+								JqueryDialog.Show(msg.msg);
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+
+			/*获取省市区信息*/
+			function loadRegion(sel, type_id, selName, url) {
+				jQuery("#" + selName + " option").each(function() {
+					jQuery(this).remove();
+				});
+				//jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#"+selName));
+				if(jQuery("#" + sel).val() == 0) {
+					return;
+				}
+				jQuery.getJSON(url, {
+						parentid: jQuery("#" + sel).val(),
+						regiontype: type_id
+					},
+					function(data) {
+						//$("#district").html('<option value="" selected="selected">请选择</option>');
+						if(data) {
+							jQuery.each(data, function(idx, item) {
+								if(item.region_name == citye && selName == "city") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else if(item.region_name == newdistrict && selName == "district") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else {
+									jQuery("<option value=" + item.region_id + ">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								}
+
+							});
+							if(selName == "city") {
+								loadRegion('city', 3, 'district', "<?php echo U('Personal/getRegion');?>");
+							}
+						} else {
+
+							jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#" + selName));
+
+						}
+					}
+				);
+			}
+		</script>
+		<script type="text/javascript">
+			var modal = (function() {
+				var initDate = function(startDateTimeId, endDateTimeId) {
+					var startDate;
+					var endDate;
+					startDateTimeId = "#" + startDateTimeId;
+					endDateTimeId = "#" + endDateTimeId;
+					$(startDateTimeId).datetimepicker({
+						format: 'Y-m-d',
+						onChangeDateTime: function(dp, $input) {
+							startDate = $(startDateTimeId).val();
+						},
+						onClose: function(current_time, $input) {
+							if(startDate >= endDate) {
+								$(startDateTimeId).val(endDate);
+								startDate = endDate;
+							}
+						}
+					});
+					$(endDateTimeId).datetimepicker({
+						format: 'Y-m-d',
+						onClose: function(current_time, $input) {
+							endDate = $(endDateTimeId).val();
+							if(startDate >= endDate) {
+								$(endDateTimeId).val(startDate);
+								endDate = startDate;
+							}
+						}
+					});
+				};
+				return {
+					initDate: initDate
+				};
+			})();
+		</script>
+	</body>
+
+</html>

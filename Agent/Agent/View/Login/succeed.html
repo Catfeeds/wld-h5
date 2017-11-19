@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>区域代理后台管理中心--账号激活成功</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/login.css?v=1.7">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__JS__/agent.js"></script>
+</head>
+<body> 	
+
+<form action="" method="post">
+      <div class="login-main-bg">
+            <div class="login-top-main">
+                <div class="login-top-logo fl"><img src="__IMG__/login/login-02_03.png" alt=""></div>
+                <div class="login-top-font fl">区域代理后台管理中心</div>
+            </div>
+            <div class="login-info-main">
+                <div class="login-info-tit">账号激活成功</div>
+                <!-- <div class="login-font">输入您的用户名或手机号码</div> -->
+                <div class="succeed-img"><img src="__IMG__/login/s_11_03.png" alt=""></div>
+                <div class="succeed-txt">您的账号已激活</div>
+                <div class="succeed-txt">登录帐号：15212545786</div>
+                <div class="login-sub"><a class="sub-login" href="javascript:;" style="display:block;">确定</a></div>
+               
+            </div>
+            <img src="__IMG__/login/login-bg.jpg" alt="">
+      </div>
+</form>
+
+    <script type="text/javascript" src="__LIB__/layer/1.9.3/layer.js"></script>
+</body> 
+<script type="text/javascript">
+    window.onload = function() {
+     
+    }
+    
+    //刷新验证码
+    function fleshVerify() {
+        var time = new Date().getTime();
+        document.getElementById("verifyImg").src = "__URL__/verify/" + time;
+    }
+</script> 
+</html>

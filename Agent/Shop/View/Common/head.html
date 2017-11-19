@@ -1,0 +1,120 @@
+<link href="__CSS__/jquery_dialog.css" rel="stylesheet" type="text/css" />
+<div id="top-bg">
+		<div class="top-main-w">
+			<div class="top-operate">
+				<ul>
+					<li>欢迎您：{$Think.session._SHOP_NAME}</li>
+					<li><a href="javascript:;" style="border-right:solid 1px #999;padding-right:12px;">提取账号</a></li>
+					<li><a href="">刷新</a></li>
+					<li><a href="__APP__/Shop/Login/logout">退出</a></li>
+				</ul>
+			</div>
+			<div class="top-logo-menu">
+				<div class="top-logo-m fl"><img src="__IMG__/admin-logo.png" alt=""></div>
+				<div class="top-agent-menu fr">
+					<ul class="agent-channel">
+						<li id="li-1"><a href="__APP__/Shop/Information/index">公告</a></li>		
+						<!-- <li id="li-2"><a href="__APP__/Shop/Shop/producelist">我的商品</a></li> -->
+						<li id="li-3"><a href="__APP__/Shop/Member/index">会员管理</a></li>
+						<li id="li-4"><a href="__APP__/Shop/Download/index">资料下载</a></li>
+						<?php if ($infoshop['c_role'] == 1) { ?>
+						<li id="li-6">
+							<a href="__APP__/Shop/Multshop/index">连锁店管理</a>
+						</li>							
+						<?php } else if ($infoshop['c_role'] == 2) { ?>						
+						<li id="li-6">
+							<a href="__APP__/Shop/Leagshop/index">加盟店管理</a>
+						</li>
+						<?php } ?>
+						<li id="li-5">
+							<a href="javascript:;" onclick="personal_url()">个人中心</a>
+						</li>
+					</ul>
+				    <div id="menubox-5" class="menubox hidden-box">						
+						<ul id="son-menu">
+							<li><a href="javascript:;" onclick="personal_url()">资料设置</a></li>
+							<li><a href="__APP__/Shop/Personal/updatepwd">密码修改</a></li>
+							<li><a href="__APP__/Shop/Personal/shopinfo">所属区域</a></li>
+						</ul>
+					</div>
+				    <!-- <div id="menubox-2" class="menubox hidden-box hidden-loc-us">						
+						<ul id="son-menu-2">
+							<li><a href="__APP__/Shop/Shop/index">上传商品</a></li>
+						</ul>
+					</div> -->
+				</div>
+				
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="__JS__/jquery_dialog.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+    // $('#li-5').hover(function(){        
+    //     $('#menubox-5').slideDown(300);
+    // },function(){        
+    //     $('#menubox-5').hide();
+    // });
+    // $('.hidden-box').hover(function(){
+    // 	$("#li-5 a").addClass("hover");          
+    //     $(this).show();
+    // },function(){
+    //     $(this).slideUp(200);  
+    // 	$("#li-5 a").removeClass("hover");        
+    // });   
+
+
+    var num;
+    $('.agent-channel>li[id]').hover(function(){    	
+        /*下拉框出现*/
+        var Obj = $(this).attr('id');
+        num = Obj.substring(3, Obj.length);        
+        $('#menubox-'+num).slideDown(300);
+    },function(){
+        /*下拉框消失*/
+        $('#menubox-'+num).hide();
+    });
+
+    $('.hidden-box').hover(function(){
+    	$("#li-"+num+" a").addClass("hover"); 
+        $(this).show();
+    },function(){
+    	$("#li-"+num+" a").removeClass("hover"); 
+        $(this).slideUp(200);
+    });
+
+});	
+
+function exitLogin()
+{
+	parent.window.location.href="{:U('Index/index')}";
+	window.opener.location.reload(); 
+}
+
+var checked = '<?php echo $infoshop["c_checked"] ?>';
+var cid = '<?php echo $infoshop["c_id"] ?>';
+var dcode = '<?php echo $infoshop["c_dcode"] ?>';
+var cshop = '<?php echo $userdata["c_shop"]; ?>';
+var oldinfo = '<?php echo $oldinfo; ?>';
+
+function personal_url() {
+    if(cshop==1 && oldinfo==1){
+        window.location.href = "__APP__/Shop/Personal/sub4_1";
+	}else{
+        if(dcode != "" && dcode != null && typeof(dcode) != "undefined" && checked != "" && checked != null && checked != -1) {
+            window.location.href = "__APP__/Shop/Personal/checkinfo";
+        } else {
+            if(!dcode && cid) {
+                window.location.href = "__APP__/Shop/Personal/sub4_1";
+            }else if(dcode && cid){
+                window.location.href = "__APP__/Shop/Personal/sub4_3?isfixed=<?php echo $infoshop['c_isfixed'] ?>&ctype=<?php echo $infoshop['c_type'] ?>";
+            }
+        }
+        if(checked==3){
+            window.location.href = "__APP__/Shop/Personal/info_9?isfixed=<?php echo $infoshop['c_isfixed'] ?>&ctype=<?php echo $infoshop['c_type'] ?>";
+        }
+	}
+
+}
+</script>	

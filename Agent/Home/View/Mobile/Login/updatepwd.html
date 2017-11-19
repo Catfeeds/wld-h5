@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />    
+<title>后台管理登录--找回密码</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__JS__/agent.js"></script>
+</head>
+<body> 	
+
+<form action="" method="post">
+<div class="wrap-page">  
+  <div class="login-main-bg">
+        <div class="login-top-main">
+            <div class="login-top-logo"><img src="__IMG__/login/login-02_03.png" alt=""></div>
+            <div class="login-top-font">后台管理中心</div>
+        </div>
+        <div class="login-info-main">
+            <div class="login-info-tit">找回密码</div>
+            <div class="login-text">
+                <div class="login-input fl" style="width:70%;">
+                    <input type="text" class="usertext" name="phone" id="phone" placeholder="输入您的手机号">
+                </div>
+            </div>
+            <div class="login-text">
+                <div class="login-input fl" style="width:62%;">
+                    <input type="text" class="usertext" name="verify" id="verify" placeholder="输入校验码">
+                </div>
+                <div class="login-dx fl"><div onclick="getverify(2);">获取校验码</div></div>
+            </div>
+            <div class="login-text">
+                <div class="login-input fl">
+                    <input type="password" class="usertext" name="pwd" id="pwd" placeholder="输入您的新密码">
+                </div>
+            </div>
+            <div class="login-text">
+                <div class="login-input fl">
+                    <input type="password" class="usertext" name="repwd" id="repwd" placeholder="确认密码">
+                </div>
+            </div>
+            <div class="login-sub">
+                <div class="sub-login" onclick="updatapwd();">确定</div>
+            </div>
+        </div>
+        <img src="__IMG__/mobile/login-bg.jpg" alt="">
+  </div>
+</div>      
+</form>
+
+    <script type="text/javascript" src="__LIB__/layer/1.9.3/layer.js"></script>
+</body> 
+<script type="text/javascript">
+    window.onload = function() {
+      var btnh = $('.login-dx').height();
+      $('.usertext').css('line-height',btnh+'px');
+
+    }
+ /*修改密码*/
+ function updatapwd() {
+     var phone = $('#phone').val();
+     var verify = $('#verify').val();
+     var pwd = $('#pwd').val();
+     var repwd = $('#repwd').val();
+     if (phone == '' || verify == '' || pwd == '' || repwd == '') {
+         alert('请输入完整的信息');
+         return false;
+     }
+     if (pwd != repwd) {
+         alert('两次密码输入不一致');
+         return false;
+     }
+     $.post('__URL__/updatapwd', {
+             pwd: pwd,
+             verify: verify,
+             phone: phone
+         },
+         function(obj) {
+             var msg = eval(obj);
+             if (msg['code'] == 0) {
+                 alert('修改密码成功');
+                 window.location.href = '__URL__/index';
+             } else {
+                 alert(msg['msg']);
+             }
+         });
+ }
+ // function getverify(type) {
+ //    var type = type;
+ //    var phone = $('#phone').val();
+ //    if (phone != "") {
+ //        var datastr = 'type=' + type + '&phone=' + phone;
+ //        $.ajax({
+ //            type: 'get',
+ //            url:'__URL__/SendVerify',
+ //            data: datastr,
+ //            cache: false,
+ //            dataType: 'json',
+ //            success: function(obj) {
+ //                var msg = eval(obj);
+ //                if (msg['code'] == 0) {
+ //                    alert('短信已发送！');                    
+ //                } else {
+ //                    alert(msg['msg']);                   
+ //                }
+ //            }
+ //        });
+ //    } else {
+ //        alert('请输入手机号码！');
+ //        $('#phone').focus();
+ //        return false;
+ //    }
+ // }
+/*验证手机号码*/
+function phonetxt() {
+    var phone = $('#phone').val();
+    if (phone!="") {
+        if (!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))) {            
+            alert("手机号码格式错误！");
+            return false;
+        }else{
+            return true;
+        }
+    }else{      
+        alert("请输入手机号码！");
+        return false;
+    }
+    
+}
+//发送验证码时添加cookie
+function addCookie(name,value,expiresHours){ 
+    var cookieString=name+"="+escape(value); 
+    //判断是否设置过期时间,0代表关闭浏览器时失效
+    if(expiresHours>0){ 
+        var date=new Date(); 
+        date.setTime(date.getTime()+expiresHours*1000); 
+        cookieString=cookieString+";expires=" + date.toUTCString(); 
+    } 
+    document.cookie=cookieString; 
+} 
+//修改cookie的值
+function editCookie(name,value,expiresHours){ 
+    var cookieString=name+"="+escape(value); 
+    if(expiresHours>0){ 
+      var date=new Date(); 
+      date.setTime(date.getTime()+expiresHours*1000); //单位是毫秒
+      cookieString=cookieString+";expires=" + date.toGMTString(); 
+    } 
+      document.cookie=cookieString; 
+} 
+//根据名字获取cookie的值
+function getCookieValue(name){ 
+    var strCookie=document.cookie; 
+    var arrCookie=strCookie.split(";"); 
+    for(var i=0;i<arrCookie.length;i++){ 
+    var arr=arrCookie[i].split("="); 
+    if(arr[0]==name){
+        return unescape(arr[1]);
+        break;
+    }else{
+            return ""; 
+            break;
+        } 
+    }
+}
+
+/*获取验证码*/
+function getverify(type){
+    sendCode($("#verify_btn"),type);
+}       
+
+v = getCookieValue("secondsremained");//获取cookie值
+if(v>0){
+    settime($("#verify_btn"));//开始倒计时
+}
+
+//发送验证码
+function sendCode(obj,type){    
+    var phonenum = $("#phone").val();
+    var result = phonetxt();
+    if(result){
+        doPostBack(phonenum,type);
+        addCookie("secondsremained",120,120);//添加cookie记录,有效时间120s
+        settime(obj);//开始倒计时
+    }
+}
+//利用ajax提交到后台的发短信接口
+function doPostBack(phonenum,type) {
+    var type = type;
+    var phone = $('#phone').val();
+    if (phone != "") {
+        var datastr = 'type=' + type + '&phone=' + phone;
+        $.ajax({
+            type: 'get',
+            url:'__URL__/SendVerify',
+            data: datastr,
+            cache: false,
+            dataType: 'json',
+            success: function(obj) {
+                var msg = eval(obj);
+                if (msg['code'] == 0) {
+                    alert('短信已发送！');                    
+                } else { 
+                    alert(msg['msg']);                                      
+                    clearCookie('secondsremained');                     
+                    $("#verify_btn").text("获取校验码");                   
+                }
+            }
+        });
+    } else {
+        alert('请输入手机号码！');
+        $('#phone').focus();
+        return false;
+    }
+}
+
+//开始倒计时
+var countdown;
+function settime(obj) { 
+    countdown=getCookieValue("secondsremained");
+    if (countdown == 0) { 
+        obj.removeAttr("disabled"); 
+        obj.text("获取校验码"); 
+        clearCookie('secondsremained');
+        return;
+    } else { 
+        obj.attr("disabled", true); 
+        obj.text("" + countdown + "秒后重发"); 
+        countdown--;
+        editCookie("secondsremained",countdown,countdown+1);
+    } 
+    setTimeout(function() { settime(obj) },1000) //每1000毫秒执行一次
+} 
+
+/*清除cookie*/
+function clearCookie(name) {    
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookieValue(name);
+    if(cval!=null)
+    document.cookie= name + "="+cval+";expires="+exp.toGMTString(); 
+}
+
+</script> 
+</html>

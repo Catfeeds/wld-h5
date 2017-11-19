@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<style>.resource-main{ margin-bottom: 16%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="mui-content">
+				<div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_tjsh.png" alt=""></div>
+				<div class="p_info_tit"><span class="fs14 c3">商家资料8/8</span></div>
+				<div class="p_info_con fs14 bgcolor">
+					<div class="resource-main">
+						<div class="page-title">
+							<div class="page-tit-name">上传身份证件</div>
+						</div>
+						<div class="fs12 c9" style="margin: 3% 4%;">
+							<p class="fs12">注：身份证证件必须上传本人手持证件正反面。</p>
+							<p class="fs12" style="padding: 2% 0 0 10%;">图片大小规格500k以内。</p>
+						</div>
+						<ul class="ul-certificate">
+							<li>
+								<div class="zjz-list">
+									<img src="__IMG__/getbusiness/sjjh_icon_img.png" alt="" />
+									<?php if($vo['c_idcard_img'] !=null && $upayinfo['c_indentityphoto']){ ?>
+									<div class="pic-front"><img id="imgr1" src="<?php echo GetHost(); ?>/{$vo.c_idcard_img}" alt=""></div>
+									<input type="hidden" name="idcard_img" value="{$vo.c_idcard_img}" id="saveimg_1">
+									<?php }else{ ?>
+									<div class="pic-front"><img id="imgr1" src="__IMG__/getbusiness/sjjh_icon_img.png" alt=""></div>
+									<input type="hidden" name="idcard_img" value="" id="saveimg_1">
+									<?php } ?>
+
+									<input type="file" name="idcard_img" value="" id="file1" placeholder="" onclick="clickimg(1);" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked'] !=1 && !empty($upayinfo)){ ?> style="display:none;"
+									<?php }else if(empty($upayinfo)){ ?> style="display:block;"
+									<?php } ?> >
+								</div>
+								<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+									<?php } ?> onclick="deleteimg(1)" id="delimg_1"><img src="__IMG__/getbusiness/fc-16.png" alt=""></div>
+							</li>
+							<li>
+								<div class="zjz-list">
+									<img src="__IMG__/getbusiness/sjjh_icon_img.png" alt="" />
+									<?php if($vo['c_idcard_img1'] !=null && $upayinfo['c_indentityphoto']){ ?>
+									<div class="pic-front"><img id="imgr2" src="<?php echo GetHost(); ?>/{$vo.c_idcard_img1}" alt=""></div>
+									<input type="hidden" name="idcard_img1" value="{$vo.c_idcard_img1}" id="saveimg_2">
+									<?php }else{ ?>
+									<div class="pic-front"><img id="imgr2" src="__IMG__/getbusiness/sjjh_icon_img.png" alt=""></div>
+									<input type="hidden" name="idcard_img1" value="" id="saveimg_2">
+									<?php } ?>
+
+									<input type="file" name="idcard_img1" value="" id="file2" placeholder="" onclick="clickimg(2);" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked'] !=1 && !empty($upayinfo)){ ?> style="display:none;"
+									<?php }else if(empty($upayinfo)){ ?> style="display:block;"
+									<?php } ?> >
+								</div>
+								<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+									<?php } ?> onclick="deleteimg(2)" id="delimg_2"><img src="__IMG__/getbusiness/fc-16.png" alt=""></div>
+							</li>
+						</ul>
+
+						<div class="qy">
+							<div class="page-title">
+								<div class="page-tit-name">上传营业执照</div>
+							</div>
+							<ul class="ul-certificate">
+								<li>
+									<div class="zjz-list">
+										<img src="__IMG__/getbusiness/sjjh_icon_img.png" alt="" />
+										<?php if($vo['c_charter_img'] !=null && $upayinfo['c_licensephoto']){ ?>
+										<div class="pic-front"><img id="imgr3" src="<?php echo GetHost(); ?>/{$vo.c_charter_img}" alt=""></div>
+										<input type="hidden" name="charter_img" value="{$vo.c_charter_img}" id="saveimg_3">
+										<?php }else{ ?>
+										<div class="pic-front"><img id="imgr3" src="__IMG__/getbusiness/sjjh_icon_img.png" alt=""></div>
+										<input type="hidden" name="charter_img" value="" id="saveimg_3">
+										<?php } ?>
+
+										<input type="file" name="charter_img" value="" id="file3" placeholder="" onclick="clickimg(3);" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked'] !=1 && !empty($upayinfo)){ ?> style="display:none;"
+										<?php }else if(empty($upayinfo)){ ?> style="display:block;"
+										<?php } ?> >
+									</div>
+									<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+										<?php } ?> onclick="deleteimg(3)" id="delimg_3"><img src="__IMG__/getbusiness/fc-16.png" alt=""></div>
+								</li>
+							</ul>
+							<div class="page-title">
+								<div class="page-tit-name">上传企业标志</div>
+							</div>
+							<ul class="ul-certificate">
+								<li>
+									<div class="zjz-list" onclick="clickimg(4);">
+										<img src="__IMG__/getbusiness/sjjh_icon_img.png" alt="" />
+										<?php if($vo['c_company_sign'] !=null){ ?>
+										<div class="pic-front"><img id="imgr4" src="<?php echo GetHost(); ?>/{$vo.c_company_sign}" alt=""></div>
+										<?php }else{ ?>
+										<div class="pic-front"><img id="imgr4" src="__IMG__/getbusiness/sjjh_icon_img.png" alt=""></div>
+										<?php } ?>
+										<input type="hidden" name="company_sign" value="{$vo.c_company_sign}" id="saveimg_4">
+										<input type="file" name="company_sign" value="" id="file4" placeholder="" onclick="clickimg(3);" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked'] !=1 ){ ?> style="display:none;"
+										<?php } ?> >
+									</div>
+									<div class="box-delete none" <?php if(!empty($vo[ 'c_dcode']) && $vo[ 'c_checked']==1 ){ ?> style="display:block"
+										<?php } ?> onclick="deleteimg(4)" id="delimg_4"><img src="__IMG__/getbusiness/fc-16.png" alt=""></div>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li id="PreviousCK">上一步</li>
+						<?php if($ctype==1){ ?>
+						<a href="javascript:;" type="button" class="con-descbtn-r fl fs16" onclick="checkimg(2)">完成</a>
+						<?php }if($ctype==2){ ?>
+						<a href="javascript:;" type="button" class="con-descbtn-r fl fs16" onclick="checkimg(4)">完成</a>
+						<?php } ?>
+					</ul>
+				</div>
+			</div>
+			</form> 
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var ctype = '<?php echo $ctype ?>'; /*1个人，2企业*/
+			window.onload = function() {
+				if(ctype == 2) {
+					$('.qy').css("display", "block");
+				}
+				if(ctype == 1) {
+					$('.qy').css("display", "none");
+				}
+			}
+
+			/*上一步*/
+			mui('.mui-content').on('tap', '#PreviousCK', function() {
+				mui.openWindow({url:"__URL__/info_7?isfixed="+isfixed+"&ctype="+ctype, id:"info_7"});
+			});
+
+			//点击图片
+			function clickimg(id) {
+				document.getElementById("file" + id).onchange = function() {
+					tempUploadimgStatic('file' + id, 'imgr' + id, 'saveimg_' + id, id, 'delimg_' + id,1);
+				}
+			}
+
+			//点击上传图片
+			/*function clickimg(id) {
+				document.getElementById('file' + id).onchange = function() {
+					tempUploadimg('file' + id, 'imgr' + id, 'saveimg_' + id);
+				}
+				$('#delimg_' + id).css("display", "block");
+			}*/
+
+			/*完成*/
+			mui('.mui-content').on('tap','.con-descbtn-r',function(){
+				checkimg();
+			});
+
+			/*清空图片*/
+			function deleteimg(id) {
+				delUploadimg($('#saveimg_' + id).val());
+				$('#saveimg_' + id).val("");
+				$('#file' + id).val("");
+				$('#imgr' + id).attr("src", "__IMG__/getbusiness/sjjh_icon_img.png");
+				$('#delimg_' + id).css("display", "none");
+			}
+			// 验证上传图片个数
+			function checkimg(total) {
+				var imgr = "__IMG__/add.jpg";
+				for(var i = 1; i <= total; i++) {
+					var saveimg = $('#saveimg_' + i).val();
+					beforei = $('#imgr' + i).attr("src");
+					if(beforei == imgr || saveimg == "") {
+						mui.toast('请完善相关证件的图片！');
+						return false;
+						break;
+					}
+				};
+				
+				mui.confirm('提交后将不能进行修改','确认提交资料？',['取消','确认'],function (e) {
+					e.index == 0 ? "":savestep();
+				},'div');
+				
+			}
+
+			/*保存*/
+			mui('.mui-content').on('tap', '#savestep', function() {
+				savestep();
+			})
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var attrbul = getFormAttrs('form1');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetInfo8',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.toast("提交成功！");
+								$("#jd_shadow").remove();
+								$("#jd_dialog").remove();
+								setTimeout(function() {
+									mui.openWindow({url: '__URL__/checkstate',id: 'checkstate'});
+								}, 1000);
+							} else {
+								mui.toast(msg.msg);
+								$("#jd_shadow").remove();
+								$("#jd_dialog").remove();
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

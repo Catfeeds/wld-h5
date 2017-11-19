@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeshopinfo');
+		$("#transmit").submit();
+	}
+}
+function refer(){
+	$("#transmit").attr('action','__URL__/shop_list');
+	$("#transmit").submit();
+}
+</script>
+<title>商家中心</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 商家中心 <span class="c-gray en">&gt;</span> {$shoptype} <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+		<input type="hidden" name="sign"  value="{$sign}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入商家名称" name="nickname" value="{$post['nickname']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入商家注册手机号" name="phone" value="{$post['phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入商家资料手机号" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入商家真实姓名" name="name" value="{$post['name']}">
+		<span class="select-box inline">
+		<select name="c_type" class="select">
+			<option value="" selected>注册类型</option>
+     		<option value="1" <if condition="$post['c_type'] eq 1">selected="selected"</if>>个人注册</option>
+     		<option value="2" <if condition="$post['c_type'] eq 2">selected="selected"</if>>企业注册</option>
+     		<option value="3" <if condition="$post['c_type'] eq 3">selected="selected"</if>>个体户注册</option>
+		</select>
+		</span>
+		<if condition="$sign==1">
+			<span class="select-box inline">
+				<select name="c_checked" class="select">
+					<option value="">选择审核状态</option>
+		     		<option value="se" <if condition="$post['c_checked'] eq se">selected="selected"</if>>等待市代审核</option>
+		     		<option value="1" <if condition="$post['c_checked'] eq 1">selected="selected"</if>>驳回</option>
+		     		<option value="2" <if condition="$post['c_checked'] eq 2">selected="selected"</if>>等待区代审核</option>
+				</select>
+				</select>
+			</span>
+		</if>
+		<!-- <if condition="$sign==5">
+			<span class="select-box inline">
+				<select name="c_checked" class="select">
+					<option value="">选择审核状态</option>
+		     		<option value="se" <if condition="$post['c_checked'] eq 4">selected="selected"</if>>等待平台审核</option>
+		     		<option value="1" <if condition="$post['c_checked'] eq 1">selected="selected"</if>>驳回</option>
+		     		<option value="1" <if condition="$post['c_checked'] eq 3">selected="selected"</if>>通过</option>
+				</select>
+				</select>
+			</span>
+		</if> -->
+		<if condition="($sign==1) ||  ($sign==2)">
+			<span class="select-box inline">
+			<select name="c_isfixed" class="select">
+				<option value="">选择商家类型</option>
+	     		<option value="1" <if condition="$post['c_isfixed'] eq 1">selected="selected"</if>>固定店铺</option>
+	     		<option value="10" <if condition="$post['c_isfixed'] eq 10">selected="selected"</if>>微商个体</option>
+			</select>
+			</span>
+		</if>		
+		<input type="text" id="EntTime1" name="EntTime1" value="{$post.EntTime1}" placeholder="起始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+		-
+		<input type="text" id="EntTime2" name="EntTime2" value="{$post.EntTime2}" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>&nbsp;
+	    
+		<button type="submit" class="btn btn-success radius" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+	
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<input type="text" name="least" id="least" size="5" value="{$post.least}" placeholder="起始页必需从1开始" class="input-text" style="width:150px"/>
+				&nbsp;&nbsp;页至&nbsp;&nbsp;
+	    		<input type="text" name="maximum" size="5" id="maximum" value="{$post.maximum}" placeholder="终止页不能超过最大页数" class="input-text" style="width:150px"/>
+	    		&nbsp;
+				<a href="javascript:;" onclick="derive();" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe644;</i> 批量导出</a>	
+			</span>   
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+		</div>
+	</div>
+	</form>
+	
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="100">商家名称</th>
+				<th width="40">头像</th>
+				<th width="100">真实名称</th>
+				<th width="90">店铺推荐码</th>
+				<th width="100">注册手机号</th>
+				<th width="40">个人/企业/个体户</th>
+				<th width="100">固定店铺/微商</th>
+				<if condition="$sign==3">
+					<th width="100">店铺信息是否填写</th>
+				</if>
+				<th width="40">所属代理商</th>
+				<th width="60">审核状态</th>
+				<th width="60">审核不通过理由</th>
+				<th width="100">是否通过审核</th>
+				<th width="120">审核时间</th>
+				<th width="120">加入时间</th>
+				<th width="50">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="" name="usercode"></td>
+				<td>{$i}</td>
+				<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a></font>
+				</td>
+				<td><if condition="$vo['c_headimg'] neq ''" ><a href="{$root_url}{$vo['c_headimg']}" target="_blank"><img src="{$root_url}{$vo['c_headimg']}" style="width:80px;"/></a><else/><img src="__HIMG__/user.png" style="width:80px;"/></if></td>
+				<td>{$vo['c_name']}</td>
+				<td>{$vo['c_invitationcode']}</td>
+				<td>{$vo['phone']}</td>
+				<td>
+					<if condition="$vo['c_type'] eq 1" >
+						<font color="#666600">个人注册</font>
+					<elseif condition="$vo['c_type'] eq 2"/>
+						<font color="#FF44AA">企业</font>
+					<elseif condition="$vo['c_type'] eq 3"/>
+						<font color="blue">个体户</font>
+					</if>
+				</td>
+				<td>
+					<if condition="$vo['c_isfixed'] eq 1" >
+						<font color="#666600">固定店铺</font>
+					<else/>
+						<font color="#CC00FF">微商个体</font>
+					</if>
+				</td>
+				<if condition="$sign==3">
+					<if condition="$vo['datum'] eq 1">
+						<td><font color="green">是</font></td>
+					<else/>
+						<td><font color="red">否</font></td>
+					</if>
+				</if>
+				<td><a title="详细信息" href="__HHOME__/Member/member_list?ucode={$vo.c_acode}" style="text-decoration:none">{$vo['parent_name']}</a></td>
+				<td>
+					<if condition="$vo['c_checked'] eq 0" >
+						<font color="brown">等待市代审核</font>
+					<elseif condition="$vo['c_checked'] eq 1"/>
+						<font color="red">驳回</font>
+						<elseif condition="$vo['c_checked'] eq 2"/>
+						<font color="blue">等待区代审核</font>
+					<elseif condition="$vo['c_checked'] eq 3"/>
+						<font color="green">通过</font>
+					<elseif condition="$vo['c_checked'] eq 4"/>
+						<font color="purple">等待平台审核</font>
+					</if>
+				</td>
+				<td>
+	              <input class="" name="reason" type="text" id="reason_{$vo.c_id}" placeholder="{$vo.c_remark}" value="{$vo.c_remark}" style="width:130px;height:30px;margin-left:15px;" onchange="changea('{$vo['c_ucode']}',this)" />
+				</td>
+				<td>
+					<?php if($vo['c_checked'] == 4) { ?>&nbsp;
+					<a title="通过" href="javascript:;" onclick="ajax_handle(3,'{$vo['c_ucode']}')" class="ml-5" style="text-decoration:none">
+					    <i class="Hui-iconfont"><font color="#00CD00">通过</font></i>
+					</a>&nbsp;
+					<a title="驳回" href="javascript:;" onclick="ajax_handle(1,'{$vo['c_ucode']}')" class="ml-5" style="text-decoration:none">
+					    <i class="Hui-iconfont"><font color="red">驳回</font></i>
+					</a>
+				<?php }　?>
+				</td>
+				<td>{$vo['c_updatetime']}</td>
+				<td>{$vo['c_addtime']}</td>
+				<td>
+				<if condition="$sign==3">
+				 <if condition="$vo['c_isfixed'] == 1">
+					<a title="店铺信息" href="javascript:;" onclick="store_info('店铺信息','Store/store_info?ucode={$vo.c_ucode}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe625;</i></a>
+				 </if>
+				</if>
+				<if condition=" $sign==2">
+					<a title="驳回商家资料" href="javascript:;" onclick="shop_reject('{$vo.c_ucode}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6cd;</i></a>
+				</if>
+				<a title="商家资料编辑" href="javascript:;" onClick="shop_info('商家资料编辑','Merchant/shop_info?ucode={$vo['c_ucode']}')"style="text-decoration:none"  ><i class="Hui-iconfont">&#xe638;</i></a>
+				<a title="店铺使用模板" href="__HHOME__/Merchant/template_list?tplid={$vo.tplid}" style="text-decoration:none"><i class="Hui-iconfont">&#xe66a;</i></a>&nbsp;&nbsp; 
+				</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  // {"orderable":false,"aTargets":[0,8,8]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+/*商家-编辑*/
+function shop_info(title,url,id,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+/*店铺信息*/
+function store_info(title,url,w,h){	
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+/*驳回商家资料*/
+function shop_reject(ucode){
+	layer.confirm('您确定改变商家审核状态，使商家重新填写资料？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Merchant/shop_reject',{ucode:ucode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+//
+function changea(ucode,obj){
+   	var remark = $(obj).val(); 
+    if(remark!=''){
+        if(confirm("你确定执行该操作吗？")){
+            $.post('__URL__/save_remark',{ucode:ucode,remark:remark},function(data){
+                var result = eval(data);		
+    	        if (result['code'] != 0) {
+    	        	layer.msg(result['msg'],{icon:10,time:2000});
+    	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000);
+    	        } else {
+    	        	layer.msg(result['msg'],{icon:1,time:2000});
+    	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000); 
+    	        }          
+            });
+        }
+    }
+    return false;
+}
+/*商家资料审核申请操作*/
+function ajax_handle(checked,ucode){
+
+	if(checked == 3){
+		var message = '确定要通过资料审核吗？';
+	}else if(checked == 1){
+		var message = '确定不通过,驳回请求吗？';
+	} else {
+		layer.msg('参数错误',{icon:10,time:2000});
+	}
+
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Merchant/dealyaudit',{checked:checked,ucode:ucode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000);
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	setTimeout(function () {
+		        		window.location.reload();
+		        	},2000); 
+	        }          
+	    });		
+	});
+}
+</script> 
+</body>
+</html>

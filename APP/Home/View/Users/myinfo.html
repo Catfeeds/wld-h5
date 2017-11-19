@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>个人资料</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+</head>
+<body class="bgcolor">
+
+<div class="wrap-page bgeb" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="myinfo-list">
+		<a href="__URL__/editorinfo">
+			<div class="myinfo-li myinfo-head">
+				<div class="myinfo-li-txt fl">头像</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+				<if condition="$data['c_headimg'] neq null">
+					<div class="myinfo-h-img"><img src="{$data['c_headimg']}" alt=""></div>
+					<else/>
+					<div class="myinfo-h-img"><img src="__IMG__/logo.png" alt=""></div>
+				</if>
+			</div>
+		</a>
+		<a href="__URL__/nickname">
+			<div class="myinfo-li">
+				<div class="myinfo-li-txt fl">昵称</div>
+				<div class="myinfo-li-data fl">{$data['c_nickname']}</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<a href="__URL__/editorinfo">
+			<div class="myinfo-li myinfo-li-b">
+				<div class="myinfo-li-txt fl">性别</div>
+				<div class="myinfo-li-data fl">{$data['c_sex']}</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+	</div>
+	<div class="myinfo-list">
+		<a href="__URL__/editorinfo">
+			<div class="myinfo-li">
+				<div class="myinfo-li-txt fl">行业</div>
+				<div class="myinfo-li-data fl">{$data['c_trade']}</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<a href="__URL__/editorinfo">
+			<div class="myinfo-li">
+				<div class="myinfo-li-txt fl">地区</div>
+				<div class="myinfo-li-data fl">{$data['c_province']}-{$data['c_city']}-{$data['c_region']}</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<a href="__URL__/labelinfo">
+			<div class="myinfo-li">
+				<div class="myinfo-li-txt fl">标签</div>	
+				<div class="myinfo-li-label fl">
+					<ul>
+						<volist name="mylabel" id="vo">
+						<li>{$vo}&nbsp;×</li>
+						</volist>
+					</ul>
+				</div>			
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<a href="__URL__/editorinfo">
+			<div class="myinfo-li myinfo-li-b">
+				<div class="myinfo-li-txt fl">个性签名</div>
+				<div class="myinfo-li-sign fl">{$data['c_signature']}</div>				
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+	</div>
+	<div class="myinfo-list">
+		<a href="__URL__/safeinfo">
+			<div class="myinfo-li">
+				<div class="myinfo-li-txt fl" style="color:#555;">账户安全</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<a href="__URL__/myaddress">
+			<div class="myinfo-li myinfo-li-b">
+				<div class="myinfo-li-txt fl" style="color:#555;">收货地址</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+	</div>
+
+	<!-- <div class="myinfo-exit bgcolor">
+		<a href="__URL__/loginout" class="myinfo-exit-btn">退出账号</a>
+	</div>
+ -->
+ </div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload = function() {
+	var lih = $('.myinfo-li').height();
+	$('.myinfo-li-txt').css('line-height', lih + 'px');
+	$('.myinfo-li-data').css('line-height', lih + 'px');
+	$('.myinfo-li-sign').css('line-height', lih + 'px');
+
+	var hw = $('.myinfo-h-img').width();
+	$('.myinfo-h-img').width(hw);
+	$('.myinfo-h-img').height(hw);
+	$('.myinfo-h-img').css('border-radius', hw + 'px');
+}
+</script>
+</body>
+</html>

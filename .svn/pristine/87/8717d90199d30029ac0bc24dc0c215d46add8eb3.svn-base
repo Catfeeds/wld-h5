@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+ 	<title>注册协议</title>
+ 	<include file="Base@Public/header" />
+ 	<link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+</head>
+<body>
+	<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	    <div class="wrap-page">
+			<div class="pright">
+				<div class="pr-title"><h3>微领地小蜜会员注册使用协议</h3></div>
+				<div class="pr-agreement">			
+				　　<h5>欢迎使用微领地小蜜！</h5>
+				　　<p class="MsoNormal" align="left" style="text-indent:21pt;">
+						请务必认真阅读和理解本《软件使用许可协议》（以下简称《协议》）中规定的所有权利和限制。除非您接受本《协议》条款，否则您无权下载、安装或使用本"软件"及其相关服务。您一旦安装、复制、下载、访问或以其它方式使用本软件产品，将视为对本《协议》的接受，即表示您同意接受本《协议》各项条款的约束。如果您不同意本《协议》中的条款，请不要安装、复制或使用本软件。
+					</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left" style="text-indent:21pt;">
+							本《协议》是用户与长沙微领地网络科技有限公司（下称“微领地”）之间关于用户下载、安装、使用、复制随附本《协议》的小蜜软件（以下简称“软件”）的法律协议。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							1.权利声明
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left" style="text-indent:21pt;">
+							本“软件”的一切知识产权，以及与"软件"相关的所有信息内容，包括但不限于：文字表述及其组合、图标、图饰、图像、图表、色彩、界面设计、版面框架、有关数据、附加程序、印刷材料或电子文档等均为微领地所有，受著作权法和国际著作权条约以及其他知识产权法律法规的保护。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							2.许可范围
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							2.1下载、安装和使用：本软件为免费软件，用户可以非商业性、无限制数量地下载、安装及使用本软件。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							2.2复制、分发和传播：用户可以非商业性、无限制数量地复制、分发和传播本软件产品。但必须保证每一份复制、分发和传播都是完整和真实的，包括所有有关本软件产品的软件、电子文档，版权和商标，亦包括本协议。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							3.权利限制
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							3.1禁止反向工程、反向编译和反向汇编：用户不得对本软件产品进行反向工程（Reverse Engineer）、反向编译（Decompile）或反向汇编（Disassemble），同时不得改动编译在程序文件内部的任何资源。除法律、法规明文规定允许上述活动外，用户必须遵守此协议限制。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							3.2组件分割：本软件产品是作为一个单一产品而被授予使用许可，用户不得将各个部分分开用于任何目的。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							3.3个别授权：如需进行商业性的销售、复制、分发，包括但不限于软件销售、预装、捆绑等，必须获得微领地的书面授权和许可。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							3.4保留权利：本协议未明示授权的其他一切权利仍归微领地所有， 用户使用其他权利时必须获得微领地的书面同意。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							4.用户使用须知
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1软件功能。本软件是一款专为方便微商用户而开发的手机应用程序，旨在为用户提供省钱、方便、快捷的网购服务。本软件包含商品收藏、消息盒、比价推荐、历史价格、提醒订阅、浏览历史、扩展功能等7大类主要功能。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.1即时通讯功能：实现会员、微商之间无缝隙沟通，赋予产品基本社交功能。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.2商城系统：实现商品的分类及展示。每个微商都能创建自已的店铺，可以实现即时购买，订单查看、处理、售后问题解决等功能。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.3数据统计：根据会员位置、微商数据库，统计基本信息，进行分析匹配。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.4精准推送：根据会员位置、年龄、兴趣等数据，精准推送有价值的信息、商品、人脉信息。
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.5活动功能：为平台引流、活跃会员，平台将会根据法定节假日安排多类型的线上活动。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.6任务功能：建立会员、微商等体系与分红比例、权限分配挂钩。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.7分红功能：增强会员与微商，微商与代理商粘性的奖励制度。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.8认证功能：对于品牌、优质微商，我司审核后，将给与认证标识。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.1.9学习功能：免费推送书籍、文章，供会员、微商学习。学习方向主攻移动互联网知识普及，运营。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.3本软件由长沙微领地网络科技有限公司提供产品支持。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.4软件的修改和升级：软件会遵循安卓与苹果扩展程序的更新机制，在您载入扩展程序或打开应用程序时自动应用所有可用更新。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.5产品推荐：用户在此同意，为提高用户体验，本软件上提供推荐和安装长沙微领地网络科技有限公司的其他相关产品的功能，用户可以根据该功能来自主选择下载和安装所推荐的产品。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.6本软件不含有任何旨在破坏用户浏览器数据和获取用户隐私信息的恶意代码，不含有任何跟踪、监视用户的功能代码，不会监控用户网上、网下的行为，不会收集用户使用其它软件、文档等个人信息，不会泄漏用户隐私。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7用户应在遵守法律及本协议的前提下使用本软件。用户无权实施包括但不限于下列行为：
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.1不得删除或者改变本软件上的所有权利管理电子信息；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.2不得故意避开或者破坏著作权人为保护本软件著作权而采取的技术措施；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.3用户不得利用本软件误导、欺骗他人 ;
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.4违反国家规定，对计算机信息系统功能进行删除、修改、增加、干扰，造成计算机信息系统不能正常运行；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.5未经允许，进入计算机信息网络或者使用计算机信息网络资源；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.6未经允许，对计算机信息网络功能进行删除、修改或者增加的；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.7未经允许，对计算机信息网络中存储、处理或者传输的数据和应用程序进行删除、修改或者增加；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.8破坏本软件系统或网站的正常运行，故意传播计算机病毒等破坏性程序；
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.7.9其他任何危害计算机信息网络安全的行为。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.8对于从非微领地指定站点下载的本软件产品以及从非微领地发行的介质上获得的本软件产品，微领地无法保证该软件是否感染计算机病毒、是否隐藏有伪装的特洛伊木马程序或者黑客软件，使用此类软件，将可能导致不可预测的风险，建议用户不要轻易下载、安装、使用，
+						微领地不承担任何由此产生的一切法律责任。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.9隐私权保护
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.9.1微领地承诺遵守《微领地用户隐私保护白皮书》以及适用法律的规定。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							4.9.2微领地制定了严格的用户上传信息处理规则和安全保护措施来确保不超越目的和范围收集用户信息，确保用户上传信息的安全，确保用户上传信息不被滥用。除征得用户明确同意和法律明确规定外，
+						微领地不会向任何第三方提供用户上传文件及信息。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">	4.9.3微领地制定了以下四项隐私权保护原则，指导我们如何来处理产品中涉及到用户隐私权和用户信息等方面的问题：
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							(1)利用我们收集的信息为用户提供有价值的产品和服务。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							(2)开发符合隐私权标准和隐私权惯例的产品。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							(3)将个人信息的收集透明化，并由权威第三方监督。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							(4)尽最大的努力保护我们掌握的信息。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							5. 免责与责任限制
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							5.1本软件经过详细的测试，但不能保证与所有的软硬件系统完全兼容，不能保证本软件完全没有错误。如果出现不兼容及软件错误的情况，用户可拨打技术支持电话将情况报告微领地
+						，获得技术支持。如果无法解决兼容性问题，用户可以删除本软件。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							5.2在适用法律允许的最大范围内，对因使用或不能使用本软件所产生的损害及风险，包括但不限于直接或间接的个人损害、商业赢利的丧失、贸易中断、商业信息的丢失或任何其它经济损失，微领地不承担任何责任。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							5.3对于因电信系统或互联网网络故障、计算机故障或病毒、信息损坏或丢失、计算机系统问题或其它任何不可抗力原因而产生损失，
+						微领地不承担任何责任。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							5.4用户违反本协议规定，对微领地公司造成损害的。微领地有权采取包括但不限于中断使用许可、停止提供服务、限制使用、法律追究等措施。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							6. 法律及争议解决
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							6.1本协议适用中华人民共和国法律。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							6.2因本协议引起的或与本协议有关的任何争议，各方应友好协商解决；协商不成的，任何一方均可将有关争议提交至北京仲裁委员会并按照其届时有效的仲裁规则仲裁；仲裁裁决是终局的，对各方均有约束力。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<h5 class="MsoNormal" align="left">
+							7.其他条款
+						</h5>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							7.1如果本协议中的任何条款无论因何种原因完全或部分无效或不具有执行力，或违反任何适用的法律，则该条款被视为删除，但本协议的其余条款仍应有效并且有约束力。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							7.2微领地有权随时根据有关法律、法规的变化以及公司经营状况和经营策略的调整等修改本协议。修改后的协议会在微领地网站（<a href="https://www.iweilingdi.com">www.iweilingdi.com</a>）上公布，并随附于新版本软件。当发生有关争议时，以最新的协议文本为准。如果不同意改动的内容，用户可以自行删除本软件。如果用户继续使用本软件，则视为您接受本协议的变动。
+						</p>
+						<p class="MsoNormal" align="left">
+							&nbsp;
+						</p>
+						<p class="MsoNormal" align="left">
+							7.3微领地在法律允许的最大范围内对本协议拥有解释权与修改权。
+						</p>		
+				</div>				
+			</div>
+		</div>
+	</div>
+	
+ 	<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload=function(){
+				//$('.mui-content').css('margin-top',$('.xiaomi-bar').height()+'px');
+			}			
+		</script> 	 	
+ 	<include file="Base@Public/footer" />
+</body>
+</html>

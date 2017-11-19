@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>修改运费</title>
+		<meta content="修改运费" name="keywords">
+		<meta content="修改运费" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/order.css?v=1.3">
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="freight-top">
+					<div class="freight-font fs14">现运费</div>
+					<div class="freight-money fs22">￥{$free}</div>
+					<img src="__IMG__/post-b.png" alt="">
+				</div>
+				<div class="freight-input">
+					<div class="freight-left fl fs13">修改运费</div>
+					<div class="freight-text fl fs13"><input type="text" name="c_free" id="free" placeholder="请输入修改的运费"></div>
+				</div>
+	
+				<div class="freight-btn fs16" href="javascript:;">确定修改</div>
+			</div>
+		</div>
+		
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				var fh = $('.freight-input').height();
+				$('#postage').css('line-height', fh + 'px');
+			}
+		</script>
+		<script type="text/javascript">
+			mui('.mui-content').on('tap','.freight-btn',function(){
+				updatefree();
+			});
+			var clicktag = true;
+			/*修改运费*/
+			function updatefree() {
+				if(clicktag){
+					clicktag = false;
+					var free = $('#free').val();
+					if(free == '') {
+						mui.toast('请输入运费！');
+						clicktag = true;
+						return false;
+					} else {
+						var re = /^-?\d+\.?\d{0,2}$/;
+						if(!re.test(free)) {
+							mui.toast('请输入数字,小数只能带两位小数！');
+							clicktag = true;
+							return false;
+						}
+					}
+					$.post('__URL__/freight', {
+							free: free,
+							orderid: '<?php echo $orderid ?>'
+						},
+						function(obj) {
+							var msg = eval(obj);
+							if(msg['code'] == 0) {
+								mui.toast('修改运费成功');
+								setTimeout(function() {									
+									mui.openWindow({url:"__URL__/orderlist?statu=1&type={$apptype}",id:"orderlist"})
+								}, 2000);
+	
+							} else {
+								mui.toast(msg['msg']);
+								clicktag = true;
+								return false;
+							}
+						});
+					
+				}
+			}
+		</script>
+	</body>
+
+</html>

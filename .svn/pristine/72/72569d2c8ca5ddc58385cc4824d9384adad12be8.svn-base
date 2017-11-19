@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+/*购物车*/
+.store-product-list{width: 100%;background: #fff;margin-bottom: 5%;}
+.store-name-tit{padding-left:4%;border-bottom: solid 1px #ebebeb;overflow: hidden;}
+.store-chkbox{width: 10%;float: left;}
+.store-names{float: left;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.store-arrow{width: 10%;float: left;}
+.store-editor{width: 13%;text-align: center;float: right;border: solid 1px #d8d8d8;border-radius: 5px;margin-right: 2%;}
+.store-pro-list{width: 100%;}
+.store-pro-list ul{overflow: hidden;}
+.store-pro-list ul li{padding: 2% 4%;border-bottom: solid 1px #ebebeb;overflow: hidden;position: relative;}
+.pro-chkbox{width: 10%;float: left;}
+.pro-right-info{width: 90%;float: left;overflow: hidden;}
+.pro-r-img{width: 20%;float: left;}
+.pro-r-img img{border: solid 1px #d8d8d8;width: 100%;height: 100%;}
+.pro-r-info{float: left;width: 77%; margin-left: 3%;}
+.pro-r-names{overflow: hidden; text-overflow: ellipsis; white-space: nowrap;width: 100%;}
+.pro-r-property{}
+.pro-r-pricenum{width: 100%;overflow: hidden;}
+.pro-r-price{color: #ffad3f;float: left;}
+.pro-r-nums{color: #ffad3f;float: right;}
+.clearcart{background: #ffad3f;text-align: center;width: 11%;color: #fff;position: absolute;top: 0;bottom: 0;right: 0;z-index: 999;display: none;}
+
+.store-pro-account{width: 100%;padding: 5% 0;overflow: hidden;}
+.account-price{float: right;margin-right: 3%;}
+.account-price span{color: #ffad3f;}
+.account-price em{font-style: normal;}
+.account-btn{background: #ffad3f;border:none; cursor:pointer; border-radius: 5px;text-align: center;padding:2%;float: right;margin-right: 4%;}
+
+
+/*checkbox*/
+#wrap-cart input[type="checkbox"]{ cursor:pointer; width: 18px;height: 18px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../img/mycart_3.png");background-size: 100% 100%; outline:none;}
+#wrap-cart  input[type="checkbox"]:checked {width: 18px;height: 18px;border: 0px;background:url("../img/mycart_2.png");background-size: 100% 100%;}
+@media (min-width: 421px){
+    #wrap-cart input[type="checkbox"]{width: 22px;height: 22px;background-size: 100% 100%;}
+    #wrap-cart input[type="checkbox"]:checked {width: 22px;height: 22px;background-size: 100% 100%;}  
+}

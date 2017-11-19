@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mui.picker.min.css">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style type="text/css">
+			.resource-l {
+				padding: 0 0 0 3%;
+			}
+			.resource-list span {
+				margin: 3% 0 0 0;
+			}
+			.mui-btn{border:none;}
+		</style>
+	</head>
+
+	<body>
+
+		<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<include file="Common/head" />
+
+			<div class="wrap-page bgcolor" style="margin-bottom: 15%;">
+				<div class="p_info_tit"><span class="fs14 c3">商家资料4/<?php if($isfixed==1){ ?>8<?php }else{ ?>7<?php } ?></span></div>
+				<div class="p_info_con">
+					<div class="resource-main">
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>证照类型：</div>
+							<div class="resource-r fl">
+								<select name="chartertype" id="chartertype" class="fs14 c9">
+									<option value="19" <?php if ($vo['c_chartertype'] == 19) { ?> selected="selected" <?php } ?>>营业执照</option>
+									<option value="20" <?php if ($vo['c_chartertype'] == 20) { ?> selected="selected" <?php } ?>>税务登记证</option>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>证照号码：</div>
+							<div class="resource-r fl"><input type="text" id="charter" name="charter" class="resource-text" value="{$vo['c_charter']}" placeholder="请输入证件号" maxlength="30"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>证照有效期：</div>
+							<div class="resource-r fl">
+								<input type="text" value="{$vo['c_charterstarttime']}" name="starttime" id="starttime" placeholder="请选择" class="fs12 c3 resource-text fl" style="width: 45%;text-align: center" />
+								<input type="hidden" name="charterstarttime" id="charterstarttime" value="{$vo['c_charterstarttime']}" />
+								<input type="text" disabled="disabled" value="至" style="width: 10%;color: #999;" class="resource-text fl">
+								<input type="text" value="{$vo['c_charterendtime']}" name="endtime" id="endtime" placeholder="请选择" class="fs12 c3 resource-text fl" style="width: 45%;text-align: center" />
+								<input type="hidden" name="charterendtime" id="charterendtime" value="{$vo['c_charterendtime']}" />
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>邮箱：</div>
+							<div class="resource-r fl"><input type="text" id="email-name" value="{$vo['c_email']}" name="email" class="resource-text" placeholder="请输入邮箱" maxlength="35"></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>客服电话：</div>
+							<div class="resource-r fl"><input type="text" id="hometel" value="{$vo['c_home_tel']}" name="home_tel" class="resource-text" placeholder="请输入客服电话" maxlength="30"></div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="info_sub_btn fixed-btn fs16">
+				<ul>
+					<li onclick="PreviousCK()">上一步</li>
+					<li onclick="savestep()">保存并下一步</li>
+				</ul>
+			</div>
+
+		</form>
+		<script type="text/javascript" src="__JS__/mui.min.js"></script>
+		<script type="text/javascript" src="__JS__/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var stattt = "";
+			var endttt = "";
+            mui('.wrap-page').on('tap', '#starttime', function() {
+				if(endttt){
+                    var picker = new mui.DtPicker({
+                        type: "date",//设置日历初始视图模式
+                        beginDate: new Date(1990,00,01),
+                        endDate: new Date(endttt)//设置结束日期
+                    });
+				}else{
+                    var picker = new mui.DtPicker({
+                        type: "date",
+                        beginDate: new Date(1990,00,01),
+                        endDate: new Date(2077,00,01)//设置结束日期
+                    });
+				}
+                picker.show(function(rs) {
+                    stattt=rs.text;
+                    $("#starttime").val(rs.text);
+                    $('#charterstarttime').val(rs.text);
+                    picker.dispose();
+                });
+            });
+            /*结束时间*/
+            mui('.wrap-page').on('tap', '#endtime', function() {
+                if(stattt){
+                    var picker = new mui.DtPicker({
+                        type: "date",//设置日历初始视图模式
+                        beginDate: new Date(stattt),//设置开始日期
+                        endDate: new Date(2050,00,01)//设置结束日期
+
+                    });
+                }else{
+                    var picker = new mui.DtPicker({
+                        type: "date",
+                        beginDate: new Date(1950,00,01),
+                        endDate: new Date(2050,00,01)//设置结束日期
+                    });
+                }
+                picker.show(function(rs) {
+                    endttt=rs.text;
+                    $("#endtime").val(rs.text);
+                    $('#charterendtime').val(rs.text);
+                    picker.dispose();
+                });
+            });
+
+		</script>
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			window.onload = function() {
+
+				//$('.resource-list').css('line-height', $('.resource-r').height() + 'px');
+
+			}
+			/*身份证验证*/
+			function checkIdcard(idcard) {
+				var idreg = /^[0-9a-zA-Z]*$/g;
+				if(!idreg.test($('input[name="charter"]').val())) {
+					return false;
+				}
+				return true;
+			}
+
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/info_3?isfixed="+isfixed;
+			}
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					if($("#chartertype option:selected").val()=="") {
+						JqueryDialog.Show('请选择证照类型');
+						$('select[name="chartertype"]').focus();
+						return false;
+					}
+					if(emptyval($('input[name="charter"]').val())){
+						JqueryDialog.Show('请输入证照号码');
+						$('input[name="charter"]').focus();
+						return false;
+					}else{
+                        if(!checkIdcard($('input[name="charter"]').val())) {
+                            JqueryDialog.Show('请输入正确的证照号码！');
+                            $('input[name="charter"]').focus();
+                            return false;
+                        }
+					}
+                    if(emptyval($('#charterstarttime').val())){
+                        JqueryDialog.Show('请选择生效时间');
+                        $('input[name="starttime"]').focus();
+                        return false;
+                    }
+                    if(emptyval($('#charterendtime').val())){
+                        JqueryDialog.Show('请选择失效时间');
+                        $('input[name="endtime"]').focus();
+                        return false;
+                    }
+                    var arr = $('#starttime').val().split("-");
+                    var starttime = new Date(arr[0], arr[1], arr[2]);
+                    var starttimes = starttime.getTime();
+                    var arrs = $('#endtime').val().split("-");
+                    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+                    var lktimes = lktime.getTime();
+                    if (starttimes >= lktimes) {
+                        mui.toast('生效时间大于等于失效时间，请检查');
+                        return false;
+                    }
+                    if(emptyval($('input[name="email"]').val())) {
+                        JqueryDialog.Show('请输入邮箱');
+                        $('input[name="email"]').focus();
+                        return false;
+                    } else {
+                        var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                        if(!emailreg.test($('input[name="email"]').val())) {
+                            JqueryDialog.Show('请输入正确的电子邮箱');
+                            $('input[name="email"]').focus();
+                            return false;
+                        }
+                    }
+                    if(emptyval($('input[name="home_tel"]').val())) {
+                        JqueryDialog.Show('请输入客服电话');
+                        $('input[name="home_tel"]').focus();
+                        return false;
+                    } else {
+                        var homeval = /^[0-9]*$/;
+                        if(!homeval.test($('input[name="home_tel"]').val()) || $('input[name="home_tel"]').val() == '') {
+                            JqueryDialog.Show('请输入正确的客服电话！');
+                            $('#hometel').focus();
+                            return false;
+                        }
+                    }
+                    resign = false;
+                    $('#charterstarttime').val($('#starttime').val());
+                    $('#charterendtime').val($('#endtime').val());
+					var attrbul = getFormAttrs('form1');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetInfo4',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								JqueryDialog.Show("保存成功！");
+								setTimeout(function() {
+									window.location.href = "__URL__/info_5?isfixed=<?php echo $isfixed; ?>";
+								}, 1000);
+							} else {
+								JqueryDialog.Show(msg.msg);
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

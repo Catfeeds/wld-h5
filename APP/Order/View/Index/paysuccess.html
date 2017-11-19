@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>支付成功</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/order.css" />
+	<style type="text/css">.img{width: 100%;height: 100%;}</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<!-- 商品信息 -->
+			<div class="pt-pro-con divtab divre">
+				<div class="pt-pro-img fl">
+					<img src="__IMG__/logo.png">
+					<div class="pt-pro-bg divab"></div>
+				</div>
+				<div class="pt-pro-info fl">
+					<div class="pt-pro-name c3 fs12 clamp2">良品铺子/五香灯影牛肉丝重庆五香灯影牛肉丝重庆特产特产</div>
+					<div class="pt-pro-number c3 fs12">18人团</div>
+					<div class="pt-pro-price cy fs14">￥18.00<span class="c9 fs11">原件：￥18.00</span></div>
+				</div>
+				<div class="pt-pro-state cb fs14 divab">
+					<span>拼团中</span>
+					<!-- 成功<div class="pt-college-img"><img src="__IMG__/pt_icon_ptcg.png"></div> -->
+					<!-- <div class="pt-college-img"><img src="__IMG__/pt_icon_ptsb.png"></div> -->
+				</div>
+			</div>
+			<!-- 拼团人数 -->
+			<div class="pt-number-con">
+				<ul class="divtab">
+					<li class="divre">
+						<div class="pt-number-img"><img src="__IMG__/logo.png"></div>
+						<div class="pt-number-bg divab"></div>
+					</li>
+					<li><div class="pt-number-img"><img src="__IMG__/logo.png" alt=""></div></li>
+					<li><div class="pt-number-img"><img src="__IMG__/logo.png" alt=""></div></li>
+					<li><div class="pt-number-img"><img src="__IMG__/logo.png" alt=""></div></li>
+					<li><div class="pt-number-img"><img src="__IMG__/logo.png" alt=""></div></li>
+					<li><div class="pt-number-img"><img src="__IMG__/pt_icon_kong.png" alt=""></div></li>
+					<li><div class="pt-number-img"><img src="__IMG__/pt_icon_kong.png" alt=""></div></li>
+					<li><div class="pt-number-img"><img src="__IMG__/pt_icon_kong.png" alt=""></div></li>
+					<li class="divre">
+						<div class="pt-number-img"><img src="__IMG__/pt_icon_kong.png" alt=""></div>
+						<div class="pt-number-bg divab"></div>
+					</li>
+					<li><div class="pt-number-img"><img src="__IMG__/pt_icon_more.png" alt=""></div></li>
+				</ul>
+				<div class="pt-time-state">
+					<!-- <p class="c9 fs12">还差5人，赶快邀请好友参团吧</p>
+					<div class="pt-time-show">
+						<p class="fs14 cuttime" id="votetime1" title="1"><font>剩余</font>
+							<span id="coll_1" style="display:none;"></span>
+							<span id="t_1" style="display:none;"></span>
+							<span id="h_1">11</span>
+							:<span id="f_1">12</span>
+							:<span id="m_1">13</span>
+							<font>结束</font>
+						</p>
+					</div> -->
+					<p class="c3 fs14"><!-- 拼团成功/拼团失败/点击底部 --><b>“查看订单”</b>，获取提货码</p>
+					<p class="c9 fs12"><!-- 注意查看您的订到详情哦！/快去看看其他拼团吧！/ -->提货码为到店提取唯一凭证，请妥善保管</p>
+				</div>
+			</div>
+			<!-- 拼团玩法 -->
+			<div class="pt-playwy-con">
+				<div class="pt-playwy-tit divre">
+					<div class="pt-title fs14" ><font></font>拼团玩法</div>
+					<div class="pt-help-img divab"><img src="__IMG__/pt_icon_wfsz.png"></div>
+				</div>
+				<p class="c3 fs12"><font></font>选择拼团商品，点击我要参团进入支付页面；</p>
+				<p class="c3 fs12"><font></font>支付成功、完成参团，也可以邀请好友参团；</p>
+				<p class="c3 fs12"><font></font>在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。</p>
+			</div>
+			<!-- 商品详情页 -->
+			<div class="pt-good-details">
+				<div class="pt-good-remark">
+					<div class="pt-title fs14"><font></font>商品详情</div>
+					<p class="fs13 c3">在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。</p>
+				</div>
+				<div class="pt-good-imglist divtab alignc">
+					<img src="__IMG__/logo.png" alt="">
+					<img src="__IMG__/logo.png" alt="">
+					<img src="__IMG__/logo.png" alt="">
+				</div>
+			</div>
+
+			<!-- 底部菜单 -->
+			<div class="pt-buy-btn">
+				<div class="server-btn fl fs14 c3">
+					<div class="server-btnimg"><img src="__IMG__/pt_icon_kef.png" alt=""></div>
+					<span>客服</span>
+				</div>
+				<div class="shop-btn fl fs14 c3">
+					<div class="shop-btnimg"><img src="__IMG__/pt_icon_dp.png" alt=""></div>
+					<span>店铺</span>
+				</div>
+				<div class="pt-shopping-text fl fs14 cf">邀请好友参团<!-- /查看订单/更多拼团/立即参团￥99.99 --></div>
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var pImg = $('.pt-pro-img').width();
+		$('.pt-pro-img').height(pImg + 'px');
+		$('.pt-pro-name').css('margin-bottom',pImg*0.12 +'px');
+		$('.pt-pro-number').css('line-height',pImg*0.28 +'px');
+		$('.pt-pro-price').css('line-height',pImg*0.28 +'px');
+
+		$('.pt-shopping-text').css('line-height',$('.shop-btn').height() + 'px');
+		$('.pt-good-details').css('margin-bottom',$('.shop-btn').height() + 'px');
+
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	// var statu = '<?php echo $statu ?>';
+	// if(!statu) {
+	// 	statu = 1;
+	// }
+	// selectstatu(statu);
+	// mui('.mui-content').on('tap', '#c-nav-t1', function() {
+	// 	selectstatu(1);
+	// });
+	// mui('.mui-content').on('tap', '#c-nav-t2', function() {
+	// 	selectstatu(2);
+	// });
+	// mui('.mui-content').on('tap', '#c-nav-t3', function() {
+	// 	selectstatu(3);
+	// });
+	// function selectstatu(i) {
+	// 	statu = i;
+	// 	pageindex = 1;
+	// 	ctrls = true;
+	// 	emptyval = true;
+	// 	$('.c-nav-tli').removeClass('hover');
+	// 	$('#c-nav-t' + i).addClass('hover');
+	// 	getdatalist();
+	// }
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+
+		// if($(window).scrollTop() >= $('.coupon-nav-tab').height()) {
+		// 	$('.coupon-nav-tab').addClass('menu-fixed');
+		// }
+		// if($(window).scrollTop() < $('.coupon-nav-tab').height()) {
+		// 	$('.coupon-nav-tab').removeClass('menu-fixed');
+		// }
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/?pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					/*选择卡券*/
+					$('.coupon-detail_'+pageindex).each(function(index) {
+						var cid = $(this).attr('title');
+						mui('.mui-content').on('tap', '#cancel_' + cid, function() {
+							var ctype = $('#ctype_' + cid).val();
+							tijiao(cid, ctype);			
+						});
+					});	
+				}		
+			}
+		});
+	}
+
+	//确认对话框事件
+	mui('.mui-content').on('tap', '.c-cqd-delete', function() {
+		mui.confirm('删除后将无法继续领取，确认删除？', '提示', ['取消', '确认'], function(e) {
+			e.index == 0 ? "" : delcoupon();
+		}, 'div');
+	});
+
+	
+	var tjsign = true;
+	function tijiao() {
+		if (tjsign) {
+			tjsign = false;
+			$.post("",{cid:cid,num:num},function(obj){
+				var data = eval(obj);
+				tjsign = true;
+				if(data['code']==0){							
+					mui.toast(data['msg']);
+					mui.alert(data['msg']);
+					setTimeout(function () {
+						mui.openWindow({
+							url: '__URL__/couponlist',
+							id: 'couponlist'
+						});
+					}, 2000);
+				}else{
+					mui.toast(data['msg']);
+				}
+			});
+		}	
+	}
+
+	//提交表单
+	$('.xm-bar-nav-right').click(function() {
+		putform();
+	});
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/saveBagsInfo',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"level"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);
+						}
+					}
+			});
+		}	
+	}
+</script>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>账户与安全</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/usercenter/index.css?v=1.2">
+</head>
+<style type="text/css">img{width: 100%;height: auto;}</style>
+<body class="bgeb">
+
+<div class="wrap-page" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="myinfo-list" style="margin-top:0;">
+		<a href="__URL__/bindtel">
+			<div class="myinfo-li">
+				<div class="myinfo-li-img fl"><img src="__IMG__/usercenter/safe-ico-1.png" alt=""></div>
+				<div class="myinfo-li-font fl fs13">修改手机号</div>
+				<div class="myinfo-tel fl fs14">{$mobile}</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<a href="__URL__/updatepwd">
+			<div class="myinfo-li">
+				<div class="myinfo-li-img fl"><img src="__IMG__/usercenter/safe-ico-2.png" alt=""></div>
+				<div class="myinfo-li-font fl fs13">修改登录密码</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<?php if(empty($data['c_safepwd'])){ ?>
+		<a href="__URL__/safepwdtel?action=add">
+			<div class="myinfo-li">
+				<div class="myinfo-li-img fl"><img src="__IMG__/usercenter/setsafepwd.png" alt=""></div>
+				<div class="myinfo-li-font fl fs13">设置提现安全密码</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<?php }else{ ?>
+		<a href="__URL__/safepwdtel?action=modify">
+			<div class="myinfo-li myinfo-li-b">
+				<div class="myinfo-li-img fl"><img src="__IMG__/usercenter/setsafepwd.png" alt=""></div>
+				<div class="myinfo-li-font fl fs13">修改提现安全密码</div>
+				<div class="myinfo-li-arrow fr"><img src="__IMG__/usercenter/u-img-2.png" alt=""></div>
+			</div>
+		</a>
+		<?php } ?>
+	</div>
+
+</div>
+</div>
+
+</body>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+	var lih = $('.myinfo-li').height();
+	$('.myinfo-li').css('line-height',lih+'px');
+}
+</script>
+</html>

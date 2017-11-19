@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>店铺二维码</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css" />
+	</head>
+
+	<body style="background: #46A9FA;">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content" style="background: #46A9FA;">
+					<div class="qrcode-main bgcolor">
+						<!--<div class="qrcode-info divtab">
+							<div class="qrcode-head fl"><img src="{$storeinfo['c_thumbnail_img']}" alt="" /></div>
+							<div class="qrcode-nickname fl fs13 c3">{$storeinfo['c_name']}</div>
+						</div>
+						<div class="qrcode-img">
+							<img src="__IMG__/store/default1_03.png" alt="" />
+						</div>-->
+						<div class="qrcode-bigimg qrcode-img">
+							<img src="__IMG__/store/2wm_bg_share.png" alt="" />
+						</div>
+						<div class="qrcode-btn fs16 c9 bgeb divtab"><span id="change_qrcode">换个样式</span><span>保存至相册</span></div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			ChRightText('分享');
+			yangshi();
+			shopqrcode();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {			
+			$('.qrcode-head').height($('.qrcode-head').width());
+			$('.qrcode-head').css({"border-radius":$('.qrcode-head').width()+"px"});
+			$('.qrcode-nickname').css({"line-height":$('.qrcode-head').width()+"px"});
+			$('.qrcode-img').height($('.qrcode-img').width()*1.21);
+		}
+		
+		function shopqrcode(){
+			var random_num = Math.floor(Math.random()*5+1);	
+			console.log(random_num);
+			$.post("__URL__/shopqrcode",{random_num:random_num},function(obj){
+				var msg = eval(obj);
+				if(msg['code']==0){
+					$('.qrcode-img img').attr('src',msg['data']['img']);
+				}else{
+					mui.toast(msg['msg']);
+				}
+			});
+		}		
+		mui('.mui-content').on('tap','#change_qrcode',function(){
+			shopqrcode();
+		});
+	</script>
+
+</html>

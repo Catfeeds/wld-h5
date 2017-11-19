@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>分享页面</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+ 		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+		<style type="text/css">
+			.t-s-details { border: 1px solid #f6f6f6; margin-bottom: 25%;}
+			.t-s-de-right { width: 100%; overflow: hidden;}
+			.t-s-de-imglist ul li { margin: 0 3% 3% 0;}
+		</style>
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content bgcolor divtab">
+				<div class="t-s-shares-main">
+					<div class="t-s-details divtab">
+						<input type="hidden" id="issue_ucode" value="{$data.c_ucode}" />
+						<div class="t-s-de-left fl">
+							<img src="__IMG__/logo2x.png" alt="" />
+						</div>
+						<div class="t-s-de-headinfo fl divtab">
+							<div class="t-s-de-ncname">
+								<div class="c3 fs13 fov divtab">拥有美好的都</div>
+								<div class="c9 fs12">11分钟前&nbsp;&nbsp;长沙.五一广场</div>
+							</div>
+						</div>
+						<div class="t-s-de-right">
+							<div class="t-s-de-description fs13 c3">我明白眼前都是气泡，安静才是苦口良药，明白什么才让我骄傲，不明白你。</div>
+							<div class="t-s-de-imglist divtab" id="imglist-1-1">
+								<ul>
+									<li><img src="__IMG__/logo2x.png" alt="" /></li>
+									<li><img src="__IMG__/district_ling2x.png" alt="" /></li>
+									<li><img src="__IMG__/district_zhe2x.png" alt="" /></li>
+									<li><img src="__IMG__/district_jian2x.png" alt="" /></li>
+									<li><img src="__IMG__/logo2x.png" alt="" /></li>
+									<li><img src="__IMG__/district_ling2x.png" alt="" /></li>
+									<li><img src="__IMG__/district_zhe2x.png" alt="" /></li>
+									<li><img src="__IMG__/district_jian2x.png" alt="" /></li>
+								</ul>
+							</div>
+
+							<div class="t-s-video-li">
+								<video controls autobuffer class="video_w" poster="{$data['imglist'][0]['c_img']}" loop="loop" x-webkit-airplay="true" webkit-playsinline="true">
+									<source src="{$data['c_videourl']}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+								</video>
+							</div>
+		
+							<!-- 商圈商品链接信息 -->
+							<div class="t-s-de-prolink divtab">
+								<div class="t-s-de-proImg fl"><img src="__IMG__/logo2x.png"></div>
+								<div class="t-s-de-prInfo fl">
+									<p class="c3 fs14 fov">赛丝之秀抗美补水神器</p>
+									<p class="fs14"><font class="fs1">￥</font>45.00</p>
+								</div>
+								<div class="t-s-de-linkImg fl"><img src="__IMG__/s_15.png"></div>
+							</div>
+
+							<!-- 用户商圈信息 -->
+							<div class="t-s-de-utrade divtab">
+								<div class="t-s-de-tradeImg fl"><img src="__IMG__/o2store_icon_szsq_fb.png"></div>
+								<div class="t-s-de-tradetext c9 fs11 fl">湖南长沙圈</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="t-shares-logo">
+					<div class="ts-logo fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+					<div class="ts-logo-info fl">
+						<p class="fs18 c3">小蜜</p>
+						<p class="fs13 c5">一款帮你经营个人流量的APP</p>
+					</div>
+					<div class="ts-download fr fs14 cf">立即下载</div>
+				</div>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+ 		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			window.onload = function() {
+				styles();
+			}
+		 	$(document).ready(function(){
+		 		/*查看图片*/
+				$("#imglist-1-1").viewer({title:false});
+			});
+
+			/*样式*/
+		 	function styles(){
+		 		var tsd = $('.t-s-de-left').width(),lihd = tsd*50/100;
+		 		$('.t-s-de-left').height(tsd);
+		 		$('.t-s-de-left').css("border-radius",tsd+'px');
+		 		$('.t-s-de-ncname').css('line-height',lihd+'px');
+
+		 		var imglisw = $('.t-s-de-imglist li').width();
+		 		$('.t-s-de-imglist li').height(imglisw);
+
+		 		var proimg = $('.t-s-de-proimg').width(),lihh = proimg*50/100;
+		 		$('.t-s-de-proimg').height(proimg);
+		 		$('.t-s-de-proname').css('line-height',lihh+'px');
+
+		 		//$('.t-s-de-address').width($('.t-s-de-address').width());
+
+		 		var addh = $('.t-s-de-addr-img').height();
+		 		$('.t-s-de-addr-img').css('line-height',addh+'px');
+
+		 		$('.ts-logo').height($('.ts-logo').width());
+		 		$('.ts-logo-info').css('line-height',$('.ts-logo').width()*0.5+'px');
+		 		$('.ts-download').css('margin-top',$('.ts-logo').width()*0.18+'px');
+
+		 		var proImg = $('.t-s-de-proImg').width()
+		 		$('.t-s-de-prInfo').css('line-height', proImg*0.5 + 'px');
+		 		$('.t-s-de-linkImg').css('padding-top', proImg*0.3 + 'px');
+
+		 		var tdImg = $('.t-s-de-tradeImg').width();
+		 		$('.t-s-de-tradetext').css('line-height',tdImg +'px');
+
+		 	}
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title><?php if($hreftype==1){ ?>商家信息认证<?php }else{ ?>申请成为商家<?php } ?></title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<style type="text/css">.mui-content{ margin-bottom: 18%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<input type="hidden" name="isfixed" id="isfixed" value="{$vo['c_isfixed']}" />
+			<input type="hidden" name="ctype" id="ctype" value="{$vo['c_type']}" />
+			<div class="mui-content">
+				<?php if($hreftype==2){ ?><div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_txzl.png" alt=""></div><?php } ?>
+				<div class="p_info_tit"><span class="fs14 c3">商家资料1/<?php if($hreftype==1){ ?>4<?php }else{ ?>5<?php } ?></span></div>
+				<div class="p_info_con c3 bgcolor">
+					<ul class="sj_obj_type">
+						<li class="fl" id="isfixed_sel" <?php if($hreftype==1){ ?>style="display:none;"<?php }else{ ?> style="display:block;" <?php } ?>>
+							<div class="selsj_tit fs14">请选择商家类型</div>
+							<div class="selsj_con">
+								<div class="selsj_box fl">
+									<span><img src="__IMG__/getbusiness/sjjh_icon_sj_default.png" alt="" id="icon_0" /></span>
+									<span style="width: 55%;">
+										<input type="radio" name="rfixed" id="isfixed_0" value="0" class="fl" onclick="selobj(0)" <?php if($vo["c_isfixed"]==0){ ?>checked="checked"<?php } ?> />
+										<label class="fs14 fl" >线上商家</label>
+									</span>
+								</div>
+								<div class="selsj_box fl">
+									<span><img src="__IMG__/getbusiness/sjjh_icon_sj_default.png" alt="" id="icon_1" /></span>
+									<span>
+										<input type="radio" name="rfixed" id="isfixed_1" value="1" class="fl" onclick="selobj(1)" <?php if($vo["c_isfixed"]==1){ ?>checked="checked"<?php } ?> />
+										<label class="fs14 fl" >线下实体商家</label>
+									</span>
+								</div>
+							</div>
+						</li>
+						<li class="fl" id="ctype_sel" style="display: none;">
+							<div class="selsj_tit fs14">请选择商家资质</div>
+							<div class="selsj_con">
+								<div class="selsj_box fl" style="width:33.3%;">
+									<span>
+										<input type="radio" name="rtype" id="ctype_3" value="3" class="fl" onclick="sjremind(3)" <?php if($vo['c_type']==3){?> checked="checked" <?php } ?> />
+										<label class="fs14 fl">个体户</label>
+									</span>
+									<div class="divab hint-info3 tipinfo" style="left: 12%;"><img src="__IMG__/getbusiness/sjjj_icon_sjiao.png" alt="" /></div>
+								</div>
+								<div class="selsj_box fl" style="width:33.3%;">
+									<span>
+										<input type="radio" name="rtype" id="ctype_2" value="2" class="fl" onclick="sjremind(2)" <?php if($vo['c_type']==2){?> checked="checked" <?php } ?> />
+										<label class="fs14 fl">企业</label>
+									</span>
+									<div class="divab hint-info2 tipinfo"><img src="__IMG__/getbusiness/sjjj_icon_sjiao.png" alt="" /></div>
+								</div>
+								<div class="selsj_box fl" style="width:33.3%;">
+									<span>
+										<input type="radio" name="rtype" id="ctype_1" value="1" class="fl" onclick="sjremind(1)" <?php if($vo['c_type']==1){?> checked="checked" <?php } ?> />
+										<label class="fs14 fl">个人</label>
+									</span>
+									<div class="divab hint-info1 tipinfo"><img src="__IMG__/getbusiness/sjjj_icon_sjiao.png" alt="" /></div>
+								</div>
+							</div>
+
+							<div class="hint-info1 divre info1_tip none tipinfo">
+								<!-- <div class="info_zxcon info_zxcon1 divab"><img src="__IMG__/getbusiness/sjjj_icon_sjiao.png" alt="" /></div> -->
+								<div class="info_tfont fs12">无相关营业执照，从事线上经营的个人商家</div>
+							</div>
+							<div class="hint-info2 divre info1_tip none tipinfo">
+								<!-- <div class="info_zxcon info_zxcon2 divab"><img src="__IMG__/getbusiness/sjjj_icon_sjiao.png" alt="" /></div> -->
+								<div class="info_tfont fs12">拥有营业执照、法人代表、银行公户，从事线上或线下经营企业商家</div>
+							</div>
+							<div class="hint-info3 divre info1_tip none tipinfo">
+								<!-- <div class="info_zxcon info_zxcon3 divab"><img src="__IMG__/getbusiness/sjjj_icon_sjiao.png" alt="" /></div> -->
+								<div class="info_tfont fs12">拥有个体工商户营业执照，从事线上或线下经营的个人商户</div>
+							</div>
+
+						</li>
+					</ul>
+					</div>
+
+				<div class="info1_tip" style="margin-top: 6%;padding: 1% 3%;">
+					<div class="info1_ticon fl"><img src="__IMG__/getbusiness/sjjh_icon_msg.png" alt="" /></div>
+					<div class="info1_tfont fl fs12">审核通过后将不可修改，请慎重选择</div>
+				</div>
+				<div class="info1_tip" style="padding: 1% 3%;">
+					<div class="info1_ticon fl"><img src="__IMG__/getbusiness/sjjh_icon_msg.png" alt="" /></div>
+					<div class="info1_tfont fl fs12">个体户与企业商户需上传相关营业执照</div>
+				</div>
+
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li style="background: #45AAFA; color: #fff; width:100% ;" id="savestep">保存下一步</li>
+					</ul>
+				</div>
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+				$(".selsj_box span:nth-child(2) label").css('height', $(".selsj_box span:nth-child(2)").height() + 'px');
+			}
+			var voisfixed = '<?php echo $vo["c_isfixed"]; ?>';
+			var ctype = '<?php echo $vo["c_type"]; ?>';
+			var oldinfo = '<?php echo $oldinfo; ?>';
+			var dcode = '<?php echo $vo["c_dcode"]; ?>';
+			var vostate = '<?php echo $vo["c_checked"]; ?>';
+			var hreftype = '<?php echo $hreftype; ?>';/*1补全资料，2成为商家*/
+			//mui.alert(hreftype);
+            //if(voisfixed!=null || voisfixed!="" || typeof(voisfixed)=="undefind") {
+                selobj(voisfixed);
+            //}
+			function selobj(id) {
+			    $('.tipinfo').css('display','none');
+				if(id == 1) {
+					$('#icon_' + id).attr('src', '__IMG__/getbusiness/sjjh_icon_sj_selected.png');
+					$('#isfixed').val(id);
+					$('#ctype_sel').slideDown(100);
+					$('#ctype_sel .selsj_box:nth-child(3)').css('display', "none");
+					$('#icon_0').attr('src', '__IMG__/getbusiness/sjjh_icon_sj_default.png');
+					if(ctype){
+                        $('.hint-info'+ctype).css('display','block');
+					}else{
+                        $('.hint-info'+$('input[name="rtype"] :checked').val()).css('display','block');
+					}
+
+				} else if(id == 0) {
+					$('#icon_' + id).attr('src', '__IMG__/getbusiness/sjjh_icon_sj_selected.png');
+					$('#isfixed').val(id);
+					$('#ctype_sel').slideDown(100);
+					$('#ctype_sel .selsj_box:nth-child(3)').css('display', "block");
+					$('#icon_1').attr('src', '__IMG__/getbusiness/sjjh_icon_sj_default.png');
+                    if(ctype){
+                        $('.hint-info'+ctype).css('display','block');
+                    }else{
+                        $('.hint-info'+$('input[name="rtype"] :checked').val()).css('display','block');
+                    }
+				}
+			}
+
+			function sjremind(id) {
+				if(id == 1){
+					$('.hint-info1').css('display', "block");
+					$('.hint-info2').css('display', "none");
+					$('.hint-info3').css('display', "none");
+				}else if( id == 2) {
+					$('.hint-info2').css('display', "block");
+					$('.hint-info1').css('display', "none");
+					$('.hint-info3').css('display', "none");
+				}else if( id == 3) {
+					$('.hint-info3').css('display', "block");
+					$('.hint-info1').css('display', "none");
+					$('.hint-info2').css('display', "none");
+				}
+			}
+
+			//提交
+			mui('.mui-content').on('tap', '#savestep', function() {
+				savestep();
+			})
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					var isfixed = $('#isfixed').val();
+					var ctype = $('input[name="rtype"]:checked').val();
+//					if(isfixed=="" && ctype=="") {
+//						mui.toast("请完善相关信息！");
+//						return;
+//					}
+					if(isfixed=="0") {
+                        if(ctype.toString()==""){
+                            mui.toast("请完善相关信息！");
+                            return;
+                        }
+                    }else if(isfixed=="1" ){
+                        if(ctype.toString()=="" || ctype==1){
+                            mui.toast("请完善相关信息！");
+                            return;
+                        }
+                    }
+                    resign = false;
+					$.post("__URL__/SetInfo1", {
+						isfixed: isfixed,
+						type: ctype
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							mui.toast("保存成功！");
+							if(hreftype==1){
+                                setTimeout(function() {
+                                    mui.openWindow({url: '__URL__/sub4_3?hreftype=1&isfixed='+ isfixed +'&ctype='+ctype,id: 'sub4_1'});
+                                }, 1000);
+							}else{
+                                setTimeout(function() {
+                                    mui.openWindow({url: '__URL__/sub4_2?hreftype=2&isfixed='+ isfixed +'&ctype='+ctype,id: 'sub4_1'});
+                                }, 1000);
+							}
+						} else {
+							mui.toast(data['msg']);
+							resign = true;
+							return;
+						}
+					});
+				}
+			}
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

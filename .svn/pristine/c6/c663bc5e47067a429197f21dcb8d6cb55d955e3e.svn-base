@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>分享页面</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+ 		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content">
+				<div class="t-s-shares-main">
+					<div class="t-s-details divtab">
+						<input type="hidden" id="issue_ucode" value="{$data.c_ucode}" />
+						<div class="t-s-de-left fl">
+							<img src="{$data.c_headimg}" alt="" />
+						</div>
+						<div class="t-s-de-right fl">
+							<div class="t-s-de-headinfo divtab">
+								<div class="t-s-de-ncname fl">
+									<div class="c3 fs13 fov divtab">{$data.c_nickname}</div>
+									<div class="c9 fs12">{$data.switch_addtime}&nbsp;&nbsp;{$data.c_address}</div>
+								</div>
+							</div>
+							<?php if($data['c_type']==1){ ?>
+							<?php if(!empty($data['c_content'])){ ?>
+							<div class="t-s-de-description fs13 c3">{$data.c_content}</div>
+							<?php } ?>
+
+							<?php if (count($data['imglist']) > 0) { ?>
+							<div class="t-s-de-imglist divtab" id="imglist-1-1">
+								<ul>
+									<?php foreach ($data['imglist'] as $k1 => $v1) { ?>
+									<li><img src="{$v1.c_thumbnail_img}" alt=""></li>
+									<?php } ?>
+								</ul>
+							</div>
+							<?php } ?>
+							<?php }else if($data['c_type']==2){ ?>
+							<div class="t-s-video-li">
+								<video controls autobuffer class="video_w" poster="{$data['imglist'][0]['c_img']}" loop="loop" x-webkit-airplay="true" webkit-playsinline="true">
+									<source src="{$data['c_videourl']}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+								</video>
+							</div>
+							<?php } ?>
+						</div>
+					</div>
+
+				</div>
+				<div class="t-shares-logo">
+					<div class="ts-logo fl"><img src="__IMG__/logo2x.png" alt="" /></div>
+					<div class="ts-logo-info fl">
+						<p class="fs18 c3">微领地小蜜</p>
+						<p class="fs14 c5">一款帮你经营个人流量的APP</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+ 		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			window.onload = function() {
+				styles();
+			}
+		 	$(document).ready(function(){
+		 		/*查看图片*/
+				$("#imglist-1-1").viewer({title:false});
+			});
+
+			/*样式*/
+		 	function styles(){
+		 		var tsd = $('.t-s-de-left').width(),lihd = tsd*50/100;
+		 		$('.t-s-de-left').height(tsd);
+		 		$('.t-s-de-left').css("border-radius",tsd+'px');
+		 		$('.t-s-de-ncname').css('line-height',lihd+'px');
+		 		
+		 		var imglisw = $('.t-s-de-imglist li').width();
+		 		$('.t-s-de-imglist li').height(imglisw);
+		 		
+		 		var proimg = $('.t-s-de-proimg').width(),lihh = proimg*50/100;
+		 		$('.t-s-de-proimg').height(proimg);
+		 		$('.t-s-de-proname').css('line-height',lihh+'px');
+		 		
+		 		//$('.t-s-de-address').width($('.t-s-de-address').width());
+		 		
+		 		var addh = $('.t-s-de-addr-img').height();
+		 		$('.t-s-de-addr-img').css('line-height',addh+'px');
+		 		
+		 		$('.ts-logo').height($('.ts-logo').width());
+		 		$('.ts-logo-info').css('line-height',$('.ts-logo').width()*0.5+'px');
+		 		
+		 	}
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

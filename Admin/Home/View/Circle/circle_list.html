@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>资源管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe670;</i>资源管理<span class="c-gray en">&gt;</span>商圈列表<span class="c-gray en"><a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="circle_list" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入商圈名称" name="name" value="{$post['name']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入省份名称" name="province" value="{$post['province']}">
+		<span class="select-box inline">
+		<select name="status" class="select">
+			<option value="">选择发布状态</option>
+			<option value="10" <if condition="$post['status']  eq 10">selected="selected"</if>>不开启</option>
+     		<option value="1" <if condition="$post['status']  eq 1">selected="selected"</if>>开启</option>
+		</select>
+		</span>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+	</div>
+	</form>
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<!-- <a href="javascript:;" onclick="circle_del('','',1)" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i>批量删除
+			</a> 
+			<a class="btn btn-primary radius" onclick="circle_add('添加','circle_add?type={$type}',800)" href="javascript:;">
+				<i class="Hui-iconfont">&#xe600;</i>添加
+			</a> -->
+			<a class="btn btn-primary radius" href="__HHOME__/Circle/circle_level" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6bf;</i>商圈等级
+			</a>
+		</span> 
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="25">ID</th>
+					<th width="80">商圈图标</th>
+					<th width="120">商圈名称</th>
+					<th width="80">所在省份</th>
+					<th width="80">商圈等级</th>
+					<th width="80">商圈人气</th>
+					<th width="80">资源数</th>
+					<th width="100">商圈推荐标识</th>
+					<th width="90">商圈所在经度</th>
+					<th width="90">商圈所在纬度</th>
+					<th width="120">商圈所在地址</th>
+					<th width="80">目前访问数</th>
+					<th width="80">入驻商家数</th>
+					<th width="100">开启状态</th>
+					<th width="100">添加时间</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="circleid" value="{$vo.c_id}"></td>
+					<td>{$i}</td>
+					<td>
+						<if condition="$vo['c_img'] neq NULL" >
+							<a href="<?php echo GetHost().'/'.$vo['c_img'] ?>"  target="_blank">
+								<img src="<?php echo GetHost().'/'.$vo['c_img'] ?>"  style="width:80px;"/>					
+							</a>
+						</if>
+		         	</td>															
+					<td><font color="green">{$vo.c_name}</font></td>
+		         	<td><font color="blue">{$vo.c_circle_name}</td>
+					<td>{$vo['c_level']}</td>
+					<td>{$vo['c_moods']}</td>
+					<td><a href="__HHOME__/Resourcev2/index?citycode={$vo.c_citycode}"><font color="#666600">{$vo['c_resourcenum']}</font></a></td>
+					<td>
+		         		<?php if ($vo['c_recommend'] == 2) { ?>
+		         			<font color="red">热门hot</font>
+		         		<?php }else if($vo['c_recommend'] == 0){ ?>
+		         			默认
+		         		<?php }else if($vo['c_recommend'] == 1){ ?>
+		         			<font color="green">新建new</font>
+		         		<?php } ?>
+		         	</td>
+					<td>{$vo['c_longitude']}</td>
+					<td>{$vo['c_latitude']}</td>
+					<td>{$vo['c_address']}</td>
+
+					<td><a href="__HHOME__/Circle/circle_visit?citycode={$vo.c_citycode}"><font color="#666600">{$vo['visit_num']}</font></a></td>
+					<td><a href="__HHOME__/Circle/circle_shop?citycode={$vo.c_citycode}"><font color="#666600">{$vo['visit_shop']}</font></a></td>
+					<td>
+		         		<if condition="$vo['c_status'] eq 1" ><img src="__HIMG__/yes.gif" alt="2" class="activeop" id="{$vo['c_citycode']}" onclick="changes(this);" /><else/><img src="__HIMG__/no.gif" alt="1" class="activeop" id="{$vo['c_citycode']}"   onclick="changes(this);"/></if>
+		         	</td>
+					<td>{$vo.c_addtime}</td>
+					<td class="f-14">
+						<a title="签到记录" href="__HHOME__/Circle/circle_sign?citycode={$vo.c_citycode}" style="text-decoration:none"><i class="Hui-iconfont">&#xe6bf;</i></a>&nbsp;&nbsp;
+						<a title="编辑" href="javascript:;" onclick="circle_edit('编辑','Circle/circle_edit?citycode={$vo.c_citycode}',780)" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<!-- <a title="删除" href="javascript:;" onclick="circle_del(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a> --></td>
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>		
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+//修改强制状态
+function changes(ts){
+	var star = $(ts).attr('alt');
+	var gid = $(ts).attr('id'); 
+	var obj = $(ts);
+
+	if(star == 2){
+		var message = "确认是否关闭该商圈？";
+	}else{
+		var message = "确认是否开启该商圈？";
+	}
+	layer.confirm(message,function(index){
+		$.post(HHOME+'/Circle/circle_status',{active:star,gid:gid}, function(data){
+			if(data == ""){
+				if(star == 2){
+					var id = 1;
+					var src = '__HIMG__/no.gif';
+				}else{
+					var id = 2;
+					var src = '__HIMG__/yes.gif';
+				}
+				obj.attr('src',src);
+				obj.attr('alt',id);
+				layer.msg('操作成功',{icon:10,time:2000}); 
+			}else{
+				alert(data);
+			}
+		});
+	});
+}
+/*系统-栏目-添加*/
+function circle_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-编辑*/
+function circle_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-删除*/
+function circle_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=circleid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Mallhome/circle_delete',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        		window.location.reload(); 
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>商品管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/user/index.css" />
+</head>
+<body class="bgcolor">
+	<div class="wrap-page bgcolor">
+	<include file="Base@Public/pubheader" />
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<!-- 数据列表部分 -->
+			<div id="data_list" class="divtab">
+			<!-- <div class="divtab divempty">
+					<h3 class="divtab c6 fs14">暂无相关商品</h3>
+					<p class="divtab c9 fs12">快去代理些商品吧~~</p>
+				</div> -->
+				<!-- <li class="divtab ctrlslist ctrlslist_1" id="ctrls-1" title="1">
+					<div class="divtab ctrleft fl">
+						<img src="__COMMON__/logo.png" alt="">
+					</div>
+					<div class="divtab ctrright fl">
+						<h3 class="divtab fs14 c3 fov">这是一个昵称</h3>
+						<div class="divtab fs12 c6">
+							<div class="fl levelname">青铜代理</div>
+							<div class="divtab levelimgs fl">
+								<img src="__IMG__/shop/p1.png" alt="">
+							</div>
+							<div class="divtab arrows fr">
+								<img src="__COMMON__/img/arrows.png" alt="">
+							</div>
+						</div>
+						<p class="divtab fs12 c6 jiage">已消费900元</p>
+					</div>
+				</li> -->
+			</div>
+			<div id="console"></div>
+		</div>		
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var wd = $('.ctrleft').width();
+		$('.ctrleft').height(wd);
+		$('.ctrleft').css('border-radius',wd+'px');
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/AgencyMerchant?pageindex=" + pageindex;;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data || data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示							
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关商品</div>';
+							_html += '<div class="data-empty-font c3 fs14">快去代理些商品吧~~</div>';
+							_html += '</div>';	
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<li class="divtab ctrlslist ctrlslist_'+pageindex+'" id="ctrls-'+dataarr['c_acode']+'" title="'+dataarr['c_acode']+'">';
+									_html+='<div class="divtab ctrleft fl">';
+										_html+='<img src="'+dataarr['c_headimg']+'" alt="">';
+									_html+='</div>';
+									_html+='<div class="divtab ctrright fl">';
+										_html+='<h3 class="divtab fs14 c3 fov">'+dataarr['c_nickname']+'</h3>';
+										_html+='<div class="divtab fs12 c6">';
+											_html+='<div class="fl levelname">'+dataarr['c_grade_name']+'</div>';
+											_html+='<div class="divtab levelimgs fl">';
+												_html+='<img src="__IMG__/shop/p'+dataarr['c_grade']+'.png" alt="">';
+											_html+='</div>';
+											_html+='<div class="divtab arrows fr">';
+												_html+='<img src="__COMMON__/img/arrows.png" alt="">';
+											_html+='</div>';
+										_html+='</div>';
+										_html+='<p class="divtab fs12 c6 jiage">已消费'+dataarr['c_money']+'元</p>';
+									_html+='</div>';
+								_html+='</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}		
+			}
+		});
+	}	
+
+	loadclick();
+	function loadclick() {
+		$('.ctrlslist_' + pageindex).each(function(index) {
+			var pucode = $(this).attr('title');
+			mui('.mui-content').on('tap', '#ctrls-' + pucode, function() {
+				mui.openWindow({
+					url: '__URL__/goodslist?pucode=' + pucode,
+					id: "goodslist"
+				});
+			});
+		});
+	}
+</script>
+
+</html>

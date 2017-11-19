@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>到店领取兑换</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/exchange/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!--头部  -->
+			<include file="Home@Exchange/exgettop" />
+			<!--头部  -->
+
+			<div class="exget-main">
+				<div class="exget-pro ex-bbox bgcolor pcode">
+					<div class="exget-pro-img">
+						<img src="{$info['c_pimg']}">
+					</div>
+					<div class="ex-pro-info divtab">
+						<div class="ex-pro-name fl c3 fov fs12">{$info['c_name']}</div>
+						<div class="ex-pro-price fr divre">
+							<div class="fs16 cy">￥{$info['c_maxvalue']}</div>
+							<div class="diagonal exbg01 divab"></div>
+						</div>
+
+						<!-- 线下宝箱  -->
+						<div class="fl exget-time divtab c9 fs11">
+							{$info['times']}
+						</div>	
+
+					</div>
+				</div>
+
+				<div class="exget-step ex-bbox bgcolor divre">
+					<div class="exget-step-con divtab">
+						<div class="exget-step-item divtab">
+							<div class="exget-step-img fl">
+								<?php if ($info['c_status'] == 0) { ?>
+									<img src="__IMG__/exchange/receive_icon_default@2x.png" id="img1">
+								<?php } else { ?>
+									<img src="__IMG__/exchange/receive_icon_complete@2x.png" id="img1">
+								<?php } ?>
+							</div>
+							<div class="exget-step-info fl">
+								<?php if ($info['isexchage'] == 1) { ?>
+								<div class="exget-stepbg stepbg02 cf fs12" <?php if ($info['c_status'] == 0): ?>id="duihuan1"<?php endif ?>>
+									面对面兑换
+								</div>	
+								<?php } else { ?>
+								<div class="exget-stepbg stepbg01 cf fs12" <?php if ($info['c_status'] == 0): ?>id="duihuan1"<?php endif ?>>
+									面对面兑换
+								</div>
+								<?php } ?>
+								<font class="fs11 c9">点击兑换后，等待商家发放</font>
+							</div>
+						</div>
+						<div class="exget-step-item divtab">
+							<div class="exget-step-img fl">
+								<?php if ($info['c_status'] == 2 || $info['c_status'] == 3) { ?>
+									<img src="__IMG__/exchange/receive_icon_complete@2x.png" id="img2">
+								<?php } else { ?>
+									<img src="__IMG__/exchange/receive_icon_default@2x.png" id="img2">
+								<?php } ?>
+							</div>
+							<div class="exget-step-info fl">
+								<div class="fs12">
+									等待商家确认
+								</div>
+								<font class="fs11 c9">下拉刷新看看</font>
+							</div>
+						</div>
+						<div class="exget-step-item divtab">
+							<div class="exget-step-img fl">
+								<?php if ($info['c_status'] == 3) { ?>
+									<img src="__IMG__/exchange/receive_icon_complete@2x.png" id="img3">
+								<?php } else { ?>
+									<img src="__IMG__/exchange/receive_icon_default@2x.png" id="img3">
+								<?php } ?>
+								</div>
+							<div class="exget-step-info fl">
+								<?php if ($info['c_status'] == 2) { ?> 
+								<div class="exget-stepbg stepbg02 cf fs12" id="duihuan3">
+									确认拿到礼品
+								</div>
+								<?php } else { ?>
+								<div class="exget-stepbg stepbg01 cf fs12">
+									确认拿到礼品
+								</div>
+								<?php } ?>
+								<font class="fs11 c9">商家确认发货后，用户未确认领取的状态下，24小时候后系统将自动确认发货</font>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.xiaomi-bar').css('background','none');
+		$('.mui-content').css('margin-top', '0px');
+		yangshi();
+		yangshit();
+	}
+
+
+	//页面加载完js改变样式
+	function yangshi() {
+
+		$('.exget-pro-img').height($('.exget-pro-img').width()*0.6+'px');
+		$('.exget-stepbg').css('border-radius',$('.exget-stepbg').width()*0.3+'px');
+	}	
+
+	//跳转店铺
+	mui('.mui-content').on('tap', '.store', function() {
+		var acode = $(this).attr('title');
+		goShopDetail(acode);
+	});
+
+	//进入产品详情
+	mui('.mui-content').on('tap', '.pcode', function() {
+		var pcode = "<?php echo $info['c_pcode']; ?>";
+		var c_type = "<?php echo $info['c_type']; ?>";
+		if (c_type == 2) {  //线下
+			mui.openWindow({
+				url: "__APP__/Shopping/Entitymap/detail?pcode="+pcode,
+				id: "pdetail"
+			});	
+		} else {
+			mui.openWindow({
+				url: "__APP__/Shopping/Index/detail?pcode="+pcode,
+				id: "pdetail"
+			});
+		}
+	});
+
+
+	//确认对换
+	mui('.mui-content').on('tap', '#duihuan1', function() {
+		tijiao(1);
+	});
+
+	//确认拿到礼品
+	mui('.mui-content').on('tap', '#duihuan3', function() {
+		mui.confirm('确认收到礼品？', '提示', ['取消', '确认'], function(e) {
+			e.index == 0 ? "" : tijiao(3);
+		}, 'div');
+	});
+
+	
+
+	var tjsign = true;
+	function tijiao(is) {
+		if (tjsign) {
+			tjsign = false;
+			$.post("__URL__/OfflineExchange", {
+				sid: "<?php echo $sid; ?>",
+				status: is
+			}, function(obj) {
+				var data = eval(obj);
+				tjsign = true;
+				if (data['code'] == 0) {
+					mui.alert('兑换成功');
+					if (is == 3) {
+						$('#img3').attr('src', '__IMG__/exchange/receive_icon_complete@2x.png');
+						setTimeout(function() {
+							mui.openWindow({
+								url: '__URL__/index',
+								id: 'cindex'
+							});
+						}, 2000);
+					} else {
+						$('#img1').attr('src', '__IMG__/exchange/receive_icon_complete@2x.png');
+					}
+				} else {
+					mui.toast(data['msg']);
+				}
+			});
+		}	
+	}
+
+</script>
+
+</html>

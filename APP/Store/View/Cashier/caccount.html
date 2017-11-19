@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>收银员收款明细</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content divtab">				
+					<div class="ca-account bgcolor">
+						<ul id="data_list">
+							<!--<li>
+								<div class="ca-account-time c9 fl">
+									<span class="fs12">今天</span>
+									<div class="fs11">17-06-01
+										<font>16:00</font>
+									</div>
+								</div>
+								<p class="ca-account-money cy fs14 fl">+1000.00</p>
+								<div class="ca-account-remark c3 fs14 fr cashow">查看备注</div>
+								<div class="ca-account-remark c3 fs14 fr cahide none">收起备注</div>
+								<div class="ca-remark-text c9 fs11 none">操作员操作员01操作员01操作员01操作员01操作员01操作员01操作员01操作员01操作员01操作员010101操作员01操作员01操作员0101</div>
+							</li>-->
+
+						</ul>
+					</div>
+					<div id="console"></div>
+					<input type="hidden" value="" id="datetime" />
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			ChRightText("筛选");
+		}
+
+		//筛选
+		function rightcaozuo() {
+			var optionsJson = '{"type":"date"}';
+			var options = JSON.parse(optionsJson);
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				$('#datetime').val(rs.text);
+				pageindex = 1;
+				getdatalist();
+				picker.dispose();
+			});
+		}
+		
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/GetDeskIncome?pageindex="+pageindex+"&cashid=<?php echo $cashid ?>&time="+$('#datetime').val();
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						emptyval = true;
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">没有相关数据记录</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<li class="account-box-'+pageindex+'">';
+									_html += '<div class="ca-account-time c9 fl viewlog_'+pageindex+'" id="viewlog_'+dataarr['c_id']+'" title="'+dataarr['c_id']+'">';
+									_html += '<span class="fs13">'+dataarr['showweek']+'</span>';
+									_html += '<div class="fs12">'+dataarr['time']+'</div>';
+									_html += '</div>';
+									_html += '<p class="ca-account-money cy fs14 fl">+'+dataarr['c_money']+'</p>';
+									if(dataarr['c_cashierdesc']){
+										_html += '<div class="ca-account-remark c3 fs14 fr cashow" title="'+dataarr['c_id']+'">查看备注</div>';
+										_html +='<input type="hidden" id="remark_'+dataarr['c_id']+'" value="1"/>';
+										_html += '<div class="ca-remark-text c9 fs12 none" id="remark_desc_'+dataarr['c_id']+'">'+dataarr['c_cashierdesc']+'</div>';
+									}
+									_html += '</li>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*查看备注*/
+						mui('.account-box-'+pageindex).on('tap','.cashow',function(){
+							var tid = $(this).attr('title');
+							var remarkid = $('#remark_'+tid).val();
+							if(remarkid==1){
+								$('#remark_desc_'+tid).slideDown();
+								$('#remark_'+tid).val(2);
+								$(this).html("收起备注");
+							}else{
+								$('#remark_desc_'+tid).slideUp();
+								$('#remark_'+tid).val(1);
+								$(this).html("查看备注");
+							}
+						});
+						loadclick();
+					}
+				}
+			});
+		}
+
+		loadclick();
+		function loadclick(){
+			$('.viewlog_'+pageindex).each(function(index) {
+				var mid = $(this).attr('title');
+				mui('.mui-content').on('tap', '#viewlog_' + mid, function() {
+					var viewlogurl = WEB_HOST + '/index.php/Balance/Index/detail?id=' + mid;
+					mui.openWindow({
+						url: viewlogurl,
+						id: 'viewlog'
+					});			
+				});
+			});	
+		}
+
+	</script>
+
+</html>

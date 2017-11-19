@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+	    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	    <meta name="apple-mobile-web-app-capable" content="yes" />
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	    <meta name="format-detection" content="telephone=no, email=no" />        
+        <title>帮助</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+    	<include file="Base@Public/header" />
+	    <link rel="stylesheet" type="text/css" href="__CSS__/about/index.css?v=1.2">
+    	<style type="text/css">
+			.wrap-page{position: relative;}
+			.setting-list-txt{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 80%;}
+    	</style>
+    </head>
+    <body class="bgeb">
+        <div class="wrap-page">
+        <include file="Base@Public/pubheader" />
+			<div class="mui-content">
+			<form action="helpmi" method="post">
+				<div class="sm-search">
+					<div class="sm-search-con">
+						<div class="sm-search-ico">
+							<img src="__IMG__/about/sm_img_3.jpg" alt="">
+						</div>
+						<div class="sm-search-txt">
+							<input type="text" class="" name="keyword" id="keyword" value="{$post['keyword']}" placeholder="搜索">
+						</div>
+						<div class="sm-search-btn">
+							<input type="submit"  id="btnsearch" name="" value="搜索">
+						</div>
+					</div>
+				</div>  
+			</form>
+			<ul class="setting-list">
+				<volist name="data" id="vo">
+					<li>
+						<a href="__URL__/helpdetail/tid/{$vo['c_id']}">
+							<div class="setting-list-txt">{$vo['c_title']}</div>
+							<div class="setting-list-arr">
+								<img src="__IMG__/about/arr.png" alt="">
+							</div>
+						</a>
+					</li>
+				</volist>
+			</ul>  
+			<a class="help-feedback" href="__URL__/feedback">反馈意见</a>  
+			</div> 	 		
+        </div>
+        
+	    <include file="Base@Public/pubjs" />
+        <script type="text/javascript">
+        	window.onload=function(){        
+
+				var txth = $('.sm-search-con').height();
+				$('#keyword').css("line-height",txth+'px');
+				$('#btnsearch').css("line-height",txth+'px');
+
+        		var lih = $('.setting-list li').height();
+        		$('.setting-list li').css('line-height',lih+'px')
+        		$('.setting-list li a').height(lih);
+        	}
+
+
+        	
+        </script>
+    </body>
+</html>

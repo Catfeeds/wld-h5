@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商品分类</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/index/index.css" />
+	</head>
+
+	<body class="bgeb" style="background-color: white;">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content mui-content1">
+					<div class="all fs14" id="all">
+						<div class="fl">全部宝贝</div>
+						<div class="fr cc">
+							<img src="__IMG__/index/dpgl_icon_xyb.png" alt="" />
+						</div>
+					</div>
+					<ul class="fs13 particulars">
+						<volist name="typelist" id="vo">							
+							<li onclick="hrefcategory({$vo['c_id']})">{$vo["c_category_name"]}</li>
+						</volist>
+					</ul>
+					<!--<div id="data_list">
+
+					</div>-->
+					<!--<div id="console"></div>-->
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var isfixed = "<?php echo $data['c_isfixed']; ?>";
+		function hrefcategory(cid){
+			mui.openWindow({url:"__APP__/Store/Index/allshop?cateid="+cid+"&fromucode=<?php echo $issue_ucode; ?>" ,id:"allshop"});
+		}
+		mui('.wrap-page').on('tap', '#all', function() {
+			mui.openWindow({
+				url: "__APP__/Store/Index/allshop?fromucode=<?php echo $issue_ucode; ?>"
+			});
+//			mui.openWindow({url:"__APP__/Store/Index/allshop?cateid="+cid ,id:"allshop"});
+//			url: "__APP__/Store/Gcategory/getCateData?&order="+order+"&key="+$('#key').val()+"&cateid="+$('#cateid').val()+"&pageindex=" + pageindex,
+		});
+		
+		
+		
+		
+//		/*商品资源数据加载*/
+//		var ctrls = true;
+//		var emptyval = true;
+//		var pageindex = 1;
+//		//getCategory();
+//		function getCategory() {
+//			var url = "__APP__/Store/Index/procategory?";
+//			var _html = "";
+//			console.log(url);
+//			$.ajax({
+//				type: 'get',
+//				dataType: 'json',
+//				url: url,
+//				cache: false,
+//				beforeSend: function() {
+//					$('#console').css('display', 'block');
+//					$('#console').html('加载中...');
+//					ctrls = false;
+//				},
+//				error: function() {
+//					$('#console').css('display', 'block');
+//					$('#console').html('加载失败');
+//					ctrls = true;
+//				},
+//				success: function(obj) {
+//					
+//					var mgs = eval(obj);
+//					console.log(mgs)
+//					console.log(mgs.data)
+//					
+//					if(mgs['code'] == 0) {
+//							if(mgs.data == undefined || mgs.data.length <= 0) {
+//								_html += '<div class="data-empty divtab">';
+//								_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+//								_html += '<div class="data-empty-font c3 fs14">该商家还没有添加产品</div>';
+//								_html += '</div>';
+//							} else {
+//								for (var i = 0 ; i < mgs.data.length;i++) {
+//									_html += '<li class="shopList" title='+ mgs.data[i].c_id +'>'+mgs.data[i].c_category_name+'</li>'
+//								}
+//							}
+//						} else {
+//							emptyval = false;
+//							
+//						}
+//					$('.particulars').html(_html);	
+//					$('.nav_l_b').html(_html);	
+//					$('.nav_l>.nav_l_b>li').first().addClass('active');
+////					getCategoryList(pageindex);
+//					mui('.particulars').on('tap','.shopList',function(){
+//						var cid = $(this).attr("title");	
+//						mui.openWindow({url:"__APP__/Store/Index/allshop?cateid="+cid ,id:"allshop"});
+//
+//					});
+//				}
+//			});
+//
+//		}
+	</script>
+	
+</html>

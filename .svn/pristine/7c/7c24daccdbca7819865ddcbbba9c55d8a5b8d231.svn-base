@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商品列表</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 16%;">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content">
+				<?php if ($data['c_source'] == 2) { ?>
+				<include file="Store@Index/storetop" />
+				<?php } else { ?>
+				<include file="Store@Index/onlinetop" />
+				<?php } ?>
+				<div class="store-pro-main divtab" id="product-list">
+					<!-- <div class="s-pro-box fl">
+						<div class="s-pro-img"><img src="__IMG__/index/o2store_bg_entity.png" alt="" /></div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">80</span></div>
+							
+							<div class="s-pro-lijbuy fr">立即购买</div>
+							
+							<div class="s-pro-number fr none">
+								<div class="s-pro-n-add fr sub_add_ico">
+									<img src="__IMG__/index/o2store_icon_jia.png" alt="" />
+								</div>
+								<div class="s-pro-n-inputxt fr">
+									<input type="text" value="" id="buyinput_0" readonly="readonly" />
+									<input type="hidden" value="" id="hid_0" />
+								</div>
+								<div class="s-pro-n-subt fr sub_add_ico none" id="bysub_0">
+									<img src="__IMG__/index/o2store_icon_jian.png" alt="" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="s-pro-box fl">
+						<div class="s-pro-img"><img src="__IMG__/index/o2store_bg_entity.png" alt="" /></div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">80</span></div>
+							<div class="s-pro-number fr">
+								<div class="s-pro-n-add fr sub_add_ico">
+									<img src="__IMG__/index/o2store_icon_jia.png" alt="" />
+								</div>
+								<div class="s-pro-n-inputxt fr">
+									<input type="text" value="" id="buyinput_1" readonly="readonly" />
+									<input type="hidden" value="" id="hid_num_1" />
+								</div>
+								<div class="s-pro-n-subt fr sub_add_ico none" id="bysub_1">
+									<img src="__IMG__/index/o2store_icon_jian.png" alt="" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="s-pro-box fl">
+						<div class="s-pro-img"><img src="__IMG__/index/o2store_bg_entity.png" alt="" /></div>
+						<div class="s-pro-name c3 fs13">富贵竹一束</div>
+						<div class="s-pro-p-n divtab">
+							<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">80</span></div>
+							<div class="s-pro-number fr">
+								<div class="s-pro-n-add fr sub_add_ico">
+									<img src="__IMG__/index/o2store_icon_jia.png" alt="" />
+								</div>
+								<div class="s-pro-n-inputxt fr">
+									<input type="text" value="" id="buyinput_1" readonly="readonly" />
+									<input type="hidden" value="" id="hid_1" />
+								</div>
+								<div class="s-pro-n-subt fr sub_add_ico none" id="bysub_2">
+									<img src="__IMG__/index/o2store_icon_jian.png" alt="" />
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+			<?php if ($data['c_isfixed'] == 1) { ?>
+			<div class="s-account-con">
+				<div class="s-account-money fl">
+					<span class="c3 fs12">总计</span><span class="fs12 cy">￥</span><span id="carprice" class="cy fs16">{$storeinfo['price']?$storeinfo['price']:0}</span>
+				</div>
+				<div class="s-account-sub fr cf fs13" onclick="mycart();">
+					<span>
+						<span>结算</span>
+					<span id="ico-num">({$storeinfo['carcount']?$storeinfo['carcount']:0})</span>
+					</span>
+				</div>
+			</div>
+			<?php } ?>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<!--<script type="text/javascript" src="__COMMON__/js/scrolltopcontrol.js"></script>-->
+		<script type="text/javascript" src="__JS__/publics.js"></script>
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			var sources = '<?php echo $data["c_source"] ?>';
+			window.onload = function() {
+				$('.xiaomi-bar').css('background', 'none');
+				$('.mui-content').css('margin-top', '0px');
+				styles();
+				yangshit();
+				$(window).bind('scroll', function() {
+					if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').addClass('menu-fixed');
+						if(sources == 1) {
+							$('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+						} else if(sources == 2) {
+							$('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+						}
+					}
+					if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').removeClass('menu-fixed');
+						$('.xiaomi-bar').css("background", "none");
+					}
+
+				});
+			}
+			$(document).ready(function() {
+
+			});
+			/*样式*/
+			function styles() {
+				var pimgw = $('.s-pro-img').width();
+				$('.s-pro-img').height(pimgw);
+				/*5.27 新增 */
+				$('.s-pro-lijbuy').height($('.s-pro-lijbuy').width() * 0.3 + 'px');
+
+			}
+
+			/*资源数据加载*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			var keyword = '';
+			var isfixed = "<?php echo $data['c_isfixed']; ?>";
+			getProductlist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getProductlist();
+					}
+				}
+			});
+
+			function getProductlist() {
+				var url = "__URL__/GetProduceList?acode=<?php echo $issue_ucode; ?>&pageindex=" + pageindex + "&isfixed=" + isfixed;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#product-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list.length <= 0) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">该商家还没有添加产品</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="s-pro-box fl">';
+										_html += '<div class="s-pro-img" title="'+dataarr['c_pcode']+'" data-source="'+dataarr['c_source']+'"><img src="' + dataarr['c_pimg'] + '" alt="" /></div>';
+										_html += '<div class="s-pro-name c3 fs13 fov" style="width:100%;">' + dataarr['c_name'] + '</div>';
+										_html += '<div class="s-pro-p-n divtab">';
+										_html += '<div class="s-pro-price fl cy"><span class="fs12">￥</span><span class="fs14">' + dataarr['c_price'] + '</span></div>';
+
+										if(isfixed == 1) {
+											_html += '<div class="s-pro-number fr">';
+											_html += '<div class="s-pro-n-add fr sub_add_ico" id="byadd_' + dataarr["c_id"] + '" onclick="addgoods(' + dataarr["c_id"] + ',' + dataarr['c_num'] + ',\'' + dataarr['c_pcode'] + '\')">';
+											_html += '<img src="__IMG__/index/o2store_icon_jia.png" alt="" />';
+											_html += '</div>';
+
+											var carnum = datalist[i]['carnum'];
+											if(carnum == 0) {
+												_html += '<div class="s-pro-n-inputxt fr" id="bytxt_' + datalist[i]["c_id"] + '">';
+												_html += '<input type="text" name="maxnum[]" id="buyinput_' + datalist[i]["c_id"] + '" class="c9 fs12" value="" readonly="readonly">';
+												_html += '<input type="hidden" value="' + carnum + '" id="hid_' + datalist[i]["c_id"] + '" />';
+												_html += '</div>';
+
+												_html += '<div class="s-pro-n-subt fr sub_add_ico none" id="bysub_' + datalist[i]["c_id"] + '" onclick="subgoods(' + datalist[i]["c_id"] + ',' + datalist[i]['c_num'] + ',\'' + datalist[i]['c_pcode'] + '\')">';
+												_html += '<img src="__IMG__/index/o2store_icon_jian.png" alt="">';
+												_html += '</div>';
+
+											} else {
+												_html += '<div class="s-pro-n-inputxt fr" id="bytxt_' + datalist[i]["c_id"] + '">';
+												_html += '<input type="text" name="maxnum[]" id="buyinput_' + datalist[i]["c_id"] + '" class="c9 fs12" value="' + carnum + '" readonly="readonly">';
+												_html += '<input type="hidden" value="' + carnum + '" id="hid_' + datalist[i]["c_id"] + '" />';
+												_html += '</div>';
+
+												_html += '<div class="s-pro-n-subt fr sub_add_ico" id="bysub_' + datalist[i]["c_id"] + '" onclick="subgoods(' + datalist[i]["c_id"] + ',' + datalist[i]['c_num'] + ',\'' + datalist[i]['c_pcode'] + '\')">';
+												_html += '<img src="__IMG__/index/o2store_icon_jian.png" alt="">';
+												_html += '</div>';
+											}
+
+											// _html += '<div class="s-pro-n-inputxt fr">';
+											// _html += '<input type="text" value="" id="buyinput_0" readonly="readonly" />';
+											// _html += '<input type="hidden" value="" id="hid_0" />';
+											// _html += '</div>';
+
+											// _html += '<div class="s-pro-n-subt fr sub_add_ico none" id="bysub_0">';
+											// _html += '<img src="__IMG__/index/o2store_icon_jian.png" alt="" />';
+											// _html += '</div>';
+
+											_html += '</div>';
+										} else {
+											_html += '<div class="s-pro-lijbuy fs12 fr" title="'+dataarr['c_pcode']+'" data-source="'+dataarr['c_source']+'">立即购买</div>';
+										}
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#product-list').append(_html);
+					},
+					complete: function() {
+
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval){
+							mui('.s-pro-box').on('tap','.s-pro-lijbuy',function(){
+								var pcode = $(this).attr('title');
+								var source = $(this).attr('data-source');
+								if (source == 2) {
+									var url = "__APP__/Shopping/Entitymap/detail?pcode="+pcode;
+								} else {
+									var url = "__APP__/Shopping/Index/detail?pcode="+pcode;
+								}
+								mui.openWindow({url:url,id:"detail"});
+							});
+							mui('.s-pro-box').on('tap','.s-pro-img',function(){
+								var pcode = $(this).attr('title');
+								var source = $(this).attr('data-source');
+								if (source == 2) {
+									var url = "__APP__/Shopping/Entitymap/detail?pcode="+pcode;
+								} else {
+									var url = "__APP__/Shopping/Index/detail?pcode="+pcode;
+								}
+								mui.openWindow({url:url,id:"detail"});
+							});
+						}
+					}
+				});
+			}
+
+			var pucode = '';
+			/*购买数量*/
+			var pnum = "";
+			var zongnum = "";
+			/*加*/
+			function addgoods(obj, totaln, pcode) {
+				if(!ucode) {
+					dialogif("加入购物车需登录！");
+					return false;
+				} else {
+					if(!isshow()) {
+						mui.toast("该商品已下架！");
+						return false;
+					}
+					var pcode = pcode;
+					var pronum = $("#hid_" + obj).val();
+					pnum = parseInt(pronum) + 1;
+					if(pnum <= totaln) {
+						$("#hid_" + obj).val(pnum);
+						$('#buyinput_' + obj).val(pnum);
+						$('#bysub_' + obj).css("display", "block");
+						operate_car(obj, pcode, 1);
+					}
+				}
+			}
+			/*减*/
+			function subgoods(obj, totaln, pcode) {
+				var pronum = $("#hid_" + obj).val();
+				pnum = parseInt(pronum);
+				if(pnum >= 1) {
+					pnum = pnum - 1;
+					if(pnum == 0) {
+						$('#bysub_' + obj).css("display", "none");
+						$("#buyinput_" + obj).val("");
+						$("#hid_" + obj).val('0');
+						delecar(pcode);
+						var iconum = parseInt($('#ico-num').text());
+						$('#ico-num').text(iconum - 1);
+					} else {
+						$("#buyinput_" + obj).val(pnum);
+						$("#hid_" + obj).val(pnum);
+						operate_car(obj, pcode, 0);
+					}
+				}
+			}
+
+			/*购物车*/
+			function operate_car(obj, pcode, type) {
+				var pcode = pcode;
+				$.post("__APP__/Shopping/Entitymap/AddCar", {
+					pcode: pcode,
+					pucode: pucode,
+					num: pnum
+				}, function(msg) {
+					if(msg['code'] == 0) {
+						mui.toast(msg['msg']);
+						/*1，添加；0，减少*/
+						$('#carprice').text(msg['data']['price']);
+						$('#ico-num').text(msg['data']['count']);
+					} else {
+						mui.toast(msg['msg']);
+						return false;
+					}
+				});
+			}
+
+			/*删除购物车商品*/
+			function delecar(pcode) {
+				var pcode = pcode;
+				$.post("__APP__/Shopping/Entitymap/Delecar", {
+					pcode: pcode,
+					acode: '<?php echo $issue_ucode; ?>'
+				}, function(msg) {
+					if(msg['code'] == 0) {
+						mui.toast(msg['msg']);
+						$('#carprice').text(msg['data']['price']);
+					} else {
+						mui.toast(msg['msg']);
+						return false;
+					}
+				});
+			}
+
+			/*查看购物车*/
+			function mycart() {
+				if(!ucode) {
+					dialogif("结算需登录！");
+					return false;
+				} else {
+					window.location.href = "__APP__/Shopping/Entitymap/mycart?acode=" + '<?php echo $storeinfo["c_ucode"]; ?>';
+				}
+			}
+
+			/*是否下架*/
+			function isshow() {
+				var isshow = '<?php $storeinfo["c_ishow"]; ?>';
+				if(isshow == 2) {
+					mui.toast('该商品已下架！');
+					return false;
+				}
+				return true;
+			}
+			mui.plusReady(function() {});
+
+			/*未登录confirm提示框*/
+			var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+
+			function dialogif(desc) {
+				mui.confirm(desc, '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : mui.openWindow({
+						url: WEB_HOST + '/index.php/Login/Index/index?url=' + detailurl,
+						id: 'login'
+					});
+				}, 'div');
+			}
+		</script>
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

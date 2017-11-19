@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />   
+<title>公告</title>
+<meta content="微域领地,微域领地系统" name="keywords">
+<meta content="{$description}" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/news/index.css?v=1.2">  
+<style type="text/css">
+.notice-ba{}
+.notice-tit{background: #E0F2FF;padding: 3% 0;text-align: center;}
+.notice-con{padding: 5% 3%;}
+.notice-con p{padding: 1.5% 0;line-height:1.75rem;}
+.notice-con p:nth-of-type(2){text-indent: 2em;}
+.notice-con p:nth-of-type(3){text-indent: 2em;}
+.notice-con p:nth-of-type(4){text-align: right;margin-top: 10%;}
+.notice-con p:nth-of-type(5){text-align: right;padding: 0;}
+</style>
+</head>
+<body>
+<div class="wrap-page bgcolor">
+<include file="Base@Public/pubheader" />
+<div class="mui-content bgcolor">
+    <div class="notice-ba divtab"><img src="__IMG__/info/img_gg.jpg" alt=""></div>
+    <div class="notice-tit fs14 cb">小蜜支付宝扫码支付通道升级公告</div>
+    <div class="notice-con">
+        <p class="fs15 c3">尊敬的小蜜用户：</p>
+        <p class="fs13 c5">微领地网络将与支付宝一起对扫码支付通道进行升级处理，在此期间，会暂时关闭小蜜的支付宝扫码支付通道，建议您使用微信支付，接口对接正式完成时间请留意小蜜通知，给您带来的不便，敬请谅解。</p>
+        <p class="fs13 c5">如有疑问，请拨打小蜜客服热线<span class="cb">（400-9603-400）</span>进行咨询。</p>
+        <p class="fs13 c5">微领地网络客户服务中心</p>
+        <p class="fs13 c5">2017年9月8日</p>
+    </div>
+</div>
+</div>
+<include file="Base@Public/pubjs" /> 
+<!-- 引入分享 -->
+<include file="Base@Public/appshare" />
+<include file="Base@Public/wxshare" />
+<script type="text/javascript">
+window.onload = function () {
+   ChRightText("分享");
+   $('.notice-ba').height($('.notice-ba').width()*0.3);
+}
+
+
+</script>
+<!-- 页面统计、任务弹出 -->
+<include file="Base@Public/footer" /> 
+</body>
+</html>

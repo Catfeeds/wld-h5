@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>拼团详情</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/myacts/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="confirm-pcode" value="{$pcode}">
+		<input type="hidden" name="confirm-pucode" value="{$pucode}">
+		<input type="hidden" name="confirm-mcode" value="">
+		<input type="hidden" name="confirm-num" value="">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<!-- 商品信息 -->
+			<div class="pt-pro-con divtab divre">
+				<div class="pt-pro-img fl">
+					<img src="{$pinfo['c_imgpath']}">
+					<?php if ($groupinfo['state'] == 2) { ?><div class="pt-pro-bg divab"></div><?php } ?>
+				</div>
+				<div class="pt-pro-info fl">
+					<div class="pt-pro-name c3 fs12 clamp2">{$data['c_name']}</div>
+					<div class="pt-pro-number c3 fs12">{$pinfo['c_targetnum']}人团</div>
+					<div class="pt-pro-price cy fs14">￥{$pinfo['c_actprice']}<span class="c9 fs11">原件：￥{$pinfo['c_value']}</span></div>
+				</div>
+				<div class="pt-pro-state cb fs14 divab">
+					<?php if ($groupinfo['state'] == 1) { ?>
+						<div class="pt-college-img"><img src="__IMG__/myacts/pt_icon_ptcg.png"></div>
+					<?php } else if ($groupinfo['state'] == 0) { ?>
+						<span>拼团中</span>
+					<?php } else { ?>
+						<div class="pt-college-img"><img src="__IMG__/myacts/pt_icon_ptsb.png"></div>
+					<?php } ?>
+				</div>
+			</div>
+			<!-- 拼团人数 -->
+			<div class="pt-number-con">
+				<ul class="divtab">
+					<?php if ($pinfo['c_targetnum'] > 9){ ?>
+						<?php if (count($groupinfo['memeber_list']) > 8){ ?>
+							<?php foreach ($groupinfo['memeber_list'] as $key => $value) { //已参团人数 ?>
+								<?php if ($key <= 8){ ?>
+									<li class="divre">
+										<div class="pt-number-img"><img src="{$value['c_headimg']}"></div>
+										<?php if ($groupinfo['state'] == 2) { ?><div class="pt-number-bg divab"></div><?php } ?>
+									</li>
+								<?php } ?>
+							<?php } ?>
+							<li class="divre">
+								<div class="pt-number-img"><img src="__IMG__/myacts/pt_icon_more.png" alt=""></div>
+							</li>
+						<?php } else { ?>
+							<?php foreach ($groupinfo['memeber_list'] as $key => $value) { //已参团人数 ?>    	
+								<li class="divre">
+									<div class="pt-number-img"><img src="{$value['c_headimg']}"></div>
+									<?php if ($groupinfo['state'] == 2) { ?><div class="pt-number-bg divab"></div><?php } ?>
+								</li>
+							<?php } ?>
+							<for start="0" end= "9-count($groupinfo['memeber_list'])" >
+								<li class="divre">
+									<div class="pt-number-img"><img src="__IMG__/myacts/pt_icon_kong.png" alt=""></div>
+									<?php if ($groupinfo['state'] == 2) { ?><div class="pt-number-bg divab"></div><?php } ?>
+								</li>
+							</for>
+								<li class="divre">
+									<div class="pt-number-img"><img src="__IMG__/myacts/pt_icon_more.png" alt=""></div>
+								</li>
+						<?php } ?>
+					<?php } else { ?>
+					<!--拼团总人数少于等于9的时候  不需要显示  省略的图标-->
+						<?php foreach ($groupinfo['memeber_list'] as $key => $value) { //已参团人数 ?>    	
+							<li class="divre">
+								<div class="pt-number-img"><img src="{$value['c_headimg']}"></div>
+								<?php if ($groupinfo['state'] == 2) { ?><div class="pt-number-bg divab"></div><?php } ?>
+							</li>
+						<?php } ?>
+							<for start="0" end= "$groupinfo['difnum']" >
+								<li class="divre">
+									<div class="pt-number-img"><img src="__IMG__/myacts/pt_icon_kong.png" alt=""></div>
+									<?php if ($groupinfo['state'] == 2) { ?><div class="pt-number-bg divab"></div><?php } ?>
+								</li>
+							</for>
+					<?php } ?>
+				</ul>
+				<div class="pt-time-state">
+					<?php if ($groupinfo['state'] == 0) { ?>
+						<p class="c9 fs12">还差{$groupinfo['difnum']}人，赶快邀请好友参团吧</p>
+						<div class="pt-time-show">
+							<p class="fs14 cuttime" id="votetime1"  <?php if ($groupinfo['difnum'] <= 0 || $groupinfo['endtime'] <= 0){ ?>none<?php } ?> >
+								<font>剩余</font>
+								<span id="coll_1" style="display:none;"></span>
+								<span id="t_1" style="display:none;"></span>
+								<span id="h_1">00</span>
+								:<span id="f_1">00</span>
+								:<span id="m_1">00</span>
+								<font>结束</font>
+							</p>
+						</div>
+					<?php } else if ($groupinfo['state'] == 1) { ?>
+						<p class="c3 fs14">拼团成功</p>
+						<p class="c9 fs12">注意查看您的订到详情哦！</p>
+					<?php } else if($groupinfo['state'] == 2) { ?>
+						<p class="c3 fs14">拼团失败</p>
+						<p class="c9 fs12">快去看看其他拼团吧！</p>
+					<?php } else if($groupinfo['delivery'] == 3) { ?>
+						<p class="c3 fs14"><b>“查看订单”</b>，获取提货码</p>
+						<p class="c9 fs12">提货码为到店提取唯一凭证，请妥善保管</p>
+					<?php } ?>
+				</div>
+			</div>
+			<!-- 拼团玩法 -->
+			<div class="pt-playwy-con">
+				<div class="pt-playwy-tit divre">
+					<div class="pt-title fs14" ><font></font>拼团玩法</div>
+					<div class="pt-help-img divab"><img src="__IMG__/myacts/pt_icon_wfsz.png"></div>
+				</div>
+				<p class="c3 fs12"><font></font>选择拼团商品，点击我要参团进入支付页面；</p>
+				<p class="c3 fs12"><font></font>支付成功、完成参团，也可以邀请好友参团；</p>
+				<p class="c3 fs12"><font></font>在规定时间内，参团人数达到商家指定人数，即拼团成功。人数不足系统自动退款。</p>
+			</div>
+			<!-- 商品详情页 -->
+			<div class="pt-good-details">
+				<div class="pt-good-remark">
+					<div class="pt-title fs14"><font></font>商品详情</div>
+					<p class="fs13 c3">{$data['c_desc']}</p>
+				</div>
+				<div class="pt-good-imglist divtab alignc">
+					<?php foreach ($data['imglist'] as $key => $value) { ?>
+						<img src="{$value['c_pimgepath']}" alt="" />
+					<?php } ?>
+				</div>
+			</div>
+
+			<!-- 底部菜单 -->
+			<div class="pt-buy-btn">
+				<div class="server-btn fl fs14 c3">
+					<div class="server-btnimg"><img src="__IMG__/myacts/pt_icon_kef.png" alt=""></div>
+					<span>客服</span>
+				</div>
+				<div class="shop-btn fl fs14 c3">
+					<div class="shop-btnimg"><img src="__IMG__/myacts/pt_icon_dp.png" alt=""></div>
+					<span>店铺</span>
+				</div>
+				<div class="pt-shopping-text fl fs14 cf">
+					<?php if ($groupinfo['state'] == 0) { ?>
+						<span id="fixed-btn2">邀请好友参团</span>
+					<?php } else if ($groupinfo['state'] == 1) { ?>
+						<span id="fixed-btn1" title="{$orderid}">查看订单</span>
+					<?php } else { ?>
+						<span id="fixed-btn3">更多拼团</span>
+					<?php } ?>
+				</div>
+			</div>
+
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<!-- 引入分享 -->
+<include file="Base@Public/appshare" />
+<include file="Base@Public/wxshare" />
+<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+</body>
+<script type="text/javascript">
+	var acode = "<?php echo $data['c_ucode']; ?>";
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var pImg = $('.pt-pro-img').width();
+		$('.pt-pro-img').height(pImg);
+		$('.pt-pro-name').css('margin-bottom',pImg*0.12 +'px');
+		$('.pt-pro-number').css('line-height',pImg*0.28 +'px');
+		$('.pt-pro-price').css('line-height',pImg*0.28 +'px');
+		$('.pt-number-img').height($('.pt-number-img').width());
+
+		$('.pt-shopping-text').css('line-height',$('.shop-btn').height() + 'px');
+		$('.pt-good-details').css('margin-bottom',$('.shop-btn').height() + 'px');
+
+		startcuttime();
+	}
+
+	function startcuttime() {
+		var startime = "<?php echo $groupinfo['stattime']; ?>";
+		var endtime = "<?php echo $groupinfo['endtime']; ?>";
+		if (startime && endtime) {
+			$('#votetime1').showtime({
+				sign: 1,
+				startname: "距开始时",
+				endname: "距结束时",
+				ended: "活动结束",
+				starttime: startime,
+				endtime: endtime
+			});
+		}
+	}
+
+	/*查看拼团玩法详情*/
+	mui('.mui-content').on('tap','.pt-help-img',function(){
+		mui.openWindow({
+			url: "__APP__/Shopping/Collage/rule"
+		});
+	});
+	/*查看订单*/
+	mui('.wrap-page').on('tap', '#fixed-btn1', function() {
+		var orderid = $(this).attr('title');
+		mui.openWindow({
+			url: "__APP__/Order/Index/detail?orderid="+orderid,
+			id: "detail"
+		});
+	});
+
+	/*查看店铺*/
+	mui('.wrap-page').on('tap', '.shop-btn', function() {
+		goShopDetail(acode);
+	});
+	/*联系客服*/
+	mui('.wrap-page').on('tap', '.server-btn', function() {
+		fchat(acode,"<?php echo $user['c_nickname']; ?>");
+	});
+	//邀请好友
+	mui('.wrap-page').on('tap', '#fixed-btn2', function() {
+		var apptype = "<?php echo get_app_type(); ?>";
+		if(apptype == 3) {
+			mui.openWindow({
+				url: "<?php echo $signPackage['url'];?>",
+				id: "pdetail"
+			});
+		} else {
+			sharepro();
+		}
+	});
+	/*更多活动*/
+	mui('.wrap-page').on('tap', '#fixed-btn3', function() {
+		mui.openWindow({
+			url: "__APP__/Shopping/Actarea/index",
+			id: "actareaindex"
+		});
+	});
+
+</script>
+
+</html>

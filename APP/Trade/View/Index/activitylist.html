@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>活动</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/tractivity.css" />
+		<style type="text/css">
+		.act-img-item{padding: 0px;}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap-page">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="act-scroll-con bgcolor">
+					<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="pro_control">
+						<div class="mui-scroll">
+							<div class="mui-control-item mui-pro-item">
+								<div class="act-img-item" title="1"><img src="__IMG__/t_act_03.png" alt="" /></div>
+							</div>
+							<div class="mui-control-item mui-pro-item">
+								<div class="act-img-item" title="2"><img src="__IMG__/t_act_05.png" alt="" /></div>
+							</div>
+							<div class="mui-control-item mui-pro-item">
+								<div class="act-img-item" title="3"><img src="__IMG__/t_act_07.png" alt="" /></div>
+							</div>
+							<div class="mui-control-item mui-pro-item">
+								<div class="act-img-item" title="4"><img src="__IMG__/t_act_03.png" alt="" /></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="t-s-activity-list" id="data_list">
+					<!-- <div class="t-s-activity-li divtab divre">
+						<div class="t-s-acti-con divtab bborder">
+							<div class="t-s-acti-img fl">
+								<img src="__IMG__/founder1.jpg" alt="" />
+							</div>
+							<div class="t-s-acti-info fl">
+								<div class="t-s-acti-name fs12 c5">屈臣氏日用百货</div>
+								<div class="t-s-acti-desc fs14 c3"><span>商家</span>发出<span>199减100</span>特大，特大优惠活动</div>
+							</div>
+						</div>
+						<div class="t-s-acti-timenum divtab">
+							<div class="t-s-acti-sharenum fr c9 fs12">
+								<div class="fl t-s-acti-shareico"><img src="__IMG__/district_icon_forward2x.png" alt="" /></div><span id="">128</span>人转发
+							</div>
+							<div class="t-s-acti-time fl c9 fs12">时间<span id="">36:00:00</span></div>
+
+						</div>
+						<div class="t-s-acti-type divab"><img src="__IMG__/district_corner_hot2x.png" alt="" /></div>
+					</div>
+					<div class="t-s-activity-li divtab divre">
+						<div class="t-s-acti-con divtab bborder">
+							<div class="t-s-acti-img fl">
+								<img src="__IMG__/founder1.jpg" alt="" />
+							</div>
+							<div class="t-s-acti-info fl">
+								<div class="t-s-acti-name fs12 c5">屈臣氏日用百货</div>
+								<div class="t-s-acti-desc fs14 c3"><span>商家</span>发出<span>199减100</span>特大，特大优惠活动</div>
+							</div>
+						</div>
+						<div class="t-s-acti-timenum divtab">
+							<div class="t-s-acti-sharenum fr c9 fs12">
+								<div class="fl t-s-acti-shareico"><img src="__IMG__/district_icon_forward2x.png" alt="" /></div><span id="">128</span>人转发
+							</div>
+							<div class="t-s-acti-time fl c9 fs12">时间<span id="">36:00:00</span></div>
+
+						</div>
+						<div class="t-s-acti-type divab"><img src="__IMG__/district_corner_hot2x.png" alt="" /></div>
+					</div>
+					<div class="t-s-activity-li divtab divre">
+						<div class="t-s-acti-con divtab bborder">
+							<div class="t-s-acti-img fl">
+								<img src="__IMG__/founder1.jpg" alt="" />
+							</div>
+							<div class="t-s-acti-info fl">
+								<div class="t-s-acti-name fs12 c5">屈臣氏日用百货</div>
+								<div class="t-s-acti-desc fs14 c3"><span>商家</span>发出<span>199减100</span>特大，特大优惠活动</div>
+							</div>
+						</div>
+						<div class="t-s-acti-timenum divtab">
+							<div class="t-s-acti-sharenum fr c9 fs12">
+								<div class="fl t-s-acti-shareico"><img src="__IMG__/district_icon_forward2x.png" alt="" /></div><span id="">128</span>人转发
+							</div>
+							<div class="t-s-acti-time fl c9 fs12">时间<span id="">36:00:00</span></div>
+
+						</div>
+						<div class="t-s-acti-type divab"><img src="__IMG__/district_corner_hot2x.png" alt="" /></div>
+					</div> -->
+				</div>
+				<div id="console"></div>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			var akclick = 1;
+			window.onload = function() {
+				var tw = window.screen.width;
+				if(tw > 720) {
+					tw = 720;
+				}
+				$('.act-img-item').width(tw / 2.85);
+				$('.act-img-item').height($('.act-img-item').width() * 0.56);
+
+				$('.mui-pro-item').width($('.mui-pro-item').width());
+				$('#pro_control').height($('.mui-pro-item').height());
+				styles();
+			}
+			$(document).ready(function() {
+
+			});
+			
+			/*样式*/
+			function styles() {
+				var aimgw = $('.t-s-acti-img').width();
+				$('.t-s-acti-img').height(aimgw);
+				$('.t-s-acti-img').css('border-radius', aimgw + 'px');
+
+				var acimgw = $('.t-s-acti-img').width(),
+					aclih = acimgw * 34 / 100;
+				$('.t-s-acti-img').height(acimgw);
+				$('.t-s-acti-info').css('line-height', aclih + 'px');
+
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+
+			var statu = '<?php echo $statu ?>';
+			selectstatu(statu);
+			/*图片跳转*/
+			mui('.mui-pro-item').on('tap', '.act-img-item', function() {
+				var acttype = $(this).attr('title');
+				selectstatu(acttype);
+			});
+			
+			function selectstatu(i) {
+				statu = i;pageindex = 1;
+				ctrls = true;emptyval = true;
+				getdatalist();
+			}
+
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+
+			});
+
+			var hid = 0;
+			/*数据加载*/
+			function getdatalist() {
+				var url = '__URL__/ShopactData?provincecode=<?php echo $provincecode; ?>&citycode=<?php echo $citycode; ?>&acttype='+statu+'&pageindex=' + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#data_list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(!data || data.list.length <= 0) {
+								if(pageindex == 1) { //数据为空展示
+									_html+='<div class="divtab divempty">';
+										_html+='<h3 class="divtab c6 fs14">暂无相关数据</h3>';
+										_html+='<p class="divtab c9 fs12">该商圈商家还没有发布相关活动</p>';
+									_html+='</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="t-s-activity-li divtab divre actinfo-'+pageindex+'">';
+										_html += '<div class="t-s-acti-con divtab bborder" title="'+dataarr['c_id']+'">';
+										_html += '<div class="t-s-acti-img fl">';
+										_html += '<img src="'+dataarr['c_headimg']+'" alt="" />';
+										_html += '</div>';
+										_html += '<div class="t-s-acti-info fl">';
+										_html += '<div class="t-s-acti-name fs12 c5">'+dataarr['c_nickname']+'</div>';
+										_html += '<div class="t-s-acti-desc fs14 c3">'+dataarr['content']+'</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '<div class="t-s-acti-timenum divtab">';
+										_html += '<div class="t-s-acti-sharenum fr c9 fs12" title="'+dataarr['c_id']+'">';
+										_html += '<div class="fl t-s-acti-shareico"><img src="__IMG__/district_icon_forward2x.png" alt="" /></div><span>'+dataarr['c_turnnum']+'</span>人转发';
+										_html += '</div>';
+										_html += '<div class="t-s-acti-time fl c9 fs12" id="votetime'+dataarr['c_id']+'"><span id="coll_'+dataarr['c_id']+'">剩余时间：</span><span id="t_'+dataarr['c_id']+'">00</span>天<span id="h_'+dataarr['c_id']+'">00</span>:<span id="f_'+dataarr['c_id']+'">00</span>:<span id="m_'+dataarr['c_id']+'">00</span></div>';
+										_html += '</div>';
+										if (hid < 3) {
+										_html += '<div class="t-s-acti-type divab"><img src="__IMG__/district_corner_hot2x.png" alt="" /></div>';
+										}
+
+										_html+='<input type="hidden" id="sharetit'+dataarr['c_id']+'" value="'+dataarr['sharetit']+'" />';
+										_html+='<input type="hidden" id="shareimg'+dataarr['c_id']+'" value="'+dataarr['shareimg']+'" />';
+										_html+='<input type="hidden" id="sharedesc'+dataarr['c_id']+'" value="'+dataarr['sharedesc']+'" />';
+										_html+='<input type="hidden" id="shareurl'+dataarr['c_id']+'" value="'+dataarr['shareurl']+'" />';
+										_html+='<input type="hidden" id="apireturnurl'+dataarr['c_id']+'" value="'+dataarr['apireturnurl']+'" />';
+										_html += '</div>';
+										hid++;
+										startcuttimejs(dataarr['stattime'],dataarr['endtime'],dataarr['c_id']);
+									};
+									
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if (emptyval) {
+							loadclick();							
+						}
+					}
+				});
+			}
+
+			//循环加载点击事件
+			function loadclick() {
+				//进入详情
+				mui('.actinfo-' + pageindex).on('tap', '.t-s-acti-con', function() {
+					var id = $(this).attr('title');
+					var lineLink = $('#shareurl'+id).val();
+					mui.openWindow({
+						url: lineLink,
+						id: "viewinfo"
+					});
+				});
+
+				//点击分享
+				mui('.actinfo-' + pageindex).on('tap', '.t-s-acti-sharenum', function() {
+					var id = $(this).attr('title');
+					fenxiang(id);
+				});	
+			}
+
+			function startcuttimejs(startime, endtime, id) {
+				if(startime && endtime) {
+					$('#votetime' + id).ready(function() {
+						$('#votetime' + id).showtime({
+							sign: id,
+							startname: "距开始时：",
+							endname: "剩余时间：",
+							ended: "已结束：",
+							starttime: startime,
+							endtime: endtime
+						});
+					});
+				}
+			}
+
+			//分享
+			function fenxiang(id) {
+				var shareTitle = $('#sharetit'+id).val();
+				var descContent = $('#sharedesc'+id).val();
+				var imgUrl = $('#shareimg'+id).val();
+				var lineLink = $('#shareurl'+id).val();
+				var apireturnurl = $('#apireturnurl'+id).val();
+				var apptype = "<?php echo get_app_type(); ?>";
+				if (apptype == 3) {
+					mui.openWindow({
+						url: lineLink,
+						id: "viewinfo"
+					});
+				} else {
+					sharepro(shareTitle,descContent,imgUrl,lineLink,apireturnurl);
+				}
+			}
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

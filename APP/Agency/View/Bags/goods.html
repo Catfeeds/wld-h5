@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商品管理</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bags/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="divtab bagslist" id="data_list">
+
+					<!-- <div class="divtab divempty">
+					<h3 class="divtab c6 fs14">暂无相关商品</h3>
+					<p class="divtab c9 fs12">请添加您需要的代理商品</p>
+				</div>  -->
+					<!-- <li class="divtab bagsli bagsli1 bgcolor delete1 bagsliss-1">
+					<div class="divre fl bagsleft child-img detail" title="1">
+						<img src="__COMMON__/logo.png" alt="">
+				
+						新增下架状态图  记得改   上层div的定位 又divtab改成divre
+						<div class="divab fl bagsleft bagsoff child-img">
+							<img src="__IMG__/bags/der_img_sy.png" alt="">
+						</div>
+				
+					</div>
+					<div class="divtab fl bagright detail" title="1">
+						<h3 class="divtab fs14 c3">良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子</h3>
+						<p class="divtab fs12 c6 bagsprinum">
+							<span class="fl jiage fs14">建议售价:￥30</span>
+							<span class="fr renshu fs12">已有123人代理</span>
+						</p>
+					</div>
+				</li>
+				<li class="divtab bagsli bagsli2 bgcolor c9 fs14 bagsli-1">
+					<div class="fl bagsoption">
+						<span title="1" class="edits">删除</span>
+					</div>
+					<div class="fl bagsoption">
+						<span title="1" class="goods">修改折扣</span>
+					</div>
+					<div class="fl bagsoption">
+						<input type="hidden" id="downs1" value="0">
+						<span title="1" class="downs" id="downsname1">下架</span>
+					</div>
+				</li> -->
+
+				</ul>
+				<div id="console"></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			ChRightText("添加");
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var ligd = $('.bagsleft').width();
+			$('.bagsleft').height(ligd);
+			$('.bagright h3').css('line-height', ligd * 0.3 + 'px');
+			$('.bagright p').height(ligd * 0.3);
+			$('.bagright p').css('line-height', ligd * 0.3 + 'px');
+
+			$(".bagright h3").each(function(i) {
+				while($(this).height() > ligd * 0.6) {
+					$(this).text($(this).text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+				};
+			});
+		}
+
+		//添加商品
+		function rightcaozuo() {
+			mui.openWindow({
+				url: '__URL__/goodsadd?pid=<?php echo $pid; ?>',
+				id: "goodsadd"
+			})
+		}
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		loadclick();
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/AgencyBagProduct?bag_code=<?php echo $pid; ?>&pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+								_html += '<div class="data-empty-font c3 fs14">暂无相关商品</div>';
+								_html += '<div class="data-empty-font c3 fs14">请添加您需要的代理商品~~</div>';
+								_html += '</div>';	
+							}
+							console.log(_html);
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+
+									_html += '<li class="divtab bagsli bagsli1 bgcolor delete' + dataarr['c_pcode'] + '  bagsliss-' + pageindex + '" title="' + dataarr['c_pcode'] + '">';
+									_html += '<div class="divtab fl bagsleft child-img detail" title="' + dataarr['c_pcode'] + '">';
+									_html += '<img src="' + dataarr['c_pimg'] + '" alt="">';
+									_html += '</div>';
+									_html += '<div class="divtab fl bagright detail" title="' + dataarr['c_pcode'] + '">';
+									_html += '<h3 class="divtab fs14 c3">' + dataarr['c_name'] + '</h3>';
+									_html += '<p class="divtab fs12 c6 bagsprinum">';
+									_html += '<span class="fl jiage fs14">建议售价:￥' + dataarr['c_price'] + '</span>';
+									_html += '<span class="fr renshu fs12">已有' + dataarr['agency_num'] + '人代理</span>';
+									_html += '</p>';
+									_html += '</div>';
+									_html += '</li>';
+									_html += '<li class="divtab bagsli bagsli2 bgcolor delete' + dataarr['c_pcode'] + ' c9 fs14 bagsli-' + pageindex + '">';
+									_html += '<div class="fl bagsoption">';
+									_html += '<span title="' + dataarr['c_pcode'] + '" class="edits">删除</span>';
+									_html += '</div>';
+									_html += '<div class="fl bagsoption">';
+									_html += '<span title="' + dataarr['c_pcode'] + '" class="goods">修改折扣</span>';
+									_html += '</div>';
+									_html += '<div class="fl bagsoption">';
+									_html += '<input type="hidden" id="downs' + dataarr['c_pcode'] + '" value="' + dataarr['c_status'] + '">';
+									if(dataarr['c_status'] == 1) {
+										_html += '<span title="' + dataarr['c_pcode'] + '" class="downs" id="downsname' + dataarr['c_pcode'] + '">下架</span>';
+									} else {
+										_html += '<span title="' + dataarr['c_pcode'] + '" class="downs" id="downsname' + dataarr['c_pcode'] + '">上架</span>';
+									}
+									_html += '</div>';
+									_html += '</li>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					if(emptyval) { //加载循环点击事件
+						loadclick();
+					}
+					$('#console').css('display', 'none');
+					ctrls = true;
+				}
+			});
+		}
+
+		function loadclick() {
+			//删除
+			mui('.bagsli-' + pageindex).on('tap', '.edits', function() {
+				var pcode = $(this).attr('title');
+				mui.confirm('删除将无法恢复，用户无法代理该商品。', '确认删除？', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : deletegoods(pcode);
+				}, 'div');
+			});
+
+			//修改折扣
+			mui('.bagsli-' + pageindex).on('tap', '.goods', function() {
+				var pcode = $(this).attr('title');
+				mui.openWindow({
+					url: '__URL__/discount?pid=<?php echo $pid; ?>&pcode=' + pcode,
+					id: "goods"
+				})
+			});
+
+			//上下架
+			mui('.bagsli-' + pageindex).on('tap', '.downs', function() {
+				var pcode = $(this).attr('title');
+				var type = $('#downs' + pcode).val();
+				if(type == 1) {
+					mui.confirm('下架后将无法进行分销代理', '确认下架？', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : optiongoods(pcode, 2);
+					}, 'div');
+				} else {
+					optiongoods(pcode, 1);
+				}
+			});
+
+			//预览详情
+			mui('.bagsliss-' + pageindex).on('tap', '.detail', function() {
+				var pcode = $(this).attr('title');
+				mui.openWindow({
+					url: '__URL__/detail?pcode=' + pcode,
+					id: "detail"
+				})
+			});
+		}
+
+		//删除架操作
+		var gssign = true;
+
+		function deletegoods(pcode) {
+			if(gssign) {
+				gssign = false;
+				$.post("__URL__/BagProductDel", {
+					bag_code: '<?php echo $pid ?>',
+					pcode: pcode,
+				}, function(obj) {
+					var data = eval(obj);
+					gssign = true;
+					if(data['code'] == 0) {
+						mui.toast(data['msg']);
+						$('.delete' + pcode).remove();
+					} else {
+						mui.toast(data['msg']);
+					}
+				});
+			}
+		}
+		//上下架操作
+		var resign = true;
+
+		function optiongoods(pcode, type) {
+			if(resign) {
+				resign = false;
+				$.post("__URL__/BagProductStatus", {
+					bag_code: '<?php echo $pid ?>',
+					pcode: pcode,
+					status: type
+				}, function(obj) {
+					var data = eval(obj);
+					resign = true;
+					if(data['code'] == 0) {
+						mui.toast(data['msg']);
+						if(type == 2) {
+							$('#downsname' + pcode).text('上架');
+							$('#downs' + pcode).val(2);
+						} else {
+							$('#downsname' + pcode).text('下架');
+							$('#downs' + pcode).val(1);
+						}
+					} else {
+						mui.toast(data['msg']);
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

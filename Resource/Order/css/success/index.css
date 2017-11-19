@@ -1,0 +1,60 @@
+body{
+	background-color: whitesmoke;
+	color: #000;
+}
+.fsXiao {
+	background: #fff;
+	padding-bottom: 1.5rem;
+}
+.fsXiao .information{
+	font-size: 2rem;
+	padding: 1rem 0;
+	color: black;
+}
+.fsXiao div{
+	font-size: 1.5rem;
+	margin-top: 0.5rem;
+}
+.fsXiao .model1:first-child{
+	color: #999;;
+}
+.fsXiao .information span{
+	margin-right: 0.5rem;
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	background:url(../../img/dd_icon_shagjia.png);
+	background-size: 100% 100%;
+	
+}
+.fsXiao .supermarket{
+	font-size: 2rem;
+	color: black;
+}
+.suborder-header{
+	margin-top: 1.5rem;
+}
+.suborder-header .success{
+	height: 5rem;
+	text-align: center;
+	line-height: 5.5rem;
+	color: #000;
+	font-size: 1.5rem;
+}
+.success span{
+	display: inline-block;
+	height: 1.5rem;
+	width: 1.5rem;
+	background:url(../../img/dd_icon_zhifu.png);
+	background-size: 100% 100%;
+	margin-right: 1rem;
+}
+.fsXiao .model1{
+	border-bottom: 1px solid #555;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	padding-left: 2rem;
+	font-size: 1.5rem;
+}
+.fsXiao .model1:last-child{
+	border: none;

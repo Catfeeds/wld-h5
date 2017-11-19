@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<script type="text/javascript">
+			var SKIN = "__HSKIN__";
+			var HHOME = "__HHOME__";
+		</script>
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+		<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+		<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+		<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+		<title>优惠券添加</title>
+		<style type="text/css">
+			.ma-pro-box:nth-child(odd) {margin-right: 0.5%}			
+			.ma-pro-box:nth-child(even) {margin-left: 0.5%}			
+			.ma-pro-box {width: 20%;margin-bottom: 1%;float: left;}
+			.ma-pro-img{width: 100%;overflow: hidden;}
+			.ma-pro-img img{width: 100%;height: 100%;}
+			.ma-pro-info {padding: 3%;color: #555;font-size: 14px;}
+			.ma-pro-name{overflow: hidden; text-overflow: ellipsis;-o-text-overflow: ellipsis;-webkit-text-overflow:ellipsis;-moz-text-overflow:ellipsis; white-space: nowrap;width: 100%;}
+			.ma-pro-price {padding-top: 2%;color: #ffaa3b;font-size: 16px;}			
+			.ma-pro-input {margin: 0 auto;width: 20px;height: 20px;}
+		</style>
+	</head>
+
+	<body>
+		<div class="pd-20">
+			<form action="{$action}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>优惠券名称：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_name}" placeholder="" id="" name="name" placeholder="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>优惠券类型：</label>
+					<div class="formControls col-6">
+						<span class="select-box">
+					<select class="select" id="" name="type">
+						<option value="1" <if condition="$vo.c_type eq 1">selected="selected"</if>>抵扣券</option>
+						<option value="2" <if condition="$vo.c_type eq 2">selected="selected"</if>>折扣券</option>
+						<option value="3" <if condition="$vo.c_type eq 3">selected="selected"</if>>满减券</option>
+						<option value="4" <if condition="$vo.c_type eq 4">selected="selected"</if>>首减券</option>
+					</select>
+				</span>
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>卡券金额/折扣比例：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_money}" placeholder="" id="" name="money" placeholder="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>限制金额：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_limit_money}" placeholder="" id="" name="limit_money" placeholder="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>总数量：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_totalnum}" placeholder="" id="" name="totalnum" placeholder="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>剩余数量：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_num}" placeholder="" id="" name="num" placeholder="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>活动剩余数量：</label>
+					<div class="formControls col-6">
+						<input type="text" class="input-text" value="{$vo.c_actnum}" placeholder="" id="" name="actnum" placeholder="">
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+				<if condition="$ucode neq null">
+					<input type="hidden" name="sign" value="2">
+					<else/>
+					<input type="hidden" name="sign" value="1">
+				</if>
+
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>发放类型：</label>
+					<div class="formControls col-6">
+						<span class="select-box">
+					<select class="select" id="" name="rule">
+						<option value="1" <if condition="$vo.c_rule eq 1">selected="selected"</if>>活动发放</option>
+						<option value="2" <if condition="$vo.c_rule eq 2">selected="selected"</if>>店铺发放</option>
+					</select>
+				</span>
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>使用范围：</label>
+					<div class="formControls col-6">
+						<span class="select-box">
+					<select class="select" id="" name="range" id="range" onchange="changrange(this);">
+						<option value="1" <if condition="$vo.range eq 1">selected="selected"</if>>全店通用</option>
+						<option value="2" <if condition="$vo.range eq 2">selected="selected"</if>>部分商品</option>
+					</select>
+				</span>
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+				<if condition="$vo['range']==2">
+					<div class="row cl" style="width:60%;margin-left: 15%;" id="listd1">
+						<div class="formControls col-10" style="width:100%;">
+							<dl class="permission-list">
+								<dt>
+									<label>添加商品</label>
+								</dt>
+								<dd style="overflow: hidden;">
+									<volist name="productarr" id="v">
+										<div class="ma-pro-box">	
+											<div class="ma-pro-img">
+												<img src="{$root_url}{$v['c_pimg']}" alt="" />
+											</div>
+											<div class="ma-pro-info">
+												<div class="ma-pro-name">{$v['c_name']}</div>
+												<div class="ma-pro-price">￥{$v['c_price']}</div>
+											</div>
+											<div class="ma-pro-input"><input type="checkbox" <foreach name="proarr" item="de_1"><if condition="$de_1['c_pcode'] == $v['c_pcode']">checked="checked"</if> </foreach> value="<?php echo $v['c_pcode'] ?>" name="pcode[]" id="user-Character-0-0"/>
+											</div>
+										</div>
+									</volist>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				<else/>
+					<div class="row cl" style="width:60%;margin-left: 15%;display: none;" id="listd1">
+						<div class="formControls col-10" style="width:100%;">
+							<dl class="permission-list">
+							<dt>
+								<label>添加商品</label>
+							</dt>
+							<dd style="overflow: hidden;">
+								<volist name="productarr" id="v">
+									<div class="ma-pro-box">	
+										<div class="ma-pro-img">
+											<img src="{$root_url}{$v['c_pimg']}" alt="" />
+										</div>
+										<div class="ma-pro-info">
+											<div class="ma-pro-name">{$v['c_name']}</div>
+											<div class="ma-pro-price">￥{$v['c_price']}</div>
+										</div>
+										<div class="ma-pro-input"><input type="checkbox" <foreach name="proarr" item="de_1"><if condition="$de_1['c_pcode'] == $v['c_pcode']">checked="checked"</if> </foreach> value="<?php echo $v['c_pcode'] ?>" name="pcode[]" id="user-Character-0-0"/>
+										</div>
+									</div>
+								</volist>
+							</dd>
+							</dl>
+						</div>
+					</div>
+				</if>
+
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>有效开始时间：</label>
+					<div class="formControls col-6">
+						<input type="text" id="starttime" name="starttime" value="{$vo.c_starttime}" placeholder="有效开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD'})" class="laydate-icon" />
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>有效结束时间：</label>
+					<div class="formControls col-6">
+						<input type="text" id="endtime" name="endtime" value="{$vo.c_endtime}" placeholder="有效结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD'})" class="laydate-icon" />
+					</div>
+					<div class="col-3"> </div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-3"><span class="c-red">*</span>卡券状态：</label>
+					<div class="formControls col-6">
+						<span class="select-box">
+					<select class="select" id="sel_Sub" name="status">
+						<option value="2" <if condition="$vo.c_status eq 2">selected="selected"</if>>不发布</option>
+						<option value="1" <if condition="$vo.c_status eq 1">selected="selected"</if>>发布中</option>
+					</select>
+				</span>
+					</div>
+					<div class="col-3"> </div>
+				</div>
+
+				<div class="row cl">
+					<div class="col-9 col-offset-3">
+						<input type="hidden" name="ucode" value="{$ucode}">
+						<input type="hidden" name="Id" value="{$vo.c_id}">
+						<input type="submit" value="提交" class="btn btn-primary radius">
+					</div>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script>
+		<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script>
+		<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+		<script type="text/javascript" src="__HJS__/H-ui.js"></script>
+		<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+		<script type="text/javascript" src="__HJS__/laydate.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.skin-minimal input').iCheck({
+					checkboxClass: 'icheckbox-blue',
+					radioClass: 'iradio-blue',
+					increaseArea: '20%'
+				});
+
+				$("#form-article-category-add").Validform({
+					tiptype: 2,
+					callback: function(form) {
+						form[0].submit();
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.$('.btn-refresh').click();
+						parent.layer.close(index);
+					}
+				});
+				$.Huitab("#tab-category .tabBar span", "#tab-category .tabCon", "current", "click", "0");
+			});
+
+			function changrange(obj) {
+				var id = $(obj).val();
+				if(id == 2) {
+					$("#listd1").show();
+				} else {
+					$("#listd1").hide();
+				}
+			}
+		</script>
+	</body>
+
+</html>

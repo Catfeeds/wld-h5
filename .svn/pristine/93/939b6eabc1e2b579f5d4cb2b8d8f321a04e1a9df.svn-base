@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>砍价商品详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bargain/index.css" />
+		
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 16%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="confirm-pcode" value="{$pcode}">
+				<input type="hidden" name="confirm-actpcode" value="{$act_pcode}">
+				<input type="hidden" name="confirm-pucode" value="">
+				<input type="hidden" name="confirm-mcode" value="">
+				<input type="hidden" name="confirm-num" value="">
+				<div class="mui-content">
+					<!--商品图片  开团状态-->
+					<div class="cgood-img-status divtab divre">
+						<div class="mui-slider">
+						  <div class="mui-slider-group">
+						    <?php foreach ($data['mainimgs'] as $k1 => $v1) { ?>
+							<div class="mui-slider-item imgarrs child-img slider-item-{$k1}" title="{$k1}">
+							  	<div class="sonimg" style="background: url({$v1['img']}) center center no-repeat;background-size: cover;"></div>
+							</div>
+							<?php } ?>
+						  </div>
+						</div>
+						<div class="cgood-open-status divab">
+							<div class="cgood-number divab cf fs11" style="width:23%;left:3%;">最低价</div>
+							<div class="cgood-open-con divab divtab">
+								<div class="cgood-price c-box-price fl fs12 cf">
+									<font>￥</font>
+									<font class="fs28 fb400"><?php echo explode(".",$pinfo['c_actprice'])[0]; ?></font>
+									<font>.<?php echo explode(".",$pinfo['c_actprice'])[1]; ?></font>
+									<span class="cf">原价：￥{$pinfo['c_value']}</span>
+								</div>
+								<div class="cgood-time fr cf">
+									<div class="fs12" style="text-align:right;" id="coll_1">未开始</div>
+									<?php if (strtotime($pinfo['c_starttime']) <= time() && strtotime($pinfo['c_endtime']) >= time()) { ?>
+									<div class="fs12 fb600 cuttime" id="votetime1"><span style="display:none;"></span><span id="t_1"></span>天<span id="h_1">00</span>:<span id="f_1">00</span>:<span id="m_1">00</span></div>
+									<?php } ?>
+								</div>
+							</div>
+
+							<?php if (strtotime($pinfo['c_starttime']) <= time() && strtotime($pinfo['c_endtime']) >= time()) { ?>
+							<img src="__IMG__/bargain/spell_bg_underway.png">
+							<?php } else { ?>
+							<!--未开始-->
+							<img src="__IMG__/collage/spell_bg_over.png">
+							<?php } ?>
+							
+						</div>
+					</div>
+					<!--商品图片  开团状态-->
+					<div class="bborder bgcolor divtab" style="padding-bottom:3%;">
+						<div class="good-name c3 fs14 clamp2">{$data['c_name']}</div>
+					</div>
+
+					<!--商家店铺  -->
+					<div class="agent-intro divtab bgcolor">
+						<div class="divtab">
+							<input type="hidden" name="acode" id="acode" value="{$user['c_ucode']}" />
+							<div class="ag-head fl" title="ucode"><img src="{$user['c_headimg']}" alt="" /></div>
+							<div class="ag-info fl">
+								<div class="ag-nkname c3 fs14 fov">
+									{$user['c_nickname']}
+									<?php if ($user['c_isfixed'] == 1) { ?>
+									<span class="fs11 cf">实</span>	
+									<?php } else { ?>
+									<span class="fs11 cf">商</span>
+									<?php } ?>
+								</div>
+								<div class="ag-visitnum c5 fs12"><span>粉丝</span><span>{$user['c_attention']}</span><span>访问量</span><span>{$user['c_pv']}</span></div>
+							</div>
+
+							<div class="ag-attention fl fs13 ag-atted c3">进入店铺<font class="c9 fr">></font></div>
+						</div>
+					</div>
+					<!--商家店铺  -->
+
+					<!--砍价玩法  -->
+					<div class="b-explain divtab bgcolor">
+						<div class="divtab">
+							<div class="b-explain-title fl fs13 c3">砍价玩法</div>
+							<div class="b-explain-view fr fs13 c9">
+								查看详情 >
+							</div>
+						</div>
+						<div class="b-explain-step">
+							<img src="__IMG__/bargain/kj_icon_wf.png" />
+						</div>
+						<div class="b-explain-info">
+							<div class="b-exp-step divtab">
+								<div class="fs11 fl c5">
+									选择商品
+								</div>
+								<div class="fs11 fl c5">
+									邀请好友
+								</div>
+								<div class="fs11 fl c5">
+									砍价完成
+								</div>
+								<div class="fs11 fl c5">
+									支付购买
+								</div>
+							</div>
+							<div class="fs12">商品进行砍价后，须在24小时内完成购买支付，否则砍价失败。</div>
+						</div>
+					</div>
+					<!--砍价玩法  -->
+
+					<div class="ag-comment bgcolor">
+						<div class="ag-com-tit bborder divtab">
+							<div class="ag-comnumb fl fs14 c3">评论<span>（{$data['comment_num']}）</span></div>
+							<?php if($data['comment_num']>0){ ?>
+							<div class="ag-comcheck fr c9 fs14">查看全部<span class="fr"><img src="__IMG__/index/der_icon_next.png" alt="" /></span></div>
+							<?php } ?>
+						</div>
+						<!--商品评论列表-->
+						<div class="comment-con divtab">
+							<div class="commcode-info divtab">
+								<?php if (!empty($proscore)) { ?>
+								<div class="comm-head fl" title="{$proscore['ucode']}">
+									<img src="{$proscore['c_headimg']}" alt="" />
+								</div>
+								<div class="comm-intro fl">
+									<div class="comm-nc-info divtab">
+										<div class="comm-nc-grade fl" style="width:56%;">
+											<p class="fs14 c3 fov" style="padding: 3% 0;">{$proscore["c_nickname"]}</p>
+											<p>
+											<?php for ($i=0; $i < $proscore['c_score']; $i++) { ?> 
+												<span style="width:10%;"><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>
+											<?php } ?>
+											</p>
+										</div>
+										<div class="comm-time fr fs12 c9">{$proscore["c_addtime"]}</div>
+									</div>
+									<div class="comm-desc c5 fs13">{$proscore["c_content"]} </div>
+									<div class="comm-imglist">
+										<ul>	
+											<?php foreach($proscore["imglist"] as $key => $value){ ?>
+											<li>
+												<img src="{$value['c_img']}" alt="" />
+											</li>
+											<?php } ?>
+										</ul>
+									</div>
+								</div>
+								<?php } else { ?>
+								<div class="baoqian">暂未有相关评论</div>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+
+					<div class="good-details bgcolor">
+						<div class="good-remark divtab">
+							<p class="fs16 c3 alignc">商品详情</p>
+							<p class="fs13 c3">{$data['c_desc']}</p>
+						</div>
+						<div class="good-d-imglist divtab alignc">
+							<?php foreach ($data['imglist'] as $key => $value) { ?>
+							<img src="{$value['c_pimgepath']}" alt="" />
+							<?php } ?>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="pro-buy-btn">
+					<div class="server-btn fl">
+						<img id="server-btn" src="__IMG__/index/pro-02_09.jpg" alt="">
+					</div>
+					<div class="space-btn fl">
+						<img id="space-btn" src="__IMG__/index/pro-02_11.jpg" alt="">
+					</div>
+					<div class="add-shopping-cart fl">
+						<p class="fs14 cf">￥{$pinfo['c_value']}</p>
+						<p class="fs12 cf">原价购买</p>
+					</div>
+										
+					<?php if (strtotime($pinfo['c_starttime']) <= time() && strtotime($pinfo['c_endtime']) >= time()) { ?>
+					<div class="shopping-cart fl fs14" id="bargain_btn">我要砍价</div>
+					<?php } else { ?>
+					<!--活动未开始-->
+					<div class="shopping-cart fl fs14" style="display: none;" id="v_moreact">查看更多活动</div>
+					<?php } ?>
+					
+				</div>
+				<!--选择型号弹窗-->
+				<div class="mode-sel-bg pup-bg"></div>
+				<div class="model-sel-pup bgcolor">
+					<div class="model-sel-main divre">
+						<div class="m-sel-close divab"><img src="__IMG__/index/der_icon_close2.png" alt="" /></div>
+						<div class="m-pro-basic bborder">
+							<div class="m-pro-img fl"><img src="{$data['c_pimg']}" alt="" /></div>
+							<div class="m-pro-info fl">
+								<p class="c3 fs13 m-proname clamp2">{$data['c_name']}</p>
+								<p class="cy fs14 consult-price m-pprice">￥{$data['c_price']}</p>
+
+								<p class="fs12 m-prebate none">
+									<?php if ($data['c_rebate_proportion'] > 0 && $data['c_isrebate'] == 1): ?>
+									<em class="c3">购物优惠:</em><span class="cy">￥</span><span class="cy c_isrebate">{$data['c_price']*($data['c_rebate_proportion']/100)|round=###,2}</span>
+									<?php endif ?>
+
+									<?php if ($data['c_spread_proportion'] > 0 && $data['c_isspread'] == 1): ?>
+									<em class="c3">分享佣金:</em><span class="cy">￥</span><span class="cy c_isspread">{$data['c_price']*($data['c_spread_proportion']/100)|round=###,2}</span>
+									<?php endif ?>
+								</p>
+									
+							</div>
+						</div>
+						<div class="m-sel-list bborder">
+							<div class="m-sel-list-t fs14 c3">型号</div>
+							<div class="m-seleted-c fs13">
+								<ul>
+									<?php foreach ($data['modellist'] as $k => $v) { ?>
+									<li id="{$v['c_mcode']}" title="" data-actprice="{$v['actprice']}" data-price="{$v['c_price']}" data-num="{$v['c_num']}">{$v['c_name']}</li>
+									<?php } ?>
+								</ul>
+							</div>
+						</div>
+						<div class="m-pro-number divtab">
+							<div class="m-sel-list-t fs14 c3">数量</div>
+							<div class="m-num-opreate divtab">
+								<div class="m-num-sub fl c9 fs22 bgeb alignc">-</div>
+								<div class="m-num-txt fl"><input type="text" readonly="readonly" name="txt_pronum" id="txt_pronum" value="1" class="fs13 c3 alignc" /></div>
+								<div class="m-num-add fl c9 fs22 bgeb alignc">+</div>
+								<div class="product-stock fl fs13">
+									库存：<span id="stock_num">{$data['c_num']}</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-btn-list divtab"><span class="cf fs16" id="sure_sub">确认</span></div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/cutdowntime.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		var pcode = '<?php echo $data["c_pcode"] ?>';
+		var ucode = '<?php echo $ucode ?>';
+		var acode = "<?php echo $data['c_ucode']; ?>";
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+		window.onload = function() {
+			ChRightText("分享");
+
+			$('#sure_sub').css('background-color','#95D2FF');
+			mui('.wrap-page').off('tap','#sure_sub');
+			/*查看评论大图*/
+			$(".comm-imglist").viewer({
+				title: false
+			});
+
+			$('.comm-imglist li').height($('.comm-imglist li').width());
+
+			yangshi();
+
+			startcuttime();
+
+			/*主图样式*/
+			$('.mui-slider-item').each(function(){
+				var id = $(this).attr('title');
+				clipimg(id);
+			});
+		}
+		/*主图样式*/
+		function clipimg(id){
+	        var swh = $('.slider-item-'+id).height();
+	        var sws = $('.slider-item-'+id).width();	        
+	        var imgh = $('.slider-item-'+id+' .sonimg').height();
+	        var imgw = $('.slider-item-'+id+' .sonimg').width();
+	        var pre = imgw/imgh;
+	        var ww,hh;	        
+	        if(pre<=1){
+	        	hh = sws*imgh/imgw;
+	            $('.slider-item-'+id).css("height",sws+'px');
+	            $('.slider-item-'+id).css("width",sws+'px');
+	            $('.slider-item-'+id+' .sonimg').css({'width':sws+'px','height':hh+'px'});          
+	        }if(pre>1){
+	        	hh = sws;
+	        	ww = sws*imgw/imgh;	        	
+	            $('.slider-item-'+id).css("height",sws+'px');
+	            $('.slider-item-'+id).css("width",sws+'px');
+	            $('.slider-item-'+id+' .sonimg').css({'width':ww+'px','height':hh+'px'});
+	        }			
+		}
+		function startcuttime() {	
+			var startime = "<?php echo strtotime($pinfo['c_starttime'])-time(); ?>";
+			var endtime = "<?php echo strtotime($pinfo['c_endtime'])-time(); ?>";
+			if (startime && endtime) {
+				$('#votetime1').showtime({
+					sign: 1,
+					startname: "距开始时",
+					endname: "距结束仅剩",
+					ended: "已结束",
+					starttime:startime,
+					endtime:endtime 
+				});
+			}
+		}
+		
+		//页面加载完js改变样式
+		function yangshi() {		
+			var gbtn = $(".pro-buy-btn").height();
+			$(".shopping-cart").css("line-height", gbtn + "px");
+			$(".add-shopping-cart").css("height", gbtn + "px");
+			$('.add-groupbuy').css("height", gbtn + "px");
+			$('.add-shopping-cart').css("line-height", gbtn*0.3 + "px");
+			$('.add-groupbuy').css("line-height", gbtn*0.3 + "px");
+			
+			/*商家店铺css*/
+			$('.ag-head').height($('.ag-head').width());
+		    $('.ag-head').css("border-radius",$('.ag-head').width()+'px');
+		    $('.ag-info').css("line-height",$('.ag-head').width()*0.5+'px');
+		    $('.ag-attention').css("line-height",$('.ag-head').width()+'px');
+
+			/*评论样式*/
+			var headh = $('.comm-head').width(),
+				lihb = headh * 50 / 100;
+			$('.comm-head').height(headh);
+			$('.comm-head').css("border-radius", headh + "px");
+			$(".comm-nc-grade").css("line-height", lihb + "px");
+			$(".comm-time").css("line-height", headh + "px");
+		}
+		
+		/*型号样式*/
+		function modelstyle() {
+			$('.m-pro-img').height($('.m-pro-img').width());
+			$('.m-proname').css('height', $('.m-pro-img').width() * 0.5 + 'px');
+			$('.m-proname').css('line-height', $('.m-pro-img').width() * 0.25 + 'px');
+			$('.m-pprice').css('line-height', $('.m-pro-img').width() * 0.25 + 'px');
+			$('.m-prebate').css('line-height', $('.m-pro-img').width() * 0.25 + 'px');
+
+			$('.m-num-sub').css('line-height', $('.m-num-txt').height() + 'px');
+			$('.m-num-add').css('line-height', $('.m-num-txt').height() + 'px');
+			$('.product-stock').css('line-height', $('.m-num-txt').height() + 'px');
+			$('.m-seleted-c').height($('.m-seleted-c').width() * 0.3);
+		}
+		function showmodel() {
+			$('.mode-sel-bg').fadeIn(200);
+			$('.model-sel-pup').slideDown(600);
+			$('.mode-sel-bg').height($(document).height());
+			modelstyle();
+		}
+		
+		/*查看砍价玩法详情*/
+		mui('.mui-content').on('tap','.b-explain-view',function(){
+			mui.openWindow({
+				url: "__URL__/rule"
+			});
+		});
+		/*跳转到个人动态*/
+		mui('.mui-content').on('tap','.comm-head',function(){
+			var ucode = $(this).attr('title');
+			goUserDetails(ucode);
+		});
+		
+		/*查看商品的全部评论*/
+		mui('.mui-content').on('tap', '.ag-com-tit', function() {
+			var acode = $(this).attr('title');
+			goGoodsAllComment(pcode,acode);
+		});
+	
+		/*查看店铺*/
+		mui('.wrap-page').on('tap', '.space-btn', function() {
+			goShopDetail(acode);
+		});	
+		mui('.wrap-page').on('tap','.agent-intro',function(){
+			goShopDetail(acode);
+		});
+		/*联系客服*/
+		mui('.wrap-page').on('tap', '.server-btn', function() {
+			fchat(acode,"<?php echo $user['c_nickname']; ?>");
+		});
+
+		/*查看更多活动*/
+		mui('.wrap-page').on('tap', '#v_moreact', function() {
+			mui.openWindow({
+				url: "__APP__/Shopping/Actarea/index",
+				id: "actareaindex"
+			});
+		});
+		
+		var actsign = 1;
+		/*原价购买*/	
+		mui('.wrap-page').on('tap', '.add-shopping-cart', function() {
+			actsign = 0;	
+			showmodel();
+			modelstyle();		
+		});
+
+		/*我要砍价*/
+		mui('.wrap-page').on('tap','#bargain_btn',function(){	
+			actsign = 1;
+			$('#txt_pronum').val('1');
+			$('#txt_pronum').attr('readonly', 'readonly');
+			showmodel();
+			modelstyle();
+		});
+		/*关闭型号弹窗*/
+		mui('.model-sel-pup').on('tap', '.m-sel-close', function() {
+			$('.mode-sel-bg').fadeOut(200);
+			$('.model-sel-pup').slideUp(500);
+			$('.pro-buy-btn').slideDown();
+		});			
+		
+	    /*总金额，价格，型号名称*/
+		var countprice = '';
+		var pprice = '';
+		var mmname = '';
+		/*选择型号*/
+		mui('.model-sel-pup').on('tap', '.m-seleted-c li', function() {
+			$("#txt_pronum").val('1');
+			$('.m-seleted-c li').removeClass('hover');
+			$(this).addClass("hover");
+			var mcode = $(this).attr("id");
+			var mname = $(this).text();
+			if (actsign == 1) {
+				var mprice = $(this).attr('data-actprice');
+			} else {
+				var mprice = $(this).attr('data-price');
+			}
+			var mnum = $(this).attr('data-num');
+			if(mnum == 0) {
+				mui.toast("该属性商品已售罄！");
+				return false;
+			}
+			pprice = mprice;
+			mmname = mname;
+			$('.m-selfont').text("已选择：");
+			$('.m-selval').text("“" + mname + "”");
+			$('.m-selval-num').text("“" + mname + "”  ×" + $("#txt_pronum").val() + "");
+			$('#stock_num').html(mnum);
+			$('.consult-price').text("￥" + mprice);
+	        
+			$('input[name="confirm-mcode"]').val(mcode);
+			$('input[name="confirm-num"]').val($("#txt_pronum").val());
+			countprice = pprice * parseInt($("#txt_pronum").val());	
+			
+			$('#sure_sub').css('background-color','#45AAFA');
+			mui('.wrap-page').on('tap','#sure_sub',function(){subform()});		
+		});
+
+		/*确认提交*/
+		var gmsign = true;
+		function subform() {
+			if(!ucode) {
+                mui.confirm('请先登录再操作！', '提示', ['取消', '确认'], function(e) {
+                    e.index == 0 ? "" : window.location.href = "__APP__/Login/Index?url=" + detailurl;
+                }, 'div');
+				return;
+			}
+
+			var attr = $('input[name="confirm-mcode"]').val();
+			if(attr == "") {
+				mui.toast('请选择型号！');
+				return;
+			}
+			var pnum = $("#txt_pronum").val();
+			if(pnum > parseInt($('#stock_num').text())) {
+				mui.toast('该商品库存不够！');
+				return;
+			}
+			$('input[name="confirm-num"]').val($("#txt_pronum").val());
+
+			if (actsign == 1) {
+				kanjias();
+				return;
+			} else {
+				if (gmsign) {
+					gmsign = false;
+					var source = "<?php echo $data['c_source']; ?>";
+					if (source == 2) {
+						$('#form1').attr("action","__APP__/Order/Storder/index");
+					} else {
+						$('#form1').attr("action","__APP__/Order/Index/index");
+					}
+					$('#form1').submit();
+				}
+			}
+		}
+
+		//砍价
+		var kjsign = true;
+		function kanjias() {
+			if (kjsign) {
+				kjsign = false;
+				$.post("__URL__/Receive", {
+					act_pcode: $('input[name="confirm-actpcode"]').val(),
+					mcode: $('input[name="confirm-mcode"]').val(),
+					pnum:$('input[name="confirm-num"]').val()
+				}, function(obj) {
+					var result = eval(obj);
+					kjsign = true;
+					if (result['code'] == 0) {
+						mui.toast(result['msg']);
+						var data = result['data'];
+						setTimeout(function() {
+							mui.openWindow({
+								url: '__URL__/bdetail?groupcode='+data['c_groupcode'],
+								id: 'bdetail'
+							});
+						}, 2000);
+					} else {
+						mui.toast(result['msg']);
+					}
+				});
+			}
+		}
+
+	</script>
+
+</html>

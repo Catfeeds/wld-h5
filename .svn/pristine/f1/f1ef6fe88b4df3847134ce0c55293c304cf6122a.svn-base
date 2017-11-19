@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>{$datainfo['c_name']}</title>
+    <meta content="微域领地,微域领地系统" name="keywords">
+    <meta content="" name="description">
+    <include file="Base@Public/header" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/store/shop.css?v=1.2">
+    <link rel="stylesheet" type="text/css" href="__CSS__/entitymap/index.css?v=2">
+    <link rel="stylesheet" type="text/css" href="__COMMON__/css/swiper.min.css">    
+    <link rel="stylesheet" href="__CSS__/store/swipebox.css?v=1.2">
+    <link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+
+    
+    <include file="Base@Public/pubjs" />
+    <script type="text/javascript" src="__COMMON__/js/jquery.cookie.js"></script>  
+    <script type="text/javascript" src="__JS__/jquery.swipebox.js"></script>
+    <style type="text/css">
+    a{display: block;}
+    img{width: 100%;height:auto;}
+    </style>
+</head>
+<body>
+<form action="#" method="post" accept-charset="utf-8" id="form1" name="form1">
+<div class="wrap-page" style="margin-bottom:5%;position:relative;">
+<include file="Base@Public/pubheader" />
+    <div class="mui-content">
+<input type="hidden" name="confirm-pcode" value="<?php echo $datainfo['c_pcode'] ?>">
+<input type="hidden" name="confirm-pucode" value="<?php echo $pucode ?>">
+<input type="hidden" name="confirm-mcode" value="">
+<input type="hidden" name="confirm-num" value="">
+
+<input type="hidden" name="source" id="source" value="{$apptype}">
+
+    <!-- 幻灯切换 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php foreach ($mainimgs as $banner) { ?>
+                <div class="swiper-slide" style="position:relative;text-align:center;">
+                    <a href="javascript:;" style="width:100%;height:100%;display:block">
+                        <img id="bimg" src="<?php echo $banner['c_pimgepath'] ?>" alt=""/>
+                        <if condition='$datainfo["c_num"] elt 0'>
+                            <div class="none-store">
+                                <img src="__IMG__/shop/num-zero-2.png" alt="">
+                            </div>
+                        </if>
+                    </a>
+                </div>
+            <?php }?>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <script src="__JS__/swiper.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /*幻灯切换*/
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            paginationClickable: true,
+            spaceBetween: 0,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+        });
+
+    </script>
+    <div class="pro-name-info">
+        <div class="pro-name-main">
+            <?php if ($datainfo['c_isagent']==0) { ?>
+            <em class="u-jd u-dl fl">自营</em>
+            <?php }else{ ?>
+            <em class="u-jd fl">代理</em>
+            <?php } ?>
+            <a class="pro-name-f fl" href="javascript:;">{$datainfo['c_name']}</a>
+        </div>
+        <div class="pro-price-info">
+            <div class="pro-price-f">￥<span id="c_price">{$datainfo['c_price']}</span></div>
+            <if condition='$datainfo["c_isfree"] eq 1'>
+             <em class="u-by">包邮</em>
+            </if>
+            <button class="add-pro-car fs14 fr" style="background:#CDCDCD;" type="button">加入购物车</button>
+        </div>
+        <div class="pro-price-rebate">
+            <?php if ($datainfo['c_isrebate']==1) { ?>
+                <div class="shop-rebate">购物优惠：<span>￥</span><span id="c_isrebate">{$datainfo['c_price']*$datainfo['c_rebate_proportion']/100|round=###,2}</span></div>
+            <?php } ?>
+            <?php if ($datainfo['c_isspread']==1) { ?>
+                <div class="share-rebate">分享佣金：<span>￥</span><span id="c_isspread">{$datainfo['c_price']*$datainfo['c_spread_proportion']/100|round=###,2}</span></div>
+            <?php } ?>
+            <if condition='$datainfo["c_isfree"] eq 2'>
+            <div class="share-rebate">快递：<span>￥{$datainfo['c_freeprice']}</span></div>
+            </if>
+        </div>
+    </div>
+
+    <div class="pro-comment-main">
+        <div class="pro-comment-f">商品评论<if condition="$commentcount gt 0">（{$commentcount}）</if></div>
+        <?php if ($commentcount > 0) { ?>
+        <div class="pro-comment-tit">
+            <div class="pro-comment-head"><img src="{$comment['c_headimg']}" alt=""></div>
+            <div class="pro-c-grade fl">
+                <div class="pro-c-n-score">
+                    <div class="pro-comment-nkname">{$comment['c_nickname']}</div>
+                    <div class="pro-comment-star">
+                        <ul>
+                            <if condition="$comment['c_score'] eq 5">
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <elseif condition="$comment['c_score'] eq 4" />
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <elseif condition="$comment['c_score'] eq 3" />
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <elseif condition="$comment['c_score'] eq 2" />
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                                <elseif condition="$comment['c_score'] eq 1" />
+                                <li class="li-star"><img src="__IMG__/shop/starico.png" alt=""></li>
+                            </if>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pro-comment-time">{$comment['c_addtime']}</div>
+            </div>
+        </div>
+        <div class="pro-comment-con">{$comment['c_content']}</div>
+        <?php } else { ?>
+        <div class="pro-comment-con c9" style="padding: 4%;text-align: center;">暂未有相关评论</div>
+        <?php } ?>
+
+        <?php if (count($comment['imglist']) > 0) { ?>
+        <div class="pro-comment-img thumbnails" id="gallery">
+            <div class="share">
+            <?php foreach ($comment['imglist'] as $key => $value) { ?>
+            <a href="{$value['c_img']}" class="swipebox"><img src="{$value['c_img']}"  alt="image"></a>
+            <?php } ?>
+            </div>
+        </div>
+        <?php } ?>
+
+        <a class="pro-comment-more" href="javascript:;" onclick="window.location.href='__URL__/comment?pcode={$datainfo['c_pcode']}'">查看更多评论</a>
+    </div>
+
+    <div class="pro-details-con">
+        <div class="pro-details-t"><img src="__IMG__/shop/proinfo.png" alt=""></div>
+        <div class="pro-details-desc">
+            <div class="pro-description-t"><img src="__IMG__/shop/pro-desct.png" alt=""></div>
+            <div class="pro-description-f fs14 c5">{$datainfo['c_desc']}</div>
+        </div>
+        <div class="pro-details-c">
+            <volist name="imglist" id="voimg">
+                <img src="{$voimg['c_pimgepath']}" alt="">
+            </volist>
+
+        </div>
+    </div>
+
+    <div class="s-pro-buybtn">
+        <div class="s-pro-button s-gray-btn" id="check_cart">
+            <div class="s-pro-buycar fl">
+                <a href="javascript:;">
+                    <div class="buy-ico-num none">0</div>
+                    <img src="__IMG__/shop/qdpage-6.png" alt="">
+                </a>
+            </div>
+            <button class="s-pro-buyfont fs16 fl" type="button">立即结算</button>
+        </div>
+    </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    window.onload=function(){
+
+        var jdh = $(".u-jd").height();
+        $(".pro-name-f").css("line-height",jdh+"px");
+
+        var pph = $(".pro-property-c").height();
+        $(".pro-property-c").css("line-height",pph+"px");
+
+        var headh = $('.pro-comment-head').width();
+        $('.pro-comment-head').height(headh);
+        $('.pro-comment-head').css("border-radius",headh+"px");
+        //$(".pro-comment-tit").css("line-height",headh+"px");
+        var comimgw = $('.pro-comment-img a').width();
+        $('.pro-comment-img a').width(comimgw);
+        $('.pro-comment-img a').height(comimgw);
+        $(".swipebox").swipebox({
+            useSVG : false
+        });
+
+        var gbtn = $(".pro-buy-btn").height();
+        $(".add-shopping-cart").css("line-height",gbtn+"px");
+        $(".shopping-cart").css("line-height",gbtn+"px");
+
+        var sws = $('.swiper-slide').width()
+        $('.swiper-slide').height(sws);
+        $('.swiper-slide a').height(sws);
+        $('.swiper-slide a img').height(sws);
+
+        var btnh = $('.s-pro-buycar').height();
+        $('.s-pro-buycar').height(btnh);
+        var btnhh = $('.s-pro-button').height();
+        $('.s-pro-buyfont').css('line-height',btnhh+"px");
+
+    }
+
+    function operate () {
+        mui.toast("商品预览不能进行购买~！");
+        return;
+    }
+
+</script>
+
+<include file="Common/foot"/>
+</body>
+</html>

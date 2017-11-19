@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>评论详情</title>
+		<meta content="微域领地,微域领地系统,小蜜系统店铺评论" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css?v=1.2">
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:16%; background: #fff;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}" />
+			<input type="hidden" name="scoreid" id="scoreid" value="{$datainfo['c_id']}" />
+			<input type="hidden" name="resurl" id="resurl" value="{$resurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="comment-con divtab bgcolor" id="data_list">
+					<div class="commcode-info divtab commcode-info-1">
+						<div class="comm-head fl" title="{$datainfo['c_ucode']}">
+							<img src="{$datainfo['c_headimg']}" alt="" />
+						</div>
+						<div class="comm-intro fl">
+							<div class="comm-nc-info divtab">
+								<div class="comm-nc-grade fl">
+									<p class="fs14 c3 fov" style="padding: 3% 0;">{$datainfo['c_nickname']}</p>
+									<p>
+										<?php if($datainfo['c_score']==5){ ?>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<?php }else if($datainfo['c_score']==4){ ?>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<?php }else if($datainfo['c_score']==3){ ?>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<?php }else if($datainfo['c_score']==2){ ?>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<?php }else if($datainfo['c_score']==1){ ?>
+										<span><img src="__IMG__/store/order_icon_star_selection.png" alt="" /></span>
+										<?php } ?>
+									</p>
+								</div>
+								<div class="comm-time fr fs12 c9">{$datainfo['c_addtime']}</div>
+							</div>
+							<div class="comm-desc c5 fs13">{$datainfo['c_content']}</div>
+							<div class="comm-imglist">
+								<ul>
+									<?php foreach($datainfo["imglist"] as $key => $val){ ?>
+									<li>
+										<img src="{$val['c_img']}" alt="" />
+									</li>
+									<?php } ?>
+								</ul>
+							</div>
+							<?php if(empty($datainfo['c_pcode'])){ ?>
+							<div class="comm-source comm-source01 fs12 c9">来源：扫码订单
+								<?php if($ucode==$datainfo['c_acode']){ ?>{$datainfo['c_orderid']}
+								<?php } ?>
+							</div>
+							<?php }else{ ?>
+							<div class="comm-source fs12 c9">来源：商品订单
+								<?php if($ucode==$datainfo['c_acode']){ ?>{$datainfo['c_orderid']}
+								<?php } ?>
+							</div>
+							<div class="comm-product">
+								<div class="commpro-img fl"><img src="{$datainfo['c_pimg']}" alt="" /></div>
+								<div class="commpro-name fl fov fs13 c3">{$datainfo['c_pname']}</div>
+								<div class="comm-nextico fl"><img src="__IMG__/store/icon_next.png" alt="" /></div>
+							</div>
+							<?php } ?>
+
+							<div class="comm-praise fs12">
+								<?php if($datainfo["is_like"]==1) { ?>
+								<div class="comm-send fr comm-send-hover" data-id="{$datainfo['c_id']}">
+									<input type="hidden" id="prastatu{$datainfo['c_id']}" value="0" />
+									<span><img src="__IMG__/store/sm_icon_2_selection.png" alt="" /></span><em id="praisenum-{$datainfo['c_id']}">{$datainfo["c_like"]}</em>
+								</div>
+								<?php }else{ ?>
+								<div class="comm-send fr" data-id="{$datainfo['c_id']}">
+									<input type="hidden" id="prastatu{$datainfo['c_id']}" value="1" />
+									<span><img src="__IMG__/store/sm_icon_2.png" alt="" /></span><em id="praisenum-{$datainfo['c_id']}">{$datainfo["c_like"]}</em>
+								</div>
+								<?php } ?>
+								<div class="comm-send comm-send2 fr" title="{$datainfo['c_id']}">
+									<span><img src="__IMG__/store/sm_icon_plhf.png" alt="" /></span><em>{$datainfo["comment_num"]}</em>
+								</div>
+							</div>
+
+							<div class="f-comment-all bgeb">
+								<div class="f-comm-list" id="comment-{$datainfo['c_id']}">
+									<?php foreach($datainfo["comment_list"] as $key => $value){ ?>
+									<?php if(!$value['upucode']) { ?>
+									<div class="f-comm-box fs12"><span class="f-comm-send" onclick="sendcommt('{$datainfo['c_id']}','回复：{$value['c_nickname']}','{$value['c_ucode']}','{$value['c_id']}')"><span>{$value['c_nickname']}</span>：<em>{$value['c_content']}</em></span>
+										<?php if($ucode == $value['c_ucode']) { ?>
+										<span class="f-com-del fs12" onclick="DeleteComment(this,'{$value['c_id']}');">&nbsp;&nbsp;&nbsp;删除</span>
+										<?php } ?>
+									</div>
+									<?php }else{ ?>
+									<div class="f-comm-box fs12"><span class="f-comm-reply fs12 c9" onclick="sendcommt('{$datainfo['c_id']}','回复：{$value['c_nickname']}','{$value['c_ucode']}','{$value['c_id']}')"><span>{$value['c_nickname']}</span><em>&nbsp;回复&nbsp;</em><span>{$value['upnickname']}</span>：<em>{$value['c_content']}</em></span>
+										<?php if($ucode == $value['c_ucode']) { ?>
+										<span class="f-com-del fs12" onclick="DeleteComment(this,'{$datainfo['c_id']}');">&nbsp;&nbsp;&nbsp;删除</span>
+										<?php } ?>
+									</div>
+									<?php } ?>
+									<?php } ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="fixed-btn send-commimg bgcolor"><span class="fs13">说点什么吧~~</span></div>
+			<!-- 评论弹出框 -->
+			<div class="send-comm-bg"></div>
+			<div class="send-comm-pup">
+				<div class="send-comm-puptit">评论</div>
+				<div class="send-comm-txt">
+					<textarea placeholder="输入评论内容" name="feel" id="feel" rows="6" class="fs12"></textarea>
+				</div>
+				<input type="hidden" name="sid" id="sid" value="">
+				<input type="hidden" name="bid" id="bid" value="">
+				<div class="send-comm-btn" onclick="subcomment();">发表</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*评论样式*/
+				var headh = $('.comm-head').width(),
+					lihb = headh * 50 / 100;
+				$('.comm-head').height(headh);
+				$('.comm-head').css("border-radius", headh + "px");
+				$(".comm-nc-grade").css("line-height", lihb + "px");
+				$(".comm-time").css("line-height", headh + "px");
+				$('.comm-imglist ul li').height($('.comm-imglist ul li').width());
+
+				$('.commpro-img').height($('.commpro-img').width());
+				$('.commpro-name').css("line-height", $('.commpro-img').width() + "px");
+				$('.comm-send').css("line-height", $('.comm-send').height() + "px");
+
+				/*查看评论大图*/
+				$(".comm-imglist").viewer({
+					title: false
+				});
+			}
+			var resurl = $('#resurl').val();
+			var ucode = $('#ucode').val();
+			var fucode = '<?php echo $datainfo["c_ucode"] ?>';
+			var orderid = '<?php echo $datainfo["c_orderid"] ?>';
+			var source = '<?php echo $datainfo["source"] ?>';
+			var pcode = '<?php echo $datainfo["c_pcode"] ?>';
+			var aacode = '<?php echo $datainfo["c_acode"] ?>';
+			/*查看个人空间*/
+//			mui('.mui-content').on('tap', '.comm-head', function() {
+//				var ucode = $(this).attr('title');
+//				mui.openWindow({
+//					url: "__APP__/Home/Myspace/index?fromucode=" + ucode,
+//					id: "myspace"
+//				});
+//			});
+			/*扫码订单详情跳转*/
+			mui('.mui-content').on('tap', '.comm-source01', function() {
+				if(ucode == aacode) {
+					mui.openWindow({
+						url: "__APP__/Order/Scanorder/scandetail?ncode=" + orderid,
+						id: "order"
+					});
+				}
+			});
+			/*商品订单详情跳转*/
+			mui('.mui-content').on('tap', '.comm-source', function() {
+				if(ucode == aacode) {
+					mui.openWindow({
+						url: "__APP__/Order/Storeorder/detail?orderid=" + orderid,
+						id: "order"
+					});
+				}
+			});
+			mui('.mui-content').on('tap', '.comm-product', function() {
+				var jumpstr = "";
+				/*跳商品详情*/
+				if(source == 1) {
+					jumpstr = "__APP__/Shopping/Index/detail?pcode=" + pcode;
+				} else if(source == 2) {
+					jumpstr = "__APP__/Shopping/Entitymap/detail?pcode=" + pcode;
+				} else if(source == 3) {
+					jumpstr = "__APP__/Agency/Index/pdetail?pcode=" + pcode;
+				}
+				mui.openWindow({
+					url: jumpstr,
+					id: "pdetail"
+				});
+			});
+			//提交评论
+			var resign = true;
+
+			function subcomment() {
+				if(resign) {
+					resign = false;
+					var feel = $('#feel').val();
+					var sid = $('#sid').val();
+					if(feel == '') {
+						mui.toast('请填写评论内容');
+						return;
+					}
+					$.post(WEB_HOST + '/index.php/Store/Store/AddComment', {
+							content: feel,
+							scoreid: sid,
+							bid: $('#bid').val()
+						},
+						function(obj) {
+							resign = true;
+							var msg = eval(obj);
+							var com = '';
+							if(msg['code'] == 0) {
+								var comment = msg['data'][0];
+								if(!comment['upucode']) {
+									com += '<div class="f-comm-box fs12"><span class="f-comm-send"  onclick="sendcommt(\'' + sid + '\',\'回复：' + comment['c_nickname'] + '\',\'' + comment['c_ucode'] + '\',\'' + comment['c_id'] + '\')">';
+									com += '<span>' + comment['c_nickname'] + '</span>：<em>' + comment['c_content'] + '</em></span>';
+									com += '<span class="f-com-del fs12" onclick="DeleteComment(this,\'' + comment['c_id'] + '\');">&nbsp;&nbsp;&nbsp;删除</span></div>';
+								} else {
+									com += '<div class="f-comm-box fs12"><span class="f-comm-reply"  onclick="sendcommt(\'' + sid + '\',\'回复：' + comment['c_nickname'] + '\',\'' + comment['c_ucode'] + '\',\'' + comment['c_id'] + '\')"><span>' + comment['c_nickname'] + '</span><em>&nbsp;回复&nbsp;</em>';
+									com += '<span>' + comment['upnickname'] + '</span>：<em>' + comment['c_content'] + '</em></span>';
+									com += '<span class="f-com-del fs12" onclick="DeleteComment(this,\'' + comment['c_id'] + '\');">&nbsp;&nbsp;&nbsp;删除</span></div>';
+								}
+
+								$('#comment-' + sid).prepend(com);
+								mui.toast('评论成功');
+								$(".send-comm-bg").fadeOut(300);
+								$(".send-comm-pup").fadeOut(300);
+							} else {
+								mui.toast(msg['msg']);
+							}
+						});
+				}
+
+			}
+
+			mui('.wrap-page').on('tap', '.send-commimg', function() {
+				var scid = '<?php echo $datainfo["c_id"] ?>';
+				sendcommt(scid, "评论");
+			});
+			mui('.wrap-page').on('tap', '.comm-send2', function() {
+				var scoreid = $(this).attr('title');
+				sendcommt(scoreid, "评论");
+			});
+			/*发表评论的弹框*/
+			function sendcommt(sid, desc, rpucode, bid) {
+				if(!ucode) {
+					mui.confirm('评论需登录', '提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : mui.openWindow({
+							url: WEB_HOST + '/index.php/Login/Index/index',
+							id: 'login'
+						});
+					}, 'div');
+					return;
+				}
+				$('.send-comm-puptit').text(desc);
+				$('#sid').val(sid);
+				$('#bid').val(bid);
+				$('#feel').val('');
+				$(".send-comm-bg").fadeIn(300);
+				$(".send-comm-pup").fadeIn(300);
+				$(".send-comm-bg").height($(document).height());
+			}
+
+			$(".send-comm-bg").click(function() {
+				$(".send-comm-bg").fadeOut(300);
+				$(".send-comm-pup").fadeOut(300);
+			});
+
+			/*评论点赞*/
+			mui('.mui-content').on('tap', '.comm-send', function() {
+				var sid = $(this).attr("data-id");
+				if(!ucode) {
+					mui.confirm('点赞需登录', '提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : mui.openWindow({
+							url: WEB_HOST + '/index.php/Login/Index/index',
+							id: 'login'
+						});
+					}, 'div');
+					return;
+				}
+
+				var handle = $('#prastatu' + sid).val();
+				$.post(WEB_HOST + '/index.php/Store/Store/ScoreLike', {
+						handle: handle,
+						scoreid: sid
+					},
+					function(obj) {
+						var msg = eval(obj);
+						if(msg['code'] == 0) {
+							if(handle == 1) {
+								$('#islike').addClass("comm-send-hover");
+								$('#islike img').attr('src', "__IMG__/store/sm_icon_2.png");
+								$("#praisenum-" + sid).text(parseInt($("#praisenum-" + sid).text()) - (-1));
+							} else {
+								$('#islike').removeClass("comm-send-hover");
+								$('#islike img').attr('src', "__IMG__/store/sm_icon_2_selection.png");
+								$("#praisenum-" + sid).text(parseInt($("#praisenum-" + sid).text()) - 1);
+							}
+							mui.toast(msg['msg']);
+						} else {
+							mui.toast(msg['msg']);
+						}
+					});
+			});
+
+			function addpraise(sid) {}
+			/*删除评论*/
+			function DeleteComment(ts, cid) {
+				mui.confirm('确定删除该评论吗？', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : $.post(WEB_HOST + '/index.php/Store/Store/DeleteComment', {
+							cid: cid
+						},
+						function(obj) {
+							var msg = eval(obj);
+							if(msg['code'] == 0) {
+								$(ts).parent().remove();
+								mui.toast(msg['msg']);
+								$('#comdel-' + cid).remove();
+							} else {
+								mui.toast(msg['msg']);
+							}
+						});
+				}, 'div');
+			}
+		</script>
+		<include file="Common/foot" />
+	</body>
+
+</html>

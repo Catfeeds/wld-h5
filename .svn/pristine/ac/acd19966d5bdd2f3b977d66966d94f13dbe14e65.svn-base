@@ -1,0 +1,95 @@
+/* 公共样式 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,textarea,p,th,td,tr {padding:0;margin:0; } 
+table {border-collapse:collapse;border-spacing:0;} 
+img {border:0 none;vertical-align:top;} 
+input {vertical-align:middle;}
+em {font-weight:normal;font-style:normal;}	 
+ul, li { list-style-type: none; margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6 {font-weight:normal;font-size:100%;} 
+body { width:100%; font-family:"微软雅黑",sans-serif; margin:0; padding:0;}
+a, a:link{ text-decoration: none; }
+a:active, a:hover { text-decoration: none; }
+a:focus { outline: none; }
+.clear { clear: both; height: 0px; font-size: 0px; line-height: 0px; margin: 0px; padding: 0px; }
+.fl{float:left; }
+.fr{ float:right; }
+.w_980{margin:0 auto; width:980px;}
+.w_960{margin:0 auto; width:960px;}
+.w_100{ width:100%;}
+.none{display:none;}
+.block{display:block;}   
+.mar5{ margin-top:5px}
+.mar10{ margin-top:10px}
+.mar15{ margin-top:15px}
+.mar20{ margin-top:20px}
+.mar25{ margin-top:25px}	
+.mar30{ margin-top:30px}
+.marL{ margin-left:10px;}
+.marR{ margin-right:10px;}
+.txt_c{ text-align: center;}
+/* 全局公共样式的设定 */
+
+/*登录页面*/
+
+/*复选框样式*/
+input[type="checkbox"]{
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	border: 0px;
+	-webkit-appearance: none;
+	-webkit-mask-repeat: none;
+	-webkit-mask-position: right;
+	background: url("../images/delivery-link.png");
+	background-size: 100% 100%;
+	vertical-align: middle;
+}
+input[type="checkbox"]:checked {
+	width: 25px;
+	height: 25px;
+	border: 0px;
+	background:url("../images/delivery-hover.png");
+	background-size: 100% 100%;
+	vertical-align: middle;
+	outline: none;	
+}
+
+.login-main-bg{width: 100%;height: 100%;overflow: hidden;position: relative;}
+.login-top-main{position: absolute;top: 10%;left: 25%;width: 28%;overflow: hidden;}
+.login-top-logo{}
+.login-top-font{color: #fff;font-size: 22px;margin-left: 16%;line-height: 57px;}
+
+.login-info-main{background: rgba(255,255,255,.7);position: absolute;top: 20%;left: 25%;width: 28%;min-height: 680px;_height:680px;}
+.login-info-tit{color: #46aafa;font-size: 24px;text-align: center;padding: 6% 0;}
+
+.login-font{}
+.login-text{margin: 0 10% 5% 10%;overflow: hidden;background: #fff;border-radius: 5px;}
+.login-icon{width: 15%;}
+.login-input{width: 80%}
+.usertext{background: #fff; border: none; color: #999;font-size: 18px;line-height: 79px;padding: 0 0 0 5px;width: 100%; outline: none;}
+.login-verify{margin: 0 10% 5% 10%;overflow: hidden;border-radius: 5px;}
+.txt_yzm{width: 45%;}
+#yzm_Img{width: 48%;margin-left: 5%;background: #fff;line-height: 79px;}
+#yzm_Img a{display: block;}
+#yzm_Img img{width: 100%;height:79px;border: none;}
+.login-remember{margin: 0 10% 5% 10%;color: #5d5d5d;font-size: 18px;}
+.login-sub{margin: 0 10% 5% 10%;}
+.sub-login{background: #46aafa;border-radius: 5px; cursor: pointer; font-size: 22px;text-align: center;padding:4% 0;color: #fff;border: none;width: 100%;}
+.login-get-update{margin: 0 10% 5% 10%;overflow: hidden;}
+.login-get-update a{color: #5d5d5d;font-size: 18px;}
+
+/*提取您的账号*/
+.get-account{display: block;background: #fff;color: #5d5d5d;font-size: 18px;text-align: center;margin:6% 25%;padding: 4% 0;}
+.get-account:hover{background: #46aafa;color: #fff;};
+
+
+/*找回密码*/
+.login-dx{width: 15%;}
+.login-dx button{background: #fff;border:none; cursor: pointer; color: #46aafa;font-size: 16px;text-align: center;border-radius: 5px;padding: 8px;margin:22% 0 0 0; }
+
+.succeed-img{text-align: center;}
+.succeed-txt{color: #5d5d5d;font-size: 18px;text-align: center;margin: 6% 0;}
+
+
+
+

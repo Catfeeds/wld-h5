@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="content-s w_960">
+			<form action="" id="CONSIGNEE_ADDRESS" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="page-title">
+					<div class="page-tit-name">商家资料1/<span id="isfixed_sta"><?php if($isfixed==1){ ?>8<?php }else{ ?>7<?php } ?></span></div>
+				</div>
+				<div class="sel_sj_obj">
+					<p>请选择商家类型</p>
+					<ul>
+						<li onclick="selobj(0)" id="isfixed_0" <?php if($vo['c_isfixed']==0 ){ ?> class="hover" <?php } ?> >线上微商</li>
+						<li onclick="selobj(1,2)" id="isfixed_1" <?php if($vo['c_isfixed']==1 ){ ?> class="hover" <?php } ?> >线下实体商家</li>
+					</ul>
+				</div>
+				<div class="tip-info" style="padding-left: 35px;"><img src="__IMG__/sjjh_icon_msg.png" alt="" />审核通过后将不可更改，请慎重选择</div>
+				<div class="step-btn">
+					<input type="hidden" name="isfixed" id="isfixed" value="{$vo['c_isfixed']}" />
+					<span id="prev_btn" style="display:none;">上一步</span>
+					<span id="next_btn" onclick="savestep()">保存并下一步</span>
+				</div>
+			</form>
+		</div>
+		<div class="mar30"></div>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				//$('.tip-info').css('line-height',$('.tip-info').height()+'px');
+				var voisfixed = '<?php echo $vo["c_isfixed"] ?>';
+				//if(voisfixed) {
+					selobj(voisfixed);
+				//}
+			}
+
+			function selobj(id,flag) {
+				if(id == 1) {
+					$('#isfixed_'+id).addClass("hover");
+					$('#isfixed').val(id);
+					$('#isfixed_0').removeClass("hover");
+                    if(flag==2){
+                        $('input[name="rtype"]').attr('checked',false);
+                        $('input[name="rtype"]:checked').val("");
+                        $('input[name="rtype"]').val("");
+                        $('#isfixed_sta').text("8");
+                    }
+
+				} else if(id == 0) {
+					$('#isfixed_'+id).addClass("hover");
+					$('#isfixed').val(id);
+					$('.tip-info').css('height',$('.tip-info img').height()+'px');
+					$('.tip-info').css('line-height',$('.tip-info').height()+'px');
+					$('#isfixed_1').removeClass("hover");
+                    $('#isfixed_sta').text("7");
+				}
+			}
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var isfixed = $('#isfixed').val();
+					if(!isfixed) {
+						JqueryDialog.Show("请完善相关信息！");
+						return;
+					}
+					$.post("__APP__/Shop/Personal/SetInfo1", {
+						isfixed: isfixed,
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							JqueryDialog.Show("保存成功！");
+							setTimeout(function() {
+								window.location.href = "__APP__/Shop/Personal/info_2?isfixed=" + isfixed;
+							}, 1000);
+
+						} else {
+							JqueryDialog.Show(data['msg']);
+							resign = true;
+							return;
+						}
+					});					
+				}
+			}
+		</script>
+	</body>
+
+</html>

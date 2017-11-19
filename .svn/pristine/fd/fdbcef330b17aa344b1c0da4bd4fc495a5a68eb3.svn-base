@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+ 	<title>资源详情</title>
+ 	<include file="Base@Public/header" />
+ 	<link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+ 	<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+ </head>
+ <body class="bgcolor">
+ 	<div class="wrap-page" style="margin-bottom: 13%;">
+ 	<include file="Base@Public/pubheader" />
+ 		<input type="hidden" id="resurl" value="<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])?>">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<?php if ($data['is_like'] == 0) { ?>
+		<input type="hidden" id="prastatu{$data.c_id}" value="1">
+		<?php } else { ?>
+		<input type="hidden" id="prastatu{$data.c_id}" value="0">
+		<?php } ?>
+	
+		<?php if ($data['is_attention'] == 0) { ?>
+		<input type="hidden" id="attentatu{$data.c_id}" value="1">
+		<?php } else { ?>
+		<input type="hidden" id="attentatu{$data.c_id}" value="0">
+		<?php } ?>		
+			
+		<div class="mui-content" style="background: #fff;">
+			<div class="t-s-details divtab">
+				<input type="hidden" id="issue_ucode" value="{$data.c_ucode}"  />
+				<div class="t-s-de-left fl">
+					<img src="{$data.c_headimg}" alt="" />
+				</div>
+				<div class="t-s-de-right fl">
+					<div class="t-s-de-headinfo divtab">
+						<div class="t-s-de-ncname fl">
+							<div class="c3 fs13 fov divtab">{$data.c_nickname}</div>
+							<div class="c9 fs12">{$data.switch_addtime}&nbsp;&nbsp;{$data.c_address}</div>
+						</div>
+						<?php if($data['is_attention'] == 0) {	 ?>	
+							<div class="t-s-de-attention fl fs11 c9" id="attention-{$data['c_id']}" onclick="attentionss('{$data['c_id']} ','{$data['c_ucode']}',1,1)">+关注</div>
+						<?php } else { ?>
+							<div class="t-s-de-attention fl fs11 c9" id="attention-{$data['c_id']}" onclick="attentionss('{$data['c_id']}','{$data['c_ucode']}',1,0)">取消关注</div>
+						<?php } ?>
+					</div>
+					<?php if($data['c_type']==1){ ?>
+						<?php if(!empty($data['c_content'])){ ?>
+						<div class="t-s-de-description fs13 c3">{$data.c_content}</div>
+						<?php } ?>
+							
+						<?php if (count($data['imglist']) > 0) { ?>
+						<div class="t-s-de-imglist divtab" id="imglist-1-1">						
+							<ul>
+								<?php foreach ($data['imglist'] as $k1 => $v1) { ?>
+									<li><img src="{$v1.c_thumbnail_img}" alt=""></li>
+								<?php } ?>
+							</ul>						
+						</div>
+						<?php } ?>
+					<?php }else if($data['c_type']==2){ ?>
+						<div class="t-s-video-li">											
+							<video controls autobuffer class="video_w" poster="{$data['imglist'][0]['c_img']}" loop="loop" x-webkit-airplay="true" webkit-playsinline="true">
+								<source src="{$data['c_videourl']}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+							</video>
+						</div>							
+						<?php } ?>				
+					<?php if (count($data['tj_product']) > 0) { ?>
+						<?php foreach ($data['tj_product'] as $k2 => $v2) { ?>
+							<input type="hidden" id="cscource" value="{$v2['c_source']}" />
+							<input type="hidden" id="curl" value="{$v2.url}" />
+							<input type="hidden" id="pcode" value="{$v2['c_pcode']}" />	
+							<div class="t-s-de-product divtab">
+								<div class="t-s-de-arrow fr">
+									<img src="__IMG__/district_icon_continue2x.png" alt="" />
+								</div>
+								<div class="t-s-de-proimg fl">
+									<img src="__IMG__/{$v2.c_pimg}" alt="" />
+								</div>
+								<div class="t-s-de-proname fl">
+									<div class="c3 fs13 fov divtab">{$v2.c_name}</div>
+									<div class="cy fs14">￥{$v2.c_price}</div>
+								</div>
+							</div>
+						<?php } ?>
+					<?php } ?>
+					<div class="s-circlename c9 fs12">
+						<span><img src="__IMG__/district_icon_distance2x.png" alt="" />{$circlename}</span>
+					</div>
+					<!--  举报入口   -->
+					<?php if($data['is_tip'] ==1){ ?>
+						<div class="t-s-button-ico divtab">
+							<div class="t-s-btn-ico-0 fl"  title="{$data['c_id']}"  data-tip="'+{$data['is_tip']}+'">
+								<img src="__IMG__/dynamic_report_selected.png" alt="" />
+							</div>
+						</div>
+					<?php } else { ?>
+						<?php if( $ucode != $data['c_ucode'] ){ ?>
+							<div class="t-s-button-ico divtab">
+								<div class="t-s-btn-ico-0 fl" id="t-s-btn-report"  title="{$data['c_id']}"  data-tip="'+{$data['is_tip']}+'">
+									<img src="__IMG__/district_dynamic_report.png" alt="" />
+								</div>
+							</div>
+						<?php } ?>
+					<?php } ?>
+					<!--  举报入口   -->
+
+				</div>
+			</div>
+			
+			<div class="t-s-de-all-comm divtab">
+				<div class="t-s-de-allc-tit c3 fs14">全部评论{$data.c_comment}</div>
+				<div class="t-s-de-commlist divtab">
+					<ul class="comment-check-list" id="comment-{$data['c_id']}">
+						<?php foreach ($data['comment_list'] as $k3 => $v3) { ?>
+						<?php if (!$v3['upucode']) { ?>
+						<li id="comdel-{$v3.c_id}" onclick="sendcommt('{$data['c_id']}','回复：{$v3.c_nickname}','{$v3.c_ucode}','{$v3.c_id}')"  <?php if ($ucode == $v3['c_ucode']) { ?>style="border:0px;"<?php } ?>>
+							<div class="comment-chk-img fl"><img src="{$v3.c_headimg}" alt=""></div>
+							<div class="comment-chk-info fl">
+								<div class="comment-chk-nkname fs13 c3">{$v3.c_nickname}</div>
+								<div class="comment-chk-remark fs11 c9">{$v3.switch_addtime}</div>
+							</div>
+						</li>
+						<?php if ($ucode == $v3['c_ucode']) { ?>
+						<li style="padding-top: 0px;">
+							<div class="fl comment-chk-time c5 fs12">{$v3.c_content}</div>
+							<div class="fr comment-del fs12" onclick="DeleteComment(this,'{$v3.c_id}');">删除</div>
+						</li>
+						<?php } ?>
+						<?php } else { ?>
+						<li id="comdel-{$v3.c_id}" onclick="sendcommt('{$data['c_id']}','回复：{$v3.c_nickname}','{$v3.c_ucode}','{$v3.c_id}')" <?php if ($ucode == $v3['c_ucode']) { ?>style="border:0px;"<?php } ?>>
+							<div class="comment-chk-img fl"><img src="{$v3.c_headimg}" alt=""></div>
+							<div class="comment-chk-info fl">
+								<div class="comment-chk-nkname fs13 c3">{$v3.c_nickname}<span>&nbsp;回复&nbsp;</span>{$v3.upnickname}</div>
+								<div class="comment-chk-time fs12 c9">{$v3.switch_addtime}</div>
+								<div class="comment-chk-remark fs12 c5">{$v3.c_content}</div>
+							</div>
+						</li>
+						<?php if ($ucode == $v3['c_ucode']) { ?>
+						<li style="padding-top: 0px;">
+							<div class="fl comment-chk-time fs11 c9">{$v3.switch_addtime}</div>
+							<div class="fr comment-del fs12" onclick="DeleteComment(this,'{$v3.c_id}');">删除</div>
+						</li>
+						<?php } ?>
+						<?php } ?>
+						<?php } ?>
+
+					</ul>
+				</div>
+			</div>			
+		</div>
+	
+	<div class="send-comm-bottom">
+		<div class="send-comm-tipimg fl"><img src="__IMG__/s-04_03.png" alt=""></div>
+		<div class="sendcomm-praise fl">
+			<?php if ($data['is_like'] == 1) { ?>
+				<img src="__IMG__/praise_selection.png" alt="" id="praiseimg-{$data.c_id}" onclick="addpraise('{$data.c_id}',0)">
+			<?php } else { ?>
+				<img src="__IMG__/praise_default2x.png" alt="" id="praiseimg-{$data.c_id}" onclick="addpraise('{$data.c_id}',1)">
+			<?php } ?>				
+			<div class="sendcomm-praisenum fs11 c9" id="praisenum-{$data.c_id}">10</div>
+		</div>
+		<div class="sendcomm-share fl">
+			<img src="__IMG__/district_icon_details_share2x.png" alt="" />
+			<div class="sendcomm-sharetxt fs11 c9">分享</div>
+		</div>
+	</div>
+</div>
+
+<!-- 评论弹出框 -->
+<div class="send-comm-bg"></div>
+<div class="send-comm-pup">
+	<div class="send-comm-puptit">评论</div>
+	<div class="send-comm-txt">
+		<textarea placeholder="输入评论内容" name="feel" id="feel" rows="6" class="fs12"></textarea>
+	</div>
+	<input type="hidden" name="rid" id="rid" value="">
+	<input type="hidden" name="bid" id="bid" value="">
+	<div class="send-comm-btn" onclick="subcomment(1);">发表</div>
+</div>
+ <include file="Base@Public/pubjs" /> 
+ <script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+ <script type="text/javascript" src="__JS__/option.js"></script>
+ <script type="text/javascript">
+ 	var ucode = $('#ucode').val();
+ 	window.onload=function(){
+ 		styles(); 	
+ 	}
+ 	$(document).ready(function(){
+ 		/*查看图片*/
+		$("#imglist-1-1").viewer({title:false});
+	});
+	/*样式*/
+ 	function styles(){
+ 		var tsd = $('.t-s-de-left').width(),lihd = tsd*50/100;
+ 		$('.t-s-de-left').height(tsd);
+ 		$('.t-s-de-left').css("border-radius",tsd+'px');
+ 		$('.t-s-de-ncname').css('line-height',lihd+'px');
+ 		
+ 		var imglisw = $('.t-s-de-imglist li').width();
+ 		$('.t-s-de-imglist li').height(imglisw);
+ 		
+ 		var proimg = $('.t-s-de-proimg').width(),lihh = proimg*50/100;
+ 		$('.t-s-de-proimg').height(proimg);
+ 		$('.t-s-de-proname').css('line-height',lihh+'px');
+ 		
+ 		//$('.t-s-de-address').width($('.t-s-de-address').width());
+ 		
+ 		var addh = $('.t-s-de-addr-img').height();
+ 		$('.t-s-de-addr-img').css('line-height',addh+'px');
+ 	}
+		
+//	var aclick = 1;
+	/*关注*/
+//	mui('.t-s-details').on('tap','.t-s-de-attention',function(){
+//		if(!ucode){
+//	       mui.confirm('关注需登录','提示',['取消','确认'],function (e) {
+//	       		e.index == 0 ? "" : mui.openWindow({url:WEB_HOST+'/index.php/Login/Index/index',id:'login'});
+//	       },'div');
+//	       return;
+//	   	}
+//		if(aclick==1){
+//			mui.alert('关注');
+//			$('.t-s-de-attention').text('取消关注');	
+//			aclick=2;
+//		}else{
+//			mui.alert('取消关注');
+//			$('.t-s-de-attention').text('关注');	
+//			aclick=1;
+//		}
+//	});
+
+	/*查看个人空间*/
+	mui('.t-s-details').on('tap','.t-s-de-left',function(){
+		var cscource = $('#cscource').val();
+		mui.openWindow({
+		    url: '',
+		    id:'myspace'
+		});
+	});
+	/*商品详情*/
+	mui('.t-s-details').on('tap','.t-s-de-product',function(){		
+		var cscource = $('#cscource').val();
+		var pcode = $('#pcode').val();
+		var curl = $('#curl').val();
+		if(cscource==1){
+			mui.openWindow({
+			    url: '__APP__/Shopping/Index/detail?pcode='+pcode,
+			    id:'product'
+			});			
+		}else if(cscource==2){
+			mui.openWindow({
+			    url: '__APP__/Shopping/Entitymap/detail?pcode='+pcode, 
+			    id:'product'
+			});	
+		}
+	});
+	
+	/*浮动评论*/
+	/*评论*/
+	mui('.send-comm-bottom').on('tap','.send-comm-tipimg',function(){
+		var rid = '<?php echo $data["c_id"] ?>';
+		sendcommt(rid,'评论');		
+	});
+	/*分享*/
+	mui('.send-comm-bottom').on('tap','.sendcomm-share',function(){
+		fchat();
+	});	
+	
+ 	mui.plusReady(function(){
+	});
+
+	/*举报*/
+	mui('.t-s-button-ico').on('tap', '#t-s-btn-report', function() {
+		// var tip = $(this).attr('data-tip');
+		// if (tip == 1) {
+		// 	mui.toast('您已举报过该条动态！');
+		// } else {
+			var rcid = $(this).attr('title');
+			mui.openWindow({
+				url: '__URL__/report?content_id=' + rcid,
+				id: 'report'
+			});
+		// }
+	});
+ </script>
+
+ <include file="Base@Public/footer" />
+ </body>
+ </html>

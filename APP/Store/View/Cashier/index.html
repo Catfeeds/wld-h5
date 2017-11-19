@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收银管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content divtab">
+			<div class="cashier-menu divtab">
+				<ul>
+					<li id="cstaff">
+						<div class="cashier-menu-icon">
+							<img src="__IMG__/cashier/cashier_icon_staff.png">
+						</div>
+						<div class="cashier-menu-name c3 fs14">收银员管理</div>
+					</li>
+					<li id="cashierdesk">
+						<div class="cashier-menu-icon">
+							<img src="__IMG__/cashier/cashier_icon_counter.png">
+						</div>
+						<div class="cashier-menu-name c3 fs14">收银台管理</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+
+	//跳转收银员管理
+	mui('.mui-content').on('tap', '#cstaff', function() {
+		mui.openWindow({url:"__URL__/cstaff",id:"cstaff"});	
+	});
+	//跳转收银台管理
+	mui('.mui-content').on('tap', '#cashierdesk', function() {
+		mui.openWindow({url:"__URL__/cashierdesk",id:"cashierdesk"});	
+	});
+	
+</script>
+
+</html>

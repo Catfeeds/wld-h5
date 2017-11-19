@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>交易明细详情</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+
+</head>
+
+<body>
+<div class="wrap-page bgeb">
+	<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+
+	</div>
+
+	<div class="detail-bottom cb fs14 divtab">对此订单有疑问</div>
+	<div class="query-bg"></div>
+	<div class="query-pup">
+		<div class="query-content">
+			<div class="query-title c3 fs13">微领地小蜜联系方式</div>
+			<div class="query-con-li c5 fs12">
+				<p><span class="fl">微领地小蜜客服电话：</span><a href="tel:400-9603-400" class="cb">400-9603-400</a></p>
+				<p><span class="fl">微领地小蜜市场1部电话：</span><a href="tel:0755-2822-7751" class="cb">0755-2822-7751</a></p>
+				<p><span class="fl">微领地小蜜微信订阅号：</span><span class="cb">VIP小蜜</span></p>
+				<p><span class="fl">微领地小蜜微信服务号：</span><span class="cb">微领地小蜜</span></p>
+				<p><span class="fl">微领地小蜜工作人员微信号：</span><span class="cb">VLD007<!--weilingdi3356--></span></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+	var mainh = $('.detail-main').height();
+	$('.detail-main').height(mainh);
+	$('.detail-main').css('background-position',"40px "+(mainh-20)+"px");
+
+	$('.query-bg').click(function(){
+		$(".query-bg").fadeOut(300);
+		$(".query-pup").fadeOut(300);
+	});
+}
+mui('.wrap-page').on('tap','.detail-bottom',function(){
+	$(".query-bg").fadeIn(300);
+	$(".query-pup").fadeIn(300);
+	$(".query-bg").height($(document).height());
+});
+
+function toChats (code,nkname) {
+	window.webkit.messageHandlers.AppModel.postMessage({"chat":{ "code": ""+code+"", "nkname": ""+nkname+""}});
+	// toChat(code,nkname)
+}
+/*安卓*/
+function contactBuyer (code,nkname) {
+	javaScript:resultData.contactBuyer(code,nkname);
+}
+
+</script>
+
+<include file="Common/footer"/>
+</body>
+</html>

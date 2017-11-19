@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加规则</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" id="form-user-character-add">
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>对应活动：</label>
+			<div class="formControls col-8"> <span class="select-box">
+				<select class="select" id="sel_Sub" name="aid">
+					<option value="">--请选择--</option>
+					<volist name="activitys" id="v">
+						<?php if ($vo['c_aid'] === $v['c_id']) { ?>
+							<option value="{$v.c_id}" selected="selected">{$v.c_activityname}</option>
+						<?php } else { ?>
+							<option value="{$v.c_id}">{$v.c_activityname}</option>
+						<?php } ?>								
+					</volist>
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>兑换奖项：</label>
+			<div class="formControls col-8"> <span class="select-box">
+				<select class="select" id="sel_Sub" name="pid">
+					<option value="">--请选择--</option>
+					<volist name="prizes" id="v">
+						<?php if ($vo['c_pid'] === $v['c_id']) { ?>
+							<option value="{$v.c_id}" selected="selected">{$v.c_name}</option>
+						<?php } else { ?>
+							<option value="{$v.c_id}">{$v.c_name}</option>
+						<?php } ?>								
+					</volist>
+				</select>
+				</span> </div>
+		</div>
+	    <div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>兑换开始时间：</label>
+			<div class="formControls col-8">
+				<input type="text" id="starttime" name="starttime" value="{$vo.c_starttime}" placeholder="兑换开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+			</div>
+			<div class="col-3"> </div>
+		</div>			
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>兑换结束时间：</label>
+			<div class="formControls col-8">
+				<input type="text" id="endtime" name="endtime" value="{$vo.c_endtime}" placeholder="兑换结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+			</div>
+			<div class="col-3"> </div>
+		</div>
+	
+		<?php if (!empty($vo['rules'])) { foreach ($vo['rules'] as $key => $value) {?>
+		<div class="row cl" style="margin-bottom:20px;">
+			<label class="form-label col-3"><span class="c-red">*</span>福字名称：</label>
+			<div class="formControls col-3"> 
+				<span class="select-box">
+					<select class="select" id="sel_Sub" name="cpid[]">
+						<option value="">--请选择--</option>
+						<volist name="collects" id="v">
+							<?php if ($value['cpid'] == $v['c_id']) { ?>
+								<option value="{$v.c_id}" selected="selected">{$v.c_name}</option>
+							<?php } else { ?>
+								<option value="{$v.c_id}">{$v.c_name}</option>
+							<?php } ?>								
+						</volist>
+					</select>
+				</span> 
+			</div>
+			<label class="form-label col-2">数量：</label>
+			<div class="formControls col-2">
+				<input type="text" class="input-text" value="{$value['num']}" placeholder="" id="" name="num[]">
+			</div>
+			<div class="col-2"><a href="javascript:;" onclick="del_rules(this,'{$value.c_id}');">删除规则</a></div>
+		</div>	
+		<?php } } ?>
+
+
+		<div class="row cl" id="add_rules">
+			<div class="formControls col-5">
+	     		<a class="btn btn-primary radius" href="javascript:;" onclick="add_rules();"><i class="Hui-iconfont">&#xe600;</i>添加规则</a>
+	     	</div>
+	    </div>
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<input type="submit" value="提交" class="btn btn-primary radius">
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript" src="__HJS__/laydate.js"></script>  
+
+<script type="text/javascript">
+	function add_rules() {
+		var html = '<div class="row cl" style="margin-bottom:20px;">';
+			html += '<label class="form-label col-3"><span class="c-red">*</span>福字名称：</label>';
+			html += '<div class="formControls col-3">';
+			html += '<select class="select" id="sel_Sub" name="cpid[]">';
+			html += '<option value="">--请选择--</option>';
+			html += '<volist name="collects" id="v"><option value="{$v.c_id}">{$v.c_name}</option></volist></select></span></div>';
+			html += '<label class="form-label col-2">数量：</label>';
+			html += '<div class="formControls col-2">';
+			html += '<input type="text" class="input-text" value="" placeholder="" id="" name="num[]"></div>';
+			html += '<div class="col-2"><a href="javascript:;" onclick="del_rules(this);">删除规则</a></div>';
+			html += '</div>';
+		$('#add_rules').before(html);
+	}
+
+	function del_rules(ts,id) {
+		$(ts).parent().parent().remove();
+	}
+</script>
+
+</body>
+</html>

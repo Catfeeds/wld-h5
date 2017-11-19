@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>帮助</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/seckill/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="mui-content">
+					<div class="help-con fs14 divre bgcolor">
+						<div class="help-title c3 fb600">1.什么是秒杀？</div>
+						<div class="help-introduce c5">
+							小蜜砍价活动是小蜜推出的商家营销活动之一，商家选择店铺中的一款商品，在特定的时间内以低价格出售，拉动店铺人气，整体提升店铺销售情况。
+						</div>
+						<div class="help-title c3 fb600">2.活动中的运费该如何计算？</div>
+						<div class="help-introduce c5">
+							秒杀活动的商品邮费与正常购买时的商品邮费相同。
+						</div>
+						<div class="help-title c3 fb600">3.正在进行的秒杀活动是否可删除？</div>
+						<div class="help-introduce c5">
+							可以删除，砍价活动一旦被删除，活动将会被终止，用户将不能购买。已经完成购买的用户将不受影响。
+						</div>
+						<div class="help-title c3 fb600">4.其他说明</div>
+						<div class="help-introduce c5">
+							<span>•秒杀活动创建后不能进行修改。</span>
+							<span>•如有疑问，请拨打小蜜官方客服热线400-9603-400进行咨询。</span>
+							
+						</div>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		
+		window.onload = function() {
+			
+
+			yangshi();
+		}
+
+	</script>
+
+</html>

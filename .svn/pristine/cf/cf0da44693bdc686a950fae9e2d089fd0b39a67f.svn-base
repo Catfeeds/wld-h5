@@ -1,0 +1,88 @@
+/*我的微店首页部分*/
+img{width: 100%;height: auto;}
+.shophd{position: fixed;top: 0;left: 0;right: 0;bottom: 0;}
+.shopmenu{z-index: 9;left: 0px;right: 0px;margin: auto;/*width: 60%;*/width: 65%;background: #45AAFA;border-radius: 30px;text-align: center;padding: 3% 0;letter-spacing: 0.2rem;}
+.shopimg{width: 30%;top: 12%;z-index: 9;left: 0px;right: 0px;margin: auto;}
+.shopname{top: 34%;text-align: center;width: 60%;z-index: 9;left: 0px;right: 0px;margin: auto;}
+#nav-t1{top:45%;}
+#nav-t2{top:55%;}
+#nav-t3{top:65%;}
+#nav-t4{top:48%;}
+.divempty{left: 0;right: 0;top: 36%;margin-top: 0;}
+
+/*我的微店*/
+.maintop{padding: 2% 0px;}
+.topimg{width: 20%;margin: 0 auto;margin: 4% auto;overflow: hidden;}
+.p1{padding: 0 0 2% 0;text-align: center;}
+
+
+.bagsli{padding: 3%;}
+.bagsli1{border-bottom: 1px solid #ebebeb;padding-bottom: 2%;}
+.bagsli2{border: 0px;margin-bottom: 3%;}
+.bagsleft{width: 25%;}
+.bagright{width: 75%;padding-left: 2%;}
+.bagright p{padding: 1% 0px;}
+.jiage{color: #ffb658;}
+.bagsprinum{} 
+
+
+.bagsli3{ width: 49.5%; float: left; margin-bottom: 1%;}
+.bagsli3:nth-child(odd){ margin-right: 0.5%;}
+.bagsli3:nth-child(even) {margin-left: 0.5%;}
+.bagsdetail{ padding: 4% 8% 6% 4%;}
+
+/*商品管理商家列表*/
+.ctrlslist{padding: 3%;border-bottom: 1px solid #ebebeb;}
+.ctrleft{width: 20%;}
+.ctrright{width: 80%;padding-left: 2%;}
+.ctrright div{padding:0.5% 0px;display: block;}
+.ctrright p{padding:1% 0px;display: block;}
+.levelname{width: 25%;}
+.levelimgs{width: 8%;margin-top:1%;}
+.arrows{width: 8%;}
+
+/*商品管理商品列表*/
+.infotops{padding: 3%;}
+.shopleft{width: 15%;}
+.shopright{width: 85%;padding: 2% 2%;}
+.nametit{overflow: hidden;max-width: 80%;}
+.imgsign{width: 7%;overflow: hidden;margin-left: 1.5%;}
+.guanzhu{padding:1%;}
+.gzmargin{margin-left: 2%;}
+.goodslist{margin-top: 3%;}
+.bagsli{padding: 3%;}
+.bagsli1{border-bottom: 1px solid #ebebeb;padding-bottom: 2%;}
+.bagsli2{border: 0px;margin-bottom: 3%;}
+.bagsleft{width: 25%;}
+.bagright{width: 75%;padding-left: 2%;}
+.pname{padding: 2% 0px;}
+.bagright p{padding: 1% 0px;}
+.goodsoption{width:25%;text-align: center;}
+.leveldateil{padding-left: 17%;}
+.levelimgs1{margin:1%;}
+
+/*等级详情*/
+.level_li{padding:3% 4%;border-bottom: 1px solid #ebebeb;}
+.level_left{padding: 2% 0px;width: 43%;padding-right: 3%;}
+.level_mid,.level_right{padding: 2% 0px;}
+.level_sign{width: 7%;margin-top: 3.3%;}
+.level_img{width: 6%;margin-top: 2.8%;}
+.levelmoney{padding: 2% 0px;padding-right: 2%;}
+.leveldesc{padding: 1% 0px;}
+.levelremid{padding: 2%;}
+.selflevel{padding: 0 1%;background: #ebebeb;border-radius: 3px;top: 24%;left: 48%;}
+
+/*修改库存弹窗*/
+.issue-coupon-bg{ display: none; background-color: black; z-index:9999;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.issue-coupon-pup{ display: none;top:25%;left:0; position:fixed;z-index: 100000;width:100%;margin: auto;right: 0;max-width: 720px;padding: 0 5%;}
+.issue-coupon-con{border-radius: 8px;text-align: center;}
+.issue-c-tit{padding: 3.5% 0;text-align: center;}
+.issue-ctype-txt{width:100%;}
+.issue-close{width: 7%;right: 2%;top: 4%;}
+.issue-c-num{margin-bottom: 6%;}
+.issue-cinfo span{margin: 0 2%;}
+.issue-c-numtxt{width: 90%;margin: 10% auto 4% auto;padding: 3% 0;}
+.issue-c-numtxt input[type="number"]{ background: #f0f0f0; border: none;line-height: auto;height: auto;padding: 2% 3%;margin: 0;outline: none;}
+.issue-c-subbtn{background: #45AAFA;padding: 4% 0;border-bottom-left-radius:8px;border-bottom-right-radius:8px;}
+
+

@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="wrap-page bgcolor" style="margin-bottom: 15%;">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="p_info_tit"><span class="fs14 c3">商家资料2/<?php if($oldinfo==1 && $userdata['c_shop']==1){ ?>4<?php }else{ ?>5<?php } ?></span></div>
+				<div class="p_info_con">
+
+					<div class="trade-list">
+						<p class="fs14 c3">请选择所属行业（单项选择）</p>
+						<ul>
+							<volist name="industry" id="vo">
+								<li class="tradeitem fs12 c5 <?php if($vo['c_id']==$data['c_shoptrade'] ){ ?> hover <?php } ?>" onclick="seltrade({$vo['c_id']})" id="tradeli_{$vo['c_id']}">{$vo['c_name']}</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+		<div class="info1_tip">
+			<div class="info1_ticon fl"><img src="__IMG__/mobile/sjjh_icon_msg.png" alt="" /></div>
+			<div class="info1_tfont fl fs12">审核通过后将不可修改，请慎重选择</div>
+		</div>
+
+		<div class="info_sub_btn fixed-btn fs16">
+			<ul>
+				<li onclick="PreviousCK()">上一步</li>
+				<li onclick="savestep()">保存并下一步</li>
+			</ul>
+			<!--<ul>-->
+				<!--<li style="background: #45AAFA; color: #fff;width:100% ;" onclick="savestep()">保存并下一步</li>-->
+
+			<!--</ul>-->
+			<input type="hidden" name="tradetid" id="tradetid" value="{$data['c_shoptrade']}" />
+		</div>
+
+		<script type="text/javascript">
+			var voisfixed = '<?php echo $isfixed; ?>';
+            var ctype = '<?php echo $ctype; ?>';
+            var oldinfo = '<?php echo $oldinfo; ?>';
+            var dcode = '<?php echo $vo["c_dcode"] ?>';
+            var vostate = '<?php echo $vo["c_checked"]; ?>';
+
+			window.onload = function() {
+				// $('#return-top').css("display","none");
+			}
+
+			function seltrade(id) {
+				$('.tradeitem').removeClass("hover");
+				$('#tradetid').val("");
+				$('#tradetid').val("" + id + "");
+				$('#tradeli_' + id).addClass("hover");
+			}
+
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/sub4_1?isfixed=" + voisfixed+"&ctype="+ctype;
+			}
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var tid = $('input[name="tradetid"]').val();
+					if(tid == "" || tid == null || typeof(tid) == "undefined") {
+						JqueryDialog.Show("请选择所属行业！");
+						resign = true;
+						return;
+					} else {
+						$.post('__APP__/Shop/Personal/SetInfo2', {
+							tid: tid
+						}, function(obj) {
+							var data = eval(obj);
+							if(data['code'] == 0) {
+								JqueryDialog.Show("保存成功！");
+								setTimeout(function() {
+									window.location.href = "__APP__/Shop/Personal/sub4_3?isfixed=" + voisfixed+"&ctype="+ctype;
+								}, 1000);
+
+							} else {
+								JqueryDialog.Show("保存失败！");
+								resign = true;
+								return false;
+							}
+						});
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

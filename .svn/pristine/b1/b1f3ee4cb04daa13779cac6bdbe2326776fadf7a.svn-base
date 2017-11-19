@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>编辑收款二维码</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/goodsscan/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<!-- 头部区域 -->
+		<div class="goodscan-head divre">
+			<div class="gdshop-info divab">
+				<div class="gdshop-left fl">
+					<div class="gdshop-img">
+						<img src="__IMG__/store/pro3.jpg">
+					</div>
+					<p class="fs14">完成</p>
+				</div>
+				<div class="gdshop-right cf fl">
+					<h1 class="fs14 fov">陪伴去旅行</h1>
+					<h2 class="fs12"><textarea type="text" value="" name="" placeholder="新简介，赶紧完善你的简介吧！"></textarea></h2>
+					<div class="fs14 divab">联系电话：<input type="text" id="merchantname" value="" name="" placeholder="请填写联系电话"></div>
+				</div>
+			</div>
+			<img src="__IMG__/store/dpgl_defaultHead1.png">
+		</div>
+
+		<div class="mui-content">
+			<!-- 数据列表部分 -->
+			<div  class="goodpro-con">
+				<ul>
+					<li>
+						<div class="pro-img fl">
+							<img src="__IMG__/store/dpsy_icon_add.png">
+						</div>
+						<div class="pro-info fl">
+							<h3 class="c5 fs12 clamp2">阿里股价的将高达几打发坑估计结东方今典发卡量卡的就刚看了地方接口给打款果</h3>
+							<div class="divtab">
+								<p class="fs11">￥<h1 class="f16">27.50</h1></p>
+								<p class="fs12 c9">+<span><font class="fs11">￥</font>10</span></p>
+								<p>
+									<span class="fs14">编辑</span>
+									<div class="edit-btn"><img src="__IMG__/store/qd-btn-0.png"></div>
+								</p>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="pro-img fl">
+							<img src="__IMG__/store/dpsy_icon_add.png">
+						</div>
+						<div class="pro-info fl">
+							<h3 class="c5 fs12 clamp2">阿里股价的将高达几打发坑估计结东方今典发卡量卡的就刚看了地方接口给打款果</h3>
+							<div class="divtab">
+								<p class="fs11">￥<h1 class="f16">27.50</h1></p>
+								<p class="fs12 c9">包邮</p>
+								<p>
+									<span class="fs14">编辑</span>
+									<div class="edit-btn"><img src="__IMG__/store/qd-btn-0.png"></div>
+								</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+				<div class="add-pro">
+					<div class="addimg"><img src="__IMG__/store/dpsy_icon_add.png"></div>
+				</div>
+			</div>
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		//页头
+		$('.xiaomi-bar-nav').css('background','none');
+		var hdImg = $('.gdshop-img').width();
+		$('.gdshop-img').height(hdImg);
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+
+		// if($(window).scrollTop() >= $('.coupon-nav-tab').height()) {
+		// 	$('.coupon-nav-tab').addClass('menu-fixed');
+		// }
+		// if($(window).scrollTop() < $('.coupon-nav-tab').height()) {
+		// 	$('.coupon-nav-tab').removeClass('menu-fixed');
+		// }
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/?pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					/*选择卡券*/
+					$('.coupon-detail_'+pageindex).each(function(index) {
+						var cid = $(this).attr('title');
+						mui('.mui-content').on('tap', '#cancel_' + cid, function() {
+							var ctype = $('#ctype_' + cid).val();
+							tijiao(cid, ctype);			
+						});
+					});	
+				}		
+			}
+		});
+	}
+
+	//确认对话框事件
+	mui('.mui-content').on('tap', '.c-cqd-delete', function() {
+		mui.confirm('删除后将无法继续领取，确认删除？', '提示', ['取消', '确认'], function(e) {
+			e.index == 0 ? "" : delcoupon();
+		}, 'div');
+	});
+
+	//点击事件
+	// mui('.mui-content').on('tap', '#cancel_' + cid, function() {
+	// 	var ctype = $('#ctype_' + cid).val();
+	// 	tijiao(cid, ctype);			
+	// });
+
+	var tjsign = true;
+	function tijiao() {
+		if (tjsign) {
+			tjsign = false;
+			$.post("",{cid:cid,num:num},function(obj){
+				var data = eval(obj);
+				tjsign = true;
+				if(data['code']==0){							
+					mui.toast(data['msg']);
+					mui.alert(data['msg']);
+					setTimeout(function () {
+						mui.openWindow({
+							url: '__URL__/couponlist',
+							id: 'couponlist'
+						});
+					}, 2000);
+				}else{
+					mui.toast(data['msg']);
+				}
+			});
+		}
+	}
+
+	//提交表单
+	$('.xm-bar-nav-right').click(function() {
+		putform();
+	});
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/saveBagsInfo',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						resign = true;
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"level"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);					
+						}
+					}
+			});
+		}	
+	}
+</script>
+
+</html>

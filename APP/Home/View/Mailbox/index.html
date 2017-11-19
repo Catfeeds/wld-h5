@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>老胡信箱</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/mailbox/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="mbox-nav-tab bgcolor divtab fs13">
+						<ul>
+							<li class="hover c-nav-tli" id="c-nav-t1">未回复</li>
+							<li class="c-nav-tli" id="c-nav-t2">已回复</li>
+						</ul>
+					</div>
+					<!-- 数据列表部分 -->
+					<div class="mailbox-box" id="data_list">
+						<!--<div class="mailbox-item bgcolor">
+							<div class="mailbox-item-question">
+								<span class="mb-item-time c9 fs13">2017-03-10  12:23:34</span>
+								<div class="mb-item-con divtab" id="imglist-1-1">
+									<ul>
+										<li><img src="__IMG__/expand/tg-img-2.png" alt="" /></li>
+										<li><img src="__IMG__/expand/tg-img-2.png" alt="" /></li>
+										<li><img src="__IMG__/expand/tg-img-2.png" alt="" /></li>
+									</ul>
+								</div>
+								<p class="mb-item-text c3 fs14 clamp2">共享单车自诞生以来就问题不断，除了安全问题之外，停放问题也是多数单车公司额困扰。的困扰。今日数单车公司额困扰,的困扰今日数单车公司额困扰,的困扰</p>
+								<font class="c9 fs13">查看全部>></font>
+							</div>
+							<div class="mailbox-item-reply">
+								<div class="reply-default" id="showhide-1" title="1">
+									<div class="divinput c9 fs14 bgcolor">回复：</div>
+								</div>
+								<div class="reply-info">
+									<span class="mb-item-time c9 fs13">2017-03-10  12:23:34</span>
+									<p class="pcolor fs14">回复：</p>
+									<p class="mb-item-text c3 fs12">共享单车自诞生以来就问题不断，除了安全问题之外，停放问题也是多数单车公司额困扰。的困扰。今日数单车公司额困扰,的困扰今日数单车公司额困扰,的困扰</p>
+								</div>
+							</div>
+						</div>
+						<div class="mailbox-item bgcolor">
+							<div class="mailbox-item-question">
+								<span class="mb-item-time c9 fs13">2017-03-10  12:23:34</span>
+								<div class="mb-item-con divtab" id="imglist-1-2">
+									<ul>
+										<li><img src="__IMG__/expand/tg-img-2.png" alt="" /></li>
+										<li><img src="__IMG__/expand/tg-img-2.png" alt="" /></li>
+										<li><img src="__IMG__/expand/tg-img-2.png" alt="" /></li>
+									</ul>
+								</div>
+								<p class="mb-item-text c3 fs14 clamp2">共享单车自诞生以来就问题不断，除了安全问题之外，停放问题也是多数单车公司额困扰。的困扰。今日数单车公司额困扰,的困扰今日数单车公司额困扰,的困扰</p>
+								<font class="c9 fs13">查看全部>></font>
+							</div>
+							<div class="mailbox-item-reply">
+								<div class="reply-default" id="showhide-2" title="2">
+									<div class="divinput c9 fs14 bgcolor">回复：</div>
+								</div>
+								<div class="reply-info">
+									<span class="mb-item-time c9 fs13">2017-03-10  12:23:34</span>
+									<p class="pcolor fs14">回复：</p>
+									<p class="mb-item-text c3 fs13">共享单车自诞生以来就问题不断，除了安全问题之外，停放问题也是多数单车公司额困扰。的困扰。今日数单车公司额困扰,的困扰今日数单车公司额困扰,的困扰</p>
+								</div>
+							</div>
+						</div>-->
+
+					</div>
+					<div id="console"></div>
+				</div>
+				<div class="send-comm-bg"></div>
+				<div class="send-comm-pup">
+					<div class="send-comm-puptit">回复(500字)</div>
+					<div class="send-comm-txt">
+						<textarea placeholder="输入回复内容" name="feel" id="feel" rows="6" class="fs12" maxlength="500"></textarea>
+					</div>
+					<input type="hidden" name="rid" id="rid" value="">
+					<div class="send-comm-btn" id="send_btn">回复</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		var ucode = '<?php echo $ucode ?>';
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var mbImge = $('.mb-item-con ul li img').width();
+			$('.mb-item-con ul li img').height(mbImge);
+		}
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		var statu = '<?php echo $statu ?>';
+		if(!statu) {
+			statu = 1;
+		}
+
+		selectstatu(statu);
+
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			$('.c-nav-tli').removeClass('hover');
+			$('#c-nav-t' + i).addClass('hover');
+			getdatalist();
+		}
+
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			selectstatu(2);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			selectstatu(1);
+		});
+
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+
+			if($(window).scrollTop() >= $('.mbox-nav-tab').height()) {
+				$('.mbox-nav-tab').addClass('menu-fixed');
+			}
+			if($(window).scrollTop() < $('.mbox-nav-tab').height()) {
+				$('.mbox-nav-tab').removeClass('menu-fixed');
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var geturl = "__URL__/GetMessagesList?pageindex=" + pageindex + "&type=" + statu;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: geturl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || !data.list) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__RSC__/Activity/img/chests/box_default.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">暂无相关信息</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="mailbox-item bgcolor" id="mailbox-item-' + dataarr['c_id'] + '">';
+									_html += '<div class="mailbox-item-question">';
+									_html += '<span class="mb-item-time c9 fs13">' + dataarr['c_addtime'] + '</span>';
+									_html += '<div class="mb-item-con divtab t-s-imglist" id="imglist-' + dataarr['c_id'] + '" data-id="' + dataarr['c_id'] + '">';
+									_html += '<ul>';
+									if(dataarr['imgList']) {
+										for(var x in dataarr['imgList']) {
+											_html += '<li><img src="' + dataarr['imgList'][x] + '" alt="" /></li>';
+										}
+									}
+									_html += '</ul>';
+									_html += '</div>';
+									_html += '<div class="" onclick="viewInfo(' + dataarr['c_id'] + ')">';
+									_html += '<p class="mb-item-text c3 fs14 clamp2">' + dataarr['c_content'] + '</p>';
+									_html += '<font class="c9 fs13">查看全部>></font>';
+									_html += '</div>'
+									_html += '</div>';
+									if(statu == 1) {
+										_html += '<div class="mailbox-item-reply">';
+										_html += '<div class="reply-default" id="showhide-' + dataarr['c_id'] + '" data-id="' + dataarr['c_id'] + '">';
+										_html += '<div class="divinput cf fs14 bgcolor">回复</div>';
+										_html += '</div>';
+									}else if(statu == 2) {
+										if(dataarr['reply']) {
+											_html += '<div class="reply-info">';
+											_html += '<span class="mb-item-time c9 fs13">'+dataarr['reply'][0]['c_addtime']+'</span>';
+											_html += '<p class="pcolor fs14">回复：</p>';
+											_html += '<p class="mb-item-text c3 fs13">'+dataarr['reply'][0]['c_content']+'</p>';
+											_html += '</div>';
+										}
+									}
+									_html += '</div>';
+									_html += '</div>';
+
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						$(".t-s-imglist").each(function(index) {
+							var rcid = $(this).attr("data-id");
+							$("#imglist-" + rcid).viewer({
+								title: false
+							});
+						});
+					}
+				}
+			});
+		}
+
+		//查看详情页
+		function viewInfo(cid) {
+			mui.openWindow({
+				url: '__URL__/detail?cid=' + cid +'&statu='+statu,
+				id: 'detail'
+			});
+		}
+
+		//回复弹窗
+		mui('.mui-content').on('tap', '.reply-default', function() {
+			var idsign = $(this).attr('data-id');
+			sendcommt(idsign);
+		});
+
+		function sendcommt(rid) {
+			if(!ucode) {
+				mui.confirm('回复需登录', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : mui.openWindow({
+						url: WEB_HOST + '/index.php/Login/Index/index',
+						id: 'login'
+					});
+				}, 'div');
+				return;
+			}
+			$('#rid').val(rid);
+			$('#feel').val('');
+			$(".send-comm-bg").fadeIn(300);
+			$(".send-comm-pup").fadeIn(300);
+			$(".send-comm-bg").height($(document).height());
+		}
+
+		$(".send-comm-bg").click(function() {
+			$(".send-comm-bg").fadeOut(300);
+			$(".send-comm-pup").fadeOut(300);
+		});
+
+		//回复按钮
+		mui('.send-comm-pup').on('tap', '#send_btn', function() {
+			var contents = document.getElementById('feel');
+			//var feel = $('#feel').val();
+			var rid = $('#rid').val();
+			if(feel == "") {
+				mui.toast('回复内容不能为空！');
+				return;
+			}
+			if(contents.value.length > contents.getAttribute("maxlength")) {
+				contents.value = contents.value.substring(0, contents.getAttribute("maxlength"));
+				return false;
+			}
+			var feel = contents.value;
+			$.post("__URL__/ReplyMessages", {
+				content: feel,
+				Id: rid
+			}, function(obj) {
+				var data = eval(obj);
+				if(data['code'] == 0) {
+					mui.toast('提交成功');
+					$(".send-comm-bg").fadeOut(300);
+					$(".send-comm-pup").fadeOut(300);
+					$('#mailbox-item-' + rid).remove();
+					$('#rid').val("");
+					$('#feel').val("");
+				} else {
+					mui.toast(data['msg']);
+				}
+			});
+		});
+	</script>
+
+</html>

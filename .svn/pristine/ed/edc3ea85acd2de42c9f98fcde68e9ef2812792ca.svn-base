@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>消息管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 消息管理 <span class="c-gray en">&gt;</span> 极光消息列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="message_list" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入消息唯一标识" name="c_txcode" value="{$post['c_txcode']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入发送对象昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入用户手机号" name="c_phone" value="{$post['c_phone']}">
+		<span class="select-box inline">
+		<select name="type" class="select">
+			<option value="">选择消息类型</option>
+			<option value="10" <if condition="$post['type']  eq 10">selected="selected"</if>>系统消息</option>
+     		<option value="1" <if condition="$post['type']  eq 1">selected="selected"</if>>订单消息</option>
+     		<option value="2" <if condition="$post['type']  eq 2">selected="selected"</if>>公告消息</option>
+		</select>
+		</span>
+		<span class="select-box inline">
+		<select name="state" class="select">
+			<option value="">选择发送状态</option>
+			<option value="10" <if condition="$post['state']  eq 10">selected="selected"</if>>未发送</option>
+     		<option value="1" <if condition="$post['state']  eq 1">selected="selected"</if>>发送成功</option>
+		</select>
+		</span>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜消息</button>
+	</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span>
+		<a href="javascript:;" onclick="msg_add('发送通知','Message/msg_add','','720')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe62f;</i>发送公告</a>
+		<a href="javascript:;" onclick="batch_msg('','',1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+		<span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="90">消息标识号</th>
+				<th width="60">发送对象</th>
+				<th width="100">标题</th>
+				<th width="90">跳转类型</th>
+				<th width="100">附加值</th>
+				<th width="45">发送数量</th>
+				<th width="60">发送平台</th>
+				<th width="200">消息内容</th>
+				<th width="60">信息类型</th>
+				<th width="60">发送状态</th>
+				<th width="130">发送时间</th>
+				<th width="130">定时发送</th>
+				<th width="100">是否语音消息</th>
+				<th width="60">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo['c_id']}" name="msgid"></td>
+				<td>{$i}</td>
+				<td>{$vo['c_txcode']}</td>
+				<td>
+					<if condition="$vo.c_nickname neq NULL">
+						<a title="会员详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}<br/>({$vo['c_phone']})</a></font>
+					<else/>
+						全体会员
+					</if>
+				</td>
+				<td>{$vo['c_title']}</td>
+				<td>
+					<?php if ($vo['c_tag'] == 1) { ?>
+						跳转url
+					<?php }else if($vo['c_tag'] == 2){ ?>
+						带openid跳转url
+					<?php }else if($vo['c_tag'] == 3){ ?>
+						订单详情
+					<?php }else if($vo['c_tag'] == 4){ ?>
+						线上商家商品详情
+					<?php }else if($vo['c_tag'] == 5){ ?>
+						个人空间
+					<?php }else if($vo['c_tag'] == 6){ ?>
+						个人资料
+					<?php }else if($vo['c_tag'] == 7){ ?>
+						商家商品列表
+					<?php }else if($vo['c_tag'] == 8){ ?>
+						红包
+					<?php }else if($vo['c_tag'] == 9){ ?>
+						资源列表
+					<?php }else if($vo['c_tag'] == 10){ ?>
+						资源详情
+					<?php }else if($vo['c_tag'] == 11){ ?>
+						粉丝列表
+					<?php }else if($vo['c_tag'] == 12){ ?>
+						营销中心
+					<?php }else if($vo['c_tag'] == 13){ ?>
+						实体店铺
+					<?php }else if($vo['c_tag'] == 14) { ?>
+						扫码支付页面
+					<?php }else if($vo['c_tag'] == 15){ ?>
+						线下商家商品详情
+					<?php }else if($vo['c_tag'] == 16){ ?>
+						线上订单
+					<?php }else if($vo['c_tag'] == 17){ ?>
+						线下订单
+					<?php }else if($vo['c_tag'] == 18){ ?>
+						购物车
+					<?php }else if($vo['c_tag'] == 19){ ?>
+						资讯中心
+					<?php }else if($vo['c_tag'] == 20){ ?>
+						线上店商品管理
+					<?php }else if($vo['c_tag'] == 21){ ?>
+						线下店商品管理
+					<?php }else if($vo['c_tag'] == 22){ ?>
+						店铺管理
+					<?php }else if($vo['c_tag'] == 23){ ?>
+						店铺二维码
+					<?php }else if($vo['c_tag'] == 24){ ?>
+						推广中心
+					<?php }else if($vo['c_tag'] == 25){ ?>
+						分享返利
+					<?php }else if($vo['c_tag'] == 26){ ?>
+						购买返利
+					<?php }else if ($vo['c_tag'] == 27) { ?>
+						卡劵包
+					<?php }else if($vo['c_tag'] == 28){ ?>
+						
+					<?php }else if($vo['c_tag'] == 29){ ?>
+						关注列表
+					<?php }else if($vo['c_tag'] == 30){ ?>
+						兑换中心
+					<?php }else if($vo['c_tag'] == 31){ ?>
+						商家动态
+					<?php }else if($vo['c_tag'] == 32){ ?>
+						店铺商品列表
+					<?php }else if($vo['c_tag'] == 33){ ?>
+						评论列表
+					<?php }else if($vo['c_tag'] == 34){ ?>
+						店铺相册
+					<?php }else if($vo['c_tag'] == 35){ ?>
+						到店兑换
+					<?php }else if($vo['c_tag'] == 36){ ?>
+						商城商品列表
+					<?php }else{ ?>
+						首页
+					<?php } ?>
+				</td>
+				<td>{$vo['c_tagvalue']}</td>
+				<td>{$vo['c_sendnum']}</td>
+				<td>
+					<?php if ($vo['c_platform'] == 1) { ?>
+						广播
+					<?php }else if($vo['c_platform'] == 2){ ?>
+						IOS
+					<?php }else{ ?>
+						Android
+					<?php } ?>
+				</td>
+				<td>{$vo['c_content']}</td>
+				<td>
+					<?php if ($vo['c_type'] == 1) { ?>
+						订单消息
+					<?php }else if($vo['c_type'] == 2){ ?>
+						公告消息
+					<?php }else{ ?>
+						系统消息
+					<?php } ?>
+				</td>
+				<td>
+					<if condition="$vo['c_state'] eq 0"><font color="red">未发送</font><else/><font color="green">发送成功</font></if>
+				</td>
+				<td>{$vo['c_addtime']}</td>
+				<td>{$vo['c_timer']}</td>
+				<td>
+					<if condition="$vo['c_issound'] eq 0">否<else/><font color="green">是</font></if>
+				</td>
+				<td class="td-manage">
+				 <a title="发送消息" href="javascript:;" onclick="send_msg('{$vo['c_txcode']}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6ab;</i></a> 
+				 <a title="删除" href="javascript:;" onclick="batch_msg(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				 </td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+//重新发送消息
+function send_msg(txcode){
+	if(confirm("你确定重新发送该消息吗？")){
+		$.get('__URL__/re_sendmsg',{txcode:txcode},function(data){
+			var result = eval(data);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        }        
+		});
+	}
+}
+
+//批量处理
+function batch_msg(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=msgid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('消息记录删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Message/msglog_del',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+/*用户-添加*/
+function msg_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

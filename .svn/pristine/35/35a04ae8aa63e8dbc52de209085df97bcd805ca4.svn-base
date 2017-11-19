@@ -1,0 +1,552 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>我的资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style type="text/css">select{padding: 0;}</style>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="wrap-page bgcolor" style="margin-bottom:15%;">
+			<form action="" id="CONSIGNEE_ADDRESS" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="personal-tab">
+					<a href="__APP__/Shop/Personal/index" class="personal-t-a tab-hover fl">我的资料</a>
+					<a href="__APP__/Shop/Personal/updatepwd" class="personal-t-a fr">修改密码</a>
+				</div>
+				<div class="resource-main" id="page_1">
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>开户银行：</div>
+						<div class="resource-r fl binfo-name fs14" onclick="searchbank()"><span id="fee_banktext"><?php if ($vo['c_fee_bank']) { ?>{$vo['c_fee_bank']}<?php } else { ?>搜索开户行<?php } ?></span><span><img src="__IMG__/der_icon_search.png" alt=""></span></div>
+						<input type="hidden" id="bank-name" name="fee_bank" value="{$vo['c_fee_bank']}" />
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>开户人：</div>
+						<div class="resource-r fl"><input type="text" id="have-name" value="{$vo['c_fee_name']}" name="fee_name" class="resource-text" placeholder="请输入开户人"></div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>银行卡号：</div>
+						<div class="resource-r fl"><input type="text" id="card-name" name="fee_cardnum" class="resource-text" value="{$vo.c_fee_cardnum}" placeholder="请输入银行卡号"></div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>账户类型：</div>
+						<div class="resource-r fl">
+							<select name="accounttype" id="accounttype" class="fs14 c9">
+								<option value="{$vo['c_accounttype']}">
+								<?php if ($vo['c_accounttype'] == 1) { ?>个人
+								<?php } else if ($vo['c_accounttype'] == 2) { ?>企业
+								<?php } else { ?>请选择
+								<?php } ?>
+								</option>	
+								<option value="2">企业</option>
+								<option value="1">个人</option>
+							</select>
+						</div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl">
+							<span>*&nbsp;</span>省
+						</div>
+						<div class="resource-r fl">
+							<select name="province" id="province" onchange="loadRegion('province',2,'city','{:U('Personal/getRegion')}');">
+								<option value="" id="provincename">选择省</option>
+								<foreach name="province" item="province">
+									<option value="{$province.region_id}" <?php if($vo['c_bankprovince']==$province[ 'region_name']){ ?> selected="selected"	<?php } ?> >{$province.region_name}</option>
+								</foreach>
+							</select>
+						</div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl">
+							<span>*&nbsp;</span>市
+						</div>
+						<div class="resource-r fl">
+							<select name="city" id="city">
+								<?php if(!empty($vo['c_bankcity'])){ ?>
+								<option value="" id="cityname">{$vo['c_bankcity']}</option>
+								<?php }else{ ?>
+								<option value="" id="cityname">选择市</option>
+								<?php } ?>
+							</select>							
+							<select name="district" id="district" style="display:none;">
+								<?php if($newdistrict){ ?>
+								<option value="" id="districtname">{$newdistrict}</option>
+								<?php }else{ ?>
+								<option value="" id="districtname">选择区</option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>开户支行：</div>
+						<div class="resource-r fl binfo-name fs14" onclick="searchson()"><span id="banknametext"><?php if ($vo['c_bankname']) { ?>{$vo['c_bankname']}<?php } else { ?>搜索支行<?php } ?></span><span><img src="__IMG__/der_icon_search.png" alt=""></span></div>
+						<input type="hidden" name="bankname" id="branch-name" value="{$vo['c_bankname']}" />
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>网点号(联行号)：</div>
+						<div class="resource-r fl"><input type="text" id="contactline" name="contactline" class="resource-text" value="{$vo['c_contactline']}" disabled="disabled"></div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>证件类型：</div>
+						<div class="resource-r fl">
+							<select name="idcardtype" id="idcardtype" class="fs14 c9">
+								<option value="{$vo['c_idcardtype']}">
+								<?php if ($vo['c_idcardtype'] == 1) { ?>身份证
+								<?php } else if ($vo['c_idcardtype'] == 2) { ?>护照
+								<?php } else { ?>请选择
+								<?php } ?>
+								</option>
+								<option value="1">身份证</option>
+								<option value="2">护照</option>
+							</select>
+						</div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>证件号：</div>
+						<div class="resource-r fl"><input type="text" id="idcardinfo" name="idcardinfo" class="resource-text" value="{$vo['c_idcardinfo']}" placeholder="请输入证件号"></div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>手机号：</div>
+						<div class="resource-r fl"><input type="text" id="banktel" name="banktel" class="resource-text" value="{$vo['c_banktel']}" placeholder="请输入手机号"></div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>支付宝账号：</div>
+						<div class="resource-r fl"><input type="text" id="alipay-name" name="fee_alipay" class="resource-text" value="{$vo.c_fee_alipay}" placeholder="请输入支付宝账号"></div>
+					</div>
+					<div class="resource-list">
+						<div class="resource-l fl"><span>*&nbsp;</span>微信账号：</div>
+						<div class="resource-r fl"><input type="text" id="weixin-name" name="fee_weixin" class="resource-text" value="{$vo.c_fee_weixin}" placeholder="请输入微信账号"></div>
+					</div>
+					<div class="con-descbtn">
+						<a href="javascript:;" type="button" class="con-descbtn-l fl fs16" onclick="PreviousCK()">上一步</a>
+						<a href="javascript:;" type="button" class="con-descbtn-r fl fs16" onclick="checkinfo()">保存并下一步</a>
+					</div>
+				</div>
+			</form>
+			<!--开户行搜索弹窗-->			
+			<div class="bank-name-pup" id="bk_name_pup">
+				<div class="bank-name-con" id="bk_name_con">
+					<div class="bank-search">
+						<div class="bank-s-input fl">
+							<input type="text" id="bankkey" name="bankkey" value="" placeholder="银行编码/银行名称" class="fs14" />
+						</div>
+						<div class="bank-s-btn fl">
+							<input type="button" id="banksbtn" name="banksbtn" value="搜索" onclick="getdatalist()" class="fs14" />
+						</div>
+					</div>
+					<div class="bank-con-list">
+						<div class="bank-tit fs14">
+							<ul>
+								<li>
+									<div class="bankcell">
+										银行编码
+									</div>
+									<div class="bankcell">
+										银行名称
+									</div>
+								</li>
+							</ul>
+						</div>
+						<ul class="bank-list fs14" id="data_list">
+							<li>
+								<div class="bankcell">
+									1
+								</div>
+								<div class="bankcell">
+									中国工商银行
+								</div>
+							</li>
+						</ul>
+						<div class="returnbtn fs16" id="return-page1">返回</div>
+					</div>
+				</div>
+			</div>
+			<!--开户支行弹窗-->			
+			<div class="bank-name-pup" id="ss_name_pup">
+				<div class="bank-name-con" id="ss_name_con">
+					<div class="bank-search">
+						<div class="bank-s-input fl">
+							<input type="text" id="bank_zhkey" name="bank_zhkey" value="" placeholder="输入联行号/支行名称，如“深圳”" class="fs14" />
+						</div>
+						<div class="bank-s-btn fl">
+							<input type="button" id="bank_zhbtn" name="bank_zhbtn" onclick="getbankname()" value="搜索" class="fs14" />
+						</div>
+					</div>
+					<div class="bank-con-list">
+						<div class="bank-tit fs14">
+							<ul>
+								<li>
+									<div class="bankcell">
+										网点号（联行号）
+									</div>
+									<div class="bankcell">
+										支行名称
+									</div>
+								</li>
+							</ul>
+						</div>
+						<ul class="bank-list fs14" id="data_list_2">
+							<li>
+								<div class="bankcell">
+									1
+								</div>
+								<div class="bankcell">
+									中国工商银行
+								</div>
+							</li>
+							
+						</ul>
+						<div class="returnbtn fs16" id="return-page2">返回</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div id="container"></div>
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var ctype = '<?php echo $ctype ?>'; /*1个人，2企业*/
+			window.onload = function() {
+				$('#return-page1').click(function() {
+					$('#page_1').css("display","block");
+					$('#bk_name_pup').css("display","none");
+					$('#ss_name_pup').css("display","none");
+				});
+				$('#return-page2').click(function() {
+					$('#page_1').css("display","block");
+					$('#bk_name_pup').css("display","none");
+					$('#ss_name_pup').css("display","none");
+				});
+
+				loadRegion('province', 2, 'city', "<?php echo U('Personal/getRegion');?>");
+			}
+			$(function() {
+
+			});
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/index?isfixed="+isfixed+"&ctype="+ctype;
+			}
+
+			function checkinfo() {
+				if($('#bank-name').val() == '') {
+					alert('请选择银行开户行');
+					$('#bank-name').focus();
+					return false;
+				}
+				if($('#have-name').val() == '') {
+					alert('请输入开户人姓名');
+					$('#have-name').focus();
+					return false;
+				}
+				if($('#card-name').val() == '') {
+					alert('请输入银行卡号');
+					$('#card-name').focus();
+					return false;
+				}
+				if($('#branch-name').val() == '') {
+					alert('请选择支行名称');
+					$('#branch-name').focus();
+					return false;
+				}
+				if($("#accounttype").find("option:selected").val() == '请选择') {
+					alert('请选择账户类型');
+					$('#accounttype').focus();
+					return false;
+				}
+				var province = $("#province option:selected").text();
+				var city = $("#city option:selected").text();
+				if(province == "选择省" || city == "请选择") {
+					alert("请选择地址信息！");
+					$("#province").focus();
+					return false;
+				} else if(province == "选择省" || city == "选择市") {
+					alert("请选择地址信息！");
+					$("#province").focus();
+					return false;
+				}
+				if($('#contactline').val() == "") {
+					alert('网点号（联行号）不能为空');
+					$('#contactline').focus();
+					return false;
+				}
+				if($("#idcardtype").find("option:selected").val() == '请选择') {
+					alert('请选择证件类型');
+					$('#idcardtype').focus();
+					return false;
+				}
+				if($('#idcardinfo').val() == '') {
+					alert('请输入证件号');
+					$('#idcardinfo').focus();
+					return false;
+				} else {
+					if(!checkIdcard($('#idcardinfo').val())) {
+						alert('请输入正确的身份证号码！');
+						$('#idcardinfo').focus();
+						return false;
+					}
+				}
+				var match = /^1[3|4|5|7|8][0-9]\d{8}$/;
+				if(!match.exec($('input[name="banktel"]').val())) {
+					alert('手机号码格式错误');
+					$('input[name="banktel"]').focus();
+					return false;
+				}
+				if($('#alipay-name').val() == '') {
+					alert('请输入支付宝帐号');
+					$('#alipay-name').focus();
+					return false;
+				}
+				if($('#weixin-name').val() == '') {
+					alert('请输入微信帐号');
+					$('#weixin-name').focus();
+					return false;
+				}
+				savestep2();
+			}
+			/*身份证验证*/
+			function checkIdcard(idcard) {
+				var idreg = /^[0-9a-zA-Z]*$/g;
+				// var idreg = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+				// switch (idcard.length) {
+				// 	case 10: //台湾
+				// 		if (idcard.indexOf("(") > 0) {
+				// 			if (isNaN(idcard.substr(0,1))) {  //香港
+				// 				idreg = /^[A-Z][0-9]{6}\([0-9A]\)$/;
+				// 			} else {	//澳门
+				// 				idreg = /^[157][0-9]{6}\([0-9]\)$/;
+				// 			}
+				// 		} else {   //台湾
+				// 			idreg = /^[A-Z][0-9]{9}$/;
+				// 		}
+				// 		break;
+				// 	default:
+				// 		idreg = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+				// 		break;
+				// }
+				if(!idreg.test($('input[name="idcard"]').val())) {
+					return false;
+				}
+				return true;
+			}			
+			/*保存*/
+			var resign = true;
+
+			function savestep2() {
+				if(resign) {
+					resign = false;
+					var attrbul = getFormAttrs('CONSIGNEE_ADDRESS');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/saveInfo2',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								alert("保存成功！");
+								setTimeout(function() {
+									window.location.href = "__URL__/step_3?isfixed=<?php echo $isfixed; ?>&ctype=<?php echo $ctype; ?>";
+								}, 2000);
+							} else {
+								alert(msg.msg);
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+			/*开户行搜索弹窗*/
+			function searchbank() {
+				$('#page_1').css("display","none");
+				$('#ss_name_pup').css("display","none");
+				$('#bk_name_pup').css("display","block");
+				getdatalist();
+			}
+			/*支行弹窗*/
+			function searchson() {
+				var bankname = $('#bank-name').val();
+				if(!bankname) {
+					alert('请先选择开户银行');
+					return;
+				}
+				$('#page_1').css("display","none");
+				$('#bk_name_pup').css("display","none");
+				$('#ss_name_pup').css("display","block");
+				getbankname();
+			}
+			/*数据加载*/
+			function getdatalist() {
+				$('#data_list').empty();
+				var name = $('#bankkey').val();
+				var url = "__URL__/GetBankList?name=" + name;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+					},
+					success: function(obj) {
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data){
+								for(var i = 0; i < data.length; i++) {
+									var dataarr = data[i];
+									_html += '<li onclick="sel_fee_bank(\''+dataarr['c_name']+'\')">';
+									_html += '<div class="bankcell">';
+									_html += ''+dataarr['c_id']+'';
+									_html += '</div>';
+									_html += '<div class="bankcell">';
+									_html += ''+dataarr['c_name']+'';
+									_html += '</div>';
+									_html += '</li>';
+								};								
+							}else {
+								_html += '<div class="baoqian">没有找到相关信息</div>';	
+							}
+						} else {
+							_html += '<div class="baoqian">没有相关信息</div>';
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+					}
+				});
+			}
+
+			/*支行列表*/
+			function getbankname() {
+				$('#data_list_2').empty();
+				var bankname = $('#bank-name').val();
+				var name = $('#bank_zhkey').val();
+				var url = "__URL__/GetBranchList?bankname=" + bankname + "&name=" + name;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						kongzhi = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						kongzhi = false;
+					},
+					success: function(obj) {
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data){
+								for(var i = 0; i < data.length; i++) {
+									var dataarr = data[i];
+									_html += '<li onclick="sel_bank_name(\''+dataarr['c_name']+'\',\''+dataarr['c_code']+'\')">';
+									_html += '<div class="bankcell">';
+									_html += ''+dataarr['c_id']+'';
+									_html += '</div>';
+									_html += '<div class="bankcell">';
+									_html += ''+dataarr['c_name']+'';
+									_html += '</div>';
+									_html += '</li>';
+								};								
+							}else {
+								_html += '<div class="baoqian">没有找到相关信息</div>';	
+							}
+						} else {
+							_html += '<div class="baoqian">没有相关信息</div>';
+						}
+						$('#data_list_2').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						kongzhi = true;
+					}
+				});
+			}
+
+			/*选择开户行*/
+			function sel_fee_bank(name) {
+				$('#bank-name').val(name);
+				$('#fee_banktext').text(name);
+				$('#page_1').css("display","block");
+				$('#bk_name_pup').css("display","none");
+				$('#ss_name_pup').css("display","none");
+			}
+
+			/*请选择支行*/
+			function sel_bank_name(name, actline) {
+				$('#branch-name').val(name);
+				$('#banknametext').text(name);
+				$('#contactline').val(actline);
+				$('#page_1').css("display","block");
+				$('#bk_name_pup').css("display","none");
+				$('#ss_name_pup').css("display","none");
+			}
+			/*获取省市区信息*/
+			function loadRegion(sel, type_id, selName, url) {
+				jQuery("#" + selName + " option").each(function() {
+					jQuery(this).remove();
+				});
+				//jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#"+selName));
+				if(jQuery("#" + sel).val() == 0) {
+					return;
+				}
+				jQuery.getJSON(url, {
+						parentid: jQuery("#" + sel).val(),
+						regiontype: type_id
+					},
+					function(data) {
+						//$("#district").html('<option value="" selected="selected">请选择</option>');
+						if(data) {
+							jQuery.each(data, function(idx, item) {
+								if(selName == "city") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else if(selName == "district") {
+									jQuery("<option value=" + item.region_id + " selected=\"selected\">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								} else {
+									jQuery("<option value=" + item.region_id + ">" + item.region_name + "</option>").appendTo(jQuery("#" + selName));
+								}
+
+							});
+							if(selName == "city") {
+								loadRegion('city', 3, 'district', "<?php echo U('Personal/getRegion');?>");
+							}
+						} else {
+
+							jQuery("<option value='' selected='selected'>请选择</option>").appendTo(jQuery("#" + selName));
+
+						}
+					}
+				);
+			}
+		</script>
+	</body>
+
+</html>

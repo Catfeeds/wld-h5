@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>加盟店资料详情</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+	<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+	<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+	<script type="text/javascript">
+		var WEB_HOST = "<?php echo WEB_HOST ?>";
+	</script>
+</head>
+<body>
+<include file="Common/head"/>
+<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<div class="wrap-page bgcolor" style="margin-bottom:15%;">
+		<div class="page-title divtab">
+			<div class="page-tit-name fl fs14" style="margin: 0;">加盟店管理</div>
+			<div class="tit-storename fl"><span class="fs14 c9">></span><span class="fs16 c3">{$data['c_nickname']}</span></div>
+		</div>		
+		<div class="leagshop-img"><span class="fs14 c5 fl">店铺头像：</span><span class="fl dplogo"><img src="{$data['c_headimg']}" alt="" /></span></div>
+		<div class="leagshop-detail divtab c5 fs14">
+			<ul>
+				<li>店名：{$data['c_merchantname']}</li>
+				<li>店铺简称：{$data['c_merchantshortname']}</li>
+				<li>负责人：{$data['c_name']}</li>
+				<li>编号：{$data['c_shopcode']}</li>
+				<li>时间：{$data['c_addtime']}</li>
+				<li>法人：{$data['c_legalperson']}</li>
+				<li>电话：{$data['c_phone']}</li>
+				<li>所属行业：{$data['industry']}</li>
+				<li>QQ：{$data['c_qq']}</li>
+				<li>微信：{$data['c_fee_weixin']}</li>
+				<li>商家资质：<?php if ($data['c_type'] == 2) { ?>企业<?php } else { ?>个人<?php } ?></li>
+				<li>邮箱：{$data['c_email']}</li>
+				<li>地址：{$data['c_address']}</li>
+			</ul>
+		</div>
+	</div>
+
+</form>
+<script type="text/javascript">
+    window.onload = function() {        
+        $('.dplogo').height($('.dplogo').width());
+        $('.leagshop-img').height($('.dplogo').width());
+        $('.leagshop-img').css({"line-height":$('.dplogo').width()+"px"});
+    }
+    
+</script>
+</body>
+</html>

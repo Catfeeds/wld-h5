@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>场景海报模板预览</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/store/homepage.css?v=1.2" />
+		<style type="text/css">
+			.modular a img{width: 100%;height: 100%;}
+		</style>
+	</head>
+
+
+	<body class="bgeb">
+		<div class="wrap-page" style="padding: 0;">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		        <input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+		        <input type="hidden" name="returnurl" id="returnurl" value="<?php echo encodeurl(" https:// " . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>" />
+		        <input type="hidden" name="c_ucode" id="c_ucode" value="{$storeinfo['c_ucode']}">
+		        <input type="hidden" name="c_name" id="c_name" value="{$storeinfo['c_name']}">
+		        <input type="hidden" name="c_ishow" id="c_ishow" value="{$storeinfo['c_ishow']}">
+		        <input type="hidden" name="tempid" id="tempid" value="{$tempid}"/>
+		        <input type="hidden" name="tempid" id="tplid" value="{$tplid}"/>
+				<include file="Store@Store/onlinetop" />
+				<div class="mui-content">
+					<div class="wrap" style="padding-top: 0;">
+					<div class="modular">
+						<?php if (count($bannerimg) > 0) { ?>
+						<?php foreach ($bannerimg as $key => $value) { ?>
+						<a href="javascript:void(0)" class="banner1">
+							<div class="jia alignc bannerlist">
+								<img src="{$value}" alt="" />
+							</div>
+						</a>
+						<?php } ?>
+						<?php } ?>
+					</div>
+						<!--banner预览(线上)-->
+					<?php if ($data['c_source'] == 1) { ?>
+					<div class="commodity fs15">
+						
+					</div>
+					<?php } ?>
+					<!--banner预览(线下)-->
+					<?php if ($data['c_source'] == 2) { ?>
+					<div class="offline">
+						<div class="section_left fl fs14"></div>
+						<div class="section_right fl wrapper"></div>
+					</div>
+					<?php } ?>
+						<include file="Store@Store/shopbottom"/>
+					</div>
+				</div>
+			</form>
+			</div>
+
+			<include file="Base@Public/pubjs" />
+			<script type="text/javascript" src="__JS__/storepub.js"></script>
+	</body>
+	<script>
+		var ucode = "<?php echo $ucode; ?>";
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+		var source = '<?php echo $data["c_source"] ?>';
+		var isfixed = "<?php echo $data['c_isfixed']; ?>";
+
+		/*商品资源数据加载*/
+		var ctrls = true;
+		var emptyval = true;
+		var pageindex = 1;
+		var id = 1;
+		var text = '';
+
+		/*线上商品列表*/
+		var pageindex2 = 1;
+		var ctrls2 = true;
+		var emptyval2 = true;
+		window.onload = function() {
+            if(isfixed == 1){
+                $('.offline').show();
+                $('.commodity').hide();
+                getdatacate();
+                setTimeout(function() {
+					$('.addcart').removeAttr('onClick');
+					$('.subcart').removeAttr('onClick');
+					$('.pro_image').removeAttr('onClick');
+					$('.commodity>.fl').removeAttr('onClick');
+				}, 1000);
+            }else{
+                $('.offline').hide();
+                $('.commodity').show();
+                getProductlist();
+				setTimeout(function() {
+					$('.commodity>.fl').removeAttr('onClick');
+				}, 1000);
+                $(window).bind('scroll', function() {
+                    if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+                        if(ctrls2 && emptyval2) {
+                            getProductlist();
+                        }
+                    }
+                });
+            }
+			yangshi();
+            $('.bannerlist').eq(0).css('height',$('.banner1').width()*180/640);
+            $('.bannerlist').eq(1).css('height',$('.banner1').width()*240/640);
+            $('.bannerlist').eq(2).css('height',$('.banner1').width()*360/640);
+            $('.bannerlist').eq(3).css('height',$('.banner1').width()*480/640);
+
+            $(window).bind('scroll', function() {
+                if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+                    $('.xiaomi-bar').addClass('menu-fixed');
+                    if(source == 1) {
+                        $('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+                    } else if(source == 2) {
+                        $('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+                    }
+                }
+                if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+                    $('.xiaomi-bar').removeClass('menu-fixed');
+                    $('.xiaomi-bar').css("background", "none");
+                }
+            });
+		}
+
+	</script>
+
+</html>

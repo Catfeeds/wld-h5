@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>商家后台管理--商家审核</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+<include file="Common/head"/>
+<div class="wrap-page">
+	<!-- <form action="__APP__/Home/Shopcheck/index" id="form1" method="get"> -->
+	    <div id="search" class="bgcolor">
+	      <input type="text" name="keys" id="keysname" placeholder="输入搜索关键字" class="fs14 c9">
+	      <input class="button" type="submit" value="" id="keys_btn">
+	       <div class="close_button none"><img src="__IMG__/searchbox_close_btn.png" alt="" /></div>
+	    </div>
+	<!-- </form> -->
+	<div class="comm-nav-tab bgcolor divtab fs14">
+		<ul>
+			<li class="c-nav-tli hover" id="c-nav-t2" onclick="checkstatu(2)">待审核</li>
+			<li class="c-nav-tli" id="c-nav-t1" onclick="checkstatu(1)">已审核</li>
+		</ul>
+	</div>
+
+	<div class="seller-list bgcolor" id="data_list">
+
+	</div>
+	<div id="console"></div>
+
+</div>
+
+<script type="text/javascript">
+	window.onload=function(){
+	    topstyle();/*头部样式*/
+	    yangshi();
+
+	}
+
+	function yangshi(){
+		$('#return-top').hide();
+	    $('#page-top-c-t').text("商家审核");
+
+	    var titimg = $('.s-showimg').width();
+	    $('.s-showimg').height(titimg);
+	    $('.s-statuimg').height($('.s-statuimg').width());
+
+	    $('.s-statuimg').css('padding-top', titimg*0.2+ 'px');
+	    $('.s-titext').css('line-height', titimg + 'px');
+
+	    var hdimg = $('.s-headimg').width();
+	    $('.s-headimg').height(hdimg);
+	    $('.s-info p').css('height', hdimg*0.65 + 'px');
+	    $('.s-next').css('padding-top', hdimg*0.3 + 'px');
+
+	    var snimg = $('.s-nextimg').width();
+	    $('.s-next span').css('line-height', snimg + 'px');
+	}
+
+	//折叠菜单
+	function open(){
+		$('.s-showimg').on('click',function(){
+			if ($(this).parent().siblings().css('display')=='block') {
+				$(this).parent().siblings().css('display', 'none');
+				$(this).find('img').attr('src', '__IMG__/dls_icon_s.png');
+			}else{
+				$(this).parent().siblings().css('display', 'block');
+				$(this).find('img').attr('src', '__IMG__/dls_icon_x.png');
+			}
+		})
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	var statu = '<?php echo $statu ?>';
+	if(!statu) {
+		statu = 2;
+	}
+
+	checkstatu(statu);
+	function checkstatu(i) {
+		statu = i;
+		pageindex = 1;
+		ctrls = true;
+		emptyval = true;
+		$('.c-nav-tli').removeClass('hover');
+		$('#c-nav-t' + i).addClass('hover');
+		getdatalist(statu);
+	}
+
+	//搜索
+	$('#keys_btn').click(function() {
+		$('.close_button').css('display','block');
+		$('#keys_btn').css('display','none');
+		$('.comm-nav-tab').css('display','none');
+		getdatalist();
+	});
+
+	$('.close_button').click(function() {
+		$('.close_button').css('display','none');
+		$('#keys_btn').css('display','block');
+		$('.comm-nav-tab').css('display','block');
+		$('#keysname').val("");
+		getdatalist(statu);
+	});
+
+
+	// getdatalist()
+	// $(window).bind('scroll', function() {
+	// 	if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+	// 		if(ctrls && emptyval) {
+	// 			getdatalist(statu);
+	// 		}
+	// 	}
+	// });
+	/*数据加载*/
+	function getdatalist(statu) {
+		var kyname = $('#keysname').val();
+		if (kyname) {
+			var url = "__URL__/GetStoreShenList?keys=" + kyname;
+		} else {
+			var url = "__URL__/GetStoreShenList?type=" + statu;
+		}
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				// if(pageindex == 1) {
+				$('#data_list').empty();
+				// }
+				var mgs = eval(obj);
+				if (mgs['code'] == 0) {
+					var data = mgs.data;
+					if (!data || data.length <= 0) {
+						// if(pageindex == 1) {   //数据为空展示
+						_html += '<div class="baoqian">抱歉，没有找到相关信息</div>';
+						// }
+						emptyval = false;
+					} else {
+						if (kyname) {
+							for (var i = 0; i < data.length; i++) {
+								var ckdatar = data[i];
+								_html += '<div class="s-item" onclick="linkDetail(' + ckdatar['c_id'] + ')">';
+								_html += '<div class="s-headimg fl"><img src="' + ckdatar['c_headimg'] + '" alt="" /></div>';
+								_html += '<div class="s-info fl">';
+								_html += '<p class="c3">' + ckdatar['c_name'] + '</p>';
+								if (ckdatar['c_isfixed'] == 0) {
+									_html += '<div class="s-shopimg02"><img src="__IMG__/dls_icon_gr.png" alt="" /></div>';
+								} else {
+									_html += '<div class="s-shopimg"><img src="__IMG__/dls_icon_qy.png" alt="" /></div>';
+								}
+								_html += '</div>';
+								_html += '</div>';
+							}
+
+						} else {
+							if (statu == 1) {
+								for (var i = 0; i < data.length; i++) {
+									var onedatar = data[i];
+									_html += '<div class="checked-con">';
+									_html += '<div class="s-title">';
+									_html += '<div class="s-statuimg fl"><img src="__IMG__/'+ i +'.png" alt="" /></div>';
+									_html += '<div class="s-titext fl">' + onedatar['name'] + '（' + onedatar['total'] + '）</div>';
+									if (onedatar['total'] > 0) {
+										_html += '<div class="s-showimg fr"><img src="__IMG__/dls_icon_x.png" alt="" />';
+									}
+									_html += '</div>';
+									_html += '</div>';
+									if (onedatar['total'] > 0) {
+										_html += '<div class="s-main">'
+										var lists = data[i].list;
+										for (var j = 0; j < lists.length; j++) {
+											var twodatar = lists[j];
+											_html += '<div class="s-item" onclick="linkDetail(' + twodatar['c_id'] + ')">'
+											_html += '<div class="s-headimg fl">';
+											_html += '<img src=' + twodatar['c_headimg'] + ' alt="" />';
+											_html += '</div>';
+											_html += '<div class="s-info fl">';
+											_html += '<p class="c3">' + twodatar['c_name'] + '</p>';
+											if (twodatar['c_isfixed'] == 0) {
+												_html += '<div class="s-shopimg02"><img src="__IMG__/dls_icon_gr.png" alt="" /></div>';
+											} else {
+												_html += '<div class="s-shopimg"><img src="__IMG__/dls_icon_qy.png" alt="" /></div>';
+											}
+											_html += '</div>';
+											_html += '</div>';
+										}
+										_html += '</div>';
+
+									}
+									_html += '</div>';
+								}
+							} else if (statu == 2) {
+								for (var i = 0; i < data.length; i++) {
+									var ckdatar = data[i];
+									_html += '<div class="s-item">';
+									_html += '<div class="s-headimg fl"><img src="' + ckdatar['c_headimg'] + '" alt="" /></div>';
+									_html += '<div class="s-info fl">';
+									_html += '<p class="c3">' + ckdatar['c_name'] + '</p>';
+									if (ckdatar['c_isfixed'] == 0) {
+										_html += '<div class="s-shopimg02"><img src="__IMG__/dls_icon_gr.png" alt="" /></div>';
+									} else {
+										_html += '<div class="s-shopimg"><img src="__IMG__/dls_icon_qy.png" alt="" /></div>';
+									}
+									_html += '</div>';
+									_html += '<div class="s-next fl" onclick="linkDetail(' + ckdatar['c_id'] + ')">';
+									_html += '<span>立即审核</span>';
+									_html += '<div class="s-nextimg fr"><img src="__IMG__/icon_next.png"></div>';
+									_html += '</div>';
+									_html += '</div>';
+								}
+
+							}
+
+						}
+
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+				open()
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+	//跳转至详情
+	 function linkDetail(ids){
+	 	window.location.href = "__URL__/details?Id=" + ids;
+	}
+
+</script>
+</body>
+</html>

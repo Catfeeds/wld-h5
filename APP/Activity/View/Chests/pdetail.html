@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>活动商品详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content divtab">
+					<!-- 商品详情 -->
+					<div id="data_list">
+					<!--<div class="ch-detail-item bgcolor">
+						<div class="d-product divtab bborder">
+							<div class="d-pro-img fl">
+								<img src="__IMG__/coupon/tu14.jpg">
+							</div>
+							<div class="d-pro-info fl">
+								<div class="d-pro-name clamp2 fs13 c3">2017太阳眼镜明星款墨镜高清偏光太阳镜</div>
+								<div class="d-pro-pirce fs14 cy">￥89.00</div>
+								<div class="d-pro-stock fs11 c5">库存：200</div>
+							</div>
+						</div>
+						<div class="d-product-number divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">投放数量</div>
+							<div class="fl fs13 c9">
+								<input type="number" name="actnum" id="actnum" value="" placeholder="请输入数量" />
+							</div>
+						</div>
+						<div class="d-product-post divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">输入邮费</div>
+							<div class="fl fs13 c9">
+								<input type="number" name="freeprice" id="freeprice" value="" placeholder="设置￥0.00元则为包邮" />
+							</div>
+						</div>
+						<div class="d-product-time divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">开始时间</div>
+							<div class="fl fs13 c9">
+								<input type="text" data-options='{"type":"datetime"}' name="starttime" id="starttime" value="" placeholder="请选择开始时间" readonly="readonly" />
+								<input type="hidden" name="hidstime" id="hidstime" value="" />
+							</div>
+						</div>
+						<div class="d-product-time divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">结束时间</div>
+							<div class="fl fs13 c9">
+								<input type="text" data-options='{"type":"datetime"}' name="endtime" id="endtime" value="" placeholder="请选择结束时间" readonly="readonly" />
+								<input type="hidden" name="hidetime" id="hidetime" value="" />
+							</div>
+						</div>
+						<div class="d-ch-operate cdpadding divtab">
+							<div class="d-pro-operate fl fs13">撤回</div>
+							<div class="d-pro-operate fr fs13">保存</div>
+						</div>
+					</div>
+					<div class="ch-detail-item bgcolor">
+						<div class="d-product divtab bborder">
+							<div class="d-pro-img fl">
+								<img src="__IMG__/coupon/tu14.jpg">
+							</div>
+							<div class="d-pro-info fl">
+								<div class="d-pro-name clamp2 fs13 c3">2017太阳眼镜明星款墨镜高清偏光太阳镜</div>
+								<div class="d-pro-pirce fs14 cy">￥89.00</div>
+								<div class="d-pro-stock fs11 c5">库存：200</div>
+							</div>
+						</div>
+						<div class="d-product-number divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">投放数量</div>
+							<div class="fl fs13 c9">
+								<input type="number" name="actnum" id="actnum" value="" placeholder="请输入数量" />
+							</div>
+						</div>
+						<div class="d-product-post divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">输入邮费</div>
+							<div class="fl fs13 c9">
+								<input type="number" name="freeprice" id="freeprice" value="" placeholder="设置￥0.00元则为包邮" />
+							</div>
+						</div>
+						<div class="d-product-time divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">开始时间</div>
+							<div class="fl fs13 c9">
+								<input type="text" data-options='{"type":"datetime"}' name="starttime" id="starttime" value="" placeholder="请选择开始时间" readonly="readonly" />
+								<input type="hidden" name="hidstime" id="hidstime" value="" />
+							</div>
+						</div>
+						<div class="d-product-time divtab bborder cdpadding">
+							<div class="fs13 fl cdmargin c3">结束时间</div>
+							<div class="fl fs13 c9">
+								<input type="text" data-options='{"type":"datetime"}' name="endtime" id="endtime" value="" placeholder="请选择结束时间" readonly="readonly" />
+								<input type="hidden" name="hidetime" id="hidetime" value="" />
+							</div>
+						</div>
+						<div class="d-ch-operate cdpadding divtab">
+							<div class="d-pro-operate fl fs13" title="">撤回</div>
+							<div class="d-pro-operate fr fs13">保存</div>
+						</div>
+					</div>-->
+					</div>
+					<!--商品详情 -->
+
+					<div class="fixed-btn cb bgcolor fs16 pselect">
+						添加
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+	</body>
+
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var pimgw = $('.d-pro-img').width();
+			$('.d-pro-img').height(pimgw);
+			$('.d-pro-name').css('height', pimgw * 0.5 + 'px');
+			$('.d-pro-name').css('line-height', $('.d-pro-name').height() * 0.5 + 'px');
+			$('.d-pro-pirce').css('line-height', pimgw * 0.25 + 'px');
+			$('.d-pro-stock').css('line-height', pimgw * 0.25 + 'px');
+		}
+
+		/*跳转添加*/
+		mui('.wrap-page').on('tap', '.pselect', function() {
+			mui.openWindow({
+				url: "__URL__/pselect?joinaid=" + joinaid,
+				id: "pselect"
+			});
+		});
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var strurl = "__URL__/GetGoodsDetails?pageindex=" + pageindex + "&joinaid=" + $('#joinaid').val();
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs14">暂无相关商品信息，点击下方按钮可添加</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="ch-detail-item bgcolor ch-detail-' + pageindex + '" id="biaozhi'+dataarr['c_id']+'">';
+									_html += '<input type="hidden" value="' + dataarr['c_id'] + '" name="itempro">';
+									_html += '<input type="hidden" value="' + dataarr['kcnum'] + '" id="totalnum' + dataarr['c_id'] + '">';
+									_html += '<div class="d-product divtab bborder">';
+									_html += '<div class="d-pro-img fl">';
+									_html += '<img src="'+dataarr['c_img']+'">';
+									_html += '</div>';
+									_html += '<div class="d-pro-info fl">';
+									_html += '<div class="d-pro-name clamp2 fs13 c3">'+dataarr['c_name']+'</div>';
+									_html += '<div class="d-pro-pirce fs14 cy">￥'+dataarr['c_maxvalue']+'</div>';
+									_html += '<div class="d-pro-stock fs11 c5">库存：'+dataarr['kcnum']+'</div>';
+									_html += '</div>';
+									_html += '</div>';
+									// _html += '<div class="d-product-number divtab bborder cdpadding">';
+									// _html += '<div class="fs13 fl cdmargin c3">投放数量</div>';
+									// _html += '<div class="fl fs13 c9">';
+									// _html += '<input type="number" name="actnum'+dataarr['c_id']+'" id="actnum'+dataarr['c_id']+'" value="'+dataarr['c_num']+'" placeholder="请输入数量" />';
+									// _html += '</div>';
+									// _html += '</div>';
+									_html += '<div class="d-product-post divtab bborder cdpadding">';
+									_html += '<div class="fs13 fl cdmargin c3">输入邮费</div>';
+									_html += '<div class="fl fs13 c9">';
+									_html += '<input type="number" name="free'+dataarr['c_id']+'" id="free'+dataarr['c_id']+'" value="'+dataarr['c_value']+'" placeholder="设置￥0.00元则为包邮" />';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '<div class="d-product-time divtab bborder cdpadding">';
+									_html += '<div class="fs13 fl cdmargin c3">开始时间</div>';
+									_html += '<div class="fl fs13 c9">';
+									_html += '<input type="text" data-options=\'{"type":"datetime"}\' name="starttime'+dataarr['c_id']+'" id="starttime'+dataarr['c_id']+'" value="'+dataarr['starttime']+'" placeholder="请选择开始时间" readonly="readonly" />';
+									_html += '<input type="hidden" name="hidstime'+dataarr['c_id']+'" id="hidstime'+dataarr['c_id']+'" value="'+dataarr['c_starttime']+'" />';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '<div class="d-product-time divtab bborder cdpadding">';
+									_html += '<div class="fs13 fl cdmargin c3">结束时间</div>';
+									_html += '<div class="fl fs13 c9">';
+									_html += '<input type="text" data-options=\'{"type":"datetime"}\' name="endtime'+dataarr['c_id']+'" id="endtime'+dataarr['c_id']+'" value="'+dataarr['endtime']+'" placeholder="请选择结束时间" readonly="readonly" />';
+									_html += '<input type="hidden" name="hidetime'+dataarr['c_id']+'" id="hidetime'+dataarr['c_id']+'" value="'+dataarr['c_endtime']+'" />';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '<div class="d-ch-operate cdpadding divtab">';
+									_html += '<div class="d-pro-operate fs13 cancelbtn" title="'+dataarr['c_id']+'" style="margin:0 auto;">撤回</div>';
+									
+									_html += '</div>';
+									_html += '</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						$('input[name="itempro"]').each(function(index) {
+							var cid = $(this).val();
+							/*开始时间*/
+							mui('.ch-detail-item').on('tap', '#starttime' + cid, function() {
+								var optionsJson = this.getAttribute('data-options') || '{}';
+								var options = JSON.parse(optionsJson);
+								var picker = new mui.DtPicker(options);
+								picker.show(function(rs) {
+									$("#starttime" + cid).val(rs.text);
+									$('#hidstime' + cid).val(rs.text);
+									picker.dispose();
+								});
+							});
+							/*结束时间*/
+							mui('.ch-detail-item').on('tap', '#endtime' + cid, function() {
+								var optionsJson = this.getAttribute('data-options') || '{}';
+								var options = JSON.parse(optionsJson);
+								var picker = new mui.DtPicker(options);
+								picker.show(function(rs) {
+									$("#endtime" + cid).val(rs.text);
+									$('#hidetime' + cid).val(rs.text);
+									picker.dispose();
+								});
+							});
+						});
+						/*撤回*/
+						mui('.ch-detail-' + pageindex).on('tap', '.cancelbtn', function() {
+							var id = $(this).attr('title');
+							mui.confirm('确定从活动中撤回？撤回后未领取内容将原路返回', '提示', ['取消', '确认'], function(e) {
+								e.index == 0 ? "" : GooddDelete(id);
+							}, 'div');				
+						});
+					}
+				}
+			});
+		}
+
+		var delsign = true;
+		function GooddDelete(id) {
+			//if (delsign) {				
+				//delsign = false;
+				$.post("__URL__/GooddDelete", {
+					goodid: id
+				}, function(obj) {
+					var data = eval(obj);
+					if (data['code'] == 0) {
+						mui.toast('撤回成功');
+						$('#biaozhi'+id).remove();
+						if($('.ch-detail-item').size()==0){
+							var _html="";
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img">';
+							_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+							_html += '</div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关商品信息，点击下方按钮可添加</div>';
+							_html += '</div>';
+							$('#data_list').append(_html);							
+						}
+					} else {
+						mui.toast(data['msg']);
+						//delsign = true;
+					}
+				});
+			//}
+		}
+		
+	
+	</script>
+
+</html>

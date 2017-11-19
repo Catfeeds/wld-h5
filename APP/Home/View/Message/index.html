@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />         
+	<title>消息中心</title>
+	<meta content="微域领地,微域领地系统" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/message/index.css?v=1.2">
+</head>
+<body>
+
+<div class="wrap-page" style="margin-bottom:13%;background:#fff;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">	
+	<div class="message-tit">
+		<a class="message-menu information menu-hover fl" href="__URL__/index">消息</a>
+		<a class="message-menu contact fr" href="__URL__/contact">联系人</a>
+	</div>
+	<a href="__URL__/ordermsg">
+		<div class="message-type-li">		
+			<div class="msg-type-ico fl"><img src="__IMG__/message/wl-img-2.png"></div>
+			<div class="msg-type-font fl">订单</div>
+			<div class="msg-type-arrow fr"><img src="__IMG__/message/wl-img-1.png"></div>
+			<?php if ($ordernum['order_msg'] > 0): ?>
+				<div class="msg-type-tip fr">您有{$ordernum['order_msg']}条新的订单信息</div>
+			<?php endif ?>			
+			<div class="msg-tip-num">{$ordernum['order_msg']}</div>		
+		</div>
+	</a>
+	<a href="__URL__/systemmsg">
+		<div class="message-type-li">		
+			<div class="msg-type-ico fl"><img src="__IMG__/message/wl-img-3.png"></div>
+			<div class="msg-type-font fl">系统消息</div>
+			<div class="msg-type-arrow fr"><img src="__IMG__/message/wl-img-1.png"></div>
+			<?php if ($ordernum['sys_msg'] > 0): ?>
+				<div class="msg-type-tip fr">您有{$ordernum['sys_msg']}条新的系统消息</div>
+			<?php endif ?>
+			<div class="msg-tip-num">{$ordernum['sys_msg']}</div>		
+		</div>
+	</a>
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript">
+window.onload=function(){
+	var th = $('.message-type-li').height();
+	$('.message-type-li').css('line-height',th+'px');
+}
+</script>
+</body>
+</html>

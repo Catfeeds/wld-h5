@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+
+/* 收银管理 */
+.cashier-menu{ width: 97%; margin: 3% auto;}
+.cashier-menu ul li{ width: 47%; margin: 0 1.5%; float: left; background:#fff; padding: 12% 0 8% 0; text-align: center; border-radius: 5px;}
+.cashier-menu-icon{ width: 35%; margin: 0 auto;}
+.cashier-menu-name{ padding-top: 8%;}
+
+/* 收银员管理 */
+.meau-next{ width: 25%;}
+.next-botton{ width: 24%;}
+.mui-card-content{ border-bottom: 1px dashed #f0f0f0; border-top: 1px dashed #f0f0f0;padding: 4%;}
+.opera-switch{ width: 50%;  padding-left: 5%;}
+.opera-switch span{ margin-left: 8%;}
+.opera-delete{ width: 30%;}
+.delete-botton{ width: 26%; margin-right: 12%;}
+.cstaff-list .mui-card-footer:before,.cstaff-list .mui-card-header:after{ background:none;}
+.add-create{ text-align: center; text-align: center; background: #fff; padding: 3%; border-top: 1px solid #e5e5e5;}
+
+
+/* 添加收银员 */
+.addstaff-con p { width: 80%; margin: 2% auto;}
+.addstaff-phone{ padding: 5% 0 5% 4%; margin-bottom: 8%;}
+.addstaff-phone input{ width: 70%; margin-left: 4%;}
+.addstaff-info{ width: 80%; padding: 4% 0; margin: 0 auto; border-radius: 5px; box-shadow: 2px 3px 1px #d7d7d7; text-align: center;}
+.addstaff-verify {top: 15.5%; font-size: 8px; text-align: center; width: 100%; color: red;}
+.addstaff-img{ width: 22%; margin: 1% auto 2% auto; overflow: hidden;}
+.addstaff-info span{ display: block; width: 60%; margin: 0 auto 3% auto;}
+.add-submit{ margin: 15% auto;  background: #45aafa; width: 58%;text-align: center;border-radius: 25px; padding: 2.5% 0;}
+
+
+/* 收款明细*/
+.ca-account-datatime{ position: fixed; width: 8%; right: 3%; top: 1%; z-index: 9999;}
+.ca-account ul li{ width: 100%; overflow: hidden; border-bottom: 1px solid #f0f0f0; padding: 4% 3%;}
+.ca-account-time{ width: 35%;}
+.ca-account-time div font{ padding-left: 5%;}
+.ca-account-money{ width: 35%; text-align: center; padding-top:2%;}
+.ca-account-remark{width: 30%; text-align: right; padding-top:2%;}
+.ca-remark-text{ width: 100%; overflow: hidden; padding-top: 1.5%; line-height: 1.5rem;}
+
+/* 收银台管理*/
+.ca-desk{ width: 94%; margin: 3% auto;}
+.ca-desk ul li{ width: 100%; overflow: hidden; background:#fff; padding: 3%; margin-bottom: 3%; border-radius: 5px; box-shadow: 1px 2px 2px #e2e2e2;}
+.ca-desk-item{ width: 25%;}
+.ca-desk-name{ width: 40%; text-align: center;}
+.ca-desk-next{ width: 35%;}
+.ca-desk-botton{ width: 15%;}
+.ca-desk-add{ margin: 10% auto;}
+.ca-desk-add p{ width: 58%; text-align: center; margin:0 auto;}
+.add-operate{margin: 1% auto; width: 58%; text-align: center; border-radius: 25px; padding: 2.5% 0;}
+.stata01{  background: #45aafa;}
+.stata02{ background: #b5b5b5;}
+
+
+/*  收银台明细  */
+.js-tab{ margin-bottom: 1%;}
+.js-tab ul li{ width: 50%; float: left; text-align: center; padding: 3.5% 0;}
+.js-tab ul li.hover{ border-bottom: 2px solid #45aafa;}
+.js-total-money{ padding: 4% 0 6% 3%;}
+.js-total-money span{ padding-left: 3%;}
+
+.js-report-data{ padding-bottom: 7%;}
+.store-bill-con{ padding: 0 0 0 3%; border-top: 1px solid #ebebeb;}
+.store-bill-time{ padding: 3% 3% 3% 0;}
+.bill-time-img{ width: 9%;}
+.store-bill-item{ border-bottom: 1px solid #ebebeb; padding: 1% 0 4% 0; margin-bottom: 3%;}
+.store-bill-item:last-child { margin-bottom:0; }
+.store-bill-img{ width: 15%; overflow: hidden; margin-right: 3%;}
+.store-bill-info{ width: 35%;}
+.store-bill-info{ width: 35%;}
+.store-bill-info div{ padding-top:2%;}
+.store-bill-item p{ width: 22.5%;}
+
+/*  收银台二维码  */
+.ca-ewcode-con{ top: 21.7%; text-align: center;}
+.ca-ewcode-img{ width: 74%; margin: 0 auto; overflow: hidden;}
+.ca-ewcode-con p:nth-of-type(1){ margin: 6% auto 2% auto;}
+.ca-ewcode-operate{background: #fff; width: 55%; margin: 10% auto 0 auto; padding: 2.5% 0; border-radius: 25px;box-shadow: 3px 6px 6px #85bae6;}
+.save_camer{width: 60%;margin: 3% auto;bottom: 5%;left: 0;right: 0;}
+
+
+
+

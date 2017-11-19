@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>产品管理</title>
+<script type="text/javascript">
+function clickups(ts){
+	var star = $(ts).attr('alt');
+	var gid = $(ts).attr('id'); 
+	var obj = $(ts);
+
+	if(star == 1){
+		var message = "确认进行该产品上架操作？";
+	}else{
+		var message = "确认进行该产品下架操作？";
+	}
+	layer.confirm(message,function(index){
+		$.post(HHOME+'/Mall/product_state',{active:star,gid:gid}, function(data){
+			if(data == ""){
+				if(star == 2){
+					var id = 1;
+					var src = '__HIMG__/no.gif';
+				}else{
+					var id = 2;
+					var src = '__HIMG__/yes.gif';
+				}
+				obj.attr('src',src);
+				obj.attr('alt',id);
+				layer.msg('操作成功',{icon:10,time:2000}); 
+			}else{
+				alert(data);
+			}
+		});
+	});
+}
+</script>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 小蜜商城 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20 text-c">
+<form action="product_list" method="get">
+	<div class="text-c"> 搜索条件：
+		<input type="text" name="c_name"  value="{$post['c_name']}" id="" placeholder="产品名称" style="width:180px" class="input-text">
+		<input type="text" name="nickname"  value="{$post['nickname']}" id="" placeholder="商家名称" style="width:180px" class="input-text">
+		<input type="text" name="c_phone"  value="{$post['c_phone']}" id="" placeholder="供货商负责人手机号" style="width:180px" class="input-text">
+		<span class="select-box inline">
+		<select name="categoryid" class="select">
+			<option value="">选择分类</option>
+			<volist name="category" id="vo">
+     			<option value="{$vo.c_id}" <if condition="$post['categoryid']  eq $vo['c_id']">selected="selected"</if>>{$vo['c_category_name']}</option>
+    		</volist>
+		</select></span>
+		<span class="select-box inline">
+		<select name="ishow" class="select">
+			<option value="">选择上下架</option>
+			<option value="1" <if condition="$post['ishow'] eq 1">selected="selected"</if>>上架</option>
+			<option value="2" <if condition="$post['ishow'] eq 2">selected="selected"</if>>下架</option>
+		</select></span>
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜产品</button>
+	</div>
+</form>	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><!-- <a href="javascript:;" onclick="admin_menu_del('','',1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --> <a class="btn btn-primary radius" onclick="system_category_add('添加产品','Mall/product_add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加产品</a></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">编号</th>
+					<th>产品图</th>
+					<th>产品名称</th>
+					<th>供货商名称</th>
+					<th>所在分类</th>
+					<th>代理价格</th>
+					<th>最低零售价</th>
+					<th>数量</th>
+					<th>销量</th>
+					<th>是否包邮<br/>（邮费价格）</th>
+					<th>是否可被代理<br/>（最低代理件数）</th>
+					<th>代理人数</th>
+<!-- 					<th>返利<br/>（返利比例）</th>
+					<th>推广<br/>（推广百分比）</th> -->
+					<th>是否上架</th>
+					<th>添加时间</th>
+					<th>更新时间</th>
+					<!-- <th>型号</th> -->
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="productid" value="{$vo.c_id}"></td>
+					<td>{$i}</td>
+					<td><if condition="$vo['c_pimg'] neq ''" ><a href="{$root_url}{$vo['c_pimg']}" target="_blank"><img src="{$root_url}{$vo['c_pimg']}" style="width:80px;"/></a><else/><img src="__HIMG__/no_picture.gif" style="width:80px;"/></if></td>
+					<td>{$vo.c_name}</td>
+					<td><a title="详细信息" href="__HHOME__/Mall/supplier_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo.s_name}</a></td>
+					<td>{$vo.c_category_name}</td>
+					<td>￥{$vo.c_price}</td>
+					<td>￥{$vo.c_minprice}</td>
+					<td>{$vo.c_num}</td>
+					<td>{$vo.c_salesnum}</td>
+					<td class="td-status"><if condition="$vo['c_isfree'] eq 1" ><span class="label label-success radius">是</span><else/><span class="label label-success radius">否</span><br/>(￥{$vo.c_freeprice})</if></td>
+					<td><if condition="$vo['c_isagent'] eq 1" ><font color="green">是<br/>({$vo.c_piece}件)</font><else/><font color="red">否</font></if></td>
+					<td><if condition="$vo['c_isagent'] eq 1" ><font color="green">{$vo.c_agentnum}</font><else/><font color="red">0</font></if></td>
+					<!-- <td><if condition="$vo['c_isrebate'] eq 0" >否<else/>是<br/>({$vo.c_rebate_proportion})</if></td>
+					<td><if condition="$vo['c_isspread'] eq 0" >否<else/>是<br/>({$vo.c_spread_proportion})</if></td> -->
+					<td>
+						<if condition="$vo['c_ishow'] eq 1" ><img src="__HIMG__/yes.gif" alt="2" class="activeop" id="{$vo['c_id']}" onclick="clickups(this);" /><else/><img src="__HIMG__/no.gif" alt="1" class="activeop" id="{$vo['c_id']}"   onclick="clickups(this);"/></if>
+					</td>
+					<td>{$vo.c_addtime}</td>
+					<td>{$vo.c_updatetime}</td>
+					<!-- <td><if condition="$vo['c_ismodel'] eq 1" ><a href="__HHOME__/Shop/productmodel_list?pcode={$vo.c_pcode}">查看</a></td> -->
+					<td class="f-14">
+						<a title="产品图片" href="__HHOME__/Mall/product_imgs?pcode={$vo.c_pcode}" style="text-decoration:none"><i class="Hui-iconfont">&#xe646;</i></a>&nbsp;&nbsp;
+						<a title="编辑" href="javascript:;" onclick="system_category_add('产品编辑','Mall/product_edit?pcode={$vo.c_pcode}&ucode={$vo.c_ucode}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="product_del(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+
+/*系统-栏目-添加*/
+function system_category_add(title,url,w,h){	
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+
+/*系统-栏目-删除*/
+function product_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=productid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('产品删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Mall/product_del',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+</script>
+</body>
+</html>

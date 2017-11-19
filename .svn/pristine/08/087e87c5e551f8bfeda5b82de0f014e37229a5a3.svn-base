@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="shortcut icon" href="__IMG__/favicon.ico">
+	<title>商品详情上传</title>
+	<meta http-equiv="content-type" content="text/html" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="__CSS__/reset.css">
+	<link rel="stylesheet" type="text/css" href="__CSS__/imgupload.css?v=1.3">
+    <link rel="stylesheet" type="text/css" href="__CSS__/agent.css?v=1.3">
+    <script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+	<script type="text/javascript" src="__JS__/agent.js"></script>
+    <script type="text/javascript">
+
+        window.onload=function(){
+            $('#li-2 a').addClass('hover');
+        }
+    </script>
+</head>
+<body>
+<include file="Common/head"/>   
+<div class="content-s w_960">
+<div class="wrap">
+	<!-- 商品主图上传模块 -->
+    <div class="productmodular">
+        <!-- 模块的标题 -->
+    	<div class="productmodular-top">
+    		<div class="producttitle">
+    			商品主图
+    		</div>
+    	</div>
+
+        <!-- 商品主图上传 -->
+    	<div class="productmodular-bottom">
+            <?php foreach ($vo['mainimg'] as $key => $value): ?>
+            <?php if ($value['c_sign'] == 1): ?>
+                 <div class="productmodular-img">
+                    <img src="__ROOT__/<?php echo $value['c_imgpath'] ?>">                
+                </div>                
+            <?php endif ?>               
+            <?php endforeach ?>                   
+    	</div>
+    </div>
+
+	<!-- 商品主图上传模块 -->
+    <div class="productmodular">
+        <!-- 模块的标题 -->
+    	<div class="productmodular-top">
+    		<div class="producttitle">
+    			商品详情图
+    		</div>
+    	</div>
+        <!-- 商品详情图上传 -->
+    	<div class="productmodular-bottom">
+            <?php foreach ($vo['mainimg'] as $key => $value): ?>
+            <?php if ($value['c_sign'] == 2): ?>
+                 <div class="productmodular-img">
+                    <img src="__ROOT__/<?php echo $value['c_imgpath'] ?>">                
+                </div>                
+            <?php endif ?>               
+            <?php endforeach ?>  
+    	</div>
+    </div>
+	<!-- 资料证书上传模块 -->
+    <div class="productmodular">
+        <!-- 模块的标题 -->
+    	<div class="productmodular-top">
+    		<div class="producttitle">
+    			资料证书
+    		</div>
+    	</div>
+        <!-- 资料证书上传 -->
+    	<div class="productmodular-bottom">
+            <?php foreach ($vo['mainimg'] as $key => $value): ?>
+            <?php if ($value['c_sign'] == 3): ?>
+                 <div class="productmodular-img">
+                    <img src="__ROOT__/<?php echo $value['c_imgpath'] ?>">                
+                </div>                
+            <?php endif ?>               
+            <?php endforeach ?> 
+    	</div>
+    </div>
+	<!-- 商品说明模块 -->
+    <div class="productmodular">
+        <!-- 模块的标题 -->
+    	<div class="productmodular-top">
+    		<div class="producttitle">
+    			商品说明
+    		</div>
+    	</div>
+        <!-- 商品说明内容 -->
+    	<div class="productmodular-bottom">
+    		<!-- 商品名称填写 -->
+    		<div class="text-box">
+					<div class="text-font">商品名称:</div>
+					<div class="text-data">
+						<input type="text" name="name" readonly="readonly" id="txt_productname"  value="{$vo.c_name}">	
+					</div>
+		    </div>
+            <!-- 商品特点填写 -->
+		    <div>
+		    <div class="productfeature">
+                {$vo.c_desc}
+            </div>
+		    </div>
+            
+    	</div>
+    </div>
+    <div class="resource-sub" onclick="deleteproduct();" style="margin: 35px 0 0 20px;"><img src="__IMG__/delete.jpg" alt=""></div>
+    <script type="text/javascript" src="__LIB__/layer/1.9.3/layer.js"></script>
+    <script type="text/javascript">
+        function deleteproduct() {
+            $.post('__URL__/deleteproduct', {
+                Id:"<?php echo $vo['c_id'] ?>"
+            }, function(obj) {
+                var result = eval(obj);                
+                alert(result['msg']);                
+                window.location.href = '__URL__/producelist';
+            });
+        }
+    /*资料未完善则不能审核*/
+    getstate();
+    function getstate(){
+      var keyUrl = '__APP__/Shop/Information/ReadInfostatu';
+      $.ajax({url:keyUrl,dataType:"json",async:false,
+          success:function(data){
+            var msg = eval(data);
+            if (msg['code']==0) {          
+                $('.resource-sub').bind("click",function(){
+                    deleteproduct();
+                });              
+            }else{
+               $('.resource-sub').removeAttr('onclick');
+            }
+          }
+      });
+    }           
+    </script>
+</div>
+
+</div>
+</body>
+</html> 

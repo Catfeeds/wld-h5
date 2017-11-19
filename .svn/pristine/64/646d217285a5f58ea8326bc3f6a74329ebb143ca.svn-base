@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>宝箱活动规则</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content divtab bgcolor">
+					<div class="rule-content">
+						<p class="fs16 c3" style="padding-bottom: 4%;">1、我能挖到什么？</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">用户在本宝箱活动中5KM范围内可获得线下实体商家赠送的免费商品、可抵用的优惠券、真诚的红包和祝福。</p>
+						<p class="fs16 c3" style="padding-bottom: 4%;">2.挖到之后呢？</p>
+						<p class="fs14 c5" style="padding-bottom: 4%;">根据提示领取，或者继续寻宝，领取的商品需注意寻找商品店铺兑换地址；领取的卡券只能在有效期内使用哦；领取的红包或祝福都是商家与每位有缘人的小幸运，一起来小蜜感受真爱吧。</p>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+
+			yangshi();
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {			
+
+		}
+
+		
+	</script>
+
+</html>

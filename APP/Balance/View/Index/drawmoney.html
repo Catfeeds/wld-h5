@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>申请提现</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+
+</head>
+
+<body class="bgcolor">
+<div class="wrap-page" style="padding-bottom: 6%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<form action="" method="post" accept-charset="utf-8" id="from1">
+		<ul class="user_msg" id="money1">
+         	<li class="post-li">
+         		<div class="fl post_left">
+         			<img src="__IMG__/b4.png" alt="">
+         		</div>
+         		<div class="fl post_right c6">
+         			提现到绑定银行卡
+         		</div>
+         	</li>
+
+			<li class="post-li">
+         		<div class="fl post_left">
+         			<?php if ($info['c_bankname'] == '中国建设银行') { ?>
+         				<img src="__IMG__/y1.png" alt="">
+					<?php } else if ($info['c_bankname'] == '中国银行') { ?>
+						<img src="__IMG__/y5.png" alt="">
+					<?php } else if ($info['c_bankname'] == '中国农业银行') { ?>
+						<img src="__IMG__/y6.png" alt="">
+					<?php } else if ($info['c_bankname'] == '中国工商银行') { ?>
+						<img src="__IMG__/y4.png" alt="">
+					<?php } else if ($info['c_bankname'] == '中国邮政银行') { ?>
+						<img src="__IMG__/y7.png" alt="">
+					<?php } else if ($info['c_bankname'] == '中国交通银行') { ?>
+						<img src="__IMG__/y2.png" alt="">
+					<?php } else if ($info['c_bankname'] == '中国招商银行') { ?>
+						<img src="__IMG__/y3.png" alt="">
+         			<?php } ?>
+         		</div>
+         		<div class="fl post_right c9" style="margin-left:7%;">
+         			{$info.c_banksn}
+         		</div>
+         	</li>
+
+
+			<li class="post_right c9">可提现金额￥{$balance}</li>
+			<li class="li-input-mon">
+				<div class="input-ico fs14 c3">￥</div>
+				<input type="text" class="post_inpu c6 input-money fs14" name="money" value="" placeholder="请填输入提现金额">
+			</li>
+         	<li class="post_right c9 fs12" style="margin-top:5%;width:92%;">
+         		<p>*工作日内提现24小时之内到账。</p>
+         		<p>*非工作日内发起的提现顺延至下一个工作日处理。</p>
+         		<p>*通过扫码支付入账且金额大于5千元的提现48小时之内到账。</p>
+         	</li>
+        	<li class="login_btn" onclick="postmoney();" style="margin-top:10%;">提现</li>
+        </ul>
+        <ul class="user_msg" id="money2">
+        	<li class="post_right c3">请输入登录密码</li>
+        	<input type="hidden" class="post_inpu c6" name="mymoney" value="" placeholder="请填输入提现金额">
+        	<input type="password" class="post_inpu c6" name="pwd" value="" placeholder="请输入登录密码">
+        	<li class="login_btn" onclick="subform();" style="margin-top:10%;">确定</li>
+        </ul>
+	</form>
+	</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript">
+$(function(){
+	var inph = $('.li-input-mon').height();
+	$('.input-ico').css('line-height',inph+'px');
+});
+	$('#money2').hide();
+	function postmoney() {
+		var money = $('input[name=money]').val();
+		var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+		if (!match.test(money)) {
+			mui.toast('请输入正确的金额！');
+			return false;
+		};
+		if (money < 1) {
+			mui.toast("提现金额必须大于一");
+	        return false;
+		}
+
+		var zongmoney = '<?php echo $balance ?>';
+		var bek = (zongmoney - money).toFixed(2);
+		if (bek < 0) {
+			mui.toast("提现金额不能超过可提金额");
+	        return false;
+		}
+
+		$('input[name=mymoney]').val(money);
+		$('#money1').hide();
+		$('#money2').show();
+	}
+
+	function subform() {
+		if (!$('input[name=pwd]').val()) {
+			mui.toast("请输入登录密码");
+			return false;
+		}
+		var attrbul = getFormAttrs('from1');
+		$.ajax({
+			type: "POST",
+			url: '__URL__/drawmoney',
+			data: "attrbul=" + JSON.stringify(attrbul),
+			dataType: "json",
+			success: function(json) {
+				var msg = eval(json);
+				if (msg.code == 0) {
+					mui.toast(msg.msg);
+					setTimeout(function() {
+						window.location.href = '__URL__/index';
+					},2000);
+				} else {
+					mui.toast(msg.msg);
+				}
+			}
+		});
+
+	}
+</script>
+</body>
+</html>

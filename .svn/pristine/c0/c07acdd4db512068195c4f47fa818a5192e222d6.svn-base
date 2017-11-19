@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>收银员管理</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+		<style type="text/css">
+			.mui-card{    box-shadow: 0 1px 5px rgba(0, 0, 0, .2);}
+			.mui-checkbox input[type=checkbox]{width: 20px;height: 20px;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content divtab">
+					<div class="cstaff-list" id="data_list">
+
+						<!-- <div class="mui-card">
+					<div class="mui-card-header">
+						<div class="fl c3 fs14">姓名：summer</div>
+						<div class="fr c9 fs12 meau-next">
+							<div class="next-botton fr">
+								<img src="__IMG__/multshop/lsdgl_icon_next.png">
+							</div>
+							<span class="fr">收款明细</span>
+						</div>
+					</div>
+					<div class="mui-card-content c3 fs14 divtab">
+						<div class="fl">电话：18670265266</div>
+						<div class="fr">工号:02</div>
+					</div>
+					<div class="mui-card-footer c3 fs14">
+						<div class="opera-switch fl">
+							<div class="mui-switch mui-switch-mini mui-active fl">
+							  	<div class="mui-switch-handle"></div>
+							</div>
+							<span class="fl">停用</span>
+						</div>
+						<div class="opera-delete fr">
+						  	<div class="delete-botton fl">
+						  		<img src="__IMG__/cashier/cashier_icon_del.png">
+						  	</div>
+						  	<span class="fl">删除</span>
+						</div>
+					</div>
+				</div> -->
+
+					</div>
+					<div id="console"></div>
+
+					
+				</div>
+				<div class="sm-bottom add-create cb fs16" id="addstaff">邀请收银员</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			$('.meau-next span').css('line-height', $('.next-botton').width() + 'px');
+			$('.opera-delete span').css('line-height', $('.delete-botton').width() + 'px');
+			$('.opera-switch span').css('line-height', $('.mui-switch').height() + 'px');
+		}
+
+		//跳转添加收银员
+		mui('.wrap-page').on('tap', '#addstaff', function() {
+			mui.openWindow({
+				url: "__URL__/addstaff",
+				id: "addstaff"
+			});
+		});
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+				
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/GetCashierList?pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="mui-card cash_' + pageindex + '" title="' + dataarr['c_id'] + '" id="delete_' + dataarr['c_id'] + '">';
+									_html += '<div class="mui-card-header">';
+									_html += '<div class="fl c3 fs14 fov" style="width: 55%;">昵称：' + dataarr['c_nickname'] + '</div>';
+									_html += '<div class="fr c9 fs12 meau-next" style="width:30%;">';
+									_html += '<div class="next-botton fr">';
+									_html += '<img src="__IMG__/multshop/lsdgl_icon_next.png">';
+									_html += '</div>';
+									_html += '<span class="fr fs13">收款明细</span>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '<div class="mui-card-content c3 fs14 divtab">';
+									_html += '<div class="fl">电话：' + dataarr['c_phone'] + '</div>';
+									_html += '<div class="fr">工号:' + dataarr['c_name'] + '</div>';
+									_html += '</div>';
+
+									_html += '<input type="hidden" name="status" id="status_'+dataarr['c_id']+'" value="' + dataarr['c_status'] + '" />';
+									_html += '<div class="mui-card-footer c3 fs14">';
+									_html += '<div class="opera-switch fl">';														
+//									if(dataarr['c_status']==1){
+//										_html += '<div class="mui-switch mui-switch-mini mui-active fl" data-switch="4" id="myswitch_'+dataarr['c_id']+'">';
+//									}else {
+//										_html += '<div class="mui-switch mui-switch-mini fl" data-switch="4" id="myswitch_'+dataarr['c_id']+'">';
+//									}									
+//									_html += '<div class="mui-switch-handle"></div>';
+//									_html += '</div>';
+//									_html += '<span class="fl">停用</span>';
+									_html+='<div class="mui-input-row mui-checkbox mui-left">';
+									if(dataarr['c_status']==1){
+										_html+='<label id="label_'+dataarr['c_id']+'">已启用</label>';
+										_html+='<input name="checkbox1" id="myswitch_'+dataarr['c_id']+'" value="'+dataarr['c_status']+'" checked="checked" type="checkbox">';
+									}else{										
+										_html+='<label id="label_'+dataarr['c_id']+'">已停用</label>';
+										_html+='<input name="checkbox1" id="myswitch_'+dataarr['c_id']+'" value="'+dataarr['c_status']+'" type="checkbox">';
+									}
+									
+									_html+='</div>';
+									_html += '</div>';
+									_html += '<div class="opera-delete fr">';
+									_html += '<div class="delete-botton fl">';
+									_html += '<img src="__IMG__/cashier/cashier_icon_del.png">';
+									_html += '</div>';
+									_html += '<span class="fl">删除</span>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();					
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						loadclick();
+					}
+				}
+			});
+		}
+
+		loadclick();
+
+		function loadclick() {
+			$('.cash_' + pageindex).each(function() {
+				var cid = $(this).attr('title');
+
+				//收款明细
+				mui(this).on('tap', '.meau-next', function() {
+					mui.openWindow({
+						url: "__URL__/caccount?cid=" + cid,
+						id: "caccount"
+					});
+				});
+
+				//停用
+				mui(this).on('tap', '#myswitch_'+cid, function() {
+					if($('#status_'+cid).val()==1){	
+						$('#status_'+cid).val("2");
+						tijiao(cid, '', 2);
+						$('#label_'+cid).html("已停用");
+					}else{
+						$('#status_'+cid).val("1");
+						tijiao(cid, '', 1);
+						$('#label_'+cid).html("已启用");
+					}
+				});			
+				
+				/*停用*/
+//				document.getElementById("myswitch_"+cid).addEventListener("toggle", function(event) {
+//					if(event.detail.isActive) {   //你启动了开关
+//						alert(1);
+//						tijiao(cid, '', 1);
+//					} else {   //你关闭了开关
+//						tijiao(cid, '', 2);
+//					}
+//				});
+
+				//删除
+				mui(this).on('tap', '.opera-delete', function() {
+					mui.confirm('删除后将无法恢复，确认删除？', '提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : tijiao(cid, 1, '');
+					}, 'div');
+				});
+			});
+		}
+		
+
+		var tjsign = true;
+
+		function tijiao(cashid, delete1, status) {
+			if(tjsign) {
+				tjsign = false;
+				$.post("__URL__/OptionCashier", {
+					cashid: cashid,
+					delete1: delete1,
+					status: status
+				}, function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						mui.toast(data['msg']);
+						if(delete1) {
+							$('#delete_' + cid).remove();
+						} else {
+
+						}
+					} else {
+						mui.toast(data['msg']);
+						tjsign = true;
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

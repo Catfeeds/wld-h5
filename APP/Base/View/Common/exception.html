@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>页面名称</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=1.1" />
+</head>
+<body class="bgcolor">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+		<div class="exception-img"><img src="__COMMON__/img/cwicon.png" alt=""></div>
+		<div class="exception-font fs12 c5">咦！好像断网了，请刷新试试</div>
+		<div class="exception-renovate"><a href="javascript:" class="cf fs14">刷新</a></div>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.xm-nav-close').show();
+		$('.exception-renovate').css('border-radius',$('.exception-renovate').width()*0.04+'px');
+	}
+</script>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>商家后台管理--商家审核</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+
+	    topstyle();/*头部样式*/
+
+	    $('#return-top').hide();
+	    $('#page-top-c-t').text("商家审核");
+
+	    var ah = $('.agent-headimg').width();
+	    $('.agent-headimg').width(ah);
+	    $('.agent-headimg').height(ah);
+
+	    var imgh = $('.agent-img').height();
+	    var lineh = imgh*23/100;
+	    $('.agent-info').css('line-height',lineh+'px');
+
+	    var spanh = $('.agent-type span').height();
+	    $('.agent-type').css('line-height',spanh+'px');
+	    $('input[name="keys"]').focus(function() {
+	      $('#search').css("border",'solid 1px #46aafa');
+	      $('#keys_btn').css('background-image','url(__IMG__/mobile/s-02.png)');
+	    });
+	    $('input[name="keys"]').blur(function() {
+	      $('#search').css("border",'solid 1px #ccc');
+	      $('#keys_btn').css('background-image','url(__IMG__/mobile/s-03.png)');
+	    });
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+<div class="wrap-page">
+<form action="__APP__/Home/Shopcheck/index" id="form1" method="get">
+    <div id="search" class="bgcolor">
+      <input type="text" name="keys" placeholder="输入搜索关键字" class="fs14 c9">
+      <input class="button" type="submit" value="" id="keys_btn">
+    </div>
+</form>
+	<volist name="data" id="vo" empty="$baoqian">
+	<div class="agent-list-box" onclick="window.location.href='__URL__/details?Id={$vo.c_id}'">
+		<div class="agent-list-one">
+			<div class="agent-img fl">
+				<a href="__URL__/details?Id={$vo.c_id}" class="agent-headimg"><img src="<?php echo GetHost(); ?>/{$vo.c_headimg}" alt=""></a>
+				<a href="__URL__/details?Id={$vo.c_id}" class="agent-look"><img src="__IMG__/eye.png" alt=""></a>
+			</div>
+			<div class="agent-info fl">
+				<div class="agent-name-type">
+					<div class="agent-name fl">{$vo.c_name}</div>
+					<div class="agent-type fl">
+						<?php if ($vo['c_type'] == 1) { ?>
+							<span><img src="__IMG__/person.png" alt=""></span>个人
+						<?php } else if($vo['c_type'] == 2) { ?>
+							<span><img src="__IMG__/company.png" alt=""></span>企业
+						<?php } else if($vo['c_type'] == 3) { ?>
+							<span><img src="__IMG__/person.png" alt=""></span>个体户
+						<?php } ?>
+					</div>
+				</div>
+				<div class="agent-phone">电话：{$vo.c_phone}</div>
+				<div class="agent-codes">代理编号：{$vo.c_dcode}</div>
+				<?php if ($vo['c_checked'] == 3) { ?>
+				<div class="agent-codes" style="color:#3eb4dd;">已通过审核</div>
+				<?php }else if ($vo['c_checked'] == 2) { ?>
+				<div class="agent-codes" style="color:#ff7112;">等待区域经理审核</div>
+				<?php }else if ($vo['c_checked'] == 0) {  ?>
+				<div class="agent-codes" style="color:#ff7112;">等待代理审核</div>
+				<?php }else{ ?>
+				<div class="agent-codes" style="color:#ff7112;">未通过审核</div>
+				<?php } ?>
+
+			</div>
+			<?php if ($vo['c_checked'] == 3) { ?>
+			<div class="agent-static staticed">已激活</div>
+			<?php } else { ?>
+			<div class="agent-static">未激活</div>
+			<?php } ?>
+		</div>
+	</div>
+	</volist>
+	<div class="pages">
+		<div>
+		 {$page}
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

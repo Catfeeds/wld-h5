@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width,user-scalable=no" name="viewport">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />    
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=yes"/>
+        <meta name="msapplication-tap-highlight" content="no" />
+        <title>支付确认</title>
+        <include file="Base@Public/header" />
+        <style type="text/css">
+            *{margin: 0px;padding: 0px; font-family: '微软雅黑',Helvetica, Arial, sans-serif; }
+            body{ background: #EBEBEB;}
+            img{border: 0px; vertical-align:top; max-width: 100%;}
+            a{text-decoration: none;color: white;}
+            ul{list-style: none;}
+            h1,h2,h3,h4,h5,h6{ font-weight:normal;}
+            .pay_wx_con{ width: 100%; }
+            .pay_wx_con p{color: #1E2223; padding-top: 10%; text-align: center;}
+            .pay_wx_con h3{color: #1E2223; padding: 2% 0 8% 0; text-align: center;}
+            .pay_wx_con .get_money_name{border-top: solid 1px #edf0f5; padding: 4% 3%; background: #fff;overflow: hidden;}
+            .pay_wx_con .get_money_name .span_t { float: left; color: #999;}
+            .pay_wx_con .get_money_name span.span_name{color: #1E2223; float: right;}
+            .pay_submit{ cursor: pointer; margin: 10% auto; display: block; width: 94%; text-align: center; padding: 2.5% 0; color:#fff;letter-spacing: 0.5rem;}
+        </style>
+
+
+    </head>
+    <body>
+    <div class="wrap-page">
+        <include file="Base@Public/pubheader" />
+        <form action="{$action}" method="post" accept-charset="utf-8" id="alipayform">
+        <div class="mui-content">
+            {$def_url}
+            <div class="pay_wx_con bgcolor">
+                <p class="fs16" style="color: #1E2223;">支付金额（元）</p>
+                <h3 id="pay_money">￥{$money}</h3>
+                <div class="get_money_name">
+                    <span class="span_t fs16">订单号</span>
+                    <span class="span_name fs16" id="order_num">{$orderid}</span>
+                </div>
+                <div class="get_money_name">
+                    <span class="span_t fs16">收款方</span>
+                    <span class="span_name fs16" id="get_name">{$storename}</span>
+                </div>
+            </div>
+
+            <input type="text" value="支付" onclick="surepay()"  class="pay_submit fs18" style="background: #47ABF7;border-radius: 25px;">
+        </div>
+        </form>
+    </div>
+    <include file="Base@Public/pubjs" />
+        <script type="text/javascript">
+            function surepay() {
+                $('#alipayform').submit();
+            }
+
+        </script>
+</body>
+</html>

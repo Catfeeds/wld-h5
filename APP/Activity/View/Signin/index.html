@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>每日签到</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/signin/index.css?v=1.57" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page bgcolor">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content bgcolor">
+					<!-- 头部 -->
+					<div class="sign-top divtab divre">
+						<img src="__IMG__/signin/qd_bg.png" alt="">
+						<div class="sign-info divab">
+							<div class="sg-in"><img src="__IMG__/signin/qd_btn_ljqd.png" alt="" id="sg-in-img"></div>
+							<div class="sg-details" id="qiansign">
+								<div class="sg-dt-logo fl"><img src="__IMG__/signin/qd_note_gz.png" alt=""></div>
+								<div class="sg-dt-text fs12 fr">签到规则<span class='fs16'>&#187;</span></div>
+							</div>
+						</div>
+						<ul class="sign-date divab">
+							<?php foreach ($signarr as $key => $value) { ?>
+							<?php if ($value['state'] == 1) { ?>
+							<li class="fl"><img id="signimg{$value['t']}" src="__IMG__/signin/qd_0{$value['t']}_selected.png" alt=""></li>
+							<?php } else { ?>
+							<li class="fl"><img id="signimg{$value['t']}" src="__IMG__/signin/qd_0{$value['t']}_default.png" alt=""></li>
+							<?php } ?>
+							<?php } ?>
+						</ul>
+						<div class="chou-prize divab none">
+							<img src="__IMG__/signin/qd_msg_djcj.png" alt="">
+						</div>
+					</div>
+
+					<!-- 数据列表部分 -->
+
+					<!-- 签到记录 -->
+					<div class="sign-main divtab">
+						<div class="sign-main-top"><img src="__IMG__/signin/qd_qdjl.png" alt=""></div>
+						<div id="data_list">
+							<!--<div class="sign-main-content">
+								<div class="smc-left fl"><img src="__IMG__/signin/qd_icon_qd.png" alt=""></div>
+								<div class="smc-right fr">
+									<div class="smc-right-text divtab fs14 fb600">
+										签到成功<span class="smcrt-details">获得红包1.25元</span>
+									</div>
+									<div class="smc-right-time fs11 c9 divtab">2016/12/16</div>
+								</div>
+							</div>
+							<div class="sign-main-content">
+								<div class="smc-left fl"><img src="__IMG__/signin/qd_icon_qd.png" alt=""></div>
+								<div class="smc-right fr">
+									<div class="smc-right-text divtab fs14 fb600">
+										签到成功
+									</div>
+									<div class="smc-right-time fs11 c9 divtab">2016/12/16</div>
+								</div>
+							</div>
+							<div class="sign-main-content">
+								<div class="smc-left fl"><img src="__IMG__/signin/qd_icon_qd.png" alt=""></div>
+								<div class="smc-right fr">
+									<div class="smc-right-text divtab fs14 fb600">
+										签到成功<span class="smcrt-details">获得红包1.25元</span>
+									</div>
+									<div class="smc-right-time fs11 c9 divtab">2016/12/16</div>
+								</div>
+							</div>
+							<div class="sign-main-content">
+								<div class="smc-left fl"><img src="__IMG__/signin/qd_icon_qd.png" alt=""></div>
+								<div class="smc-right fr">
+									<div class="smc-right-text divtab fs14 fb600">
+										签到成功<span class="smcrt-details">获得红包1.25元</span>
+									</div>
+									<div class="smc-right-time fs11 c9 divtab">2016/12/16</div>
+								</div>
+							</div>-->
+
+						</div>
+						<div id="console"></div>
+						<!--<div class="sign-main-bottom">
+					   	<img src="__IMG__/signin/bottom-01.jpg" alt="">
+					</div>-->
+					</div>
+					
+					<!-- 红包弹窗 -->
+					<div class="mui-backdrop none" id="redbg"></div>
+					<div class="divab red-packet none" id="redin">
+						<img src="__IMG__/signin/qd_bg_hb.png" alt="">
+						<div class="money-number divtab divab fs20">
+							<span id="moneys">0.00</span>
+							<span class='money-unit fs11'>元</span>
+						</div>
+						<div class="money-cash fs12 divtab divab">现金</div>
+						<div class="rp-text1 fs16 divab divtab">签到成功</div>
+						<div class="rp-text2 divtab fs12 divab">小蜜已将已将现金红包直接存入您的账户中</div>
+						<div class="rp-affirm divab"><img src="__IMG__/signin/qd_btn_qr.png" alt=""></div>
+						<div class="rp-cancel divab"><img src="__IMG__/signin/qd_icon_gb.png" alt=""></div>
+					</div>
+					<!-- 抽奖机会弹窗 -->
+					<div class="mui-backdrop none" id="signbg"></div>
+					<div class="divab choujiang none" id="signin">
+						<img src="__IMG__/signin/qd_bg_cj.png" alt="">
+						<div class="cj-text1 divab divtab fs16">签到成功</div>
+						<div class="cj-text2 fs12 divab divtab">获得一次幸运大转盘机会</div>
+						<div class="cj-text3 divtab fs12 divab">赶紧去抽取自己的幸运大奖吧！</div>
+						<div class="cj-next divab" id="joinlottery"><img src="__IMG__/signin/qd_btn_jrcj.png" alt=""></div>
+						<div class="cj-cancel divab"><img src="__IMG__/signin/qd_icon_gb.png" alt=""></div>
+					</div>
+
+					<!-- 点击规则弹出框 -->
+					<div class="mui-backdrop none" id="rulebg"></div>
+					<div class="divab sign-rule none" id="rule">
+						<div class="sign-rule-top">
+							<img src="__IMG__/signin/qd_qdgz.png" alt="">
+						</div>
+						<ul class="sign-rule-content">
+							<li class="fs12 c3">1、每天签到可获得红包奖励;</li>
+							<li class="fs12 c3">2、连续签到满7天，可获得大转盘抽奖机会一次（奖品丰厚，100%中奖）;</li>
+							<li class="fs12 c3">3、每个用户每天只能签到一次; </li>
+							<li class="fs12 c3">4、漏签不可补签，中断后需重新累计。</li>
+						</ul>
+						<div class="sign-rule-bottom c9 fs11 divtab">
+							微领地小蜜可在法律允许范围内对本次活动规则解释
+						</div>
+						<div class="rule-cancel divab">
+							<img src="__IMG__/signin/qd_icon_gb.png" alt="">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var signed = '<?php echo $signed ?>';
+		window.onload = function() {
+			//ChRightText("添加");
+			yangshi();
+			if(signed == 1) {
+				$('#sg-in-img').attr('src', '__IMG__/signin/qd_btn_yqd.png');
+				mui('.mui-content').off('tap', '.sg-in');
+			} else {
+				$('#sg-in-img').attr('src', '__IMG__/signin/qd_btn_ljqd.png');
+				//点击签到
+				mui('.mui-content').on('tap', '.sg-in', function() {
+					signinfo();
+				});
+			}
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+
+			$('.sign-main-content').css('border-radius', $('.sign-main-content').width() * 0.01 + 'px')
+
+			$('.sign-rule').css('border-radius', $('.sign-rule').width() * 0.02 + 'px');
+
+			$('.sg-dt-text').css('line-height', $('.sg-dt-logo').height() + 'px');
+		}
+
+		//每日签到
+		var tjsign = true;
+
+		function signinfo() {
+			if(tjsign) {
+				tjsign = false;
+				$.getJSON("__URL__/Signup", function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						var msg = data['data'];
+						var type = msg['type']; //1标示红包，2标示抽奖机会
+						var money = msg['money'];
+						var sid = msg['count'];
+						if(type == 2) {
+							tanred(sid, money);
+						} else if(type == 1) {
+							tanlottery(sid);
+						}else{
+							mui.alert('签到成功');
+						}
+						setTimeout(function() {
+							mui.openWindow({url:"__URL__/index",id:"index"});
+						}, 1000);
+						
+					} else {
+						mui.toast(data['msg']);
+						tjsign = true;
+					}
+
+				});
+			}
+		}
+
+		//进入抽奖
+		mui('.mui-content').on('tap', '#joinlottery', function() {
+			mui.openWindow({
+				url: '__APP__/Activity/Index/roulette',
+				id: 'roulette'
+			});
+		});
+
+		//改变图片
+		function changeimg(sid) {
+			$('#signimg' + sid).attr('src', '__IMG__/signin/qd_0' + sid + '_selected.png');
+		}
+
+		//红包弹出窗
+		function tanred(sid, money) {
+			$('#redbg').show();
+			$('#redin').show();
+			$('#moneys').text(money);
+			changeimg(sid);
+			mui('.mui-content').on('tap', '.rp-cancel', function() {
+				$('#redin').hide();
+				$('#redbg').hide();
+				$('#sg-in-img').attr('src', '__IMG__/signin/qd_btn_yqd.png');
+			});
+			mui('.mui-content').on('tap','.rp-affirm',function(){
+				$('#redin').hide();
+				$('#redbg').hide();
+				$('#sg-in-img').attr('src', '__IMG__/signin/qd_btn_yqd.png');
+			});
+		}
+
+		//弹出抽奖机会
+		function tanlottery(sid) {
+			$('#signbg').show();
+			$('#signin').show();
+			changeimg(sid);
+			mui('.mui-content').on('tap', '.cj-cancel', function() {
+				$('#signin').hide();
+				$('#signbg').hide();
+				$('#sg-in-img').attr('src', '__IMG__/signin/qd_btn_yqd.png');
+			});
+		}
+
+		//点击规则弹出框
+		mui('.mui-content').on('tap', '#qiansign', function() {
+			$('#rulebg').show();
+			$('#rule').show();
+
+			mui('.mui-content').on('tap', '.rule-cancel', function() {
+				$('#rulebg').hide();
+				$('#rule').hide();
+			});
+		});
+
+		//签到记录列表
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/GetSignRecord?pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="sign-main-content">';
+									_html+='<div class="smc-left fl"><img src="__IMG__/signin/qd_icon_qd.png" alt=""></div>';
+									_html+='<div class="smc-right fr">';
+									_html+='<div class="smc-right-text divtab fs14 fb600">';
+									_html+='签到成功';
+									if(dataarr['c_flag']==2){
+										_html+='<span class="smcrt-details">获得红包'+dataarr['c_money']+'元</span>';								
+									}
+									if(dataarr['c_flag']==1){
+										_html+='<span class="smcrt-details">获得幸运大抽奖</span>';								
+									}
+									_html+='</div>';
+									_html+='<div class="smc-right-time fs11 c9 divtab">'+dataarr['c_createtime']+'</div>';
+									_html+='</div>';
+									_html+='</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+				}
+			});
+		}
+	</script>
+
+</html>

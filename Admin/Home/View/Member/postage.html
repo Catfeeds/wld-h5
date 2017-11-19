@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<title>运费查询</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 运费查询 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="postage" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+	</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l" ></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="100">用户昵称</th>
+				<th width="40">头像</th>
+				<th width="50">代理商</th>
+				<th width="100">限制城市</th>
+				<th width="40">限制商品数量</th>
+				<th width="50">邮费价格</th>
+				<th width="50">增加件数</th>
+				<th width="50">增加邮费</th>
+				<th width="40">是否是默认邮费</th>
+				<th width="100">生成时间</th>
+				<th width="50">详情</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c" >
+				<td><input type="checkbox" value="" name=""></td>
+				<td>{$i}</td>
+				<td>{$vo['c_nickname']}</td>
+				<td><if condition="$vo['c_headimg'] neq ''" ><a href="{$root_url}{$vo['c_headimg']}" target="_blank"><img src="{$root_url}{$vo['c_headimg']}" style="width:80px;"/></a><else/><img src="__HIMG__/user.png" style="width:80px;"/></if></td>
+				<td>{$vo['dlname']}</td>
+				<td>{$vo['c_city']}</td>
+				<td>{$vo['c_num']}</td>
+				<td>￥{$vo['c_freemoney']}</td>
+				<td>{$vo['c_addnum']}</td>
+				<td>{$vo['c_addfreemoney']}</td>
+				<td><if condition="$vo.c_isdefault eq 0">否<else/>是</if></td>
+				<td>{$vo['c_addtime']}</td>
+				<td class="td-manage">
+				 <a title="会员详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none"><i class="Hui-iconfont">&#xe695;</i></a> 
+				 </td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+</script> 
+</body>
+</html>

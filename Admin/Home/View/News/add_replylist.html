@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<script type="text/javascript">
+function derive(){
+   var east=$("#least").val();	
+   var maxi=$("#maximum").val();
+	if(east == '' || maxi == ''){
+		alert('起始页或终止页不能为空');
+	}else{
+		$("#transmit").attr('action','__URL__/educeIndex');
+		$("#transmit").submit();
+	}
+}
+function refer(){
+	$("#transmit").attr('action','__URL__/retroact');
+	$("#transmit").submit();
+}
+</script>
+<title>信息反馈</title>
+</head>
+<body>
+<nav class="breadcrumb">
+	    <i class="Hui-iconfont">&#xe67f;</i> 首页
+	    <span class="c-gray en">&gt;</span> 信息管理
+	    <span class="c-gray en">&gt;</span> 信息反馈
+	    <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" 
+	        href="javascript:location.replace(location.href);" title="刷新" >
+	        <i class="Hui-iconfont">&#xe68f;</i>
+	    </a>
+</nav>
+<div class="pd-20">
+	<form action="" method="get" id="transmit">
+	<div class="text-c">
+		条件搜索：
+
+		<input type="text" class="input-text" style="width:150px" placeholder="请输入代理商姓名" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="电话号码" name="c_phone" value="{$post['c_phone']}">
+		<button type="submit" class="btn btn-success radius" onclick="refer()"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+
+		
+	</div>
+	</form>
+	<!-- <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l" ></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div> -->
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="60">id</th>
+				<th width="60">用户昵称</th>
+				<th width="120">手机号码</th>
+				<th width="60">添加权限</th>
+
+				
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="" name=""></td>
+				<td>{$i}</td>
+				<td>{$vo['c_nickname']}</td>	
+				<td>{$vo['c_phone']}</td>
+				<td><a href="javascript:value(0)" class="btn btn-success radius" onclick="ajax_handle('{$vo['c_ucode']}')">添加权限</a></td>
+				
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+function ajax_handle(txcode){
+	
+	var message = '确定添加查看信箱权限吗？';
+		
+	layer.confirm(message,function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/News/add_replyer',{txcode:txcode}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+	        	window.location.reload();
+	        } else {
+	        	layer.msg(result['msg'],{icon:1,time:2000});
+	        	window.location.reload(); 
+	        }        
+	    });		
+	});
+}
+
+
+function refer(){
+	$("#transmit").attr('action','__URL__/add_replylist');
+	$("#transmit").submit();
+}
+
+</script> 
+</body>
+</html>

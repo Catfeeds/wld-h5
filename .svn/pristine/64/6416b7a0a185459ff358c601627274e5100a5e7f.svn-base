@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>拼团玩法</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/collage/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="mui-content">
+					<div class="help-con fs14 divre bgcolor">
+						<div class="rule-step divtab fb600 c3">
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/collage/spell_icon_wf01.png">
+								</div>
+								<font>1</font>
+								<span class="fs11 ">选择商品</span>
+							</div>
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/collage/spell_icon_wf02.png">
+								</div>
+								<font>2</font>
+								<span class="fs11 ">支付开团</span>
+							</div>
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/collage/spell_icon_wf03.png">
+								</div>
+								<font>3</font>
+								<span class="fs11 ">喊小伙伴参团</span>
+							</div>
+							<div class="r-step-on fl">
+								<div class="r-step-img">
+									<img src="__IMG__/collage/spell_icon_wf04.png">
+								</div>
+								<font>4</font>
+								<span class="four fs11">拼团成功或者失败</span>
+							</div>
+						</div>
+						<div class="help-title c3 fb600">1.如何快速成团？</div>
+						<div class="help-introduce c5">
+							<span>•分享拼团活动页面给好友，召唤好友一起来拼团。</span>
+							<span>•直接在拼团商品的详情页面加入其它人发起的拼团。</span>
+						</div>
+						<div class="help-title c3 fb600">2.如何查看我的拼团？</div>
+						<div class="help-introduce c5">
+							完成拼团商品支付后，可在“<font class="cy">服务中心</font>”的“<font class="cy">我的活动</font>”中查看详情。
+						</div>
+						<div class="help-title c3 fb600">3.拼团如何才能成功？</div>
+						<div class="help-introduce c5">
+							在规定时间内，参团购买人数达到商家设置的人数，即拼团成功。
+						</div>
+						<div class="help-title c3 fb600">4.已经成团，未发货怎么办？</div>
+						<div class="help-introduce c5">
+							未发货的，可以联系卖家进行退款。
+						</div>
+						<div class="help-title c3 fb600">5.拼团失败后如何退款？</div>
+						<div class="help-introduce c5">
+							<span>•拼团失败后，支付的金额将在1个工作日内统一退回到您的小蜜余额中。</span>
+							<span>•若出现未及时退款到账等情况，请致电小蜜官方客服热线400-9603-400。</span>
+						</div>
+						<div class="help-title c3 fb600">6.其他说明</div>
+						<div class="help-introduce c5">
+							<span>•拼团活动不能使用优惠券。</span>
+						</div>
+						<div class="help-title c3 fb600">7.到店自提须知</div>
+						<div class="help-introduce c5">
+							<span>•距离过远的用户请勿选择到店自提；</span>
+							<span>•拼团成功后系统将以短信形式把提货码发送给您，或登录小蜜APP进入<font class="cb">“我的活动”</font>中进行查看。届时，请凭提货码前往指定店铺进行提货；</span>
+							<span>•小蜜暂时未开通线上退款途径。如需退款，请在线下与商家协商退款事宜。</span>
+						</div>
+
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		
+		window.onload = function() {
+			
+			$('.r-step-img').height($('.r-step-img').width()*0.8+'px');
+			$('.r-step-on font ').height($('.r-step-on font ').width()+'px');
+			$('.r-step-on font ').css('border-radius',$('.r-step-on font ').width()+'px');
+			$('.r-step-on font ').css('line-height',$('.r-step-on font ').width()+'px');
+
+			/*yangshi();*/
+		}
+
+	</script>
+
+</html>

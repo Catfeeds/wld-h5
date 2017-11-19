@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收益详情</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/leagshop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="js-tab divtab bgcolor">
+				<ul>
+					<li class="c9 fs14 hover" id="tab_1">7天</li>
+					<li class="c9 fs14" id="tab_2">30天</li>
+				</ul>
+			</div>
+
+			<div class="js-report-data bgcolor">
+				<p class="js-total-money fa14 c3">该店总收益<span class="cy fs16" id="cmoney">￥0.00</span></p>
+				
+				<div id="store-report-line">
+					<div id="main1" style="width:100%;"></div>
+				</div>
+
+				<div class="store-report-income divtab" style="margin-top:5%;">
+					<ul>
+						<li>
+							<div class="store-income-box fs12">
+								<p class="cy fs16">{$count['omoney']}</p>
+								<span>订单总收益</span>
+								<font class="rline"></font>
+							</div>
+						</li>
+						<li>
+							<div class="store-income-box fs12">
+								<p class="cy fs16">{$count['kmoney']}</p>
+								<span>跨界总收益</span>
+								<font class="rline"></font>
+							</div>
+						</li>
+						<li>
+							<div class="store-income-box fs12">
+								<p class="cy fs16">{$count['mymember']}</p>
+								<span>会员数</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="store-bill-con bgcolor">
+				<div class="store-bill-time divtab fs14">
+					<span id="showdate" class="c3 fl fb600">全部</span>
+					<span class="cy fs12" style="margin-left:3%;" id="zmoney">总收入0.00元</span>
+					<div class="bill-time-img fr" id="checkdate" data-options='{"type":"date"}'>
+						<img src="__IMG__/multshop/lsdgl_icon_sx.png">
+					</div>
+				</div>
+				
+				<div class="divtab" id="data_list">
+					<!-- <div class="store-bill-item divtab">
+						<div class="store-bill-img fl">
+							<img src="__IMG__/member/hy8.png">
+						</div>
+						<div class="store-bill-info fl">
+							<span class="c3 fs14">余额支付</span>
+							<div class="c9 fs11">06-01<font>12:16:00</font></div>
+						</div>
+						<p class="store-bill-money cy fs12 fl">+1000.00</p>
+						<p class="store-bill-operator c3 fs12 fr">操作员01</p>
+					</div>
+					<div class="store-bill-item divtab">
+						<div class="store-bill-img fl">
+							<img src="__IMG__/member/hy8.png">
+						</div>
+						<div class="store-bill-info fl">
+							<span class="c3 fs14">微信支付</span>
+							<div class="c9 fs11">06-01<font>12:16:00</font></div>
+						</div>
+						<p class="store-bill-money cy fs12 fl">+1000.00</p>
+						<p class="store-bill-operator c3 fs12 fr">操作员01</p>
+					</div> -->
+				</div>
+			</div>
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script src="__COMMON__/echart/js/echarts.js"></script>
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		ChRightText("关于");
+		$('#main1').height($('#main1').width()*0.5);
+		yangshi();	
+	}
+
+	//关于
+	function rightcaozuo() {
+		mui.openWindow({url:"__URL__/myjoin",id:"myjoin"});
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var bImg = $('.store-bill-img').width();
+		$('.store-bill-img').height(bImg);
+		$('.store-bill-img').css('border-radius', bImg + 'px');
+		$('.store-bill-info').css('padding-top', bImg*0.15 + 'px');
+		$('.store-bill-item p').css('line-height', bImg + 'px');
+
+		var TImg = $('.bill-time-img').width();
+		$('.store-bill-time span').css('line-height', TImg + 'px');
+
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	var time = '';
+
+	//日期选择
+	mui('.mui-content').on('tap', '#checkdate', function() {
+		var optionsJson = $(this).attr('data-options');
+		var options = JSON.parse(optionsJson);
+		var picker = new mui.DtPicker(options);
+		picker.show(function(rs) {
+			$('#showdate').text(rs.text)
+			time = rs.text;
+			pageindex = 1;
+			getdatalist();
+			changeMoney();
+			picker.dispose();
+		});
+	});
+
+	selectstatu(1);
+	mui('.mui-content').on('tap', '#tab_1', function() {
+		selectstatu(1);
+	});
+	mui('.mui-content').on('tap', '#tab_2', function() {
+		selectstatu(2);
+	});
+	
+	function selectstatu(i) {
+		$('.js-tab ul li').removeClass('hover');
+		$('#tab_' + i).addClass('hover');
+		getLinedata(i,'');
+	}
+
+	//获取折线图数据
+	function getLinedata(timetype, chtime) {
+		$.post("__URL__/GetdataTally", {
+			pid: "",
+			federationid:"<?php echo $federationid; ?>",
+			timetype: timetype,
+			time: chtime
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				var data = result['data'];
+				$('#cmoney').text('￥'+data['money']);
+				var datalist = data['list'];
+				var datas = new Array();
+				var sdata = new Array();
+				//循环赋值数组
+				for (var i = 0; i < datalist.length; i++) {
+					datas[i] = datalist[i]['time'];
+					sdata[i] = datalist[i]['c_money'];
+				};
+				// $('#cshowtit').text(data['date']);
+				drawline(datas, sdata);
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+
+	getdatalist();
+	changeMoney();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/GetdateLog?federationid=<?php echo $federationid; ?>&time="+time+"&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					emptyval = true;
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html+='<div class="baoqian">没有相关数据记录</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+									_html+='<div class="store-bill-item divtab viewlog_'+pageindex+'" id="viewlog_'+dataarr['c_id']+'" title="'+dataarr['c_id']+'">';
+										_html+='<div class="store-bill-img fl">';
+											_html+='<img src="'+dataarr['img']+'">';
+										_html+='</div>';
+										_html+='<div class="store-bill-info fl">';
+											_html+='<span class="c3 fs14">'+dataarr['text']+'</span>';
+											_html+='<div class="c9 fs11">'+dataarr['time']+'</div>';
+										_html+='</div>';
+										_html+='<p class="store-bill-money cy fs12 fl">+'+dataarr['c_money']+'</p>';
+										if (dataarr['cashier_name']) {
+										_html+='<p class="store-bill-operator c3 fs12 fr">'+dataarr['cashier_name']+'</p>';
+										}
+									_html+='</div>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}		
+			}
+		});
+	}
+
+	loadclick();
+	function loadclick(){
+		$('.viewlog_'+pageindex).each(function(index) {
+			var mid = $(this).attr('title');
+			mui('.mui-content').on('tap', '#viewlog_' + mid, function() {
+				var viewlogurl = WEB_HOST + '/index.php/Balance/Index/detail?id=' + mid;
+				mui.openWindow({
+					url: viewlogurl,
+					id: 'viewlog'
+				});			
+			});
+		});	
+	}
+
+	//改变总金额
+	function changeMoney() {
+		$.post("__URL__/GetDaysDate", {
+			pid: "",
+			federationid:"<?php echo $federationid; ?>",
+			datetime: time,
+			datetype: 0
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				$('#zmoney').text('总收入'+result['data']+'元');
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+
+	//绘制折线图
+	function drawline(data,sdata) {
+		// 路径配置
+		require.config({
+			paths: {
+				echarts: WEB_HOST+'/Resource/Common/echart/build/dist'
+			}
+		});
+
+		// 使用
+		require(
+			[
+				'echarts',
+				'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+			],
+			function(ec) {
+				// 基于准备好的dom，初始化echarts图表
+				var myChart = ec.init(document.getElementById('main1'));
+
+				var option = {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							lineStyle: {
+								// color:['#ff7f7f'],
+							}
+						}
+					},
+					grid: {
+				        left: '0%',
+				        right: '0%',
+				        bottom: '0%',
+				        x:1,
+	                    y:'2%',
+	                    x2:1,
+	                    y2:30,
+				        containLabel: true
+				    },
+					calculable : true,
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false,
+						axisLine: {
+		                    lineStyle: {
+		                        type: 'solid',
+		                        color: '#555555',//左边线的颜色
+		                        width:'1'//坐标线的宽度
+		                    }
+		                },
+						data: data,
+						splitLine: {
+						    lineStyle: {
+						        // 使用深浅的间隔色
+						        color: ['#f0f0f0']
+						    }
+						}
+					}],
+					yAxis: [{
+						show: true,
+						axisLine: {
+							show: false,
+						},
+						axisLabel: {
+							show: false,
+						},
+						splitLine: {
+						    lineStyle: {
+						        type: 'dashed',
+						        color: ['#999999']
+						    }
+						}
+					}],
+					series: [
+						{
+							name: '收入',
+							type: 'line',
+							itemStyle : {  
+                                normal : {  
+                                    color:'#d8d8d8',  
+                                    lineStyle:{  
+                                        color:'#d8d8d8'  
+                                    }  
+                                }  
+                            },  
+							stack: '',
+							data: sdata
+						}
+					]
+				};
+
+				// 为echarts对象加载数据 
+				myChart.setOption(option);
+			}
+		);
+	}
+
+</script>
+
+</html>

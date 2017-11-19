@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <title>小蜜超市</title>
+    <include file="Base@Public/header"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/scangoods/index.css"/>
+</head>
+<body class="bgeb">
+<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+    <input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+    <input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}"/>
+    <div class="wrap-page">
+        <div class="mui-content">
+            <div class="scang-top divre divtab">
+                <div class="scang-empty fs24 cf divab">赶紧挑<br/>选商品吧</div>
+                <div class="scang-sjinfo divab"><img src="__IMG__/scangoods/jpsp_icon_ziliao.png" alt=""></div>
+                <img src="__IMG__/scangoods/jpsp_img_bgo2.png" alt="">
+            </div>
+            <div class="scang-data divtab">
+                <div class="scang-li">
+                    <div class="scang-libox divtab">
+                        <div class="scang-img fl">
+                            <img src="__COMMON__/img/logo.png" alt="">
+                        </div>
+                        <div class="scang-info fl">
+                            <div class="scang-proname c3 fs14 divtab clamp2">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</div>
+                            <div class="scang-opration divtab">
+                                <div class="scang-probtn fr">
+                                    <img src="__IMG__/scangoods/jpsp_bg_xiadan.png" alt="">
+                                </div>
+                                <div class="scang-add-sub fr none">
+
+                                </div>
+                                <div class="scang-price fl cy"><span class="fs12">￥</span><span class="fs18">8888.88</span></div>
+                                <div class="scang-free fl c5 fs12">包邮</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scang-li">
+                    <div class="scang-libox divtab">
+                        <div class="scang-img fl">
+                            <img src="__COMMON__/img/logo.png" alt="">
+                        </div>
+                        <div class="scang-info fl">
+                            <div class="scang-proname c3 fs14 divtab clamp2">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</div>
+                            <div class="scang-opration divtab">
+                                <div class="scang-probtn fr">
+                                    <img src="__IMG__/scangoods/jpsp_bg_xiadan.png" alt="">
+                                </div>
+                                <div class="scang-add-sub fr none">
+
+                                </div>
+                                <div class="scang-price fl cy"><span class="fs12">￥</span><span class="fs18">8888.88</span></div>
+                                <div class="scang-free fl c5 fs12">包邮</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="scang-bottom">
+            <div class="scang-address fl">
+                <div class="scang-addricon fl">
+                    <img src="__IMG__/scangoods/jpsp_icon_dizhi.png" alt="">
+                </div>
+                <div class="scang-addrinfo fl cf">
+                    <p class="fs13 undline cf" style="padding: 2% 0;">点击填写地址</p>
+                    <!--<p class="fs13 cf" style="padding: 2% 0;">王老板&nbsp;&nbsp;&nbsp;18888888888</p>-->
+                    <!--<p class="fs13 cf">湖南长沙岳麓区麓谷锦园58栋6号</p>-->
+                </div>
+
+            </div>
+            <div class="scang-paybtn fl"><img src="__IMG__/scangoods/jpsp_bg_zhifu.png" alt=""></div>
+        </div>
+
+    </div>
+    <include file="Base@Public/pubjs"/>
+    <script type="text/javascript">
+        window.onload = function () {
+            yangshi();
+            styles();
+        }
+
+        //页面加载完js改变样式
+        function yangshi() {
+            $('.scang-top').height($('.scang-top').width()*0.52);
+            $('.scang-sjinfo').height($('.scang-sjinfo').width());
+            $('.scang-paybtn').height($('.scang-paybtn').width()*0.44);
+            $('.scang-address').height($('.scang-paybtn').height());
+        }
+
+        /*商品样式*/
+        function styles() {
+            $('.scang-img').height($('.scang-img').width());
+            $('.scang-proname').height($('.scang-img').width()*0.45);
+            $('.scang-proname').css('line-height',$('.scang-proname').height()*0.5+'px');
+            $('.scang-free').css('line-height',$('.scang-probtn').height()+'px');
+            $('.scang-price').css('line-height',$('.scang-probtn').height()+'px');
+
+        }
+
+        var pageindex = 1;
+        var ctrls = true;
+        var emptyval = true;
+
+        getdatalist();
+        $(window).bind('scroll', function () {
+            if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+                if (ctrls && emptyval) {
+                    getdatalist();
+                }
+            }
+        });
+
+        /*数据加载*/
+        function getdatalist() {
+            var url = "__URL__/?pageindex=" + pageindex;
+            var _html = "";
+            $.ajax({
+                type: 'get',
+                dataType: 'json',
+                url: url,
+                cache: false,
+                beforeSend: function () {
+                    $('#console').css('display', 'block');
+                    $('#console').html('加载中...');
+                    ctrls = false;
+                },
+                error: function () {
+                    $('#console').css('display', 'block');
+                    $('#console').html('加载失败');
+                    ctrls = true;
+                },
+                success: function (obj) {
+                    if (pageindex == 1) {
+                        $('#data_list').empty();
+                    }
+                    var mgs = eval(obj);
+                    if (mgs['code'] == 0) {
+                        var data = mgs.data;
+                        if (!data || data.list.length <= 0) {
+                            if (pageindex == 1) {   //数据为空展示
+
+                            }
+                            emptyval = false;
+                        } else {
+                            if (pageindex <= data.pageCount) {
+                                pageindex++;
+                                var datalist = data.list;
+                                for (var i = 0; i < datalist.length; i++) {
+                                    var dataarr = datalist[i];
+
+                                }
+                                ;
+                            } else {
+                                emptyval = false;
+                            }
+                        }
+                    } else {
+                        emptyval = false;
+                    }
+                    $('#data_list').append(_html);
+                },
+                complete: function () {
+                    yangshi();
+                    $('#console').css('display', 'none');
+                    ctrls = true;
+                    if (emptyval) {     //加载循环点击事件
+
+                    }
+                }
+            });
+        }
+
+        var tjsign = true;
+
+        function tijiao() {
+            if (tjsign) {
+                tjsign = false;
+                $.post("", {cid: cid, num: num}, function (obj) {
+                    var data = eval(obj);
+                    tjsign = true;
+                    if (data['code'] == 0) {
+                        mui.toast(data['msg']);
+                        mui.alert(data['msg']);
+                        setTimeout(function () {
+                            mui.openWindow({
+                                url: '__URL__/couponlist',
+                                id: 'couponlist'
+                            });
+                        }, 2000);
+                    } else {
+                        mui.toast(data['msg']);
+                    }
+                });
+            }
+        }
+
+        //提交表单
+        $('.xm-bar-nav-right').click(function () {
+            putform();
+        });
+
+        var resign = true;
+
+        function putform() {
+            if (resign) {
+                resign = false;
+                var attrbul = getFormAttrs('formdata');
+                $.ajax({
+                    type: "POST",
+                    url: '__URL__/saveBagsInfo',
+                    data: "attrbul=" + JSON.stringify(attrbul),
+                    dataType: "json",
+                    success: function (json) {
+                        resign = true;
+                        var msg = eval(json);
+                        if (msg.code == 0) {
+                            mui.toast('保存成功');
+                            setTimeout(function () {
+                                mui.openWindow({url: '__URL__/index', id: "level"});
+                            }, 2000);
+                        } else {
+                            mui.toast(msg.msg);
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+    <include file="Base@Public/footer"/>
+</form>
+</body>
+</html>

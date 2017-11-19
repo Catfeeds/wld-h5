@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>帮助</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/collage/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="mui-content">
+					<div class="help-con fs14 divre bgcolor">
+						<div class="help-title c3 fb600">1.什么是拼团？</div>
+						<div class="help-introduce c5">
+							小蜜拼团活动是小蜜推出的商家营销活动之一，用户根据商家设置的人数组团购买同一款商品，最终以低于单件销售的价格来获得该商品。拼团可以提高商品销量，带动店铺人气等作用。
+						</div>
+						<div class="help-title c3 fb600">2.拼团商品设置错了怎么办？</div>
+						<div class="help-introduce c5">
+							在活动列表页，点击商品下方的“删除”按钮，即可删除对应商品的拼团活动。拼团活动一旦被删除，活动将会被终止，正在进行的拼团将直接判定失败，并对拼团用户进行退款。已经拼团成功的用户将不受影响。
+						</div>
+						<div class="help-title c3 fb600">3.拼团商品邮费如何计算</div>
+						<div class="help-introduce c5">
+							拼团活动的商品邮费与正常购买时的商品邮费相同。
+						</div>
+						<div class="help-title c3 fb600">4.用户如何参加拼团活动？</div>
+						<div class="help-introduce c5">
+							<!--只有当活动状态为进行中时，用户才能参与拼团活动。拼团活动将在商家店铺及商城中展示，同时商家可以通过分享，把活动商品直接分享到其平台。-->
+							用户必须在活动的有效时间内才能参加。创建的拼团活动将在商家店铺的“优惠专区”和商城的“活动专区”中展示，同时商家可以通过“分享”把拼团活动分享至其它平台，吸引更多用户参加。
+						</div>
+						<div class="help-title c3 fb600">5.其他规则说明</div>
+						<div class="help-introduce c5">
+							<span>•创建的拼团活动不能进行修改。</span>
+							<span>•拼团活动的商品只能设置一个拼团价格。</span>
+							<span>•拼团活动不能使用优惠券。</span>
+							<span>•如有疑问，请拨打小蜜官方客服热线400-9603-400进行咨询。</span>
+						</div>
+						<div class="help-title c3 fb600">6.到店自提须知</div>
+						<div class="help-introduce c5">
+							<span>•拼团成功后系统将生成12位提货码，用户将凭提货码前往店铺兑换商品；</span>
+							<span>•用户提货时，请在<font class="cb">“订单管理”</font>中进行提货码核对，核对无误后点击发货，完成交易；</span>
+							<span>•小蜜暂时未开通线上退款途径。用户如需退款，请在线下与用户协商退款事宜。</span>
+						</div>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		
+		window.onload = function() {
+			
+
+		}
+
+	</script>
+
+</html>

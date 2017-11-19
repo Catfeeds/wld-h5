@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<title>商家后台管理--代理管理</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+<link rel="stylesheet" href="__CSS__/viewer.min.css">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('#li-2 a').addClass('hover');
+	}
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="content-s w_960" style="padding-bottom: 40px;">
+	<div class="page-title">
+		<div class="page-tit-name fl" style="color:#999;">全部代理</div><div class="page-tit-next fl"> > {$data['c_name']} 详情</div>
+		<div class="clear"></div>
+	</div>
+
+	<div class="agent-details">
+		<div class="agent-info-desc">
+			<div class="company-pic fl">
+				<img src="__ROOT__/{$data['c_headimg']}" alt="">
+			</div>
+			<ul class="ul-details fl">
+				<li>
+					<div class="agent-d-left fl"><span class="span-name">姓名： {$data['c_name']}</span></div>
+					<div class="agent-d-right fl"><span>状态：</span>
+					<?php if ($data['c_checked'] == 3){ ?>
+						已激活
+					<?php } else { ?>
+						未激活
+					<?php } ?>
+					</div>
+				</li>
+				<li>
+					<div class="agent-d-left fl"><span>代理编号：</span>{$data['c_dcode']}</div>
+					<div class="agent-d-right fl"><span>商家类型：</span>
+					<?php if ($data['c_type'] == 1) { ?>
+					个人
+					<?php } else { ?>
+					企业
+					<?php } ?>
+					</div>
+				</li>
+				<li>
+					<div class="agent-d-left fl"><span>手机号码：</span>{$data['c_phone']}</div>
+					<div class="agent-d-right fl"><span>固定号码：</span>{$data['c_home_tel']}</div>
+				</li>
+				<li>
+					<div class="agent-d-left fl"><span>邮箱：</span>{$data['c_email']}</div>
+					<div class="agent-d-right fl"><span>QQ：</span>{$data['c_qq']}</div>
+				</li>
+				<!-- 企业 -->
+				<?php if ($data['c_type'] == 2) { ?>
+				<li>
+					<div class="agent-d-left fl"><span>邮编：</span>{$data['c_postcode']}</div>
+					<div class="agent-d-right fl"><span>公司名称：</span>{$data['c_company']}</div>
+				</li>
+				<li>
+					<div class="agent-d-left fl"><span>公司地址：</span>{$data['c_address']}</div>
+				</li>
+				<?php } else { ?>
+
+				<?php } ?>
+			</ul>
+		</div>
+
+		<?php if ($data['c_type'] == 2) { ?>
+		<ul class="ul-certificate">
+			<li>
+				<div class="zjz-list">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_charter_img']}" src="__ROOT__/{$data['c_charter_img']}" alt=""></div>
+					<img src="__IMG__/add.png" alt="" style="width:100%;height:100%;">
+				</div>
+			</li>
+			<li>
+				<div class="zjz-list">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_company_sign']}" src="__ROOT__/{$data['c_company_sign']}" alt=""></div>
+					<img src="__IMG__/add.png" alt="" style="width:100%;height:100%;">
+				</div>
+			</li>
+		</ul>
+		<div class="zjz-list-side">
+			<div class="pic-side fl">营业执照</div>
+			<div class="pic-side fl" style="margin-left:155px;">企业标志</div>
+		</div>
+		<?php } else { ?>
+		<ul class="ul-certificate">
+			<li>
+				<div class="zjz-list">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_idcard_img']}" src="__ROOT__/{$data['c_idcard_img']}" alt=""></div>
+					<img src="__IMG__/add.png" alt="" style="width:100%;height:100%;">
+				</div>
+			</li>
+			<li>
+				<div class="zjz-list">
+					<div class="pic-front"><img data-original="__ROOT__/{$data['c_idcard_img1']}" src="__ROOT__/{$data['c_idcard_img1']}" alt=""></div>
+					<img src="__IMG__/add.png" alt="" style="width:100%;height:100%;">
+				</div>
+			</li>
+		</ul>
+		<div class="zjz-list-side">
+			<div class="pic-side fl">正面</div>
+			<div class="pic-side fl" style="margin-left:155px;">反面</div>
+		</div>
+		<?php } ?>
+	</div>
+
+	<?php if ($data['c_checked'] == 2) { ?>
+	<div class="shop-check">
+		<div class="check-pass fl"><input type="radio" value="1" name="check" checked="checked">&nbsp;通过审核</div>
+		<div class="check-pass fl"><input type="radio" value="0" name="check">&nbsp;资料有误</div>
+	</div>
+	<div class="check-btn-pass">
+		<img src="__IMG__/checkbtn1.png" alt="">
+	</div>
+	<?php } else if ($data['c_checked'] == 3) { ?>
+	<div class="shop-check-font">已通过审核</div>
+	<?php } else if ($data['c_checked'] == 0) { ?>
+	<div class="shop-check-font">等待代理审核</div>
+	<?php }else{ ?>
+	<div class="shop-check-font">未通过审核</div>
+	<?php } ?>
+</div>
+
+<script src="__JS__/viewer.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.pic-front img').click(function(){
+		$('.ul-certificate').viewer({url:'data-original',navbar: false,toolbar:true,keyboard:false,movable:false,scalable:false,fullscreen:false});
+	setTimeout("$('.viewer-play').css(\"display\",\"none\");$('.viewer-prev').css(\"display\",\"none\");$('.viewer-next').css(\"display\",\"none\");",100);
+	});
+});
+</script>
+
+</body>
+</html>

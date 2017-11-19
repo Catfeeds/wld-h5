@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>卡券领取</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__RSC__/Home/css/cpackage/index.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css">
+		<style type="text/css">
+			.mui-slider {
+				padding-bottom: 3%;
+			}
+			
+			.mui-slider-item {
+				padding: 0 4% 4% 4%;
+			}
+			.coupon-detail{right: 4%;}
+		</style>
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content bgcolor">
+				<!--轮播效果-->
+				<div class="mui-slider bborder">
+					<div class="mui-slider-group">
+						<?php foreach ($couponlist as $k => $v) { ?>
+						<?php if ($v['c_type'] == 1) { ?>
+						<div class="mui-slider-item">
+							<div class="coupon-box divre">
+								<div class="coupon-money divab cf"><span class="fs16">{$v['c_money']}</span><br /><span class="fs12">元</span></div>
+								<div class="coupon-tit divab">
+									<p class="cf fs13">代金券</p>
+									<p class="cf fs12">
+										<span>满{$v['c_limit_money']}元可用</span>
+									</p>
+								</div>
+
+								<?php if ($v['c_sign'] == 1) { ?>
+								<div class="coupon-use-rang divab cf fs12">全平台通用</div>	
+								<?php } else { ?>
+								<div class="coupon-use-rang divab cf fs12 fov" onclick="viewshop('{$v['c_ucode']}')">商家「<span>{$v['c_nickname']}</span>」</div>
+								<?php } ?>
+								
+								<div class="coupon-time divab cf fs12">{$v['c_starttime']}~{$v['c_endtime']}</span></div>
+								<div class="coupon-detail divab cf fs13 verticle-mode" onclick="usecoupon('{$v['cardid']}','{$v['vid']}')">
+									立即领取
+								</div>
+								<!--左上角标注图-->
+								<div class="coupon-le-ico divab fs12 cf" style="background: #343D7E;">广告位</div>
+								<!--不同类型底图-->
+								<img src="__IMG__/index/coupon_ad_selection.png" alt=""/>
+							</div>
+						</div>	
+						<?php } else if ($v['c_type'] == 2) { ?>
+						<div class="mui-slider-item">
+							<div class="coupon-box divre">
+								<div class="coupon-money divab cf"><span class="fs16">{$v['c_money']}</span><br /><span class="fs12">折</span></div>
+								<div class="coupon-tit divab">
+									<p class="cf fs13">折扣劵</p>
+									<p class="cf fs12">
+										<span>最高折扣{$v['c_limit_money']}元</span>
+									</p>
+								</div>
+
+								<?php if ($v['c_sign'] == 1) { ?>
+								<div class="coupon-use-rang divab cf fs12">全平台通用</div>	
+								<?php } else { ?>
+								<div class="coupon-use-rang divab cf fs12 fov" onclick="viewshop('{$v['c_ucode']}')">商家「<span>{$v['c_nickname']}</span>」</div>
+								<?php } ?>
+
+								<div class="coupon-time divab cf fs12">{$v['c_starttime']}~{$v['c_endtime']}</div>
+								<div class="coupon-detail divab cf fs13 verticle-mode" onclick="usecoupon('{$v['cardid']}','{$v['vid']}')">
+									立即领取
+								</div>
+								<!--左上角标注图-->
+								<div class="coupon-le-ico divab fs12 cf" style="background: #343D7E;">广告位</div>
+								<!--不同类型底图-->
+								<img src="__IMG__/index/coupon_ad_selection.png" alt=""/>
+							</div>
+						</div>	
+						<?php } ?>
+						<?php } ?>
+						<!--第一个内容区容器-->
+					<!-- 	<div class="mui-slider-item">
+							<div class="coupon-box divre" title="0" id="couponad_1_0" onclick="usecoupon(0)">
+								<input type="hidden" value="0" id="cqadval_1_0" />
+								<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+								<div class="coupon-tit divab">
+									<p class="cf fs13">代金券</p>
+									<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+								</div>
+								<div class="coupon-use-rang divab cf fs12">全平台通用</div>
+								<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+								<div class="coupon-detail divab cf fs13 verticle-mode" id="cqadbtn_1_0" title="0">
+									立即使用
+								</div>
+								<div class="coupon-le-ico divab fs12 cf" style="background: #343D7E;">广告位</div>
+								<img src="__IMG__/index/coupon_ad_selection.png" alt="" id="cqadbg_1_0" />
+							</div>
+						</div>			 -->	
+					</div>
+					<div class="mui-slider-indicator" style="bottom: 0;">
+					<?php foreach ($couponlist as $k => $v) { ?>
+						<div class="mui-indicator <?php if ($k == 0) { ?>mui-active<?php } ?>"></div>
+					<?php } ?>
+					</div>
+				</div>
+				
+				<!--卡券列表-->
+				<div class="coupon-main" id="coupon_list_1">
+					<!-- <div class="coupon-box divre" id="coupon_1_0">
+						<input type="hidden" value="1" id="cqval_1_0" />
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs13">代金券</p>
+							<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-use-rang divab cf fs12">全平台通用</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cqbtn_1_0" title="0">
+							立即领取
+						</div>
+						左上角标注图
+						<div class="coupon-le-ico divab fs12 cf none">平台补贴</div>
+						已领取
+						<div class="coupon-outdate divab none" id="getstate_1_0">
+							<img src="__IMG__/index/o2store_icon_get.png" alt="" />
+						</div>
+						不同类型底图
+						<img src="__IMG__/index/coupon_1_default.png" alt="" id="cqbg_1_0" />
+					</div>
+					<div class="coupon-box divre" id="coupon_1_1">
+						<input type="hidden" value="2" id="cqval_1_1" />
+						<div class="coupon-money divab cf"><span class="fs16">7.8</span><br /><span class="fs12">折</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs13">折扣券</p>
+							<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-use-rang divab cf fs12 " onclick="viewshop(ucode)">商家「<span>快乐柠檬快乐</span>」</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cqbtn_1_1" title="1">
+							立即领取
+						</div>
+						已领取
+						<div class="coupon-outdate divab none" id="getstate_1_1">
+							<img src="__IMG__/index/o2store_icon_get.png" alt="" />
+						</div>
+						不同类型底图
+						<img src="__IMG__/index/coupon_2_default.png" alt="" id="cqbg_1_1" />
+					</div>
+					<div class="coupon-box divre" id="coupon_1_2">
+						<input type="hidden" value="2" id="cqval_1_2" />
+						<div class="coupon-money divab cf"><span class="fs16">88</span><br /><span class="fs12">元</span></div>
+						<div class="coupon-tit divab">
+							<p class="cf fs13">代金券</p>
+							<p class="cf fs12"><span>全部商品</span>|<span>满10元可用</span></p>
+						</div>
+						<div class="coupon-time divab cf fs12">2017-04-24 10:32:00</div>
+						<div class="coupon-detail divab cf fs13 verticle-mode" id="cqbtn_1_2" title="2">
+							已领完
+						</div>
+						已领完
+						<div class="coupon-outdate divab none" id="getstate_1_0">
+							<img src="__IMG__/index/o2store_icon_neck.png" alt="" />
+						</div>
+						不同类型底图
+						<img src="__IMG__/index/coupon_0_default.png" alt="" id="cqbg_1_2" />
+					</div> -->
+				</div>
+
+				<div id="console"></div>
+
+			</div>
+			
+			<!--领取弹窗-->
+			<div class="issue-coupon-bg"></div>
+			<div class="issue-coupon-pup">
+				<div class="get-coupon-con">
+					<div class="geted-coupon"><img src="__IMG__/index/o2store_icon_finish.png" alt="" /></div>
+					<div class="geted-font cf fs13 divtab">领取成功，优惠券已经发放到你的卡券包，请注意查收</div>
+					<div class="geted-use-btn cf fs16">立即使用</div>
+				</div>
+				<div class="get-coupon-close"><img src="__IMG__/index/o2store_icon_close.png" alt="" /></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				$('.xm-nav-title').text("卡券领取");
+				$('.xm-bar-nav-right').hide();
+				styles();
+			}
+			$(document).ready(function() {
+			});
+
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.36;
+				$('.coupon-box').height(boxh);
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var type = "<?php echo $type; ?>";
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据列表加载*/
+			function getdatalist() {
+				var url = "__URL__/ShopCouponList?acode=<?php echo $issue_ucode; ?>&pageindex="+pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list_1').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab">';
+									_html += '<div class="c-empty-img"><img src="__RSC__/Activity/img/coupon/kqgl_icon_defect.png" alt="" /></div>';
+									_html += '<div class="c-empty-font c3 fs13">暂时还没有优惠券</div>';
+									_html += '</div>';								
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="coupon-box divre" id="coupon-box-'+dataarr['awid']+'">';
+										if (dataarr['snum'] <= 0) { 
+											_html += '<input type="hidden" value="2" id="receive_'+dataarr['awid']+'" />';
+										} else {
+											_html += '<input type="hidden" value="'+dataarr['receive']+'" id="receive_'+dataarr['awid']+'" />';
+										}
+										_html += '<input type="hidden" value="'+dataarr['c_type']+'" id="cqadval_'+dataarr['awid']+'" />';
+										if (dataarr['c_type'] == 1) {
+											_html += '<div class="coupon-money divab cf"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">元</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16">代金券</p>';
+											_html += '<p class="cf fs12">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>满'+dataarr['c_limit_money']+'元可用</span></p>';
+										} else if (dataarr['c_type'] == 2) {
+											_html += '<div class="coupon-money divab cf"><span class="fs22">'+dataarr['c_money']+'</span><br /><span class="fs12">折</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs16">折扣劵</p>';
+											_html += '<p class="cf fs12">';
+											if (dataarr['c_pcodearr']) {
+												_html += '<span>部分商品</span>|';
+											} else {
+												_html += '<span>全部商品</span>|';
+											}
+											_html += '<span>最高折扣'+dataarr['c_limit_money']+'元</span></p>';
+										}
+										_html += '</div>';
+
+										_html+='<div class="coupon-use-rang divab cf fs12 fov">商家「<span>'+dataarr['c_nickname']+'</span>」</div>';
+										
+										_html += '<div class="coupon-time divab cf fs12">'+dataarr['c_starttime']+'-'+dataarr['c_endtime']+'</div>';								
+																			
+										if (dataarr['c_sign'] == 1) {
+											_html+='<div class="coupon-le-ico divab fs12 cf none">平台补贴</div>';
+										}
+
+										if (dataarr['snum'] <= 0) {
+											_html+='<div class="coupon-outdate divab" id="getstate_'+dataarr['awid']+'">';	
+											/*已领完*/
+											_html+='<img src="__IMG__/index/o2store_icon_neck.png" alt="" />';
+											_html+='</div>';
+											_html+='<div class="coupon-detail divab cf fs13 verticle-mode coupon-detail_'+pageindex+'" id="cqbtn_'+dataarr['awid']+'" title="'+dataarr['awid']+'">已领完</div>';
+											_html+='<img src="__IMG__/index/coupon_0_default.png" alt="" id="cqbg_'+dataarr['awid']+'" />';
+										} else {
+											if (dataarr['receive'] == 1) {
+												_html+='<div class="coupon-outdate divab" id="getstate_'+dataarr['awid']+'">';	
+												/*已领取*/
+												_html+='<img src="__IMG__/index/o2store_icon_get.png" alt="" />';
+												_html+='</div>';
+												_html+='<div class="coupon-detail divab cf fs13 verticle-mode coupon-detail_'+pageindex+'" id="cqbtn_'+dataarr['awid']+'" title="'+dataarr['awid']+'">立即使用</div>';
+												_html+='<img src="__IMG__/index/coupon_'+dataarr['c_type']+'_selection.png" alt="" id="cqbg_'+dataarr['awid']+'" />';
+											} else {
+												_html+='<div class="coupon-detail divab cf fs13 verticle-mode coupon-detail_'+pageindex+'" id="cqbtn_'+dataarr['awid']+'" title="'+dataarr['awid']+'">立即领取</div>';
+												_html+='<img src="__IMG__/index/coupon_'+dataarr['c_type']+'_default.png" alt="" id="cqbg_'+dataarr['awid']+'" />';
+											}
+										}
+
+										_html+='</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#coupon_list_1').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true
+						if (emptyval) {
+							/*领取卡券*/
+							$('.coupon-detail_'+pageindex).each(function(index){
+								var awid = $(this).attr('title');
+								mui('.mui-content').on('tap','#cqbtn_'+awid,function(){
+									console.log($('#cqadval_'+awid).val());
+									var ctype = $('#cqadval_'+awid).val();
+									var creceive = $('#receive_'+awid).val();
+									if (creceive == 0) {
+										couponInfo(awid,ctype);
+									} else if (creceive == 1) {
+										mui.openWindow({
+											url: '__APP__/Home/Cpackage/index',
+											id: 'Cpackageindex'
+										});
+									} else if (creceive == 2) {
+										mui.alert('该卡劵已被领完！');
+									}
+								});				
+							});
+						}
+					}
+				});
+			}
+
+			//领取操作
+			var reflag = true;
+			function couponInfo(awid,ctype) {
+				if(reflag){					
+					reflag = false;
+					$.post("__URL__/ReceiveShopCoupon",{awid:awid},function(obj){
+						var data = eval(obj);
+						reflag = true;
+						if(data['code']==0){							
+							$('.issue-coupon-bg').fadeIn();
+							$('.issue-coupon-pup').fadeIn();
+							$('.issue-coupon-bg').height($(document).height());
+							$("#cqbtn_"+awid).addClass('usebtn');
+							$("#cqbtn_"+awid).text("立即使用");
+							$('#cqbg_'+awid).attr('src','__IMG__/index/coupon_'+ctype+'_selection.png');
+						}else{
+							mui.toast(data['msg']);
+						}
+					})
+				}		
+
+				/*领取后立即使用操作*/
+				mui('.wrap-page').on('tap','.usebtn',function(){
+					mui.openWindow({
+						url: '__APP__/Home/Cpackage/index',
+						id: 'Cpackageindex'
+					});
+				});			
+
+				/*关闭弹窗*/
+				mui('.issue-coupon-pup').on('tap','.get-coupon-close',function(){
+					$('.issue-coupon-bg').fadeOut();
+					$('.issue-coupon-pup').fadeOut();	
+				});	
+				
+				/*立即使用操作*/
+				mui('.issue-coupon-pup').on('tap','.geted-use-btn',function(){
+					mui.openWindow({
+						url: '__APP__/Home/Cpackage/index',
+						id: 'Cpackageindex'
+					});
+				});
+			}
+			//查看商家
+			function viewshop(ucode) {
+				mui.openWindow({
+					url: '__APP__/Store/Index/index?fromucode=' + ucode,
+					id: 'veiwshop'
+				});
+			}
+			/*立即使用链接跳转*/
+			function usecoupon(cardid,vid){
+				var url = "__APP__/Adposition/Index/getcoupon?type=1&acode=<?php echo $issue_ucode; ?>&cardid="+cardid+"&vid="+vid;
+				mui.openWindow({
+					url: url,
+					id: 'getcoupon'
+				});
+			}
+			
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

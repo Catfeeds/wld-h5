@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>拼团</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/collage/index.css" />
+		<style>
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+			.ad-creat-site{background: #fff; position: fixed;border-top: 1px solid #e5e5e5;left: 0;right: 0; bottom: 0; margin: 0 auto;width: 100%;max-width: 720px;min-width: 320px;padding: 3.5% 0;text-align: center;z-index: 99;}
+			.ad-creat-btn{width: 55%;margin: 0 auto;}			
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="formdata" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div id="page_1">
+						<ul class="c-create-con bgcolor">
+							<li>
+								<div class="divtab" id="sel_prolist">
+									<div class="c-creatright fr">
+										<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+									</div>
+									<div class="c-creatleft fl c3 fs14">拼团商品</div>
+									<div class="c-creatcenter fl c9 fs14" id="pcodetxt">请选择拼团商品</div>
+								</div>
+								<div class="c-selected-pro divtab">
+
+								</div>
+							</li>
+							<li>
+								<div class="c-creatright fr">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">商品型号</div>
+								<div class="c-creatcenter fl c9 fs14 fov" id="mcodetxt">请选择商品型号</div>
+								<input type="hidden" name="mcodelval" id="mcodelval" value="" />
+							</li>
+							<li>
+								<div class="c-creatright fr none">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">拼团价格</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="text" name="proprice" id="proprice" value="" placeholder="请输入商品拼团价格" class="c3"/>
+								</div>
+							</li>
+							<li>
+								<div class="c-creatright fr none">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">拼团人数</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="number" name="groupnum" id="groupnum" value="" placeholder="请输入拼团成团人数" class="c3" min="1"/>
+								</div>
+							</li>
+						</ul>
+						<ul class="c-create-con bgcolor">
+							<li>
+								<div class="c-creatright fr none">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">每人限购</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="number" name="limitnum" id="limitnum" value="" placeholder="请输入商品限购数量" class="c3" min="1"/>
+								</div>
+							</li>
+							<li>
+								<div class="c-creatright fr none">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">活动库存</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="number" name="stocknum" id="stocknum" value="" placeholder="请输入商品活动库存" class="c3" min="1"/>
+								</div>
+							</li>
+						</ul>
+						<ul class="c-create-con bgcolor">
+							<li>
+								<div class="c-creatright fr">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">开始时间</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="text" data-options='{"type":"datetime"}' name="startime" id="startime" value="" placeholder="请选择开始时间" readonly="readonly" class="c3"/>
+								</div>
+							</li>
+
+							<li>
+								<div class="c-creatright fr">
+									<img src="__IMG__/collage/kqgl_icon_next.png" alt="" />
+								</div>
+								<div class="c-creatleft fl c3 fs14">结束时间</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="text" data-options='{"type":"datetime"}' name="endtime" id="endtime" value="" placeholder="请选择结束时间" readonly="readonly" class="c3"/>
+								</div>
+							</li>
+						</ul>
+						<?php if($isfixed==1){ ?>
+						<ul class="c-create-con bgcolor">
+							<li class="change">
+								<div class="c-creatleft fl c3 fs14">配送方式</div>
+								<div class="c-creatcenter fl c9 fs14" style="overflow: hidden;">
+									<div class="radio_inline" id="express">
+										<input name="types" type="radio" value="1">
+										<label>快递</label>
+									</div>
+									<div class="radio_inline" id="since">
+										<input name="types" type="radio" value="3">
+										<label>到店自提</label>
+									</div>
+								</div>
+							</li>
+							<li class="business" style="display: none;">
+								<div class="c-creatleft fl c3 fs14">商家电话</div>
+								<div class="c-creatcenter fl c9 fs14">
+									<input type="tel" name="tellphone" id="tellphone" value="" placeholder="请输入商家电话" class="c3"/>
+								</div>
+							</li>
+						</ul>
+						<?php } ?>
+
+					</div>
+					<div id="page_2" class="none">
+						<div id="data_list" class="bgcolor" style="padding-bottom: 5%;">
+							<!-- <div class="c-pro-li c-pro-li-1">
+								<div class="c-pro-list bborder" title="0">
+									<input type="hidden" name="pcode" id="pcode_0" value="0" />
+									<div class="c-pro-img fl">
+										<img src="__IMG__/collage/dlsc_dlxq_02.jpg" alt="" />
+									</div>
+									<div class="c-pro-info fl">
+										<p class="c-pro-name c3 fs13 clamp2">良品铺子麻辣香干牛肉良品铺子麻辣香干牛肉</p>
+										<p class="c-pro-price cy fs16">￥88.88</p>
+									</div>
+								</div>
+							</div> -->
+						</div>
+						<div class="ad-creat-site">
+							<div class="ad-creat-btn cb fs16" id="return_creat">返回</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="c-model-bg pup-bg"></div>
+			<div class="c-model-list">
+				<ul class="fs13" id="data_model">
+					<!-- <li data-mcode="mcode0">S88888888 <input type="hidden" value="2" id="mstate_mcode0" name="modelstate" /></li> -->
+				</ul>
+				<div class="c-mode-sure fs16 cf">确定</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+	</body>
+	<script type="text/javascript">	
+		/*开始时间*/
+		mui('.mui-content').on('tap', '#startime', function() {
+			var optionsJson = this.getAttribute('data-options') || '{}';
+			var options = JSON.parse(optionsJson);			
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				$("#startime").val(rs.text);
+				picker.dispose();
+			});
+		});
+		/*结束时间*/
+		mui('.mui-content').on('tap', '#endtime', function() {
+			var optionsJson = this.getAttribute('data-options') || '{}';
+			var options = JSON.parse(optionsJson);			
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				$("#endtime").val(rs.text);
+				picker.dispose();
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		var lng = '<?php echo $storeinfo["c_longitude"]; ?>';
+		var lat = '<?php echo $storeinfo["c_latitude"]; ?>';
+		window.onload = function() {
+			ChRightText("确认");
+			yangshi();	
+			$('#since input[type="radio"]').click(function(){
+				if(!lng && !lat){
+					mui.confirm('请前往“店铺管理”-“编辑资料”里设置您的店铺位置','提示',['取消','确认'],function (e) {
+						e.index==0?"":storeManagement();
+					},'div');
+				}
+			});
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			$('.c-pro-img').height($('.c-pro-img').width());
+			$('.c-pro-name').height($('.c-pro-img').width() * 0.7);
+			$('.c-pro-name').css('line-height', $('.c-pro-img').width() * 0.35 + "px");
+			$('.c-pro-price').css('line-height', $('.c-pro-img').width() * 0.3 + "px");
+			
+			$('.radio_inline label').css('line-height',$('.radio_inline input[type="radio"]').height()+'px');
+			
+		}
+
+		var pagetag = 1;
+		/*商品*/
+		mui('.mui-content').on('tap', '#sel_prolist', function() {			
+			$('#page_1').hide();
+			$('#page_2').show();
+			if(pagetag==1){
+				yangshi();
+			}
+			pagetag = 2;
+		});
+		/*返回按钮*/
+		mui('#page_2').on('tap', '#return_creat', function() {
+			$('#page_2').hide();
+			$('#page_1').show();
+		});
+		
+		/*型号*/
+		mui('.mui-content').on('tap', '#mcodetxt', function() {
+			if($('#data_model li').size() == 0) {
+				mui.toast('请先选择拼团商品！');
+				return;
+			}
+			$('.c-model-bg').fadeIn();
+			$('.c-model-list').fadeIn();
+			$('.c-model-bg').height($(document).height());
+		});
+		/*关闭型号选择*/
+		//mui('.wrap-page').on('tap', '.c-model-bg', function() {
+		//$('.c-model-bg').fadeOut();
+		//$('.c-model-list').fadeOut();
+		//$('#mcodelval').val("");
+		//$('#mcodetxt').text('请选择商品型号');
+		//});
+
+		/*列表*/
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+
+		function getdatalist() {
+			var _html = "";
+			var strurl = "__URL__/ProductList?pageindex="+pageindex;
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab bgeb">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__IMG__/collage/kj_qc_wu.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs13">暂无相关可拼团商品</div>';
+								_html += '</div>';
+								$('#return_creat').text('创建新商品');
+								/*创建新商品*/
+								mui('#page_2').on('tap', '#return_creat', function() {
+									var isfixed = '<?php echo $isfixed; ?>';
+									var source = "";
+									if(isfixed==1){
+										source = 2;
+									}else{
+										source = 1;
+									}
+									goodsmManagement(source);
+								});
+								
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="c-pro-li c-pro-li-' + pageindex + '">';
+									_html += '<div class="c-pro-list bborder" title="'+dataarr['c_pcode']+'">';
+									_html += '<input type="hidden" name="pcode" id="pcode_'+dataarr['c_pcode']+'" value="'+dataarr['c_pcode']+'" />';
+									_html += '<div class="c-pro-img fl">';
+									_html += '<img src="'+dataarr['c_pimg']+'" alt="" />';
+									_html += '</div>';
+									_html += '<div class="c-pro-info fl">';
+									_html += '<p class="c-pro-name c3 fs13 clamp2">'+dataarr['c_name']+'</p>';
+									_html += '<p class="c-pro-price cy fs16">￥'+dataarr['c_price']+'</p>';
+									_html += '</div>';
+									_html += '</div>';
+									_html += '</div>';
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+					yangshi();
+				},
+				complete: function() {
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						/*选择商品*/
+						loadclick();
+					}
+				}
+			});
+		}
+
+		loadclick();
+		function loadclick() {
+			/*选择商品*/
+			mui('.c-pro-li-' + pageindex).on('tap', '.c-pro-list', function() {
+				var pcode = $(this).attr('title');
+				$('.c-pro-li').removeClass("c-pro-lied");
+				$(this).parent().addClass("c-pro-lied");
+				$('.c-selected-pro').empty();
+				$('#pcodetxt').text("");
+				$('.c-selected-pro').html($(this).parent().html());
+				$('.c-selected-pro .c-pro-list').removeClass("bborder");
+				$('.c-selected-pro #pcode_' + pcode).attr("name", 'selpcode');
+				$('.c-selected-pro #pcode_' + pcode).attr("id", 'selpcode_' + pcode);
+				$('#mcodelval').val("");
+				$('#mcodetxt').text("请选择商品型号");
+				modellist(pcode);
+				$('#page_2').hide();
+				$('#page_1').show();
+				$('.xm-bar-nav-right').show();
+				yangshi();
+			});
+		}
+
+		
+
+		/*型号加载*/
+		function modellist(pcode) {
+			$('#data_model').empty();
+			var mhtml = '';
+			$.post("__URL__/GetModeList", {
+				pcode: pcode
+			}, function(obj) {
+				var result = eval(obj);
+				if (result['code'] == 0) {
+					var datalist = result['data'];
+					for(var j = 0; j < datalist.length; j++) {
+						var ndataarr = datalist[j];
+						mhtml+='<li data-mcode="'+ndataarr['c_mcode']+'">'+ndataarr['c_name']+'<input type="hidden" value="2" id="mstate_'+ndataarr['c_mcode']+'" name="modelstate" /></li>';
+					};
+				}
+				$('#data_model').append(mhtml);
+			});			
+		}
+
+		/*选择型号*/
+		mui('.wrap-page').on('tap', '#data_model li', function() {
+			var mcode = $(this).attr("data-mcode");
+			var msta = $('#mstate_' + mcode).val();
+			if(msta == 2) {
+				$(this).addClass("hover");
+				$('#mstate_' + mcode).val(1);
+			} else {
+				$(this).removeClass("hover");
+				$('#mstate_' + mcode).val(2);
+			}
+
+		});
+		
+		/*确定选择的型号*/
+		mui('.wrap-page').on('tap', '.c-mode-sure', function() {
+			var mcodelval = '',
+				mcodeid = 0,
+				mtxt = "";
+			$('input[name="modelstate"]').each(function(index) {
+				if($(this).val() == 1) {
+					var mcode = $(this).parent().attr('data-mcode');
+					var txts = $(this).parent().text();
+					if(mcodeid == 0) {
+						mcodelval += mcode;
+						mtxt += txts;
+					} else {
+						mcodelval += '|' + mcode;
+						mtxt += "    " + txts;
+					}
+					mcodeid++;
+				}
+			});
+			$('#mcodelval').val(mcodelval);
+			$('#mcodetxt').text(mtxt);
+			$('.c-model-bg').fadeOut();
+			$('.c-model-list').fadeOut();
+			if($('#mcodelval').val() == "") {
+				$('#mcodetxt').text("请选择商品型号");
+			}
+
+		});
+
+		/*确认*/
+		function rightcaozuo () {
+			subcollage();
+		}
+        var isfixed = '<?php echo $isfixed; ?>';
+		var tjsign = true;
+		function subcollage() {
+			if(tjsign) {
+				var pcode = $('input[name="selpcode"]').val();
+				var mcode = $('input[name="mcodelval"]').val();
+				var pprice = $('input[name="proprice"]').val();
+				var gnum = $('input[name="groupnum"]').val();
+				var lnum = $('input[name="limitnum"]').val();
+				var snum = $('input[name="stocknum"]').val();
+				var stime = $('input[name="startime"]').val();
+				var etime = $('input[name="endtime"]').val();
+				var types = $('input[name="types"]:checked').val();
+				if(!pcode || !mcode || !pprice || !gnum || !lnum || !snum || !stime || !etime) {
+					mui.toast('请完善拼团商品信息！');
+					return false;
+				}
+				if(isfixed==1){
+                    if(!types){
+                        mui.toast('请选择配送方式！');
+                        return false;
+                    }
+				}
+				var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+				if(!match.test(pprice)) {
+					mui.toast('请输入正确的拼团价格！');
+					return false;
+				}
+		        var reg = /^[1-9]\d*|0$/;
+		        if (!reg.test(gnum)) {
+					mui.toast('请输入正确的拼团成团人数！');
+		            return false;
+		        }
+		        if (!reg.test(lnum)) {
+					mui.toast('请输入正确的商品限购数量！');
+		            return false;
+		        }
+		        if (!reg.test(snum)) {
+					mui.toast('请输入正确的活动库存！');
+		            return false;
+		        }
+				tjsign = false;	
+				var attrbul = getFormAttrs('formdata');
+				$.ajax({
+					type: "POST",
+					url: '__URL__/CreateProduct',
+					data: "attrbul=" + JSON.stringify(attrbul),
+					dataType: "json",
+					success: function(json) {					
+						var msg = eval(json);
+						if(msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function() {
+								mui.openWindow({
+									url: '__URL__/sjindex?statu=1',
+									id: "collage"
+								});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);
+						    tjsign = true;	
+						}
+					}
+				});
+			}
+		}
+
+	</script>
+
+</html>

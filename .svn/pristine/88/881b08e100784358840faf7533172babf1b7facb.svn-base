@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>小蜜商城</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>小蜜商城<span class="c-gray en">&gt;</span>维权列表<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="order_refund" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入用户昵称" name="nickname" value="{$post['nickname']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入订单编号" name="c_orderid" value="{$post['c_orderid']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入产品名称" name="c_pname" value="{$post['c_pname']}">
+		<span class="select-box inline">
+		<select name="type" class="select">
+			<option value="">选择维权类型</option>
+			<option value="1" <if condition="$post['type'] eq 1">selected="selected"</if>>退款</option>
+			<option value="2" <if condition="$post['type'] eq 2">selected="selected"</if>>退款退货</option>
+		</select></span>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+	</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="80">维权编码</th>
+				<th width="50">用户昵称</th>
+				<th width="80">订单编号</th>
+				<th width="100">商家名称</th>
+				<th width="100">供货商名称</th>
+				<th width="60">产品图片</th>
+				<th width="100">产品名称<br/>(型号名称)</th>
+				<th width="50">单价(×数量)</th>
+				<th width="30">产品总金额</th>
+				<th width="30">邮费</th>
+				<th width="30">退款总金额</th>
+				<th width="40">维权类型</th>
+				<th width="60">处理结果<br/>(处理时间)</th>
+				<th width="100">添加时间</th>
+				<th width="50">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo['c_id']}" name="scoreid"></td>
+				<td>{$i}</td>
+				<td>{$vo['c_refundcode']}</td>
+				<td><a title="用户详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}</a></font>
+				</td>
+				<td><a title="订单列表" href="__HHOME__/Mallorder/order_list?orderid={$vo.c_orderid}" style="text-decoration:none">{$vo['c_orderid']}</a></td>
+				<td>
+					<a title="商家详情" href="__HHOME__/Member/member_list?ucode={$vo.c_scode}" style="text-decoration:none">{$vo['pname']}</a>
+				</td>
+				<td>
+					<a title="供货商详情" href="__HHOME__/Mall/supplier_list?ucode={$vo.c_acode}" style="text-decoration:none">{$vo['c_name']}</a>
+				</td>
+				<td><a href="{$root_url}{$vo['c_pimg']}" target="_blank"><img src="{$root_url}{$vo['c_pimg']}" style="width:80px;"/></a></td>
+				<td><a title="商品详情" href="__HHOME__/Shop/index?pcode={$vo.c_pcode}" style="text-decoration:none">{$vo['c_pname']}</a><if condition="$vo['c_pmname'] neq ''"><br/>({$vo['c_pmname']})</if></td>
+				<td>￥{$vo['c_pprice']}&nbsp;&nbsp;(×{$vo['c_pnum']})</td>
+				<td>￥{$vo['c_ptotal']}</td>
+				<td>￥{$vo['c_free']}</td>
+				<td>￥{$vo['c_total']}</td>
+				<td><if condition="$vo['c_type'] eq 1">退款<else/>退款退货</if></td>
+				<td><if condition="$vo['c_refundstate'] eq 1"><font color="green">已同意退货</font><elseif condition="$vo['c_refundstate'] eq 2"/><font color="red">不同意</font><br/>({$vo['c_handletime']})<elseif condition="$vo['c_refundstate'] eq 3"/><font color="green">已退款</font><br/>({$vo['c_handletime']})<else/>未处理</if></td>
+				<td>{$vo['c_addtime']}</td>
+				<td class="td-manage">
+				 <a title="维权详情" href="javascript:;" onclick="refund_info('维权详情','Mallorder/refund_info?refundcode={$vo['c_refundcode']}','4','','760')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe695;</i></a>
+				 </td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+function refund_info(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

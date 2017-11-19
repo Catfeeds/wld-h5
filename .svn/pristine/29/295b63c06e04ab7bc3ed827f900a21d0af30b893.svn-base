@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,user-scalable=no" name="viewport">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="format-detection" content="telephone=yes" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/order.css?v=1.2">
+		<title>支付失败</title>
+
+	</head>
+
+	<body>
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+
+				<div class="pay-fail-img">
+					<img src="__IMG__/payfail.png" alt="">
+				</div>
+				<div class="achieve-btn">
+					<a href="{:U('Shopping/index')}" class="achieve-btn-l fs15">返回首页</a>
+					<a href="__APP__/Order/Index/detail?orderid={$orderid}" class="achieve-btn-r fs15">重新支付</a>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+
+			}
+		</script>
+	</body>
+
+</html>

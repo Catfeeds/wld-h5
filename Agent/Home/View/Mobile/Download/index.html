@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />    
+<title>资料下载</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+<style type="text/css">.pup-bg{display: block;}</style>
+<script type="text/javascript">
+  window.onload=function(){
+
+    topstyle();/*头部样式*/
+
+    $('#return-top').hide();
+	$('#page-top-c-t').text("资料下载");    
+
+  }
+</script>
+
+</head>
+
+<body>
+
+<include file="Common/head"/>
+<!--
+<volist name="data" id="vo">
+	<div class="material">
+		
+		<div class="material_top">
+			<div class="material_title">{$vo.c_name}</div>
+		</div>
+		<div class="material_mid none">
+			<div class="fl"><input type="checkbox">&nbsp;全选</div>
+			<div class="material_del fl" onclick="dwonall();">批量下载</div>
+		</div>
+		<div class="material_list">				
+			<table>	
+				<?php foreach ($vo['chidren'] as $key => $value) { ?>		
+				<tr>
+					<td width="30"><input type="checkbox" name="Id" value="<?php echo $value['c_id'] ?>"></td>
+					<td><?php echo $value['c_name'] ?></td>
+					<td><?php echo subtext($value['c_addtime'],10) ?></td>
+					<td>
+						<a href="__URL__/downfile?Id=<?php echo $value['c_id'] ?>" title="下载">
+							<img src="__IMG__/index/down.png" alt="">
+						</a>
+					</td>
+				</tr>
+				<?php } ?>
+			</table>
+		</div>
+	</div>
+</volist>
+-->
+
+<!--资料下载弹窗-->
+<div class="pup-bg"></div>
+<div class="pup-box">
+	<div class="pup-box-img"><img src="__IMG__/dl_icon_pc.png"></div>
+	<p>请前往PC端进行资料下载</p>
+	<button onclick="cflink()">确认</button>
+</div>
+
+<script type="text/javascript" src="__LIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		$(".pup-bg").height($(document).height());
+	}
+	// 图片批量打包下载
+	function dwonall(tg) {
+
+	}
+
+	// 资料下载跳转地址链接
+	function cflink(){
+		window.location.href = '__APP__/Agent/Information/index';
+	}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>收银员管理</title>
+</head>
+<body>
+    <!-- 导航部分 -->
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 收银员管理
+        <span class="c-gray en">&gt;</span> 收银员列表
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+<div class="pd-20 text-c">
+    <!-- 搜索部分 -->
+	<form action="index" method="get">
+	<div class="text-c">
+	    条件搜索
+	<!-- 	<input type="text" class="input-text" style="width:150px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}"> -->
+		<input type="text" class="input-text" style="width:150px" placeholder="收银员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="所属商家昵称" name="anickname" value="{$post['anickname']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="商家手机号" name="aphone" value="{$post['aphone']}">
+		<input type="text" class="input-text" style="width:150px" placeholder="收银员手机号" name="c_phone" value="{$post['c_phone']}">
+		<!-- <input type="text" class="input-text" style="width:150px" placeholder="工作状态" name="c_work" value="{$post['c_work']}"> -->
+		<span class="select-box inline">
+			<select name="c_work" class="select">
+				<option value="">工作状态</option>
+	     		<option value="1" <if condition="$post['c_work'] eq 1">selected="selected"</if>>工作中</option>
+	     		<option value="2" <if condition="$post['c_work'] eq 2">selected="selected"</if>>未工作</option>
+			</select>
+		</span>
+		<span class="select-box inline">
+			<select name="c_status" class="select">
+				<option value="">激活状态</option>
+	     		<option value="1" <if condition="$post['c_status'] eq 1">selected="selected"</if>>已激活</option>
+	     		<option value="2" <if condition="$post['c_status'] eq 2">selected="selected"</if>>未激活</option>
+			</select>
+		</span>
+		<!-- <span class="select-box inline">
+			<select name="c_delete" class="select">
+				<option value="">删除状态</option>
+	     		<option value="1" <if condition="$post['c_delete'] eq 1">selected="selected"</if>>删除</option>
+	     		<option value="2" <if condition="$post['c_delete'] eq 2">selected="selected"</if>>不删除</option>
+			</select>
+		</span> -->
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+		
+	</div>
+	</form>
+		
+	<!-- 批量删除与记录条数 -->
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+			<span class="l">
+				<!-- <a href="__URL__/cashier_desk" class="btn btn-primary radius">收银台列表</a> -->
+				<!-- <a class="btn btn-primary radius" onclick="cashier_desk('收银台列表','Cashier/cashier_desk')" href="javascript:;">收银台列表</a> &nbsp;&nbsp;&nbsp;&nbsp; -->
+				<a class="btn btn-primary radius" href="__HHOME__/Cashier/cashier_desk" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6bf;</i>收银台列表
+			    </a>
+				<!-- <a class="btn btn-primary radius" onclick="system_category_add('收银台已满商家','Cashier/cashier_number')" href="javascript:;">收银台已满商家</a> &nbsp;&nbsp;&nbsp;&nbsp; -->
+				<a class="btn btn-primary radius" href="__HHOME__/Cashier/cashier_number" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6bf;</i>收银台已满商家
+			    </a>
+	        </span>
+			<span class="r">共有数据：<strong>{$count}</strong> 条</span> 
+	</div>
+	
+	<!-- 数据列表 -->
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">收银员昵称</th>
+					<th width="80">收银员账号</th>
+					<th width="80">收银员编号</th>
+					<th width="80">所属商家昵称</th>
+					<th width="80">收银台编号</th>
+					<th width="80">收银台名称</th>
+					<th width="80">工作状态</th>
+					<th width="80">激活状态</th>					
+					<!-- <th width="80">删除状态</th> -->
+					<th width="120">添加时间</th>					
+					<th width="120">更新时间</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				    <tr class="text-c">
+					    <td><input type="checkbox" name="bankid" value="{$vo.c_id}"></td>
+						<td>
+							<a title="用户详情" href="__HHOME__/Member/member_list?ucode={$vo.c_ucode}" style="text-decoration:none">{$vo['c_nickname']}
+							</a>
+						</td>
+						<td>{$vo['c_phone']}</td>
+						<td>{$vo['c_name']}</td>
+			            <td>
+			            	<a title="商家详情" href="__HHOME__/Member/member_list?ucode={$vo.c_acode}" style="text-decoration:none">{$vo['anickname']}
+							</a>
+						</td>
+						<td>{$vo['c_deskid']}</td>
+						<td>{$vo['c_names']}</td>
+						<td>
+							<if condition="$vo['c_work'] eq 1"><font color="green">工作中</font>
+							<elseif condition="$vo['c_work'] eq 2"/><font color="red">未工作</font>
+							</if>
+						</td>
+						<td>
+							<if condition="$vo['c_status'] eq 1"><font color="red">已激活</font>
+							<elseif condition="$vo['c_status'] eq 2"/><font color="green">未激活</font>
+							</if>
+						</td>
+						<td>{$vo['c_addtime']}</td>
+						<td>{$vo['c_updatetime']}</td>
+						<td class="f-14">
+							<a style="text-decoration:none" class="ml-5" onClick="signinfo('详情','Cashier/signinfo?Id={$vo.c_id}','10001')" href="javascript:;" title="详情">
+					        <i class="Hui-iconfont">&#xe638;</i>
+					        </a>
+						</td>
+					</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- 分页 -->
+<div class="pages">{$page}</div>		
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+// // /*系统-栏目-添加*/
+// function system_category_add(title,url,w,h){
+// 	layer_show(title,url,w,h);
+// }
+// // /*系统-栏目-收银台列表*/
+// function cashier_desk(title,url,w,h){
+// 	var index = layer.open({
+// 		type: 2,
+// 		title: title,
+// 		content: HHOME+'/'+url
+// 	});
+// 	layer.full(index);
+// }
+/*商家-编辑*/
+function signinfo(title,url,id,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: HHOME+'/'+url
+	});
+	layer.full(index);
+}
+/*系统-栏目-删除*/
+function admin_menu_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=c_id]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('分类删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Cashier/index_delete',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+</script> 
+</body>
+</html>

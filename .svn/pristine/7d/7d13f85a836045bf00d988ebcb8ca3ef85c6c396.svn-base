@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />      
+<title>小蜜资讯</title>
+<meta content="微域领地,微域领地系统" name="keywords">
+<meta content="微域领地,微域领地系统,小蜜资讯" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/news/index.css?v=1.2">  
+
+
+</head>
+<body>
+
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+    <div class="index_news_c bgcolor news_data_list">
+        <ul class="message_details">
+           <!-- <li>
+                <a href="">
+                    <p class="news_font fl">
+                        <span class="tit">完善的微商系统  完整的培训课程 简单的操作方法  缔造无限的商机</span>
+                        <span class="tim">2015-10-12</span>           
+                    </p>
+                    <img src="__IMG__/news/newsImg1.png" alt="" class="fr news_img">
+                    <div class="clear"></div>
+                </a>
+
+           </li>
+           <li>
+                <a href="">
+                    <p class="news_font fl">
+                        <span class="tit">完善的微商系统  完整的培训课程 简单的操作方法  缔造无限的商机</span>
+                        <span class="tim">2015-10-12</span>           
+                    </p>
+                    <img src="__IMG__/news/newsImg1.png" alt="" class="fr news_img">
+                    <div class="clear"></div>
+                </a>
+
+           </li>
+           <li>
+                <a href="">
+                    <p class="news_font fl">
+                        <span class="tit">完善的微商系统  完整的培训课程 简单的操作方法  缔造无限的商机</span>
+                        <span class="tim">2015-10-12</span>           
+                    </p>
+                    <img src="__IMG__/news/newsImg1.png" alt="" class="fr news_img">
+                    <div class="clear"></div>
+                </a>
+
+           </li>
+           <li>
+                <a href="">
+                    <p class="news_font fl">
+                        <span class="tit">完善的微商系统  完整的培训课程 简单的操作方法  缔造无限的商机</span>
+                        <span class="tim">2015-10-12</span>           
+                    </p>
+                    <img src="__IMG__/news/newsImg1.png" alt="" class="fr news_img">
+                    <div class="clear"></div>
+                </a>
+
+           </li> -->
+           
+        </ul>
+        <div id="console" class="baoqian"></div> 
+    </div>
+</div>
+</div>
+
+<include file="Base@Public/pubjs" /> 
+<script type="text/javascript" src="__JS__/news/news.js"></script> 
+
+<!-- 页面统计、任务弹出 -->
+<include file="Base@Public/footer" /> 
+
+</body>
+</html>

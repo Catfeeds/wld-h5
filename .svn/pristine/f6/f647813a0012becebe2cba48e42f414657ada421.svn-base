@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>发送公告</title>
+</head>
+<body>
+<div class="pd-20">
+  <form action="" method="post" class="form form-horizontal" id="form-member-add">
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>公告标题：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="" placeholder="" name="title" datatype="*2-36" nullmsg="公告标题不能为空">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>公告内容：</label>
+      <div class="formControls col-5">
+        <textarea name="content" cols="" rows="" class="textarea"  placeholder="" datatype="*2-100" dragonfly="true" nullmsg="公告内容不能为空！" onKeyUp="textarealength(this,58)"></textarea>
+        <p class="textarea-numberbar"><em class="textarea-length">0</em>/58</p>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>发送类型：</label>
+      <div class="formControls col-5">
+        <select class="select" id="sel_Sub" name="tag">
+            <option value="1">url</option>
+            <option value="2">url加密</option>
+            <option value="3">订单详情</option>
+            <option value="4">商品详情</option>
+            <option value="5">个人空间</option>
+            <option value="6">个人资料</option>
+            <option value="7">商家商品列表</option>
+            <option value="9">资源列表</option>
+            <option value="10">资源详情</option>
+            <option value="11">粉丝列表</option>
+            <option value="12">营销中心</option>
+            <option value="13">实体店铺</option>
+            <option value="14">扫码支付页面</option>
+            <option value="15">线下商家商品详情</option>
+            <option value="16">线上订单</option>
+            <option value="17">线下订单</option>
+            <option value="18">购物车</option>
+            <option value="19">资讯中心</option>
+            <option value="20">线上店商品管理</option>
+            <option value="21">线下店商品管理</option>
+            <option value="22">店铺管理</option>
+            <option value="23">店铺二维码</option>
+            <option value="24">推广中心</option>
+            <option value="25">分享返利</option>
+            <option value="26">购买返利</option>
+            <option value="27">卡劵包</option>
+            <option value="28"></option>
+            <option value="29">关注列表</option>
+            <option value="30">兑换中心</option>
+            <option value="31">商家动态</option>
+            <option value="32">店铺商品列表</option>
+            <option value="33">评论列表</option>
+            <option value="34">店铺相册</option>
+            <option value="35">到店兑换</option>
+            <option value="36">商城商品列表</option>
+            <option value="10000">平台首页</option>
+        </select>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>附加值：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="" placeholder="" id="" name="tagvalue">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3">网页链接：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="" placeholder="" id="" name="weburl">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>发送平台：</label>
+      <div class="formControls col-5">
+        <select class="select" id="sel_Sub" name="platform">
+            <option value="1">全平台</option>
+            <option value="2">IOS</option>
+            <option value="3">Android</option>
+        </select>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3">定时发送：</label>
+      <div class="formControls col-3">
+        <input type="text" id="timer" name="timer" value="" placeholder="请设置提前两分钟" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+      </div>
+      <div class="col-4"><span class="c-red">*不需要定时则不填</span></div>
+    </div>
+
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <div class="btn btn-primary radius" onclick="ajax_post_data('Message/send_notice','form-member-add','Message/message_list');">&nbsp;&nbsp;提交&nbsp;&nbsp;</div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			// parent.$('.btn-refresh').click();
+			// parent.layer.close(index);
+		}
+	});
+});
+</script>
+</body>
+</html>

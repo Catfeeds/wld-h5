@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>活动中心</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/index.css" />
+		<style type="text/css">.activity-info{padding: 2%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<div class="mui-content">
+				<?php if ($data['c_source'] == 2) { ?>
+				<include file="Store@Index/storetop" />
+				<?php } else { ?>
+				<include file="Store@Index/onlinetop" />
+				<?php } ?>
+				<div class="activity-main" id="activity-list">
+					<!-- <div class="activity-box bgcolor">
+						<div class="activity-info divtab bborder">
+							<div class="act-headimg fl divre">
+								<img src="__IMG__/store/pro3.jpg" alt="" />
+								<div class="act-ztop divab"><img src="__IMG__/index/o2store_icon_up.png" alt="" /></div>
+							</div>
+							<div class="act-info fl">
+								<div class="act-title fs14 c3 fov">快乐柠檬</div>
+								<div class="act-description fs12 c5"> I loved that beautiful girl.</div>
+								<div class="act-static divtab">
+									<div class="act-static-btn fs12 act-btn-b">进行中</div>
+								</div>
+							</div>
+						</div>
+					</div>					
+					<div class="activity-box bgcolor">
+						<div class="activity-info divtab bborder">
+							<div class="act-headimg fl">
+								<img src="__IMG__/store/pro3.jpg" alt="" />
+							</div>
+							<div class="act-info fl">
+								<div class="act-title fs14 c3 fov">快乐柠檬</div>
+								<div class="act-description fs12 c5"> I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.I loved that beautiful girl.</div>
+								<div class="act-static divtab">
+									<div class="act-static-btn fs12 act-btn-g">已结束</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+				</div>
+				<div id="console"></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript" src="__RSC__/Trade/js/option.js"></script>
+		<script type="text/javascript" src="__JS__/publics.js"></script>
+		<!--<script type="text/javascript" src="__COMMON__/js/scrolltopcontrol.js"></script>-->
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			var sources = '<?php echo $data["c_source"] ?>';
+			window.onload = function() {
+				styles();
+				$('.xiaomi-bar').css('background', 'none');
+				$('.mui-content').css('margin-top', '0px');
+				$(window).bind('scroll', function() {
+					if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').addClass('menu-fixed');
+						if(sources == 1) {
+							$('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+						} else if(sources == 2) {
+							$('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+						}
+					}
+					if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').removeClass('menu-fixed');
+						$('.xiaomi-bar').css("background", "none");
+					}
+
+				});
+			}
+			$(document).ready(function() {
+
+			});
+			/*样式*/
+			function styles() {
+				var sheadw = $('.s-d-headimg').width(),
+					lih = sheadw * 48 / 100;
+				$('.s-d-headimg').height(sheadw);
+				$('.s-d-headinfo').css('line-height', lih + 'px');
+
+				var liimgw = $('.s-dynamic-imglist li').width();
+				$('.s-dynamic-imglist li').height(liimgw);
+				
+				$('.act-headimg').height($('.act-headimg').width());
+				$('.act-title').css('line-height', $('.act-headimg').width()*0.3 + 'px');
+				$('.act-description').css('line-height', $('.act-headimg').width()*0.3 + 'px');
+
+			}
+
+			/*数据加载*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			getActlist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getActlist();
+					}
+				}
+			});
+
+			function getActlist() {
+				var url = "__URL__/ShopActivityList?acode=<?php echo $issue_ucode; ?>&pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#activity-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="data-empty divtab">';
+									_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+									_html += '<div class="data-empty-font c3 fs14">没有找到相关活动信息</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="activity-box bgcolor act-' + pageindex + '" title="' + dataarr['c_id'] + '" id="act' + dataarr['c_id'] + '">';
+										_html += '<div class="activity-info divtab bborder">';
+										_html += '<div class="act-headimg fl" style="width:22%;">';
+										_html += '<img src="' + dataarr['c_listimg'] + '" alt="" />';
+										_html += '</div>';
+										_html += '<div class="act-info fr" style="width:75%;">';
+										_html += '<div class="act-title fs14 c3 fov">' + dataarr['c_activityname'] + '</div>';
+										_html += '<div class="act-description fs12 c5">' + dataarr['c_remark'] + '</div>';
+										_html += '<div class="act-static divtab">';
+										if(dataarr['progress'] == 0) { //未开始
+											_html += '<div class="act-static-btn fs12 act-btn-g">未开始</div>';
+										} else if(dataarr['progress'] == 1) { //进行中
+											_html += '<div class="act-static-btn fs12 act-btn-b">进行中</div>';
+										} else { //已结束
+											_html += '<div class="act-static-btn fs12 act-btn-g">已结束</div>';
+										}
+
+										_html += '<input type="hidden" id="pstate' + dataarr['c_id'] + '" value="' + dataarr['progress'] + '" />';
+										_html += '<input type="hidden" id="stime' + dataarr['c_id'] + '" value="' + dataarr['c_activitystarttime'] + '" />';
+										_html += '<input type="hidden" id="etime' + dataarr['c_id'] + '" value="' + dataarr['c_activityendtime'] + '" />';
+										_html += '<input type="hidden" id="remind' + dataarr['c_id'] + '" value="' + dataarr['remind'] + '" />';
+										_html += '<input type="hidden" id="url' + dataarr['c_id'] + '" value="' + dataarr['url'] + '" />';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#activity-list').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval) { //循环点击事件
+							$('.act-' + pageindex).each(function() {
+								var aid = $(this).attr('title');
+								mui('.mui-content').on('tap', '#act' + aid, function() {
+									var remind = $('#remind' + aid).val();
+									var url = $('#url' + aid).val();
+									var pstate = $('#pstate' + aid).val();
+									var stime = $('#stime' + aid).val();
+									var etime = $('#etime' + aid).val();
+									pupwindow(pstate, stime, etime, url, remind);
+								});
+							});
+						}
+					}
+				});
+			}
+
+			function pupwindow(pstate, stime, etime, url, remind) {
+				var startparse = new Date(Date.parse(stime.replace(/-/g, "/"))).getTime();
+				var date = new Date();
+				date.setTime(startparse);
+				var syear = date.getFullYear();
+				var smonth = date.getMonth() + 1; //js从0开始取
+				var sdate1 = date.getDate();
+				var shour = date.getHours();
+				var sminutes = date.getMinutes();
+				var ssecond = date.getSeconds();
+				var reg = /^\d{2}$/;
+				if(!reg.test(parseInt(ssecond))) {
+					ssecond = "0" + ssecond;
+				} else {
+					ssecond = ssecond;
+				}
+
+				if(pstate == 1) {
+					if(url != '') {
+						if(ucode) {
+							mui.openWindow({
+								url: url,
+								id: 'infourl'
+							});
+						} else {
+							mui.openWindow({
+								url: '<?php echo $loginurl; ?>',
+								id: 'login'
+							});
+						}
+					} else {
+						mui.confirm(remind, '温馨提示', ['再看看', '前往首页'], function(e) {
+							e.index == 0 ? "" : jumphome("<?php echo get_app_type(); ?>");
+						}, 'div');
+					}
+				} else if(pstate == 0) {
+					mui.alert('该活动还未开始哦！' + smonth + '月' + sdate1 + '日' + shour + ':' + ssecond + '将准时开启！');
+				} else if(pstate == 2) {
+					mui.alert('该活动已结束，试试其他活动吧！');
+				}
+
+			}
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

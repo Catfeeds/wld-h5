@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>活动红包详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content divtab">
+					<div id="data_list">
+						
+					</div>
+					<div class="fixed-btn cb bgcolor fs14 rselect">
+						添加
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+
+	<script type="text/javascript">
+		var joinaid = $('#joinaid').val();
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {}
+
+		/*跳转添加*/
+		mui('.wrap-page').on('tap', '.rselect', function() {
+			var detailurl = '<?php echo encodeurl(GetHost(1)."/index.php/Activity/Chests/index"); ?>';
+			mui.openWindow({
+				url: '__APP__/Activity/Rednewact/addred?rtype=1&joinaid=<?php echo $joinaid ?>&url='+detailurl,
+				id: 'addred'
+			});
+		});
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var strurl = "__URL__/GetRedsDetails?pageindex=" + pageindex + "&joinaid=" + $('#joinaid').val();
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html += '<div class="data-empty divtab">';
+								_html += '<div class="data-empty-img">';
+								_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+								_html += '</div>';
+								_html += '<div class="data-empty-font c3 fs14">暂无相关红包信息，点击下方按钮可添加</div>';
+								_html += '</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html += '<div class="ch-detail-item bgcolor ch-detail-' + pageindex + '" id="biaozhi' + dataarr['c_id'] + '">';
+									_html += '<input type="hidden" value="' + dataarr['ractnum'] + '" id="ractnum' + dataarr['c_id'] + '">';
+									_html += '<div class="d-red-box divre">';
+									_html += '<div class="red-con divab">';
+									_html += '<div class="redname clamp2 fs12 cf">' + dataarr['c_name'] + '';									
+									if(dataarr['c_type'] == 1) {
+										_html += '<span class="red-type type01 fs11 cf">普</span>';
+									}
+									if(dataarr['c_type'] == 2) {
+										_html += '<span class="red-type type02 fs11 cf">拼</span>';
+									}
+									_html += '</div>';
+									_html += '<div class="red-money-operate divtab">';
+									_html += '<div class="red-money fs16 cf fl">￥'+dataarr['c_money']+'</div>';
+									if(dataarr['c_type'] == 1) {
+										_html += '<span class="red-single fs11 cf fr">单个金额￥' + dataarr['c_remain_money'] + '元</span>';
+									}
+									if(dataarr['c_type'] == 2) {
+										_html += '<span class="red-single fs11 cf fr">单个金额随机</span>';
+									}
+									
+									_html += '</div>';
+									_html += '</div>';
+									_html += '<div class="d-red-time divab divtab bgeb">';
+									_html += '<div class="red-release-time c9 fs11 fl">发起时间：'+dataarr['starttime']+'</div>';
+									_html += '</div>';
+									if(dataarr['c_num'] > 0) {
+										_html += '<div class="red-status status01 divab cf fs11">正在疯抢</div>';
+									}
+									_html += '<img src="__IMG__/rednewact/redpacket_icon_home.png" alt="" />';
+									_html += '</div>';
+									_html += '<div class="d-coupon-status c9 fs11 bborder">已领：'+dataarr['c_num']+'/'+dataarr['c_totalnum']+'</div>';
+									// _html += '<div class="d-coupon-number divtab bborder cdpadding">';
+									// _html += '<div class="fs12 fl cdmargin c3">投放数量</div>';
+									// _html += '<div class="fl fs12 c9">';
+									// _html += '<input type="number" name="actnum' + dataarr['c_id'] + '" id="actnum' + dataarr['c_id'] + '" value="'+dataarr['c_totalnum']+'" placeholder="请输入数量" />';
+									// _html += '</div>';
+									// _html += '</div>';
+									_html += '<div class="d-ch-operate cdpadding divtab">';
+									_html += '<div class="d-pro-operate fs13 cancelbtn" title="' + dataarr['c_id'] + '" style="margin:0 auto;">撤回</div>';
+									
+									_html += '</div>';
+									_html += '</div>';
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						loadclick();
+					}
+				}
+			});
+		}
+
+		loadclick();
+
+		function loadclick() {
+			/*撤回*/
+			mui('.ch-detail-' + pageindex).on('tap', '.cancelbtn', function() {
+				var id = $(this).attr('title');
+				mui.confirm('确定从活动中撤回？撤回后未领取内容将原路返回', '提示', ['取消', '确认'], function(e) {
+					e.index == 0 ? "" : RedDelete(id);
+				}, 'div');
+			});
+		}
+		var delsign = true;
+
+		function RedDelete(id) {
+			//if(delsign) {
+				//delsign = false;
+				$.post("__URL__/RedDelete", {
+					redid: id
+				}, function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						mui.toast('撤回成功');
+						$('#biaozhi' + id).remove();
+						if($('.ch-detail-item').size()==0){
+							var _html="";
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img">';
+							_html += '<img src="__IMG__/chests/box_default.png" alt="" />';
+							_html += '</div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关红包信息，点击下方按钮可添加</div>';
+							_html += '</div>';
+							$('#data_list').append(_html);							
+						}
+					} else {
+						mui.toast(data['msg']);
+						//delsign = true;
+					}
+				});
+			//}
+		}
+
+	</script>
+
+</html>

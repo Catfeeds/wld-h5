@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>拼团首页</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/collage/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			$('.c-box-img').height($('.c-box-img').width());
+
+		}
+
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+
+		// var statu = '<?php echo $statu ?>';
+		// if(!statu) {
+		// 	statu = 1;
+		// }
+		// selectstatu(statu);
+		// mui('.mui-content').on('tap', '#c-nav-t1', function() {
+		// 	selectstatu(1);
+		// });
+		// mui('.mui-content').on('tap', '#c-nav-t2', function() {
+		// 	selectstatu(2);
+		// });
+		// mui('.mui-content').on('tap', '#c-nav-t3', function() {
+		// 	selectstatu(3);
+		// });
+		// function selectstatu(i) {
+		// 	statu = i;
+		// 	pageindex = 1;
+		// 	ctrls = true;
+		// 	emptyval = true;
+		// 	$('.c-nav-tli').removeClass('hover');
+		// 	$('#c-nav-t' + i).addClass('hover');
+		// 	getdatalist();
+		// }
+
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+
+			// if($(window).scrollTop() >= $('.coupon-nav-tab').height()) {
+			// 	$('.coupon-nav-tab').addClass('menu-fixed');
+			// }
+			// if($(window).scrollTop() < $('.coupon-nav-tab').height()) {
+			// 	$('.coupon-nav-tab').removeClass('menu-fixed');
+			// }
+		});
+		/*数据加载*/
+		function getdatalist() {
+			var url = "__URL__/?pageindex=" + pageindex;
+			var _html = "";
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: url,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(!data || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+
+								};
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) { //加载循环点击事件
+						/*选择卡券*/
+						$('.coupon-detail_' + pageindex).each(function(index) {
+							var cid = $(this).attr('title');
+							mui('.mui-content').on('tap', '#cancel_' + cid, function() {
+								var ctype = $('#ctype_' + cid).val();
+								tijiao(cid, ctype);
+							});
+						});
+					}
+				}
+			});
+		}
+		
+	</script>
+
+</html>

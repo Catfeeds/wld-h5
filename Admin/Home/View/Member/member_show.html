@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]--><title>用户查看</title>
+</head>
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+  <if condition="$date['c_headimg'] eq ''">
+    <img class="avatar size-XL l" src="__HIMG__/user.png">
+  <else/>
+     <img class="avatar size-XL l" src="{$root_url}{$date['c_headimg']}">
+  </if>
+  <dl style="margin-left:80px; color:#fff">
+    <dt><span class="f-18">{$date['c_nickname']}</span> <span class="pl-10 f-12">余额：￥{$date['c_money']}</span></dt>
+    <if condition="$date['c_signature'] eq ''">
+      <dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+    <else/>
+      <dd class="pt-10 f-12" style="margin-left:0">{$date['c_signature']}</dd>
+    </if>
+  </dl>
+</div>
+<div class="pd-20">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="text-r" width="100">用户编码: </th>
+        <td>{$date['c_ucode']}</td>
+      </tr>
+      <tr>
+        <th class="text-r" width="100">性别: </th>
+        <td>{$date['c_sex']}</td>
+      </tr>
+      <tr>
+        <th class="text-r">手机：</th>
+        <td>{$date['c_phone']}</td>
+      </tr>
+      <tr>
+        <th class="text-r">地区：</th>
+        <td>{$date['c_province']}&nbsp;{$date['c_city']}&nbsp;{$date['c_region']}</td>
+      </tr>
+      <tr>
+        <th class="text-r">用户标签：</th>
+        <td>{$date['c_tab']}</td>
+      </tr>
+      <tr>
+        <th class="text-r">所属行业：</th>
+        <td>{$date['c_trade']}</td>
+      </tr>
+      <if condition="$date['c_rongyun_token'] neq ''">
+        <tr>
+          <th class="text-r">融云Token：</th>
+          <td>存在</td>
+        </tr>
+      <else/>
+        <tr>
+          <th class="text-r">融云Token：</th>
+
+          <td><div class="btn btn-primary radius" onclick=ajax_data('Member/get_rongyun',"{'ucode&<?php echo $date['c_ucode'] ?>'}",'Member/member_list');>&nbsp;&nbsp;获取Token&nbsp;&nbsp;</div></td>
+        </tr>
+      </if>
+      <if condition="$date['c_shop'] eq 0">
+        <tr>
+          <th class="text-r">是否开店：</th>
+          <td>否</td>
+        </tr>
+      <else/>
+        <tr>
+          <th class="text-r">是否开店：</th>
+          <td>是</td>
+        </tr>
+        <tr>
+          <th class="text-r">推荐码：</th>
+          <td>{$date['c_invitationcode']}</td>
+        </tr>
+        <tr>
+          <th class="text-r">推荐人数：</th>
+          <td>{$date['c_num']}</td>
+        </tr>
+      </if>
+      <tr>
+        <th class="text-r">注册时间：</th>
+        <td>{$date['c_addtime']}</td>
+      </tr>
+      <tr>
+        <th class="text-r">最后登录时间：</th>
+        <td>{$date['c_lasttime']}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+</body>
+</html>

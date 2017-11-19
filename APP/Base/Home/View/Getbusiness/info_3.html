@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>申请成为商家</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/getbusiness/newindex.css?v=3.0.2">
+		<style>.resource-main{ margin-bottom: 16%;}</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="mui-content">
+				<div class="active-progress bgcolor"><img src="__IMG__/getbusiness/jhsj_txzl.png" alt=""></div>
+				<div class="p_info_tit"><span class="fs14 c3">商家资料3/8</span></div>
+				<div class="p_info_con fs14 bgcolor">
+					<div class="resource-main">
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商户名称</div>
+							<div class="resource-r fl"><input type="text" id="merchantname" value="{$vo['c_merchantname']}" name="merchantname" class="resource-text" placeholder="请输入商户名称" maxlength="64" ></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商户简称</div>
+							<div class="resource-r fl"><input type="text" id="short-name" value="{$vo['c_merchantshortname']}" name="merchantshortname" class="resource-text" placeholder="请输入商户简称" maxlength="15" ></div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>经营类型</div>
+							<div class="resource-r fl">
+								<select name="mchdealtype" id="mchdealtype" class="fs14 c3">
+									<?php if (empty($vo['c_mchdealtype'])) { ?>
+									<option value="">请选择</option>
+									<option value="1" selected="selected">实体</option>
+									<option value="2">虚拟</option>
+									<?php }else{ ?>
+									<option value="">请选择</option>
+									<option value="1" <?php if ($vo['c_mchdealtype'] == 1) { ?> selected="selected" <?php } ?>>实体</option>
+									<option value="2" <?php if ($vo['c_mchdealtype'] == 2) { ?> selected="selected" <?php } ?>>虚拟</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl"><span>*&nbsp;</span>商家资质</div>
+							<div class="resource-r fl">
+								<span class="fs14 c9" id="bzizhi">
+								<?php if ($vo['c_type'] == 1) { ?> 个人 <?php } 
+								else if ($vo['c_type'] == 2) { ?> 企业 <?php } ?>
+								</span><span class="fs12 cy">（不可修改）</span>
+								<input type="hidden" name="ctype" id="ctype" value="{$vo['c_type']}" />
+							</div>
+						</div>
+						<div class="qy" <?php if ($vo[ 'c_type']==1 ) { ?> style="display: none;" <?php } ?> >
+							<div class="resource-list">
+								<div class="resource-l fl"><span>*&nbsp;</span>单位名称</div>
+								<div class="resource-r fl"><input type="text" id="companey-name" value="{$vo['c_company']}" name="company" class="resource-text" placeholder="请输入单位名称"></div>
+							</div>
+							<div class="resource-list">
+								<div class="resource-l fl"><span>*&nbsp;</span>单位地址</div>
+								<div class="resource-r fl"><input type="text" id="address-name" value="{$vo['c_address']}" name="address" class="resource-text" placeholder="请输入单位地址"></div>
+							</div>
+							<div class="resource-list">
+								<div class="resource-l fl"><span>*&nbsp;</span>邮政编码</div>
+								<div class="resource-r fl"><input type="text" id="post-name" value="{$vo['c_postcode']}" name="postcode" class="resource-text" placeholder="请输入邮政编码"></div>
+							</div>
+							<div class="resource-list">
+								<div class="resource-l fl"><span>*&nbsp;</span>营业执照</div>
+								<div class="resource-r fl"><input type="text" id="license-name" value="{$vo['c_charter']}" name="charter" class="resource-text" placeholder="请输入营业执照"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="info_sub_btn fixed-sub fs16">
+					<ul>
+						<li id="PreviousCK">上一步</li>
+						<li id="savestep" style="background: #45AAFA;">保存并下一步</li>
+					</ul>
+				</div>
+			</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			var ctype = '<?php echo $ctype ?>'; /*1个人，2企业*/
+			window.onload = function() {
+				if(ctype == 2) {
+					$('.qy').css("display", "block");
+					$('#bzizhi').text("企业");
+				} else if(ctype == 1) {
+					$('.qy').css("display", "none");
+					$('#bzizhi').text("个人");
+				}
+				//页面样式
+				$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+				$('#mchdealtype').css('height', $('.resource-list').height()*0.9 + 'px');
+
+
+			}
+			
+			//上一步
+			mui('.mui-content').on('tap', '#PreviousCK', function() {
+				mui.openWindow({url:"__URL__/info_2?isfixed="+isfixed+"&ctype="+ctype, id:"info_2"});
+			});
+
+			//提交
+			mui('.mui-content').on('tap', '#savestep', function() {
+				savestep();
+			})
+
+			/*save*/
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					if(emptyval($('input[name="merchantname"]').val())) {
+						mui.toast('请输入商户名称');
+						$('input[name="merchantname"]').focus();
+						resign = true;
+						return false;
+					}
+					if(emptyval($('input[name="merchantshortname"]').val())) {
+						mui.toast('请输入商户简称');
+						$('input[name="merchantshortname"]').focus();
+						resign = true;
+						return false;
+					}
+					if($("#mchdealtype").find("option:selected").val() == '') {
+						mui.toast('请选择经营类型');
+						$('#mchdealtype').focus();
+						resign = true;
+						return false;
+					}
+					if(ctype == 2) {
+						if(emptyval($('input[name="company"]').val())) {
+							mui.toast('请输入申请单位名称');
+							$('input[name="company"]').focus();
+							resign = true;
+							return false;
+						}
+						if(emptyval($('input[name="address"]').val())) {
+							mui.toast('请输入申请单位地址');
+							$('input[name="address"]').focus();
+							resign = true;
+							return false;
+						}
+						if(emptyval($('input[name="postcode"]').val())) {
+							mui.toast('请输入邮政编码');
+							$('input[name="postcode"]').focus();
+							resign = true;
+							return false;
+						} else {
+							var regpost = /^[1-9]\d{5}$/g;
+							if(!regpost.test($('input[name="postcode"]').val())) {
+								mui.toast('请输入正确的邮政编码');
+								$('input[name="postcode"]').focus();
+								resign = true;
+								return false;
+							}
+						}
+						if(emptyval($('input[name="charter"]').val())) {
+							mui.toast('请输入企业营业执照号');
+							$('input[name="charter"]').focus();
+							resign = true;
+							return false;
+						}
+					}
+
+					var attrbul = getFormAttrs('form1');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/SetInfo3',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.toast("保存成功！");
+								setTimeout(function() {
+									mui.openWindow({url: '__URL__/info_4?isfixed='+isfixed+'&ctype='+ctype,id:"info_4"});
+								}, 1000);
+							} else {
+								mui.toast(msg.msg);
+								resign = true;
+							}
+						}
+					});
+				}
+			}
+
+		</script>
+		<include file="Base@Public/foot" />
+	</body>
+
+</html>

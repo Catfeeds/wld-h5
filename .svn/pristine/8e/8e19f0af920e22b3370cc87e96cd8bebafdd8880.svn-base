@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title>极简主义</title>
+    <meta content="微域领地,微域领地系统" name="keywords">
+    <meta content="" name="description">
+    <include file="Base@Public/header"/>
+    <link rel="stylesheet" href="__CSS__/store/homepage.css?v=1.2"/>
+</head>
+
+<body class="bgeb">
+<div class="wrap-page" style="margin-bottom: 13%;">
+    <form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+        <input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+        <input type="hidden" name="returnurl" id="returnurl" value="<?php echo encodeurl(" https:// " . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>" />
+        <input type="hidden" name="c_ucode" id="c_ucode" value="{$storeinfo['c_ucode']}">
+        <input type="hidden" name="c_name" id="c_name" value="{$storeinfo['c_name']}">
+        <input type="hidden" name="c_ishow" id="c_ishow" value="{$storeinfo['c_ishow']}">
+        <input type="hidden" name="tempid" id="tempid" value="{$tempid}"/>
+        <input type="hidden" name="tempid" id="tplid" value="{$tplid}"/>
+        <include file="Store@Index/shoptop"/>
+        <div class="mui-content">
+            <!-- 数据列表部分 -->
+
+            <!-- 卡券-->
+            <div class="ticket1">
+
+            </div>
+
+            <!--banner预览(线上)-->
+            <div class="commodity fs15">
+
+            </div>
+            <!--banner预览(线下)-->
+            <div class="offline">
+                <div class="section_left fl fs14"></div>
+                <div class="section_right fl wrapper"></div>
+                <!--<div class="fl nav_l">-->
+                    <!--<ul class="fs14 nav_l_b">-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="fr nav_r">-->
+                    <!--<ul class="fs11 particulars">-->
+
+                    <!--</ul>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <include file="Store@Index/shopbottom"/>
+    </form>
+</div>
+<include file="Base@Public/pubjs"/>
+<include file="Base@Public/appshare"/>
+<include file="Base@Public/wxshare"/>
+
+<script type="text/javascript" src="__JS__/storepub.js?v=20171102"></script>
+<script type="text/javascript" src="__JS__/indexpub.js?v=20171102"></script>
+<script type="text/javascript">
+    var ucode = "<?php echo $ucode; ?>";
+    var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+    var source = '<?php echo $data["c_source"] ?>';
+    var isfixed = "<?php echo $data['c_isfixed']; ?>";
+
+    /*商品资源数据加载*/
+    var ctrls = true;
+    var emptyval = true;
+    var pageindex = 1;
+    var id = 1;
+    var text = '';
+
+    /*线上商品列表*/
+    var pageindex2 = 1;
+    var ctrls2 = true;
+    var emptyval2 = true;
+
+    window.onload = function () {
+        ChRightText('分享');
+
+        //卡券
+        shopCouponList();
+
+        yangshi();
+
+        $('.xm-nav-title').hide();
+
+        if (isfixed == 1) {
+            $('.offline').show();
+            $('.commodity').hide();
+            //左边分类列表
+            getdatacate();
+
+        } else {
+            $('.offline').hide();
+            $('.commodity').show();
+            $('.page_index').on('tap', function () {
+                mui.openWindow({
+                    url: "__APP__/Store/Index/procategory?fromucode="+$('#issue_ucode').val(),
+                    id: "allshop"
+                });
+            });
+            //右边商品详情
+            getProductlist();
+
+            $(window).bind('scroll', function () {
+
+                if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+                    if (ctrls2 && emptyval2) {
+                        getProductlist();
+                    }
+                }
+            });
+        }
+
+        $(window).bind('scroll', function () {
+            if ($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+                $('.xiaomi-bar').addClass('menu-fixed');
+                if (source == 1) {
+                    $('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+                } else if (source == 2) {
+                    $('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+                }
+            }
+            if ($(window).scrollTop() < $('.xiaomi-bar').height()) {
+                $('.xiaomi-bar').removeClass('menu-fixed');
+                $('.xiaomi-bar').css("background", "none");
+            }
+        });
+    }
+    var screenWith = $('.wrap-page').width() / 720;
+
+</script>
+
+
+</body>
+</html>

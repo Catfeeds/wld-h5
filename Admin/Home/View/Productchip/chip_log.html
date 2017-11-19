@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>收集碎片统计</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 活动管理 <span class="c-gray en">&gt;</span>收集碎片统计<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="chip_log" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入用户名称" name="nickname" value="{$post['nickname']}">
+		<span class="select-box inline">
+		<select name="num" class="select">
+			<option value="">选择收集碎片种数</option>
+		  	<option value="1" <if condition="$post.num eq 1">selected="selected"</if>>1种</option>
+		  	<option value="2" <if condition="$post.num eq 2">selected="selected"</if>>2种</option>
+		  	<option value="3" <if condition="$post.num eq 3">selected="selected"</if>>3种</option>
+		  	<option value="4" <if condition="$post.num eq 4">selected="selected"</if>>4种</option>
+		  	<option value="5" <if condition="$post.num eq 5">selected="selected"</if>>5种</option>
+		  	<option value="6" <if condition="$post.num eq 6">selected="selected"</if>>6种</option>
+		  	<option value="7" <if condition="$post.num eq 7">selected="selected"</if>>7种</option>
+		  	<option value="8" <if condition="$post.num eq 8">selected="selected"</if>>8种</option>
+		</select></span>
+		<input type="hidden" name="pcode"  value="{$pcode}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
+	</div>
+	</form>
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">ID</th>
+					<th>用户昵称</th>
+					<th>用户头像</th>
+					<th>收集碎片种数</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="" value=""></td>
+					<td>{$i}</td>															
+					<td>{$vo.c_nickname}</td>
+					<td><a href="{$root_url}{$vo['c_headimg']}" target="_blank"><img src="{$root_url}{$vo['c_headimg']}" style="width:60px;"/></a></td>
+					<td>{$vo.num}</td>
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>		
+
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+
+
+/*系统-栏目-添加*/
+function prize_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-编辑*/
+function prize_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+}
+</script>
+</body>
+</html>

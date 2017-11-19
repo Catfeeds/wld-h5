@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<script type="text/javascript" src="__HJS__/tuo.js"></script> 
+<title>银行卡编辑</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-bank-edit">
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>用户昵称：</label>
+			<div class="formControls col-4">{$data['c_nickname']}</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>银行名称：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_bankname}" placeholder="" id="" name="c_bankname">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>银行支行名称：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_sub_bankname}" placeholder="" id="" name="c_sub_bankname">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>真实姓名：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_uname}" placeholder="" id="" name="c_uname">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>身份证号码：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_carid}" placeholder="" id="" name="c_carid">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>银行卡号：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_banksn}" placeholder="" id="" name="c_banksn">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4">微信名称：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_wxname}" placeholder="" id="" name="c_wxname">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4">微信号：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_wxcard}" placeholder="" id="" name="c_wxcard">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4">支付宝姓名：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_alipayname}" placeholder="" id="" name="c_alipayname">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4">支付宝账号：</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_alipaycard}" placeholder="" id="" name="c_alipaycard">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+        <div class="row cl">
+			<label class="form-label col-4">银行所在省</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_province}" placeholder="" id="" name="c_province">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4">银行所在市</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_city}" placeholder="" id="" name="c_city">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+        <div class="row cl">
+			<label class="form-label col-4">身份证有效期</label>
+			<div class="formControls col-4">
+				<input type="text" class="input-text" value="{$data.c_idcardendtime}" placeholder="" id="" name="c_idcardendtime">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<!-- <div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>身份证正面照：</label>
+		      	<div class="formControls col-4">
+			        <div id="file_1" class="file_1 cla">
+				          <a href="javascript:;" id="tdd_1"  calss="span_1" <if condition="$vo['c_idcard_img'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(1)">X</a>
+				            <div class="show" id="show_1" >  
+				               <if condition="$vo['c_idcard_img'] neq ''">
+				                <img src="{$root_url}{$vo['c_idcard_img']}" width="100" height="100"/>
+				               </if>
+			              </div> 
+		        	</div>
+			        <div  id="fileList_1" class="fileList1 tdaa" onclick="dianji(1)"  <if condition="$vo['c_idcard_img'] neq ''">  				style="display:none;"<else/>style="display:block;"</if>>
+				          <img src="__HIMG__/jian1.png" />
+				          <input type="file" name="c_idcard_img" id="fileElem_1" class="fileElem" style="display:none" onchange="handleFiles(this,1)"  multiple accept="image/* ">
+				          <input type="hidden" name="tmimg" id="tmimg_1"  value="{$vo['c_idcard_img']}" />
+			        </div>
+       			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-4"><span class="c-red">*</span>身份证反面照：</label>
+		      	<div class="formControls col-4">
+			        <div id="file_2" class="file_2 cla">
+				          <a href="javascript:;" id="tdd_2"  calss="span_2" <if condition="$vo['c_idcard_img1'] neq ''">style="display:block;"<else/>style="display:none;"</if>  onclick="hideen(2)">X</a>
+				            <div class="show" id="show_2" >  
+				               <if condition="$vo['c_idcard_img1'] neq ''">
+				                <img src="{$root_url}{$vo['c_idcard_img1']}" width="100" height="100"/>
+				               </if>
+			              </div> 
+		        	</div>
+			        <div  id="fileList_2" class="fileList2 tdaa" onclick="dianji(2)"  <if condition="$vo['c_idcard_img1'] neq ''">  				style="display:none;"<else/>style="display:block;"</if>>
+				          <img src="__HIMG__/jian1.png" />
+				          <input type="file" name="c_idcard_img1" id="fileElem_2" class="fileElem" style="display:none" onchange="handleFiles(this,2)"  multiple accept="image/* ">
+				          <input type="hidden" name="tmimg" id="tmimg_2"  value="{$vo['c_idcard_img1']}" />
+			        </div>
+       			</div>
+		</div> -->
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="c_id" value="{$data.c_id}">
+				<div class="btn btn-primary radius" onclick="ajax_post_data('Member/bank_edit','form-bank-edit','Member/bank');">&nbsp;&nbsp;提交&nbsp;&nbsp;</div>
+			</div>
+		</div>
+	</form>
+	</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-article-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>收银台管理</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content divtab">
+					<div class="ca-desk divtab">
+						<ul id="data_list">
+							<volist name="desklist" id="vo">
+								<li class="deskbox" title="{$i}">
+									<div class="divtab">
+										<div class="ca-desk-item fl" title="{$vo['c_id']}">
+											<img src="__IMG__/cashier/erweima_icon.png">
+										</div>
+										<div class="ca-desk-name fl c3 fs14">{$vo['c_name']}</div>
+										<div class="ca-desk-next fr" title="{$vo['c_id']}">
+											<div class="ca-desk-botton fr">
+												<img src="__IMG__/multshop/lsdgl_icon_next.png">
+											</div>
+											<span class="fr c9 fs11">收银台收益明细</span>
+										</div>
+									</div>
+									<?php if (!empty($vo['cashid'])): ?>
+									<div class="divtab" style="margin-top:4%;">
+										<div class="fl c9 fs11">收银员：<span style="color:green;">{$vo['cashname']}</span>正在上班</div>
+										<div class="fr fs11 xiaban" style="color:red;" data-cashucode="{$vo['cashucode']}" data-cashid="{$vo['cashid']}" title="{$vo['c_id']}">操作下班</div>
+									</div>
+									<?php endif ?>
+								</li>
+							</volist>
+
+						</ul>
+						<div id="console"></div>
+					</div>
+
+					<!-- stata02  s收银台已满，若继续增加请联系总店  -->
+					<div class="ca-desk-add fs16 cf">
+						<!--<div class="add-operate stata01">添加收银台</div>-->
+						<p class="c9 fs11" id="surplus_num"></p>
+					</div>
+
+				</div>
+				<div class="sm-bottom add-create cb fs16" id="add_desk">添加收银台</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		var countdesk = "<?php echo $countlist; ?>";
+		window.onload = function() {
+			yangshi();
+			if(countdesk < 6) {
+				$('#surplus_num').text("还可创建" + (6 - countdesk) + "个");
+			} else {
+				mui('.wrap-page').off('tap', '#add_desk');
+				$('#add_desk').css({
+					'background': "#cccccc",
+					"color": "#fff"
+				});
+				$('#surplus_num').html("收银台已满，若继续增加请联系总店");
+			}
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var cdImg = $('.ca-desk-item').width();
+			$('.ca-desk-name').css('line-height', cdImg + 'px');
+			$('.ca-desk-next').css('padding-top', cdImg * 0.75 + 'px');
+
+		}
+
+		//下班提交
+		mui('.mui-content').on('tap', '.xiaban', function() {
+			var deskid = $(this).attr('title');
+			var cashid = $(this).attr('data-cashid');
+			var cashucode = $(this).attr('data-cashucode');
+
+			mui.confirm('是否直接操作收银员下班', '提示', ['取消', '确认'], function(e) {
+				e.index == 0 ? "" : xbtijiao(deskid, cashid, cashucode);;
+			}, 'div');
+		});
+
+		var xbsign = true;
+
+		function xbtijiao(deskid, cashid, cashucode) {
+			if(xbsign) {
+				xbsign = false;
+				$.post("__URL__/LeaveCashierDesk", {
+					cashucode: cashucode,
+					cashid: cashid,
+					deskid: deskid,
+				}, function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						mui.toast('下班成功');
+						setTimeout(function() {
+							mui.openWindow({
+								url: '',
+								id: ''
+							});
+						}, 1000);
+					} else {
+						mui.toast(data['msg']);
+						xbsign = true;
+					}
+				});
+			}
+		}
+
+		/*查看二维码*/
+		mui('.deskbox').on('tap', '.ca-desk-item', function() {
+			var cid = $(this).attr('title');
+			mui.openWindow({
+				url: "__URL__/ewcode?deskid=" + cid,
+				id: "ewcode"
+			});
+		});
+
+		/*查看收支明细*/
+		mui('.deskbox').on('tap', '.ca-desk-next', function() {
+			var cid = $(this).attr('title');
+			mui.openWindow({
+				url: "__URL__/cincome?deskid=" + cid,
+				id: "detail"
+			});
+		});
+
+		/*添加收银台*/
+		mui('.wrap-page').on('tap', '#add_desk', function() {
+			if(countdesk < 6) {
+				tijiao();
+			} else {
+				mui('.wrap-page').off('tap', '#add_desk');
+				$('#add_desk').css({
+					'background': "#cccccc",
+					"color": "#fff"
+				});
+				$('#surplus_num').html("收银台已满，若继续增加请联系总店");
+			}
+		});
+
+		/*添加收银台*/
+		var tjsign = true;
+
+		function tijiao() {
+			if(tjsign) {
+				tjsign = false;
+				mui('.wrap-page').off('tap', '#add_desk');
+					$('#add_desk').css({
+					'background': "#cccccc",
+					"color": "#fff"
+				});				
+				$.post("__URL__/AddDesk", function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						mui.alert(data['msg'], '提示', '确定', function(e) {
+								mui.openWindow({
+									url: '',
+									id: ''
+								});
+								mui('.wrap-page').on('tap', '#add_desk',function(){tijiao();});
+								$('#add_desk').css({
+									'background': "#fff",
+									"color": "#45aafa"
+								});								
+						}, 'div');
+					} else {
+						mui.toast(data['msg']);
+						tjsign = true;
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>提现记录</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+</head>
+
+<body class="bgcolor">
+<div class="wrap-page" style="padding-bottom: 6%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<div class="draw-top">
+		<div class="draw-tit fs13 cf">
+			已提现
+		</div>
+		<div class="draw-money fs28 cf">
+			{$money}<span class="fs12 cf">元</span>
+		</div>
+	</div>
+
+	<ul class="mid_column" id="tixianlist" style="margin-top:0px;">
+	    <!-- <li class="nav_column">
+		    <div class="fl draw-left">
+		    	<h3 class="c6">体现金额<span>200.00</span></h3>
+		    	<p class="c9">2016-05-06 12:00:20</p>
+		    </div>
+		    <div class="fr draw-right">
+		    	正在处理中
+		    </div>
+	    </li> -->
+	</ul>
+	<div id="console"></div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript">
+
+var page = 1;	
+var ctrls = true;
+var kongzhi = true;
+getdata();
+//获取当前可是范围的高度
+$(window).bind('scroll', function() {
+	if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+		if (ctrls && kongzhi) {
+			getdata();
+		}
+	}
+});
+function getdata() { 
+var html = '';
+$.ajax({
+        type: 'get',
+        dataType: 'json', 
+        url: '__URL__/GetdrawingList?pageindex='+page,              
+        cache: false,
+        beforeSend: function() {          
+          $('#console').css('display','block');
+          $('#console').html('加载中...'); 
+          ctrls = false;        
+        },
+        error: function(){
+          $('#console').css('display','block');
+          $('#console').html('加载失败'); 
+          ctrls = true;  
+        },
+        success: function(json) {  
+        	if (page==1) {
+		        $('#tixianlist').empty();
+		    }  
+			var obj = eval(json);
+			if (obj.code==0) {
+			var data = obj.data;
+			if (data) {
+			var orderlist = data.list;				
+			var pageCount = data.pageCount;	
+	          	
+			if (pageCount >= page) {
+				page++;
+				for ( i=0; i<orderlist.length; i++ ) {	
+					html += '<li class="nav_column">';
+					html += '<div class="fl draw-left">';
+					html += '<h5 class="c6 fs12">提现金额<span class="cy fs16">'+orderlist[i]['c_money']+'</span></h5>';
+					html += '<p class="c9 fs12">'+orderlist[i]['c_addtime']+'</p>';
+					html += '</div>';
+					if (orderlist[i]['c_state'] == 0) {
+						html += '<div class="fr draw-right cy fs12">正在处理中</div>';
+					} else if (orderlist[i]['c_state'] == 1) {
+						html += '<div class="fr draw-right fs12" style="color:green;">已提现</div>';
+					} else if (orderlist[i]['c_state'] == 2) {
+						html += '<div class="fr draw-right fs12" style="color:red;">提现失败</div>';
+					}
+					// if (typeof(orderlist[i]['c_remarks']) !== "undefined" && orderlist[i]['c_state'] == 2 && orderlist[i]['c_remarks']) {
+					// 	html += '<div class="divtab fs12" style="color:red;">'+orderlist[i]['c_remarks']+'</div>';
+					// }
+					html += '</li>';
+				};					
+				
+			} else {
+			    kongzhi = false;
+			}
+			} else {
+				kongzhi = false;
+			}
+			} else {
+				kongzhi = false;
+			}	
+			if (page==1) {
+		        html += '<div class="baoqian">抱歉！没有查询到您的相关记录</div>';
+		    } 
+			
+         	$('#tixianlist').append(html);
+         	$('#console').css('display','none');
+        },
+        complete: function() {
+        	$('#console').css('display','none');
+          	ctrls = true;           	             
+        }
+    });
+}
+
+</script>
+</body>
+</html>

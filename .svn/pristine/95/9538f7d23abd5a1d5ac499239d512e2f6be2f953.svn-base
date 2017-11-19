@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>代理商详情</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/shop/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page bgeb">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<include file="Base@Public/pubheader" />
+		<div class="mui-content">		
+			<div class="divtab infotops bgcolor">
+				<div class="divtab shopleft fl">
+					<img src="{$reseinfo['c_headimg']}" alt="">
+				</div>
+				<div class="fl divtab shopright">
+					<div class="divtab c3 fs14">
+						<div class="fl nametit fov">{$reseinfo['c_nickname']}</div>
+						<?php if ($reseinfo['c_shop'] == 1 && $reseinfo['c_isfixed'] == 1) { ?>
+						<div class="fl imgsign">
+							<img src="__COMMON__/img/shi.png" alt="">
+						</div>	
+						<?php } else if ($reseinfo['c_shop'] == 1 && $reseinfo['c_isfixed'] == 0) { ?>
+						<div class="fl imgsign">
+							<img src="__COMMON__/img/shang.png" alt="">
+						</div>
+						<?php } ?>
+					</div>
+					<div class="divtab bgcolor fs14 leveldateil">
+						<div class="fl c5">{$reseinfo['c_grade_name']}</div>
+						<div class="divtab levelimgs fl levelimgs1">
+							<img src="__IMG__/shop/p{$reseinfo['c_grade']}.png" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="divtab jiage fs14 xiaofei bgcolor">已消费{$reseinfo['c_money']}元</div>
+			</div>
+			<ul class="divtab goodslist" id="data_list">
+
+				<!-- <div class="divtab divempty">
+					<h3 class="divtab c6 fs14">暂无相关商品</h3>
+					<p class="divtab c9 fs12">该分销商尚未代理商品</p>
+				</div> -->
+				<!-- <li class="divtab bagsli bagsli1 bgcolor">
+					<div class="divtab fl bagsleft child-img">
+						<img src="__COMMON__/logo.png" alt="">
+					</div>
+					<div class="divtab fl bagright">
+						<h3 class="divtab fs14 c3">良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子良品铺子</h3>
+						<p class="divtab fs12 c6 bagsprinum">
+							<span class="fl jiage fs14">￥30</span>
+						</p>
+					</div>
+					<div class="divtab fs12 c6 showinfo fov">
+						<span>已购3000件</span>
+						<span>已消费9000元</span>
+						<span>库存3000件</span>
+					</div>
+				</li>
+				<li class="divtab bagsli bgcolor c9 fs12">
+					<div class="divtab fl guige">购买规格</div>
+					<div class="divtab fl shuliang">购买数量</div>
+					<div class="divtab fl pprice">购买价格</div>
+					<div class="divtab fl ptime">购买时间</div>
+				</li>
+				<li class="divtab bgcolor c9 fs14 lookall-1">
+					<div class="fr level_img lookclick" title="1">
+						<img src="__COMMON__/img/arrows.png" alt="">
+					</div>
+					<div class="fr looktext lookclick" title="1">查看全部</div>
+				</li> -->
+			</ul>
+			<div id="console"></div>
+		</div>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+
+	window.onload = function() {
+		yangshi();		
+		//跳转等级详情
+		mui('.mui-content').on('tap', '.leveldateil', function() {
+			mui.openWindow({
+				url: '__URL__/levelinfo?acode=<?php echo $acode; ?>',
+				id: "levelinfo"
+			});
+		});
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var wd = $('.shopleft').width();
+		$('.shopleft').height(wd);
+		$('.shopleft').css('border-radius',wd+'px');
+
+		var ligd = $('.bagsleft').width();
+		$('.bagsleft').height(ligd);
+		$('.bagright h3').css('line-height',ligd*0.3+'px');
+		$('.bagright p').height(ligd*0.3);
+		$('.bagright p').css('line-height',ligd*0.3+'px');
+
+
+		$(".bagright h3").each(function(i) {
+			while ($(this).height() > ligd*0.6) {
+				$(this).text($(this).text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+			};
+		});
+	}
+
+
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	loadclick();
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/AgencyMemberProduct?agentucode=<?php echo $acode; ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data || data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关购买记录</div>';
+							_html += '<div class="data-empty-font c3 fs14">该分销商品还没有购买记录~~</div>';
+							_html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<li class="divtab bagsli bagsli1 bgcolor">';
+									_html+='<div class="divtab fl bagsleft child-img">';
+										_html+='<img src="'+dataarr['c_pimg']+'" alt="">';
+									_html+='</div>';
+									_html+='<div class="divtab fl bagright">';
+										_html+='<h3 class="divtab fs14 c3">'+dataarr['c_name']+'</h3>';
+										_html+='<p class="divtab fs12 c6 bagsprinum">';
+											_html+='<span class="fl jiage fs14">￥'+dataarr['c_price']+'</span>';
+										_html+='</p>';
+									_html+='</div>';
+									_html+='<div class="divtab fs12 c6 showinfo fov">';
+										_html+='<span>已购'+dataarr['buynum']+'件</span>';
+										_html+='<span>已消费'+dataarr['buymoney']+'元</span>';
+										_html+='<span>库存'+dataarr['kcnum']+'件</span>';
+									_html+='</div>';
+								_html+='</li>';
+
+								_html+='<li class="divtab bagsli bgcolor c9 fs12">';
+									_html+='<div class="divtab fl guige">购买规格</div>';
+									_html+='<div class="divtab fl shuliang">购买数量</div>';
+									_html+='<div class="divtab fl pprice">购买价格</div>';
+									_html+='<div class="divtab fl ptime">购买时间</div>';
+								_html+='</li>';
+								var buylist = dataarr['buylist'];
+								for (var j = 0; j < buylist.length; j++) {
+									var buyinfo = buylist[j];
+									_html+='<li class="divtab bagsli bgcolor c9 fs12">';
+										_html+='<div class="divtab fl guige">'+buyinfo['c_name']+'</div>';
+										_html+='<div class="divtab fl shuliang">'+buyinfo['c_num']+'</div>';
+										_html+='<div class="divtab fl pprice">'+buyinfo['c_price']+'</div>';
+										_html+='<div class="divtab fl ptime">'+buyinfo['c_addtime']+'</div>';
+									_html+='</li>';
+								};
+
+								// if (buylist.length == 3) {
+									_html+='<li class="divtab bgcolor c9 fs14 lookall-'+pageindex+'">';
+										_html+='<div class="fr level_img lookclick" title="'+dataarr['c_agent_pcode']+'">';
+											_html+='<img src="__COMMON__/img/arrows.png" alt="">';
+										_html+='</div>';
+										_html+='<div class="fr looktext lookclick" title="'+dataarr['c_agent_pcode']+'">查看全部</div>';
+									_html+='</li>';	
+								// }
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+	function loadclick() {
+		//进货链接
+		mui('.lookall-'+pageindex).on('tap', '.lookclick', function() {
+			var pcode = $(this).attr('title');
+			mui.openWindow({
+				url: '__URL__/prdetail?acode=<?php echo $acode; ?>&pcode='+pcode,
+				id: "prdetail"
+			});
+		});
+	}
+
+</script>
+
+</html>

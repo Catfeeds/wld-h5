@@ -1,0 +1,83 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+img{width: 100%;height: 100%;}
+.expand-main{width: 100%;overflow: hidden;}
+.expand-list{margin-bottom: 3%;overflow: hidden;width: 100%;background: #fff;position: relative;}
+/*.business-tit{margin-left: 4%;padding: 2% 0;overflow: hidden;}
+.business-names{color: #47abf7;font-size: 14px;margin-left: 3%;}
+.business-headimg{width: 15%;overflow: hidden;}
+.business-headimg img{width: 100%;height: 100%;}
+.expand-pro-list{overflow: hidden;width: 100%;}
+.expand-pro-box{margin-left: 4%;border-top: solid 1px #e5e5e5;padding: 4% 0 ;overflow: hidden;}
+.expand-pro-box a{display: block;cursor: pointer;}
+.expand-pro-img{width: 15%;overflow: hidden;}
+.expand-pro-img img{width: 100%;height: 100%;}
+.expand-pro-info{width: 63%;margin-left: 3%;}
+.expand-pro-name{color: #555;font-size: 14px;}
+.expand-pro-price{color: #ffaa3c;font-size: 14px;}
+.expand-pro-share{width: 15%; overflow: hidden;}
+.share-btn{color: #47abf7;font-size: 14px;text-align: right;margin-right: 4%;cursor:pointer;width: 15%; overflow: hidden;float: right;}
+.pro-share-btn{}
+.pro-delete-btn{}*/
+
+
+/*2016-12-8改版*/
+.expand-tab-con{width: 100%;overflow: hidden;background: #fff;}
+.expand-tab-con ul li{border-bottom: solid 2px #f2f2f2;float: left;width: 50%;color: #999;padding: 3% 0;text-align: center;}
+.expand-tab-con ul li.hover{color: #46abfb;border-bottom: solid 2px #46abfb;}
+
+.product-box{border-bottom: solid 1px #f5f5f5;overflow: hidden;padding:3% 0 3% 2%;}
+.product-img{width: 23%;overflow: hidden;}
+.product-info{width: 74%;margin-left: 3%;}
+.product-oprate{width: 100%;overflow: hidden;}
+.product-name{width: 70%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.editor-btn{width: 22%;text-align: center;border-radius: 5px;padding: 1% 2%;border: solid 1px #ccc;margin-right: 3%;}
+.product-state{overflow: hidden;padding: 2.5% 0;}
+.product-state ul li{float: left;text-align:center;border-radius: 5px;padding: 0.5% 2%;margin-right: 2%;}
+.blue-btn{border:solid 1px #46abfb;color: #46abfb;}
+.yellow-btn{border:solid 1px #ffd66c;color: #ffd66c;}
+.product-price{width: 100%;overflow: hidden;}
+.price-font{color: #fdab48;}
+.rebate-font{color: #43a9fb;margin-right: 5%;}
+
+.rebate-box{width: 100%;overflow: hidden;padding: 4% 3%;}
+.expand-num{width: 35%;padding-top: 1%;}
+.ex-n-img{width: 55%;margin-right: 2%;}
+.expand-getr{width: 40%;text-align: center;padding-top: 1%;}
+.expand-button{width: 25%;}
+.btn-tg{ background: #fff; border: solid 1px #fdab48;border-radius: 5px;text-align: center;color: #fdab48;padding: 3% 5%;}
+.delete-btn{position: absolute; top: 25%; right: -15%; text-align: center; background: #fdab48; color: #fff; width: 9%;z-index: 999;vertical-align: middle;padding-top: 12%;}
+.delete-btn span{display: block;width: 40%;margin: 0 auto;}
+.delete-btn p{color: #fff;text-align: center;padding-top: 4%;}
+
+
+.menu-fixed{width: 100%; position: fixed;top: 0; z-index: 999;max-width: 720px;min-width: 320px;margin:0 auto;}
+
+
+/* 新增 推广中心 搜索css*/
+.header-shop{ max-width: 720px; margin: 0 auto; padding: 2% 3%; position: fixed; z-index: 2014; left: 0; right: 0; background: #e5e5e5;}
+.header-search { width: 86%;}
+.header-search input { background: #fff; text-align: center; width: 100%; border-radius: 25px; padding: 1.5% 4% 1.5% 12%;}
+.header-search span { display: block; width: 8%; left: 38%; top: 10%;}
+.search-cancel{ width: 14%; text-align: right; padding-top: 1%;}
+
+@media (min-width: 421px) and (max-width: 520px) {
+/*.expand-pro-name,.expand-pro-price,.business-names,.share-btn{font-size: 18px;}*/
+
+
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+/*.expand-pro-name,.expand-pro-price,.business-names,.share-btn{font-size: 22px;}*/
+
+
+}
+
+@media (min-width: 621px){	
+/*.expand-pro-name,.expand-pro-price,.business-names,.share-btn{font-size: 26px;}*/
+
+
+}
+
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>帮助</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/coupon/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="mui-content">
+					<div class="help-con fs14 divre bgcolor">
+						<div class="help-title c3 fb600">优惠券说明</div>
+						<div class="help-introduce c5">
+							<span>1.优惠券分为折扣券和代金券，折扣券根据（订单交易金额）商品价格进行折算抵扣金额，代金券直接根据券面金额进行抵扣；</span>
+							<span>2.折扣劵：添加折扣比例必须保留一位小数比如：8折输入（8.0)，最高折扣为最多折扣多少金额；</span>
+							<span>3.优惠券需要创建后才能进行发放，优惠券创建后不能进行修改，只能直接删除； </span>
+							<span>4.优惠券删除后，消费者就不能领取，但已经领取的优惠券，消费者在有效期内仍然可以使用；</span>
+							<span>5.平台优惠券带有“<font class="cy">平台补贴</font>”标签，平台优惠券产生的减免金额将由小蜜平台承担；商家发起的优惠券产生的减免金额由商家自行承担；</span>
+							<span>6.优惠券仅限线上订单支付时使用，一笔订单只能使用一张优惠券。</span>
+						</div>
+						<div class="help-title c3 fb600">优惠券发放途径</div>
+						<div class="help-introduce c5">
+							<span>1.通过“<font class="cy">店铺管理</font>”的“<font class="cy">发放卡券</font>”，选择的卡券将展示在自己店铺中，用户可在店铺中直接领取；</span>
+							<span>2.通过“<font class="cy">服务中心</font>”的“<font class="cy">广告位</font>”，将卡券进行投放，投放成功以后卡券将显示在投放的店铺中；</span>
+							<span>3.通过“<font class="cy">服务中心</font>”的“<font class="cy">宝箱</font>”和“<font class="cy">气球</font>”等活动添加优惠券作为活动奖品。</span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		
+		window.onload = function() {
+			
+		}
+
+	</script>
+
+</html>

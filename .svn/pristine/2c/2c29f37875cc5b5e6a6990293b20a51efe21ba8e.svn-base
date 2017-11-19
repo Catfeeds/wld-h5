@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+ 	<title>会员管理</title>
+ 	<include file="Base@Public/header" />
+ 	<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css"/>
+ </head>
+ <body class="bgcolor">
+ <div class="wrap-page bgcolor" style="margin-bottom: 13%;">
+ <include file="Base@Public/pubheader" />
+	<div class="mui-content bgcolor">
+		<div class="member-top">
+			<div class="member-incode-bg">
+				<div class="member-incode fs24"><?php echo $count+$wxcount;?></div>
+				<div class="member-font fs14">我的会员人数</div>
+				<img src="__IMG__/member/hy4.png" alt="">
+			</div>
+			<a href="javascript:;" class="member-invite fs16" onclick="sharepro();">
+				立即邀请
+			</a>
+		</div>
+	
+		<div class="member-tabli fs16">
+			<ul>
+				<li class="hover membertab" id="member-tab-1" onclick="selectstatu(1)">我的会员<span class="fs14">({$count}人)</span></li>
+				<li class="membertab" id="member-tab-2" onclick="selectstatu(2)">支付会员<span class="fs14">({$wxcount}人)</span></li>
+			</ul>
+		</div>
+	
+		<div class="member-view">
+			<ul id="view-ul-1" class="view-ul">
+	
+				<!-- <li class="member-box">
+					<div class="member-box-l">
+						<div class="member-box-head"><img src="__IMG__/coalition/founder1.jpg" alt=""></div>
+						<div class="member-box-sj"><img src="__IMG__/coalition/dl.png" alt=""></div>
+					</div>
+					<div class="member-box-r">
+						<div class="member-name fs16 c3">周波波【扫码支付】</div>
+						<div class="member-desc member-desc2 c6 fs14">手机号：155****5460</div>
+						<div class="member-area-tag">
+							<div class="member-job2 c9 fs12">2016-05-24</div>
+						</div>
+					</div>
+					<div class="member-state">
+						<ul>
+							<li><img src="__IMG__/member/hy1.png" alt="" ></li>
+							<li><img src="__IMG__/member/hy8.png" alt=""></li>
+							<li><img src="__IMG__/member/hy7.png" alt=""></li>
+						</ul>
+					</div>
+				</li> -->
+			</ul>
+			<ul id="view-ul-2" class="view-ul">
+				<!-- <li class="member-weixin">
+					<div class="fl member_left">
+						<img src="__IMG__/balance/newb010.png" alt="">
+					</div>
+					<div class="fl member_right">
+						<div class="member-wx-desc fs14 c5"><span>某某某某</span>通过微信<span class="bluec">扫码方式</span>成为您的临时会员</div>
+						<div class="member-wx-time c9 fs12">2016-12-09</div>
+					</div>
+				</li>
+				<li class="member-weixin">
+					<div class="fl member_left">
+						<img src="__IMG__/balance/newb012.png" alt="">
+					</div>
+					<div class="fl member_right">
+						<div class="member-wx-desc fs14 c5"><span>某某某某某某某某</span>通过微信<span class="bluec">扫码方式</span>成为您的临时会员</div>
+						<div class="member-wx-time c9 fs12">2016-12-09</div>
+					</div>
+				</li>
+				<li class="member-weixin">
+					<div class="fl member_left">
+						<img src="__IMG__/balance/newb010.png" alt="">
+					</div>
+					<div class="fl member_right">
+						<div class="member-wx-desc fs14 c5"><span>某某某某某某某某</span>通过微信<span class="bluec">扫码方式</span>成为您的临时会员</div>
+						<div class="member-wx-time c9 fs12">2016-12-09</div>
+					</div>
+				</li> -->
+			</ul>
+		</div>
+	</div>	
+	<div class="prompt-box-bg"></div>
+	<div class="prompt-box">
+		<div class="prompt-box-con">
+			<div class="tooltip-font fs14 c5"><span id="m-name">***************</span>在<span id="m-time"></span>通过<span class="bluec" id="m-type">*********</span><span id="m-goal"></span></div>
+			<a href="javascript:;" class="tooltip-btn fs16 bluec" id="sure-btn">确定</a>
+		</div>
+	</div>	
+</div>
+ <include file="Base@Public/pubjs" /> 
+ <script type="text/javascript">
+	window.onload = function() {
+		var bgh = $('.member-incode-bg').height();
+		$('.member-incode-bg').height(bgh);
+	
+		liststyle();
+	
+	    $('.prompt-box-bg').click(function(){
+		    $(".prompt-box").fadeOut(300);
+		    $(".prompt-box-bg").fadeOut(300);
+	    });
+	    $('#sure-btn').click(function(){
+		    $(".prompt-box").fadeOut(300);
+		    $(".prompt-box-bg").fadeOut(300);
+	    });
+	}	
+	
+	function liststyle() {
+		var slh = $('.member-box-head').width();
+		$('.member-box-head').height(slh);
+		$('.member-box-head').css('border-radius', slh + 'px');
+		var sr = slh * 32 / 100;
+		$(".member-box-r").css("line-height", sr + "px");
+	
+		var boxh = $('.member-box').height();
+		$('.member-box').height(boxh);
+	}
+	
+	/*我的会员列表*/
+	var ctrls = true;
+	var emptyval = true;
+	var pageindex = 1;
+	var statu = '<?php echo $statu ?>';
+	if (!statu) {
+		statu = 1;
+	}
+	
+	selectstatu(statu);
+	function selectstatu(i){
+		statu = i;pageindex = 1;ctrls = true;emptyval = true;
+		$('.membertab').removeClass('hover');
+		$('.view-ul').css("display","none");
+		$('#view-ul-'+i).css("display","block");
+		$('#member-tab-' + i).addClass('hover');
+		if(statu==1){
+			GetmyMembleList();
+		}else if(statu==2){
+			Getwxlist();
+		}
+	}
+	$(window).bind('scroll', function() {
+		if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if (ctrls && emptyval) {
+				if(statu==1){
+					GetmyMembleList();
+				}else if(statu==2){
+					Getwxlist();
+				}
+			}
+		}
+	});
+	
+	/*我的会员列表*/
+	function GetmyMembleList() {
+		var url = WEB_HOST + "/index.php/Store/Member/GetmyMembleList?pageindex="+pageindex;
+		var _html="";
+		$.ajax({
+		    type: 'get',
+		    dataType: 'json',
+		    url: url,
+		    cache: false,
+		    beforeSend: function() {
+		      $('#console').css('display', 'block');
+		      $('#console').html('加载中...');
+		      ctrls = false;
+		    },
+		    error: function() {
+		      $('#console').css('display', 'block');
+		      $('#console').html('加载失败');
+		      ctrls = true;
+		    },
+		    success: function(obj) {
+		    	if(pageindex==1){
+		    		$('#view-ul-1').empty();
+		    	}
+		    	var mgs = eval(obj);
+		    	if (mgs['code']==0) {
+		    		var data = mgs.data;
+		    		if(data==null || data.list ==null){
+		    			if (pageindex==1) {
+					      	_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img">';
+							_html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+							_html += '</div>';
+							_html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+							_html += '</div>';
+		    			}
+						emptyval = false;
+		    		} else{
+			    		if (pageindex <= data.pageCount) {
+			    			pageindex++;
+			    			var datalist = data.list;
+			    			for (var i = 0; i < datalist.length; i++) {
+				_html+='<li class="member-box">';
+				_html+='<div class="member-box-l">';
+				_html+='<div class="member-box-head" onclick="clickUcode(\''+datalist[i]["c_ucode"]+'\')"><img src="'+datalist[i]["c_headimg"]+'" alt=""></div>';
+				if(datalist[i]["c_shop"]==1){
+					_html+='<div class="member-box-sj"><img src="__IMG__/member/sj.png" alt=""></div>';
+				}else{
+					_html+='<div class="member-box-sj"><img src="__IMG__/member/dl.png" alt=""></div>';
+				}
+				_html+='</div>';
+				_html+='<div class="member-box-r">';
+				_html+='<div class="member-name fs14 c3">'+datalist[i]['c_nickname']+'</div>';
+				var allphone = datalist[i]['c_phone'];
+				var resultstr = allphone.substring(0,3)+'****'+allphone.substring(7,allphone.length);
+				_html+='<div class="member-desc member-desc2 c6 fs12">手机号：'+resultstr+'</div>';
+				_html+='<div class="member-area-tag">';
+				_html+='<div class="member-job2 c9 fs12">'+datalist[i]['c_addtime']+'</div>';
+				_html+='</div>';
+				_html+='</div>';
+				_html+='<div class="member-state">';
+				_html+='<ul>';
+	
+	
+				if(datalist[i]["iscard_band"]==1){
+					_html+='<li><img src="__IMG__/member/hy7.png" alt="" onclick="promptinfo(\''+datalist[i]['c_nickname']+'\',\''+datalist[i]['alerttime']+'\',\'身份证\',\'实名认证\')"></li>';
+				}
+				if (datalist[i]["isal_auth"]==1) {
+					_html+='<li><img src="__IMG__/member/hy9.png" alt="" onclick="promptinfo(\''+datalist[i]['c_nickname']+'\',\''+datalist[i]['alerttime']+'\',\'授权方式\',\'绑定支付宝\')"></li>';
+				}
+				if(datalist[i]["iswx_auth"]==1){
+					_html+='<li><img src="__IMG__/member/hy8.png" alt="" onclick="promptinfo(\''+datalist[i]['c_nickname']+'\',\''+datalist[i]['alerttime']+'\',\'授权方式\',\'绑定微信账号\')"></li>';
+				}
+				//if(datalist[i]["c_source"]==3){
+					_html+='<li><img src="__IMG__/member/hy1.png" alt="" onclick="promptinfo(\''+datalist[i]['c_nickname']+'\',\''+datalist[i]['alerttime']+'\',\''+datalist[i]['c_sourcestr']+'\',\'成为您的商家会员\')"></li>';
+				//}
+				_html+='</ul>';
+				_html+='</div>';
+				_html+='</li>';
+			    			};
+			    		} else{
+			    			emptyval = false;
+			    		}
+		    		}
+		    	} else{
+		    		emptyval = false;
+		    	}
+		      	$('#view-ul-1').append(_html);
+		    },
+		    complete: function() {
+		      liststyle();
+		      $('#console').css('display', 'none');
+		      ctrls = true;
+		    }
+		});
+	}
+	
+	function promptinfo (name,tim,type,txt2) {
+		$('#m-name').text(name);
+		$('#m-time').text(tim);
+		$('#m-type').text(type);
+		$('#m-goal').text(txt2);
+	    $(".prompt-box").fadeIn(300);
+	    $(".prompt-box-bg").fadeIn(300);
+	    $(".prompt-box-bg").height($(document).height());
+	    $(".prompt-box").height($(document).height());
+	}
+	
+	/*微信临时会员*/
+	function Getwxlist() {
+		var url = WEB_HOST + "/index.php/Store/Member/GetWxmebleList?pageindex="+pageindex;
+		var _html="";
+		$.ajax({
+		    type: 'get',
+		    dataType: 'json',
+		    url: url,
+		    cache: false,
+		    beforeSend: function() {
+		      $('#console').css('display', 'block');
+		      $('#console').html('加载中...');
+		      ctrls = false;
+		    },
+		    error: function() {
+		      $('#console').css('display', 'block');
+		      $('#console').html('加载失败');
+		      ctrls = true;
+		    },
+		    success: function(obj) {
+		    	if(pageindex==1){
+		    		$('#view-ul-2').empty();
+		    	}
+		    	var mgs = eval(obj);
+		    	if (mgs['code']==0) {
+		    		var data = mgs.data;
+		    		if(data==null || data.list ==null){
+		    			if (pageindex==1) {
+					      	_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img">';
+							_html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+							_html += '</div>';
+							_html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+							_html += '</div>';
+		    			}
+						emptyval = false;
+		    		} else{
+			    		if (pageindex <= data.pageCount) {
+			    			pageindex++;
+			    			var datalist = data.list;
+			    			for (var i = 0; i < datalist.length; i++) {
+				_html+='<li class="member-weixin">';
+					_html+='<div class="fl member_left">';
+					if (datalist[i]["c_type"] == 1) {
+						var getmothed = '通过微信';
+			    		_html+='<img src="__IMG__/balance/newb010.png" alt="">';
+			    	} else {
+			    		var getmothed = '通过支付宝';
+			    		_html+='<img src="__IMG__/balance/newb012.png" alt="">';
+			    	}
+	
+					_html+='</div>';
+					_html+='<div class="fl member_right">';
+				_html+='<div class="member-wx-desc fs14 c5"><span>'+datalist[i]["c_name"]+'</span>'+getmothed+'<span class="bluec">扫码方式</span>成为您的支付会员</div>';
+				_html+='<div class="member-wx-time c9 fs12">'+datalist[i]["c_addtime"]+'</div>';
+				_html+='</div>';
+				_html+='</li>';
+			    			};
+			    		} else{
+			    			emptyval = false;
+			    		}
+		    		}
+		    	} else{
+		    		emptyval = false;
+		    	}
+		      	$('#view-ul-2').append(_html);
+		    },
+		    complete: function() {
+		      liststyle();
+		      $('#console').css('display', 'none');
+		      ctrls = true;
+		    }
+		});
+	}
+	
+	
+	var apptype = '<?php echo get_app_type(); ?>';
+	/*查看个人空间*/
+	function clickUcode (ucode) {
+		if(apptype==1){
+			javaScript:resultData.goUserDetails(''+ucode+'');
+		}else if(apptype==2){
+			window.webkit.messageHandlers.AppModel.postMessage({"space":{"ucode":""+ucode+""}});
+		}else{
+			window.location.href="__APP__/Home/Myspace/index?fromucode="+ucode;
+		}
+	}
+	
+	/*分享推广产品*/
+	function sharepro(){
+		if (apptype==1) {
+			androidShare();
+		}else if(apptype==2){
+			iosShare();
+		}else{
+			window.location.href = '<?php echo $cururl ?>';
+		}
+	
+	}
+	var description = '诚挚地邀请您注册并加入小蜜，在这里，每天有上万名微商等您临幸，数十万爆款商品任您挑选，百万红包等您领取。请根据提示完成注册流程，让我们共同开启神奇小蜜之旅吧！';
+	var weburl = '<?php echo $cururl ?>';
+	var imgurl = 'https://m.weilingdi.com/Resource/Common/logo.png';
+	var title = '我是<?php echo strtrim1($data["c_nickname"]); ?>,邀请您加入小蜜';
+	/*调用安卓分享*/
+	function androidShare () {
+		javaScript:resultData.generalizeShare(weburl,imgurl,title,description,'');
+	}
+	/*ios分享*/
+	function iosShare () {
+		window.webkit.messageHandlers.AppModel.postMessage({"share":{ "imgsrc":""+imgurl+"", "weburl":""+weburl+"","title":""+title+"","desc":""+description+""}});
+	}
+
+ 	mui.plusReady(function(){
+	});
+ </script> 
+ 
+ <include file="Base@Public/footer" />
+ </body>
+ </html>

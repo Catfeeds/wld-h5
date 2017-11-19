@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<title>我的足迹</title>
+	<meta content="微域领地,微域领地系统,我的足迹" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/footmark/index.css?v=1.2">	
+    <link rel="stylesheet" href="__CSS__/shop/swipebox.css?v=1.2">
+</head>
+<body>
+
+<div class="wrap-page" style="margin-bottom:13%;">
+<include file="Base@Public/pubheader" />
+<div class="mui-content">
+	<div class="footmark-tab fs16 bgcolor">
+		<ul>
+			<li class="hover tablim" id="footmark-tab-1" onclick="selectstatu(1)">访问的商家</li>
+			<li class="tablim" id="footmark-tab-2" onclick="selectstatu(2)">看过的商品</li>
+		</ul>
+	</div>
+	<div class="footmark-view">
+		<input type="hidden" id="timesign" value="">
+		<ul class="view-ul bgcolor" id="view-ul-1">
+			<!-- <li class="business-list">
+				<div class="fl business-left">
+					<input type="hidden" id="timesign1" value="">
+					<div class="timesmonth c9 fs14">今天</div>
+				</div>
+				<div class="fl business-right">
+					<div class="big-boss divre">
+						<div class="boss-ico-1 divab"><img src="__IMG__/server/fw-13.png" alt=""></div>
+						<div class="business-box boxico-1">
+							<div class="business-img fl">
+								<img src="__IMG__/newsshare.png" alt="">
+							</div>
+							<div class="business-info fl">
+								<div class="business-name c3 fs14">某某某某的店</div>
+								<div class="business-fwtime c9 fs12">2016-12-12 22:33:33</div>
+							</div>
+						</div>
+					</div>
+					<div class="big-boss divre">
+						<div class="boss-ico divab"><img src="__IMG__/server/fw-14.png" alt=""></div>
+						<div class="business-box boxico">
+							<div class="business-img fl">
+								<img src="__IMG__/newsshare.png" alt="">
+							</div>
+							<div class="business-info fl">
+								<div class="business-name c3 fs14">某某某某的店</div>
+								<div class="business-fwtime c9 fs12">2016-12-12 22:33:33</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="business-list">
+				<div class="fl business-left">
+					<input type="hidden" id="timesign1" value="">
+					<div class="timesmonth c9 fs14">
+						<p>2015</p>
+						<p class="fs12">12/07</p>
+					</div>
+				</div>
+				<div class="fl business-right">
+					<div class="big-boss divre">
+						<div class="boss-ico-1 divab"><img src="__IMG__/server/fw-13.png" alt=""></div>
+						<div class="business-box boxico-1">
+							<div class="business-img fl">
+								<img src="__IMG__/newsshare.png" alt="">
+							</div>
+							<div class="business-info fl">
+								<div class="business-name c3 fs14">某某某某的店</div>
+								<div class="business-fwtime c9 fs12">2016-12-12 22:33:33</div>
+							</div>
+						</div>
+					</div>
+					<div class="big-boss divre">
+						<div class="boss-ico divab"><img src="__IMG__/server/fw-14.png" alt=""></div>
+						<div class="business-box boxico">
+							<div class="business-img fl">
+								<img src="__IMG__/newsshare.png" alt="">
+							</div>
+							<div class="business-info fl">
+								<div class="business-name c3 fs14">某某某某的店</div>
+								<div class="business-fwtime c9 fs12">2016-12-12 22:33:33</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li> -->
+		</ul>
+		<ul class="view-ul" id="view-ul-2">
+			<!-- <li class="product-li">
+				<div class="product-img"><img src="__IMG__/server/new-s-11.png" alt=""></div>
+				<div class="product-name c3 fs14">商品名称测试商品名称测试商品名称测试商品名称测试商品名称测试商品名称测试</div>
+				<div class="product-price">
+					<div class="proprice fl fs16"><span class="fs12">￥</span>288</div>
+					<div class="protime fr fs12 c9">2016-12-13</div>
+				</div>
+				<div class="product-state"><span class="bluecc">自营</span><span class="yellowc">推广佣金</span></div>
+			</li> -->
+		</ul>
+	</div>
+
+</div>
+</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__JS__/shop/jquery.swipebox.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		liststyle();
+	}
+	function liststyle () {
+		var headimgh = $('.business-img').width(),
+			headli = headimgh*50/100;
+		$('.business-img').height(headimgh);
+		$('.business-img').css("border-radius",headimgh+"px");
+		$('.business-info').css('line-height',headli+"px");
+
+		var boxh = $('.business-box').height();
+		$('.big-boss').height(boxh);
+		style2();
+	}
+	function style2(){
+		var proimgw = $('.product-img').width();
+		$('.product-img').height(proimgw);
+
+		// var prolih = $('.product-li').height();
+		// $('.product-li').height(prolih);
+	}
+var ctrls = true;
+var emptyval = true;
+var pageindex = 1;
+var statu = '<?php echo $statu ?>';
+var signid = 1;
+if (!statu) {
+	statu = 1;
+}
+
+selectstatu(statu);
+function selectstatu(i){
+	$(window).scrollTop(0);
+	statu = i;pageindex = 1;ctrls = true;emptyval = true;signid=1;
+	$('.tablim').removeClass('hover');
+	$('.view-ul').css("display","none");
+	$('#view-ul-'+i).css("display","block");
+	$('#footmark-tab-' + i).addClass('hover');
+	if(statu==1){
+		Getmyfoot();
+		liststyle();
+	}else if(statu==2){
+		Getprolist();
+		style2();
+	}
+}
+$(window).bind('scroll', function() {
+	if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+		if (ctrls && emptyval) {
+			if(statu==1){
+				Getmyfoot();
+			}else if(statu==2){
+				Getprolist();
+			}
+		}
+	}
+	if ($(window).scrollTop() >= $('.footmark-tab').height()) {
+		$('.footmark-tab').addClass('menu-fixed');
+	}
+	if ($(window).scrollTop() < $('.footmark-tab').height()) {
+		$('.footmark-tab').removeClass('menu-fixed');
+	}
+});
+
+/*我访问过的商家列表*/
+function Getmyfoot() {
+	var url = WEB_HOST + "/index.php/Home/Footmark/VisitShopinfo?pageindex="+pageindex;
+	var _html="";
+	$.ajax({
+	    type: 'get',
+	    dataType: 'json',
+	    url: url,
+	    cache: false,
+	    beforeSend: function() {
+	      $('#console').css('display', 'block');
+	      $('#console').html('加载中...');
+	      ctrls = false;
+	    },
+	    error: function() {
+	      $('#console').css('display', 'block');
+	      $('#console').html('加载失败');
+	      ctrls = true;
+	    },
+	    success: function(obj) {
+	    	if(pageindex==1){
+	    		$('#view-ul-1').empty();
+	    	}
+	    	var mgs = eval(obj);
+	    	if (mgs['code']==0) {
+	    		var data = mgs.data;
+	    		if(data==null || data.list ==null){
+					emptyval = false;
+	    		} else{
+		    		if (pageindex <= data.pageCount) {
+		    			pageindex++;
+		    			var datalist = data.list;
+		    			for (var i = 0; i < datalist.length; i++) {
+		    				if(datalist[i]['c_type']==1){
+		    					_html += '<li class="business-list" onclick="goUserDetails(\''+datalist[i]['c_vucode']+'\');">';
+		    				}else if(datalist[i]['c_type']==2){
+		    					_html += '<li class="business-list" onclick="goShopDetail(\''+datalist[i]['c_vucode']+'\');">';	
+		    				}		    				
+								_html += '<div class="fl business-left">';
+									var timesign = $('#timesign').val();
+									$('#timesign').val(datalist[i]['dectime'])
+									if (signid == 1 || timesign != datalist[i]['dectime']) {
+										_html += '<div class="timesmonth c9 fs12">';
+										if (datalist[i]['timestr'] == "") {
+											_html += '<p>'+datalist[i]['ytime']+'</p>';
+											_html += '<p class="fs12">'+datalist[i]['mtime']+'</p>';
+										} else {
+											_html += datalist[i]['timestr'];
+										}
+										_html += '</div>';
+									} else {
+										_html += '<div class="timesmonth c9 fs14">&nbsp;</div>';
+									}
+								_html += '</div>';
+								_html += '<div class="fl business-right">';
+									_html += '<div class="big-boss divre">';
+										_html += '<div class="boss-ico-1 divtab"><img src="__IMG__/server/fw-13.png" alt=""></div>';
+										_html += '<div class="business-box boxico-1">';
+											_html += '<div class="business-img fl">';
+												_html += '<img src="'+datalist[i]['c_headimg']+'" alt="">';
+											_html += '</div>';
+											_html += '<div class="business-info fl">';
+												_html += '<div class="business-name c3 fs14">'+datalist[i]['c_nickname']+'</div>';
+												_html += '<div class="business-fwtime c9 fs12">'+datalist[i]['htime']+'</div>';
+											_html += '</div>';
+										_html += '</div>';
+									_html += '</div>';
+								_html += '</div>';
+							_html += '</li>';
+							signid++;
+		    			};
+		    		} else{
+		    			emptyval = false;
+		    		}
+	    		}
+	    	} else{
+	    		emptyval = false;
+	    	}
+			if (pageindex==1) {
+		      	_html += '<div class="data-empty divtab">';
+				_html += '<div class="data-empty-img">';
+				_html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+				_html += '</div>';
+				_html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+				_html += '</div>';
+			}
+	      	$('#view-ul-1').append(_html);
+	    },
+	    complete: function() {
+	      liststyle();
+	      $('#console').css('display', 'none');
+	      ctrls = true;
+	    }
+	});
+}
+
+
+/*访问过的商品列表*/
+function Getprolist() {
+	var url = WEB_HOST + "/index.php/Home/Footmark/VisitGoodsinfo?pageindex="+pageindex;
+	var _html="";
+	$.ajax({
+	    type: 'get',
+	    dataType: 'json',
+	    url: url,
+	    cache: false,
+	    beforeSend: function() {
+	      $('#console').css('display', 'block');
+	      $('#console').html('加载中...');
+	      ctrls = false;
+	    },
+	    error: function() {
+	      $('#console').css('display', 'block');
+	      $('#console').html('加载失败');
+	      ctrls = true;
+	    },
+	    success: function(obj) {
+	    	if(pageindex==1){
+	    		$('#view-ul-2').empty();
+	    	}
+	    	var mgs = eval(obj);
+	    	if (mgs['code']==0) {
+	    		var data = mgs.data;
+	    		if(data==null || data.list ==null){
+					emptyval = false;
+	    		} else{
+		    		if (pageindex <= data.pageCount) {
+		    			pageindex++;
+		    			var datalist = data.list;
+		    			for (var i = 0; i < datalist.length; i++) {
+		    				_html += '<li class="product-li" onclick="clickpro(\''+datalist[i]['c_pcode']+'\','+datalist[i]['c_source']+');">';
+								_html += '<div class="product-img">';
+									_html += '<img src="'+datalist[i]['c_pimg']+'" alt="">';
+								_html += '</div>';
+								_html += '<div class="product-name c3 fs14">'+datalist[i]['c_name']+'</div>';
+								_html += '<div class="product-price">';
+									_html += '<div class="proprice fl fs16"><span class="fs12">￥</span>'+datalist[i]['c_price']+'</div>';
+									_html += '<div class="protime fr fs12 c9">'+datalist[i]['signtime']+'</div>';
+								_html += '</div>';
+								_html += '<div class="product-state fs12">';
+									if (datalist[i]['c_isagent'] == 0) {
+										_html += '<span class="bluecc">自营</span>';
+									} else {
+										_html += '<span class="bluecc">代理</span>';
+									}
+									if (datalist[i]['c_isspread'] == 1) {
+										_html += '<span class="yellowc">推广</span>';
+									}
+								_html += '</div>';
+							_html += '</li>';
+		    			};
+		    		} else{
+		    			emptyval = false;
+		    		}
+	    		}
+	    	} else{
+	    		emptyval = false;
+	    	}
+			if (pageindex==1) {
+		      	_html += '<div class="data-empty divtab">';
+				_html += '<div class="data-empty-img">';
+				_html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+				_html += '</div>';
+				_html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+				_html += '</div>';
+			}
+	      	$('#view-ul-2').append(_html);
+	    },
+	    complete: function() {
+	      liststyle();
+	      $('#console').css('display', 'none');
+	      ctrls = true;
+	    }
+	});
+}
+
+/*查看商品*/
+function clickpro (pcode,source) {
+	shopGoodsDetails(pcode,source,"<?php echo $ucode ?>");
+}
+</script>
+<include file="Common/foot"/>
+</body>
+</html>

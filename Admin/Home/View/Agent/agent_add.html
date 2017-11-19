@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>代理商添加</title>
+</head>
+<script type="text/javascript">
+   function changagent(obj){
+     var id=$(obj).val();
+      if(id == 2){
+        $("#listd1").show();
+      }else{
+        $("#listd1").hide();
+      }
+  }
+</script>
+<body>
+<div class="pd-20">
+  <form action="ajax_agent_add" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>注册手机号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="phone">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>注册昵称：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="nickname">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>注册密码：</label>
+      <div class="formControls col-5">
+        <input type="password" class="input-text" placeholder="" id="" name="pwd">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>代理级别：</label>
+      <div class="formControls col-5"> <span class="select-box">
+        <select class="select" size="1" name="isagent" id="isagent" onchange="changagent(this);">
+          <option value="1">代理商(50万)</option>
+          <option value="2">代理商(5万)</option>
+        </select>
+        </span> </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl" style="display: none;" id="listd1">
+      <label class="form-label col-3"><span class="c-red">*</span>推荐代理商：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="" placeholder="如果填写邀请卡绑定，则可不填写" id="" name="tj_phone">
+      </div>
+      <div class="col-4"><span class="c-red">*如果填写，必须填写50万代理商注册手机号码</span></div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">邀请卡绑定：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="" placeholder="可以不填写" id="" name="invite_code">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">代理类型：</label>
+      <div class="formControls col-5 skin-minimal">
+        <div class="radio-box">
+          <input type="radio" id="sex-1" name="c_type" value="1">
+          <label for="sex-1">个人代理</label>
+        </div>
+        <div class="radio-box">
+          <input type="radio" id="sex-2" name="c_type" value="2">
+          <label for="sex-2">企业代理</label>
+        </div>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">联系人姓名：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="个人、企业代理填写"  name="c_name">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">联系人邮箱：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="个人、企业代理填写" id="" name="c_email">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">联系人QQ：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="个人、企业代理填写" id="" name="c_qq">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">固定电话：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="个人、企业代理填写" id="" name="c_home_tel">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3">申请单位名称：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="企业代理填写" id="" name="c_company">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">单位邮编：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text"  placeholder="企业代理填写" id="" name="c_postcode">
+      </div>
+    <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">申请单位地址：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="企业代理填写" id="" name="c_address">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">营业执照号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="企业代理填写" id="" name="c_charter">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">上传营业执照图片：</label>
+      <div class="formControls col-5">
+        <input type="file" name="charter_img">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">上传单位企业标志图：</label>
+      <div class="formControls col-5">
+        <input type="file" name="company_sign">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">负责人身份证号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="个人、企业代理填写" id="" name="c_idcard">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">上传身份证正面照：</label>
+      <div class="formControls col-5">
+        <input type="file" name="idcard_img">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">上传身份证反面照：</label>
+      <div class="formControls col-5">
+        <input type="file" name="idcard_img1">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3">收款人姓名：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="c_fee_name">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">收款开户银行：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="c_fee_bank">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">收款支行名称：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="c_fee_branch">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">收款银行卡号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="c_fee_cardnum">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">收款支付宝号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="c_fee_alipay">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-3">收款微信帐号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" placeholder="" id="" name="c_fee_weixin">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <input type="submit" value="提交" class="btn btn-primary radius">
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			// parent.$('.btn-refresh').click();
+			// parent.layer.close(index);
+		}
+	});
+});
+</script>
+</body>
+</html>

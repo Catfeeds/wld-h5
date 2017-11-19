@@ -1,0 +1,90 @@
+
+<div class="store-bottom-li bgcolor divtab">
+    <ul>
+        <?php if ($data['c_source'] == 2) { ?>
+            <li class="look_mycart divre">
+                <?php if($storeinfo['carcount']>0){ ?>
+                <div class="bottom-icon">
+                    <img src="__IMG__/store/dpgl_icon_gqc02.png" alt="">
+                </div>
+                <div class="bottom-font fs13 cb">购物车</div>
+                <div class="b-cartnum fs11 divab" id="ico-num">{$storeinfo['carcount']?$storeinfo['carcount']:0}</div>
+                <?php }else{ ?>
+                <div class="bottom-icon divre">
+                    <img src="__IMG__/store/dpgl_icon_gqc01.png" alt="">
+                </div>
+                <div class="bottom-font fs13">购物车</div>
+                <div class="b-cartnum fs11 divab" id="ico-num">{$storeinfo['carcount']?$storeinfo['carcount']:0}</div>
+                <?php } ?>
+            </li>
+        <?php }else{ ?>
+            <li class="page_index">
+                <div class="bottom-icon">
+                    <img src="__IMG__/store/dpgl_icon_spfl.png" alt="">
+                </div>
+                <div class="bottom-font fs13">查看分类</div>
+            </li>
+        <?php } ?>
+        <?php if ($data['is_attention'] == 1) { ?>
+        <li class="attention" title="2">
+            <div class="bottom-icon"><img src="__IMG__/store/dpgl_icon_ygz.png" alt="" class="attentionimg"></div>
+            <div class="bottom-font fs13 attiontext cb">已关注</div>
+        </li>
+        <?php }else{ ?>
+        <li class="attention" title="1">
+            <div class="bottom-icon"><img src="__IMG__/store/dpgl_icon_jgz.png" alt="" class="attentionimg"></div>
+            <div class="bottom-font fs13 attiontext">关注</div>
+        </li>
+        <?php } ?>
+        <li class="chatshop">
+            <div class="bottom-icon"><img src="__IMG__/store/dpgl_icon_sl.png" alt=""></div>
+            <div class="bottom-font fs13">私聊</div>
+        </li>
+        <li class="dailishop">
+            <div class="bottom-icon"><img src="__IMG__/store/dpgl_icon_dlsp.png" alt=""></div>
+            <div class="bottom-font fs13">代理商品</div>
+        </li>
+    </ul>
+</div>
+
+
+<!--<nav class="mui-bar mui-bar-tab fs13">-->
+
+    <!--<a class="mui-tab-item">-->
+        <!--<?php if ($data['c_source'] == 1) { ?>-->
+            <!--<img src="__IMG__/store/dpgl_icon_spfl.png" alt="" class="page_index"/>-->
+            <!--<div class="mui-tab-label page_index">查看分类</div>-->
+        <!--<?php } ?>-->
+        <!--<?php if ($data['c_source'] == 2) { ?>-->
+        <!--<div class="divre look_mycart" style="display: inline-block;">-->
+            <!--<div class="divab num fs11" id="ico-num">{$storeinfo['carcount']?$storeinfo['carcount']:0}</div>-->
+            <!--<img src="__IMG__/store/dpgl_icon_gqc01.png" class="car" alt=""/>-->
+        <!--</div>-->
+        <!--<div class="mui-tab-label">购物车</div>-->
+
+        <!--<?php } ?>-->
+    <!--</a>-->
+
+    <!--<?php if ($data['is_attention'] == 1) { ?>-->
+    <!--<a class="mui-tab-item" id="is_attention" title="2">-->
+        <!--<img id="attionimg" src="__IMG__/store/dpgl_icon_ygz.png" alt=""/>-->
+        <!--<div class="mui-tab-label" id="attiontext">已关注</div>-->
+    <!--</a>-->
+    <!--<?php } else { ?>-->
+    <!--<a class="mui-tab-item" id="is_attention" title="1">-->
+        <!--<img id="attionimg" src="__IMG__/store/dpgl_icon_jgz.png" alt=""/>-->
+        <!--<div class="mui-tab-label" id="attiontext">关注</div>-->
+    <!--</a>-->
+    <!--<?php } ?>-->
+
+    <!--<a class="mui-tab-item" id="chatshop">-->
+        <!--<img src="__IMG__/store/dpgl_icon_sl.png" alt=""/>-->
+        <!--<div class="mui-tab-label">私聊</div>-->
+    <!--</a>-->
+    <!--<a class="mui-tab-item" id="dailishop">-->
+        <!--<img src="__IMG__/store/dpgl_icon_dlsp.png" alt=""/>-->
+        <!--<div class="mui-tab-label">代理商品</div>-->
+    <!--</a>-->
+
+<!--</nav>-->
+

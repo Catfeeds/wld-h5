@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+/*发布资源页面*/
+.issue-submit{border:0px;width: auto;padding:2% 0px;text-align: center; cursor:pointer; background:#46aafa;border-radius: 8px;margin:8% 4%;}
+.issue-position{cursor:pointer; border-bottom: solid 1px #ebebeb;overflow: hidden;padding: 4.5% 0;}
+.i-position-l{width: 12%;padding: 0 2%;margin-left: 4%;}
+.i-position-c{width: 74%;overflow: hidden;}
+.i-position-r{width: 10%;padding: 1% 2% 0 2%;}
+
+.issue-trade-name{padding: 3%;}
+
+.evaluate-textarea{width: 100%;padding:3%;background:#fff;}
+.text-area{width: 100%;padding:3%;border:0px;}
+
+.upload-img{width: 100%;overflow: hidden;padding:3%;background:#fff;}
+.upload-title{width: 100%;overflow: hidden;padding:2% 0px;}
+.productmodular-img{position: relative;float:left;width: 30%;margin-right: 3%;margin-top:3%;}
+.productmodular-position{position: absolute;width: 21%;top:-5%;right:-5%;overflow: hidden;z-index:11;}
+.productmodular-img input[type="file"]{ position: absolute;left: 0;top: 0;bottom: 0; right: 0; z-index: 10;opacity: 0; filter:alpha(opacity=0);}
+.productmodular-img img,.productmodular-position img,.productmodular-position img{width: 100%;height: 100%;}
+.upload-text{width: 100%;padding:3%;overflow: hidden;}
+.upload-submit{border:0px;width: 30%;padding:2% 0px;text-align: center;background:#ffad3f;border-radius: 3px;margin-top: 8%;margin-left: 35%;}
+
+
+.recomm-pro-bg{display: none; background-color: black; z-index:9989;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);width: 100%;position: absolute;  top: 0%;  left: 0%;}
+.recomm-pro-pup{ display: none; background: #fff; border-radius: 8px;top:13%;left:0; position:fixed;z-index: 100000;width:90%;margin: auto;right: 0;max-width: 640px;overflow-y: scroll;height: 300px;}
+.recomm-pro-pup ul{overflow: hidden;padding: 1% 0 4% 0;}
+.donot-pro-tit,.recomm-pro-pup ul li{overflow: hidden;width: 100%;border-bottom: solid 1px #d9d9d9;padding: 3% 0;}
+.donot-recomm{ margin-left: 4%;padding-top: 0.5%;}
+.recomm-no-pro{width: 82%;margin-left: 2%; }
+.recomm-pro-l{width: 10%; margin-left: 4%;}
+.recomm-pro-r{width: 82%;margin-left: 2%;overflow: hidden;}
+.recomm-pro-img{width: 20%;overflow: hidden;}
+.recomm-pro-info{width: 78%;margin-left: 2%;}
+.recomm-pro-name{overflow: hidden;width: 100%;white-space: nowrap;text-overflow: ellipsis;}
+.recomm-pro-price{}
+
+.donot-recomm input[type="radio"]{width: 18px;height: 18px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../img/district_commodity_default2x.png");background-size: 100% 100%;}
+.donot-recomm input[type="radio"]:checked {width: 18px;height: 18px;border: 0px;background:url("../img/district_commodity_selection2x.png");background-size: 100% 100%;}
+
+.recomm-pro-l input[type="radio"]{width: 18px;height: 18px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../img/district_commodity_default2x.png");background-size: 100% 100%;}
+.recomm-pro-l input[type="radio"]:checked {width: 18px;height: 18px;border: 0px;background:url("../img/district_commodity_selection2x.png");background-size: 100% 100%;}
+
+
+

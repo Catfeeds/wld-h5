@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>数据统计</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/multshop/index.css" />
+	<link rel="stylesheet" type="text/css" href="__COMMON__/css/mui.picker.min.css" />
+	<style type="text/css">
+	.dc-tab-list{width: 50%;}
+	.dc-propor-timg{width: 8%;}
+	.dc-tab-list ul li{padding: 3% 0;}
+	</style>
+</head>
+<body class="bgcolor">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content divtab bgcolor">
+			<div class="dc-tab-list divtab fs12">
+				<ul>
+					<li class="hover" id="dc-tab-li1">营收趋势</li>
+					<li id="dc-tab-li2">营收占比</li>
+				</ul>
+			</div>
+
+			<!--营收趋势-->
+			<div class="dc-trend-con" id="page1">
+				<div class="dc-trend-money divtab">
+					<ul>
+						<li><p class="cy fs20 fb600">{$count['yesterday']}</p><span class="fs12 c5">昨日营业额</span></li>
+						<li><p class="cy fs20 fb600">{$count['today']}</p><span class="fs12 c5">今日营业额</span></li>
+					</ul>
+				</div>
+				<div class="dc-trend-shop c3 fs15 fb600" id="checkshop">
+					<span id="shopname">全部店铺</span>
+					<div class="dc-trend-next fr">
+						<img src="__IMG__/multshop/lsdgl_icon_next.png">
+					</div>
+				</div>
+
+			<!-- 	<div class="dc-report-con divtab">
+					<div class="dc-report-tab fs14 c3 divtab">
+						<ul>
+							<li class="report-bg" id="tab_1">7天</li>
+							<li id="tab_2">30天</li>
+							<div class="dc-report-time fr" id="checkdate" data-options='{"type":"month"}'>
+								<img src="__IMG__/multshop/lsdgl_icon_sx.png">
+							</div>
+						</ul>
+					</div>
+
+				</div>
+				 -->
+				<div class="divtab divre">
+					<div class="divtab fs12 alignc c9" style="margin-top:2%;" id="cshowtit">最近七天</div>
+					<div class="divtab fs14 alignc fb600 c5" style="padding:2%;">营业额<span id="cmoney">00.00</span>元</div>
+
+					<div class="dc-report-time fr divab" id="checkdate" data-options='{"type":"month"}' style="top:14%;right:4%;width: 8%;">
+						<img src="__IMG__/multshop/lsdgl_icon_sx.png">
+					</div>
+				</div>
+				<!-- 折线图 -->
+				<div id="main1" style="width:100%;"></div>
+
+			</div>
+
+			<!--营收占比-->
+			<div class="dc-propor-con none" id="page2">
+				<div class="dc-propor-time divtab">
+					<span class="c3 fb600 fs14" id="checktimes">2016年8月</span>
+					<div class="dc-propor-timg fr" id="checkmonth" data-options='{"type":"month"}'>
+						<img src="__IMG__/multshop/lsdgl_icon_sx.png">
+					</div>
+				</div>
+				<div class="dc-propor-money c3 fs16 fb600">
+					总营业额<span id="c1money">00.00</span>元
+				</div>
+				<div class="dc-propor-info c3 divtab">
+					<div class="dc-propor-tit fs12 fb600 divtab">
+						<ul>
+							<li>店铺名称</li>
+							<li>营业额</li>
+							<li>占比</li>
+						</ul>
+					</div>
+					
+					<div class="divtab" id="pdatalist">
+						<!-- <div class="dc-propor-data divtab fs14 c3">
+							<ul>
+								<li class="fov">良品铺子</li>
+								<li>100.00</li>
+								<li>20%</li>
+							</ul>
+						</div>
+						<div class="dc-propor-data divtab fs14 c3">
+							<ul>
+								<li class="fov">良品铺子</li>
+								<li>100.00</li>
+								<li>20%</li>
+							</ul>
+						</div> -->
+					</div>
+				</div>
+			</div>
+
+			<!--全部店铺-->
+			<div class="dc-shop-con none" id="page3">
+				<div class="dc-shop-tit divtab">
+					<span class="fl fb600 fs14" id="shopname_">全部店铺</span>
+					<div class="dc-check fr">
+				 		<input name="federationid" value="" type="radio" >
+					</div>
+				</div>
+				<volist name="data" id="vo">
+				<div class="dc-shop-item divtab">
+					<div class="dc-shop-img fl"><img src="{$vo['c_headimg']}" ></div>
+					<div class="dc-shop-name fl fs14 fov" id="shopname_{$vo['c_id']}">{$vo['c_nickname']}</div>
+					<div class="dc-check dc-shop-check fr"><input name="federationid" value="{$vo['c_id']}" type="radio"></div>
+				</div>
+				</volist>
+
+				<!-- <div class="dc-shop-item divtab">
+					<div class="dc-shop-img fl"><img src="__IMG__/member/hy8.png" ></div>
+					<div class="dc-shop-name fl fs14 fov">良品铺子</div>
+					<div class="dc-check dc-shop-check fr"><input name="couponid" value="Item" type="checkbox" ></div>
+				</div> -->
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script src="__COMMON__/echart/js/echarts.js"></script>
+<script type="text/javascript" src="__COMMON__/js/mui.picker.min.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('#main1').height($('#main1').width()*0.5);
+		drawline();		
+	}
+	
+	mui('.mui-content').on('tap', '#checkshop', function() {
+		$('#page2').hide();
+		$('#page1').hide();
+		$('#page3').show();
+	});
+
+	//选择分店
+	var federationid = ''; //分店id
+	$('input[type="radio"][name="federationid"]').each(function() {
+		$(this).click(function() {
+			federationid = $(this).val();
+			$('#shopname').text($('#shopname_'+federationid).text());
+			$('#page2').hide();
+			$('#page1').show();
+			$('#page3').hide();
+			getLinedata(1, '');
+		});
+	});
+
+	//日期选择
+	mui('.mui-content').on('tap', '#checkdate', function() {
+		var optionsJson = $(this).attr('data-options');
+		var options = JSON.parse(optionsJson);
+		var picker = new mui.DtPicker(options);
+		picker.show(function(rs) {
+			getLinedata(3,rs.text);
+			picker.dispose();
+		});
+	});
+
+	mui('.mui-content').on('tap', '#checkmonth', function() {
+		var optionsJson = $(this).attr('data-options');
+		var options = JSON.parse(optionsJson);
+		var picker = new mui.DtPicker(options);
+		picker.show(function(rs) {
+			proportion(rs.text);
+			picker.dispose();
+		});
+	});
+	
+	//页面加载完js改变样式
+	function yangshi() {
+		//趋势
+		var reImg = $('.dc-report-time').width();
+		$('.dc-report-tab ul li').css('line-height', reImg +'px');
+
+
+		//占比
+		$('.dc-propor-time span').css('line-height', $('.dc-propor-timg').width() +'px');
+	    //店铺
+	    var	shopImg = $('.dc-shop-img').width();
+	    $('.dc-shop-img').height(shopImg);
+	    $('.dc-shop-img').css('border-radius', shopImg + 'px');
+	    $('.dc-shop-name').css('line-height', shopImg + 'px');
+	    $('.dc-shop-check').css('padding-top', shopImg*0.2 + 'px');
+
+	}
+
+
+	//营收tab
+	mui('.mui-content').on('tap','#dc-tab-li1',function(){
+		$('#dc-tab-li2').removeClass('hover');
+		$(this).addClass('hover');
+		$('#page1').show();
+		$('#page2').hide();
+		$('#page3').hide();
+	});
+
+	mui('.mui-content').on('tap','#dc-tab-li2',function(){
+		$('#dc-tab-li1').removeClass('hover');
+		$(this).addClass('hover');
+		$('#page2').show();
+		$('#page1').hide();
+		$('#page3').hide();
+	});
+
+	getLinedata(1,'');
+	//获取折线图数据
+	function getLinedata(timetype, chtime) {
+		$.post("__URL__/GetdataTally", {
+			pid: "<?php echo $unioninfo['c_id']; ?>",
+			federationid:federationid,
+			timetype: timetype,
+			time: chtime
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				var data = result['data'];
+				$('#cmoney').text(data['money']);
+				var datalist = data['list'];
+				var datas = new Array();
+				var sdata = new Array();
+				//循环赋值数组
+				for (var i = 0; i < datalist.length; i++) {
+					datas[i] = datalist[i]['time'];
+					sdata[i] = datalist[i]['c_money'];
+				};
+				$('#cshowtit').text(data['date']);
+				drawline(datas, sdata);
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+
+	proportion('');
+	//根据月份查询连锁店各分店营收占比
+	function proportion(chtime) {
+		$('#pdatalist').empty();
+		var _html = '';
+		$.post("__URL__/Getdataproportion", {
+			pid: "<?php echo $unioninfo['c_id']; ?>",			
+			time: chtime
+		}, function(obj) {
+			var result = eval(obj);
+			if (result['code'] == 0) {
+				var data = result['data'];
+				$('#c1money').text(data['money']);
+				$('#checktimes').text(data['date']);
+				var datalist = data['list'];
+				//循环赋值数组
+				for (var i = 0; i < datalist.length; i++) {
+					var datasarr = datalist[i];
+					_html+='<div class="dc-propor-data divtab fs14 c3">';
+						_html+='<ul>';
+							_html+='<li class="fov">'+datasarr['c_nickname']+'</li>';
+							_html+='<li>'+datasarr['money']+'</li>';
+							_html+='<li>'+datasarr['proportion']+'</li>';
+						_html+='</ul>';
+					_html+='</div>';	
+				};
+				$('#pdatalist').append(_html);
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+
+	//绘制折线图
+	function drawline(data,sdata) {
+		// 路径配置
+		require.config({
+			paths: {
+				echarts: WEB_HOST+'/Resource/Common/echart/build/dist'
+			}
+		});
+
+		// 使用
+		require(
+			[
+				'echarts',
+				'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+			],
+			function(ec) {
+				// 基于准备好的dom，初始化echarts图表
+				var myChart = ec.init(document.getElementById('main1'));
+
+				var option = {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							lineStyle: {
+								// color:['#ff7f7f'],
+							}
+						}
+					},
+					grid: {
+				        left: '0%',
+				        right: '0%',
+				        bottom: '0%',
+				        x:1,
+	                    y:'2%',
+	                    x2:1,
+	                    y2:30,
+				        containLabel: true
+				    },
+					calculable : true,
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false,
+						axisLine: {
+		                    lineStyle: {
+		                        type: 'solid',
+		                        color: '#555555',//左边线的颜色
+		                        width:'1'//坐标线的宽度
+		                    }
+		                },
+						data: data,
+						splitLine: {
+						    lineStyle: {
+						        // 使用深浅的间隔色
+						        color: ['#f0f0f0']
+						    }
+						}
+					}],
+					yAxis: [{
+						show: true,
+						axisLine: {
+							show: false,
+						},
+						axisLabel: {
+							show: false,
+						},
+						splitLine: {
+						    lineStyle: {
+						        type: 'dashed',
+						        color: ['#999999']
+						    }
+						}
+					}],
+					series: [
+						{
+							name: '收入',
+							type: 'line',
+							itemStyle : {  
+                                normal : {  
+                                    color:'#d8d8d8',  
+                                    lineStyle:{  
+                                        color:'#d8d8d8'  
+                                    }  
+                                }  
+                            },  
+							stack: '',
+							data: sdata
+						}
+					]
+				};
+
+				// 为echarts对象加载数据 
+				myChart.setOption(option);
+			}
+		);
+	}
+
+
+</script>
+
+</html>

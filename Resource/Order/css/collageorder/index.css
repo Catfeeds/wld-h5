@@ -1,0 +1,44 @@
+.fsXiao {
+	padding-left: 1.5rem;
+	background: #fff;
+	padding-bottom: 1.5rem;
+}
+.fsXiao .information{
+	font-size: 2rem;
+	padding: 1rem 0;
+	color: black;
+}
+.fsXiao div{
+	font-size: 1.5rem;
+	color: #999;
+	margin-top: 0.5rem;
+}
+.fsXiao .information span{
+	margin-right: 1rem;
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	background:url(../../img/dd_icon_shagjia.png);
+	background-size: 100% 100%;
+	
+}
+.fsXiao .supermarket{
+	font-size: 2rem;
+	color: black;
+}
+.pay-delivery-type{
+	margin-bottom: 1rem;
+}
+.buyer-message{
+	margin-top: 1rem;
+}
+.cautious{
+	padding-left: 4rem;
+	/*padding-top: 1rem;*/
+}
+.cautious span{
+	width: 1.5rem;
+	height: 1.5rem;
+	/*background: url(../../img/);*/
+	
+}

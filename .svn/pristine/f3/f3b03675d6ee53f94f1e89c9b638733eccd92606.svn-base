@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>待结算</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+</head>
+
+<body class="bgeb">
+<div class="wrap-page">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content">
+	<div class="staysettle-top">
+		<div class="staysettle-tit fs16 cf">
+			待结算
+		</div>
+		<div class="staysettle-money fs28 cf">
+			{$data.stmoney}<span class="fs12 cf">元</span>
+		</div>
+	</div>
+
+	<ul class="staysettle_column" id="data_list">
+		<!--<li>-->
+			<!--<div class="stay-s-top bborder divtab">-->
+				<!--<div class="stay-st-fl fl">-->
+					<!--<p class="fs13 c5">订单号：t000000000000000</p>-->
+					<!--<p class="fs12 c9">2017-10-15 17:30:00</p>-->
+				<!--</div>-->
+				<!--<div class="stay-st-fr fl">-->
+					<!--<p class="fs13 cy">待结算</p>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="stay-s-con bborder divtab">-->
+				<!--<div class="stay-sc-img fl"><img src="__IMG__/szmx_icon_qt.png" alt=""></div>-->
+				<!--<div class="stay-sc-info fl">-->
+					<!--<p class="fs12 c5 fov">名称名称名称名称名称名称</p>-->
+					<!--<p class="fs14 cy">￥88.88</p>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="stay-s-down divtab">-->
+				<!--<p class="fs12 c5 fl">扫码收入</p>-->
+				<!--<p class="fs12 c3 fr">待结算金额：<span class="cy fs14">￥88.88</span></p>-->
+			<!--</div>-->
+		<!--</li>-->
+		<!--<li>-->
+			<!--<div class="stay-s-top bborder divtab">-->
+				<!--<div class="stay-st-fl fl">-->
+					<!--<p class="fs13 c5">订单号：t000000000000000</p>-->
+					<!--<p class="fs12 c9">2017-10-15 17:30:00</p>-->
+				<!--</div>-->
+				<!--<div class="stay-st-fr fl">-->
+					<!--<p class="fs13 cy">待结算</p>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="stay-s-con bborder divtab">-->
+				<!--<div class="stay-sc-img fl"><img src="__IMG__/szmx_icon_hbjl.png" alt=""></div>-->
+				<!--<div class="stay-sc-info fl">-->
+					<!--<p class="fs12 c5 fov">名称名称名称名称名称名称</p>-->
+					<!--&lt;!&ndash;<p class="fs12 c9">型号：MM</p>&ndash;&gt;-->
+					<!--<p class="fs14 cy">￥88.88</p>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="stay-s-down divtab">-->
+				<!--<p class="fs12 c5 fl">普通购物</p>-->
+				<!--<p class="fs12 c3 fr">待结算金额：<span class="cy fs14">￥88.88</span></p>-->
+			<!--</div>-->
+		<!--</li>-->
+	</ul>
+	<div id="console"></div>
+	</div>
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+<script type="text/javascript">
+    window.onload = function(){
+        yangshi();
+        //var apptype = "<?php echo get_app_type(); ?>";
+        ChRightText('帮助');
+    }
+    /*help*/
+    function rightcaozuo() {
+        mui.openWindow({
+            url: "__URL__/help",
+            id: "help"
+        });
+    }
+	function yangshi() {
+        $('.stay-sc-img').height($('.stay-sc-img').width());
+		$('.stay-st-fr').css("line-height",$('.stay-st-fl').height()+"px");
+        $('.stay-sc-info').css("line-height",$('.stay-sc-img').height()*0.5+"px");
+	}
+	var page = 1;
+	var ctrls = true;
+	var kongzhi = true;
+	getdata();
+	//获取当前可是范围的高度
+	$(window).bind('scroll', function() {
+		if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if (ctrls && kongzhi) {
+				getdata();
+			}
+		}
+	});
+	function getdata() {
+	var html = '';
+	$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: '__URL__/GetStaydata?pageindex='+page,
+			cache: false,
+			beforeSend: function() {
+			  $('#console').css('display','block');
+			  $('#console').html('加载中...');
+			  ctrls = false;
+			},
+			error: function(){
+			  $('#console').css('display','block');
+			  $('#console').html('加载失败');
+			  ctrls = true;
+			},
+			success: function(json) {
+				if (page==1) {
+					$('#data_list').empty();
+				}
+				var obj = eval(json);
+				if (obj.code==0) {
+				var data = obj.data;
+				if (data) {
+				var datalist = data.list;
+				var pageCount = data.pageCount;
+
+				if (pageCount >= page) {
+					page++;
+					for ( i=0; i<datalist.length; i++ ) {
+                        var detailurl = WEB_HOST+'/index.php/Balance/Index/incomepay?id='+datalist[i]['c_money_log_id'];
+						html+='<li onclick="location.href=\''+detailurl+'\'">';
+						html+='<div class="stay-s-top bborder divtab">';
+						html+='<div class="stay-st-fl fl">';
+						html+='<p class="fs13 c5">订单号：'+datalist[i]["orderid"]+'</p>';
+						html+='<p class="fs12 c9">'+datalist[i]["ttime"]+'</p>';
+                        html+='</div>';
+                        html+='<div class="stay-st-fr fl">';
+                        if(datalist[i]['c_status']==0){
+                            html+='<p class="fs13 cy">待结算</p>';
+						}
+                        html+='</div>';
+                        html+='</div>';
+                        html+='<div class="stay-s-con bborder divtab">';
+                        html+='<div class="stay-sc-img fl">';
+						html+='<img src="'+datalist[i]["pimg"]+'" alt="">';
+                        html+='</div>';
+                        html+='<div class="stay-sc-info fl">';
+                        html+='<p class="fs12 c5 fov">'+datalist[i]["pname"]+'</p>';
+                        if(datalist[i]["usign"]==1){
+                            html+='<p class="fs14"><span class="cy fl">￥'+datalist[i]["tprice"]+'</span><span class="fr c9">×'+datalist[i]["pnum"]+'</span></p>';
+						}else{
+                            html+='<p class="fs14"><span class="cy fl">￥'+datalist[i]["tprice"]+'</span></p>';
+						}
+                        html+='</div>';
+                        html+='</div>';
+                        html+='<div class="stay-s-down divtab">';
+                        html+='<p class="fs12 c5 fl">'+datalist[i]["sourcename"]+'</p>';
+                        html+='<p class="fs12 c3 fr">待结算金额：<span class="cy fs14">￥'+datalist[i]["tprice"]+'</span></p>';
+                        html+='</div>';
+                        html+='</li>';
+					};
+
+				} else {
+					kongzhi = false;
+				}
+				} else {
+					kongzhi = false;
+				}
+				} else {
+					kongzhi = false;
+				}
+				if (page==1) {
+					html += '<div class="baoqian">抱歉！没有查询到您的相关记录</div>';
+				}
+
+				$('#data_list').append(html);
+				$('#console').css('display','none');
+			},
+			complete: function() {
+                yangshi();
+				$('#console').css('display','none');
+				ctrls = true;
+			}
+		});
+	}
+
+</script>
+</body>
+</html>

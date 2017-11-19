@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>营销中心</title>
+		<meta content="微域领地,微域领地系统,小蜜系统服务中心" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/marketing/index.css?v=1.2">
+
+	</head>
+
+	<body class="bgeb">
+
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<div class="server-list">
+					<ul>
+						<li class="borderright markmenu-1">
+							<div class="server-li-img">
+								<img src="__IMG__/marketing/marketing_icon_pt.png" alt="">
+							</div>
+							<div class="server-li-txt fs13">拼团优惠</div>
+						</li>
+						<li class="markmenu-2">
+							<div class="server-li-img">
+								<img src="__IMG__/marketing/marketing_icon_kj.png" alt="">
+							</div>
+							<div class="server-li-txt fs13">砍价优惠</div>
+						</li>
+						<li class="markmenu-3">
+							<div class="server-li-img">
+								<img src="__IMG__/marketing/marketing_icon_ms.png" alt="">
+							</div>
+							<div class="server-li-txt fs13">秒杀优惠</div>
+						</li>
+						<li class="markmenu-4">
+							<div class="server-li-img">
+								<img src="__IMG__/marketing/marketing_icon_gw.png" alt="">
+							</div>
+							<div class="server-li-txt fs13">购物优惠</div>
+						</li>
+						<li class="markmenu-5">
+							<div class="server-li-img">
+								<img src="__IMG__/marketing/marketing_icon_fx.png" alt="">
+							</div>
+							<div class="server-li-txt fs13">分享优惠</div>
+						</li>
+					</ul>
+				</div>				
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {
+
+			}
+			mui('.mui-content').on('tap','.markmenu-1',function(){
+				mui.openWindow({url:"__APP__/Shopping/Collage/sjindex",id:"collage"});
+			});
+			mui('.mui-content').on('tap','.markmenu-2',function(){
+				mui.openWindow({url:"__APP__/Shopping/Bargain/sjindex",id:"bargain"});
+			});
+			mui('.mui-content').on('tap','.markmenu-3',function(){
+				mui.openWindow({url:"__APP__/Shopping/Seckill/sjindex",id:"bargain"});
+			});
+			mui('.mui-content').on('tap','.markmenu-4',function(){
+				mui.openWindow({url:"__APP__/Home/Rebate/index?rtype=1",id:"rebate"});
+			});
+			mui('.mui-content').on('tap','.markmenu-5',function(){
+				mui.openWindow({url:"__APP__/Home/Rebate/index?rtype=2",id:"rebate"});
+			});
+			mui.plusReady(function() {});
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>订单详情</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/order.css?v=3.0.0">
+		<link rel="stylesheet" href="__CSS__/collageorder/detail.css"" />
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<style>
+			.mui-toast-container {
+				bottom: 50% !important;
+			}
+		</style>
+	</head>
+	<body>
+		<form id="CONSIGNEE_ADDRESS">
+			<div class="wrap-page" style="margin-bottom:13%;">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<div class="ding fs12">
+						<div class="top">
+							<div class="left">
+								<span>提货码</span>
+								<span>9874 5180 1918</span>
+							</div>
+							<div class="right"> 
+								<span>电话</span>
+								<span>18672101615</span>
+							</div>
+						</div>
+						<div class="bottom">
+							<div class="left">
+								<span>型号:L12456;M码</span>
+								<span>x1</span>
+							</div>
+							<div style="float: right;font-size: 2rem;margin-right: 2rem;color: #999;">></div>
+							<div class="right confirm"> 
+								<!--<div class="confirm">确认发货</div>-->
+								<button type="button" id="confirm" class="fs11 mui-btn mui-btn-warning mui-btn-outlined">确认发货</button>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="ding fs12">
+						<div class="top">
+							<div class="left">
+								<span>提货码</span>
+								<span>9874 5180 1918</span>
+							</div>
+							<div class="right"> 
+								<span>电话</span>
+								<span>18672101615</span>
+							</div>
+						</div>
+						<div class="bottom">
+							<div class="left">
+								<span>型号:L12456;M码</span>
+								<span>x1</span>
+							</div>
+							<div style="float: right;font-size: 2rem;margin-right: 2rem;color: #999;">></div>
+							<div class="right"> 
+								<div class="ti">已提货</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/user.js?v=3.0.0"></script>
+		<script type="text/javascript" src="__COMMON__/js/region.js?v=3.0.0"></script>
+		<script>
+			
+			mui.init({  
+                swipeBack: true //启用右滑关闭功能  
+            });  
+            var info = document.getElementById("info");  
+			$('#confirm').click(function(){
+				var btnArray = ['否', '是'];
+				    mui.confirm('是否确认收货？', '提示', btnArray, function(e) 
+				    {
+				        if (e.index == 1) 
+				        {	
+				        	$('.confirm').html('<div class="ti">已提货</div>');
+				            mui.toast('交易完成');
+				        } 
+				        else 
+				        {
+				            mui.toast('交易失败');
+				        }
+				    })
+			})
+		</script>
+	</body>
+</html>

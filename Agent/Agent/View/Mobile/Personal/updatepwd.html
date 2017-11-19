@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="__IMG__/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />    
+<title>我的资料--修改密码</title>
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+
+<script type="text/javascript">
+	window.onload=function(){
+
+		topstyle();/*头部样式*/
+
+		$('#page-top-c-t').text("修改密码");
+
+		var reh = $('.resource-list').height();
+		$('.resource-list').css('line-height',reh+'px');
+
+	}	
+
+</script>
+<style type="text/css">
+	input[type="checkbox"]{width: 22px;height: 14px; background: url(__IMG__/mobile/yanjing-hui.png) no-repeat;background-size: 100% 100%;}
+	input[type="checkbox"]:checked{width: 22px;height: 14px;background: url(__IMG__/mobile/yanjing.png) no-repeat;background-size: 100% 100%;}
+	.resource-r{width: 48%;}
+	.showpwd{width: 10%;text-align: right; padding-right: 2%;height: 14px;padding-top: 1%;}
+</style>
+</head>
+
+<body>
+
+<include file="Common/head"/>
+
+<div class="wrap-page bgcolor">	
+	<form action=""  method="post" id="form">		
+
+		<div class="personal-tab">
+			<a href="__APP__/Agent/Personal/index" class="personal-t-a fl">我的资料</a>
+			<a href="__APP__/Agent/Personal/updatepwd" class="personal-t-a tab-hover fr">修改密码</a>
+		</div>	
+		<div class="resource-main" style="padding:4% 0;">
+			<div class="resource-list">
+				<div class="resource-l fl">旧密码：</div>
+				<div class="resource-r fl">
+					<input type="password" id="pwd-1" name="pwd_old" class="resource-text">
+					<input type="text" id="text-1" name="txt-pwd_old" class="resource-text none">
+				</div>
+				<div id="click1" class="fl showpwd">
+					<input type="checkbox" id="chb-1" onclick="showpwd(1)">
+				</div>
+			</div>
+			<div class="resource-list">
+				<div class="resource-l fl">新密码：</div>
+				<div class="resource-r fl">
+					<input type="password" id="pwd-2" name="pwd_new" class="resource-text">					
+					<input type="text" id="text-2" name="txt-pwd_new" class="resource-text none">
+				</div>
+				<div id="click2" class="fl showpwd">
+					<input type="checkbox" id="chb-2" onclick="showpwd(2)">
+				</div>
+			</div>
+			<div class="resource-list">
+				<div class="resource-l fl">确认密码：</div>
+				<div class="resource-r fl">
+					<input type="password" id="pwd-3" name="loginpwd" class="resource-text">				
+					<input type="text" id="text-3" name="txt-loginpwd" class="resource-text none">
+				</div>
+				<div id="click3" class="fl showpwd">
+					<input type="checkbox" id="chb-3" onclick="showpwd(3)">
+				</div>
+			</div>	
+			
+			<div class="resource-sub sub-blue" onclick="subform();">编辑</div>
+			
+		</div>		
+	<form>	
+</div>
+<script type="text/javascript">
+	function subform() {
+		$('#form').submit();
+	}
+	function showpwd (n) {		
+		var chb = $("input:checkbox[id='chb-"+n+"']:checked").val();
+		if (chb) {
+			if($("#text-"+n).val()!="" || $("#pwd-"+n).val()!=""){
+				$("#text-"+n).val($("#pwd-"+n).val());
+				$("#pwd-"+n).val($("#text-"+n).val());
+				$("#pwd-"+n).hide();
+				$("#text-"+n).show();			
+			}else{
+				alert("请输入密码！");return false;
+			}				
+		
+		}else {
+			if($("#text-"+n).val()!="" || $("#pwd-"+n).val()!=""){
+				$("#pwd-"+n).val($("#text-"+n).val());
+				$("#text-"+n).val($("#pwd-"+n).val());
+				$("#text-"+n).hide();
+				$("#pwd-"+n).show();
+			}else{
+				alert("请输入密码！");return false;
+			}
+		}		
+	}		
+</script>
+
+</body>
+</html>

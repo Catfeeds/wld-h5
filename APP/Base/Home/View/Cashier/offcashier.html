@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收银员</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+	<style type="text/css">
+		.ca-ewms{width: 8%;top: 12%;right: 5%;}
+	</style>
+</head>
+<body class="bgcolor">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+
+			<!-- 下班班按键 -->
+			<div class="ca-work-con divre">
+				<div class="ca-work-img divre">
+					<img src="__IMG__/cashier/cashier_icon_02.png">
+					<div class="divab ca-off-work"><p class="cf fs18">长按</p><p class="cf fs18">下班</p></div>
+				</div>
+				<div class="ca-ewms divab">
+					<img src="__IMG__/cashier/ewms.png">
+				</div>
+				<p class="c3 fs14 fb600">{$cashinfo['c_name']}</p>
+				<p class="c3 fs12">上班时间 <?php echo date('H:i:s',strtotime($cashinfo['c_updatetime'])); ?></p>
+			</div>
+
+
+			<!-- 收银台信息 -->
+			<div class="ca-ways-info">
+				<ul id="data_list">
+					<!-- <li>
+						<div class="fl ca-num-img"><img src="__IMG__/cashier/hy9.png"></div>
+						<div class="fl ca-num-info">
+							<span class="c3 fs14">支付宝支付</span>
+							<p class="c9 fs11">22:33:11</p>
+						</div>
+						<div class="fl cy fs12 ca-num-price">20.00</div>
+						<div class="fr ca-num-remark">
+							<div class="fl ca-remark-img"><img src="__IMG__/cashier/cashier_icon_add.png"></div>
+							<span class="fs14">备注</span>
+						</div>
+					</li>
+					<li>
+						<div class="fl ca-num-img"><img src="__IMG__/cashier/index8.png"></div>
+						<div class="fl ca-num-info">
+							<span class="c3 fs14">微信支付</span>
+							<p class="c9 fs11">22:33:11</p>
+						</div>
+						<div class="fl cy fs12 ca-num-price">20.00</div>
+						<div class="fr ca-num-remark">
+							<div class="fl ca-remark-img"><img src="__IMG__/cashier/cashier_icon_add.png"></div>
+							<span class="fs14">备注</span>
+						</div>
+					</li>
+					<li>
+						<div class="fl ca-num-img"><img src="__IMG__/cashier/hy1.png"></div>
+						<div class="fl ca-num-info">
+							<span class="c3 fs14">小蜜支付</span>
+							<p class="c9 fs11">22:33:11</p>
+						</div>
+						<div class="fl cy fs12 ca-num-price">20.00</div>
+						<div class="fr ca-num-remark">
+							<div class="fl ca-remark-img"><img src="__IMG__/cashier/cashier_icon_add.png"></div>
+							<span class="fs14">备注</span>
+						</div>
+					</li>
+					<li>
+						<div class="fl ca-num-img"><img src="__IMG__/cashier/hy9.png"></div>
+						<div class="fl ca-num-info">
+							<span class="c3 fs14">支付宝支付</span>
+							<p class="c9 fs11">22:33:11</p>
+						</div>
+						<div class="fl cy fs12 ca-num-price">20.00</div>
+						<div class="fr ca-num-remark">
+							<div class="fl ca-remark-img"><img src="__IMG__/cashier/cashier_icon_add.png"></div>
+							<span class="fs14">备注</span>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+
+			<!-- 备注信息 -->
+			<div class="ca-remark_con bgcolor none">
+				<textarea class="ca-remark-info fs14 c3" id="ca-remark-info"></textarea>
+				<div class="ca-remark-opearte divtab">
+					<div class="fs14 fl ca-tit-cancel c9">取消</div>
+					<p class="fs14 fl">添加备注</p>
+					<div class="fs14 fr ca-tit-confirm cb">完成</div>
+				</div>
+			</div>
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		ChRightText("我的");
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var numImg = $('.ca-num-img').width();
+
+		$('.ca-num-img').height(numImg);
+		$('.ca-num-img').css('border-radius',numImg +'px');
+		$('.ca-num-info').css('line-height',numImg*0.5 +'px');
+		$('.ca-num-price').css('line-height',numImg +'px');
+		$('.ca-num-remark span').css('line-height',numImg +'px');
+		$('.ca-remark-img').css('padding-top',numImg*0.3 +'px');
+
+	}
+
+	//跳转查看二维码
+	mui('.mui-content').on('tap', '.ca-ewms', function() {
+		mui.openWindow({
+			url: "__APP__/Store/Cashier/ewcode?deskid=<?php echo $cashinfo['c_deskid']; ?>",
+			id: 'mycashewm'
+		});
+	});
+
+	//跳转我的收银员资料
+	function rightcaozuo() {
+		mui.openWindow({
+			url: '__URL__/mycashier',
+			id: 'mycashier'
+		});
+	}
+
+	//长按下班
+	mui('.mui-content').on('longtap', '.ca-work-img', function() {
+		xbtijiao();
+	});
+
+	var xbsign = true;
+	function xbtijiao() {
+		if (xbsign) {
+			xbsign = false;
+			$.post("__URL__/LeaveCashierDesk", {
+				cashid: "<?php echo $cashinfo['c_id']; ?>",
+				deskid: "<?php echo $cashinfo['c_deskid']; ?>",
+			}, function(obj) {
+				var data = eval(obj);
+				tjsign = true;
+				if (data['code'] == 0) {
+					mui.toast('下班成功');
+					setTimeout(function() {
+						mui.openWindow({
+							url: '__URL__/index',
+							id: 'cindex'
+						});
+					}, 2000);
+				} else {
+					mui.toast(data['msg']);
+				}
+			});
+		}
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+	
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/GetdateLog?cashid=<?php echo $cashinfo['c_id']; ?>&datetime=<?php echo date('Y-m-d'); ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html+='<li class="mlog-'+pageindex+'">';
+									_html+='<div class="fl ca-num-img xiangqing" title="'+dataarr['c_ncode']+'"><img src="'+dataarr['img']+'"></div>';
+									_html+='<div class="fl ca-num-info xiangqing" title="'+dataarr['c_ncode']+'">';
+										_html+='<span class="c3 fs14">'+dataarr['text']+'</span>';
+										_html+='<p class="c9 fs11">'+dataarr['time']+'</p>';
+									_html+='</div>';
+									_html+='<div class="fl cy fs12 ca-num-price xiangqing" title="'+dataarr['c_ncode']+'">'+dataarr['c_money']+'</div>';
+
+									var desc = dataarr['c_cashierdesc'];
+									if (!desc) {desc=''};
+									_html+='<div class="none" id="desc'+dataarr['c_ncode']+'">'+desc+'</div>';
+
+									if (desc) {
+										_html+='<div class="fr ca-num-remark" title="'+dataarr['c_ncode']+'" id="remarks'+dataarr['c_ncode']+'">';									
+											_html+='<div class="fl ca-remark-img none"><img src="__IMG__/cashier/cashier_icon_add.png"></div>';
+											_html+='<span class="fs14 c9">已备注</span>';
+										_html+='</div>';
+									} else {
+										_html+='<div class="fr ca-num-remark" title="'+dataarr['c_ncode']+'" id="remarks'+dataarr['c_ncode']+'">';									
+											_html+='<div class="fl ca-remark-img"><img src="__IMG__/cashier/cashier_icon_add.png"></div>';
+											_html+='<span class="fs14">备注</span>';
+										_html+='</div>';
+									}
+
+								_html+='</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					loadclick();
+				}		
+			}
+		});
+	}
+
+	loadclick();
+	function loadclick() {
+		//备注
+		mui('.mlog-'+pageindex).on('tap', '.ca-num-remark', function() {
+			mid = $(this).attr('title');
+			$('#ca-remark-info').val($('#desc'+mid).text());
+			$('.ca-remark_con').show();			
+		});
+
+		//跳转详情
+		mui('.mlog-'+pageindex).on('tap', '.xiangqing', function() {
+			mid = $(this).attr('title');
+			mui.openWindow({
+				url: "__URL__/sdetail?cashid=<?php echo $cashinfo['c_id']; ?>&ncode="+mid,
+				id: 'sdetail'
+			});		
+		});
+	}
+
+	//取消备注
+	mui('.mui-content').on('tap', '.ca-tit-cancel', function() {
+		$('.ca-remark_con').hide();		
+	});
+
+	//提交备注
+	mui('.mui-content').on('tap', '.ca-tit-confirm', function() {
+		bztijiao();
+	});
+
+
+	var tjsign = true;
+	function bztijiao() {
+		if (tjsign) {
+			if (!mid) {
+				mui.toast('选择对应的记录备注');
+				return;
+			}
+			var remark = $('#ca-remark-info').val();
+			if (!remark) {
+				mui.toast('提交前请输入备注');
+				return;
+			}
+			tjsign = false;
+			$.post("__URL__/OrderRemarks", {
+				cashid: "<?php echo $cashinfo['c_id']; ?>",
+				ncode: mid,
+				desc: remark
+			}, function(obj) {
+				var data = eval(obj);
+				tjsign = true;
+				if (data['code'] == 0) {
+					mui.toast('备注成功');
+					$('#remarks'+mid).find('.ca-remark-img').hide();
+					$('#remarks'+mid).find('span').addClass('c9');
+					$('#remarks'+mid).find('span').text('已备注');
+					$('.ca-remark_con').hide();		
+					$('#ca-remark-info').val('');
+				} else {
+					mui.toast(data['msg']);
+				}
+			});
+		}
+	}
+
+	
+</script>
+
+</html>

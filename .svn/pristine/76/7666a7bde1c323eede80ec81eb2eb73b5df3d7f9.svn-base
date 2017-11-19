@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>店铺预览</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=1.2">
+	</head>
+	<style type="text/css">
+	.s-tmp-photo-li ul li{width: 12%;}
+	.s-template-main{padding-top: 0px;}
+	</style>
+	<body>
+		<div class="wrap-page">
+		<include file="Base@Public/pubheader" />
+			<div class="mui-content" style="background: #fff;">				
+				<div class="s-template-top divtab divre">				
+					<!-- <div class="s-tmp-h-return divab"><img src="__IMG__/index/nav_return.png" alt="" /></div> -->
+					<div class="s-tmp-top-hinfo divab">
+						<div class="s-tmp-h-img fl">
+							<if condition="$data['c_headimg'] eq null">
+							<img id="self-heads" src="__COMMON__/img/logo.png" alt="">
+							<else />
+							<img id="self-heads" src="{$data['c_headimg']}" alt="">
+							</if>
+						</div>
+						<div class="s-tmp-h-intro fl">
+							<div class="s-tmp-h-n-icon divtab">
+								<div class="s-tmp-h-nkname fl cf fs14 fov">{$data['c_nickname']}</div>
+								<?php if ($data['c_source'] == 2) { ?>  
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_entity.png" alt="" />
+								</div>
+								<?php } else { ?>
+								<div class="s-tmp-h-ico1 fl">
+									<img src="__IMG__/index/o2store_icon_pu.png" alt="" />
+								</div>
+								<?php } ?>
+							</div>
+							<div class="s-tmp-h-num divtab cf fs12">
+								<span>粉丝</span>
+								<span>{$data['c_attention']}</span>
+								<span>访问量</span>
+								<span>{$data['c_pv']}</span>
+							</div>
+						</div>
+					</div>
+					<div class="block">
+						<div class="s-tmp-photo-li divab divtab">
+							<ul>
+								<?php foreach ($imglist as $k => $v) { ?>
+									<?php if ($k <= 4) { ?>
+									<li class="child-img photoimg s-photo-more"><img src="{$v['c_thumbnail_img']}" alt="" /></li>
+									<?php } ?>
+								<?php } ?>
+							</ul>
+						</div>
+						<?php if (count($imglist) > 0) { ?>
+						<div class="s-tmp-photo-more divab s-photo-more"><img src="__IMG__/index/o2store_icon_next.png" alt="" /></div>	
+						<?php } ?>
+					</div>
+
+					<?php if ($data['c_source'] == 2) { ?>  
+					<img src="__IMG__/index/o2store_bg_entity3.png" alt="" />
+					<?php } else { ?>
+					<img src="__IMG__/index/o2store_bg_online2.png" alt="" />
+					<?php } ?>
+				</div>
+				<div class="s-template-main divtab divre">
+					<?php foreach ($tpl as $key => $value) { ?>
+					<div class="fl divtab imgbox" title="{$value['c_width']}" onclick="jumpurls('{$value['c_interface_type']}','{$value['c_interface_address']}','{$value['c_weburl']}','{$value['c_id']}');">
+						<img src="{$value['c_img']}" alt="">
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+			
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+		<script type="text/javascript">
+			window.onload = function() {
+				var sources = '<?php echo $data["c_source"] ?>';
+				styles();
+				$('.xiaomi-bar').css('background','none');
+				$('.mui-content').css('margin-top', '0px');
+				ChRightText("分享");
+				$('.imgbox').each(function() {
+					var wdscale = $(this).attr('title');
+					var winkd = $(document).width();
+					var kd = winkd*wdscale/640;
+					$(this).width(kd);
+				});
+				$(window).bind('scroll', function() {
+					
+					if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').addClass('menu-fixed');
+						if(sources==1){
+							$('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");							
+						}else if(sources==2){
+							$('.xiaomi-bar').css("background", "rgba(255,170,61,.8)");
+						}
+					}
+					if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+						$('.xiaomi-bar').removeClass('menu-fixed');
+						$('.xiaomi-bar').css("background", "none");
+					}
+					
+				});				
+			}
+
+			function styles() {
+				var thhh = $('.s-tmp-h-img').width();
+				$('.s-tmp-h-img').height(thhh);
+
+				var phlih = $('.photoimg').width();
+				$('.photoimg').height(phlih);
+
+				var gd = $('.s-tmp-dl-ico1').width()*0.28;
+				$('.s-tmp-dl-ico1').css('height', gd+'px');
+				$('.s-tmp-dl-ico1').css('line-height', gd+'px');
+				$('.s-tmp-dl-ico1').css('border-radius', gd*0.5+'px');
+				
+			}
+
+			/*实体商家相册*/
+			mui('.mui-content').on('tap', '.s-photo-more', function() {
+				jumpurls('3','34','<?php echo GetHost(1)."/index.php/Store/Index/photo"; ?>','34');
+			});
+
+			function jumpurls (ity,iad,weburl,ids) {
+				mui.toast('预览不可跳转');return;
+				var apptype = "<?php echo get_app_type(); ?>";
+				if (apptype == 3) {
+					mui.openWindow({
+						url: weburl+'?fromucode=<?php echo $issue_ucode; ?>',
+						id: 'info'+ids
+					});
+				} else {
+					if (ity == 3) {
+						switch (iad) {
+							case '31':  //动态
+								if (apptype == 1) {
+									javaScript:resultData.dynamic();
+								} else if (apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({"dynamic":{"ss":"1"}});
+								}
+								break;
+							case '32':  //商品
+								if (apptype == 1) {
+									javaScript:resultData.proinfo();
+								} else if (apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({"proinfo":{"ss":"1"}});
+								}
+								break;
+							case '33':  //评论
+								if (apptype == 1) {
+									javaScript:resultData.comments();
+								} else if (apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({"comments":{"ss":"1"}});
+								}
+								break;
+							case '34':  //相册
+								if (apptype == 1) {
+									javaScript:resultData.photo();
+								} else if (apptype == 2) {
+									window.webkit.messageHandlers.AppModel.postMessage({"photo":{"ss":"1"}});
+								}
+								break;
+						}
+
+					} else {
+						mui.openWindow({
+							url: weburl+'?fromucode=<?php echo $issue_ucode; ?>',
+							id: 'info'+ids
+						});
+					}
+				}
+			}
+			
+		</script>
+	</body>
+
+</html>

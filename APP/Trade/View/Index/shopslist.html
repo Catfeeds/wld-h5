@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商家</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.4"></script>
+	</head>
+
+	<body>
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<input type="hidden" name="longitude" id="longitude" value="">
+			<input type="hidden" name="latitude" id="latitude" value="">
+			<input type="hidden" name="provincecode" id="provincecode" value="{$provincecode}">
+			<input type="hidden" name="citycode" id="citycode" value="{$citycode}">
+			<div class="mui-content">
+				<div class="shopping-menu fs14 bborder">
+					<ul>
+						<li>
+							<a href="javascript:;" id="shoppingmenu_1" class="shoppingli">最热</a>
+						</li>
+						<li>
+							<a href="javascript:;" id="shoppingmenu_2" class="shoppingli">最新</a>
+						</li>
+						<li>
+							<a href="javascript:;" id="shoppingmenu_3" class="shoppingli">最近</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="t-s-shopslist divtab" id="shoplist">
+					<!-- <div class="divtab t-s-shopslist-li">
+				<div class="t-s-shopsimg"><img src="__IMG__/shopimg.png" alt="" /></div>
+				<div class="t-s-shopsinfo divtab">
+					<div class="t-s-shopsname fl c3 fs14 fov">悟空柴火饭</div>
+				</div>
+				<div class="t-s-shopsdesc fov fs13 c5 divtab">房地产区别于一般物品，具备两重属性，即商品属性和资产属性。其中，商品属性还可以再细分，一是自然属性，即房子用来住，体现出使用价值</div>
+				<div class="t-s-shops divtab fr c9 fs12">
+					距离<span>1000km</span>关注<span>888</span>访问量<span class="rtright">6578</span>
+				</div>
+			</div> -->
+				</div>
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			/*我的会员列表*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			var statu = '<?php echo $statu ?>';
+			if(!statu) {
+				statu = 1;
+			}
+
+			window.onload = function() {
+				styles();
+				getLocation();
+			}
+
+			/*定位获取经纬度，地名*/
+			function getLocation() {
+				if(navigator.geolocation) {
+					navigator.geolocation.watchPosition(showPosition);
+				} else {
+					mui.alert("Geolocation is not supported by this browser.");
+				}
+			}
+			var getctrl = true;
+
+			function showPosition(position) {
+				var longitude = position.coords.longitude;
+				var latitude = position.coords.latitude;
+				$('#longitude').val(longitude);
+				$('#latitude').val(latitude);
+				if(getctrl) {
+					selectstatu(1);
+					getctrl = false;
+				}
+			}
+
+			mui('.mui-content').on('tap', '#shoppingmenu_1', function() {
+				selectstatu(1);
+			});
+			mui('.mui-content').on('tap', '#shoppingmenu_2', function() {
+				selectstatu(2);
+			});
+			mui('.mui-content').on('tap', '#shoppingmenu_3', function() {
+				selectstatu(3);
+			});
+			//切换选择	
+			function selectstatu(i) {
+				$('.shoppingli').removeClass('menu-hover');
+				$('#shoppingmenu_' + i).addClass('menu-hover');
+				$(window).scrollTop(0);
+				statu = i;
+				pageindex = 1;
+				ctrls = true;
+				emptyval = true;
+				getdata();
+			}
+
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdata();
+					}
+				}
+				if($(window).scrollTop() >= $('.shopping-menu').height()) {
+					$('.shopping-menu').addClass('menu-fixed');
+				}
+				if($(window).scrollTop() < $('.shopping-menu').height()) {
+					$('.shopping-menu').removeClass('menu-fixed');
+				}
+			});
+
+			/*获取推荐商家列表*/
+			function getdata() {
+				var canshu = '&provincecode=' + $('#provincecode').val() + '&citycode=' + $('#citycode').val() + '&longitude=' + $('#longitude').val() + '&latitude=' + $('#latitude').val() + '&gettype=' + statu;
+				var url = WEB_HOST + "/index.php/Trade/Index/Merchant?pageindex=" + pageindex + canshu;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#shoplist').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">没有找到相关信息</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dg = datalist[i];
+										_html += '<div class="shopslist-li-' + pageindex + '">';
+										_html += '<div class="divtab t-s-shopslist-li" title="'+dg['c_ucode']+'">';
+										_html += '<div class="t-s-shopsimg"><img src="' + dg['c_img'] + '" alt="" /></div>';
+										_html += '<div class="t-s-shopsinfo divtab">';
+										_html += '<div class="t-s-shopsname fl c3 fs14 fov">' + dg['c_name'] + '</div>';
+										_html += '</div>';
+										_html += '<div class="t-s-shopsdesc fov fs13 c5 divtab">' + dg['c_desc'] + '</div>';
+										_html += '<div class="t-s-shops divtab fr c9 fs12">';
+										_html += '距离<span>' + dg['c_distance'] + '</span>关注<span>' + dg['c_attention'] + '</span>访问量<span class="rtright">' + dg['c_shop'] + '</span>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#shoplist').append(_html);
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+						if(emptyval){
+							mui('.shopslist-li-'+pageindex).on('tap','.t-s-shopslist-li',function(){
+								var ucode = $(this).attr('title');
+								mui.openWindow({url:"__APP__/Store/Index/index?fromucode="+ucode,id:"Store"})
+							});
+						}
+					}
+				});
+			}
+
+			var zonghg = 60;
+			$(window).bind('scroll', function() {
+				if((($(window).scrollTop()) >= (zonghg))) {
+					$('.shopping-menu').addClass('menu-fixed');
+				}
+				if($(window).scrollTop() < zonghg) {
+					$('.shopping-menu').removeClass('menu-fixed');
+				}
+			});
+			/*样式*/
+			function styles() {
+				var simgw = $('.t-s-shopsimg').width(),
+					simgh = simgw * 0.41;
+				$('.t-s-shopsimg').height(simgh);
+			}
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ctrl_hidden{display:none;}
+</style>
+<title>用户管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>会员管理<span class="c-gray en">&gt;</span>{$page_name}<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:history.go(-1);" title="返回" >返回</a></nav>
+<div class="pd-20">
+	<!-- <form action="member_list" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员注册手机" name="c_phone" value="{$post['c_phone']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入会员昵称" name="c_nickname" value="{$post['c_nickname']}">
+		<span class="select-box inline">
+		<select name="isagent" class="select">
+			<option value="">选择代理类型</option>
+     		<option value="1" <if condition="$post['isagent'] eq 1">selected="selected"</if>>区级代理</option>
+     		<option value="2" <if condition="$post['isagent'] eq 2">selected="selected"</if>>市级代理</option>
+		</select>
+		</span>
+		<input type="hidden" name="ucode"  value="{$ucode}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+	</div>
+	</form> -->
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l" ></span><span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="30">ID</th>
+				<th width="100">用户昵称<br/>(级别)</th>
+				<th width="40">头像</th>
+				<th width="30">性别</th>
+				<th width="90">手机</th>
+				<th width="100">代理类型</th>
+				<th width="100">所属代理商</th>
+				<th width="30">余额</th>
+				<th width="30">是否开店</th>
+				<th width="130">加入时间</th>
+				<th width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$vo['c_ucode']}" name="usercode"></td>
+				<td>{$i}</td>
+				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('{$vo['c_nickname']}','member_show?ucode={$vo['c_ucode']}','10001','460','580')">{$vo['c_nickname']}</u><br/>
+				<font color="red">（{$vo['c_level_name']}）</font>
+				</td>
+				<td><if condition="$vo['c_headimg'] neq ''" ><a href="{$root_url}{$vo['c_headimg']}" target="_blank"><img src="{$root_url}{$vo['c_headimg']}" style="width:80px;"/></a><else/><img src="__HIMG__/user.png" style="width:80px;"/></if></td>
+				<td>{$vo['c_sex']}</td>
+				<td>{$vo['c_phone']}</td>
+				<td><if condition="$vo['c_isagent'] eq 0"><font color="red">非代理</font><elseif condition="$vo['c_isagent'] eq 1"/><font color="green">区级代理</font><else/><font color="#000079">市级代理</font></if></td>
+				<td>{$vo['c_name']}</td>
+				<td>￥{$vo['c_money']}</td>
+				<td><if condition="$vo['c_shop'] eq 0">否<else/>是</if></td>
+				<td>{$vo['c_addtime']}</td>
+				<td class="td-manage">
+				 <a title="编辑" href="javascript:;" onclick="member_edit('编辑','Member/member_edit?ucode={$vo['c_ucode']}','4','','760')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+				 <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','Member/change_password?ucode={$vo['c_ucode']}','10001','600','300')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>
+				 <a title="会员收货地址" href="__HHOME__/Member/user_address?ucode={$vo.c_ucode}" style="text-decoration:none"><i class="Hui-iconfont">&#xe695;</i></a> 
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-编辑*/
+function member_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*密码-修改*/
+function change_password(title,url,id,w,h){
+	layer_show(title,url,w,h);	
+}
+
+// 传出选择的用户
+function pushucode(ucode,nickname) {
+	$(window.parent.document).find("#typecheck option:selected").val(ucode);
+	$(window.parent.document).find("#typecheck option:selected").text(nickname);
+	layer_close();
+}
+</script> 
+</body>
+</html>

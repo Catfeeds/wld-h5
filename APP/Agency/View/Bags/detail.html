@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商品详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="confirm-pcode" value="{$pcode}">
+				<input type="hidden" name="confirm-pucode" value="">
+				<input type="hidden" name="confirm-mcode" value="">
+				<input type="hidden" name="confirm-num" value="">
+				<div class="mui-content">
+					<!--商品图片切换-->
+					<div class="mui-slider">
+					  <div class="mui-slider-group">
+					 	<?php foreach ($data['mainimgs'] as $k1 => $v1) { ?>
+						<div class="mui-slider-item imgarrs child-img">
+					      <img src="{$v1['img']}" alt="" />
+					    </div>
+						<?php } ?>					    
+					  </div>					  
+					  <div class="mui-slider-indicator">
+					  	<?php foreach ($data['mainimgs'] as $k1 => $v1) { ?>
+						<div class="mui-indicator <?php if ($k1==0): ?>mui-active<?php endif ?>"></div>
+						<?php } ?>	
+					  </div>
+					</div>
+					<div class="divtab bborder bgcolor">
+						<div class="good-name c3 fs14">{$data['c_name']}</div>
+						<div class="good-price cy fs16"><span class="consult-price">{$data['c_pprice']}</span><span class="c9 fs12" style="margin-left: 3%;">代理阶（1级）{$data['c_mprice']}</span></div>
+						<div class="pro-price-rebate">
+							<div class="share-rebate fs13">快递：<span>￥{$data['c_freeprice']}</span></div>
+							<?php if ($data['c_isfree'] == 1): ?>
+							<div class="share-rebate fs13">包邮</div>	
+							<?php endif ?>
+						</div>
+					</div>
+					<div class="good-model bgcolor divtab bborder">
+						<div class="gm-font fl fs14 c3 m-selfont">请选择</div>
+						<div class="gm-model fl fs14 c3 m-selval-num">型号</div>
+						<div class="gm-ico-arrow fr"><img src="__IMG__/index/der_icon_next.png" alt="" /></div>
+					</div>
+					<!-- <div class="agent-intro divtab bgcolor">
+						<div class="divtab">
+							<input type="hidden" name="acode" id="acode" value="acode" />
+							<div class="ag-head fl" title="ucode"><img src="__IMG__/index/dlsc_xq_03.jpg" alt="" /></div>
+							<div class="ag-info fl">
+								<div class="ag-nkname c3 fs14">良品铺子良品铺子</div>
+								<div class="ag-visitnum c5 fs12"><span>粉丝</span><span>12w</span><span>访问量</span><span>888</span></div>
+							</div>
+							<div class="ag-attention cb fr fs13">+关注</div>
+						</div>
+						<div class="ag-contact cb fb600 fs13"><span><img src="__IMG__/index/der_icon_chat.png" alt="" /></span>联系商家</div>
+					</div> -->
+					<div class="ag-comment bgcolor">
+						<div class="ag-com-tit bborder divtab">
+							<div class="ag-comnumb fl fs14 c3">评论<span>（{$data['comment_num']}）</span></div>
+							<div class="ag-comcheck fr c9 fs14">查看全部<span class="fr"><img src="__IMG__/index/der_icon_next.png" alt="" /></span></div>
+						</div>
+						<!--商品评论列表-->
+						<div class="comment-con divtab">
+							<div class="commcode-info divtab">
+								<?php if (count($comment) > 0) { ?>
+								<div id="comm-detail" title="{$comment['c_id']}">
+								<div class="comm-head fl">
+									<img src="{$comment['c_headimg']}" alt="" />
+								</div>
+								<div class="comm-intro fl">
+									<div class="comm-nc-info divtab">
+										<div class="comm-nc-grade fl" style="width:56%;">
+											<p class="fs14 c3 fov" style="padding: 3% 0;">{$comment['c_nickname']}</p>
+											<p>
+											<?php for ($i=0; $i < $comment['c_score']; $i++) { ?> 
+												<span style="width:10%;"><img src="__IMG__/index/order_icon_star_selection.png" alt="" /></span>
+											<?php } ?>
+											</p>
+										</div>
+										<div class="comm-time fr fs12 c9">{$comment['c_addtime']}</div>
+									</div>
+									<div class="comm-desc c5 fs13">{$comment['c_content']}</div>
+									<div class="comm-imglist">
+										<ul>
+											<?php foreach ($comment['c_content'] as $key => $value) { ?>
+											<li>
+												<img src="{$value['c_thumbnail_img']}" alt="" />
+											</li>
+											<?php } ?>
+										</ul>
+									</div>	
+								</div>
+								</div>
+								<?php } else { ?>
+									<div class="baoqian">暂未有相关评论</div>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+
+					<div class="good-details bgcolor">
+						<div class="good-remark divtab">
+							<p class="fs16 c3 alignc">商品详情</p>
+							<p class="fs13 c3">{$data['c_desc']}</p>
+						</div>
+						<div class="good-d-imglist divtab alignc">
+							<?php foreach ($data['imglist'] as $key => $value) { ?>
+							<img src="{$value['c_pimgepath']}" alt="" />
+							<?php } ?>
+						</div>
+					</div>
+
+				</div>
+				<div class="fixed-btn good-b-btn divtab bgcolor none">
+					<div class="g-carticon fl divre">
+						<div class="g-cartnum cf fs11 divab">{$data['carcount']}</div>
+						<?php if ($data['carcount'] > 0) { ?>
+						<img id="carimg" src="__IMG__/index/der_icon_cart1.png" alt="" />	
+						<?php } else { ?>
+						<img id="carimg" src="__IMG__/index/der_icon_cart2.png" alt="" />
+						<?php } ?>
+					</div>
+					<div class="g-total-price fl">
+						<p class="fs18 cy">￥<span id="gtotal">0</span></p>
+						<?php if ($data['levelname']): ?>
+						<p class="fs12 c9">您的代理级别：{$data['levelname']}</p>
+						<?php endif ?>
+						<p class="fs12 c9 <?php if ($data['levelname']): ?>none<?php endif ?>">还差￥<span id="surplus">{$data['agentprice']}</span>元成为代理</p>
+					</div>
+					<div class="g-add-cart fl cf fs16">加入购物车</div>
+				</div>
+
+				<!--选择型号-->
+				<div class="mode-sel-bg pup-bg"></div>
+				<div class="model-sel-pup bgcolor">
+					<div class="model-sel-main">
+						<div class="m-pro-basic bborder">
+							<div class="m-pro-img fl"><img src="__IMG__/index/dlsc3_10.jpg" alt="" /></div>
+							<div class="m-pro-info fl">
+								<p class="cy fs14 consult-price">{$data['c_pprice']}</p>
+								<p class="c3 fs14"><span class="m-selfont">请选择</span><span class="m-selval">型号</span></p>
+							</div>
+							<div class="m-sel-close fl"><img src="__IMG__/index/der_icon_close2.png" alt="" /></div>
+						</div>
+						<div class="m-sel-list bborder">
+							<div class="m-sel-list-t fs14 c3">型号</div>
+							<div class="m-seleted-c fs13">
+								<ul>
+									<?php foreach ($data['modellist'] as $k => $v) { ?>
+									<li id="{$v['c_mcode']}" title="" data-price="{$v['c_price']}" data-num="{$v['c_num']}">{$v['c_name']}</li>
+									<?php } ?>
+								</ul>
+							</div>
+						</div>
+						<div class="m-pro-number divtab">
+							<div class="m-sel-list-t fs14 c3">数量</div>
+							<div class="m-num-opreate divtab">
+								<div class="m-num-sub fl c9 fs22 bgeb alignc">-</div>
+								<div class="m-num-txt fl"><input type="text" name="txt_pronum" id="txt_pronum" value="1" class="fs13 c3 alignc" /></div>
+								<div class="m-num-add fl c9 fs22 bgeb alignc">+</div>
+								<div class="product-stock fl fs13">
+									库存：<span id="stock_num">{$data['c_num']}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		var pcode = '<?php echo $data["c_pcode"] ?>';
+		var ucode = '<?php echo $ucode ?>';
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>';
+		window.onload = function() {
+			ChRightText("分享");
+			$('.imgarrs').height($('.imgarrs').width()*0.7);
+			var aghw = $('.ag-head').width();
+			$('.ag-head').height(aghw);
+			$('.ag-head').css("border-radius", aghw + "px");
+			$('.ag-info').css("line-height", aghw * 0.5 + "px");
+
+			var cartw = $('.g-carticon').width();
+			$('.g-carticon').height(cartw);
+			$('.g-total-price').css("line-height", cartw * 0.5 + "px");
+			$('.g-add-cart').css("line-height", cartw + "px");
+
+			/*查看评论大图*/
+			$(".comm-imglist").viewer({
+				title: false
+			});
+
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			/*评论样式*/
+			var headh = $('.comm-head').width(),
+				lihb = headh * 50 / 100;
+			$('.comm-head').height(headh);
+			$('.comm-head').css("border-radius", headh + "px");
+			$(".comm-nc-grade").css("line-height", lihb + "px");
+			$(".comm-time").css("line-height", headh + "px");
+		}
+		/*型号样式*/
+		function modelstyle() {
+			$('.model-sel-main').css('padding-bottom', $('.good-b-btn').height() - (-20) + "px");
+			$('.m-pro-img').height($('.m-pro-img').width());
+			$('.m-pro-info').css('line-height', $('.m-pro-img').width() * 0.5 + 'px');
+			$('.m-num-sub').css('line-height', $('.m-num-txt').height() + 'px');
+			$('.m-num-add').css('line-height', $('.m-num-txt').height() + 'px');
+			$('.product-stock').css('line-height', $('.m-num-txt').height() + 'px');
+			$('.m-seleted-c').height($('.m-seleted-c').width() * 0.3);
+		}
+
+		function showmodel() {
+			$('.mode-sel-bg').fadeIn(200);
+			$('.model-sel-pup').slideDown(600);
+			$('.mode-sel-bg').height($(document).height());
+		}
+
+		var acode = "<?php echo $data['c_ucode']; ?>";
+		/*联系商家*/
+		mui('.mui-content').on('tap','.ag-contact',function(){
+			mui.toast('联系商家');
+		});
+		/*代理详情*/
+		mui('.mui-content').on('tap','.agent-intro',function(){
+			mui.openWindow({url:"__URL__/agentde?acode="+acode,id:"agentde"});
+		});
+		/*查看商品的全部评论*/
+		mui('.mui-content').on('tap', '.ag-com-tit', function() {
+			mui.openWindow({
+				url: "__APP__/Shopping/Index/comment?pcode=" + pcode +"&acode="+acode,
+				id: "comment"
+			});
+		});
+		/*查看评论详情*/
+		mui('.mui-content').on('tap','#comm-detail',function(){
+			var scoid = $(this).attr('title');
+			mui.openWindow({
+				url: "__APP__/Store/Store/comdetail?scoreid=" + scoid,
+				id: "comdetail"
+			});			
+		});		
+		/*店铺跳转*/
+		// mui('.mui-content').on('tap','.ag-head',function(){
+		// 	var acode = $(this).attr('title');
+		// 	mui.openWindow({url:"",id:"level"});
+		// });
+		
+		/*选择型号弹窗*/
+		mui('.mui-content').on('tap', '.good-model', function() {
+			showmodel();
+			modelstyle();
+			mui('.model-sel-pup').on('tap', '.m-sel-close', function() {
+				$('.mode-sel-bg').fadeOut(200);
+				$('.model-sel-pup').slideUp(500);
+			});
+
+		});
+
+		/*总金额，价格，型号名称，代理总额*/
+		var countprice = '';
+		var pprice = '';
+		var mmname = '';
+		var agmoney;
+		/*选择型号*/
+		mui('.model-sel-pup').on('tap', '.m-seleted-c li', function() {
+			$("#txt_pronum").val('1');
+			$('.m-seleted-c li').removeClass('hover');
+			$(this).addClass("hover");
+			var mcode = $(this).attr("id");
+			var mname = $(this).text();
+			var mprice = $(this).attr('data-price');
+			var mnum = $(this).attr('data-num');
+			if(mnum == 0) {
+				mui.toast("该属性商品已售罄！");
+				return false;
+			}
+			pprice = mprice;
+			mmname = mname;
+			$('.m-selfont').text("已选择：");
+			$('.m-selval').text("“" + mname + "”");
+			$('.m-selval-num').text("“" + mname + "”  ×" + $("#txt_pronum").val() + "");
+			$('#stock_num').html(mnum);
+			$('.consult-price').text("￥" + mprice);
+			$('input[name="confirm-mcode"]').val(mcode);
+			$('input[name="confirm-num"]').val($("#txt_pronum").val());
+			countprice = pprice * parseInt($("#txt_pronum").val());
+			$('#gtotal').text(countprice);
+			/*差多少钱成为代理，获取成为代理总金额*/
+			var agentprice = "<?php echo $data['agentprice'] ?>";
+			if (countprice < agentprice) {
+				$('#surplus').text(agentprice-countprice);
+			} else {
+				$('#surplus').text('0');
+			}
+
+		});
+		/*输入购买数量*/
+		$('input[name="txt_pronum"]').change(function() {
+			var attr = $('input[name="confirm-mcode"]').val();
+			if(attr == "") {
+				mui.toast('请选择商品属性！');
+				return;
+			}
+			var numv = $(this).val();
+			if(!(numv > 0)) {
+				$(this).val('1');
+				numv = $(this).val();
+			}
+			if(pnum > parseInt($('#stock_num').text())) {
+				$(this).val('1');
+				numv = $(this).val();
+			}
+			pnum = parseInt(numv);
+			countprice = pprice * pnum;
+			$('#gtotal').text(countprice);
+			/*差多少钱成为代理，获取成为代理总金额*/
+			$('#surplus').text();
+			$('input[name="confirm-num"]').val(pnum);
+			$('.m-selval-num').text("“" + mmname + "”  ×" + pnum + "");
+
+		});
+
+		/*减*/
+		mui('.model-sel-pup').on('tap', '.m-num-sub', function() {
+			var attr = $('input[name="confirm-mcode"]').val();
+			if(attr == "") {
+				mui.toast('请选择商品属性！');
+				return;
+			}
+			var pnum = $("#txt_pronum").val();
+			pnum = parseInt(pnum);
+			var nums = pnum;
+			if(pnum > 1) {
+				nums = pnum - 1;
+				$('#txt_pronum').val(nums);
+			}
+			countprice = pprice * nums;
+			$('#gtotal').text(countprice);
+			/*差多少钱成为代理，获取成为代理总金额*/
+			$('#surplus').text();
+			$('input[name="confirm-num"]').val(nums);
+			$('.m-selval-num').text("“" + mmname + "”  ×" + nums + "");
+
+		});
+		/*加*/
+		mui('.model-sel-pup').on('tap', '.m-num-add', function() {
+			var attr = $('input[name="confirm-mcode"]').val();
+			if(attr == "") {
+				mui.toast('请选择商品属性！');
+				return;
+			}
+			var pronum = $("#txt_pronum").val();
+			var pnum = parseInt(pronum) + 1;
+			if(pnum <= parseInt($('#stock_num').text())) {
+				$('#txt_pronum').val(pnum);
+			}
+			countprice = pprice * pnum;
+			$('#gtotal').text(countprice);
+			/*差多少钱成为代理，获取成为代理总金额*/
+			$('#surplus').text();
+			$('input[name="confirm-num"]').val(pnum);
+			$('.m-selval-num').text("“" + mmname + "”  ×" + pnum + "");
+		});
+
+		/*是否下架*/
+		function isshow() {
+			var isshow = '<?php $datainfo["c_ishow"] ?>';
+			if(isshow == 2) {
+				mui.toast('该商品已下架！');
+				return false;
+			}
+		}
+
+		/*查看购物车*/
+		mui('.good-b-btn').on('tap', '.g-carticon', function() {
+			mui.openWindow({
+				url: "__URL__/agentcart?acode=<?php echo $data['c_ucode']; ?>",
+				id: "agentcart"
+			})
+		});
+
+		/*加入购物车*/
+		var tjsign = true;
+		mui('.good-b-btn').on('tap', '.g-add-cart', function() {
+			if(tjsign) {				
+				if(!ucode) {
+					mui.confirm('加入购物车需登录', '登录提示', ['取消', '确认'], function(e) {
+						e.index == 0 ? "" : window.location.href = "__APP__/Login/Index/index?url=" + detailurl;
+					}, 'div');
+					return;
+				}
+				var attr = $('input[name="confirm-mcode"]').val();
+				if(attr == "") {
+					showmodel();
+					modelstyle();
+					return false;
+				}
+				var mcode = $('input[name="confirm-mcode"]').val();
+				var pucode = '<?php echo $pucode ?>';
+				var pmname = mmname;
+				var pnum = $("#txt_pronum").val();
+				if(pnum > parseInt($('#stock_num').text())) {
+					mui.toast('该商品库存不够！');
+					return false;
+				}
+				tjsign = false;
+				$.post("__URL__/AddCar", {
+					mcode: mcode,
+					pcode: '<?php echo $pcode; ?>',
+					pucode: pucode,
+					pmname: pmname,
+					num: pnum
+				}, function(obj) {
+					var data = eval(obj);
+					tjsign = true;
+					if(data['code'] == 0) {
+						mui.toast(data['msg']);
+						$('#carimg').attr('src', '__IMG__/index/der_icon_cart1.png');
+						$('.g-cartnum').text(data['data']['count']);
+						var attrname = $("#sel_attr_name").val();
+						var pnum = $("#txt_pronum").val();
+						$('.m-selval-num').text("“" + mmname + "”  ×" + pnum + "");
+						$('.mode-sel-bg').fadeOut(200);
+						$('.model-sel-pup').slideUp(500);
+						$("#txt_pronum").val('1');
+					} else {
+						mui.toast(data['msg']);
+					}
+				});
+			}
+		});
+	</script>
+
+</html>

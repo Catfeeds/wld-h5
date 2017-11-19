@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__HLIB__/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>题目编辑</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-user-character-add">
+		<div class="row cl">
+			<label class="form-label col-2">对应活动：</label>
+			<div class="formControls col-10"> <span class="select-box">
+				<select class="select" id="sel_Sub" name="aid">
+					<option value="">--请选择--</option>
+					<volist name="activelist" id="v">
+						<?php if ($vo['c_aid'] === $v['c_id']) { ?>
+							<option value="{$v.c_id}" selected="selected">{$v.c_activityname}</option>
+						<?php } else { ?>
+							<option value="{$v.c_id}">{$v.c_activityname}</option>
+						<?php } ?>								
+					</volist>
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">问题名称：</label>
+			<div class="formControls col-10">
+				<textarea name="answer_0" cols="" rows="" class="textarea"  placeholder="请填写问题" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$vo.c_name}</textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>			
+		</div>
+	
+		<?php if (!empty($vo['answer'])) { foreach ($vo['answer'] as $key => $value) { ?>		
+		<div class="row cl" style="margin-bottom:20px;">
+			<label class="form-label col-2">
+				<span class="c-red"><input type="radio" <?php if ($value['c_sign'] == 1){ ?>checked="checked"<?php } ?> name="answerid" value="{$value.c_id}"></span>答案：
+			</label>
+			<div class="formControls col-7">
+				<textarea name="answer{$value.c_id}" cols="" rows="" class="textarea"  placeholder="请填写问题" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$value.c_name}</textarea>
+			</div>
+			<div class="col-3"><a href="javascript:;" onclick="del_answer(this,'{$value.c_id}');">删除答案</a></div>
+		</div>	
+		<?php } } ?>
+		<div class="row cl" id="add_answer">
+	     	<a class="btn btn-primary radius" href="javascript:;" onclick="add_answer();"><i class="Hui-iconfont">&#xe600;</i> 添加答案</a>
+	    </div>
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<div onclick="ajax_post_data('{$action}','form-user-character-add','Question/index');" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</div>
+			</div>
+		</div>
+		<input type="hidden" name="id" value="{$vo.c_id}">
+	</form>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HLIB__/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+
+<script type="text/javascript">
+	var id = 1;
+	function add_answer() {
+		var html = '<div class="row cl" style="margin-bottom:20px;">';
+			html += '<label class="form-label col-2">';
+			html += '<span class="c-red"><input type="radio" id="answer" name="answerid" value="'+id+'"></span>答案：</label>';
+			html += '<div class="formControls col-7">';
+			html += '<textarea name="answer_'+id+'" cols="" rows="" class="textarea"  placeholder="请填写问题答案" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$vo.c_desc}</textarea>';
+			html += '</div>';
+			html += '<div class="col-3"><a href="javascript:;" onclick="del_answer(this);">删除答案</a></div>';
+			html += '</div>';
+		$('#add_answer').before(html);
+		id = id - (-1);
+	}
+
+	function del_answer(ts,id) {
+		$(ts).parent().parent().remove();
+		if (id) {
+			$.post(HHOME+'/Question/delete',{Id:id}, function(obj) {
+				var result = eval(obj);		
+		        if (result['code'] != 0) {
+		        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+		        } else {
+		        	$(ts).parent().parent().remove();
+		        	layer.msg(result['msg'],{icon:1,time:2000});	        		        		        	
+		        }        
+		    });	
+		}
+	}
+</script>
+
+</body>
+</html>

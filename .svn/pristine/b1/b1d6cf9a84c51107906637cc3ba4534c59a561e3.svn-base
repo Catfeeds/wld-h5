@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+img{width: 100%;height: 100%;}
+
+
+/* 连锁店管理 */
+.mulshop-ma-top{ background: #46a9fa; text-align: center;padding: 8% 0 3.5% 0;}
+.mulshop-ma-top p:nth-of-type(2){ padding: 4% 0 3% 0;}
+.mulshop-ma-top p:nth-of-type(3){ color: #a2d3fb;}
+
+.mulshop-ma-entrance ul li{ width: 33.3%; float: left; padding: 8% 0; border-right: 1px solid #f6f6f6; border-bottom: 1px solid #f6f6f6; text-align: center;}
+.mulshop-menu-icon{ width: 30%; margin: 0 auto;}
+.mulshop-menu-name{ padding-top: 8%;}
+
+
+/*数据统计*/
+.dc-tab-list{ width: 60%; margin: 4% auto; border-radius: 25px; border: 1px solid #46a9fa;}
+.dc-tab-list ul li{ float: left; width: 50%; color: #46a9fa; padding: 4% 0; text-align: center;}
+.dc-tab-list ul li.hover{ background: #46a9fa; color: #fff;}
+
+.dc-trend-money{ border-top: 1px solid #f6f6f6; border-bottom: 1px solid #f6f6f6; padding: 6% 0;}
+.dc-trend-money ul{ width: 100%; overflow: hidden;}
+.dc-trend-money ul li{ width: 50%; float: left; text-align: center;}
+.dc-trend-money ul li p{ padding-bottom: 5%;}
+.dc-trend-shop{ text-align: center; border-bottom: 1px solid #f6f6f6; padding: 5% 0;}
+.dc-trend-next{ width: 6%; margin-right: 3%; }
+.dc-report-tab{ text-align: center;padding: 2% 3% 0 0; border-bottom: 1px solid #cdcdcd;}
+.dc-report-tab ul{ padding-left: 18%;}
+.dc-report-tab ul li{ float: left; width: 40%; padding-bottom:2%;}
+.dc-report-tab ul li.report-bg{ border-bottom: 2px solid #46a9fa; color: #46a9fa; font-weight: bold;}
+.dc-report-time{ width: 12%;}
+
+
+.dc-propor-time{ padding: 3% 4%; border-top: 1px solid #f6f6f6; border-bottom: 1px solid #f6f6f6;}
+.dc-propor-timg{ width: 10%;}
+.dc-propor-money{ padding: 4%; border-bottom: 1px solid #46a9fa;}
+.dc-propor-info{ padding-left: 3%;}
+.dc-propor-tit{border-bottom: 1px solid #f6f6f6; padding: 2.5% 0;}
+.dc-propor-data{border-bottom: 1px solid #f6f6f6; padding: 4% 0;}
+.dc-propor-tit ul li,.dc-propor-data ul li{ float: left; text-align: center; width: 30%;}
+.dc-propor-tit ul li:nth-of-type(1){ width:40%;}
+.dc-propor-data ul li:nth-of-type(1){ width:40%; text-align:left;}
+.dc-shop-tit{ border-bottom: 1px solid #f6f6f6; padding: 3%;}
+.dc-shop-item{margin-left: 3%; border-bottom: 1px solid #f6f6f6;width: 97%; padding: 3.5% 3% 3.5% 0;}
+.dc-shop-img,.cin-shop-img,.shopmem-img{ width: 16%; margin-right: 3%; overflow: hidden; border: 1px solid #f0f0f0;}
+.dc-shop-name{ width: 55%;}
+
+
+/*redio样式*/
+.dc-check input[type=radio]{ display: inline-block;width: 28px;height: 26px;border: 0;outline: 0!important; background-color: transparent;-webkit-appearance: none;}
+.dc-check input[type=radio]:checked:before {color: #46a9fa;}
+.dc-check input[type=radio]:checked:before { content: '\e442'; }
+.dc-check input[type=radio]:before {content: '\e411';}
+.dc-check input[type=radio]:before{font-family: Muiicons; font-size:28px;font-weight: 400;line-height: 1;text-decoration: none;color: #aaa; border-radius: 0;background: 0 0;-webkit-font-smoothing: antialiased;} 
+
+/*跨界收益*/
+.cin-list ul{ padding-left: 3%;}
+.cin-list ul li{ width: 100%; overflow: hidden; border-bottom: 1px solid #f6f6f6; padding: 3% 3% 3% 0;}
+.cin-shop-info{ width: 50%;}
+
+/*营收明细*/
+.incdt-total-money,.shopmem-top{ border-bottom: 1px solid #f6f6f6;text-align: center; padding: 5% 0;}
+.incdt-total-money p,.shopmem-top p{ padding-bottom: 2%;}
+.incdt-item-tit{padding: 3.5% 3% 3.5% 0;border-bottom: 1px solid #f6f6f6; margin-left: 3%;width: 97%;}
+
+/*店铺会员*/
+.shopmem-list{ padding-left: 3%;}
+.shopmem-list ul li{ width: 100%; overflow: hidden; border-bottom: 1px solid #f6f6f6;padding: 3% 3% 3% 0;}
+.shopmem-next{ width: 6%; margin-left: 2%;}
+.shopmem-name{ width: 45%;}
+
+/*分店信息*/
+.bshop-list ul li{ padding: 4% 3%; border-bottom: 1px solid #f6f6f6;}
+.bshop-img{ width: 25%; margin-right:3%; }
+.bshop-bottom-info{ padding-top: 4%;}
+.bshop-bottom-info p{ padding: 1% 0;}
+.bshop-bottom-info p font{ padding-left: 2%;}
+.bshop-posImg{ width: 7%; margin-right: 0.5%;}
+.bshop-address{background: #efefef; width: 64%;padding: 0.5% 1%;}
+.bshop-text font{ padding-top: 3%;}

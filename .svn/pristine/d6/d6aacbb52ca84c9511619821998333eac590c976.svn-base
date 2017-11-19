@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>活动列表</title>
+<script type="text/javascript">
+function clickups(ts){
+	var star = $(ts).attr('alt');
+	var gid = $(ts).attr('id'); 
+	var obj = $(ts);
+
+	if(star == 1){
+		var message = "确认奖品参加活动？";
+	}else{
+		var message = "确认奖品不参加活动？";
+	}
+	layer.confirm(message,function(index){
+		$.post(HHOME+'/Activityv2/prize_state',{active:star,gid:gid}, function(data){
+			if(data == ""){
+				if(star == 2){
+					var id = 1;
+					var src = '__HIMG__/no.gif';
+				}else{
+					var id = 2;
+					var src = '__HIMG__/yes.gif';
+				}
+				obj.attr('src',src);
+				obj.attr('alt',id);
+				layer.msg('操作成功',{icon:10,time:2000}); 
+			}else{
+				alert(data);
+			}
+		});
+	});
+}
+</script>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 活动管理 <span class="c-gray en">&gt;</span>活动奖品列表<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="roulette_prize" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="text" class="input-text" style="width:200px" placeholder="输入奖品名称" name="name" value="{$post['name']}">
+
+		<span class="select-box inline">
+		<select name="prizetype" class="select">
+			<option value="">选择奖品类型</option>
+		  	<option value="1" <if condition="$post.prizetype eq 1">selected="selected"</if>>空包</option>
+		  	<option value="2" <if condition="$post.prizetype eq 2">selected="selected"</if>>红包</option>
+		  	<!-- <option value="3" <if condition="$post.prizetype eq 3">selected="selected"</if>>卡券</option> -->
+		  	<option value="4" <if condition="$post.prizetype eq 4">selected="selected"</if>>实物</option>
+		  	<!-- <option value="5" <if condition="$post.prizetype eq 5">selected="selected"</if>>广告牌</option> -->
+		</select></span>
+
+		<span class="select-box inline">
+		<select name="state" class="select">
+			<option value="">选择奖品状态</option>
+		  	<option value="1" <if condition="$post.state eq 1">selected="selected"</if>>参与活动</option>
+		  	<option value="2" <if condition="$post.state eq 2">selected="selected"</if>>不参与活动</option>
+		</select></span>
+
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜奖品</button>
+	</div>
+	</form>
+</div>
+<div class="pd-20 text-c">	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" class="btn btn-primary radius" onclick="roulette_prize_add('添加奖品','Activityv2/roulette_prize_add?joinaid={$joinaid}',800)"><i class="Hui-iconfont">&#xe600;</i>添加奖品</a></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">ID</th>
+					<th>活动名称</th>
+					<th>奖品名称</th>
+					<th>所属商家</th>
+					<th>展示图片</th>
+					<th>价值</th>
+					<th>总数量</th>
+					<th>剩余数量</th>
+					<th>奖品状态</th>
+					<th>奖品类型</th>
+					<th>是否是今日奖品</th>
+					<th>转盘奖项标志</th>
+					<th>添加时间</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="vo">
+				<tr class="text-c">
+					<td><input type="checkbox" name="prizeid" value="{$vo.c_id}"></td>
+					<td>{$i}</td>															
+					<td><font color="green">{$vo.c_activityname}</font></td>
+					<td>{$vo.c_name}</td>
+					<td>
+						<if condition="$vo['c_acode'] neq ''" >{$vo.c_nickname}<else/><font color="red">不属于商家</font></if>
+		         	</td>
+					<td>
+						<a href="<?php echo GetHost().'/'.$vo['c_img'] ?>"  target="_blank">
+							<img src="<?php echo GetHost().'/'.$vo['c_img'] ?>"  style="width:80px;"/>					
+						</a>
+					</td>
+					<td>￥{$vo.c_value}</td>
+					<td>{$vo.c_totalnum}</td>
+					<td>{$vo.c_num}</td>
+					<td>
+						<if condition="$vo['c_status'] eq 1" ><img src="__HIMG__/yes.gif" alt="2" class="activeop" id="{$vo['c_id']}" onclick="clickups(this);" /><else/><img src="__HIMG__/no.gif" alt="1" class="activeop" id="{$vo['c_id']}"   onclick="clickups(this);"/></if>
+		         	</td>
+					<td>
+						<if condition="$vo['c_type'] eq 2">
+							<font color="red">现金</font>
+						<elseif condition="$vo['c_type'] eq 4"/>
+							<font color="green">实物</font>
+						<elseif condition="$vo['c_type'] eq 1"/>
+							空奖
+			         	</if>
+	         		</td>
+		         	<td>
+						<if condition="$vo['c_today_prize'] eq 1" >
+							<font color="green">是</font>
+						<else/>
+							<font color="red">否</font>
+						</if>
+		         	</td>
+		         	<td>
+						<if condition="$vo['c_marks'] eq 1" >位置一
+						<elseif condition="$vo['c_marks'] eq 2"/>位置二
+						<elseif condition="$vo['c_marks'] eq 3"/>位置三
+						<elseif condition="$vo['c_marks'] eq 4"/>位置四
+						<elseif condition="$vo['c_marks'] eq 5"/>位置五
+						<elseif condition="$vo['c_marks'] eq 6"/>位置六
+						<elseif condition="$vo['c_marks'] eq 7"/>位置七
+						<elseif condition="$vo['c_marks'] eq 8"/>位置八
+						</if>
+		         	</td>
+					<td>{$vo.c_addtime}</td>
+					<td class="f-14">
+						<a title="记录详情" href="__HHOME__/Activityv2/activity_log?joinaid={$joinaid}&pid={$vo.c_id}" style="text-decoration:none"><i class="Hui-iconfont">&#xe6bf;</i></a>&nbsp;&nbsp;
+						<a title="编辑" href="javascript:;" onclick="roulette_prize_edit('编辑','Activityv2/roulette_prize_edit?Id={$vo.c_id}',780)" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="prize_del(this,'{$vo.c_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>
+				</volist>				
+			</tbody>
+		</table>
+	</div>	
+</div>
+<div class="pages">{$page}</div>	
+</body>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "asc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	]
+});
+
+/*系统-栏目-添加*/
+function roulette_prize_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-编辑*/
+function roulette_prize_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-删除*/
+function prize_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;		
+		$("input[type=checkbox][name=prizeid]:checked").each(function(i) {			
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}							
+		});	
+	}
+	
+	layer.confirm('删除须谨慎，确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……	
+		$.post(HHOME+'/Activityv2/prize_delete',{Id:id}, function(obj) {
+			var result = eval(obj);		
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});        	      	
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload(); 
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        		window.location.reload(); 
+	        	}	        		        	
+	        }        
+	    });		
+	});
+}
+</script>
+</html>

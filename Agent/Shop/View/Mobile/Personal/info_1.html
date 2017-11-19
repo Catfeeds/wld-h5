@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/reset.css">
+		<link rel="stylesheet" type="text/css" href="__CSS__/mobile/index.css?v=1.2">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="wrap-page bgcolor" style="margin-bottom: 10%;">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="p_info_tit"><span class="fs14 c3">商家资料1/<span id="isfixed_sta"><?php if($isfixed==1){ ?>8<?php }else{ ?>7<?php } ?></span></div>
+				<div class="p_info_con c5">
+					<ul class="sj_obj_type">
+						<li class="fl" id="isfixed_sel">
+							<div class="selsj_tit fs14">请选择商家类型</div>
+							<div class="selsj_con">
+								<div class="selsj_box fl">
+									<span><img src="__IMG__/mobile/sjjh_icon_0_default.png" alt="" id="icon_0" /></span>
+									<span style="width: 55%;"><input type="radio" name="rfixed" id="isfixed_0" value="0" onclick="selobj(0)" class="fl" <?php if($vo['c_isfixed']==0 ){ ?> checked="checked" <?php } ?>  /><label for="" class="fs14 fl" id="font_0">线上商家</label></span>
+								</div>
+								<div class="selsj_box fl">
+									<span><img src="__IMG__/mobile/sjjh_icon_1_default.png" alt="" id="icon_1" /></span>
+									<span><input type="radio" name="rfixed" id="isfixed_1" value="1" onclick="selobj(1,2)" class="fl" <?php if($vo['c_isfixed']==1 ){ ?> checked="checked" <?php } ?> /><label for="" class="fs14 fl" id="font_1">线下实体商家</label></span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<input type="hidden" name="isfixed" id="isfixed" value="{$vo['c_isfixed']}" />
+			</form>
+		</div>
+
+		<div class="info1_tip">
+			<div class="info1_ticon fl"><img src="__IMG__/mobile/sjjh_icon_msg.png" alt="" /></div>
+			<div class="info1_tfont fl fs12">审核通过后将不可修改，请慎重选择</div>
+		</div>
+
+		<div class="info_sub_btn fixed-btn fs16">
+			<ul>
+				<li style="background: #45AAFA; color: #fff;width:100% ;" onclick="savestep()">保存并下一步</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			window.onload = function() {
+				$(".selsj_box span:nth-child(2) label").css('height', $(".selsj_box span:nth-child(2)").height() + 'px');
+				var voisfixed = '<?php echo $vo["c_isfixed"] ?>';
+				//if(voisfixed != "" || voisfixed != null) {
+					selobj(voisfixed);
+				//}
+			}
+			function selobj(id) {
+				if(id == 1) {
+					$('#icon_' + id).attr('src', '__IMG__/mobile/sjjh_icon_' + id + '_selected.png');
+					$('#isfixed').val(id);
+					$('#font_' + id).removeClass('c5');
+					$('#font_' + id).addClass('cyellow');
+					$('#icon_0').attr('src', '__IMG__/mobile/sjjh_icon_0_default.png');
+					$('#font_0').removeClass('cb');
+					$('#font_0').removeClass('cyellow');
+					$('#font_0').addClass('c5');
+					$('#isfixed_sta').text("8");
+
+				} else if(id == 0) {
+					$('#icon_' + id).attr('src', '__IMG__/mobile/sjjh_icon_' + id + '_selected.png');
+					$('#isfixed').val(id);
+					$('#font_' + id).removeClass('c5');
+					$('#font_' + id).addClass('cb');
+
+					$('#icon_1').attr('src', '__IMG__/mobile/sjjh_icon_0_default.png');
+					$('#font_1').removeClass('cb');
+					$('#font_1').removeClass('cyellow');
+					$('#font_1').addClass('c5');
+                    $('#isfixed_sta').text("7");
+				}
+			}
+
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+					resign = false;
+					var isfixed = $('#isfixed').val();
+					if(!isfixed) {
+						JqueryDialog.Show("请完善相关信息！");
+						return;
+					}
+					$.post("__URL__/SetInfo1", {
+						isfixed: isfixed,
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							JqueryDialog.Show("保存成功！");
+							setTimeout(function() {
+								window.location.href = "__APP__/Shop/Personal/info_2?isfixed=" + isfixed;
+							}, 1000);
+
+						} else {
+							JqueryDialog.Show(data['msg']);
+							resign = true;
+							return;
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,39 @@
+/* 公共样式 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,textarea,p,th,td,tr {padding:0;margin:0; } 
+table {border-collapse:collapse;border-spacing:0;} 
+img,input{border:none; vertical-align:top;} 
+em {font-weight:normal;font-style:normal;}	 
+ul, li { list-style-type: none; margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6 {font-weight:normal;font-size:100%;} 
+body { width:100%; font-family:"Microsoft YaHei","微软雅黑",sans-serif; margin:0; padding:0;}
+a, a:link{ text-decoration: none; }
+a:active, a:hover { text-decoration: none; }
+a:focus { outline: none; }
+.clear { clear: both; height: 0px; font-size: 0px; line-height: 0px; margin: 0px; padding: 0px; }
+.fl{float:left; }
+.fr{ float:right; }
+.c3{ color:#333;}
+.c9{ color: #999;}
+
+/*登入首页*/
+.login-content{ width: 400px; position: absolute; top: 10%; left: 30%; }
+.login-info{ border-radius: 8px; position: relative;background: #fff; padding: 5% 8% 15% 8%; }
+.login-title{ color: #4aabfa; text-align: center; border-bottom: 1px solid #ebebeb; padding-bottom: 3%; font-size: 16px;}
+.login-list{ overflow: hidden; margin-top: 5%;}
+.bbox{ border: 1px solid #ebebeb; border-radius: 8px; padding: 1%;}
+.login-img{ width: 12%;}
+.login-img img{ width: 100%;}
+.login-text{ width: 86%;}
+.login-text input{ width: 100%;}
+.login-validate { width: 60%;}
+.login-validate-code{ width: 30%}
+.login-remember input[type="checkbox"]{ cursor: pointer; width: 22px; height: 22px; border: 0px; background: url(../../Public/images/select.png); background-size: 100% 100%;vertical-align: middle;}
+.login-remember input[type="checkbox"]:checked {
+    width: 25px;
+    height: 25px;
+    border: 0px;
+    background: url(../images/delivery-hover.png);
+    background-size: 100% 100%;
+    vertical-align: middle;
+    outline: none;
+}

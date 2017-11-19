@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>极简主义模板</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" href="__CSS__/store/homepage.css?v=1.2" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		        <input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+		        <input type="hidden" name="returnurl" id="returnurl" value="<?php echo encodeurl(" https:// " . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>" />
+		        <input type="hidden" name="c_ucode" id="c_ucode" value="{$storeinfo['c_ucode']}">
+		        <input type="hidden" name="c_name" id="c_name" value="{$storeinfo['c_name']}">
+		        <input type="hidden" name="c_ishow" id="c_ishow" value="{$storeinfo['c_ishow']}">
+		        <input type="hidden" name="tempid" id="tempid" value="{$tempid}"/>
+		        <input type="hidden" name="tempid" id="tplid" value="{$tplid}"/>
+				<div class="mui-content">
+					<!-- 数据列表部分 -->
+					<include file="Store@Store/onlinetop" />
+					<!-- 卡券-->
+					<div class="ticket1">
+
+					</div>
+
+					<?php if ($data['c_source'] == 1) { ?>
+					<div class="commodity fs15">
+
+					</div>
+					<?php } ?>
+					<!--banner预览(线下)-->
+					<?php if ($data['c_source'] == 2) { ?>
+					<div class="offline">
+						<div class="section_left fl fs14"></div>
+						<div class="section_right fl wrapper"></div>
+					</div>
+					<?php } ?>
+					<include file="Store@Store/shopbottom"/>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		
+		<script type="text/javascript" src="__JS__/storepub.js"></script>
+	</body>
+	<script type="text/javascript">
+		var isfixed = "<?php echo $data['c_isfixed']; ?>";
+        var ucode = "<?php echo $ucode; ?>";
+		var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST '] . $_SERVER['REQUEST_URI ']); ?>';
+		var source = '<?php echo $data["c_source"] ?>';
+		var isfixed = "<?php echo $data['c_isfixed']; ?>";
+        /*商品资源数据加载*/
+		var ctrls = true;
+		var emptyval = true;
+		var pageindex = 1;
+		var id = 1;
+		var text = '';
+
+		/*线上商品列表*/
+        var pageindex2 = 1;
+        var ctrls2 = true;
+        var emptyval2 = true;
+		window.onload = function() {
+
+			//卡券
+			shopCouponList();
+			$('.buy').removeAttr('onclick');
+			$(window).bind('scroll', function() {
+                if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+                    $('.xiaomi-bar').addClass('menu-fixed');
+                    if(source == 1) {
+                        $('.xiaomi-bar').css("background", "rgba(56,180,249,.8)");
+                    } else if(source == 2) {
+                        $('.xiaomi-bar').css("background", "rgba(243,133,99,.8)");
+                    }
+                }
+                if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+                    $('.xiaomi-bar').removeClass('menu-fixed');
+                    $('.xiaomi-bar').css("background", "none");
+                }
+           	});
+            if(isfixed == 1){
+                $('.offline').show();
+                $('.commodity').hide();
+                getdatacate();
+                setTimeout(function() {
+					$('.addcart').removeAttr('onClick');
+					$('.subcart').removeAttr('onClick');
+					$('.pro_image').removeAttr('onClick');
+					$('.commodity>.fl').removeAttr('onClick');
+				}, 1000);
+            }else{
+
+                $('.offline').hide();
+                $('.commodity').show();
+                getProductlist();
+				setTimeout(function() {
+					$('.commodity>.fl').removeAttr('onClick');
+				}, 1000);
+                $(window).bind('scroll', function() {
+                    if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+                        if(ctrls2 && emptyval2) {
+                            getProductlist();
+                        }
+                    }
+                });
+            }
+            
+			yangshi();
+		}
+
+
+		
+	</script>
+
+</html>

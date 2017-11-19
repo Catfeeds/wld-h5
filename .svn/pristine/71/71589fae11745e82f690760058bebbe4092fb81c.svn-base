@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--公告中心</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+		<style type="text/css">
+			#page-2{top: 15%;}
+			.on-line-bee-radio input[type="radio"] {
+				width: 32px;
+				height: 32px;
+			}.on-line-bee-radio input[type="radio"]:checked {
+				width: 32px;
+				height: 32px;
+			}
+			
+			.agenttype {
+				width: 100%;
+				overflow: hidden;
+				padding-bottom: 20px;
+				border-top: solid 1px #f0f0f0;
+			}
+			
+			.sj_zizhi_tit {
+				margin-left: 5%;
+				width: 85%;
+				color: #999;
+				font-size: 16px;
+				padding: 20px 0;
+			}
+			
+			.sj_zizhi_tit span {
+				color: red;
+			}
+			
+			.sj_zizhi {
+				width: 100%;
+				overflow: hidden;
+			}
+			
+			.sj_zizhi li {
+				float: left;
+				width: 25%;
+				margin-left: 5%;
+			}
+			
+			.radio-font {
+				color: #555;
+			}
+			.tijiaobtn{width: 20%;text-align: center;background: #3EB5F9;color: #fff;font-size: 18px;padding: 2%;border-radius: 5px;margin: 2% auto;}
+		
+		</style>
+
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+
+		<div class="content-s w_960" style="padding-bottom: 3%;">
+
+			<volist name="data" id="vo">
+				<div class="notice-list <?php if($vo['c_infoid'] !=null) { ?>newsico<?php } ?>">
+					<?php if (!empty($vo['c_img'])) { ?>
+					<div class="notice-img fl">
+						<img src="__ROOT__/{$vo.c_img}" alt="">
+					</div>
+					<?php } ?>
+					<div class="notice-info fl" <?php if (empty($vo[ 'c_img'])) { ?>style="width:91.5%;"
+						<?php } ?> >
+						<div class="notice-tit-tim">
+							<div class="notice-tit fl">
+								<a href="javascript:;" class="notice-tit-a <?php if($vo['c_infoid'] != null){?>grey<?php } ?>" onclick="loadinfo('{$vo.c_id}','{$vo.c_url}');">{$vo.c_ptitle}</a>
+							</div>
+							<div class="notice-time fr">{$vo.c_addtime}</div>
+						</div>
+						<?php if (!empty($vo['c_img'])) { ?>
+						<div class="notice-desc <?php if($vo['c_infoid'] != null){?>grey<?php } ?>">
+							{$vo.c_title}...
+							<a href="javascript:;" onclick="loadinfo('{$vo.c_id}','{$vo.c_url}');" class="details <?php if($vo['c_infoid'] != null){?>grey<?php } ?>">查看详情</a>
+						</div>
+						<?php } ?>
+					</div>
+				</div>
+			</volist>
+			<div class="pages">
+				<div>
+					{$page}
+				</div>
+			</div>
+
+			<!--提示资料未完成-->
+			<div class="agent-tip-bg none"></div>
+			<div class="agent-tip-pop none" id="tip-step-1">
+				<div class="agent-tip-step1">
+					<img src="__IMG__/agent-notice.png" alt="">
+					<div class="agent-tip-font1">您的资料还未完成</div>
+					<div class="agent-tip-font2">请立即填写您的资料</div>
+					<div class="agent-tip-btn1" onclick="surebtn()">确定</div>
+					<div class="agent-tip-btn1 agent-tip-btn2" onclick="cancelbtn()">取消</div>
+				</div>
+			</div>
+
+			<div class="agent-tip-pop none" id="tip-step-2">
+				<div class="agent-tip-step1">
+					<div class="agent-tip-st2-tit">请选择区域经理代理资质</div>
+					<div class="agent-tip-team"><input type="radio" name="agenttype"><span class="radio-font">企业资料</span></div>
+					<div class="agent-tip-sign"><input type="radio" name="agenttype"><span class="radio-font">个人资料</span></div>
+					<img src="__IMG__/agent-noticebg.png" alt="">
+				</div>
+			</div>
+
+		</div>
+
+		<!--资料未完善2016-10月版-->
+		<div id="page-2-bg"></div>
+		<div class="content-s w_960" id="page-2">
+			<div style="padding:3% 0 2% 0;overflow: hidden; ">
+				<div class="on-line-left fl">
+					<div class="on-line-bee"><img src="__IMG__/xiaomi_1.png" alt=""></div>
+					<div class="on-line-bee-radio"><input type="radio" name="ontype" value="0" onclick="surebtn(0)">我是线上微商</div>
+				</div>
+				<div class="off-line-right fl">
+					<div class="on-line-bee"><img src="__IMG__/xiaomi_2.png" alt=""></div>
+					<div class="on-line-bee-radio"><input type="radio" name="ontype" value="1" onclick="surebtn(1)">我是线下实体商家</div>
+				</div>
+			</div>
+			<div class="agenttype agent-tip-step1" style="display: none;">
+				<div class="sj_zizhi_tit">请选择商家资质</div>
+				<ul class="sj_zizhi">
+					<li class="li_01"><input type="radio" name="ctype" value="1" id="ctype_01"><span class="radio-font">个人资料</span></li>
+					<li class="li_02"><input type="radio" name="ctype" value="2" id="ctype_02"><span class="radio-font">企业资料</span></li>
+				</ul>
+			</div>
+			<div class="tijiaobtn" onclick="tijiao()">确定</div>
+			<div class="sj_zizhi_tit"><span>*</span>&nbsp;商家类型一旦选定，审核通过后将不可更改，请慎重选择。</div>
+		</div>
+
+		<script type="text/javascript">
+            var isshop = '<?php echo $userdata["c_shop"] ?>';
+            var old_all = '<?php echo $oldinfo ?>';
+			window.onload = function() {
+				$('#li-1 a').addClass('hover');
+
+				$('#page-2-bg').click(function() {
+					$('#page-2-bg').hide();
+					$('#page-2').hide();
+				});
+
+                if(isshop==1){
+					if(old_all==1){
+                        dialogif("提示","为了加强您的账户安全，请尽快完成商家信息认证");
+					}
+                }
+			}
+		</script>
+
+		<script type="text/javascript">
+			function loadinfo(id, url) {
+				$.post('__URL__/readinfo', {
+					Id: id
+				}, function(obj) {
+					var result = eval(obj);
+					if(result['code'] != 0) {
+						JqueryDialog.Show(result['msg']);
+					} else {
+						if(url == '') {
+							window.location.href = '__URL__/detail?Id=' + id;
+						} else {
+							window.location.href = url;
+						}
+					}
+				});
+			}
+
+			getstate();
+
+			function getstate() {
+				var keyUrl = '__APP__/Shop/Information/ReadInfostatu';
+				$.ajax({
+					url: keyUrl,
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						var msg = eval(data);
+						if(msg['code'] != 1000) {
+							// $('#tip-step-1').hide();
+							// $('.agent-tip-bg').hide();            
+//							$('#page-2-bg').hide();
+//							$('#page-2').hide();
+						} else {
+//							$('#page-2').show();
+//							$('#page-2-bg').show();
+//							$('#page-2-bg').height($(document).height());
+							dialogif("温馨提示","请完善您的商家资料");
+							// $('#tip-step-1').show(200);
+							// $('.agent-tip-bg').show();
+							// $('.agent-tip-bg').height($(document).height());    
+						}
+					}
+				});
+			}
+			var ontype = "";
+			function surebtn(val) {
+				var isfixed = val;
+				ontype = val;
+				var ctype = $('input:radio[name="ctype"]:checked').val();
+				if(val == 0) {
+					$('.agenttype').slideDown();
+					$('input:radio[name="ctype"]').attr('checked',false);
+					$('.li_01').css('display', "block");
+					//window.location.href = "__APP__/Shop/Personal/industry?isfixed=0";
+				} else if(val == 1) {
+					$('.agenttype').slideDown();
+					$('input:radio[name="ctype"]').attr('checked',false);
+					$('.li_01').css('display', "none");
+					//window.location.href = "__APP__/Shop/Personal/industry?isfixed=1";
+				}
+
+			}
+			var clicktag = true;
+			function tijiao() {
+				if(clicktag){
+					clicktag = false;
+					var ctype = $('input:radio[name="ctype"]:checked').val();
+					if(!ontype && !ctype){
+						JqueryDialog.Show("请选择商家类型信息！");
+						clicktag = true;
+						return false;
+					}
+					$.post('__APP__/Shop/Personal/SaveAgentInfo1', {
+						isfixed: ontype,
+						type: ctype
+					}, function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							JqueryDialog.Show("保存成功！");
+							window.location.href = "__APP__/Shop/Personal/industry?isfixed=" + ontype;
+						} else {
+							JqueryDialog.Show(data['msg']);
+							clicktag = true;
+							return;
+						}
+					});
+					
+				}
+			}
+
+			function cancelbtn() {
+				$('#tip-step-1').hide();
+				$('.agent-tip-bg').hide();
+			}
+		/*提示弹窗*/
+		function dialogif(tit, desc) {
+			//获取客户端页面宽高
+			var _client_width = document.body.clientWidth;
+			var _client_height = document.documentElement.scrollHeight;
+
+			//create shadow
+			if(typeof($("#jd_shadow")[0]) == "undefined") {
+				//前置
+				$("body").prepend("<div id='jd_shadow'>&nbsp;</div>");
+			}
+
+			//create dialog
+			if(typeof($("#jd_dialog")[0]) != "undefined") {
+				$("#jd_dialog").remove();
+			}
+			var show = '';
+			show += '<div id="jd_dialog" style="position: fixed;">';
+			show += '<div id="jd_dialog_h">' + tit + '</div>';
+			show += '<table align="center" id="jd_dialog_c">';
+			show += '<tr>';
+			show += '<td align="center">' + desc + '</td>';
+			show += '</tr>';
+			show += '</table>';
+			show += '<div id="jd_dialog_b">';
+			show += '<div id="jd_dialog_l" onclick="Close_dialog()">取消</div>';
+			show += '<div id="jd_dialog_r" onclick="Ok_dialog()" style="background: #45AAFA;color: #fff;">确认</div>';
+			show += '</div>';
+			show += '</div>';
+			$("body").prepend(show);
+		}
+
+		function Close_dialog() {
+			$("#jd_shadow").remove();
+			$("#jd_dialog").remove();
+		}
+
+		function Ok_dialog() {
+			window.location.href = "__APP__/Shop/Personal/sub4_1";
+		}			
+		</script>
+	</body>
+
+</html>

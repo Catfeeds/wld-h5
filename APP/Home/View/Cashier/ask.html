@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>收银管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/cashier/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">	
+	<input type="hidden" name="name" id="name" value="{$data['c_data']['name']}">
+	<input type="hidden" name="acode" id="acode" value="{$data['c_data']['acode']}">
+		<div class="mui-content divtab">
+			<div class="cashier-card">
+				<div class="addstaff-info bgcolor showinfo">
+					<div class="addstaff-img">
+						<img id="headimg"  src="{$data['shopinfo']['c_headimg']}">
+					</div>
+					<span class="c3 fs16 fov" id="nickname">{$data['shopinfo']['c_nickname']}</span>
+					<div class="c3 fs13 bborder divtab" id="signinfo">{$data['shopinfo']['c_signature']}</div>
+					<p class="c9 fs13" id="telephone">加盟热线：{$data['shopinfo']['c_phone']}</p>
+					<p class="c9 fs13" id="trade">所属行业：{$data['shopinfo']['tradename']}</p>
+					<p class="c9 fs13" id="address">详细地址：{$data['shopinfo']['c_address1']}</p>
+				</div>	
+			</div>
+			<div class="cashier-agree-btn cf fs16">同意</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.addstaff-img').height($('.addstaff-img').width());
+		$('.addstaff-img').css("border-radius",$('.addstaff-img').width());
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+	
+	mui('.mui-content').on('tap','.cashier-agree-btn',function(){
+		putform();
+	});
+	
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('form1');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/AgreeCashier',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('加入成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"index"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);	
+							resign = true;				
+						}
+					}
+			});
+		}	
+	}
+</script>
+
+</html>

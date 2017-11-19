@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>我的优惠券</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/cpackage/index.css" />
+	</head>
+
+	<body class="bgcolor">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content bgcolor">
+				<div class="coupon-main" id="coupon_list_1">
+					
+				</div>
+
+				<div id="console"></div>
+				<?php if ($type == 1) { ?>
+				<div class="coupon-runout">
+					<span class="fs13 c9">没有更多券了</span>|<span class="cb fs13" onclick="morecoupon();">查看失效券</span>
+				</div>
+				<?php } ?>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				ChRightText("帮助");
+				styles();
+			}
+			//帮助
+			function rightcaozuo() {
+				mui.openWindow({
+					url: "__URL__/help"
+				});
+			}
+			$(document).ready(function() {
+
+			});
+
+			/*样式*/
+			function styles() {
+				var boxw = $('.coupon-box').width(),
+					boxh = boxw * 0.36;
+				$('.coupon-box').height(boxh);
+			}
+
+			var pageindex = 1;
+			var ctrls = true;
+			var emptyval = true;
+			var type = "<?php echo $type; ?>";
+			getdatalist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						getdatalist();
+					}
+				}
+			});
+			/*数据加载*/
+			function getdatalist() {
+				var url = "__URL__/MyCouponCard?type=<?php echo $type; ?>&pageindex=" + pageindex;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#coupon_list_1').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="coupon-empty divtab">';
+									_html += '<div class="c-empty-img"><img src="__IMG__/cpackage/kqgl_icon_defect.png" alt="" /></div>';
+									_html += '<div class="c-empty-font c3 fs13">暂时还没有优惠券</div>';
+									_html += '</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										var dataarr = datalist[i];
+										_html += '<div class="coupon-box divre">';
+										if(dataarr['c_type'] == 1) {
+											_html += '<div class="coupon-money divab cf"><span class="fs16">' + dataarr['c_money'] + '</span><br /><span class="fs12">元</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs14">代金券</p>';
+											_html += '<p class="cf fs14">';
+											_html += '<span>满' + dataarr['c_limit_money'] + '元可用</span></p>';
+										} else if(dataarr['c_type'] == 2) {
+											_html += '<div class="coupon-money divab cf"><span class="fs16">' + dataarr['c_money'] + '</span><br /><span class="fs12">折</span></div>';
+											_html += '<div class="coupon-tit divab">';
+											_html += '<p class="cf fs14">折扣劵</p>';
+											_html += '<p class="cf fs14">';
+											_html += '<span>最高折扣' + dataarr['c_limit_money'] + '元</span></p>';
+										}
+										_html += '</div>';
+
+										if(dataarr['shopucode']) {
+											_html += '<div class="coupon-use-rang divab cf fs12 fov" onclick="veiwshop(\'' + dataarr['shopucode'] + '\');">商家「<span>' + dataarr['shopname'] + '</span>」</div>';
+										}
+
+										_html += '<div class="coupon-time divab cf fs12">' + dataarr['c_starttime'] + '-' + dataarr['c_endtime'] + '</div>';
+
+										_html += '<div class="coupon-detail divab cf fs13 verticle-mode">';
+										_html += '<button type="button" class="cf fs13" onclick="couponInfo(\'' + dataarr['c_id'] + '\')">卡<br/>券<br/>详<br/>情</button>';
+										_html += '</div>';
+
+										if(type == 2) {
+											_html += '<div class="coupon-outdate divab">';
+											_html += '<img src="__IMG__/cpackage/kqgl_icon_past.png" alt="" />';
+											_html += '</div>';
+										}
+										if(dataarr['couponsign']) {
+											_html += '<div class="coupon-le-ico divab fs12 cf c-le-icogray">' + dataarr['couponsign'] + '</div>';
+										}
+										if(type == 2) {
+											_html += '<img src="__IMG__/cpackage/kqgl_bg_past.png" alt="" />';
+										} else {
+											if(dataarr['c_type'] == 1) {
+												_html += '<img src="__IMG__/cpackage/kqgl_bg_replace.png" alt="" />';
+											} else if(dataarr['c_type'] == 2) {
+												_html += '<img src="__IMG__/cpackage/kqgl_bg_break.png" alt="" />';
+											}
+										}
+
+										_html += '</div>';
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+
+						$('#coupon_list_1').append(_html);
+
+					},
+					complete: function() {
+						styles();
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+			/*卡券详情*/
+			function couponInfo(bid) {
+				mui.openWindow({
+					url: '__URL__/detail?bid=' + bid,
+					id: 'couponInfo'
+				});
+			}
+
+			//查看更多失效劵
+			function morecoupon() {
+				mui.openWindow({
+					url: '__URL__/index?type=2',
+					id: 'morecoupon'
+				});
+			}
+
+			//查看商家
+			function veiwshop(ucode) {
+				mui.openWindow({
+					url: '__APP__/Store/Index/index?fromucode=' + ucode,
+					id: 'veiwshop'
+				});
+			}
+			mui.plusReady(function() {});
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

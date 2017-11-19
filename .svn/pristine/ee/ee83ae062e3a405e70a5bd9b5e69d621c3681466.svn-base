@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加奖品</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{$action}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabCon">
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>选择商品：</label>
+				<div class="formControls col-6"> 
+					<if condition="$vo['produce']['c_pcode'] neq null">
+						<input type="hidden" name="pcode" value="{$vo['produce']['c_pcode']}">
+						 <input type="text" class="input-text" value="{$vo['produce']['c_name']}" disabled>
+					<else/>
+						<span class="select-box">
+							<select name="pcode" class="select" onClick="selectpcode('请关联产品','Shop/index?hide=1',1000);" id="pcodecheck">
+								<option value="{$vo['produce']['c_pcode']}">{$vo['produce']['c_name']}</option>
+							</select>
+						</span>
+					</if>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>开始时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="startime" name="startime" value="{$vo.c_startime}" placeholder="活动开始时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>			
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>结束时间：</label>
+				<div class="formControls col-6">
+					<input type="text" id="endtime" name="endtime" value="{$vo.c_endtime}" placeholder="活动结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon"/>
+				</div>
+				<div class="col-3"> </div>
+			</div>
+
+			<div class="row cl">
+				<label class="form-label col-3"><span class="c-red">*</span>折扣比例：</label>
+				<div class="formControls col-6">
+					<span class="select-box">
+						<select class="select" id="sel_Sub" name="discount">
+							<option value="">--请选择折扣比例--</option>
+							<option value="9.5" <if condition="$vo.c_discount eq 9.5">selected="selected"</if>>9.5</option>
+							<option value="9" <if condition="$vo.c_discount eq 9">selected="selected"</if>>9</option>
+							<option value="8.5" <if condition="$vo.c_discount eq 8.5">selected="selected"</if>>8.5</option>
+							<option value="8" <if condition="$vo.c_discount eq 8">selected="selected"</if>>8</option>
+							<option value="7.5" <if condition="$vo.c_discount eq 7.5">selected="selected"</if>>7.5</option>
+							<option value="7" <if condition="$vo.c_discount eq 7">selected="selected"</if>>7</option>
+							<option value="6.5" <if condition="$vo.c_discount eq 6.5">selected="selected"</if>>6.5</option>
+							<option value="6" <if condition="$vo.c_discount eq 6">selected="selected"</if>>6</option>
+							<option value="5.5" <if condition="$vo.c_discount eq 5.5">selected="selected"</if>>5.5</option>
+							<option value="5" <if condition="$vo.c_discount eq 5">selected="selected"</if>>5</option>
+							<option value="4.5" <if condition="$vo.c_discount eq 4.5">selected="selected"</if>>4.5</option>
+							<option value="4" <if condition="$vo.c_discount eq 4">selected="selected"</if>>4</option>
+							<option value="3.5" <if condition="$vo.c_discount eq 3.5">selected="selected"</if>>3.5</option>
+							<option value="3" <if condition="$vo.c_discount eq 3">selected="selected"</if>>3</option>
+							<option value="2.5" <if condition="$vo.c_discount eq 2.5">selected="selected"</if>>2.5</option>
+							<option value="2" <if condition="$vo.c_discount eq 2">selected="selected"</if>>2</option>
+							<option value="1.5" <if condition="$vo.c_discount eq 1.5">selected="selected"</if>>1.5</option>
+							<option value="1" <if condition="$vo.c_discount eq 1">selected="selected"</if>>1</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-3"> </div>
+			</div>				
+
+			<div class="row cl">
+		      <label class="form-label col-3"><span class="c-red">*</span>限购库存：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_totalnum}" placeholder="" id="" name="totalnum">
+		      </div>
+		      <div class="col-4"> </div>
+		    </div>
+
+		   	<div class="row cl">
+		      <label class="form-label col-3"><span class="c-red">*</span>剩余库存：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_num}" placeholder="" id="" name="num">
+		      </div>
+		      <div class="col-4"> </div>
+		    </div>
+
+		    <div class="row cl">
+		      <label class="form-label col-3"><span class="c-red">*</span>限购人次：</label>
+		      <div class="formControls col-6">
+		       <input type="text" class="input-text" value="{$vo.c_penum}" placeholder="" id="" name="penum">
+		      </div>
+		      <div class="col-3"> </div>
+		    </div>
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="Id" value="{$vo.c_id}">
+				<input type="submit" value="提交" class="btn btn-primary radius">
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.js"></script> 
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript" src="__HJS__/laydate.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-category-add").Validform({
+		tiptype:2,
+		callback:function(form){
+			form[0].submit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+	$.Huitab("#tab-category .tabBar span","#tab-category .tabCon","current","click","0");
+});
+//选择产品
+function selectpcode (title,url,w,h) {
+	layer_show(title,url,w,h);
+	$('.ctrl_hidden').hide();
+}
+</script>
+</body>
+</html>

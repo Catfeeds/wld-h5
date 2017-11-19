@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* CSS Document */
+.wrap-page { width: 100%;overflow: hidden;min-width: 320px; max-width: 720px;margin:auto;}
+img{width: 100%;height: 100%;}
+.spance-info{width: 100%;}
+.space-name-a{overflow: hidden;padding: 3% 4% 0 4%;}
+.space-name{}
+.space-name a{color: #333;}
+.space-href{}
+.space-href a{color: #47abf6;}
+.space-desc{padding: 3% 4%; border-bottom: solid 1px #f0f0f0;}
+.space-address{overflow: hidden;padding: 0 1% 0 4%;}
+.addr-ico{width: 8%;}
+.addr-info{margin-left: 3%;width: 80%;padding-top: 3%;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+.addr-arrow{width: 8%;}
+
+.store-info{ margin-top: 4%;}
+.store-info ul li{width: 100%;border-bottom: solid 1px #f0f0f0;overflow: hidden; padding: 2.5% 4%;}
+.store-font{width: 20%;}
+.store-text{margin-left: 3%;width: 77%;}
+.store-server a{color: #47abf6;}
+
+.pro-comment-main{overflow: hidden;width: 100%;background: #fff;margin-top: 4%;padding-bottom: 5%;}
+.pro-comment-f{color: #333;border-bottom: solid 1px #f0f0f0;padding: 4%;}
+.pro-comment-tit{padding: 4% 4% 0 4%;overflow: hidden;}
+.pro-comment-head{width: 13%;overflow: hidden;float: left;}
+.pro-comment-head img{width: 100%;height: 100%;}
+.pro-c-grade{width: 83%;overflow: hidden;margin-left: 2%;}
+.pro-c-n-score{overflow: hidden;width: 100%;}
+.pro-comment-nkname{color: #555;float: left;margin-left: 2%;overflow: hidden;}
+.pro-comment-star{color: #555;float: left;padding-top: 1%;margin-left: 2%;overflow: hidden;width: 23%;}
+.pro-comment-star ul{overflow: hidden;}
+.li-star{float: left;width: 18%;padding-top: 3%;}
+.pro-comment-time{color: #999;/*float: right;*/overflow: hidden;margin-left: 1%;}
+.pro-comment-con{color: #555;padding: 4%;}
+.pro-comment-more{display: block;border: solid 1px #fcac49;color: #fcac49;text-align: center;padding: 2%;border-radius: 5px;margin: 0 30%;}
+
+.comment-list-box{border-bottom: solid 1px #ebebeb;padding-bottom: 4%;}
+.pro-comment-img{width: 100%;overflow: hidden;padding: 0 4% 4% 4%;}
+.pro-comment-img .share{width: 100%;overflow: hidden;}
+.pro-comment-img .share a{display: block; float: left;width: 20%;margin-right: 3%;}
+.pro-comment-img .share a img{width: 100%;height: 100%;}
+
+.store-pro-tit{padding: 3% 4%;}
+.store-prolist{width: 100%;overflow: hidden;}
+.store-pro-box{width: 96%;overflow: hidden;margin-left: 4%;border-bottom: solid 1px #f0f0f0;padding: 4% 0;position: relative;}
+.s-pro-img{width: 26%;height: auto;overflow: hidden;}
+.s-pro-info{margin-left: 3%;width: 71%;}
+.s-pro-name{width: 100%;text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
+.s-pro-state{width: 100%;overflow: hidden;}
+.s-pro-state ul{overflow: hidden;padding: 3% 0;}
+.s-pro-state ul li{float: left;overflow: hidden;margin-right: 3%;text-align:center;border-radius: 5px;padding: 0 1.5%;}
+.s-pro-state ul li.blue-btn{border:solid 1px #46abfb;color: #46abfb;}
+.s-pro-state ul li.yellow-btn{border:solid 1px #ffd66c;color: #ffd66c;}
+.s-pro-price{color: #fdad4e;}
+.s-pro-buynum{position: absolute;right: 3%;bottom: 6%;overflow: hidden;}
+.buynum-sub{ border: none; width: 9%;cursor:pointer; outline: none;}
+.buyinput-txt{width: 16%;margin:0 2%;}
+.buyinput-txt input[type="text"]{border: none;background: #fff;width: 98%;text-align: center;}
+.buynum-add{ border: none; width: 9%;cursor:pointer; outline: none;}
+.s-pro-buybtn{ background: #fff; border-top: solid 1px #d9d9d9; position: fixed;max-width: 720px;min-width: 320px;margin: 0 auto;left: 0;right: 0;padding: 2% 0;bottom: 0;}
+.s-pro-button{ margin:0 auto;background: url(../../img/entity/qd-btn-0.png) no-repeat; background-size: 100% 100%;width: 92%;overflow: hidden;text-align: center;padding: 1.5% 0;outline: none;}
+.s-gray-btn{background: url(../../img/entity/qd-btn-1.png) no-repeat; background-size: 100% 100%;}
+.s-pro-buycar{width: 10%;margin-left: 35%;position: relative;}
+.s-pro-buycar a{display: block;width: 100%;height: 100%;}
+.s-pro-buyfont{ border:none; background: none; color: #fff;margin-left: 2%;width: 50%;text-align: left;}
+.buy-ico-num{background: #fe0200; border-radius: 50%; color: #fff;font-size: 12px;overflow: hidden;position: absolute; padding: 0 12%; right: -10%;top: 0;text-align: center;}
+
+.signimgbox{width: 32%;overflow: hidden;}
+.signimg{width: 21%;margin-top: 5%;}
+.signtext{margin-left: 1%;}
+
+/*radio按钮*/
+input[type="radio"]{ cursor:pointer; width: 20px;height: 20px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("../../img/shop/delivery-link.png");background-size: 100% 100%;outline: none;}
+input[type="radio"]:checked {width: 20px;height: 20px;border: 0px;background:url("../../img/shop/delivery-hover.png");background-size: 100% 100%;outline: none;}
+
+
+@media (min-width: 421px) and (max-width: 520px) {
+	.buy-ico-num{padding: 0 8%;}
+}
+
+@media  (min-width: 521px) and (max-width: 620px) {
+
+
+}
+
+@media (min-width: 621px){
+}
+
+@media (min-width: 421px){
+	input[type="radio"]{width: 28px;height: 28px;background-size: 100% 100%;outline: none;}
+	input[type="radio"]:checked {width: 28px;height: 28px;background-size: 100% 100%;outline: none;}  
+}

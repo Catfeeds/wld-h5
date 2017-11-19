@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>{$title}</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/message/newindex.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content divtab">
+			<!-- 数据列表部分 -->
+			<div class="order-message  message-box">
+				<ul id="data_list">
+					<!-- <li>
+						<div class="message-time style01 cf fs12">昨天09:00</div>
+						<div class="message-con">
+							<div class="message-img fl"><img src="__IMG__/message/message_icon_activity.png" alt=""/ ></div>
+							<div class="message-text fr divre fs14">
+								<p class="c3">陛下，有用户在您的店下了个单，可及时联系买家哦~订单未支付前可修改运费</p>
+								<p class="cb">查看详情</p>
+								<span class="triangle-shape"></span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="message-time style01 cf fs12">昨天09:00</div>
+						<div class="message-con">
+							<div class="message-img fl"><img src="__IMG__/message/message_icon_activity.png" alt=""/ ></div>
+							<div class="message-text fr divre fs14">
+								<p class="c3">陛下，有用户在您的店下了个单，可及时联系买家哦~订单未支付前可修改运费</p>
+								<p class="cb">查看详情</p>
+								<span class="triangle-shape"></span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="message-time style03 cf fs12">2017年06月28日08:00</div>
+						<div class="message-con">
+							<div class="message-img fl"><img src="__IMG__/message/message_icon_activity.png" alt=""/ ></div>
+							<div class="message-text fr divre fs14">
+								<p class="c3">陛下，有用户在您的店下了个单，可及时联系买家哦~订单未支付前可修改运费</p>
+								<p class="cb">查看详情</p>
+								<span class="triangle-shape"></span>
+							</div>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		 yangshi()
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		// body...
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	var mtype = "<?php echo $mtype ?>";
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/GetMsgList?msgType=<?php echo $mtype ?>&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							_html += '<div class="data-empty divtab">';
+							_html += '<div class="data-empty-img"><img src="__COMMON__/img/empty_bg_card.png" alt="" /></div>';
+							_html += '<div class="data-empty-font c3 fs14">暂无相关消息</div>';
+							// _html += '<div class="data-empty-font c3 fs14">请添加您需要的品牌~~</div>';
+							_html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								_html += '<li>';
+									_html += '<div class="message-time style01 cf fs12 clickinfo_'+pageindex+'" title="'+dataarr['c_id']+'"><span>'+dataarr['c_addtime']+'</span></div>';
+									_html += '<div class="message-con">';
+										if (mtype == 0) {
+								            _html += '<div class="message-img fl"><img src="__IMG__/message/message_icon_order.png" alt=""/ ></div>';
+								        } else if (mtype == 1) {
+								            _html += '<div class="message-img fl"><img src="__IMG__/message/message_icon_activity.png" alt=""/ ></div>';
+								        } else if (mtype == 2) {
+								            _html += '<div class="message-img fl"><img src="__IMG__/message/message_icon_gg.png" alt=""/ ></div>';
+								        } else if (mtype == 3) {
+								            _html += '<div class="message-img fl"><img src="__IMG__/message/message_icon_xms.png" alt=""/ ></div>';
+								        }
+
+										_html += '<div class="message-text fr divre fs14">';
+											_html += '<p class="c3">'+dataarr['c_content']+'</p>';
+											if (mtype == 0) {
+									            _html += '<p class="cb" id="viewinfo_'+dataarr['c_id']+'" data-url="'+dataarr['c_weburl']+'">查看详情</p>';
+									        } else {
+									            _html += '<p class="cb" id="viewinfo_'+dataarr['c_id']+'" data-url="'+dataarr['c_weburl']+'">戳这里</p>';
+									        }
+											_html += '<span class="triangle-shape"></span>';
+										_html += '</div>';
+									_html += '</div>';
+								_html += '</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+				if (emptyval) {     //加载循环点击事件
+					loadclick()
+				}
+			}
+		});
+	}
+
+
+	function loadclick() {
+		/*查看详情*/
+		$('.clickinfo_'+pageindex).each(function(index) {
+			var cid = $(this).attr('title');
+			mui('.mui-content').on('tap', '#viewinfo_' + cid, function() {
+				var weburl = $(this).attr('data-url');
+				mui.openWindow({
+					url: weburl,
+					id: "weburl1"
+				});
+			});
+		});
+	}
+</script>
+
+</html>

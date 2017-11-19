@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title>提现</title>
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <include file="Base@Public/header"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+</head>
+<body class="bgeb">
+<div class="wrap-page" style="padding-bottom: 6%;">
+    <include file="Base@Public/pubheader"/>
+    <div class="mui-content">
+        <form name="form1" id="form1" action="" method="post">
+            <div id="withdraw-1">
+                <div class="input-cash-info">
+                    <?php if($sign==1){ ?>
+                    <div class="withdraw-bankimg divtab bgcolor bborder">
+                        <div class="w-bankimg fl">
+                            <img src="__IMG__/yhk_icon.png" alt="">
+                        </div>
+                        <div class="w-banknames fl">
+                            <p class="fs16 c3">{$info['c_bankname']}</p>
+                            <p class="fs13 c5">{$info['c_banksn']}</p>
+                        </div>
+                    </div>
+                    <!--<div class="withdraw-box">-->
+                    <!--<div class="withdraw-font fl c3 fs14">-->
+                    <!--银行卡号-->
+                    <!--</div>-->
+                    <!--<div class="withdraw-txt fl">-->
+                    <!--<p class="c5 fs14">{$info['c_banksn']}</p>-->
+                    <!--&lt;!&ndash;<p class="c9 fs12">银行卡提现24小时内到账</p>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <?php } ?>
+                    <?php if($sign==2){ ?>
+                    <div class="withdraw-box">
+                        <div class="withdraw-font fl c5 fs14">
+                            微信账号
+                        </div>
+                        <div class="withdraw-txt fl">
+                            <p class="c5 fs14">{$info['c_wxcard']}</p>
+                            <!--<p class="c9 fs12">微信提现2小时内到账</p>-->
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($sign==3){ ?>
+                    <div class="withdraw-box">
+                        <div class="withdraw-font fl c6 fs14">
+                            支付宝账号
+                        </div>
+                        <div class="withdraw-txt fl">
+                            <p class="c5 fs14">{$info['c_alipaycard']}</p>
+                            <!--<p class="c9 fs12">支付宝提现12小时内到账</p>-->
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <div class="withdraw-monc bgcolor divtab">
+                        <div class="withdraw-box">
+                            <div class="withdraw-font c3 fs14">
+                                提现金额
+                            </div>
+                            <div class="withdraw-money fs14 c5">
+                                <div class="fs13 fl idmoneyimg" style="color: #000;padding-top: 3%;">￥</div>
+                                <input step="0.01" type="number" pattern="[0-9]*" min="0.01" class="bgcolor fs24 c5"
+                                       name="money"
+                                       style="width: 89%;outline: none;border: none;margin-left: 1%;padding: 2% 0;color: #000;float: left;"
+                                       oninput="if(this.value.length>9)value=this.value.slice(0,9)">
+                            </div>
+                        </div>
+                        <div class="withdraw-balance c9 fs12" style="padding: 4% 3%;">
+                            零钱余额：￥{$balance}，可提现金额：￥{$balance-$yesinfo['c_stmoney']}
+                        </div>
+                    </div>
+                </div>
+                <?php if($sign==2){ ?>
+                <div class="bind-info-desc fs12 c9">*微信提现单日累计提现金额不可超过20000元</div>
+                <?php } ?>
+                <!-- <div class="bind-info-btn c5 fs14 divre">
+                    <div class="divab btnfont">立即绑定</div>
+                    <img src="__IMG__/newb017.png" alt="">
+                </div>
+                <div class="bind-info-btn cf fs14 divre">
+                    <div class="divab btnfont">立即绑定</div>
+                    <img src="__IMG__/newb018.png" alt="">
+                </div> -->
+                <?php if($ysstate==0){ ?>
+                <div class="withdraw-tip c9 fs14">
+                    1、如果提示快速提现金额不足，可尝试减少部分金额；<br>
+                    2、周五、周六、周日进行的交易金额统一于次周周一进行结算，结算完才可快速提现；<br>
+                    3、申请提现成功，将在两小时内到账。<br>
+                    <!--1、正常提现时间为工作日的9:00~16:00，将在小时到账；<br>
+                    2、非此段时间将顺延至当日或者次日的11:00之前到账；<br>
+                    3、若当日或者次日为非工作日，也将会顺延至下一个工作日的11:00之前到账。-->
+                </div>
+                <!-- <div class="withdraw-tip c9 fs14 fixed-btn" style="border:none;width: 100%;padding: 3%;margin: 0;text-align: center;">
+                    <?php if($sign==1){ ?>
+                        2小时内到账
+                    <?php } ?>
+                </div> -->
+                <?php }else{ ?>
+                <div class="withdraw-tip c9 fs14">
+                    <?php if($sign==1){ ?>
+                    1、提供7*24 小时提现服务；<br>
+                    2、在正常工作日时间9:00-16:00内发起的提现，将在24个小时内到账；<br>
+                    3、在非工作时间段提现将顺延至当日或者次日到账；<br>
+                    <?php } ?>
+                    <?php if($sign==2){ ?>
+                    1、提供7*24 小时提现服务<br>
+                    2、在正常工作日时间9:00-16:00内发起的提现，将在24个小时内到账；<br>
+                    3、在非工作时间段提现将顺延至当日或者次日到账；<br>
+                    <?php } ?>
+                    <?php if($sign==3){ ?>
+                    1、提供7*24 小时提现服务；<br>
+                    2、在正常工作日时间9:00-16:00内发起的提现，将在24个小时内到账；<br>
+                    3、在非工作时间段提现将顺延至当日或者次日到账；<br>
+                    <?php } ?>
+                    <!-- 由于微领地小蜜财务系统正进行升级，提现暂时采取T+7天的方式，带来的不便，请谅解！<br>
+                    1、正常提现时间为工作日的9:00—16:00,将在申请提现后的第7天到账；<br>
+                    2、非此段时间将顺延至申请提现后的第7天或者第8天的11:00之前到账；<br>
+                    3、若申请提现后的第7天为非工作日，也将会顺延至下一个工作日的11:00之前到账。<br> -->
+                    <!--1、正常提现时间为工作日的9:00~16:00，将在小时到账；<br>
+                    2、非此段时间将顺延至当日或者次日的11:00之前到账；<br>
+                    3、若当日或者次日为非工作日，也将会顺延至下一个工作日的11:00之前到账。-->
+                </div>
+                <?php } ?>
+                <div class="tijiao-sub" style="width: 85%;margin: 10% auto 0 auto;">
+                    <button type="button" class="sub-btns fs16">确认提现</button>
+                </div>
+            </div>
+            <input type="hidden" name="sign" value="{$sign}" id="sign">
+            <input type="hidden" name="mymoney" value="">
+        </form>
+    </div>
+</div>
+
+<include file="Base@Public/pubjs"/>
+<script src="__RSC__/Order/js/scanpay/fastclick.js"></script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        FastClick.attach(document.body);
+    }, false);
+
+    window.onload = function () {
+        var btnh = $('.bind-info-btn').height(),
+            fonth = btnh * 78 / 100;
+        $('.bind-info-btn').height(btnh);
+        $('.btnfont').css("line-height", fonth + "px");
+        $('#topcontrol').hide();
+
+        $('.w-bankimg').height($('.w-bankimg').width());
+        $('.w-banknames').css('line-height', $('.w-bankimg').height() * 0.5 + 'px');
+
+        $('.withdraw-money .idmoneyimg').css('line-height', $('.withdraw-money input[name="money"]').height() + 'px');
+
+
+    }
+    var detailurl = '<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])?>';
+    /*提交提现信息*/
+    mui('.tijiao-sub').on('tap', '.sub-btns', function () {
+        var mymoney = $('input[name=money]').val();
+        var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+        if (!match.test(mymoney)) {
+            mui.toast('请输入正确的提现金额！');
+            return false;
+        }
+        ;
+//	if (mymoney < 50) {
+//		mui.toast("提现金额必须大于50");
+//      return false;
+//	}
+//	if (mymoney < 50 || mymoney > 49000) {
+//		mui.toast("当前提现金额必须大于50或小于49000");
+//        return false;
+//	}
+
+        var zongmoney = '<?php echo $balance ?>';
+        var bek = (zongmoney - mymoney).toFixed(2);
+        if (bek < 0) {
+            mui.toast("提现金额不能超过可提金额");
+            return false;
+        }
+        if ($('#sign').val() == 2) {
+            var mytxmoney = '<?php echo $mytxmoney ?>';
+            if ((mytxmoney - (-mymoney)) >= 20000) {
+                mui.alert("您今日微信提现已超过20000元额度，请修改提现额度");
+                return false;
+            }
+        }
+        $('input[name=mymoney]').val(mymoney);
+        checkNo(detailurl,1,2);
+    });
+
+    var dradsign = true;
+    /*提交申请*/
+    function drawpwd() {
+        if(dradsign){
+            dradsign = false;
+            var attrbul = getFormAttrs('form1');
+            $.ajax({
+                type: "POST",
+                url: WEB_HOST + '/index.php/Balance/Index/withdrawing',
+                data: "attrbul=" + JSON.stringify(attrbul),
+                dataType: "json",
+                success: function(json) {
+                    var msg = eval(json);
+                    if (msg.code == 0) {
+                        ctrls = false;
+                        mui.toast(msg.msg);
+                        setTimeout(function() {
+                            window.location.href = WEB_HOST + '/index.php/Balance/Index/successes?sign=' + $('#sign').val() + '&mymoney=' + $('input[name=mymoney]').val();
+                        }, 1000);
+                    } else {
+                        mui.toast(msg.msg);
+                        clearpwdinput();
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+<script type="text/javascript" src="__COMMON__/js/safepwd.js?v=3.0.5"></script>
+
+<include file="Common/footer"/>
+
+</body>
+</html>

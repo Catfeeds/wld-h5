@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>订单维权列表</title>
+		<meta content="微域领地" name="keywords">
+		<meta content="微域领地订单维权列表" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=3.0.0">
+		<script type="text/javascript">
+			var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<ul class="orderlist-box" id="list_order">
+				</ul>
+
+				<div id="console"></div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/user.js?v=3.0.0"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$('.listbody-left').height($('.listbody-left').width());
+			}
+			var page = 1;
+			var ctrls = true;
+			var kongzhi = true;
+
+			getdata();
+			//获取当前可是范围的高度
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && kongzhi) {
+						getdata();
+					}
+				}
+			});
+
+			function getdata() {
+				var html = '';
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: '__URL__/Getrefundlist?pageindex=' + page,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(json) {
+						if(page == 1) {
+							$('#list_order').empty();
+						}
+						var obj = eval(json);
+						if(obj.code == 0) {
+							var data = obj.data;
+							if(data) {
+								var orderlist = data.list;
+								var pageCount = data.pageCount;
+
+								if(pageCount >= page) {
+									page++;
+									for(i = 0; i < orderlist.length; i++) {
+										html += '<li class="orderlist">';
+										html += '<div class="orderlist-top">';
+										html += '<a class="fl top-left c6" style="width: 75%;" href="__APP__/Store/Index/index?fromucode=' + orderlist[i]['c_acode'] + '">';
+										html += '<div class="fl top-img">';
+										html += '<img src="__IMG__/store.png" alt="">';
+										html += '</div>';
+										html += '<div class="fl top-text fs13">' + orderlist[i]['c_nickname'] + '</div>';
+										html += '<div class="fl top-img">';
+										html += '<img src="__IMG__/jiantou.png" alt="">';
+										html += '</div>';
+										html += '</a>';
+										if(orderlist[i]['c_type'] == 1) {
+											if(orderlist[i]['c_refundstate'] == 0) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">退款处理中</div>';
+											} else if(orderlist[i]['c_refundstate'] == 1) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">商家已同意</div>';
+											} else if(orderlist[i]['c_refundstate'] == 2) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">商家不同意</div>';
+											} else if(orderlist[i]['c_refundstate'] == 3) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">退款已完成</div>';
+											}
+										} else if(orderlist[i]['c_type'] == 2) {
+											if(orderlist[i]['c_refundstate'] == 0) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">退货处理中</div>';
+											} else if(orderlist[i]['c_refundstate'] == 1) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">商家已同意</div>';
+											} else if(orderlist[i]['c_refundstate'] == 2) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">商家不同意</div>';
+											} else if(orderlist[i]['c_refundstate'] == 3) {
+												html += '<div class="fr top-right fs13" style="width: 25%;">退货已完成</div>';
+											}
+										}
+
+										html += '</div>';
+										html += '<a class="orderlist-body" href="__URL__/warranty_info?rcode=' + orderlist[i]['c_refundcode'] + '">';
+										html += '<div class="fl listbody-left">';
+										html += '<img src="' + orderlist[i]['c_pimg'] + '" alt="">';
+										html += '</div>';
+										html += '<div class="fl listbody-center">';
+										html += '<h3 class="fs14">' + orderlist[i]['c_pname'] + '</h3>';
+										if(orderlist[i]['c_pmname']) {
+											html += '<p class="fs13">' + orderlist[i]['c_pmname'] + '</p>';
+										} else {
+											html += '<p style="padding:3% 0;"></p>';
+										}
+
+										html += '<div class="listbody-bot">';
+										html += '<div class="fl order-price fs14">￥' + orderlist[i]['c_pprice'] + '</div>';
+										html += '<div class="fr order-num fs12">x' + orderlist[i]['c_pnum'] + '</div>';
+										html += '</div>';
+										html += '</div>';
+										html += '</a>';
+										html += '<div class="orderlist-mid fs14">';
+										html += '交易金额：<b>￥' + orderlist[i]['c_ptotal'] + '</b>&nbsp;&nbsp;&nbsp;&nbsp;';
+										html += '退款金额：<b>￥' + orderlist[i]['c_total'] + '';
+										html += '</div>';
+										html += '</li>';
+									};
+								} else {
+									kongzhi = false;
+								}
+							} else {
+								kongzhi = false;
+							}
+						} else {
+							kongzhi = false;
+						}
+						if(page == 1) {
+							html += '<div class="data-empty divtab bgeb">';
+							html += '<div class="data-empty-img">';
+							html += '<img src="__COMMON__/img/empty_bg_card.png" alt="" />';
+							html += '</div>';
+							html += '<div class="data-empty-font c3 fs13">暂未搜索到相关信息</div>';
+							html += '</div>';
+						}
+
+						$('#list_order').append(html);
+						$('#console').css('display', 'none');
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						$('.listbody-left').height($('.listbody-left').width());
+						ctrls = true;
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

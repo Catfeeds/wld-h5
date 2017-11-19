@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>商家动态</title>
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="issue_ucode" id="issue_ucode" value="{$issue_ucode}">
+			<input type="hidden" id="resurl" value="<?php echo encodeurl("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])?>">				
+			<div class="mui-content">
+				<?php if ($data['c_source'] == 2) { ?>
+				<include file="Store@Index/storetop" />
+				<?php } else { ?>
+				<include file="Store@Index/onlinetop" />
+				<?php } ?>
+				<div class="source" id="rm-list">
+				</div>
+			</div>
+		</div>
+		<!-- 评论弹出框 -->
+		<div class="send-comm-bg"></div>
+		<div class="send-comm-pup">
+			<div class="send-comm-puptit">评论</div>
+			<div class="send-comm-txt">
+				<textarea placeholder="输入评论内容" name="feel" id="feel" rows="6" class="fs12"></textarea>
+			</div>
+			<input type="hidden" name="rid" id="rid" value="">
+			<input type="hidden" name="bid" id="bid" value="">
+			<div class="send-comm-btn" onclick="subcomment();">发表</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/viewer.min.js"></script>
+		<script type="text/javascript" src="__RSC__/Trade/js/option.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/scrolltopcontrol.js"></script>
+		<script type="text/javascript" src="__JS__/publics.js"></script>
+		<script type="text/javascript">
+			var ucode = $('#ucode').val();
+			window.onload = function() {
+				styles();
+				liststyle();
+				yangshit();
+				$('.xiaomi-bar').css('background', 'none');
+				$('.mui-content').css('margin-top', '0px');
+				coalitionlist();
+				//如果没有靓号的样式
+				//线上
+				//	$('.store-top-hinfo').css('top',"32%");
+				//	$('.s-t-h-attention').css('top',"32%");
+				//	$('.s-t-h-circle').css('top','65%');
+				//线下
+				//	$('.store-top-hinfo').css('top',"28%");
+				//	$('.s-t-h-attention').css('top',"28%");
+				//	$('.s-t-h-circle').css('top','58%');
+
+			}
+			$(document).ready(function() {
+
+			});
+			/*样式*/
+			function styles() {
+
+			}
+			/*动态列表样式*/
+			function liststyle () {
+				var himg = $('.f-head-img').width();
+				$('.f-head-img').height(himg);
+				$('.f-head-img').css("border-radius",himg+"px");
+			
+				var hfont = $('.f-head-img').height(),
+				hf = hfont*50/100;
+				$('.f-name-time').css('line-height',hf+'px');
+			
+				var pimgh = $('.f-product-img').width(),
+				pnameh = pimgh*50/100,
+				arrowm = pimgh*25/100;
+				$('.f-product-img').height(pimgh);
+				$('.f-pro-names-price').css('line-height',pnameh+'px');
+				$('.f-pro-arrow').css('margin-top',arrowm+'px');
+			
+				var praiseh = $('.f-add-praise').height();
+				$('.f-add-praise-num').css('line-height',praiseh+'px');
+			
+				var flimg = $('.f-img-list li').width();
+				$('.f-img-list li').height(flimg);
+				
+				$('.s-circlename').css('line-height',$('.s-circlename').height()+'px');
+				
+				$('.sendcomm-praise').css('line-height',$('.sendcomm-praise').height()+'px');
+			}
+			/*商盟用户查询列表*/
+			var ctrls = true;
+			var emptyval = true;
+			var pageindex = 1;
+			var ucode = $('#ucode').val();
+
+			coalitionlist();
+			$(window).bind('scroll', function() {
+				if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+					if(ctrls && emptyval) {
+						coalitionlist();
+					}
+				}
+				if($(window).scrollTop() >= $('.xiaomi-bar').height()) {
+					$('.xiaomi-bar').css('background', '#47ABF7');
+				}
+				if($(window).scrollTop() < $('.xiaomi-bar').height()) {
+					$('.xiaomi-bar').css('background', 'none');
+				}				
+			});
+
+			/*商盟用户查询列表*/
+			function coalitionlist() {
+				var url = WEB_HOST + "/index.php/Home/Myspace/GetResourceList?pageindex=" + pageindex + "&issue_ucode=" + $('#issue_ucode').val();
+				
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						ctrls = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						ctrls = true;
+					},
+					success: function(obj) {
+						if(pageindex == 1) {
+							$('#rm-list').empty();
+						}
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data == null || data.list == null) {
+								if(pageindex == 1) {
+									_html += '<div class="baoqian">没有找到相关信息</div>';
+								}
+								emptyval = false;
+							} else {
+								if(pageindex <= data.pageCount) {
+									pageindex++;
+									var datalist = data.list;
+									for(var i = 0; i < datalist.length; i++) {
+										_html += '<div class="source-list">';
+										if(datalist[i]['is_like'] == 0) {
+											var oplike = 1;
+										} else {
+											var oplike = 0;
+										}
+										if(datalist[i]['is_attention'] == 0) {
+											var opatten = 1;
+										} else {
+											var opatten = 0;
+										}
+										_html += '<input type="hidden" id="prastatu' + datalist[i]['c_id'] + '" value="' + oplike + '">';
+										_html += '<input type="hidden" id="attentatu' + datalist[i]['c_id'] + '" value="' + opatten + '">';
+										_html += '<div class="fl source-left">';
+										var switch_addtime = datalist[i]['switch_addtime'].split("|");
+										_html += '<div class="c3 timsmonth fs14">' + switch_addtime[0] + '</div><div class="c9 timshours fs12">' + switch_addtime[1] + '</div>';
+										if(datalist[i]['is_delete'] == 1) {
+											_html += '<div class="soucedel fs14" onclick="delsource(this,\'' + datalist[i]['c_id'] + '\',1)">删除</div>';
+										}
+										_html += '</div>';
+										_html += '<div class="fl source-right">';
+										_html += '<div class="source-top">';
+										if(pageindex == 2 && i == 0) {
+											_html += '<img src="__IMG__/index/stbg.png" alt="">';
+										} else {
+											_html += '<img src="__IMG__/index/stbg1.png" alt="">';
+										}
+										_html += '</div>';
+										_html += '<div class="source-cotent">';
+										_html += '<div class="source-body">';
+
+										if(datalist[i]['c_content']) {
+											var contentstr = datalist[i]['c_content'].substring(0, 90);
+										} else {
+											var contentstr = '';
+										}
+
+										_html += '<div class="f-description new-desc fs13" onclick="location.href=\'' + WEB_HOST + '/index.php/Trade/Index/redetail?rid=' + datalist[i]['c_id'] + '&circlename=' + datalist[i]['circle_name'] + '\'">' + contentstr + '</div>';
+
+										var imglist = datalist[i]['imglist'];
+										if(imglist.length > 0) {
+											_html += '<ul class="f-img-list" id="gallery-' + i + '">';
+											for(var j = 0; j < imglist.length; j++) {
+												if(j == 1 || j == 4 || j == 7) {
+													_html += '<li class="swipebox aimgclass"><img src="' + imglist[j]['c_thumbnail_img'] + '" alt=""></li>';
+												} else {
+													_html += '<li class="swipebox"><img src="' + imglist[j]['c_thumbnail_img'] + '" alt=""></li>';
+												}
+											};
+											_html += '</ul>';
+										}
+										if (datalist[i]['circle_name']) {
+											_html += '<div class="s-circlename c9 fs11">';
+											_html += '<span style="background:#fff;" class="fs11"><img src="__IMG__/index/o2store_icon_szsq_fb.png" alt="" />' + datalist[i]['circle_name'] + '</span>';
+											_html += '</div>';
+										}
+										var produce = datalist[i]['tj_product'];
+										if(produce.length > 0) {
+											for(var k = 0; k < produce.length; k++) {
+												if(produce[k]['c_source'] == 1) {
+													_html += '<div class="f-product-info"  onclick="location.href=\'' + WEB_HOST + '/index.php/Shopping/Entitymap/detail?pcode=' + produce[k]['c_pcode'] + '\'">';
+												} else {
+													_html += '<div class="f-product-info" onclick="location.href=\'' + WEB_HOST + '/index.php/Shopping/Index/detail?pcode=' + produce[k]['c_pcode'] + '\'">';
+												}
+												//_html += '<a class="f-product-info" href="' + produce[k]['url'] + '">';
+												_html += '<div class="f-product-img fl"><img src="' + produce[k]['c_pimg'] + '" alt=""></div>';
+												_html += '<div class="f-pro-names-price fl">';
+												_html += '<div class="f-product-name fs13 c3">' + produce[k]['c_name'] + '</div>';
+												_html += '<div class="f-product-price fs14 cy">￥' + produce[k]['c_price'] + '</div>';
+												_html += '</div>';
+												_html += '<div class="f-pro-arrow fr">';
+												_html += '<img src="' + WEB_HOST + '/Resource/Home/img/myspace/s_15.png" alt="">';
+												_html += '</div>';
+												_html += '</div>';
+											};
+										}
+
+										_html += '<div class="f-comment-all">';
+										// _html += '<span class="f-comment-tit">全部评论('+datalist[i]['c_comment']+')</span>';
+										_html += '<div class="f-comm-list" id="comment-' + datalist[i]['c_id'] + '">';
+										var comment = datalist[i]['comment_list'];
+										if(comment.length > 0) {
+											for(var c = 0; c < comment.length; c++) {
+												if(!comment[c]['upucode']) {
+													_html += '<div class="f-comm-box fs12"><span class="f-comm-send"  onclick="sendcommt(\'' + datalist[i]['c_id'] + '\',\'回复：' + comment[c]['c_nickname'] + '\',\'' + comment[c]['c_ucode'] + '\',\'' + comment[c]['c_id'] + '\')"><span>' + comment[c]['c_nickname'] + '</span>：<em>' + comment[c]['c_content'] + '</em></span>';
+													if(ucode == comment[c]['c_ucode']) {
+														_html += '<span class="f-com-del" onclick="DeleteComment(this,\'' + comment[c]['c_id'] + '\');">&nbsp;&nbsp;&nbsp;删除</span>';
+													}
+													_html += '</div>';
+												} else {
+													_html += '<div class="f-comm-box fs12"><span class="f-comm-reply"  onclick="sendcommt(\'' + datalist[i]['c_id'] + '\',\'回复：' + comment[c]['c_nickname'] + '\',\'' + comment[c]['c_ucode'] + '\',\'' + comment[c]['c_id'] + '\')"><span>' + comment[c]['c_nickname'] + '</span><em>&nbsp;回复&nbsp;</em><span>' + comment[c]['upnickname'] + '</span>：<em>' + comment[c]['c_content'] + '</em></span>';
+													if(ucode == comment[c]['c_ucode']) {
+														_html += '<span class="f-com-del" onclick="DeleteComment(this,\'' + comment[c]['c_id'] + '\');">&nbsp;&nbsp;&nbsp;删除</span>';
+													}
+													_html += '</div>';
+												}
+											};
+										}
+										_html += '</div>';
+
+//										_html += '<a href="' + WEB_HOST + '/index.php/Trade/Index/redetail?rid=' + datalist[i]['c_id'] + '&circlename=' + datalist[i]['circle_name'] + '" class="f-check-all-comm fs12">查看详情</a>';
+										_html += '<div onclick="redetail('+datalist[i]['c_id']+',\''+datalist[i]['circle_name']+'\')" class="f-check-all-comm fs12">查看详情</div>';
+										
+										_html += '<div class="f-comm-ico-list">';
+
+										_html += '<div class="send-comm-tipimg send-comm-tipimg1 fl" onclick="sendcommt(\'' + datalist[i]['c_id'] + '\',\'评论\')"><img src="' + WEB_HOST + '/Resource/Home/img/myspace/s-04_03.png" alt=""></div>';
+										_html += '<div class="sendcomm-praisenum sendcomm-praisenum1 fr fs13" id="praisenum-' + datalist[i]['c_id'] + '">' + datalist[i]['c_like'] + '</div>';
+
+										_html += '<div class="sendcomm-praise sendcomm-praise1 fr">';
+										if(datalist[i]['is_like'] == 1) {
+											_html += '<img src="' + WEB_HOST + '/Resource/Home/img/myspace/s_34.png" alt="" id="praiseimg-' + datalist[i]['c_id'] + '" onclick="addpraise(\'' + datalist[i]['c_id'] + '\',0)">';
+										} else {
+											_html += '<img src="' + WEB_HOST + '/Resource/Home/img/myspace/s_22.png" alt="" id="praiseimg-' + datalist[i]['c_id'] + '" onclick="addpraise(\'' + datalist[i]['c_id'] + '\',1)">';
+										}
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+										_html += '</div>';
+
+									};
+								} else {
+									emptyval = false;
+								}
+							}
+						} else {
+							emptyval = false;
+						}
+						$('#rm-list').append(_html);
+					},
+					complete: function() {
+						liststyle();
+						/*查看资源图片*/
+						$(".f-img-list").each(function(index) {
+							$(this).viewer({
+								title: false
+							});
+						});
+						$('#console').css('display', 'none');
+						ctrls = true;
+					}
+				});
+			}
+			
+			function redetail(rid,circlename) {
+		        mui.openWindow({url:WEB_HOST + '/index.php/Trade/Index/redetail?rid='+rid+'&circlename='+circlename});
+		    }
+		</script>
+
+		<include file="Base@Public/footer" />
+	</body>
+
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>设置佣金比例</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/rebate/index.css?v=1.2">
+	</head>
+
+	<body>
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content">
+				<?php if($rtype==1){ ?>
+				<!--购买优惠-->
+				<div class="rebate-list bgcolor ">
+					<div class="rebate-pro-info">
+						<div class="pro-info-img fl">
+							<img src="{$data['c_pimg']}" alt="" id="re-pro-img-1">
+							<?php if($data['c_isagent']==0){ ?>
+							<div class="pro-img-type"><img src="__IMG__/rebate/ziying.png" alt=""></div>
+							<?php }else{ ?>
+							<div class="pro-img-type"><img src="__IMG__/rebate/daili.png" alt=""></div>
+							<?php } ?>
+						</div>
+						<div class="pro-information fl" id="pro-info-1">
+							<div class="pro-info-name c3 fs14">{$data['c_name']}</div>
+							<div class="pro-info-price fs18"><span class="fs12">￥</span>{$data['c_price']}</div>
+
+							<?php if($data['c_isfree']==1){ ?>
+							<div class="pro-post c5">包邮</div>
+							<?php }else{ ?>
+							<div class="pro-post c5" style="color:#f79f21;">包邮</div>
+							<?php } ?>
+							<?php if($data['c_ishow']==1){ ?>
+							<div class="pro-putaway">已上架</div>
+							<?php }else{ ?>
+							<div class="pro-putaway">已下架</div>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="rebate-pro-info rebate-input" id="rebate-input1">
+						<div class="re-input-checkbox fr">
+							<?php if($data['c_isrebate']){ ?>
+							<input type="checkbox" name="" id="rebate_chkb_1" vlaue="{$data['c_isrebate']}" checked="checked" onclick="chkb_rebate(1)">
+							<?php }else{ ?>
+							<input type="checkbox" name="" id="rebate_chkb_1" vlaue="{$data['c_isrebate']}" onclick="chkb_rebate(1)">
+							<?php } ?>
+						</div>
+						<div class="re-input-font fl c5 fs14">优惠比例</div>
+						<div class="re-input-text fl" id="re-input-text1">
+							<?php if($data['c_rebate_proportion']){ ?>
+							<input type="text" name="" id="rebate_txt_1" value="{$data['c_rebate_proportion']}" class="re-txt c5 fs12" maxlength="10">
+							<?php }else{ ?>
+							<input type="text" name="" id="rebate_txt_1" value="" class="re-txt c5 fs12" maxlength="10">
+							<?php } ?>
+						</div>
+						<div class="re-input-font fl c5 fs14">%</div>
+					</div>
+					<div class="re-pro-modellist" id="rebate_model_1">
+						<?php foreach ($modellist as $key => $value) { ?>
+						<div class="model-list">
+							<div class="model-name fs14">{$value['c_name']}</div>
+							<ul class="pricelist fs12">
+								<?php if($value['ladderprice']){ ?>
+								<?php foreach ($value['ladderprice'] as $k => $val) { ?>
+								<?php if($k==2){ ?>
+								<li>
+									<span class="ladder-1">价格{$k+1}：{$val['c_minnum']}件以上</span>
+									<span class="ladder-2">单价  ￥{$val['c_price']}</span>
+									<span class="ladder-3">单件优惠  ￥<?php echo bcmul($val['c_price'], bcdiv($data['c_rebate_proportion'], 100,3), 2); ?></span>
+								</li>
+								<?php }else{ ?>
+								<li>
+									<span class="ladder-1">价格{$k+1}：{$val['c_minnum']}-{$val['c_maxnum']}件</span>
+									<span class="ladder-2">单价  ￥{$val['c_price']}</span>
+									<span class="ladder-3">单件优惠  ￥<?php echo bcmul($val['c_price'], bcdiv($data['c_rebate_proportion'], 100,3), 2); ?></span>
+								</li>
+								<?php } ?>
+
+								<?php } ?>
+								<?php }else{ ?>
+								<li>
+									<span class="ladder-2">单价  ￥{$value['c_price']}</span>
+									<span class="ladder-3">单件优惠  ￥<?php echo bcmul($value['c_price'], bcdiv($data['c_rebate_proportion'], 100,3), 2); ?></span>
+									<span class="ladder-1">&nbsp;</span>
+								</li>
+								<?php } ?>
+							</ul>
+						</div>
+						<?php } ?>
+					</div>
+					<div class="re-update-btn fs16" id="save_btn_1">保存</div>
+
+				</div>
+				<?php }else{ ?>
+				<!--分享佣金-->
+				<div class="rebate-list bgcolor">
+					<div class="rebate-pro-info">
+						<div class="pro-info-img fl">
+							<img src="{$data['c_pimg']}" alt="" id="re-pro-img-2">
+							<?php if($data['c_isagent']==0){ ?>
+							<div class="pro-img-type"><img src="__IMG__/rebate/ziying.png" alt=""></div>
+							<?php }else{ ?>
+							<div class="pro-img-type"><img src="__IMG__/rebate/daili.png" alt=""></div>
+							<?php } ?>
+						</div>
+						<div class="pro-information fl" id="pro-info-2">
+							<div class="pro-info-name c3 fs14">{$data['c_name']}</div>
+							<div class="pro-info-price fs18"><span class="fs12">￥</span>{$data['c_price']}</div>
+
+							<?php if($data['c_isfree']==1){ ?>
+							<div class="pro-post c5">包邮</div>
+							<?php }else{ ?>
+							<div class="pro-post c5" style="color:#f79f21;">包邮</div>
+							<?php } ?>
+							<?php if($data['c_ishow']==1){ ?>
+							<div class="pro-putaway">已上架</div>
+							<?php }else{ ?>
+							<div class="pro-putaway">已下架</div>
+							<?php } ?>
+
+						</div>
+					</div>
+					<div class="rebate-pro-info rebate-input" id="rebate-input2">
+						<div class="re-input-checkbox fr">
+							<?php if($data['c_isspread']){ ?>
+							<input type="checkbox" name="" id="rebate_chkb_2" vlaue="{$data['c_isspread']}" checked="checked" onclick="chkb_rebate(2)">
+							<?php }else{ ?>
+							<input type="checkbox" name="" id="rebate_chkb_2" vlaue="{$data['c_isspread']}" onclick="chkb_rebate(2)">
+							<?php } ?>
+						</div>
+						<div class="re-input-font fl c5 fs14">佣金比例</div>
+						<div class="re-input-text fl" id="re-input-text2">
+							<?php if($data['c_spread_proportion']){ ?>
+							<input type="text" name="" id="rebate_txt_2" value="{$data['c_spread_proportion']}" class="re-txt c5 fs12" maxlength="10">
+							<?php }else{ ?>
+							<input type="text" name="" id="rebate_txt_2" value="" class="re-txt c5 fs12" maxlength="10">
+							<?php } ?>
+						</div>
+						<div class="re-input-font fl c5 fs14">%</div>
+					</div>
+					<div class="re-pro-modellist" id="rebate_model_2">
+						<?php foreach ($modellist as $key => $value) { ?>
+						<div class="model-list">
+							<div class="model-name fs14">{$value['c_name']} </div>
+							<ul class="pricelist fs12">
+								<?php if($value['ladderprice']){ ?>
+								<?php foreach ($value['ladderprice'] as $k => $val) { ?>
+								<?php if($k==2){ ?>
+								<li>
+									<span class="ladder-1">价格{$k+1}：{$val['c_minnum']}件以上</span>
+									<span class="ladder-2">单价  ￥{$val['c_price']}</span>
+									<span class="ladder-3">单件佣金  ￥<?php echo bcmul($val['c_price'], bcdiv($data['c_spread_proportion'], 100,3), 2); ?></span>
+								</li>
+								<?php }else{ ?>
+								<li>
+									<span class="ladder-1">价格{$k+1}：{$val['c_minnum']}-{$val['c_maxnum']}件</span>
+									<span class="ladder-2">单价  ￥{$val['c_price']}</span>
+									<span class="ladder-3">单件佣金  ￥<?php echo bcmul($val['c_price'], bcdiv($data['c_spread_proportion'], 100,3), 2); ?></span>
+								</li>
+
+								<?php } ?>
+
+								<?php } ?>
+								<?php }else{ ?>
+								<li>
+									<span class="ladder-2">单价  ￥{$value['c_price']}</span>
+									<span class="ladder-3">单件佣金  ￥<?php echo bcmul($value['c_price'], bcdiv($data['c_spread_proportion'], 100,3), 2); ?></span>
+									<span class="ladder-1">&nbsp;</span>
+								</li>
+								<?php } ?>
+							</ul>
+						</div>
+						<?php } ?>
+					</div>
+
+					<div class="re-update-btn fs16" id="save_btn_2">保存</div>
+
+				</div>
+				<?php } ?>
+
+				<!--修改提示-->
+				<!-- <div class="rebate-agree-bg"></div>	
+				<div class="rebate-agree">
+				</div> -->
+
+				<input type="hidden" value="{$rtype}" id="rtype">
+
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			var rtype = '<?php echo $rtype ?>';
+			var pcode = '<?php echo $pcode ?>';
+			var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+
+			window.onload = function() {
+				chkb_rebate(rtype);
+				styles();
+				$('#rebate_txt_' + rtype).blur(function() {
+					if(!match.test($(this).val())) {
+						mui.toast('请输入正确的比例数据！');
+						return false;
+					}
+				});
+			}
+
+			function styles() {
+				var imgh = $('#re-pro-img-' + rtype).height(),
+					imgh2 = imgh * 80 / 100;
+				$('#pro-info-' + rtype).height(imgh);
+				var txth = $('#re-input-text' + rtype).height();
+				$('#rebate-input' + rtype).css('line-height', txth + 'px');
+			}
+			/*是否填写佣金比例或者优惠比例*/
+			function chkb_rebate(val) {
+				if($("#rebate_chkb_" + val).attr('checked')) {
+					$('#rebate_model_' + val + ' .model-name').css('color', '#46aafa');
+					$('#rebate_model_' + val + ' .pricelist').css('color', '#555');
+					$('#rebate_txt_' + val).css('background-color', '#fff');
+					$('#rebate_txt_' + val).attr('readonly', '');
+					$('#save_btn_' + val).css('background-color', '#46aafa');
+					$('#save_btn_' + val).bind('click', save_btn);
+				} else {
+					$('#rebate_model_' + val + ' .model-name').css('color', '#555');
+					$('#rebate_model_' + val + ' .pricelist').css('color', '#999');
+					$('#rebate_txt_' + val).css('background-color', '#e5e5e5');
+					$("#rebate_txt_" + val).attr('readonly', 'readonly');
+					$('#save_btn_' + val).css('background-color', '#ccc');
+					$('#save_btn_' + val).bind('click', save_btn);
+				}
+			}
+
+			/*保存*/
+			function save_btn() {
+				if(rtype == 1) {
+					ProductRebate();
+				} else {
+					ProductSpread();
+				}
+			}
+			/*设置购买优惠*/
+			function ProductRebate() {
+				var buyval = $('#rebate_txt_1').val();
+				var buychk = 0;
+				if($("#rebate_chkb_1").attr('checked')) {
+					buychk = 1;
+				} else {
+					buychk = 0;
+				}
+				if(!buyval) {
+					mui.toast("请输入比例数据！");
+					$('#rebate_txt_1').focus();
+					return;
+				} else {
+					if(!match.test(buyval)) {
+						mui.toast('请输入正确的比例数据！');
+						$('#rebate_txt_1').focus();
+						return;
+					}
+				}
+				$.post('__URL__/ProductRebate', {
+					pcode: pcode,
+					isrebate: buychk,
+					rebate_proportion: buyval
+				}, function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						mui.toast(data['msg']);
+						window.location.href = "__URL__/index?rtype=1";
+					} else {
+						mui.toast(data['msg']);
+						return;
+					}
+				});
+			}
+
+			/*设置分享佣金*/
+			function ProductSpread() {
+				var sprval = $('#rebate_txt_2').val();
+				var sprchk = 0;
+				if($("#rebate_chkb_2").attr('checked')) {
+					sprchk = 1;
+				} else {
+					sprchk = 0;
+				}
+				if(!sprval) {
+					mui.toast("请输入比例数据！");
+					$('#rebate_txt_2').focus();
+					return;
+				} else {
+					if(!match.test(sprval)) {
+						mui.toast('请输入正确的比例数据！');
+						$('#rebate_txt_2').focus();
+						return;
+					}
+				}
+				$.post('__URL__/ProductSpread', {
+					pcode: pcode,
+					isspread: sprchk,
+					spread_proportion: sprval
+				}, function(obj) {
+					var data = eval(obj);
+					if(data['code'] == 0) {
+						mui.toast(data['msg']);
+						window.location.href = "__URL__/index?rtype=2";
+					} else {
+						mui.toast(data['msg']);
+						return;
+					}
+				});
+
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		<title>商家后台管理--商家资料</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/agent.css">
+		<link rel="stylesheet" type="text/css" href="__JS__/jquery.datetimepicker.css">
+		<style type="text/css">
+			select {
+				padding: 0;
+			}
+			/*radio按钮*/
+			input[type="radio"]{ outline: none; width: 22px;height: 22px;border: 0px;-webkit-appearance: none;-webkit-mask-repeat: none;-webkit-mask-position: right;background: url("__IMG__/delivery-link.png");background-size: 100% 100%;vertical-align: middle;}
+			input[type="radio"]:checked {width: 22px;height: 22px;border: 0px;background:url("__IMG__/delivery-hover.png");background-size: 100% 100%;}
+			label{margin:0 25px;vertical-align: middle;}
+		</style>
+		<script type="text/javascript">
+            var WEB_HOST = "<?php echo WEB_HOST ?>";
+		</script>
+		<script type="text/javascript" src="__JS__/jquery10.2.js"></script>
+		<script type="text/javascript" src="__JS__/common.js?v=2017325"></script>
+		<script type="text/javascript" src="__JS__/jquery.datetimepicker.full.js"></script>
+	</head>
+
+	<body>
+
+		<include file="Common/head" />
+		<div class="content-s w_960">
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<div class="page-title">
+					<div class="page-tit-name">商家资料5/<?php if($isfixed==1){ ?>8<?php }else{ ?>7<?php } ?></div>
+				</div>
+				<div class="resource-main">
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">法人姓名：</div>
+							<div class="resource-r fl"><input type="text" id="legalperson" value="{$vo['c_legalperson']}" name="legalperson" class="resource-text" placeholder="请输入法人姓名" maxlength="30"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">法人性别：</div>
+							<div class="resource-r fl">
+								<input type="radio" name="legalsex" value="1" <?php if($vo['c_legalsex']==1){ ?> checked="checked" <?php } ?> ><label for="" class="fs14">男</label>
+								<input type="radio" name="legalsex" value="2" <?php if($vo['c_legalsex']==2){ ?> checked="checked" <?php } ?> ><label for="" class="fs14">女</label>
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">证件国别：</div>
+							<div class="resource-r fl">
+								<input type="text" id="country" value="中华人民共和国" name="country" class="resource-text" placeholder="中华人民共和国" disabled="disabled" >
+								<input type="hidden" id="legalcountry" value="1" name="legalcountry">
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">
+								<span>*&nbsp;</span>证件类型：
+							</div>
+							<div class="resource-r fl">
+								<select name="idcardtype" id="idcardtype" class="c3 fs14">
+									<option value="00" <?php if($vo['c_idcardtype'] == 00){ ?>selected="selected"<?php } ?> >身份证</option>
+									<option value="01" <?php if($vo['c_idcardtype'] == 01){ ?>selected="selected"<?php } ?>>中国护照</option>
+									<option value="02" <?php if($vo['c_idcardtype'] == 02){ ?>selected="selected"<?php } ?>>军人身份证</option>
+									<option value="03" <?php if($vo['c_idcardtype'] == 03){ ?>selected="selected"<?php } ?>>警官证</option>
+									<option value="04" <?php if($vo['c_idcardtype'] == 04){ ?>selected="selected"<?php } ?>>户口簿</option>
+
+								</select>
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl"><span>*&nbsp;</span>证件号码：</div>
+							<div class="resource-r fl"><input type="text" id="idcardinfo" value="{$vo['c_idcardinfo']}" name="idcardinfo" class="resource-text" placeholder="请输入证件号码" maxlength="30"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl">
+								<span>*&nbsp;</span>证件有效期
+							</div>
+							<div class="resource-r fl">
+								<input type="text" value="{$vo['c_legalcardstarttime']}" name="starttime" id="starttime" placeholder="请选择" class="fs12 c3 resource-text fl" style="width: 45%;text-align: center" />
+								<input type="hidden" name="legalcardstarttime" id="legalcardstarttime" value="{$vo['c_legalcardstarttime']}" />
+								<input type="text" disabled="disabled" value="至" style="width: 10%;color: #999;" class="resource-text fl">
+								<input type="text" value="{$vo['c_legalcardendtime']}" name="endtime" id="endtime" placeholder="请选择" class="fs12 c3 resource-text fl" style="width: 45%;text-align: center" />
+								<input type="hidden" name="legalcardendtime" id="legalcardendtime" value="{$vo['c_legalcardendtime']}" />
+							</div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+
+					<div class="resource-li-box">
+						<div class="resource-list fl">
+							<div class="resource-l fl"><span>*&nbsp;</span>法人电话：</div>
+							<div class="resource-r fl"><input type="number" id="legalphone" value="{$vo['c_legalphone']}" name="legalphone" class="resource-text" placeholder="请输入法人电话" maxlength="20"></div>
+						</div>
+						<div class="resource-tipt fl"><span>*&nbsp;</span></div>
+					</div>
+					<div class="step-btn">
+						<span id="prev_btn" onclick="PreviousCK()">上一步</span>
+						<span id="next_btn" onclick="savestep()">保存并下一步</span>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<div class="mar30"></div>
+
+		<script type="text/javascript">
+			var isfixed = '<?php echo $isfixed ?>'; /*0线上，1线下*/
+			window.onload = function() {
+
+				$('.resource-list').css('line-height', $('.resource-list').height() + 'px');
+                modal.initDate("starttime","endtime");
+			}
+            /*生效时间*/
+            $('#starttime').datetimepicker({
+                lang:'ch',
+                timepicker:false,
+                format:'Y-m-d',
+                formatDate:'Y-m-d'
+            });
+            /*失效时间*/
+            $('#endtime').datetimepicker({
+                lang:'ch',
+                timepicker:false,
+                format:'Y-m-d',
+                formatDate:'Y-m-d'
+            });
+			/*身份证验证*/
+			function checkIdcard(idcard) {
+				var idreg = /^[0-9a-zA-Z]*$/g;
+
+				if(!idreg.test($('input[name="idcardinfo"]').val())) {
+					return false;
+				}
+				return true;
+			}
+
+			/*上一步*/
+			function PreviousCK() {
+				window.location.href = "__URL__/info_4?isfixed="+isfixed;
+			}
+			var resign = true;
+
+			function savestep() {
+				if(resign) {
+                    if(emptyval($('input[name="legalperson"]').val())) {
+                        JqueryDialog.Show('请输入法人姓名');
+                        $('input[name="legalperson"]').focus();
+                        return false;
+                    }
+                    if(emptyval($('input[name="legalsex"]:checked').val())) {
+                        JqueryDialog.Show('请选择法人性别');
+                        $('input[name="legalsex"]').focus();
+                        return false;
+                    }
+                    if(emptyval($('input[name="idcardinfo"]').val())) {
+                        JqueryDialog.Show('请输入证件号码');
+                        $('input[name="idcardinfo"]').focus();
+                        return false;
+                    } else {
+                        if(!checkIdcard($('input[name="idcardinfo"]').val())) {
+                            JqueryDialog.Show('请输入正确的证件号码！');
+                            $('input[name="idcardinfo"]').focus();
+                            return false;
+                        }
+                    }
+                    if($("#idcardtype option:selected").val() == '请选择') {
+                        JqueryDialog.Show('请选择证件类型');
+                        $('#idcardtype').focus();
+                        return false;
+                    }
+                    if(emptyval($('#starttime').val())){
+                        JqueryDialog.Show('请选择生效时间');
+                        $('input[name="starttime"]').focus();
+                        return false;
+                    }
+                    if(emptyval($('#endtime').val())){
+                        JqueryDialog.Show('请选择失效时间');
+                        $('input[name="endtime"]').focus();
+                        return false;
+                    }
+                    var arr = $('#starttime').val().split("-");
+                    var starttime = new Date(arr[0], arr[1], arr[2]);
+                    var starttimes = starttime.getTime();
+                    var arrs = $('#endtime').val().split("-");
+                    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+                    var lktimes = lktime.getTime();
+                    if (starttimes >= lktimes) {
+                        JqueryDialog.Show('生效时间大于等于失效时间，请检查');
+                        return false;
+                    }
+                    if(emptyval($('#legalphone').val())){
+                        JqueryDialog.Show('请输入法人电话');
+                        $('input[name="legalphone"]').focus();
+                        return false;
+                    }
+					resign = false;
+					searchByStationName();
+				}
+			}
+            function searchByStationName() {
+                $('#legalcardstarttime').val($('#starttime').val());
+                $('#legalcardendtime').val($('#endtime').val());
+                var attrbul = getFormAttrs('form1');
+                $.ajax({
+                    type: "POST",
+                    url: '__URL__/SetInfo5',
+                    data: "attrbul=" + JSON.stringify(attrbul),
+                    dataType: "json",
+                    success: function(json) {
+                        var msg = eval(json);
+                        if(msg.code == 0) {
+                            JqueryDialog.Show("保存成功！");
+                            setTimeout(function() {
+                                window.location.href = "__URL__/info_6?isfixed=<?php echo $isfixed; ?>";
+                            }, 1000);
+                        } else {
+                            JqueryDialog.Show(msg.msg);
+                            resign = true;
+                        }
+                    }
+                });
+            }
+
+		</script>
+		<script type="text/javascript">
+            var modal = (function() {
+                var initDate = function(startDateTimeId,endDateTimeId) {
+                    var startDate;
+                    var endDate;
+                    startDateTimeId="#"+startDateTimeId;
+                    endDateTimeId="#"+endDateTimeId;
+                    $(startDateTimeId).datetimepicker({
+                        format: 'Y-m-d',
+                        onChangeDateTime: function(dp, $input) {
+                            startDate = $(startDateTimeId).val();
+                        },
+                        onClose: function(current_time, $input) {
+                            if (startDate >= endDate) {
+                                $(startDateTimeId).val(endDate);
+                                startDate=endDate;
+                            }
+                        }
+                    });
+                    $(endDateTimeId).datetimepicker({
+                        format: 'Y-m-d',
+                        onClose: function(current_time, $input) {
+                            endDate = $(endDateTimeId).val();
+                            if (startDate >= endDate) {
+                                $(endDateTimeId).val(startDate);
+                                endDate=startDate;
+                            }
+                        }
+                    });
+                };
+                return {
+                    initDate: initDate
+                };
+            })();
+		</script>
+	</body>
+
+</html>

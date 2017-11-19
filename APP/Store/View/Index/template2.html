@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>店铺模板二</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css?v=1.2">
+	</head>
+
+	<body>
+
+		<div class="wrap-page" style="margin-bottom:13%;">
+			
+			<div class="fl divtab imgbox" title="640"><img src="__IMG__/t1.png" alt=""></div>
+			<div class="fl divtab imgbox" title="320"><img src="__IMG__/t2.png" alt=""></div>
+			<div class="fl divtab imgbox" title="320"><img src="__IMG__/t3.png" alt=""></div>
+			<div class="fl divtab imgbox" title="320"><img src="__IMG__/t4.png" alt=""></div>
+			<div class="fl divtab imgbox" title="320"><img src="__IMG__/t5.png" alt=""></div>
+			<div class="fl divtab imgbox" title="320"><img src="__IMG__/t6.png" alt=""></div>
+
+		</div>
+
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript">
+			window.onload = function() {				
+				styles();
+			}
+
+			function styles() {
+				$('.imgbox').each(function() {
+					var wdscale = $(this).attr('title');
+					var winkd = $(window).width();
+					var kd = winkd*wdscale/640;
+					$(this).width(kd);
+				});
+			}
+		</script>
+	</body>
+
+</html>

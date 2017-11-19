@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>公告</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/info/index.css?v=1.5">
+</head>
+<body class="bgcolor">
+	<div class="wrap-page bgcolor">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content bgcolor">
+			<div class="affiche">
+				<h4>{$list['c_title']}</h4>
+				<div class="aff-time c9 fs11 divtab">
+					<span class="fl">发表时间：{$list['c_addtime']}</span>
+					<span class="fr">文章来源：{$list['c_anthor']}</span>
+				</div>
+				<div class="aff-content fs14 c3 divtab">
+					{$list['c_content']}
+				</div>
+			</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<include file="Base@Public/appshare" />
+<include file="Base@Public/wxshare" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		ChRightText("分享");
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		
+	}
+</script>
+
+</html>

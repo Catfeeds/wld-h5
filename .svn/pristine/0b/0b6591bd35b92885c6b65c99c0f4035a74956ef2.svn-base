@@ -1,0 +1,749 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>绑定银行卡</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=20161228">
+	</head>
+	<style>
+		.info-left {
+			width: 25%;
+		}
+		
+		.info-center {
+			margin-left: 2%;
+			width: 68%;
+			overflow: hidden;
+		}
+		
+		.info-right {
+			color: #ffaa3f;
+		}
+		
+		.binfo-name {
+			overflow: hidden;
+		}
+		
+		.binfo-name span {
+			color: #999;
+			float: left;
+			width: 50%;
+			padding: 1.5% 0;
+		}
+		
+		.binfo-name span:nth-of-type(2) {
+			display: block;
+			width: 8%;
+			margin-left: 10%;
+		}
+		
+		.binfo-name img {
+			vertical-align: middle;
+			width: 100%;
+			height: 100%;
+		}
+		/*银行信息弹窗*/
+		
+		.bank-name-bg {}
+		
+		.bank-name-pup {
+			background: #fff;
+			display: none;
+			width: 100%;
+			margin: auto;
+			right: 0;
+			max-width: 720px;
+		}
+		
+		.bank-name-con {
+			padding: 4%;
+			overflow: auto;
+		}
+		
+		.bank-search {
+			width: 100%;
+			overflow: hidden;
+			padding: 2% 0;
+		}
+		
+		.bank-s-input {
+			width: 72%;
+			margin-right: 3%;
+		}
+		
+		.bank-s-input input[type="text"] {
+			border: solid 1px #ccc;
+			width: 96%;
+			padding: 2%;
+			border-radius: 8px;
+			outline: none;
+		}
+		
+		.bank-s-input input[type="text"]:focus {
+			border: solid 1px #46aafa;
+			;
+			border-radius: 8px;
+		}
+		
+		.bank-s-btn {
+			width: 25%;
+		}
+		
+		.bank-s-btn input[type="button"] {
+			background: #46aafa;
+			color: #fff;
+			text-align: center;
+			border: none;
+			outline: none;
+			border-radius: 8px;
+			padding: 7% 0;
+			width: 100%;
+			cursor: pointer;
+		}
+		
+		.bank-con-list {
+			padding: 0 3%;
+		}
+		
+		.bank-tit {
+			width: 100%;
+			overflow: hidden;
+			padding-top: 4%;
+		}
+		
+		.bank-list {
+			padding: 2% 0 3% 0;
+			overflow: hidden;
+		}
+		
+		.bank-list li {
+			overflow: hidden;
+			width: 100%;
+			padding: 2.5% 0;
+			border-bottom: solid 1px #ccc;
+		}
+		
+		.bank-tit .bankcell:nth-of-type(1),
+		.bank-list .bankcell:nth-of-type(1) {
+			width: 35%;
+			float: left;
+		}
+		
+		.bank-tit .bankcell:nth-of-type(2),
+		.bank-list .bankcell:nth-of-type(2) {
+			width: 65%;
+			float: left;
+		}
+		
+		.bank-tit .bankcell {
+			color: #333;
+			font-weight: 600;
+		}
+		
+		.bank-list .bankcell {
+			color: #555;
+		}
+		
+		.returnbtn {
+			border-top: solid 1px #75c0fa;
+			background: #46aafa;
+			color: #fff;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			max-width: 720px;
+			min-width: 320px;
+			z-index: 8888;
+			text-align: center;
+			padding: 3% 0;
+		}
+		
+		.resource-list {
+			overflow: hidden;
+			padding: 3% 4%;
+			border-top: solid 1px #ededed;
+		}
+		
+		.bgcolor-l {
+			border-bottom: solid 1px #ededed;
+		}
+		
+		.resource-list .resource-l {
+			width: 25%
+		}
+		
+		.resource-list .resource-r {
+			width: 75%
+		}
+		
+		.resource-list .resource-r select {
+			margin-left: 2%;
+		}
+		
+		select {
+			width: 80%
+		}
+	</style>
+	<style>
+		.info-box {
+			padding: 3% 4%;
+		}
+	</style>
+
+	<body>
+		<div class="wrap-page" style="padding-bottom: 6%;">
+			<include file="Base@Public/pubheader" />
+			<div class="mui-content bgcolor">
+				<div id="con_tab_5">
+					<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="CONSIGNEE_ADDRESS" name="CONSIGNEE_ADDRESS">
+						<div class="binding-intro">
+							<div class="binding-ico"><img src="__IMG__/newb011.png" alt=""></div>
+							<!--<div class="binding-font fs14 c5">绑定银行卡，提现24小时内到账</div>-->
+							<div class="binding-font fs12 c9">
+								<!-- 微信支付提现单日累计提现金额不可超过20000元 -->
+							</div>
+						</div>
+						<div class="info-box fs13 <?php if(!empty($info['c_uname'])){ ?> bggray <?php }else{ ?> bgcolor <?php } ?>">
+							<div class="yourname fl c3">真实姓名</div>
+							<div class="yourname-text fl c9"><input class="fs13" type="text" placeholder="请输入真实姓名" name="uname" id="uname" <?php if (!empty($info[ 'c_uname'])): ?> disabled="disabled" style="background:#f4f4f4;" <?php endif ?> value="<?php echo !empty($info['c_uname']) ? $info['c_uname'] : '';?>">
+							</div>
+						</div>
+						<div class="info-box fs13 <?php if(!empty($info['c_carid'])){ ?> bggray <?php }else{ ?> bgcolor <?php } ?>">
+							<div class="yourname fl c3">身份证号</div>
+							<div class="yourname-text fl c9"><input class="fs13" type="text" placeholder="请输入真实身份证" name="carid" id="carid" <?php if (!empty($info[ 'c_carid'])): ?> disabled="disabled" style="background:#f4f4f4;" <?php endif ?> value="<?php echo !empty($info['c_carid']) ? $info['c_carid'] : '';?>">
+							</div>
+						</div>
+						<div class="info-box divtab bgcolor borderb fs13 c9">
+							<div class="info-left fl c3">开户银行</div>
+							<div class="info-center fl binfo-name" id="searchbank"<?php if (empty($info['c_bankname'])) { ?> onclick="searchbank()" <?php } ?>>
+								<span id="fee_banktext" style="width: 80%;"><?php if ($info['c_bankname']) { ?>{$info['c_bankname']}<?php } else { ?>搜索开户行<?php } ?></span><span><img
+                            src="__RSC__/Home/img/getbusiness/der_icon_search.png" alt=""></span>
+								<input type="hidden" id="bankname" name="bankname" value="{$info['c_bankname']}" class="fs13" />
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl fs13 c3">
+								银行省份
+							</div>
+							<div class="resource-r fl">
+								<select class="fs13 c9" name="province" id="province" <?php if(!empty($info[ 'c_province'])){ ?> disabled="disabled" <?php } ?> onchange="loadRegion('province',2,'city','{:U('Index/getRegion')}');">
+									<option value="" id="provincename">选择省</option>
+									<foreach name="province" item="province">
+										<option value="{$province.region_id}" <?php if($info[ 'c_province']==$province[ 'region_name']){ ?> selected="selected" <?php } ?> >{$province.region_name}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+						<div class="resource-list">
+							<div class="resource-l fl fs13 c3">
+								银行市区
+							</div>
+							<div class="resource-r fl">
+								<select class="fs13 c9" name="city" id="city" <?php if(!empty($info['c_city'])){ ?> disabled="disabled" <?php } ?> >
+									<?php if($info['c_city']){ ?>
+									<option value="" id="cityname">{$info['c_city']}</option>
+									<?php }else{ ?>
+									<option value="" id="cityname">选择市</option>
+									<?php } ?>
+								</select>
+								<select class="fs14 c9" name="district" id="district" style="display:none;">
+									<?php if($newdistrict){ ?>
+									<option value="" id="districtname">{$newdistrict}</option>
+									<?php }else{ ?>
+									<option value="" id="districtname">选择区</option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="info-box divtab bgcolor borderb fs13 c9">
+							<div class="info-left fl c3">开户支行</div>
+							<div class="info-center fl binfo-name" id="searchson" <?php if (empty($info['c_sub_bankname'])) { ?> onclick="searchson()" <?php } ?>>
+								<span id="banknametext" style="width: 80%;"><?php if ($info['c_sub_bankname']) { ?> {$info['c_sub_bankname']}<?php } else { ?>搜索支行<?php } ?></span><span><img
+                            src="__RSC__/Home/img/getbusiness/der_icon_search.png" alt=""></span>
+								<input type="hidden" name="sub_bankname" id="branchname" value="{$info['c_sub_bankname']}" class="fs13" />
+							</div>
+						</div>
+						<div class="info-box divtab bgcolor borderb fs14 c5" style="display: none;">
+							<div class="info-left fl">网点号(联行号)</div>
+							<div class="info-center fl">
+								<input type="text" id="contactline" name="contactline" class="resource-text" value="{$info['c_contactline']}" disabled="disabled" >
+							</div>
+							<div class="info-right fr">*</div>
+						</div>
+						<!--<div class="info-box bgcolor fs13">
+                    <div class="yourname fl c9">开户银行</div>
+                    <div class="yourname-text fl fs12 c5">
+                        <select class="fs13 bgcolor" id="bankname" name="bankname">
+                                <?php if(!empty($info['c_bankname'])){ ?>
+                                  <option value="{$info.c_bankname}" selected="selected">{$info.c_bankname}</option>
+                                  <?php }else{ ?>
+                                  <option value="请选择开户银行" selected="selected">请选择开户银行</option>
+                                  <?php } ?>
+                                  <option value="中国银行">中国银行</option>
+                                  <option value="中国建设银行">中国建设银行</option>
+                                  <option value="中国农业银行">中国农业银行</option>
+                                  <option value="中国工商银行">中国工商银行</option>
+                                  <option value="中国邮政储蓄银行">中国邮政储蓄银行</option>
+                                  <option value="中国交通银行">中国交通银行</option>
+                                  <option value="中国招商银行">中国招商银行</option>
+                                  <option value="中国光大银行">中国光大银行</option>
+                                  <option value="中国民生银行">中国民生银行</option>
+                                  <option value="中国平安银行">中国平安银行</option>
+                                  <option value="中信银行">中信银行</option>
+                                  <option value="浦发银行">浦发银行</option>
+                                  <option value="兴业银行">兴业银行</option>
+                                  <option value="华夏银行">华夏银行</option>
+                                  <option value="广发银行">广发银行</option>
+                        </select>
+                    </div>
+                </div>-->
+						<div class="info-box bgcolor bgcolor-l fs13">
+							<div class="yourname fl c9">银行卡号</div>
+							<div class="yourname-text fl c5">
+								<input size="25" onkeyup="formatBankNo(this)" onkeydown="formatBankNo(this)" type="text" placeholder="请输入银行卡号" name="banksn" id="banksn" class="bgcolor fs12" <?php if(!empty($info['c_banksn'])){ ?> disabled="disabled" <?php } ?> value="<?php echo !empty($info['c_banksn']) ? $info['c_banksn'] : '';?>">
+							</div>
+						</div>
+
+						<div class="bind-info-desc fs12 c9">*请输入真实信息资料，才能进行提现。</div>
+						<div class="bind-info-desc fs12 c9">*仅支持个人储蓄卡，请不要填写公司公账或信用卡，请确保姓名、身份证、银行卡开户人为同一人。</div>
+						<!-- <div class="bind-info-btn c5 fs14 divre">
+			                    <div class="divab btnfont">立即绑定</div>
+			                    <img src="__IMG__/newb017.png" alt="">
+			                </div>
+			                <div class="bind-info-btn cf fs14 divre">
+			                    <div class="divab btnfont">立即绑定</div>
+			                    <img src="__IMG__/newb018.png" alt="">
+			                </div> -->
+						<div class="tijiao-sub" id="default_btn">
+							<?php if ($info['c_bankname'] && $info['c_sub_bankname']) { ?>
+							<div class="sub-btns fs15" id="bindbtn_1">解除绑定</div>
+							<?php }else{ ?>
+							<div class="sub-btns fs15" id="bindbtn_1">立即绑定</div>
+							<?php } ?>
+						</div>
+						<div class="tijiao-sub" style="display:none;" id="default_btn_2">
+							<button type="button" class="sub-btns sub-btns-gray fs15">立即绑定</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--开户行搜索弹窗-->
+			<div class="bank-name-pup" id="bk_name_pup">
+				<div class="bank-name-con" id="bk_name_con">
+					<div class="bank-search">
+						<div class="bank-s-input fl">
+							<input type="text" id="bankkey" name="bankkey" value="" placeholder="银行编码/银行名称" class="fs14" />
+						</div>
+						<div class="bank-s-btn fl">
+							<input type="button" id="banksbtn" name="banksbtn" value="搜索" onclick="getdatalist()" class="fs14" />
+						</div>
+					</div>
+					<div class="bank-con-list">
+						<div class="bank-tit fs14">
+							<ul>
+								<li>
+									<div class="bankcell">
+										银行编码
+									</div>
+									<div class="bankcell">
+										银行名称
+									</div>
+								</li>
+							</ul>
+						</div>
+						<ul class="bank-list fs14" id="data_list">
+							<li>
+								<div class="bankcell">
+									1
+								</div>
+								<div class="bankcell">
+									中国工商银行
+								</div>
+							</li>
+						</ul>
+						<div class="returnbtn fs16" id="return-page1">返回</div>
+					</div>
+				</div>
+			</div>
+			<!--开户支行弹窗-->
+			<div class="bank-name-pup" id="ss_name_pup">
+				<div class="bank-name-con" id="ss_name_con">
+					<div class="bank-search">
+						<div class="bank-s-input fl"><input type="text" id="bank_zhkey" name="bank_zhkey" value="" placeholder="输入联行号/支行名称，如“深圳”" class="fs14" />
+						</div>
+						<div class="bank-s-btn fl">
+							<input type="button" id="bank_zhbtn" name="bank_zhbtn" onclick="getbankname()" value="搜索" class="fs14" />
+						</div>
+					</div>
+					<div class="bank-con-list">
+						<div class="bank-tit fs14">
+							<ul>
+								<li>
+									<div class="bankcell">
+										网点号（联行号）
+									</div>
+									<div class="bankcell">
+										支行名称
+									</div>
+								</li>
+							</ul>
+						</div>
+						<ul class="bank-list fs14" id="data_list_2">
+							<li>
+								<div class="bankcell">
+									1
+								</div>
+								<div class="bankcell">
+									中国工商银行
+								</div>
+							</li>
+
+						</ul>
+						<div class="returnbtn fs16" id="return-page2">返回</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__COMMON__/js/veryfy.js?v=3.0.0"></script>
+		<script type="text/javascript" src="__COMMON__/js/region.js"></script>
+		<script type="text/javascript">
+			var inputreg = /^[\s]*$/;
+			var bbname = '<?php echo $info["c_bankname"] ?>';
+			var subbname = '<?php echo $info["c_sub_bankname"] ?>';
+			window.onload = function() {
+				var btnh = $('.bind-info-btn').height(),
+					fonth = btnh * 78 / 100;
+				$('.bind-info-btn').height(btnh);
+				$('.btnfont').css("line-height", fonth + "px");
+
+				$('.resource-l').css('line-height', $('.resource-list').height() + 'px');
+
+				var ynh = $('.yourname-text').height();
+				$('.yourname').css('line-height', ynh + 'px');
+				$('.yourname-text').css('line-height', ynh + 'px');
+
+				$('#return-page1').click(function() {
+					$('#con_tab_5').css("display", "block");
+					$('#bk_name_pup').css("display", "none");
+					$('#ss_name_pup').css("display", "none");
+				});
+				$('#return-page2').click(function() {
+					$('#con_tab_5').css("display", "block");
+					$('#bk_name_pup').css("display", "none");
+					$('#ss_name_pup').css("display", "none");
+				});
+			}
+
+			function formatBankNo(BankNo) {
+				if(BankNo.value == "") return;
+				var account = new String(BankNo.value);
+				account = account.substring(0, 25);
+				/*帐号的总数, 包括空格在内 */
+				if(account.match(".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}") == null) {
+					/* 对照格式 */
+					if(account.match(".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|" + ".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|" +
+							".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|" + ".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}") == null) {
+						var accountNumeric = accountChar = "",
+							i;
+						for(i = 0; i < account.length; i++) {
+							accountChar = account.substr(i, 1);
+							if(!isNaN(accountChar) && (accountChar != " ")) accountNumeric = accountNumeric + accountChar;
+						}
+						account = "";
+						for(i = 0; i < accountNumeric.length; i++) { /* 可将以下空格改为-,效果也不错 */
+							if(i == 4) account = account + " ";
+							/* 帐号第四位数后加空格 */
+							if(i == 8) account = account + " ";
+							/* 帐号第八位数后加空格 */
+							if(i == 12) account = account + " ";
+							/* 帐号第十二位后数后加空格 */
+							account = account + accountNumeric.substr(i, 1)
+						}
+					}
+				} else {
+					account = " " + account.substring(1, 5) + " " + account.substring(6, 10) + " " + account.substring(14, 18) + "-" + account.substring(18, 25);
+				}
+				if(account != BankNo.value) BankNo.value = account;
+			}
+
+			$
+
+			$(function() {
+				/*判断是否绑定银行卡*/
+				if(bbname && subbname) {
+					mui(".mui-content").off("tap", "#bindbtn_1", update_user_bank);
+					mui('.mui-content').on('tap', "#bindbtn_1", function() {
+						mui.confirm('解除绑定后银行卡提现服务将不可使用', '确认解除绑定？', ['取消', '确认'], function(e) {
+							e.index == 0 ? "" : unbindcard();
+						}, 'div');
+					});
+				} else {
+					mui(".mui-content").off("tap", "#bindbtn_1", unbindcard);
+					mui('.mui-content').on('tap', "#bindbtn_1", function() {
+						update_user_bank();
+					});
+				}
+			});
+			var bindtag = true;
+			/*绑定*/
+			function update_user_bank() {
+				if(bindtag) {
+					bindtag = false;
+					var reg = /^[\u4e00-\u9fa5 ]{2,20}$/;
+					if(inputreg.test($('#bankname').val())) {
+						mui.toast('请选择开户行');
+						$('#bankname').focus();
+						bindtag = true;
+						return false;
+					}
+					if(inputreg.test($('#branchname').val())) {
+						mui.toast('请选择支行');
+						$('#branchname').focus();
+						bindtag = true;
+						return false;
+					}
+					if(!$('input[name=banksn]').val()) {
+						mui.toast("请输入银行卡号");
+						bindtag = true;
+						return false;
+					}
+
+					var province = $("#province option:selected").text();
+					var city = $("#city option:selected").text();
+					if(province == "选择省" || city == "请选择") {
+						mui.toast("请完善银行资料信息！");
+						$("#province").focus();
+						bindtag = true;
+						return false;
+					} else if(province == "选择省" || city == "选择市") {
+						mui.toast("请完善银行资料信息！");
+						$("#province").focus();
+						bindtag = true;
+						return false;
+					}
+
+					var attrbul = getFormAttrs('CONSIGNEE_ADDRESS');
+					$.ajax({
+						type: "POST",
+						url: '__URL__/bindingbank',
+						data: "attrbul=" + JSON.stringify(attrbul),
+						dataType: "json",
+						success: function(json) {
+							var msg = eval(json);
+							if(msg.code == 0) {
+								mui.alert(msg.msg, '提示', '确定', function(e) {
+									$('#bindbtn_1').text("解除解绑");
+									$("#searchbank").prop("onclick", null).off("click");
+									$('#searchson').prop("onclick", null).off("click");
+									$("#province").attr("disabled", "disabled");
+									$("#city").attr("disabled", "disabled");
+									$("#banksn").attr("disabled", "disabled");
+
+									mui(".mui-content").off("tap", "#bindbtn_1", update_user_bank);
+									mui('.mui-content').on('tap', "#bindbtn_1", function() {
+										mui.confirm('解除绑定后银行卡提现服务将不可使用', '确认解除绑定？', ['取消', '确认'], function(e) {
+											e.index == 0 ? "" : unbindcard();
+										}, 'div');
+									});
+								}, 'div');
+							} else {
+								mui.toast(msg.msg);
+								bindtag = true;
+							}
+						}
+					});
+
+				}
+			}
+			/*解绑*/
+			var flagc = true;
+
+			function unbindcard() {
+				if(flagc) {
+					flagc = false;
+					$.post("__URL__/RelieveBank", function(obj) {
+						var data = eval(obj);
+						if(data['code'] == 0) {
+							mui.toast('解绑成功！');
+							$('#bindbtn_1').text("立即绑定");
+
+                            $("#searchbank").attr("onclick", "searchbank()");
+							$("#searchson").attr("onclick", "searchson()");
+							$("#province").removeAttr("disabled");
+							$("#city").removeAttr("disabled");
+							$("#banksn").removeAttr("disabled");
+
+							mui(".mui-content").off("tap", "#bindbtn_1", unbindcard);
+							mui('.mui-content').on('tap', "#bindbtn_1", function() {
+								update_user_bank();
+							});
+							setTimeout(function() {
+								location.reload();
+							}, 1000);
+
+						} else {
+							mui.toast(data['msg']);
+							flagc = true;
+						}
+					});
+				}
+			}
+
+			/*开户行搜索弹窗*/
+			function searchbank() {
+				$('#con_tab_5').css("display", "none");
+				$('#ss_name_pup').css("display", "none");
+				$('#bk_name_pup').css("display", "block");
+				getdatalist();
+			}
+			/*支行弹窗*/
+			function searchson() {
+				var bankname = $('#bankname').val();
+				if(!bankname) {
+					alert('请先选择开户银行');
+					return;
+				}
+				$('#con_tab_5').css("display", "none");
+				$('#bk_name_pup').css("display", "none");
+				$('#ss_name_pup').css("display", "block");
+				getbankname();
+			}
+
+			/*数据加载*/
+			function getdatalist() {
+				$('#data_list').empty();
+				var name = $('#bankkey').val();
+				var url = "__APP__/Home/Getbusiness/GetBankList?name=" + name;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+					},
+					success: function(obj) {
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data) {
+								for(var i = 0; i < data.length; i++) {
+									var dataarr = data[i];
+									_html += '<li onclick="sel_fee_bank(\'' + dataarr['c_name'] + '\')">';
+									_html += '<div class="bankcell">';
+									_html += '' + dataarr['c_id'] + '';
+									_html += '</div>';
+									_html += '<div class="bankcell">';
+									_html += '' + dataarr['c_name'] + '';
+									_html += '</div>';
+									_html += '</li>';
+								};
+							} else {
+								_html += '<div class="baoqian">没有找到相关信息</div>';
+							}
+						} else {
+							_html += '<div class="baoqian">没有相关信息</div>';
+						}
+						$('#data_list').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+					}
+				});
+			}
+
+			/*支行列表*/
+			function getbankname() {
+				$('#data_list_2').empty();
+				var bankname = $('#bankname').val();
+				var name = $('#bank_zhkey').val();
+				var url = "__APP__/Home/Getbusiness/GetBranchList?bankname=" + bankname + "&name=" + name;
+				var _html = "";
+				$.ajax({
+					type: 'get',
+					dataType: 'json',
+					url: url,
+					cache: false,
+					beforeSend: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载中...');
+						kongzhi = false;
+					},
+					error: function() {
+						$('#console').css('display', 'block');
+						$('#console').html('加载失败');
+						kongzhi = false;
+					},
+					success: function(obj) {
+						var mgs = eval(obj);
+						if(mgs['code'] == 0) {
+							var data = mgs.data;
+							if(data) {
+								for(var i = 0; i < data.length; i++) {
+									var dataarr = data[i];
+									_html += '<li onclick="sel_bank_name(\'' + dataarr['c_name'] + '\',\'' + dataarr['c_code'] + '\')">';
+									_html += '<div class="bankcell">';
+									_html += '' + dataarr['c_id'] + '';
+									_html += '</div>';
+									_html += '<div class="bankcell">';
+									_html += '' + dataarr['c_name'] + '';
+									_html += '</div>';
+									_html += '</li>';
+								};
+							} else {
+								_html += '<div class="baoqian">没有找到相关信息</div>';
+							}
+						} else {
+							_html += '<div class="baoqian">没有相关信息</div>';
+						}
+						$('#data_list_2').append(_html);
+					},
+					complete: function() {
+						$('#console').css('display', 'none');
+						kongzhi = true;
+					}
+				});
+			}
+
+			/*选择开户行*/
+			function sel_fee_bank(name) {
+				$('#bankname').val(name);
+				$('#fee_banktext').text(name);
+				$('#con_tab_5').css("display", "block");
+				$('#bk_name_pup').css("display", "none");
+				$('#ss_name_pup').css("display", "none");
+			}
+
+			/*请选择支行*/
+			function sel_bank_name(name, actline) {
+				$('#branchname').val(name);
+				$('#banknametext').text(name);
+				$('#contactline').val(actline);
+				$('#con_tab_5').css("display", "block");
+				$('#bk_name_pup').css("display", "none");
+				$('#ss_name_pup').css("display", "none");
+			}
+		</script>
+
+		<include file="Common/footer" />
+
+	</body>
+
+</html>

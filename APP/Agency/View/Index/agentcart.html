@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>购物车</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/index/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="__APP__/Order/Agorder/index" id="formdata" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!-- 数据列表部分 -->
+			<div id="data_list">
+			<?php if (count($datainfo) <= 0) { ?>
+				<div class="divtab divempty">
+					<h3 class="divtab c6 fs14">您的购物车还是空的，赶紧行动吧！</h3>
+					<p class="divtab c9 fs12">您可以：<span class="empty-gg">去代理商城逛逛</span></p>
+				</div>
+			<?php } else { ?>
+				<?php foreach ($datainfo as $key => $value) { ?>
+				<div class="agentcart-box bgcolor divtab divre agcartbox_1" id="agbox_{$value['c_mcode']}">			
+					<input type="hidden"  name="pcode[]" value="{$value['c_pcode']}" id="pcode_{$value['c_mcode']}" />
+					<input type="hidden"  name="mcode[]" value="{$value['c_mcode']}" id="mcode_{$value['c_mcode']}" />
+					<input type="hidden"  name="num[]" value="{$value['c_num']}" id="num_{$value['c_mcode']}" />
+					<input type="hidden"  name="pucode[]" value="{$value['c_pucode']}" id="pucode_{$value['c_mcode']}" />
+					<input type="hidden"  name="pmname[]" value="{$value['c_pmname']}" id="pucode_{$value['c_mcode']}" />
+					<input type="hidden"  name="price[]" value="{$value['agentprice']}" id="price_{$value['c_mcode']}" />
+					<div class="ag-cart-img fl"><img src="{$value['c_img']}" alt="" /></div>
+					<div class="ag-cart-info fl">
+						<div class="cartpro-name c3 fs14 clamp2">{$value['c_name']}</div>
+						<div class="cartpro-model c5 fs12">{$value['c_pmname']}</div>
+						<div class="cartpro-price"><span class="fl fs16 cy">￥{$value['agentprice']}</span><span class="fr fs12 c5" id="goushu_{$value['c_mcode']}">×{$value['c_num']}</span></div>
+					</div>
+					<div class="agcart_del divab alignc fs14 cf none" title="{$value['c_mcode']}">删除</div>
+					<div class="agcart_number divab bgcolor none">
+						<div class="agcart-num-opr divtab">
+							<div class="agcart-n-sub fl alignc" data-totalnum="{$value['c_kcnum']}" title="{$value['c_mcode']}"><img src="__IMG__/index/sub.jpg" alt="" /></div>
+							<div class="agcart-n-txt fl" title="{$value['c_mcode']}" data-totalnum="{$value['c_kcnum']}">
+								<input type="text" name="pronum" id="pronum_{$value['c_mcode']}" value="{$value['c_num']}" class="fs13 c3 alignc" />
+								<input type="hidden" id="hid_pronum_{$value['c_mcode']}" value="{$value['c_num']}" />
+							</div>
+							<div class="agcart-n-add fl alignc" data-totalnum="{$value['c_kcnum']}" title="{$value['c_mcode']}"><img src="__IMG__/index/addn.jpg" alt="" /></div>							
+						</div>
+					</div>					
+				</div>
+				<?php } ?>
+			<?php } ?>
+			</div>
+			<div id="console"></div>			
+		</div>
+		<div class="fixed-btn agcart-b-btn divtab bgcolor">
+			<div class="ag-b-counttxt fl divre c3 fs16">
+				合计
+			</div>
+			<div class="ag-total-money fl">
+				<p class="fs18 cy">￥<span id="gtotal">0.00</span></p>
+				<?php if ($agent['levelname']): ?>
+				<p class="fs12 c9">您的代理级别：{$agent['levelname']}</p>
+				<?php endif ?>
+				<p class="fs12 c9 <?php if ($agent['levelname']): ?>none<?php endif ?>">还差￥<span id="surplus">{$agent['agentprice']}</span>元成为代理</p>
+			</div>
+			<div class="agented-btn fl cf fs16 alignc <?php if ($agent['levelname']): ?>none<?php endif ?>" id="agented-btn">代理</div>
+			<?php if ($agent['levelname']) { ?>
+			<div class="agented-btn fl cf fs16 alignc">进货</div>
+			<?php } ?>
+		</div>
+		<input type="hidden" name="confirm-pcode" value="">
+		<input type="hidden" name="confirm-pucode" value="">
+		<input type="hidden" name="confirm-mcode" value="">
+		<input type="hidden" name="confirm-num" value="">		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	var agenttotal = "<?php echo $agent['agentprice']; ?>";
+	window.onload = function() {
+		ChRightText("编辑");
+		account();
+		yangshi();
+		
+		var cartw = $('.agcart-b-btn').height();
+		$('.ag-total-money').css("line-height", cartw * 0.5 + "px");
+		$('.ag-b-counttxt').css("line-height", cartw + "px");		
+	}
+
+	//代理按钮
+	mui('.wrap-page').on('tap','.agented-btn',function(){
+		$('#formdata').submit();
+	});
+
+	//跳转代理商城
+	mui('.wrap-page').on('tap','.empty-gg',function(){
+		mui.openWindow({url:"__APP__/Agency/Index/index",id:"agencyindex"});
+	});
+
+	//页面加载完js改变样式
+	function yangshi() {
+		var prow = $('.ag-cart-img').width();
+		$('.ag-cart-img').height(prow);
+		$('.agentcart-box').height(prow);
+		$('.cartpro-name').css('height',prow*0.5+'px');
+		$('.cartpro-name').css('line-height',$('.cartpro-name').height()*0.5+'px');
+		$('.cartpro-model').css('line-height',prow*0.25+'px');
+		$('.cartpro-price').css('line-height',prow*0.25+'px');	
+		
+		$('.agcart_del').css('line-height',$('.agcart_del').height()+"px");
+
+		//购物车编辑数量加减显示
+		$('.agcart-num-opr').css('margin-top', prow*0.27 +'px');
+		
+		$('.agcart-n-txt input[type="text"]').css('line-height', $('.agcart-n-sub').height() + 'px');
+	}
+
+	//提交代理商品
+	var tjclick = 1;
+	function rightcaozuo() {
+		dianjiet();				
+	}
+
+	function dianjiet() {
+		if(tjclick==1){
+			$('.agcart_del').show();
+			$('.agcart_number').show();
+			yangshi();
+			$('.xm-bar-nav-right').text("完成");
+			tjclick=2;			
+		}else{
+			$('.agcart_del').hide();
+			$('.agcart_number').hide();
+			yangshi();
+			$('.xm-bar-nav-right').text("编辑");
+			tjclick=1;
+		}
+		account();	
+	}
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	/*结算公用*/
+	function account (arg) {
+		$('input[name="confirm-pcode"]').val('');
+		$('input[name="confirm-pucode"]').val('');
+		$('input[name="confirm-mcode"]').val('');
+		$('input[name="confirm-num"]').val('');		
+		var pcode='',num='',mcode='',pucode='',totalprice=0.00,acount=0.00;			
+		$('input[name="mcode[]"]').each(function(i) {
+			if (i == 0) {
+				pcode +=  $("#pcode_" + $(this).val()).val();
+				num += $("#num_" + $(this).val()).val();
+				mcode += $("#mcode_" + $(this).val()).val();
+				pucode += $("#pucode_" + $(this).val()).val();		
+			} else {
+				pcode += '|' + $("#pcode_" + $(this).val()).val();
+				num += '|' + $("#num_" + $(this).val()).val();				
+				mcode += '|' + $("#mcode_" + $(this).val()).val();
+				pucode += '|' + $("#pucode_" + $(this).val()).val();
+			}
+			totalprice = ($('#price_' + $(this).val()).val()*$("#num_" + $(this).val()).val()).toFixed(2);
+			acount = (acount -(-totalprice)).toFixed(2);
+		});			
+		$('#gtotal').text(acount);		
+		$('input[name="confirm-pcode"]').val(pcode);
+		$('input[name="confirm-pucode"]').val(pucode);
+		$('input[name="confirm-mcode"]').val(mcode);
+		$('input[name="confirm-num"]').val(num);
+		if(parseFloat(acount)<parseFloat(agenttotal)){
+			$('#surplus').text(parseFloat(agenttotal)-parseFloat(acount));	
+			$('#agented-btn').addClass("agented-btn-b");
+			mui('#agented-btn').off();
+		}else{
+			$('#surplus').text('0');	
+			$('#agented-btn').removeClass("agented-btn-b");			
+		}
+	}
+	
+	
+	var pucode = '';
+	/*购买数量*/
+	var pnum = "";
+	/*加*/
+	mui('.agcartbox_'+pageindex).on('tap','.agcart-n-add',function(){
+		var totalnum = $(this).attr('data-totalnum');
+		var mcode = $(this).attr('title');
+		var pronum = $('#hid_pronum_'+mcode).val();
+		pnum = parseInt(pronum) + 1;
+	    if (pnum<=totalnum) {
+	    	$("#hid_pronum_"+mcode).val(pnum);
+		    $('#pronum_'+mcode).val(pnum);
+		    $('#num_'+mcode).val(pnum);
+		    $('#goushu_'+mcode).text('x'+pnum);
+			account(mcode);
+	    	operate_car(mcode);
+	    }
+	});
+	
+	/*减*/
+	mui('.agcartbox_'+pageindex).on('tap','.agcart-n-sub',function(){
+		var mcode = $(this).attr('title');
+		var pronum = $('#hid_pronum_'+mcode).val();
+	    pnum = parseInt(pronum);
+	    var nums = pnum;
+	    if (pnum >= 1) {
+	        nums = pnum - 1;
+	        if(nums==0){
+	    		dialogif(mcode,$(this),2);
+	        }else{
+	        	$("#pronum_"+mcode).val(nums);
+	    		$("#hid_pronum_"+mcode).val(nums);
+	    		$('#num_'+mcode).val(nums);
+	    		$('#goushu_'+mcode).text('x'+nums);
+				pnum = nums;
+				account(mcode);
+	        	operate_car(mcode);
+	        }
+	    }
+	});
+	
+	/*输入数量*/
+	$('.agcart-n-txt').each(function(i){
+		var mcode = $(this).attr('title');
+		var totalnum = $(this).attr('data-totalnum');
+		$('#pronum_'+mcode).change(function() {
+			var numv = $(this).val();
+			if(!(numv > 0)) {
+				$(this).val('1');
+				numv = $(this).val();
+			}
+			if(pnum > parseInt(totalnum)) {
+				$(this).val('1');
+				numv = $(this).val();
+			}
+			pnum = parseInt(numv);
+			$("#pronum_"+mcode).val(pnum);
+    		$("#hid_pronum_"+mcode).val(pnum);
+    		$('#num_'+mcode).val(pnum);
+    		$('#goushu_'+mcode).text('x'+pnum);
+			account(mcode);
+	        operate_car(mcode);
+		});		
+	});
+	
+	/*删除*/
+	mui('.agcartbox_'+pageindex).on('tap','.agcart_del',function(){
+		var mcode = $(this).attr('title');
+		dialogif(mcode,$(this),1);
+	});
+	
+	/*购物车*/
+	function operate_car (mcode) {
+	    $.post("__URL__/AddCar", {
+			mcode: mcode,
+			pcode: $("#pcode_"+mcode).val(),
+			pucode: $("#pucode_"+mcode).val(),
+			pmname: $("#pmname_"+mcode).val(),
+			num: $("#num_"+mcode).val()
+		}, function(obj) {
+			var data = eval(obj);
+			tjsign = true;
+			if(data['code'] == 0) {
+				mui.toast(data['msg']);
+			} else {
+				mui.toast(data['msg']);
+			}
+		});
+	}
+	
+	/*是否确认删除*/
+	function dialogif(mcode,obj,n){
+		mui.confirm('您确定要清除该商品吗？','提示',['取消','确认'],function (e) {
+			e.index == 0 ? "" : clearpro(mcode,obj,n);
+		},'div')
+	}
+
+	/*删除购物车商品，id,document,n*/
+	function clearpro(mcode,parg,n){
+		$.post("__URL__/DeleCar", {
+			mcode: mcode,
+			pcode: $("#pcode_"+mcode).val(),
+			pucode: $("#pucode_"+mcode).val()
+		}, function(obj) {
+			var msg = eval(obj);
+			if (msg['code'] == 0) {
+				$('#agbox_'+mcode).remove();
+				tjclick=2;
+				dianjiet();
+				if ($('.agentcart-box').size() == 0) {
+					var cartempty = '';
+					cartempty+='<div class="divtab divempty">';
+						cartempty+='<h3 class="divtab c6 fs14">您的购物车还是空的，赶紧行动吧！</h3>';
+						cartempty+='<p class="divtab c9 fs12">您可以：<span class="empty-gg">去代理商城逛逛</span></p>';
+					cartempty+='</div>';
+					$('#data_list').html(cartempty);
+				}
+			} else {
+				mui.toast(msg['msg']);
+			}
+		});
+	}
+</script>
+
+</html>

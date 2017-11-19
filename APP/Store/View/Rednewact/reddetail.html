@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>领取详情</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/rednewact/index.css" />
+		<style type="text/css">
+			.red-getdetail{padding-bottom: 0px;}
+			.shop-red span{margin-right: 0px;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="red-info divtab divre">
+						<div class="red-surplus-money fs13 cf divab alignc divtab">剩余￥<span class="fs28 fb400">{$redinfo['c_remain_money']}</span>元</div>
+						<div class="red-total-money fs13 cf divab alignc divtab">总金额：￥{$redinfo['c_money']}元</div>
+						<div class="red-name fs11 cf divab alignc fov">{$redinfo['c_name']}</div>
+						<div class="red-amount divtab cf divab">
+							<div class="fl fs11">全部数量：{$redinfo['c_totalnum']}个</div>
+							<div class="fr fs11">剩余数量：{$redinfo['c_num']}个</div>
+						</div>
+						<img src="__IMG__/rednewact/redpacket_icon_details_bg.png" alt="" />
+					</div>
+
+
+					<!-- 数据列表部分 -->
+					<div class="red-main">
+						<div id="page_1">
+							<!-- 领取详情-->
+							<div class="red-getdetail bgcolor" id="data_list_1">
+								
+								<!-- <div class="red-getdetail-con divtab bborder">
+									<div class="getdetail-info fl fs14 divtab">
+										<div class="getdetail-img fl">
+											<img src="__IMG__/coupon/tu14.jpg" />
+										</div>
+										<div class="getdetail-shop fl">
+											<div class="shop-name fs14">优C柠檬梅溪湖店</div>
+											<div class="shop-red fs11 c9">12:00:00<span>店铺红包</span></div>
+										</div>
+									</div>
+									<div class="getdetail-money fr fs16">
+										200.00元
+									</div>
+								</div> -->								
+	
+							</div>
+							<div id="console_1"></div>
+						</div>
+						
+					</div>
+					 
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			ChRightText('分享');
+
+			var boxw = $('.red-info').width(),
+				boxh = boxw * 0.35;
+			$('.red-info').height(boxh);
+
+			yangshi();
+		}
+
+
+		//页面加载完js改变样式
+		function yangshi() {
+			$('.getdetail-img').height($('.getdetail-img').width());
+			$('.getdetail-shop').css('line-height',$('.getdetail-img').width()*0.5+'px');
+			$('.getdetail-money').css('line-height',$('.getdetail-img').width()+'px');
+		}
+
+		/*评论列表*/
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var statu = 1;
+		
+		getdatalist();
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+		});
+
+		function getdatalist() {
+			var _html = "";
+			var strurl = "__URL__/getreddetail?awid=<?php echo $awid; ?>&pageindex="+pageindex;
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list_'+statu).empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list == null) {
+							if(pageindex == 1) {								
+								_html+='<div class="data-empty divtab bgeb">';
+								_html+='<div class="data-empty-img">';
+								_html+='<img src="__IMG__/rednewact/redpacket_icon_guanli_details.png" alt="" />';								
+								_html+='</div>';
+								_html+='<div class="data-empty-font c3 fs13">';
+									_html+='还没人领取，分享可以增加领取量。';									
+								_html+='</div>';
+								_html+='</div>'; 
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="red-getdetail-con divtab bborder">';
+										_html+='<div class="getdetail-info fl fs14 divtab">';
+											_html+='<div class="getdetail-img fl">';
+												_html+='<img src="'+dataarr['c_headimg']+'" />';
+											_html+='</div>';
+											_html+='<div class="getdetail-shop fl">';
+												_html+='<div class="shop-name fs14">'+dataarr['c_nickname']+'</div>';
+												_html+='<div class="shop-red fs11 c9">'+dataarr['newtime']+'<span>'+dataarr['c_marks']+'</span></div>';
+											_html+='</div>';
+										_html+='</div>';
+										_html+='<div class="getdetail-money fr fs16">'+dataarr['c_value']+'元</div>';
+									_html+='</div>';
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list_'+statu).append(_html);
+
+				},
+				complete: function() {
+					yangshi();
+					$('#console_'+statu).css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+
+					}
+				}
+			});
+		}
+	</script>
+
+</html>

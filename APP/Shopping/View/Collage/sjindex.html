@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>拼团</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/collage/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="comm-nav-tab bgcolor divtab fs13">
+						<ul>
+							<li class="hover c-nav-tli" id="c-nav-t0">进行中</li>
+							<li class="c-nav-tli" id="c-nav-t1">未开始</li>
+							<li class="c-nav-tli" id="c-nav-t2">已结束</li>
+						</ul>
+					</div>
+					<div class="sjcollage-con" id="data_list">
+						<!-- <div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣良品铺子麻辣</div>
+									<div class="sjc-pro-price cy fs16">￥100</div>
+									<div class="sjc-pro-number fs11 c9"><span>拼团价<em>￥20</em></span><span>成团人数<em>10</em></span></div>
+									<div class="sjc-pro-time fs11 c9">2017-05-01至2017-05-20</div>
+								</div>
+								<div class="sjc-state divab"><img src="__IMG__/collage/spell_icon_over.png" alt="" /></div>
+							</div>
+							<div class="sjcollage-oprate divtab bborder fs13 c9">
+								<ul>
+									<li>记录</li>
+									<li>删除</li>
+									<li class="lishare">分享</li>
+								</ul>
+							</div>
+						</div>
+						<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣</div>
+									<div class="sjc-pro-price cy fs16">￥100</div>
+									<div class="sjc-pro-number fs11 c9"><span>拼团价<em>￥20</em></span><span>成团人数<em>10</em></span></div>
+									<div class="sjc-pro-time fs11 c9">2017-05-01至2017-05-12</div>
+								</div>
+								<div class="sjc-state divab"><img src="__IMG__/collage/spell_icon_stale.png" alt="" /></div>
+							</div>
+							<div class="sjcollage-oprate divtab bborder fs13 c9">
+								<ul>
+									<li>记录</li>
+									<li>删除</li>
+									<li class="lishare">分享</li>
+								</ul>
+							</div>
+						</div>
+						<div class="sjcollage-li bgcolor divtab">
+							<div class="sjcollage-pro divtab bborder divre">
+								<div class="sjc-pro-img fl"><img src="__IMG__/index/dlsc_dlxq_02.jpg" alt="" /></div>
+								<div class="sjc-pro-info fl">
+									<div class="sjc-pro-name clamp2 fs13 c3">良品铺子麻辣</div>
+									<div class="sjc-pro-price cy fs16">￥100</div>
+									<div class="sjc-pro-number fs11 c9"><span>拼团价<em>￥20</em></span><span>成团人数<em>10</em></span></div>
+									<div class="sjc-pro-time fs11 c9">2017-05-01至2017-05-12</div>
+								</div>
+								<div class="sjc-state divab"><img src="__IMG__/collage/spell_icon_stale.png" alt="" /></div>
+							</div>
+							<div class="sjcollage-oprate divtab bborder fs13 c9">
+								<ul>
+									<li>记录</li>
+									<li>删除</li>
+									<li class="lishare">分享</li>
+								</ul>
+							</div>
+						</div> -->
+							
+					</div>
+					<div id="console"></div>
+				</div>
+			</form>
+			<div class="ad-creat-site">
+				<div class="ad-creat-btn cb fs16">创建拼团</div>
+			</div>
+		</div>
+		<include file="Base@Public/pubjs" />
+		<!-- 引入分享 -->
+		<include file="Base@Public/appshare" />
+		<include file="Base@Public/wxshare" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			ChRightText("帮助");
+			yangshi();
+		}
+
+		//帮助
+		function rightcaozuo() {
+			mui.openWindow({
+				url: "__URL__/help"
+			});
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			
+			$('.sjcollage-oprate').removeClass("oprate_3");
+			/*商品信息*/
+			$('.sjc-pro-img').height($('.sjc-pro-img').width());
+			$('.sjc-pro-name').height($('.sjc-pro-img').width()*0.4);
+			$('.sjc-pro-name').css('line-height',$('.sjc-pro-name').height()*0.5+'px');
+			$('.sjc-pro-price').css('line-height',$('.sjc-pro-img').width()*0.2+'px');
+			$('.sjc-pro-number').css('line-height',$('.sjc-pro-img').width()*0.2+'px');
+			$('.sjc-pro-time').css('line-height',$('.sjc-pro-img').width()*0.2+'px');			
+		}
+
+		/*创建拼团商品*/
+		mui('.wrap-page').on('tap','.ad-creat-btn',function(){
+			mui.openWindow({url:"__URL__/sjcreate",id:"sjcreate"});
+		});
+		/*列表*/
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var statu = '<?php echo $statu ?>';
+		if(!statu) {
+			statu = 0;
+		}
+		selectstatu(statu);
+
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			$('.c-nav-tli').removeClass('hover');
+			$('#c-nav-t' + i).addClass('hover');
+			if(statu==2){
+				$('.sjcollage-oprate').addClass("oprate_3");
+				$('.lishare').css("display","none");
+			}else{
+				$('.sjcollage-oprate').removeClass("oprate_3");
+				$('.lishare').css("display","block");
+			}
+			getdatalist();
+		}
+		mui('.mui-content').on('tap', '#c-nav-t0', function() {
+			selectstatu(0);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			selectstatu(1);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			selectstatu(2);
+		});
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+			if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').addClass('menu-fixed');
+			}
+			if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').removeClass('menu-fixed');
+			}
+		});
+
+		function getdatalist() {
+			var _html = "";
+			var strurl = "__URL__/MyProductList?useraction="+statu+"&pageindex="+pageindex;
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html+='<div class="data-empty divtab">';
+								_html+='<div class="data-empty-img">';
+								_html+='<img src="__IMG__/collage/kj_qc_wu.png" alt="" />';								
+								_html+='</div>';
+								_html+='<div class="data-empty-font c3 fs13">暂无相关拼团</div>';
+								_html+='</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {
+									var dataarr = datalist[i];
+									_html+='<div class="sjcollage-li bgcolor divtab sjcollage-li-'+pageindex+'" id="sc'+dataarr['c_act_pcode']+'">';
+									_html+='<div class="sjcollage-pro divtab bborder divre" title="'+dataarr['c_act_pcode']+'">';
+									_html+='<div class="sjc-pro-img fl"><img src="'+dataarr['c_imgpath']+'" alt="" /></div>';
+									_html+='<div class="sjc-pro-info fl">';
+									_html+='<div class="sjc-pro-name clamp2 fs13 c3">'+dataarr['c_name']+'</div>';
+									_html+='<div class="sjc-pro-price cy fs16">￥'+dataarr['c_value']+'</div>';
+									_html+='<div class="sjc-pro-number fs11 c9"><span>拼团价<em>￥'+dataarr['c_actprice']+'</em></span><span>成团人数<em>'+dataarr['c_targetnum']+'人</em></span></div>';
+									_html+='<div class="sjc-pro-time fs11 c9">'+dataarr['c_starttime']+'至'+dataarr['c_endtime']+'</div>';
+									_html+='</div>';
+									
+									if (dataarr['stale'] == 1) {
+									_html+='<div class="sjc-state divab"><img src="__IMG__/collage/spell_icon_stale.png" alt="" /></div>';
+									}
+
+									_html+='</div>';
+									_html+='<div class="sjcollage-oprate divtab bborder fs13 c9">';
+									_html+='<ul>';
+									_html+='<li class="lirecord" title="'+dataarr['c_act_pcode']+'">记录</li>';
+									_html+='<li class="lidelete" title="'+dataarr['c_act_pcode']+'">删除</li>';
+									_html+='<li class="lishare" title="'+dataarr['c_act_pcode']+'">分享</li>';
+									_html+='<input type="hidden" id="sharetit'+dataarr['c_act_pcode']+'" value="'+dataarr['sharetit']+'" />';
+									_html+='<input type="hidden" id="shareimg'+dataarr['c_act_pcode']+'" value="'+dataarr['shareimg']+'" />';
+									_html+='<input type="hidden" id="sharedesc'+dataarr['c_act_pcode']+'" value="'+dataarr['sharedesc']+'" />';
+									_html+='<input type="hidden" id="shareurl'+dataarr['c_act_pcode']+'" value="'+dataarr['shareurl']+'" />';
+									_html+='</ul>';
+									_html+='</div>';
+									_html+='</div>';
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {
+						/*记录*/
+						mui('.sjcollage-li-' + pageindex).on('tap', '.lirecord', function() {
+							var act_pcode = $(this).attr('title');
+							mui.openWindow({
+								url: "__URL__/sjrecord?act_pcode="+act_pcode+"&statu="+statu,
+								id: "record"
+							});
+						});
+						/*删除*/
+						mui('.sjcollage-li-' + pageindex).on('tap', '.lidelete', function() {
+							var act_pcode = $(this).attr('title');
+							mui.confirm('删除以后无法继续查看拼团信息','确认删除？',['取消','确认'],function (e) {
+								e.index == 0 ? "" : DelMyProduct(act_pcode,statu);
+							},'div');
+						});
+
+						/*分享*/
+						mui('.sjcollage-li-' + pageindex).on('tap', '.lishare', function() {
+							var act_pcode = $(this).attr('title');
+							var shareTitle = $('#sharetit'+act_pcode).val();
+							var descContent = $('#sharedesc'+act_pcode).val();
+							var imgUrl = $('#shareimg'+act_pcode).val();
+							var lineLink = $('#shareurl'+act_pcode).val();
+							var apptype = "<?php echo get_app_type(); ?>";
+							if (apptype == 3) {
+								mui.openWindow({
+									url: lineLink,
+									id: "pdetail"
+								});
+							} else {
+								sharepro(shareTitle,descContent,imgUrl,lineLink);
+							}
+						});
+
+						/*查看拼团详情*/
+						mui('.sjcollage-li-' + pageindex).on('tap', '.sjcollage-pro', function() {
+							var act_pcode = $(this).attr('title');
+							mui.openWindow({
+								url: "__URL__/pdetail?act_pcode="+act_pcode,
+								id: "pdetail"
+							});
+						});					
+					}
+				}
+			});
+		}
+
+		var tjsign = true;
+		function DelMyProduct(act_pcode, useraction) {
+			if (tjsign) {
+				tjsign = false;
+				$.post("__URL__/DelMyProduct", {
+					act_pcode: act_pcode,
+					useraction: useraction
+				}, function(obj) {
+					var data = eval(obj);
+					tjsign = true;
+					if (data['code'] == 0) {
+						mui.toast('删除成功');
+						$('#sc'+act_pcode).remove();
+					} else {
+						mui.toast(data['msg']);
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

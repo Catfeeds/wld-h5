@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<title>商品管理</title>
+		<meta content="微域领地,微域领地系统" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/store/addp.css?v=3.0.4" />
+		<link rel="stylesheet" type="text/css" href="__COMMON__/css/viewer.min.css" />
+	</head>
+
+	<body>
+		<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<input type="hidden" name="pcode" value="{$vo.c_pcode}">
+			<div class="wrap-page bgcolor">
+				<include file="Base@Public/pubheader" />
+				<div class="mui-content">
+					<div class="product-tabctrl">
+						<div class="tabctrl-con fs12">
+							<a href="javascript:;" id="tabctrl-1" class="tabctrl-link">
+								<div id="tabctrl-hover-1" class="tabctrl-img-link block">
+									<img src="__IMG__/store/tabbg-hover.png" alt="">
+								</div>
+								<div class="tabctrl-txt-hover" id="tabctrl-txt-1">商品描述</div>
+							</a>
+							<a href="javascript:;" id="tabctrl-2" class="tabctrl-link">
+								<div id="tabctrl-hover-2" class="tabctrl-img-link none">
+									<img src="__IMG__/store/tabbg-hover-1.png" alt="">
+								</div>
+								<div class="tabctrl-txt" id="tabctrl-txt-2">商品主图</div>
+							</a>
+							<a href="javascript:;" id="tabctrl-3" class="tabctrl-link">
+								<div id="tabctrl-hover-3" class="tabctrl-img-link none">
+									<img src="__IMG__/store/tabbg-hover-2.png" alt="">
+								</div>
+								<div class="tabctrl-txt" id="tabctrl-txt-3">商品详情</div>
+							</a>
+							<a href="javascript:;" id="tabctrl-4" class="tabctrl-link">
+								<div id="tabctrl-hover-4" class="tabctrl-img-link none">
+									<img src="__IMG__/store/tabbg-hover-3.png" alt="">
+								</div>
+								<div class="tabctrl-txt" id="tabctrl-txt-4">商品型号</div>
+							</a>
+							<a href="javascript:;" id="tabctrl-5" class="tabctrl-link">
+								<div id="tabctrl-hover-5" class="tabctrl-img-link none">
+									<img src="__IMG__/store/tabbg-hover.png" alt="">
+								</div>
+								<div class="tabctrl-txt" id="tabctrl-txt-5">商品分类</div>
+							</a>
+							<img src="__IMG__/store/tabbg-link-2.png" alt="">
+						</div>
+					</div>
+
+					<div id="con-tabctrl-1" class="block">
+						<div class="product-names">
+							<div class="product-font c5 fs14">商品名称</div>
+							<div class="product-text"><input type="text" class="pro-txt fs12" id="cname" name="name" placeholder="请输入商品名称(20字)" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+								<?php endif ?> value="{$vo.c_name}" maxlength="20"></div>
+						</div>
+						<div class="product-names">
+							<div class="product-font c5 fs14">商品描述</div>
+							<div class="product-text">
+								<textarea name="desc" id="desc" class="pro-textarea fs12" rows="6" placeholder="来一段话描述一下你的宝贝吧(500字)" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"<?php endif ?> maxlength="500">{$vo.c_desc}</textarea>
+							</div>
+						</div>
+						<div class="con-descbtn block" id="btn-tabctrl-1">
+							<div class="con-descbtn-l fl fs16" onclick="firstUp()">上一步</div>
+							<div class="con-descbtn-r fl fs16" onclick="NextCK(2,5,'tabctrl')">保存并下一步</div>
+						</div>
+					</div>
+
+					<div id="con-tabctrl-2" class="none">
+
+						<div class="product-main-img">
+							<div class="product-imgico fl">&nbsp;</div>
+							<div class="product-imgtxt fl"><span class="c5 fs14">商品主图</span><span class="cc fs12" style="margin-left:3%;"><span id="mainunum">0</span>/3(建议尺寸720*400)</span>
+							</div>
+						</div>
+						<div class="product-imgdesc cc fs12">说明：用于商品在商城列表显示，和商品详情页上轮播展示商品</div>
+
+						<div class="product-main-imglist">
+							<ul class="pro-main-ul">
+								<?php for ($j=0; $j<3 ; $j++) { ?>
+								<?php if ($mainarr[$j] && $mainarr[$j]['c_sign']==1 ){  ?>
+								<li>
+									<div class="pro-main-imgbox" onclick="clickmain_img({$j+1});">
+										<div class="pro-m-upload hiddm">
+											<?php if($mainarr[$j]['c_pimgepath']!=null){ ?>
+											<img id="mimr{$j+1}" src="{$mainarr[$j]['c_pimgepath']}" alt="">
+											<input type="hidden" name="main_img_{$j+1}" value="{$mainarr[$j]['c_pimgepath']}">
+											<?php }else{ ?>
+											<img id="mimr{$j+1}" src="__IMG__/store/imgadd-1.png" alt="">
+											<?php } ?>
+										</div>
+										<input type="file" style="display:none;" name="main_img_{$j+1}" value="" id="main_file{$j+1}" placeholder="">
+										<img src="__IMG__/store/imgadd-1.png" alt="">
+									</div>
+
+									<div class="pro-m-delete" <?php if ($vo[ 'c_isagent'] !=1 ): ?> onclick="deleteimg({$j+1},'mimr',this,'main_img_{$j+1}')"
+										<?php endif ?> id="m-delete-{$j+1}">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+									<?php if($j==0){ ?>
+									<div class="first-mainimg fs14 cc">添加封面</div>
+									<?php } ?>
+									<?php if($j==0){ ?>
+									<div class="update-cover">
+										更新封面
+									</div>
+									<?php } ?>
+								</li>
+								<?php }else{ ?>
+								<li>
+									<div class="pro-main-imgbox" onclick="clickmain_img({$j+1});">
+										<div class="pro-m-upload hiddm">
+											<img id="mimr{$j+1}" src="__IMG__/store/imgadd-1.png" alt="">
+										</div>
+										<input type="hidden" name="main_img_{$j+1}" value="">
+										<input type="file" style="display:none;" name="main_img_{$j+1}" value="" id="main_file{$j+1}" placeholder="">
+										<img src="__IMG__/store/imgadd-2.png" alt="">
+									</div>
+
+									<?php if($j==0){ ?>
+									<div class="first-mainimg fs14 cc">添加封面</div>
+									<?php } ?>
+									<div class="pro-m-delete none" <?php if ($vo[ 'c_isagent'] !=1 ): ?> onclick="deleteimg({$j+1},'mimr',this,'main_img_{$j+1}')"
+										<?php endif ?> id="m-delete-{$j+1}">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+								<?php } ?>
+								<?php } ?>
+							</ul>
+						</div>
+
+						<div class="con-descbtn none" id="btn-tabctrl-2">
+							<div class="con-descbtn-l fl fs16" onclick="PreviousCK(1,5,'tabctrl')">上一步</div>
+							<div class="con-descbtn-r fl fs16" onclick="NextCK(3,5,'tabctrl')">保存并下一步</div>
+						</div>
+
+					</div>
+
+					<div id="con-tabctrl-3" class="none">
+						<div class="product-main-img">
+							<div class="product-imgtxt" style="margin-left:4%;"><span class="c5 fs14">商品副图</span><span class="cc fs12" style="margin-left:3%;"><span id="subunum">0</span>/9(建议尺寸720*400)</span>
+							</div>
+						</div>
+						<div class="product-imgdesc cc fs12">说明：用于商品详情页中通过图片的方式向买家介绍商品详情</div>
+
+						<div class="product-main-imglist">
+							<ul class="pro-main-ul">
+								<?php for ($i=0; $i<9 ; $i++) { ?>
+								<?php if ($subarr[$i] && $subarr[$i]['c_sign']==0 ){  ?>
+								<li>
+									<div class="pro-main-imgbox" onclick="click_img({$i+1});">
+										<div class="pro-m-upload">
+											<?php if($subarr[$i]['c_pimgepath']!=null){ ?>
+											<img id="simr{$i+1}" src="{$subarr[$i]['c_pimgepath']}" alt="" class="hidds">
+											<input type="hidden" name="sub_img_{$i+1}" value="{$subarr[$i]['c_pimgepath']}">
+											<?php }else{ ?>
+											<img id="simr{$i+1}" src="__IMG__/store/imgadd-1.png" alt="" class="hidds">
+											<?php } ?>
+										</div>
+										<input type="file" style="display:none;" name="sub_img_{$i+1}" value="" id="sub_file{$i+1}" placeholder="">
+										<img src="__IMG__/store/imgadd-1.png" alt="">
+									</div>
+
+									<div class="pro-m-delete" <?php if ($vo[ 'c_isagent'] !=1 ): ?> onclick="deleteimg({$i+1},'simr',this,'sub_img_{$i+1}')"
+										<?php endif ?> id="sub-delete-{$i+1}">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+
+								<?php }else{ ?>
+								<li>
+									<div class="pro-main-imgbox" onclick="click_img({$i+1});">
+										<div class="pro-m-upload">
+											<img id="simr{$i+1}" src="__IMG__/store/imgadd-1.png" alt="" class="hidds">
+										</div>
+										<input type="hidden" name="sub_img_{$i+1}" value="">
+										<input type="file" style="display:none;" name="sub_img_{$i+1}" value="" id="sub_file{$i+1}" placeholder="">
+										<img src="__IMG__/store/imgadd-1.png" alt="">
+									</div>
+
+									<div class="pro-m-delete none" onclick="deleteimg({$i+1},'simr',this,'sub_img_{$i+1}')" id="sub-delete-{$i+1}">
+										<img src="__IMG__/store/delete-picture.png" alt="">
+									</div>
+								</li>
+
+								<?php } ?>
+								<?php } ?>
+
+							</ul>
+						</div>
+
+						<div class="con-descbtn none" id="btn-tabctrl-3">
+							<div class="con-descbtn-l fl fs16" onclick="PreviousCK(2,5,'tabctrl')">上一步</div>
+							<div class="con-descbtn-r fl fs16" onclick="NextCK(4,5,'tabctrl')">保存并下一步</div>
+						</div>
+					</div>
+					<div id="con-tabctrl-4" class="none">
+						<div class="pro-model-con">
+							<div class="pro-model-tit bgcolor">
+								<span class="fs14 c5">商品价格及价格设置</span><span class="fs12 cc" style="margin-left:3%;">（每一款商品至少有一个型号）</span>
+							</div>
+							<div id="pro-model-all">
+								<?php if (count($vo['modellist']) > 0) { foreach ($vo['modellist'] as $k => $v) { ?>
+								<?php /*编辑*/ ?>
+								<div class="pro-model-list bgcolor" id="model-list-<?php echo $k ?>">
+									<input type="hidden" name="mcode[]" value="{$v.c_mcode}">
+									<input type="hidden" id="m_seq_<?php echo $k ?>" value="<?php echo $k ?>">
+									<div class="pro-set-model">
+										<div class="pro-set-box">
+											<div class="fl pro-set-txt c5 fs14">型号</div>
+											<div class="fl pro-set-input">
+												<input type="text" class="pro-txt fs12" id="mname_{$k}" name="mname[]" placeholder="请输入型号" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+												<?php endif ?> value="{$v.c_name}" maxlength="20">
+											</div>
+										</div>
+										<div class="pro-set-box">
+											<div class="fl pro-set-txt c5 fs14">价格</div>
+											<div class="fl pro-set-input">
+												<input type="text" class="pro-txt fs12" id="cprice_{$k}" name="cprice[]" placeholder="请输入价格" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+												<?php endif ?> maxlength="20" value="{$v.c_price}">
+											</div>
+										</div>
+										<div class="pro-set-box">
+											<div class="fl pro-set-txt c5 fs14">库存</div>
+											<div class="fl pro-set-input">
+												<input type="text" class="pro-txt fs12" id="mnum_{$k}" name="mnum[]" placeholder="请输入库存" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+												<?php endif ?> maxlength="20" value="{$v.c_num}">
+											</div>
+										</div>
+									</div>
+
+									<div class="pro-set-del-price">
+										<div class="pro-del-model fl" <?php if ($vo[ 'c_isagent'] !=1 ): ?> onclick="deletemodel(this)"
+											<?php endif ?> >
+											<div class="pro-del-ico fl"><img src="__IMG__/store/btn-del-03.png" alt=""></div>
+											<div class="pro-del-font del-font-1 fl fs14">删除商品型号</div>
+										</div>
+									</div>
+
+								</div>
+								<?php } }else{ ?>
+								<?php /*添加*/ ?>
+								<div class="pro-model-list bgcolor" id="model-list-0">
+									<input type="hidden" name="mcode[]" value="">
+									<input type="hidden" id="m_seq_0" value="0">
+									<div class="pro-set-model">
+										<div class="pro-set-box">
+											<div class="fl pro-set-txt c5 fs14">型号</div>
+											<div class="fl pro-set-input">
+												<input type="text" class="pro-txt fs12" id="mname_0" name="mname[]" placeholder="请输入型号" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+												<?php endif ?> value="" maxlength="20">
+											</div>
+										</div>
+										<div class="pro-set-box">
+											<div class="fl pro-set-txt c5 fs14">价格</div>
+											<div class="fl pro-set-input">
+												<input type="text" class="pro-txt fs12" id="cprice_0" name="cprice[]" placeholder="请输入价格" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+												<?php endif ?> value="" maxlength="20">
+											</div>
+										</div>
+										<div class="pro-set-box">
+											<div class="fl pro-set-txt c5 fs14">库存</div>
+											<div class="fl pro-set-input">
+												<input type="text" class="pro-txt fs12" id="mnum_0" name="mnum[]" placeholder="请输入库存" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+												<?php endif ?> value="" maxlength="20">
+											</div>
+										</div>
+									</div>
+
+									<div class="pro-set-del-price">
+										<div class="pro-del-model fl" <?php if ($vo[ 'c_isagent'] !=1 ): ?> onclick="deletemodel(this)"
+											<?php endif ?> >
+											<div class="pro-del-ico fl"><img src="__IMG__/store/btn-del-03.png" alt=""></div>
+											<div class="pro-del-font del-font-1 fl fs14">删除商品型号</div>
+										</div>
+									</div>
+
+								</div>
+
+								<?php } ?>
+
+							</div>
+							<div class="pro-addmodel-btn">
+								<div class="pro-addmodel">
+									<a href="javascript:;" <?php if ($vo[ 'c_isagent'] !=1 ): ?> onclick="add_modellist()"
+										<?php endif ?> ><img src="__IMG__/store/btn-add-06.png" alt=""></a>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="con-descbtn none" id="btn-tabctrl-4">
+							<div class="con-descbtn-l fl fs16" onclick="PreviousCK(3,5,'tabctrl')">上一步</div>
+							<div class="con-descbtn-r fl fs16" onclick="NextCK(5,5,'tabctrl')">保存并下一步</div>
+						</div>
+					</div>
+					<div id="con-tabctrl-5" class="none">
+						<div class="product-names">
+							<div class="product-font c5 fs14" id="sel-type-f" style="padding-top:1.6%;">分类到</div>
+							<div class="product-text">
+								<select name="categoryid" id="categoryid" <?php if ($vo[ 'c_isagent']==1 ): ?>disabled="disabled"
+									<?php endif ?> class="select-type cc fs12">
+									<?php if (empty($vo['c_categoryid'])) { ?>
+									<option value="">请选择分类</option>
+									<?php } ?>
+									<volist name="category" id="co">
+										<?php if ($vo['c_categoryid'] == $co['c_id']) { ?>
+										<option selected="selected" value="{$co.c_id}">{$co.c_category_name}</option>
+										<?php } else { ?>
+										<option value="{$co.c_id}">{$co.c_category_name}</option>
+										<?php } ?>
+									</volist>
+								</select>
+							</div>
+						</div>
+						<div class="product-names">
+							<div class="product-font c5 fs14">邮费</div>
+							<div class="product-text">
+								<input type="text" class="pro-txt fs12 pro-txt-post" id="freeprice" name="freeprice" placeholder="设置为￥0.00元则为包邮" <?php if ($vo[ 'c_isagent']==1 ): ?>readonly="readonly"
+								<?php endif ?> value="{$vo.c_freeprice}" maxlength="10"><span class="c5 fs12">元</span>
+							</div>
+						</div>
+						<div class="product-names">
+							<div class="product-font fs14" style="color:#47abf7;">上架销售</div>
+							<div class="product-text" id="is-above-under">
+								<input type="checkbox" name="ishow" id="ishow" value="1" <?php if ($vo[ 'c_ishow']==1 ) { ?>checked="checked" <?php } ?> >
+							</div>
+						</div>
+						<div class="con-descbtn block" id="btn-tabctrl-5">
+							<?php if($vo['pcode']!=null){ ?>
+							<div class="con-descbtn-l fl fs16" onclick="previews()">预览</div>
+							<?php }else{ ?>
+							<div class="con-descbtn-l fl fs16" onclick="PreviousCK(4,5,'tabctrl')">上一步</div>
+							<!-- <input type="reset" class="con-descbtn-l fl fs16" style="border:none;display:block;" value="取消">	 -->
+							<?php } ?>
+							<input type="hidden" name="time" value="{$time}">
+							<div class="con-descbtn-r fl fs16" onclick="subform_1()">保存</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+		<include file="Base@Public/pubjs" />
+		<script type="text/javascript" src="__JS__/brows.js"></script>
+		<script type="text/javascript" src="__JS__/imgshow.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				var tabch = $('.tabctrl-con').height();
+				$('.tabctrl-con').height(tabch);
+				$('.tabctrl-link').height(tabch);
+
+				var tabh = $("#tabctrl-hover-1").height();
+				$(".tabctrl-img-link").height(tabh);
+				//styles();
+                /*商品上架没有库存跳转显示库存修改*/
+                var editnum = '<?php echo $editnum; ?>';
+                if(editnum==1000){
+                    settab(4,5,"tabctrl");
+                }
+			}
+			/*样式*/
+			function styles() {
+				var selh = $('.select-type').height();
+				$('#sel-type-f').css('line-height', selh + 'px');
+			}
+			/*选项卡切换*/
+			function settab(n, total, name) {
+				for(var i = 1; i <= total; i++) {
+					if(i <= n) {
+						$('#' + name + '-hover-' + i).css("display", "block");
+						$('#' + name + '-txt-' + i).removeClass("tabctrl-txt");
+						$('#' + name + '-txt-' + i).addClass("tabctrl-txt-hover");
+						if(i == n) {
+							$('#con-' + name + '-' + i).css("display", "block");
+							$('#btn-' + name + '-' + i).css("display", "block");
+							styles();
+						} else {
+							$('#con-' + name + '-' + i).css("display", "none");
+							$('#btn-' + name + '-' + i).css("display", "none");
+						}
+					} else {
+						$('#' + name + '-hover-' + i).css("display", "none");
+						$('#' + name + '-txt-' + i).removeClass("tabctrl-txt-hover");
+						$('#' + name + '-txt-' + i).addClass("tabctrl-txt");
+						if(i < n) {
+							$('#con-' + name + '-' + i).css("display", "block");
+							$('#btn-' + name + '-' + i).css("display", "block");
+							styles();
+						} else {
+							$('#con-' + name + '-' + i).css("display", "none");
+							$('#btn-' + name + '-' + i).css("display", "none");
+						}
+					}
+				}
+			}
+
+			/*商品描述*/
+			function firstUp() {
+				window.location.href = "__APP__/Store/Gmanage/index";
+			}
+			/*改变上传图片数量*/
+			getnums(3, 'mimr', 'mainunum', 'main_img_');
+			getnums(9, 'simr', 'subunum', 'sub_img_');
+			//点击上传图片
+			function clickmain_img(id) {
+				$("input[name=main_img_" + id + "]").val("");
+				var mimr = "__IMG__/store/imgadd-1.png";
+				var diff = id - 1;
+				var mimrr = $('#mimr' + id).attr("src");
+
+				for(var i = 1; i <= id; i++) {
+					if(i == id) {
+						$('#main_file' + id).uploadPreview({
+							Img: 'mimr' + id,
+							Width: 188,
+							Height: 188
+						});
+						var gg = document.getElementById('main_file' + id);
+						gg.click();
+						getnums(3, 'mimr', 'mainunum', 'main_img_');
+						$('.first-mainimg').css('z-index', '98');
+						$('#m-delete-' + id).show();
+					} else {
+						var beforem = $('#mimr' + i).attr("src");
+						if(beforem == mimr) {
+							mui.toast('请按顺序上传商品图片！');
+							break;
+						}
+					}
+				}
+			}
+			/*商品详情图*/
+			//点击上传商品详情图
+			function click_img(id) {
+				$("input[name=sub_img_" + id + "]").val("");
+				var simr = "__IMG__/store/imgadd-1.png";
+				var diffr = id - 1;
+				var simrr = $('#simr' + diffr).attr("src");
+				for(var i = 1; i <= id; i++) {
+					if(i == id) {
+						$('#sub_file' + id).uploadPreview({
+							Img: 'simr' + id,
+							Width: 188,
+							Height: 188
+						});
+						var gg = document.getElementById('sub_file' + id);
+						gg.click();
+						getnums(9, 'simr', 'subunum', 'sub_img_');
+						$('#sub-delete-' + id).show();
+					} else {
+						var beforem = $('#simr' + i).attr("src");
+						if(beforem == simr) {
+							mui.toast('请按顺序上传商品图片！');
+							break;
+						}
+					}
+				}
+			}
+
+			/*删除图片*/
+			function deleteimg(j, m, obj, obj2) {
+				var objj = "sub_img_" + j;
+				var objj2 = "main_img_" + j;
+				if(obj2 == objj2) {
+					if(j == 1 && m == "mimr") {
+						$('.first-mainimg').css('z-index', '99');
+						$('#' + m + '' + j).attr("src", "__IMG__/store/imgadd-1.png");
+						$('.update-cover').css('display', 'none');
+					} else {
+						$('#' + m + '' + j).attr("src", "__IMG__/store/imgadd-1.png");
+					}
+					$("input[name=" + objj2 + "]").val("");
+				} else if(obj2 == objj) {
+					$('#' + m + '' + j).attr("src", "__IMG__/store/imgadd-1.png");
+					$("input[name=" + objj + "]").val("");
+				}
+				$(obj).css('display', 'none');
+				getnums(3, 'mimr', 'mainunum', 'main_img_');
+				getnums(9, 'simr', 'subunum', 'sub_img_');
+			}
+
+			/*获取上传图片个数*/
+			function getnums(obj, names, names2, names3) {
+				var nums = 0;
+				for(var i = 1; i <= obj; i++) {
+					var simr = "__IMG__/store/imgadd-1.png";
+					var simrr = $('#' + names + i).attr("src");
+					if(simr != simrr || $("input[name=" + names3 + i + "]").val() != "") {
+						nums++;
+					}
+				};
+
+				$('#' + names2).text(nums);
+			}
+
+			/*上一步*/
+			function PreviousCK(k, z, ms) {
+				settab(k, z, '' + ms + '');
+				styles();
+			}
+			/*下一步*/
+			function NextCK(g, h, ns) {
+				if(g == 2) {
+					if(checkpro()) {
+						settab(g, h, '' + ns + '');
+					}
+				} else if(g == 3) {
+					if(checkimg('mimr', 3)) {
+						settab(g, h, '' + ns + '');
+					}
+				} else if(g == 4) {
+					if(checkimg('simr', 9)) {
+						settab(g, h, '' + ns + '');
+					}
+				} else if(g == 5) {
+					if(checkmodel()) {
+						settab(g, h, '' + ns + '');
+					} else {
+						return false;
+					}
+				}
+			}
+
+			/*添加型号*/
+			var sign = $('.pro-model-list').length - 1;
+
+			function add_modellist() {
+				sign++;
+				var html = '';
+				html += '<div class="pro-model-list bgcolor" id="model-list-' + sign + '">';
+				html += '<input type="hidden" name="mcode[]" value="">';
+				html += '<input type="hidden" id="m_seq_' + sign + '" value="' + sign + '">';
+				html += '<div class="pro-set-model">';
+				html += '<div class="pro-set-box">';
+				html += '<div class="fl pro-set-txt c5 fs14">型号</div>';
+				html += '<div class="fl pro-set-input">';
+				html += '<input type="text" class="pro-txt fs12" id="mname_' + sign + '" name="mname[]" placeholder="请输入型号" maxlength="20">';
+				html += '</div>';
+				html += '</div>';
+				html += '<div class="pro-set-box">';
+				html += '<div class="fl pro-set-txt c5 fs14">价格</div>';
+				html += '<div class="fl pro-set-input">';
+				html += '<input type="text" class="pro-txt fs12" id="cprice_' + sign + '" name="cprice[]" placeholder="请输入价格">';
+				html += '</div>';
+				html += '</div>';
+				html += '<div class="pro-set-box">';
+				html += '<div class="fl pro-set-txt c5 fs14">库存</div>';
+				html += '<div class="fl pro-set-input">';
+				html += '<input type="text" class="pro-txt fs12" id="mnum_' + sign + '" name="mnum[]" placeholder="请输入库存">';
+				html += '</div>';
+				html += '</div>';
+				html += '</div>';
+				html += '<div id="all-saleprice-' + sign + '">'
+				/*批发价格*/
+				html += '</div>';
+
+				html += '<div class="pro-set-del-price">';
+				html += '<div class="pro-del-model fl" onclick="deletemodel(this);">';
+				html += '<div class="pro-del-ico fl"><img src="__IMG__/store/btn-del-03.png" alt=""></div>';
+				html += '<div class="pro-del-font del-font-1 fl fs14">删除商品型号</div>';
+				html += '</div>';
+				html += '</div>';
+				html += '</div>';
+
+				html += '</div>';
+				$('#pro-model-all').append(html);
+
+				// $('input[name=maxnum[]]').each(function(i) {
+				// 	$(this).blur(function(){
+				// 		if(!checknum($(this).attr('value'))){
+				// 			mui.toast('请填写大于零的整数！');
+				// 			return false;
+				// 		}
+				// 	  	var id = $(this).attr('id');
+				// 	  	var val = $(this).attr('value')-(-1);
+				// 	  	$('#minnum'+id).val(val);
+				// 	});
+				// });
+				// $('input[name=mprice[]]').each(function(i) {
+				// 	$(this).blur(function(){
+				// 		var match =  /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+				// 		if (!match.test($(this).val())) {
+				// 			mui.toast('请输入正确的批发价格！');
+				// 			return false;
+				// 		}
+				// 	});
+				// });
+			}
+
+			/*删除型号*/
+			function deletemodel(tg) {
+				if($('input[name="mname[]"]').size() == 1) {
+					mui.toast('至少保留一个型号！');
+					return false;
+				} else {
+					//$("#model-list-"+id).remove();
+					//alert($(tg).parent().parent().attr("id"));
+					$(tg).parent().parent().remove();
+				}
+			}
+
+			var match = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+			/*完善商品型号信息*/
+			function checkmodel() {
+				var tr = true;
+				$('input[name="mname[]"]').each(function(i) {
+					if(!$(this).val()) {
+						mui.toast('请完善型号名称！');
+						tr = false;
+					}
+				});
+				$('input[name="mnum[]"]').each(function(i) {
+					if(!$(this).val()) {
+						mui.toast('请完善型号库存！');
+						tr = false;
+					}
+				});
+				$('input[name="cprice[]"]').each(function(i) {
+					if(!$(this).val()) {
+						mui.toast('请完善型号价格！');
+						tr = false;
+					} else {
+						if(!match.test($(this).val())) {
+							mui.toast('请输入正确的型号价格！');
+							tr = false;
+
+						};
+					}
+				});
+
+				return tr;
+			}
+			/*完善商品信息*/
+			function checkpro() {
+				if(emptyval($('#cname').val().trim())) {
+					mui.toast('请填写商品名称！');
+					$('#cname').focus();
+					return false;
+				}
+				if(!$('#desc').val()) {
+					mui.toast('请填写商品描述！');
+					$('#desc').focus();
+					return false;
+				}
+				return true;
+			}
+
+			/*完善商品分类等*/
+			function checkpro2() {
+				if(!$('#categoryid').val()) {
+					mui.toast('请选择分类！');
+					$("#categoryid").get(0).options[0].selected = true;
+					return false;
+				};
+				if(!match.test($('#freeprice').val())) {
+					mui.toast('请输入正确的邮费！');
+					$('#freeprice').focus();
+					return false;
+				};
+				return true;
+			}
+
+			// 验证上传图片个数
+			function checkimg(names, total) {
+				var trr = true;
+				var imr = "__ROOT__/APP/Home/View/Public/img/store/imgadd-1.png";
+				for(var i = 1; i <= total; i++) {
+					if(i == 1) {
+						beforei = $('#' + names + i).attr("src");
+						if(beforei == imr) {
+							mui.toast('商品主图至少需要上传一个！');
+							trr = false;
+							break;
+						}
+					}
+				};
+				return trr;
+			}
+
+			/*提交数据*/
+			function subform_1() {
+				if(checkpro2()) {
+					$('#form1').submit();
+				}
+			}
+
+			/*编辑预览*/
+			function previews() {
+				window.location.href = "__URL__/pdetail?pcode='<?php echo $vo.pcode ?>'";
+			}
+		</script>
+		<include file="Common/foot" />
+	</body>
+
+</html>

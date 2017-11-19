@@ -1,0 +1,135 @@
+<?php
+/**
+ * 	微商扫码产品管理
+ *
+ */
+class NewStore {
+
+    /**
+     * 选取商品列表
+     * @param
+     *
+    */
+    function selectProduct($parr){
+
+        $ucode =$parr['ucode'];
+        if(empty($ucode)){
+            return Message(1009,'请先登录');
+        }
+        $pageSize =10;
+
+        if (empty($parr['pageindex'])) {
+            $pageIndex = 1;
+        } else {
+            $pageIndex = $parr['pageindex'];
+        }
+        $countPage = ($pageIndex - 1) * $pageSize;
+
+        $w['c_source'] =1; //线上商家的商品
+        $w['c_isdele'] =1; //不删除
+        $w['c_ishow'] =1; //上架
+        $w['c_ucode']=$ucode;
+        $pcodes =M('Product')->where($w)->field('c_pcode')->select();
+        if(!$pcodes){
+            return Message(1001,'暂时没有商品信息哦');
+        }
+        $where['c_pcode'] =array("in",arr_to_str($pcodes));
+        $list =M('Product_model')->where($where)->limit($countPage,$pageSize)->select();
+        $count =M('Product_model')->where($where)->count();
+
+        $pageCount = ceil($count / $pageSize);
+        if (!$list) {
+            $list = array();
+            $arr = Page($pageIndex, $pageCount, $count, $list);
+            return MessageInfo(0, "查询成功", $arr);
+        }
+
+        foreach($list as $key =>$val){
+            $info =M('Product')->where(array('c_pcode'=>$val['c_pcode']))->find();
+            $data[$key]['c_pcode']=$val['c_pcode'];
+            $data[$key]['c_mcode']=$val['c_mcode'];
+            $data[$key]['c_mname'] =$val['c_name'];  //型号名称
+            $data[$key]['c_name'] =$info['c_name']; //商品名称
+            $data[$key]['c_desc'] =$info['c_desc']; //商品描述
+            $data[$key]['c_img'] =GetHost().'/'.$info['c_pimg']; //商品图片
+            $data[$key]['c_price'] =$info['c_price'];//商品价格
+            $data[$key]['c_num'] =$info['c_num'];// 商品库存
+            $data[$key]['c_salenum'] =$info['c_salenum']; // 销量
+        }
+
+        $arr = Page($pageIndex, $pageCount, $count, $data);
+        return MessageInfo(0,'查询成功',$arr);
+
+
+    }
+
+    /**
+     * 添加商品
+     * @param  ucode,
+    */
+
+    function addProduct($parr){
+        $ucode =$parr['ucode'];
+        $pcode =$parr['pcode'];
+        $mcode =$parr['mcode'];
+
+        if(empty($ucode)){
+            return Message(1009,'请先登录');
+        }
+        if(empty($pcode)){
+            return Message(1001,'产品code不能为空');
+        }
+        $w['c_ucode']=$ucode;
+        $w['c_pcode']=$pcode;
+        $info =M('Product') ->where($w)->find();
+
+
+
+
+
+    }
+
+
+
+    /**商品列表(展示精品商品)
+     * ucode 商家用户编码
+     *
+    */
+
+    function getProList($parr){
+        $ucode =$parr['ucode'];
+
+        if(empty($ucode)){
+            return Message(1009,'请先登录');
+        }
+        $pageSize =10;
+
+        if (empty($parr['pageindex'])) {
+            $pageIndex = 1;
+        } else {
+            $pageIndex = $parr['pageindex'];
+        }
+        $countPage = ($pageIndex - 1) * $pageSize;
+        $where['c_isdel'] = 0;
+        $where['c_num'] = array("GT",0);
+        $where['c_ucode'] =$ucode;
+
+        $list =M('Store_scan_product')->where($where)->limit($countPage, $pageSize)->select();
+        $count = M('Store_scan_product')->where($where)->count();
+        $pageCount = ceil($count / $pageSize);
+        if (!$list) {
+            $list = array();
+            $data = Page($pageIndex, $pageCount, $count, $list);
+            return MessageInfo(0, "查询成功", $data);
+        }
+
+        foreach($list as $key=> $value){
+            $data['list'][$key]['headimg'] =GetHost() . '/' .$value['c_headimg'];
+            $data['list'][$key]['ucode'] =$value['c_ucode'];
+        }
+
+        $data = Page($pageIndex, $pageCount, $count, $list);
+        return MessageInfo(0,'查询成功',$data);
+    }
+
+}

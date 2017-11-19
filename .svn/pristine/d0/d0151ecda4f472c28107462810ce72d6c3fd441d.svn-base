@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>绑定微信</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<include file="Base@Public/header" />
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css?v=20161228">
+<style>
+	.info-box {padding: 3% 4%;}
+</style>
+
+</head>
+<body>
+<div class="wrap-page" style="padding-bottom: 6%;">
+<include file="Base@Public/pubheader" />
+	<div class="mui-content bgcolor">
+	<form name="form1" id="form1" action="" method="post">
+		<div class="binding-intro">
+			<div class="binding-ico"><img src="__IMG__/newb010.png" alt=""></div>
+			<!--<div class="binding-font fs14 c5">绑定微信，提现2小时内到账</div>-->
+			<div class="binding-font fs12 c9">微信支付提现单日累计提现金额不可超过20000元</div>
+		</div>
+		<div class="info-box fs13 <?php if(!empty($info['c_uname'])){ ?> bggray <?php }else{ ?> bgcolor <?php } ?>">
+			<div class="yourname fl c9">真实姓名</div>
+			<div class="yourname-text fl c9"><input class="fs12" type="text" placeholder="请输入真实姓名" name="uname" id="uname" <?php if (!empty($info['c_uname'])): ?> disabled="disabled" style="background:#f4f4f4;"<?php endif ?> value="<?php echo !empty($info['c_uname']) ? $info['c_uname'] : '';?>"></div>
+		</div>
+		<div class="info-box fs13 <?php if(!empty($info['c_carid'])){ ?> bggray <?php }else{ ?> bgcolor <?php } ?>">
+			<div class="yourname fl c9">身份证号</div>
+			<div class="yourname-text fl c9"><input class="fs12" type="text" placeholder="请输入真实身份证" name="carid" id="carid" <?php if (!empty($info['c_carid'])): ?> disabled="disabled" style="background:#f4f4f4;" <?php endif ?> value="<?php echo !empty($info['c_carid']) ? $info['c_carid'] : '';?>"></div>
+		</div>
+		<div class="info-box bgcolor fs14">
+			<div class="yourname fl c9">微信姓名</div>
+			<div class="yourname-text fl c5"><input type="text" placeholder="请输入微信真实姓名" name="wxname" id="wxname" class="bgcolor fs12" value="<?php echo !empty($info['c_wxname']) ? $info['c_wxname'] : $info['c_uname'];?>" <?php if (!empty($info['c_wxname']) || !empty($info['c_uname'])): ?> disabled="disabled" class="bggray" <?php endif ?>></div>
+		</div>
+		<div class="info-box bgcolor fs13">
+			<div class="yourname fl c9">微信账号</div>
+			<div class="yourname-text fl c5"><input type="text" placeholder="请输入微信账号" name="wxcard" id="wxcard" class="bgcolor fs12" value="<?php echo !empty($info['c_wxcard']) ? $info['c_wxcard'] : '';?>" <?php if (!empty($info['c_wxcard'])): ?> disabled="disabled" class="bggray" <?php endif ?>></div>
+		</div>
+		<div class="bind-info-desc fs12 c9">*如果您已完成<span>VIP小蜜</span>微信公众号上小蜜授权操作，请输入已绑定的微信账号和微信真实姓名</div>
+		<div class="bind-info-desc fs12 c9">*如果您未完成<span>VIP小蜜</span>微信公众号上小蜜授权操作，请输入需要绑定的微信账号和微信真实姓名，然后在<span>VIP小蜜</span>微信公众号上进行授权操作</div>
+		<!-- <div class="bind-info-btn c5 fs14 divre">
+			<div class="divab btnfont">立即绑定</div>
+			<img src="__IMG__/newb017.png" alt="">
+		</div>
+		<div class="bind-info-btn cf fs14 divre">
+			<div class="divab btnfont">立即绑定</div>
+			<img src="__IMG__/newb018.png" alt="">
+		</div> -->
+
+		<?php if(!empty($info['c_wxname']) && !empty($info['c_wxcard'])){ ?>
+		<div class="tijiao-sub" id="default_btn_2">
+			<button type="button" class="sub-btns sub-btns-gray fs15">立即绑定</button>
+		</div>
+		<?php }else{ ?>
+		<div class="tijiao-sub" id="default_btn">
+			<button type="button" class="sub-btns fs15">立即绑定</button>
+		</div>
+		<?php } ?>
+
+	</form>
+	</div>
+
+</div>
+
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/veryfy.js?v=3.0.0"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var btnh = $('.bind-info-btn').height(),
+		fonth = btnh*78/100;
+	$('.bind-info-btn').height(btnh);
+	$('.btnfont').css("line-height",fonth+"px");
+
+	// if($('#wxcard').val()=="" || $('#wxname').val()==""){
+	// 	$('#default_btn_2').show();
+	// 	$('#default_btn').hide();
+	// }else{
+	// 	$('#default_btn_2').hide();
+	// 	$('#default_btn').show();
+	// }
+	// $('#wxcard').focus(function(){
+	// 	$('#default_btn_2').hide();
+	// 	$('#default_btn').show();
+	// });
+	// $('#wxname').focus(function(){
+	// 	$('#default_btn_2').hide();
+	// 	$('#default_btn').show();
+	// });
+	
+	var ynh = $('.yourname-text').height();
+	$('.yourname').css('line-height',ynh+'px');
+	$('.yourname-text').css('line-height',ynh+'px');
+}
+
+var iswx_auth = '<?php echo $info["iswx_auth"] ?>';
+mui('#default_btn').on('tap','.sub-btns',function(){
+	if(iswx_auth==0){
+		mui.openWindow({url:'__URL__/bindwxintro',id:'bindwxintro'});
+		return;
+	}
+	// var uname = $('#uname').val();
+	// var carid = $('#carid').val();
+	var wxcard = $('#wxcard').val();
+	var wxname = $('#wxname').val();
+	var reg = /^[\u4e00-\u9fa5 ]{2,20}$/;
+	// if(reg.test($('input[name=uname]').val()) === false) {
+	//     mui.toast("姓名输入不合法");
+	//     return  false;
+ //    }
+ //    if(checkIdcard($('input[name=carid]').val()) === false) {
+ //        mui.toast("身份证输入不合法");
+ //        return  false;
+ //    }
+	if(reg.test($('input[name=wxname]').val()) === false) {
+	    mui.toast("微信姓名输入不合法");
+	    return  false;
+    }
+    if(wxcard==""){
+	    mui.toast("请输入微信账号");
+	    return  false;
+    }
+	$.post('__URL__/bindwxbank', {wxcard:wxcard,wxname:wxname}, function(json) {
+		var msg = eval(json);
+		if (msg.code == 0) {
+			mui.toast(msg.msg);
+			setTimeout(function() {
+					mui.openWindow({url:'__URL__/withdraw?sign=2',id:'withdraw'});
+			},2000);
+		} else {
+			mui.toast(msg.msg);
+		}
+	});	
+});
+
+/*已绑定提醒*/
+mui('#default_btn_2').on('tap','.sub-btns',function(){
+	mui.alert("微信账号一经绑定不可自助更改，如需更改，请联系小蜜客服400-9603-400");
+	return false;
+});
+
+</script>
+
+<include file="Common/footer"/>
+</body>
+</html>

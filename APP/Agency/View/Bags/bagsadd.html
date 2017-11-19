@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>{$webtit}</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/bags/index.css" />
+</head>
+<body class="bgcolor" style="padding-bottom:10%;">
+	<div class="wrap-page bgcolor">
+		<include file="Base@Public/pubheader" />
+		<form action="" id="formdata" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="pid" value="{$pid}">
+		<div class="mui-content bgcolor">
+			<div class="divtab addli">
+				<div class="divtab fl addleft c3 fs14">品牌名称</div>
+				<input type="text" name="name" value="{$data['c_bag_name']}" placeholder="请输入品牌名称" class="divtab fl addright c9 fs14">
+			</div>
+			<div class="divtab addli">
+				<div class="divtab fl addleft c3 fs14">品牌介绍</div>
+				<textarea name="desc" rows="6" maxlength="120" placeholder="请输入品牌介绍(限120字)" class="divtab addtxarea c9 fs14">{$data['c_bag_desc']}</textarea>
+			</div>
+			<div class="divtab addli addli1">
+				<div class="divtab fl addleft c3 fs14">品牌相册</div>
+				<div class="divtab fl addright c9 fs14"><span id="imgnum"><?php echo count($data['imglist']); ?></span>/9张</div>
+			</div>
+			<div class="upload-img">
+				<div class="productmodular-bottom">
+					<?php foreach ($data['imglist'] as $k => $v) { ?>
+					<div class="productmodular-img" id="imgmodular{$v['c_id']}">
+						<div class="productmodular-position" id="delimg_{$v['c_id']}" title="{$v['c_id']}">
+							<img src="__COMMON__/img/ca.png" alt="" />
+						</div>
+						<img src="{$v['c_img']}" id="imgpath{$v['c_id']}">
+						<input type="file" name="imgfile{$v['c_id']}" value="" id="imgfile{$v['c_id']}" class="filedj" title="{$v['c_id']}">
+						<input type="hidden" name="imglist_{$v['c_id']}" value="{$v['c_img']}" id="imgfile_val_{$v['c_id']}">
+					</div>
+					<?php } ?>
+					<div class="productmodular-img" id="imgmodular0">
+						<div style="display:none;" class="productmodular-position" id="delimg_0">
+							<img src="__COMMON__/img/ca.png" alt="" />
+						</div>
+						<img src="__IMG__/bags/der_img_add.png" id="imgpath0">
+						<input type="file" name="imgfile0" value="" id="imgfile0">
+						<input type="hidden" name="imglist_0" value="" id="imgfile_val_0">
+					</div>
+				</div>
+			</div>
+			<div class="divtab addli addli1">
+				<input type="hidden" id="upstate" name="state" value="{$data['c_bag_status']}">
+				<div class="divtab fl addleft c3 fs14">上架品牌</div>
+				<div class="divtab fr offonimg c3 fs14">
+				<?php if ($data['c_bag_status'] == 1) { ?>
+					<img id="opimg" src="__IMG__/bags/on.png" alt="">
+				<?php } else { ?>
+					<img id="opimg" src="__IMG__/bags/off.png" alt="">
+				<?php } ?>
+				</div>	
+			</div>
+			<!-- <div class="divtab addsub cf fs14" id="addsave_btn">保存</div> -->
+		</div>
+		</form>
+	</div>
+<include file="Base@Public/pubjs" />
+<script type="text/javascript" src="__COMMON__/js/ajaxfileupload.js"></script>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		ChRightText("保存");
+		yangshi();
+	}
+
+	//上下架点击
+	mui('.mui-content').on('tap', '.offonimg', function() {
+		var ctype = $('#upstate').val();
+		if (ctype == 1) {   //下架
+			$('#upstate').val(2);
+			$('#opimg').attr('src', '__IMG__/bags/off.png');
+		} else {
+			$('#upstate').val(1);
+			$('#opimg').attr('src', '__IMG__/bags/on.png');
+		}	
+	});
+
+	//页面加载完js改变样式
+	function yangshi() {
+		$('.productmodular-img').height($('.productmodular-img').width());
+		$('.productmodular-position').height($('.productmodular-position').width());
+		$('.productmodular-img input[type="file"]').width($('.productmodular-img').width());
+		$('.productmodular-img input[type="file"]').height($('.productmodular-img').width());
+
+		var ph = $('.i-position-l').height();
+		$('.i-position-c').css('line-height', ph + 'px');
+	}
+	/*上传图片*/
+	mui('.upload-img').on('tap', '#imgfile0', function() {
+		var obj = $(this);
+		var idd = $('.productmodular-img').size();
+		if(idd > 9) {
+			mui.toast('最多上传9张图片！');
+			return;
+		}
+		document.getElementById("imgfile0").onchange = function() {
+			tempUploadimg('imgfile0', 'imgpath0', 'imgfile_val_0', 0, obj);
+		}
+	});
+	mui('.upload-img').on('tap', '#delimg_0', function() {
+		deleteimg(0, $(this));
+	});
+
+	mui.each($('.filedj'),function(){
+	    var titid = $(this).attr('title');
+		var obj = $(this);
+		document.getElementById("imgfile" + titid).onchange = function() {
+			tempUploadimg('imgfile' + titid, 'imgpath' + titid, 'imgfile_val_' + titid, titid, obj);
+		}
+    });
+	mui.each($('.productmodular-position'),function(){
+        var titid = $(this).attr('title');
+		mui('#imgmodular' + titid).on('tap', '#delimg_' + titid, function() {
+			deleteimg(titid, $(this));
+		});
+    });
+
+	var valid = 0;
+	/*上传图片*/
+	function dianji(obj) {
+		valid++;
+		var html = '';
+		html += '<div class="productmodular-img"  id="imgmodular' + valid + '">';
+		html += '<div style="display:none;" class="productmodular-position" id="delimg_' + valid + '">';
+		html += '<img src="__COMMON__/img/ca.png" alt="" />';
+		html += '</div>';
+		html += '<img src="__IMG__/bags/der_img_add.png" id="imgpath' + valid + '">';
+		html += '<input type="file" name="imgfile' + valid + '" value="" id="imgfile' + valid + '">';
+		html += '<input type="hidden" name="imglist_'+valid+'" value="" id="imgfile_val_' + valid + '">';
+		html += '</div>';
+
+		$('.productmodular-bottom').append(html);
+		$('#imgmodular' + valid).show();
+		yangshi();		
+
+		eventupload(valid);
+		var imgnums = parseInt($('#imgnum').text())-(-1);
+		$('#imgnum').text(imgnums);
+	}
+
+	function eventupload(id) {
+		mui('#imgmodular' + id).on('tap', '#imgfile' + id, function() {
+			var idd = $('.productmodular-img').size();				
+			if(idd > 9) {
+				mui.toast('最多上传9张图片！');
+				return;
+			}
+			var obj = $(this);
+			document.getElementById("imgfile" + id).onchange = function() {
+				tempUploadimg('imgfile' + id, 'imgpath' + id, 'imgfile_val_' + id, id, obj);
+			}
+		});
+		mui('#imgmodular' + id).on('tap', '#delimg_' + id, function() {
+			deleteimg(id, $(this));
+		});
+	}
+
+	/*清空图片*/
+	function deleteimg(id, obj) {
+		delUploadimg($('#imgfile_val_' + id).val());
+		$(obj).parent().remove();
+		$('#imgfile_val_' + id).val("");
+		$('#imgfile' + id).val("");
+		$('#imgfile' + id).removeAttr("disabled");
+		$('#imgpath' + id).attr("src", "__IMG__/district_adv_add2x.png");
+		$('#delimg_' + id).css("display", "none");
+		var imgnums = parseInt($('#imgnum').text())-1;
+		$('#imgnum').text(imgnums);
+	}
+
+	//提交表单
+	function  rightcaozuo() {
+		putform();
+	}
+
+	var resign = true;
+	function putform() {
+		if (resign) {
+			resign = false;
+			var	attrbul = getFormAttrs('formdata');
+			$.ajax({
+				type: "POST",
+			    url: '__URL__/saveBagsInfo',		
+				data: "attrbul=" + JSON.stringify(attrbul),
+				dataType: "json",
+				success: function(json) {
+						var msg = eval(json);
+						if (msg.code == 0) {
+							mui.toast('保存成功');
+							setTimeout(function () {
+								mui.openWindow({url:'__URL__/index',id:"bagsindex"});
+							}, 2000);
+						} else {
+							mui.toast(msg.msg);	
+							resign = true;				
+						}
+					}
+			});
+		}	
+	}
+
+</script>
+
+</html>

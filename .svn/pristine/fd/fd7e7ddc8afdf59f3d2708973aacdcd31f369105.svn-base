@@ -1,0 +1,29 @@
+/*精品商品*/
+img{width: 100%;height: 100%;}
+/*头部*/
+.scang-top{}
+.scang-empty{width: 30%;text-align: center;top: 50%; left: 50%;-webkit-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}
+.scang-sjinfo{bottom:20%;right:5%;width: 10%;}
+
+
+/*数据列表*/
+.scang-data{}
+.scang-li{ background: #fff; border-radius: 8px;-moz-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;margin: 2% auto;padding: 4% 3%; width: 94%;}
+.scang-libox{}
+.scang-img{width: 25%;}
+.scang-info{width: 72%;margin-left: 3%;}
+.scang-proname{}
+.scang-opration{vertical-align: text-bottom;}
+.scang-price{width: 35%;vertical-align: text-bottom;}
+.scang-free{width: 25%;vertical-align: text-bottom;}
+.scang-probtn{width: 30%;vertical-align: text-bottom;}
+.scang-add-sub{}
+
+.scang-bottom{position: fixed;bottom: 0;width: 100%;margin: auto;left: 0;right: 0;max-width: 720px;overflow: hidden;}
+.scang-address{width: 75%;background:#494748;overflow: hidden;vertical-align: text-top;}
+.scang-addricon{width: 7%;margin-left: 3%;}
+.scang-addrinfo{width: 87%;margin-left: 3%;}
+.scang-paybtn{width: 25%;}
+
+
+

@@ -1,0 +1,11 @@
+<header class="xiaomi-bar xiaomi-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left cf fs28" id="muinav_return"></a>
+    <div class="xm-nav-close cf fs14 fl none">关闭</div>
+    <div class="xm-nav-title cf fs14 fov" id="self-nav-title"></div>
+    <div class="xm-bar-nav-right cf fr fs13" id="self-nav-right"></div>
+</header>
+<script type="text/javascript">
+document.getElementById("self-nav-title").innerHTML = document.title;
+</script>
+
+

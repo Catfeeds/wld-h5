@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>批量管理</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/gmanage/index.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/gcategory/index.css" />
+</head>
+<body class="bgeb">
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<div class="wrap-page" style="margin-bottom: 15%;">
+		<include file="Base@Public/pubheader" />
+			<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+			<input type="hidden" name="statu" id="statu" value="{$statu}">
+			<input type="hidden" name="categoryid" id="categoryid" value="{$categoryid}" />
+			<div class="mui-content">
+				<!-- 数据列表部分 -->
+				<div id="data_list">
+					<ul id="data_list_ul">
+						<!--<li class="bhgoods-item">-->
+							<!--<div class="bh-checkradio fl">-->
+								<!--<input type="checkbox" id="itemgoods1" name="itemgoods" />-->
+							<!--</div>-->
+							<!--<div class="bhgoods-img fl divre">-->
+								<!--<div class="pro-img"><img src="__IMG__/index/tu14.jpg"></div>-->
+								 <!--<p class="hot-con hot-bg02 fs12 divab">店长推荐</p> -->
+							<!--</div>-->
+							<!--<div class="mgoods-info fl">-->
+								<!--<div class="pro-text fs14 clamp2 c3">是根据打火锅就打发哈结果回调非结构化地方就换个地方结核杆菌的返回给的非结构化</div>-->
+								<!--<p class="pro-price fs14">￥10.00</p>-->
+								<!--<div class="sale-stock c3 fs11 divtab">-->
+									<!--<span class="fl">销量<font>235</font></span>-->
+									<!--<span class="fr">库存<font>88</font></span>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li class="bhgoods-item">-->
+							<!--<div class="bh-checkradio fl">-->
+								<!--<input type="checkbox" id="itemgoods2" name="itemgoods" />-->
+							<!--</div>-->
+							<!--<div class="bhgoods-img fl divre">-->
+								<!--<div class="pro-img"><img src="__IMG__/index/tu14.jpg"></div>							-->
+								<!--<p class="hot-con hot-bg02 fs12 divab">店长推荐</p>-->
+							<!--</div>-->
+							<!--<div class="mgoods-info fl">-->
+								<!--<div class="pro-text fs14 clamp2 c3">是根据打火锅就打发哈结果回调非结构化地方就换个地方结核杆菌的返回给的非结构化</div>-->
+								<!--<p class="pro-price fs14">￥10.00</p>-->
+								<!--<div class="sale-stock c3 fs11 divtab">-->
+									<!--<span class="fl">销量<font>235</font></span>-->
+									<!--<span class="fr">库存<font>88</font></span>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</li>-->
+					</ul>
+					<div id="console"></div>
+				</div>
+
+				<!-- 商品分类 -->
+				<div class="pup-bg"></div>
+				<div class="batch-con none">
+					<div class="batch-type">
+						<ul id="category_url">
+							<volist name="categorylist" id="vo">
+								<li>
+									<div class="bh-checkbox fl">
+										<input type="radio" id="bhtype_{$vo['c_id']}" name="bhtype" value="{$vo['c_id']}" />
+									</div>
+									<div class="bh-gdname fl fs14">{$vo['c_category_name']}</div>
+									<div class="bh-gdnum fl fs14">{$vo['total']}件商品</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+					<div class="add-bhtype">
+						<div class="bhadd-img"><img src="__IMG__/gmanage/spgl_icon_add.png"></div>
+						<span class="fs14 cb">新建分类</span>
+					</div>
+
+					<div class="bhtype-operate divtab">
+						<div class="bhtype-cancel fs16 c9">取消</div>
+						<div class="bhtype-confirm fs16 c3">确认</div>
+					</div>
+				</div>
+
+				<!-- 底部菜单 -->
+				<div class="menu-bottom">
+					<ul>
+						<li>
+							<?php if($statu==1){ ?>
+								<div class="fs16" id="undergoods1">下架</div>
+							<?php }else if($statu==2){ ?>
+								<div class="fs16" id="undergoods2">上架</div>
+							<?php }else if($statu==3){ ?>
+								<div class="fs16" id="removegoods">移除</div>
+							<?php } ?>
+						</li>
+						<li>
+							<div class="fs16" id="categoryed">分类至</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--<div class="pup-bg add-gcate-bg"></div>-->
+			<div class="add-gcate-con" style="top: 15%;">
+				<div class="gcate-tt c3 fs14 divtab">新建分类</div>
+				<div class="gcate-name divtab">
+					<input type="text" maxlength="8" class="fs16 c0" value="" id="categoryname" name="categoryname" placeholder="请输入分类名称">
+					<span id="error_msg" class="fs12">分类名称不能为空，且不能超出8个字</span>
+				</div>
+				<div class="gcvate-btn divtab fs14">
+					<span class="c9 s-btncancel">取消</span>
+					<input type="hidden" value="0" id="action_id">
+					<input type="hidden" value="" id="cateid">
+					<span class="c3 s-btnsave">保存</span>
+				</div>
+			</div>
+
+		</div>
+		<include file="Base@Public/pubjs" />
+	</form>
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$(".pup-bg").height($(document).height());
+		yangshi();
+        styles();
+        var categoryname = '<?php echo $name; ?>';
+        if(categoryname){
+            document.title = categoryname;
+            $('#self-nav-title').text(categoryname);
+        }
+	}
+
+	//js改变样式
+	function yangshi() {
+		//商品
+		var pImg = $('.pro-img').width();
+		$('.pro-img').height(pImg);
+		$('.pro-text').css('height', pImg*0.4 +'px');
+		$('.bh-checkradio').css('padding-top', pImg*0.35 +'px');
+		$('.bh-checkradio input').css('height', $('.bh-checkradio input').width() + 'px');
+		$('.pro-text').css('height', pImg*0.4 +'px');
+		$('.pro-text').css('line-height', $('.pro-text').height()* 0.5 +'px');
+		$('.pro-price').css('line-height', pImg*0.4 +'px');
+		$('.sale-stock').css('line-height', pImg*0.2 +'px');
+	}
+
+	//商品分类样式
+	function styles() {
+		var tpImg = $('.bh-checkbox input').width();
+		$('.bh-checkbox input').height(tpImg);
+		//$('.bh-gdname').css('line-height', tpImg +'px');
+		//$('.bh-gdnum').css('line-height', tpImg +'px');
+		$('.add-bhtype').css('line-height', $('.bhadd-img').width() +'px');
+
+		var tpbh = $('.batch-type ul li').height();
+		$('.batch-type').css('height', tpbh*8 +'px');
+	}
+
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+    getdatalist();
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/getUpDownList?isshow="+$('#statu').val()+"&categoryid="+$('#categoryid').val()+"&pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list_ul').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {
+                            //数据为空展示
+                            _html += '<div class="data-empty">';
+                            _html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+                            _html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+                            _html += '</div>';
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+                            	_html+='<li class="bhgoods-item">';
+                            	_html+='<input type="hidden" value="'+dataarr["c_num"]+'" id="cnum_'+dataarr["c_id"]+'">';
+                                _html+='<div class="bh-checkradio fl">';
+                                _html+='<input type="checkbox" id="itemgoods'+dataarr["c_id"]+'" name="itemgoods" value="'+dataarr["c_id"]+'" />';
+                                _html+='</div>';
+                                _html+='<div class="bhgoods-img fl divre">';
+                                _html+='<div class="pro-img"><img src="'+dataarr["c_pimg"]+'"></div>';
+                                if(dataarr["c_isshoptuijian"]==1){
+                                    _html+='<p class="hot-con hot-bg02 fs12 divab">店长推荐</p>';
+								}
+                                var categoryname = '<?php echo $name; ?>';
+                                if(!categoryname){
+                                    if(dataarr["c_ishow"]==2){
+                                        _html+='<div class="under-shelf divab fs16">已下架</div>';
+                                    }
+								}
+                                _html+='</div>';
+                                _html+='<div class="mgoods-info fl">';
+                                _html+='<div class="pro-text fs14 clamp2 c3">'+dataarr["c_name"]+'</div>';
+                                _html+='<p class="pro-price fs14">￥'+dataarr["c_price"]+'</p>';
+                                _html+='<div class="sale-stock c3 fs11 divtab">';
+                                _html+='<span class="fl">销量<font>'+dataarr["c_salesnum"]+'</font></span>';
+                                _html+='<span class="fr">库存<font>'+dataarr["c_num"]+'</font></span>';
+                                _html+='</div>';
+                                _html+='</div>';
+                                _html+='</li>';
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list_ul').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+                if (emptyval) {
+
+				}
+			}
+		});
+	}
+
+    //分类至弹窗
+    mui('.mui-content').on('tap', '#categoryed', function() {
+        if(!$('input[name="itemgoods"]').is(":checked")){
+            mui.toast("请选择商品");
+            return;
+		}
+        $('.pup-bg').fadeIn(200);
+        $('.batch-con').slideDown();
+        styles();
+    });
+    //下架
+    mui('.mui-content').on('tap', '#undergoods2', function() {
+        updownGoods(1);
+    });
+    //上架
+    mui('.mui-content').on('tap', '#undergoods1', function() {
+        updownGoods(2);
+    });
+    //移除
+    mui('.mui-content').on('tap', '#removegoods', function() {
+    	if(!$('input[name="itemgoods"]').is(":checked")){
+            mui.toast("请选择商品");
+            return;
+		}
+        mui.confirm('确定将商品从当前分类中移除，移除后商品不会彻底删除', '提示', ['取消', '确认'], function(e) {
+            e.index == 0 ? "" : docategory(0);
+        }, 'div');
+    });
+    //取消
+    mui('.mui-content').on('tap', '.bhtype-cancel', function() {
+        $('.pup-bg').fadeOut(200);
+        $('.batch-con').slideUp();
+        $('.add-gcate-con').css("display","none");
+    });
+    //确认
+    mui('.mui-content').on('tap', '.bhtype-confirm', function() {
+        /*分类至*/
+        docategory();
+    });
+    //新建分类
+    mui('.mui-content').on('tap', '.add-bhtype', function() {
+//        $('.add-gcate-bg').css("display","block");
+        $('.add-gcate-con').css("display","block");
+//        $('.add-gcate-bg').height($(document).height());
+
+    });
+    /*取消*/
+    mui('.gcvate-btn').on('tap','.s-btncancel',function () {
+//        $('.add-gcate-bg').css("display","none");
+        $('.add-gcate-con').css("display","none");
+    });
+    /*保存分类*/
+    mui('.gcvate-btn').on('tap','.s-btnsave',function () {
+        putform();
+    });
+    var resign = true;
+    function putform() {
+        if (resign) {
+            var _html="";
+            var cname = $('#categoryname').val();
+            var length = $('#categoryname').val().trim().length;
+            if(length == 0 || length > 8){
+                $('#categoryname').next().css("visibility","visible");
+                resign = true;
+            }else{
+                $('#categoryname').next().css("visibility","hidden");
+            }
+            resign = false;
+            var geturl = "__APP__/Store/Gcategory/createCategory";
+            $.post(geturl, {
+                name:cname
+            }, function(obj) {
+                var result = eval(obj);
+                if(result['code'] == 0) {
+					mui.alert("添加成功！");
+                    $('.add-gcate-bg').css("display","none");
+                    $('.add-gcate-con').css("display","none");
+                    _html+='<li>';
+                    _html+='<div class="bh-checkbox fl">';
+                    _html+='<input type="radio" id="bhtype_'+result["data"]["c_id"]+'" name="bhtype" value="'+result["data"]["c_id"]+'" />';
+                    _html+='</div>';
+                    _html+='<div class="bh-gdname fl fs14">'+result["data"]["c_category_name"]+'</div>';
+                    _html+='<div class="bh-gdnum fl fs14">'+result["data"]["total"]+'件商品</div>';
+                    _html+='</li>';
+                    $('#category_url').prepend(_html);
+                } else {
+                    mui.alert(result.msg);
+                    resign = true;
+                }
+            });
+        }
+    }
+
+    //上下架
+    var clickshow = true;
+    function updownGoods(isshow) {
+        if(clickshow){
+            var ids =[];
+            $('input[name="itemgoods"]:checked').each(function(){
+                ids.push($(this).val());
+            });
+            if(ids.length<=0){
+                mui.toast("请选择商品");
+                return;
+            }
+            clickshow = false;
+            $.post("__URL__/allShowProduct",{isshow:isshow,ids:ids},function(obj){
+                var data = eval(obj);
+                if(data['code']==0){
+                    if(isshow==1){
+                        mui.toast("商品已上架");
+                    }else{
+                        mui.toast("商品已下架");
+                    }
+                    setTimeout(function () {
+                        mui.openWindow({
+                            url: '',
+                            id: ''
+                        });
+                    }, 1000);
+                }else{
+                    mui.toast(data['msg']);
+                    clickshow = true;
+                }
+            });
+        }
+    }
+    //分类至
+    var clicktype = true;
+    function docategory(val) {
+        if(clicktype){
+            var ids =[];
+            $('input[name="itemgoods"]:checked').each(function(){
+                ids.push($(this).val());
+            });
+            if(ids.length<=0){
+                mui.toast("请选择商品");
+                return;
+            }
+            var id;/*分类id，0未分类*/
+            if(val=="0"){
+				id = "0";
+                if($('#categoryid').val()==0){
+                    mui.toast("未分类商品不能移除");
+                    return;
+                }
+			}else{
+                id = $('input[name="bhtype"]:checked').val();
+                if(!id){
+                    mui.toast("请选择分类");
+                    return;
+                }
+            }
+            if(id == $('#categoryid').val()){
+                mui.toast("不能分类至当前分类下");
+                return;
+			}
+            clicktype = false;
+            $.post("__APP__/Store/Gcategory/doCategory",{ids:ids,id:id},function(obj){
+                var data = eval(obj);
+                if(data['code']==0){
+                    clicktype = true;
+                    var _html = "";
+                    /*分类管理列表*/
+					if($('#statu').val()==3){
+					    if(val==0){
+                            mui.toast("移除成功");
+						}else{
+					        mui.toast("分类成功");
+						}
+                        $('input[name="itemgoods"]:checked').each(function(){
+                            $('#itemgoods'+$(this).val()).parents('li.bhgoods-item').remove();
+						});
+						if ($('.bhgoods-item').size() == 0) {
+                            _html += '<div class="data-empty">';
+							_html += '<div class="data-empty-img"><img src="__RSC__/Balance/img/szmx_img_wujl.png" alt="" /></div>';
+							_html += '<div class="data-empty-font c3 fs13">您还没有相关记录</div>';
+							_html += '</div>';
+							$('#data_list_ul').append(_html);
+						};
+					}else{
+                        mui.toast("分类成功");
+					    /*商品管理列表*/
+					}
+                    setTimeout(function () {
+                        mui.openWindow({
+                            url: '',
+                            id: ''
+                        });
+                    }, 1000);
+                    $('.pup-bg').fadeOut(200);
+                    $('.batch-con').slideUp();
+                }else{
+                    mui.toast(data['msg']);
+                    clicktype = true;
+                }
+            });
+        }
+    }
+
+
+</script>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript">var SKIN = "__HSKIN__";var HHOME = "__HHOME__";</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__HLIB__/html5.js"></script>
+<script type="text/javascript" src="__HLIB__/respond.min.js"></script>
+<script type="text/javascript" src="__HLIB__/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__HCSS__/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__HCSS__/style.css" rel="stylesheet" type="text/css" />
+<link href="__HLIB__/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>聚宝记录</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 活动管理 <span class="c-gray en">&gt;</span> 聚宝记录 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+<form action="" method="get">
+	<div class="text-c">
+		条件搜索：
+		<input type="hidden" name="aid" value="{$post['aid']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入活动名称" name="activityname" value="{$post['activityname']}">
+		<input type="text" class="input-text" style="width:200px" placeholder="输入用户昵称" name="nickname" value="{$post['nickname']}">
+		<span class="select-box inline">
+		<select name="upstate" class="select">
+			<option value="">是否有推荐人</option>
+		  	<option value="1" <if condition="$post.porder eq 1">selected="selected"</if>>有</option>
+		  	<option value="2" <if condition="$post.porder eq 2">selected="selected"</if>>无</option>
+		</select></span>
+		<input type="text" class="input-text" style="width:200px" placeholder="输入推荐用户昵称" name="upname" value="{$post['upname']}">
+		<span class="select-box inline">
+		<select name="state" class="select">
+			<option value="">选择奖品类型</option>
+		  	<option value="2" <if condition="$post.state eq 2">selected="selected"</if>>未领取</option>
+		  	<option value="1" <if condition="$post.state eq 1">selected="selected"</if>>已领取</option>
+		</select></span>
+		<span class="select-box inline">
+		<select name="porder" class="select">
+			<option value="">选择份数排序</option>
+		  	<option value="1" <if condition="$post.porder eq 1">selected="selected"</if>>份数降序</option>
+		  	<option value="2" <if condition="$post.porder eq 2">selected="selected"</if>>份数升序</option>
+		</select></span>
+
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
+	</div>
+</form>
+</div>
+<div class="pd-20 text-c">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a class="btn btn-primary radius"  href="__HHOME__/Activity/activity_log?aid={$aid}" style="text-decoration:none" href="javascript:;"><i class="Hui-iconfont">&#xe6bf;</i>领取记录</a></span>
+	<span class="l" style="margin-left:20px;">聚宝总份数：&nbsp;<font color="#28FF28"><if condition="$portionnum gt 0" >{$portionnum}份<else/>0份</if></font></span>
+	<span class="l" >送出总金额：&nbsp;<font color="#28FF28"><if condition="$moneynum gt 0" >￥{$moneynum}<else/>￥0.00</if></font></span>
+	<span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg">
+		<thead>
+
+			<tr class="text-c">
+				<th width="40">ID</th>
+				<th>所属活动名称</th>
+				<th>用户昵称</th>
+				<th>推荐人昵称</th>
+				<th>聚宝份数</th>
+				<th>领取状态</th>
+				<th>领取金额</th>
+				<th>聚宝时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr class="text-c">
+				<td>{$i}</td>
+				<td>{$vo['c_activityname']}</td>
+				<td><a title="会员详情" href="__HHOME__/Member/member_list?ucode={$vo.fromucode}" style="text-decoration:none">{$vo['fromname']}</a></td>
+				<td><a title="会员详情" href="__HHOME__/Member/member_list?ucode={$vo.upucode}" style="text-decoration:none">{$vo['upname']}</a></td>
+				<td>{$vo['c_portion']}</td>
+				<td>
+					<?php if ($vo['c_state'] == 1) { ?>
+					<font color="green">已领取</font>
+					<?php } else { ?>
+					<font color="red">未领取</font>
+					<?php } ?>
+				</td>
+				<td>{$vo['c_value']}</td>
+				<td>{$vo['c_addtime']}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div class="pages">{$page}</div>
+<script type="text/javascript" src="__HLIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__HLIB__/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__HLIB__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.js"></script>
+<script type="text/javascript" src="__HJS__/H-ui.admin.js"></script>
+<script type="text/javascript">
+/*管理员-角色-添加*/
+function admin_role_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*管理员-角色-编辑*/
+function admin_role_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*管理员-角色-删除*/
+function admin_role_del(tobj,id,all){
+	if (all == 1) {
+		var id = '',k=0;
+		$("input[type=checkbox][name=checkid]:checked").each(function(i) {
+			if (i == 0) {
+				id += $(this).val();
+			} else {
+				id += '|'+$(this).val();
+			}
+		});
+	}
+
+	layer.confirm('确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.post(HHOME+'/Question/delete',{Id:id}, function(obj) {
+			var result = eval(obj);
+	        if (result['code'] != 0) {
+	        	layer.msg(result['msg'],{icon:10,time:2000});
+	        } else {
+	        	$(tobj).parents("tr").remove();
+	        	if (all == 1) {
+	        		$("input[type=checkbox]").prop('checked',false);
+	        		window.location.reload();
+	        	} else {
+	        		layer.msg(result['msg'],{icon:1,time:2000});
+	        		window.location.reload();
+	        	}
+	        }
+	    });
+	});
+}
+</script>
+</body>
+</html>

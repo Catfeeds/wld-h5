@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>活动商品</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/gmanage/even.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<!-- 数据列表部分 -->
+			<div id="data_list" style="margin-bottom: 5%;">
+				<ul>
+					<li class="mgoods-item">
+						<div class="mgoods-item-top">
+							<div class="mgoods-img fl divre">
+								<div class="pro-img"><img src="__IMG__/index/tu14.jpg"></div>
+								<p class="hot-con hot-bg01 fs12 divab">秒杀</p>
+								<!-- <p class="hot-con hot-bg02 fs12 divab">店长推荐</p> -->
+							</div>
+							<div class="mgoods-info fl">
+								<div class="pro-text fs14 clamp2 c3">是根据打火锅就打发哈结果回调非结构化地方就换个地方结核杆菌的返回给的非结构化</div>
+								<p class="pro-price fs14">￥10.00</p>
+								<div class="sale-stock c3 fs11 divtab">
+									<span class="fl">销量<font>235</font></span>
+									<span class="fr">库存<font>88</font></span>
+								</div>
+								<p class="pro-time c3 fs11">添加<font>2017/02/09</font></p>
+							</div>
+							<div class="mgoods-next fl"><img src="__IMG__/gmanage/icon_next.png"></div>
+						</div>
+						<div class="mgoods-item-middle">
+							<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>
+							<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>
+							<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>
+							<div class="buyer-num fl fs12">3人买过</div>
+						</div>
+					</li>
+					<li class="mgoods-item">
+						<div class="mgoods-item-top">
+							<div class="mgoods-img fl divre">
+								<div class="pro-img"><img src="__IMG__/index/tu14.jpg"></div>
+								<!-- <p class="hot-con hot-bg01 fs12 divab">秒杀</p> -->
+								<p class="hot-con hot-bg02 fs12 divab">店长推荐</p>
+							</div>
+							<div class="mgoods-info fl">
+								<div class="pro-text fs14 clamp2 c3">是根据打火锅就打发哈结果回调非结构化地方就换个地方结核杆菌的返回给的非结构化</div>
+								<p class="pro-price fs14">￥10.00</p>
+								<div class="sale-stock c3 fs11 divtab">
+									<span class="fl">销量<font>235</font></span>
+									<span class="fr">库存<font>88</font></span>
+								</div>
+								<p class="pro-time c3 fs11">添加<font>2017/02/09</font></p>
+							</div>
+							<div class="mgoods-next fl"><img src="__IMG__/gmanage/icon_next.png"></div>
+						</div>
+						<div class="mgoods-item-middle">
+							<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>
+							<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>
+							<div class="buyer-img divre"><img src="__IMG__/index/tu14.jpg"></div>
+							<div class="buyer-num fl fs12">3人买过</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+
+
+			<div id="console"></div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		yangshi();
+	}
+
+	//js改变样式
+	function yangshi() {
+		//商品
+		var pImg = $('.pro-img').width();
+		$('.pro-img').height(pImg);
+		$('.pro-text').css('height', pImg*0.4 +'px');
+		$('.pro-text').css('line-height', $('.pro-text').height()* 0.5 +'px');
+		$('.pro-price').css('line-height', pImg*0.3 +'px');
+		$('.sale-stock').css('line-height', pImg*0.15 +'px');
+		$('.pro-time').css('line-height', pImg*0.15 +'px');
+		$('.mgoods-next').css('padding-top', pImg*0.5 + 'px');
+		//人数
+		var bImg = $('.buyer-img').width();
+		$('.buyer-img').height(bImg);
+		$('.buyer-num').css('line-height', bImg +'px');
+		//单项菜单
+		var mImg = $('.menu-img').width();
+		$('.menu-img').height(mImg);
+		$('.mgoods-item-bottom ul li').css('line-height', mImg+'px');
+	}
+
+
+
+	var pageindex = 1;
+	var ctrls = true;
+	var emptyval = true;
+
+	$(window).bind('scroll', function() {
+		if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+			if(ctrls && emptyval) {
+				getdatalist();
+			}
+		}
+	});
+
+	getdatalist();
+	/*数据加载*/
+	function getdatalist() {
+		var url = "__URL__/?pageindex=" + pageindex;
+		var _html = "";
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			cache: false,
+			beforeSend: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载中...');
+				ctrls = false;
+			},
+			error: function() {
+				$('#console').css('display', 'block');
+				$('#console').html('加载失败');
+				ctrls = true;
+			},
+			success: function(obj) {
+				if(pageindex == 1) {
+					$('#data_list').empty();
+				}
+				var mgs = eval(obj);
+				if(mgs['code'] == 0) {
+					var data = mgs.data;
+					if(!data ||  data.list.length <= 0) {
+						if(pageindex == 1) {   //数据为空展示
+							
+						}
+						emptyval = false;
+					} else {
+						if(pageindex <= data.pageCount) {
+							pageindex++;
+							var datalist = data.list;
+							for(var i = 0; i < datalist.length; i++) {
+								var dataarr = datalist[i];
+								
+							};
+						} else {
+							emptyval = false;
+						}
+					}
+				} else {
+					emptyval = false;
+				}
+				$('#data_list').append(_html);
+			},
+			complete: function() {
+				yangshi();
+				$('#console').css('display', 'none');
+				ctrls = true;
+			}
+		});
+	}
+
+	//跳转链接
+	mui('.mui-content').on('tap', '.mgoods-item-middle', function() {
+		mui.openWindow({url:'__URL__/gcustomer',id:"gcustomer"});
+	});
+
+	//删除
+	mui('.mui-content').on('longtap', '.mgoods-item', function() {
+		mui.confirm('你要删除这个商品？', '提示', ['不是', '是的'], function(e) {
+			e.index == 0 ? "" : delcoupon();
+		}, 'div');
+	});
+
+
+</script>
+
+</html>

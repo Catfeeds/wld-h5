@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>地址</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<style type="text/css">
+		.addr-main{ background: #fff; position: fixed; width: 100%; bottom: 0; z-index: 999; color: #333;}
+		.addr-con ul li { border-bottom: solid 1px #ebebeb; width: 100%; overflow: hidden; padding: 3% 0 3% 4%;}
+		.addr-con ul li span{ width: 30%; display: block; float: left; }
+		.addr-con ul li div{width: 70%; float: left;}
+		.addr-con ul li div input{ width: 98%;}
+		.addr-con ul li div textarea{ width: 98%; resize: none;}
+		.addr-opreta{ width: 100%; overflow: hidden; border-bottom: solid 1px #ebebeb; padding: 2% 1%;}
+        .addr-opreta ul li{ padding: 1% 3%;}
+	</style>
+</head>
+<body class="bgeb">
+	<div class="wrap-page bgcolor">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<div class="mui-content">
+			<div class="pup-bg"></div>
+			<div class="addr-main fs14 none">
+				<div class="addr-opreta">
+					<ul>
+						<li class="fl">取消</li>
+						<li class="fr">确认</li>
+					</ul>
+				</div>
+				<div class="addr-con">
+					<ul>
+						<li>
+							<span>收货人</span>
+							<div>李球球</div>
+						</li>
+						<li>
+							<span>联系电话</span>
+							<div><input type="text" id="" value="" name="" class="adress_txt" placeholder="请输入联系电话"></div>
+						</li>
+						<li>
+							<span>所在地区</span>
+							<div><input type="text" id="" value="" name="" class="adress_txt" placeholder="请选择省市区"></div>
+						</li>
+						<li>
+							<div style="width:100%"><textarea  type="text" id="" value="" name="" placeholder="请输入详细地址"  rows="2" cols="20" ></textarea></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		$('.mui-content').height($(document).height());
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+	}
+
+	 mui('.wrap-page').on('swipeup', '.mui-content', function() {
+	 	$('.pup-bg').height($(document).height());
+	 	$('.addr-main').fadeIn(400);
+	 	$('.pup-bg').fadeIn(400);
+	 });
+
+	  mui('.wrap-page').on('tap', '.addr-opreta ul li', function() {
+	 	$('.pup-bg').height($(document).height());
+	 	$('.addr-main').fadeOut(400);
+	 	$('.pup-bg').fadeOut(400);
+	 });
+
+
+</script>
+
+</html>

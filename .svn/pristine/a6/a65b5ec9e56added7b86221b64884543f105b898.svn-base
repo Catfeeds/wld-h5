@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>拼手气</title>
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<include file="Base@Public/header" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/extgoods/index.css" />
+</head>
+<body class="bgeb">
+	<div class="wrap-page">
+	<include file="Base@Public/pubheader" />
+	<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+		<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+		<div class="mui-content">
+			<div class="divtab divre extgoods-main">
+				<div class="divtab extgoods-title">
+					<img src="__IMG__/extgoods/jh_title.png" alt="">
+				</div>
+				<div class="divtab divre extgoods-actimage">
+					<img src="__IMG__/extgoods/jh_lw.png" alt="">
+					<div class="extgoods-actrule">
+						<img src="" alt="">
+					</div>
+				</div>
+				<div class="divtab extgoods-prizes">
+					<li class="fl">
+						<img src="__IMG__/extgoods/kp_gx.png" alt="">
+						<img class="second-img" data-prizeId="gx" src="__IMG__/extgoods/kp-bm.png" alt="">
+					</li>
+					<li class="fl">
+						<img src="__IMG__/extgoods/kp_hb.png" alt="">
+						<img class="second-img" data-prizeId="hb" src="__IMG__/extgoods/kp-bm.png" alt="">
+					</li>
+					<li class="fl">
+						<img src="__IMG__/extgoods/kp_iphone.png" alt="">
+						<img class="second-img" data-prizeId="iphone" src="__IMG__/extgoods/kp-bm.png" alt="">
+					</li>
+					<li class="fl">
+						<img src="__IMG__/extgoods/kp_gx.png" alt="">
+						<img class="second-img" data-prizeId="gx" src="__IMG__/extgoods/kp-bm.png" alt="">
+					</li>
+				</div>
+				<div class="divab show-prize">
+					<div class="show-prize-title">
+							<img src="__IMG__/extgoods/tc_gx.png" alt="">
+					</div>
+					<div class="show-prize-content">
+							<img src='__IMG__/extgoods/kp_hb.png'>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</form>
+	</div>
+<include file="Base@Public/pubjs" />
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		var imgHeight = $(".extgoods-prizes li img:first-child").width()
+		$(".extgoods-prizes li").height(imgHeight)
+		// 翻转动画实现
+		// 1. jquery animate动画超级卡
+		setTimeout(function () {
+			$(".extgoods-prizes li img:first-child").animate({
+				'width': 0,
+				'height': imgHeight
+			}, 500).hide(0, function () {
+				$(this).next().animate({
+					'width': '100%',
+					'height': imgHeight
+				})
+			})
+		}, 1000)
+		$(".second-img").on("click",function(){
+			var mask =	mui.createMask(function(){
+				$(".show-prize").show(1000)
+			})
+			mask.show()
+			/* mask.innerHTML = 123
+			console.log(mask.innerHTML)
+			var obj = $(this)
+			function callback () {
+				console.log(123)
+				// 定义模板内容
+				console.log(obj)
+				var prizeId = obj.attr('data-prizeId')
+				console.log(prizeId)
+				console.log(mask)
+			} */
+		})
+	}
+
+	//页面加载完js改变样式
+	function yangshi() {
+		// body...
+	}
+
+</script>
+
+</html>

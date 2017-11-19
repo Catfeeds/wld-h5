@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>记录</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/seckill/index.css" />
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page" style="margin-bottom: 13%;">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" name="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="returnurl" id="returnurl" value="{$returnurl}" />
+				<div class="mui-content">
+					<div class="sjcollage-li bgcolor divtab">
+						<div class="sjcollage-pro divtab bborder divre">
+							<div class="sjc-pro-img fl"><img src="{$pinfo['c_imgpath']}" alt="" /></div>
+							<div class="sjc-pro-info fl">
+								<div class="sjc-pro-name clamp2 fs13 c3">{$pinfo['c_name']}</div>
+								<div class="sjc-pro-price cy fs16">￥{$pinfo['c_actprice']}
+									<span class="fs11 c9">原价：￥{$pinfo['c_value']}</span>
+								</div>
+								<div class="sjc-pro-time fs11 c5"><?php echo date('y/m/d H:i',strtotime($pinfo['c_starttime'])); ?>至<?php echo date('y/m/d H:i',strtotime($pinfo['c_endtime'])); ?></div>
+							</div>
+							<?php if ($pinfo['c_state'] == 2) { ?>
+							<div class="sjc-state divab"><img src="__IMG__/collage/spell_icon_over.png" alt="" /></div>
+							<?php } ?>
+						</div>
+					</div>
+
+					<div class="collage-pro-data divtab bgcolor">
+						<div class="collage-data fl">
+							<p class="fs13 c3">已销数量</p>
+							<p class="fs16 c3 fb600">{$pinfo['c_totalnum']-$pinfo['c_num']}</p>
+						</div>
+						<div class="collage-data fl">
+							<p class="fs13 c3">剩余数量</p>
+							<p class="fs16 c3 fb600">{$pinfo['c_num']}</p>
+						</div>
+					</div>				
+	
+					<div class="collage-record-con bgcolor">
+						<div class="gbuy-data-list divtab">							
+							<ul id="data_list">
+								<!-- <li>
+									<div class="u-headinfo fl divre">
+										<div class="u-headimg divab">
+											<img src="__IMG__/collage/dlsc_dlxq_02.jpg" alt="" />
+										</div>
+									</div>
+									<div class="u-nameinfo fl">
+										<p class="c3 fs14">微领地小蜜</p>
+										<p class="c9 fs12">2017-05-16 20:10:50</p>
+									</div>
+									<div class="u-state-img fr c9 fs13"><span class="fs11">X</span>3</div>
+								</li>
+								后面状态已图片形式显示的样式
+								 <li>
+									<div class="u-headinfo fl divre">
+										<div class="u-headimg divab">
+											<img src="__IMG__/collage/dlsc_dlxq_02.jpg" alt="" />
+										</div>
+									</div>
+									<div class="u-nameinfo fl u-nameinfo-w">
+										<p class="c3 fs14">微领地小蜜</p>
+										<p class="c9 fs12">2017-05-16 20:10:50</p>
+									</div>
+									<div class="u-state-img fr c9 fs13"><span class="fs11">X</span>3</div>
+								</li>
+								<li>
+									<div class="u-headinfo fl divre">
+										<div class="u-headimg divab">
+											<img src="__IMG__/collage/dlsc_dlxq_02.jpg" alt="" />
+										</div>
+									</div>
+									<div class="u-nameinfo fl u-nameinfo-w">
+										<p class="c3 fs14">微领地小蜜</p>
+										<p class="c9 fs12">2017-05-16 20:10:50</p>
+									</div>
+									<div class="u-state-img fr c9 fs13"><span class="fs11">X</span>3</div>
+								</li>
+								<li>
+									<div class="u-headinfo fl divre">
+										<div class="u-headimg divab">
+											<img src="__IMG__/collage/dlsc_dlxq_02.jpg" alt="" />
+										</div>
+									</div>
+									<div class="u-nameinfo fl u-nameinfo-w">
+										<p class="c3 fs14">微领地小蜜</p>
+										<p class="c9 fs12">2017-05-16 20:10:50</p>
+									</div>
+									<div class="u-state-img fr c9 fs13"><span class="fs11">X</span>3</div>
+								</li> -->
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+			</form>			
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			$('.xm-nav-title').css('width',"70%");
+			ChRightText("订单");
+			/*商品信息*/
+			$('.sjc-pro-img').height($('.sjc-pro-img').width());
+			$('.sjc-pro-name').height($('.sjc-pro-img').width()*0.4);
+			$('.sjc-pro-name').css('line-height',$('.sjc-pro-name').height()*0.5+'px');
+			$('.sjc-pro-price').css('line-height',$('.sjc-pro-img').width()*0.2+'px');
+			$('.sjc-pro-price').css('padding-top',$('.sjc-pro-img').width()*0.2+'px');
+			$('.sjc-pro-time').css('line-height',$('.sjc-pro-img').width()*0.2+'px');	
+			
+			yangshi();
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var hzw = $('.u-headinfo').width();
+			$('.u-headinfo').height(hzw);
+			
+			$('.u-headimg').width(hzw);
+			$('.u-headimg').height(hzw);
+			$('.u-headimg').css('border-radius',$('.u-headimg').width()+'px');
+
+			$('.u-nameinfo').css('line-height',$('.u-headinfo').height()*0.5+'px');
+			$('.u-state').css('line-height',$('.u-headinfo').height()*0.5+'px');
+			$('.u-state-img').css('padding-top',$('.u-headinfo').height()*0.3+'px');
+			
+			
+			//$('.u-state-img img').css('margin-top',$('.u-headinfo').height()*0.68+"px");
+		}
+		
+		/*查看订单*/
+		function rightcaozuo() {
+			mui.openWindow({url:"__APP__/Order/Storeorder/orderlist?statu=2",id:"storeorder"});
+		}
+	
+		/*列表*/
+		var pageindex = 1;
+		var ctrls = true;
+		var emptyval = true;
+		var statu = '<?php echo $statu ?>';
+		if(!statu) {
+			statu = 0;
+		}
+		selectstatu(statu);
+		function selectstatu(i) {
+			statu = i;
+			pageindex = 1;
+			ctrls = true;
+			emptyval = true;
+			$('.c-nav-tli').removeClass('hover');
+			$('#c-nav-t' + i).addClass('hover');
+			if(statu==2 || statu==1){
+				$('.u-nameinfo').addClass("u-nameinfo-w");
+			}else{
+				$('.u-nameinfo').removeClass("u-nameinfo-w");
+			}
+			getdatalist();
+		}
+		mui('.mui-content').on('tap', '#c-nav-t0', function() {
+			selectstatu(0);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t1', function() {
+			selectstatu(1);
+		});
+		mui('.mui-content').on('tap', '#c-nav-t2', function() {
+			selectstatu(2);
+		});
+		$(window).bind('scroll', function() {
+			if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 60)) {
+				if(ctrls && emptyval) {
+					getdatalist();
+				}
+			}
+			if($(window).scrollTop() >= $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').addClass('menu-fixed');
+			}
+			if($(window).scrollTop() < $('.comm-nav-tab').height()) {
+				$('.comm-nav-tab').removeClass('menu-fixed');
+			}
+		});
+
+		function getdatalist() {
+			var _html = "";
+			var strurl = "__URL__/MyProductGroup?act_pcode=<?php echo $act_pcode; ?>&logtype="+statu+"&pageindex="+pageindex;
+			$.ajax({
+				type: 'get',
+				dataType: 'json',
+				url: strurl,
+				cache: false,
+				beforeSend: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载中...');
+					ctrls = false;
+				},
+				error: function() {
+					$('#console').css('display', 'block');
+					$('#console').html('加载失败');
+					ctrls = true;
+				},
+				success: function(obj) {
+					if(pageindex == 1) {
+						$('#data_list').empty();
+					}
+					var mgs = eval(obj);
+					if(mgs['code'] == 0) {
+						var data = mgs.data;
+						if(data == null || data.list.length <= 0) {
+							if(pageindex == 1) { //数据为空展示
+								_html+='<div class="baoqian">暂无相关记录</div>';
+							}
+							emptyval = false;
+						} else {
+							if(pageindex <= data.pageCount) {
+								pageindex++;
+								var datalist = data.list;
+								for(var i = 0; i < datalist.length; i++) {	
+									var dataarr = datalist[i];
+
+									_html+='<li>';
+										_html+='<div class="u-headinfo fl divre">';
+											_html+='<div class="u-headimg divab">';
+												_html+='<img src="'+dataarr['c_headimg']+'" alt="" />';
+											_html+='</div>';
+										_html+='</div>';
+										_html+='<div class="u-nameinfo fl">';
+											_html+='<p class="c3 fs14 fov">'+dataarr['groupname']+'</p>';
+											_html+='<p class="c9 fs12">'+dataarr['c_addtime']+'</p>';
+										_html+='</div>';
+										_html+='<div class="u-state-img fr c9 fs13">';
+											_html+='<div class="divtab" style="text-align:right;"><span class="fs11">X</span>'+dataarr['c_pnum']+'</div>';
+											if (dataarr['c_pay_state'] == 1) {
+												_html+='<div class="divtab" style="text-align:right;color:green;">已支付</div>';
+											} else {
+												_html+='<div class="divtab" style="text-align:right;color:red;">未支付</div>';
+											}
+										_html+='</div>';
+									_html+='</li>';
+								}
+							} else {
+								emptyval = false;
+							}
+						}
+					} else {
+						emptyval = false;
+					}
+					$('#data_list').append(_html);
+
+				},
+				complete: function() {
+					yangshi();
+					$('#console').css('display', 'none');
+					ctrls = true;
+					if(emptyval) {					
+					}
+				}
+			});
+		}
+	</script>
+
+</html>

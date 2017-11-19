@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<title>宝箱</title>
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<include file="Base@Public/header" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/chests/index.css" />
+		<style type="text/css">
+		.coupon-item{padding: 0 4px 0px 0px;}
+		.redpack-item{padding: 0 4px 0px 0px;}
+		.pro-item{padding: 0 4px 0px 0px;}
+		</style>
+	</head>
+
+	<body class="bgeb">
+		<div class="wrap-page">
+			<include file="Base@Public/pubheader" />
+			<form action="" id="form1" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<input type="hidden" name="ucode" id="ucode" value="{$ucode}">
+				<input type="hidden" name="joinaid" id="joinaid" value="{$joinaid}" />
+				<div class="mui-content divtab">
+					<?php if(!empty($goodinfo)){ ?>
+					<div class="c-send-list bgcolor divtab">
+						<ul class="c-scroll-tit divtab bborder more_1">
+							<li class="fs14 c3 fl">发布宝箱商品</li>
+							<li class="fr"><img src="__IMG__/chests/kqgl_icon_next.png" alt="" /></li>
+							<li class="fs14 c3 fr">更多</li>
+						</ul>
+						<div class="c-scroll-con">
+							<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="pro_control">
+								<div class="mui-scroll">
+									<volist name='goodinfo' id='vo'>
+										<div class="mui-control-item mui-pro-item">
+											<div class="pro-item">
+												<div class="pro-i-img"><img src="{$vo['c_img']}" /></div>
+												<div class="pro-i-name c3 fs13 fov">{$vo['c_name']}</div>
+												<div class="pro-i-getn c9 fs12">已领取：{$vo['c_num']}/{$vo['c_totalnum']}</div>
+											</div>
+										</div>
+									</volist>
+								</div>
+							</div>
+						</div>
+						<div class="c-scroll-btn divtab">
+							<span id="c_pro_record" class="c3 fs13 alignc fl">查看记录</span>
+							<span id="c_pro_add" class="cb fs13 alignc fr">添加</span>
+						</div>
+					</div>
+					<?php }else{ ?>
+					<div class="ch-menu-box divtab bgcolor sendbtn1">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_commodity.png" />
+						</div>
+						<div class="ch-menu-name fl fs14">
+							发布宝箱商品
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<?php } ?>
+					<?php if(!empty($kqinfo)){ ?>
+					<div class="c-send-list bgcolor divtab">
+						<ul class="c-scroll-tit divtab bborder more_2">
+							<li class="fs14 c3 fl">发布宝箱卡券</li>
+							<li class="fr"><img src="__IMG__/chests/kqgl_icon_next.png" alt="" /></li>
+							<li class="fs14 c3 fr">更多</li>
+						</ul>
+						<div class="c-scroll-con">
+							<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="coupon_control">
+								<div class="mui-scroll">
+									<volist name='kqinfo' id='voc'>
+										<div class="mui-control-item mui-coupon-item">
+											<div class="coupon-item divre">
+												<p class="cf fs14">{$voc['c_name']}</p>
+												<p class="cf fs11">有效期 {$voc.c_starttime|substr=0,10}~{$voc.c_endtime|substr=0,10}</p>
+												<if condition="$voc['coupontype'] eq 1">
+													<img src="__IMG__/chests/yhqb.png" alt="" />
+													<elseif condition="$voc['coupontype'] eq 2" /><img src="__IMG__/chests/zkqb.png" alt="" />
+												</if>
+
+											</div>
+										</div>
+									</volist>
+								</div>
+							</div>
+						</div>
+						<div class="c-scroll-btn divtab">
+							<span id="c_coupon_record" class="cb fs13 alignc fl">查看记录</span>
+							<span id="c_coupon_add" class="cb fs13 alignc fr">添加</span>
+						</div>
+					</div>
+					<?php }else{ ?>
+					<div class="ch-menu-box divtab bgcolor sendbtn2">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_card.png" />
+						</div>
+						<div class="ch-menu-name fl fs14">
+							发布宝箱卡券
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<?php } ?>
+					<?php if(!empty($redinfo)){ ?>
+					<div class="c-send-list bgcolor divtab">
+						<ul class="c-scroll-tit divtab bborder more_3">
+							<li class="fs14 c3 fl">发布宝箱红包</li>
+							<li class="fr"><img src="__IMG__/chests/kqgl_icon_next.png" alt="" /></li>
+							<li class="fs14 c3 fr">更多</li>
+						</ul>
+						<div class="c-scroll-con">
+							<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" id="red_control">
+								<div class="mui-scroll">
+									<volist name='redinfo' id='vor'>
+										<div class="mui-control-item mui-red-item">
+											<div class="redpack-item divre">
+												<if condition="$vor['c_type'] eq 1">
+													<p class="fs14">普通红包</p>
+													<elseif condition="$vor['c_type'] eq 2" />
+													<p class="fs14">拼手气红包</p>
+												</if>
+												<p class="fs12">{$vor['c_num']}/{$vor['c_totalnum']}</p>
+
+												<if condition="$vor['c_type'] eq 1">
+													<img src="__IMG__/chests/release_redpu.png" alt="" />
+													<elseif condition="$vor['c_type'] eq 2" /><img src="__IMG__/chests/release_redping.png" alt="" />
+												</if>
+
+											</div>
+										</div>
+									</volist>
+								</div>
+							</div>
+						</div>
+						<div class="c-scroll-btn divtab">
+							<span id="c_red_record" class="c3 fs13 alignc fl">查看记录</span>
+							<span id="c_red_add" class="cb fs13 alignc fr">添加</span>
+						</div>
+					</div>
+					<?php }else{ ?>
+					<div class="ch-menu-box divtab bgcolor sendbtn3">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_red.png" />
+						</div>
+						<div class="ch-menu-name fl fs14">
+							发布宝箱红包
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<?php } ?>
+					<?php if(!empty($beinfo)){ ?>
+					<div class="blessing-item bgcolor sendbtn4">
+						<div class="blessing-ico fl">
+							<img src="__IMG__/chests/release_icon_fu.png" alt="" />
+						</div>
+						<div class="blessing-txt fl">
+							<p class="fs14">{$beinfo['c_name']}</p>
+							<p class="fs12 c9">空包祝福语</p>
+						</div>
+						<div class="blessing-oprate fr fs14 c9">修改></div>
+					</div>
+					<?php }else{ ?>
+					<div class="ch-menu-box divtab bgcolor sendbtn4">
+						<div class="ch-menu-img fl">
+							<img src="__IMG__/chests/release_icon_fu.png" />
+						</div>
+						<div class="ch-menu-name fs14 fl">
+							发布宝箱祝福语
+						</div>
+						<div class="ch-menu-operate fr">
+							<img src="__IMG__/chests/release_icon.png" />
+						</div>
+					</div>
+					<?php } ?>
+					<div class="act-rule">
+						<p class="fs14 c3">活动细则：</p>
+						<p class="fs12 c5">1、该活动由小蜜线下实体店商家发起；</p>
+						<p class="fs12 c5">2、宝箱中可放置商品、优惠券、红包以及祝福语；</p>
+						<p class="fs12 c5">3、活动商品由商家免费提供，商家只能设置相应邮费。</p>
+					</div>
+				</div>
+			</form>
+		</div>
+		<include file="Base@Public/pubjs" />
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+
+			yangshi();
+
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+		}
+
+		//页面加载完js改变样式
+		function yangshi() {
+			var tw = window.screen.width;
+			if(tw > 720) {
+				tw = 720;
+			}
+			/*商品*/
+			$('.pro-item').width(tw / 2.85);
+			$('.pro-i-img').width($('.pro-i-img').width());
+			$('.pro-i-img').height($('.pro-i-img').width());
+
+			$('.mui-pro-item').width($('.mui-pro-item').width());
+			$('#pro_control').height($('.mui-pro-item').height());
+			/*卡券*/
+			$('.coupon-item').width(tw / 1.6);
+			$('.coupon-item').height($('.coupon-item').width() * 0.34);
+
+			$('.mui-coupon-item').width($('.mui-coupon-item').width());
+			$('.mui-coupon-item').height($('.mui-coupon-item').width() * 0.34);
+			$('#coupon_control').height($('.mui-coupon-item').height());
+			/*红包*/
+			$('.redpack-item').width(tw / 3);
+			$('.redpack-item').height($('.redpack-item').width() * 1.14);
+
+			$('.mui-red-item').width($('.mui-red-item').width());
+			$('.mui-red-item').height($('.mui-red-item').width() * 1.14);
+			$('#red_control').height($('.mui-red-item').height());
+
+			/*空包祝福语*/
+			$('.blessing-oprate').css('line-height', $('.blessing-ico').height() + 'px');
+			$('.blessing-ico').width($('.blessing-ico').width());
+			$('.blessing-ico').height($('.blessing-ico').width());
+
+			$('.ch-menu-img').height($('.ch-menu-img').width());
+			$('.ch-menu-operate').height($('.ch-menu-operate').width());
+			$('.ch-menu-name').css('line-height', $('.ch-menu-img').width() + 'px');
+
+		}
+
+		var joinaid = $('#joinaid').val();
+
+		/*更多跳转*/
+		/*商品*/
+		mui('.mui-content').on('tap', '.more_1', function() {
+			mui.openWindow({
+				url: "__URL__/pdetail?joinaid=" + joinaid,
+				id: "detail"
+			});
+		});
+		/*卡券*/
+		mui('.mui-content').on('tap', '.more_2', function() {
+			mui.openWindow({
+				url: "__URL__/cdetail?joinaid=" + joinaid,
+				id: "detail"
+			});
+		});
+		/*红包*/
+		mui('.mui-content').on('tap', '.more_3', function() {
+			mui.openWindow({
+				url: "__URL__/rdetail?joinaid=" + joinaid,
+				id: "detail"
+			});
+		});
+
+		/*查看记录*/
+		/*商品*/
+		mui('.mui-content').on('tap', '#c_pro_record', function() {
+			mui.openWindow({
+				url: "__URL__/precord?joinaid=" + joinaid,
+				id: "precord"
+			});
+		});
+		/*卡券*/
+		mui('.mui-content').on('tap', '#c_coupon_record', function() {
+			mui.openWindow({
+				url: "__URL__/crecord?joinaid=" + joinaid,
+				id: "crecord"
+			});
+		});
+		/*红包*/
+		mui('.mui-content').on('tap', '#c_red_record', function() {
+			mui.openWindow({
+				url: "__URL__/rrecord?joinaid=" + joinaid,
+				id: "rrecord"
+			});
+		});
+
+		/*添加跳转*/
+		mui('.mui-content').on('tap', '#c_pro_add', function() {
+			mui.openWindow({
+				url: "__URL__/pselect?joinaid=" + joinaid,
+				id: "select"
+			});
+		});
+		mui('.mui-content').on('tap', '#c_coupon_add', function() {
+			mui.openWindow({
+				url: "__URL__/cselect?joinaid=" + joinaid,
+				id: "select"
+			});
+		});
+		mui('.mui-content').on('tap', '#c_red_add', function() {
+			var detailurl = '<?php echo encodeurl(GetHost(1)."/index.php/Activity/Chests/index"); ?>';
+			mui.openWindow({
+				url: '__APP__/Activity/Rednewact/addred?rtype=1&joinaid=<?php echo $joinaid ?>&url='+detailurl,
+				id: 'addred'
+			});
+		});
+
+		/*发布商品*/
+		mui('.mui-content').on('tap', '.sendbtn1', function() {
+			mui.openWindow({
+				url: "__URL__/pselect?joinaid=" + joinaid,
+				id: "select"
+			});
+		});
+		/*发布卡券*/
+		mui('.mui-content').on('tap', '.sendbtn2', function() {
+			mui.openWindow({
+				url: "__URL__/cselect?joinaid=" + joinaid,
+				id: "select"
+			});
+		});
+		/*发布红包*/
+		mui('.mui-content').on('tap', '.sendbtn3', function() {
+			var detailurl = '<?php echo encodeurl(GetHost(1)."/index.php/Activity/Chests/index"); ?>';
+			mui.openWindow({
+				url: '__APP__/Activity/Rednewact/addred?rtype=1&joinaid=<?php echo $joinaid ?>&url='+detailurl,
+				id: 'addred'
+			});
+		});
+		/*空包祝福语*/
+		mui('.mui-content').on('tap', '.sendbtn4', function() {
+			mui.openWindow({
+				url: "__URL__/cblessing?joinaid=" + joinaid,
+				id: "cblessing"
+			});
+		});
+	</script>
+
+</html>
